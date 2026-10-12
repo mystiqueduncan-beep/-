@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>黃博詩 ｜ 松本清 門市儲備幹部 應徵特輯檔案</title>
+  <meta name="description" content="黃博詩應徵松本清（Matsumoto Kiyoshi）中壢大江店門市儲備幹部。結合日系藥妝實務、連鎖零售銷售與4年新人帶訓經驗之個人履歷專刊。">
+  
+  <!-- Favicon / Theme -->
+  <meta name="theme-color" content="#FFD600">
+
+  <!-- Google Fonts: Exquisite Japanese Serif, Fashion Editorial Serif & Clean Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Noto+Sans+TC:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;600;700;900&family=Shippori+Mincho:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       DESIGN SYSTEM: MATSUKIYO × JAPANESE FASHION EDITORIAL (FUDGE / GINZA STYLE)
+       ========================================================================== */
+    :root {
+      /* Matsukiyo Signature Colors */
+      --mk-yellow: #FFD600;
+      --mk-yellow-light: #FFF9D2;
+      --mk-yellow-tint: #FEFDF6;
+      --mk-navy: #0B2240;
+      --mk-navy-dark: #06152B;
+      --mk-navy-light: #16375F;
+      --mk-navy-soft: #234E82;
+      --mk-red: #E60012;
+      --mk-red-soft: #FFF0F0;
+      
+      /* Editorial Neutrals */
+      --paper-bg: #F7F5F0;
+      --paper-card: #FFFFFF;
+      --paper-subtle: #F2EFE9;
+      --ink-primary: #1C1C1E;
+      --ink-secondary: #4A4D53;
+      --ink-muted: #7A7D84;
+      --hairline: #E2DFD7;
+      --hairline-dark: #0B2240;
+
+      /* Typography Stacks */
+      --font-serif-tc: 'Noto Serif TC', 'Shippori Mincho', serif;
+      --font-serif-jp: 'Shippori Mincho', 'Noto Serif TC', serif;
+      --font-sans: 'Plus Jakarta Sans', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Cinzel', 'Shippori Mincho', serif;
+      --font-mono: 'Space Mono', monospace;
+
+      /* Elevation & Shapes */
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 14px;
+      --shadow-editorial: 0 4px 20px rgba(11, 34, 64, 0.06);
+      --shadow-hover: 0 10px 30px rgba(11, 34, 64, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--paper-bg);
+      color: var(--ink-primary);
+      font-family: var(--font-sans);
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Subtle Magazine Paper Grain & Border Treatment */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(#00000008 1px, transparent 1px);
+      background-size: 24px 24px;
+      opacity: 0.7;
+      z-index: 999;
+    }
+
+    /* Container System */
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ==========================================================================
+       MAGAZINE MASTHEAD & TOP TICKER
+       ========================================================================== */
+    .mag-top-ticker {
+      background-color: var(--mk-navy);
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 8px 0;
+      border-bottom: 2px solid var(--mk-yellow);
+    }
+
+    .ticker-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .ticker-pill {
+      background: var(--mk-yellow);
+      color: var(--mk-navy-dark);
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 2px;
+      font-size: 0.68rem;
+    }
+
+    /* Matsukiyo Iconic Header */
+    header.mag-header {
+      background-color: #FFFFFF;
+      border-bottom: 1px solid var(--hairline);
+      padding: 44px 0 36px 0;
+      position: relative;
+    }
+
+    .masthead-brand-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 28px;
+      border-bottom: 2px solid var(--mk-navy);
+      padding-bottom: 20px;
+    }
+
+    .matsukiyo-logo-badge {
+      display: inline-flex;
+      align-items: stretch;
+      background: var(--mk-yellow);
+      border: 2px solid var(--mk-navy);
+      box-shadow: 4px 4px 0px var(--mk-navy);
+      text-decoration: none;
+      transform: rotate(-0.5deg);
+      transition: transform 0.2s ease;
+    }
+
+    .matsukiyo-logo-badge:hover {
+      transform: rotate(0deg) scale(1.02);
+    }
+
+    .logo-jp {
+      background: var(--mk-yellow);
+      color: var(--mk-navy);
+      font-family: var(--font-sans);
+      font-weight: 900;
+      font-size: 1.25rem;
+      letter-spacing: 0.05em;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      border-right: 2px solid var(--mk-navy);
+    }
+
+    .logo-en {
+      background: var(--mk-navy);
+      color: #FFFFFF;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      padding: 8px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .logo-en span.sub {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--mk-yellow);
+      letter-spacing: 0.2em;
+    }
+
+    .editorial-issue-meta {
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--ink-secondary);
+      line-height: 1.5;
+    }
+
+    .editorial-issue-meta strong {
+      color: var(--mk-navy);
+      font-weight: 700;
+    }
+
+    /* Magazine Title & Candidate Hero */
+    .mag-hero-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 36px;
+      align-items: flex-end;
+    }
+
+    .editorial-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--mk-red);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .editorial-label::before {
+      content: "";
+      width: 14px;
+      height: 2px;
+      background: var(--mk-red);
+    }
+
+    .candidate-name-box {
+      margin-bottom: 14px;
+    }
+
+    .name-furigana {
+      font-family: var(--font-serif-jp);
+      font-size: 0.95rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.25em;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .candidate-name {
+      font-family: var(--font-serif-tc);
+      font-size: 3.2rem;
+      font-weight: 900;
+      color: var(--mk-navy);
+      letter-spacing: 0.08em;
+      line-height: 1.1;
+      display: inline-block;
+      position: relative;
+    }
+
+    .candidate-name::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 6px;
+      width: 100%;
+      height: 10px;
+      background: var(--mk-yellow);
+      z-index: -1;
+      opacity: 0.65;
+    }
+
+    .candidate-en-name {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      color: var(--mk-navy-soft);
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      margin-left: 12px;
+      vertical-align: middle;
+    }
+
+    .candidate-tagline {
+      font-family: var(--font-serif-tc);
+      font-size: 1.25rem;
+      color: var(--ink-secondary);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-top: 8px;
+    }
+
+    .target-store-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--mk-navy);
+      color: var(--mk-yellow);
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+
+    /* Action Buttons (Refined Editorial Style) */
+    .header-action-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 200px;
+    }
+
+    .mag-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 20px;
+      font-family: var(--font-sans);
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .mag-btn-primary {
+      background-color: var(--mk-yellow);
+      color: var(--mk-navy);
+      border: 2px solid var(--mk-navy);
+      box-shadow: 3px 3px 0px var(--mk-navy);
+    }
+
+    .mag-btn-primary:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0px var(--mk-navy);
+      background-color: #FFE600;
+    }
+
+    .mag-btn-secondary {
+      background-color: #FFFFFF;
+      color: var(--mk-navy);
+      border: 1px solid var(--mk-navy);
+    }
+
+    .mag-btn-secondary:hover {
+      background-color: var(--paper-subtle);
+      border-color: var(--mk-navy);
+    }
+
+    .mag-btn-ghost {
+      background: transparent;
+      color: var(--ink-secondary);
+      border: 1px dashed var(--hairline);
+      font-size: 0.85rem;
+    }
+
+    .mag-btn-ghost:hover {
+      background-color: #FFFFFF;
+      color: var(--mk-navy);
+      border-color: var(--mk-navy);
+    }
+
+    /* ==========================================================================
+       EDITORIAL SUMMARY & FEATURE BAR
+       ========================================================================== */
+    .mag-subnav-strip {
+      background: #FFFFFF;
+      border-top: 1px solid var(--hairline);
+      border-bottom: 1px solid var(--hairline);
+      padding: 12px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.96);
+    }
+
+    .subnav-items {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+
+    .subnav-items::-webkit-scrollbar {
+      display: none;
+    }
+
+    .subnav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .subnav-links a {
+      color: var(--ink-secondary);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      transition: color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .subnav-links a:hover {
+      color: var(--mk-red);
+    }
+
+    .subnav-links a span.num {
+      color: var(--mk-navy-soft);
+      font-weight: 400;
+    }
+
+    .subnav-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #0F5132;
+      background: #D1E7DD;
+      padding: 4px 12px;
+      border-radius: 30px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #198754;
+      animation: pulseGlow 1.8s infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* ==========================================================================
+       MAIN EDITORIAL BODY & SPREADS
+       ========================================================================== */
+    main.mag-main {
+      padding: 44px 0 80px 0;
+    }
+
+    /* Magazine Headline Style */
+    .section-editorial-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--mk-navy);
+      position: relative;
+    }
+
+    .section-editorial-header::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--hairline);
+    }
+
+    .sec-title-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+    }
+
+    .sec-number {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--mk-red);
+      letter-spacing: 0.1em;
+    }
+
+    .sec-title-main {
+      font-family: var(--font-serif-tc);
+      font-size: 1.65rem;
+      font-weight: 900;
+      color: var(--mk-navy);
+      letter-spacing: 0.05em;
+    }
+
+    .sec-title-jp {
+      font-family: var(--font-serif-jp);
+      font-size: 0.95rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.12em;
+      margin-left: 6px;
+    }
+
+    .sec-en-badge {
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      color: var(--mk-navy-soft);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       SECTION 1: PROFILE & DOSSIER (MAGAZINE SPREAD)
+       ========================================================================== */
+    .profile-editorial-spread {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 28px;
+      margin-bottom: 50px;
+    }
+
+    /* Left Card: Member ID / Drugstore Archive Card */
+    .passport-card {
+      background: #FFFFFF;
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+      box-shadow: var(--shadow-editorial);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .passport-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: repeating-linear-gradient(90deg, var(--mk-yellow) 0, var(--mk-yellow) 24px, var(--mk-navy) 24px, var(--mk-navy) 48px);
+    }
+
+    .passport-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px dashed var(--hairline);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+
+    .passport-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--mk-navy);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+    }
+
+    .passport-stamp {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      background: var(--mk-red-soft);
+      color: var(--mk-red);
+      border: 1px solid var(--mk-red);
+      padding: 2px 6px;
+      border-radius: 2px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .passport-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .passport-row {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .p-label {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 2px;
+    }
+
+    .p-val {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--mk-navy);
+      letter-spacing: 0.02em;
+    }
+
+    .p-val.highlight-text {
+      color: var(--mk-red);
+      font-weight: 800;
+    }
+
+    .p-val.available-tag {
+      color: #0F5132;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .barcode-wrap {
+      margin-top: 24px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--hairline);
+      text-align: center;
+    }
+
+    .barcode-svg {
+      width: 100%;
+      height: 38px;
+    }
+
+    .barcode-number {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.25em;
+      margin-top: 4px;
+    }
+
+    /* Right Card: Editorial Statement & Interview Pull Quote */
+    .editor-statement-card {
+      background: #FFFFFF;
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-sm);
+      padding: 34px;
+      box-shadow: var(--shadow-editorial);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .quote-mark {
+      font-family: var(--font-serif-tc);
+      font-size: 4.5rem;
+      line-height: 1;
+      color: var(--mk-yellow);
+      position: absolute;
+      top: 18px;
+      left: 24px;
+      opacity: 0.7;
+      user-select: none;
+    }
+
+    .editorial-quote-content {
+      position: relative;
+      z-index: 2;
+      padding-top: 20px;
+    }
+
+    .editorial-quote-lead {
+      font-family: var(--font-serif-tc);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--mk-navy);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      letter-spacing: 0.03em;
+    }
+
+    .quote-highlight {
+      background: linear-gradient(transparent 60%, var(--mk-yellow-light) 60%);
+      padding: 0 4px;
+    }
+
+    .editorial-lead-body {
+      font-size: 1rem;
+      color: var(--ink-secondary);
+      line-height: 1.85;
+      margin-bottom: 24px;
+    }
+
+    .editorial-meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-top: 18px;
+      border-top: 1px solid var(--hairline);
+    }
+
+    .meta-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--paper-bg);
+      border: 1px solid var(--hairline);
+      color: var(--mk-navy);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+
+    .meta-tag.accent {
+      background: var(--mk-yellow-light);
+      border-color: var(--mk-yellow);
+      color: var(--mk-navy);
+    }
+
+    /* ==========================================================================
+       SECTION 2: CORE HIGHLIGHTS / 6 COMPETENCIES (MAGAZINE FEATURE STYLE)
+       ========================================================================== */
+    .highlights-section {
+      margin-bottom: 50px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: #FFFFFF;
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+      box-shadow: var(--shadow-editorial);
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--mk-navy);
+    }
+
+    .feature-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--hairline);
+      transition: background 0.25s ease;
+    }
+
+    .feature-card:hover::before {
+      background: var(--mk-yellow);
+    }
+
+    .feature-top-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .feature-num {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--mk-red);
+      letter-spacing: 0.1em;
+    }
+
+    .feature-badge {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      background: var(--mk-yellow-light);
+      color: var(--mk-navy);
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 2px;
+      border: 1px solid var(--mk-yellow);
+    }
+
+    .feature-title {
+      font-family: var(--font-serif-tc);
+      font-size: 1.18rem;
+      font-weight: 800;
+      color: var(--mk-navy);
+      margin-bottom: 10px;
+      line-height: 1.45;
+      letter-spacing: 0.02em;
+    }
+
+    .feature-desc {
+      font-size: 0.92rem;
+      color: var(--ink-secondary);
+      line-height: 1.7;
+    }
+
+    .feature-footer-tag {
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--hairline);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--mk-navy-soft);
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       SECTION 3: CAREER HISTORY (EDITORIAL INTERVIEW TIMELINE)
+       ========================================================================== */
+    .timeline-section {
+      margin-bottom: 50px;
+    }
+
+    .editorial-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .timeline-article {
+      background: #FFFFFF;
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-sm);
+      padding: 32px;
+      box-shadow: var(--shadow-editorial);
+      position: relative;
+    }
+
+    .timeline-article.featured {
+      border: 2px solid var(--mk-navy);
+      background: #FFFFFF;
+    }
+
+    .featured-ribbon {
+      position: absolute;
+      top: -12px;
+      left: 28px;
+      background: var(--mk-yellow);
+      color: var(--mk-navy);
+      border: 1px solid var(--mk-navy);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 4px 14px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      box-shadow: 2px 2px 0px var(--mk-navy);
+    }
+
+    .article-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .company-title-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .company-name {
+      font-family: var(--font-serif-tc);
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--mk-navy);
+      letter-spacing: 0.04em;
+    }
+
+    .role-badge {
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--mk-navy-soft);
+      background: var(--paper-bg);
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--hairline);
+    }
+
+    .article-tenure {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--mk-red);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .article-spotlight-box {
+      background: var(--mk-yellow-light);
+      border-left: 4px solid var(--mk-navy);
+      padding: 12px 18px;
+      margin-bottom: 18px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--mk-navy);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .spotlight-icon {
+      font-size: 1.1rem;
+    }
+
+    .article-duty-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .article-duty-list li {
+      position: relative;
+      padding-left: 24px;
+      font-size: 0.96rem;
+      color: var(--ink-secondary);
+      line-height: 1.75;
+    }
+
+    .article-duty-list li::before {
+      content: "―";
+      position: absolute;
+      left: 0;
+      color: var(--mk-red);
+      font-weight: bold;
+    }
+
+    /* ==========================================================================
+       SECTION 4: MOTIVATION & PASSION (EDITORIAL ESSAY SPREAD)
+       ========================================================================== */
+    .essay-section {
+      margin-bottom: 50px;
+    }
+
+    .essay-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .essay-card {
+      background: #FFFFFF;
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-sm);
+      padding: 32px;
+      box-shadow: var(--shadow-editorial);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .essay-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--mk-navy-soft);
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .essay-title {
+      font-family: var(--font-serif-tc);
+      font-size: 1.32rem;
+      font-weight: 800;
+      color: var(--mk-navy);
+      margin-bottom: 16px;
+      line-height: 1.5;
+      letter-spacing: 0.03em;
+    }
+
+    .essay-text {
+      font-size: 0.97rem;
+      color: var(--ink-secondary);
+      line-height: 1.9;
+      text-align: justify;
+    }
+
+    .essay-text strong {
+      color: var(--mk-navy);
+      background: linear-gradient(transparent 65%, var(--mk-yellow-light) 65%);
+    }
+
+    /* ==========================================================================
+       SECTION 5: SKILLS & LANGUAGES (BEAUTY MAGAZINE SPECS)
+       ========================================================================== */
+    .skills-section {
+      margin-bottom: 50px;
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 24px;
+    }
+
+    .specs-card {
+      background: #FFFFFF;
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-sm);
+      padding: 28px;
+      box-shadow: var(--shadow-editorial);
+    }
+
+    .specs-card-title {
+      font-family: var(--font-serif-tc);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--mk-navy);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: 0.04em;
+    }
+
+    .pills-catalog {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .spec-pill {
+      background: var(--paper-bg);
+      border: 1px solid var(--hairline);
+      color: var(--ink-primary);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .spec-pill.star {
+      background: var(--mk-yellow-light);
+      border-color: var(--mk-yellow);
+      color: var(--mk-navy);
+      font-weight: 700;
+    }
+
+    .spec-pill:hover {
+      border-color: var(--mk-navy);
+      transform: translateY(-2px);
+    }
+
+    /* Language Specs */
+    .language-table {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .lang-item {
+      padding: 14px;
+      background: var(--paper-bg);
+      border-radius: 4px;
+      border-left: 3px solid var(--mk-navy);
+    }
+
+    .lang-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
+    }
+
+    .lang-name {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--mk-navy);
+      letter-spacing: 0.08em;
+    }
+
+    .lang-level {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--mk-red);
+    }
+
+    .lang-desc {
+      font-size: 0.88rem;
+      color: var(--ink-secondary);
+      line-height: 1.5;
+    }
+
+    /* ==========================================================================
+       SECTION 6: AVAILABILITY CALLOUT & CONTACT BANNER
+       ========================================================================== */
+    .editorial-callout-banner {
+      background: var(--mk-navy);
+      color: #FFFFFF;
+      border-radius: var(--radius-sm);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 35px rgba(11, 34, 64, 0.2);
+      border-bottom: 5px solid var(--mk-yellow);
+    }
+
+    .editorial-callout-banner::before {
+      content: "MATSUKIYO";
+      position: absolute;
+      right: -20px;
+      bottom: -30px;
+      font-family: var(--font-display);
+      font-size: 7rem;
+      color: rgba(255, 255, 255, 0.03);
+      font-weight: 900;
+      pointer-events: none;
+      letter-spacing: 0.1em;
+    }
+
+    .callout-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 28px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .callout-info {
+      max-width: 600px;
+    }
+
+    .callout-badge {
+      display: inline-block;
+      background: var(--mk-yellow);
+      color: var(--mk-navy-dark);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 2px;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+    }
+
+    .callout-heading {
+      font-family: var(--font-serif-tc);
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 10px;
+      letter-spacing: 0.04em;
+    }
+
+    .callout-text {
+      color: #D1D9E3;
+      font-size: 0.98rem;
+      line-height: 1.75;
+    }
+
+    .callout-action-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* ==========================================================================
+       EDITORIAL FOOTER & FOLIO
+       ========================================================================== */
+    footer.mag-footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--hairline);
+      padding: 36px 0;
+      margin-top: 40px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--mk-navy);
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       RESPONSIVE & MOBILE FASHION MAGAZINE DESIGN
+       ========================================================================== */
+    @media (max-width: 900px) {
+      .profile-editorial-spread,
+      .specs-grid,
+      .essay-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .mag-hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header-action-group {
+        flex-direction: row;
+        width: 100%;
+      }
+
+      .header-action-group .mag-btn {
+        flex: 1;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .candidate-name {
+        font-size: 2.3rem;
+      }
+
+      .candidate-en-name {
+        display: block;
+        margin-left: 0;
+        margin-top: 4px;
+        font-size: 1.1rem;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header-action-group {
+        flex-direction: column;
+      }
+
+      .callout-flex {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .callout-action-btns {
+        width: 100%;
+      }
+
+      .callout-action-btns .mag-btn {
+        width: 100%;
+      }
+    }
+
+    /* ==========================================================================
+       PRINT STYLES: EXQUISITE CLEAN EDITORIAL DOSSIER (A4 PRINT READY)
+       ========================================================================== */
+    @media print {
+      body {
+        background: #FFFFFF !important;
+        color: #000000 !important;
+      }
+
+      body::before {
+        display: none !important;
+      }
+
+      .mag-top-ticker,
+      .mag-subnav-strip,
+      .header-action-group,
+      .callout-action-btns,
+      .mag-btn {
+        display: none !important;
+      }
+
+      header.mag-header {
+        padding: 10px 0;
+        border-bottom: 2px solid #000;
+      }
+
+      .candidate-name {
+        font-size: 2.2rem;
+      }
+
+      .passport-card,
+      .editor-statement-card,
+      .feature-card,
+      .timeline-article,
+      .essay-card,
+      .specs-card {
+        box-shadow: none !important;
+        border: 1px solid #999 !important;
+        page-break-inside: avoid;
+      }
+
+      .editorial-callout-banner {
+        background: #F2F2F2 !important;
+        color: #000000 !important;
+        border: 1px solid #000 !important;
+        page-break-inside: avoid;
+      }
+
+      .callout-heading,
+      .callout-text {
+        color: #000000 !important;
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Editorial Ticker Bar -->
+  <div class="mag-top-ticker">
+    <div class="container ticker-inner">
+      <div>
+        <span class="ticker-pill">SPECIAL DOSSIER</span>
+        <span>MATSUKIYO CANDIDATE ARCHIVE ✦ VOL. 2026</span>
+      </div>
+      <div>
+        <span>STORE CANDIDATE: 中壢大江店（大園區）</span>
+      </div>
+      <div>
+        <span>CONTACT: 0989-591-825</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header / Magazine Masthead -->
+  <header class="mag-header">
+    <div class="container">
+      
+      <!-- Masthead Top Brand Bar -->
+      <div class="masthead-brand-row">
+        <a href="#top" class="matsukiyo-logo-badge" title="松本清 Matsumoto Kiyoshi">
+          <div class="logo-jp">マツモトキヨシ</div>
+          <div class="logo-en">
+            MATSUKIYO
+            <span class="sub">CAREER DOSSIER</span>
+          </div>
+        </a>
+
+        <div class="editorial-issue-meta">
+          <div><strong>ISSUE:</strong> 2026 RECRUITMENT EDITORIAL</div>
+          <div><strong>POSITION:</strong> 門市儲備幹部 (STORE SUPERVISOR CANDIDATE)</div>
+          <div><strong>DESIRED STORE:</strong> 中壢大江店（桃園市大園區）</div>
+        </div>
+      </div>
+
+      <!-- Candidate Main Title & Actions -->
+      <div class="mag-hero-grid">
+        <div>
+          <div class="editorial-label">PERSON OF THE MONTH ✦ 專訪應徵檔案</div>
+          <div class="candidate-name-box">
+            <span class="name-furigana">コウ・ハクシ ｜ CANDIDATE PROFILE</span>
+            <h1 class="candidate-name">黃博詩</h1>
+            <span class="candidate-en-name">HUANG BO-SHIH</span>
+          </div>
+          <p class="candidate-tagline">
+            日系藥妝實務經驗 × 4年連鎖體系帶訓講師 × 充滿熱忱的美妝生活探索者
+          </p>
+          <div class="target-store-pill">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+            志願分店：松本清 中壢大江店（大園區）｜ 門市儲備幹部
+          </div>
+        </div>
+
+        <!-- Quick Editorial Actions -->
+        <div class="header-action-group">
+          <a href="tel:0989591825" class="mag-btn mag-btn-primary">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            撥打電話聯絡
+          </a>
+          <a href="mailto:mystiqueduncan@gmail.com" class="mag-btn mag-btn-secondary">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            寄發電子郵件
+          </a>
+          <button onclick="window.print()" class="mag-btn mag-btn-ghost">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+            列印專刊履歷 (A4)
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Sticky Sub-Navigation Bar -->
+  <div class="mag-subnav-strip">
+    <div class="container subnav-items">
+      <ul class="subnav-links">
+        <li><a href="#profile"><span class="num">01/</span> 基本檔名</a></li>
+        <li><a href="#advantages"><span class="num">02/</span> 核心優勢</a></li>
+        <li><a href="#career"><span class="num">03/</span> 工作履歷</a></li>
+        <li><a href="#motivation"><span class="num">04/</span> 應徵動機</a></li>
+        <li><a href="#traits"><span class="num">05/</span> 特質與語能</a></li>
+        <li><a href="#availability"><span class="num">06/</span> 出勤與排班</a></li>
+      </ul>
+      <div class="subnav-status-badge">
+        <span class="status-dot"></span>
+        狀態：隨時可到職 ｜ 彈性排班
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="mag-main container">
+
+    <!-- =======================================================================
+         SECTION 1: CANDIDATE DOSSIER SPREAD
+         ======================================================================= -->
+    <section id="profile" class="profile-editorial-spread">
+
+      <!-- Left: Official Member / Candidate Card -->
+      <div class="passport-card">
+        <div>
+          <div class="passport-top">
+            <span class="passport-label">MATSUKIYO DOSSIER CARD</span>
+            <span class="passport-stamp">VERIFIED 2026</span>
+          </div>
+
+          <div class="passport-rows">
+            <div class="passport-row">
+              <span class="p-label">Candidate Name / 姓名</span>
+              <span class="p-val" style="font-size: 1.15rem;">黃博詩 (Huang Bo-Shih)</span>
+            </div>
+
+            <div class="passport-row">
+              <span class="p-label">Applied Role / 應徵職位</span>
+              <span class="p-val highlight-text">門市儲備幹部</span>
+            </div>
+
+            <div class="passport-row">
+              <span class="p-label">Target Store / 志願門市</span>
+              <span class="p-val">中壢大江店（大園區）</span>
+            </div>
+
+            <div class="passport-row">
+              <span class="p-label">Location / 居住地區</span>
+              <span class="p-val">桃園市大園區（近大江店）</span>
+            </div>
+
+            <div class="passport-row">
+              <span class="p-label">Phone / 聯絡電話</span>
+              <span class="p-val"><a href="tel:0989591825" style="color: inherit; text-decoration: none;">0989-591-825</a></span>
+            </div>
+
+            <div class="passport-row">
+              <span class="p-label">Email / 電子郵件</span>
+              <span class="p-val" style="font-size: 0.88rem; font-family: var(--font-mono);"><a href="mailto:mystiqueduncan@gmail.com" style="color: inherit; text-decoration: none;">mystiqueduncan@gmail.com</a></span>
+            </div>
+
+            <div class="passport-row">
+              <span class="p-label">Education / 最高學歷</span>
+              <span class="p-val">目前大學進修中（排班彈性充足）</span>
+            </div>
+
+            <div class="passport-row">
+              <span class="p-label">Availability / 到職時間</span>
+              <span class="p-val available-tag">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                隨時可到職
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Barcode Graphic Element -->
+        <div class="barcode-wrap">
+          <svg class="barcode-svg" viewBox="0 0 200 40" preserveAspectRatio="none">
+            <rect x="0" y="0" width="3" height="35" fill="#0B2240"/>
+            <rect x="6" y="0" width="2" height="35" fill="#0B2240"/>
+            <rect x="11" y="0" width="4" height="35" fill="#0B2240"/>
+            <rect x="18" y="0" width="1" height="35" fill="#0B2240"/>
+            <rect x="22" y="0" width="3" height="35" fill="#0B2240"/>
+            <rect x="28" y="0" width="5" height="35" fill="#0B2240"/>
+            <rect x="36" y="0" width="2" height="35" fill="#0B2240"/>
+            <rect x="41" y="0" width="4" height="35" fill="#0B2240"/>
+            <rect x="48" y="0" width="1" height="35" fill="#0B2240"/>
+            <rect x="52" y="0" width="3" height="35" fill="#0B2240"/>
+            <rect x="58" y="0" width="2" height="35" fill="#0B2240"/>
+            <rect x="63" y="0" width="6" height="35" fill="#0B2240"/>
+            <rect x="72" y="0" width="2" height="35" fill="#0B2240"/>
+            <rect x="77" y="0" width="3" height="35" fill="#0B2240"/>
+            <rect x="83" y="0" width="5" height="35" fill="#0B2240"/>
+            <rect x="91" y="0" width="2" height="35" fill="#0B2240"/>
+            <rect x="96" y="0" width="4" height="35" fill="#0B2240"/>
+            <rect x="103" y="0" width="2" height="35" fill="#0B2240"/>
+            <rect x="108" y="0" width="6" height="35" fill="#0B2240"/>
+            <rect x="117" y="0" width="2" height="35" fill="#0B2240"/>
+            <rect x="122" y="0" width="4" height="35" fill="#0B2240"/>
+            <rect x="129" y="0" width="1" height="35" fill="#0B2240"/>
+            <rect x="133" y="0" width="5" height="35" fill="#0B2240"/>
+            <rect x="141" y="0" width="2" height="35" fill="#0B2240"/>
+            <rect x="146" y="0" width="3" height="35" fill="#0B2240"/>
+            <rect x="152" y="0" width="6" height="35" fill="#0B2240"/>
+            <rect x="161" y="0" width="2" height="35" fill="#0B2240"/>
+            <rect x="166" y="0" width="4" height="35" fill="#0B2240"/>
+            <rect x="173" y="0" width="2" height="35" fill="#0B2240"/>
+            <rect x="178" y="0" width="5" height="35" fill="#0B2240"/>
+            <rect x="186" y="0" width="2" height="35" fill="#0B2240"/>
+            <rect x="191" y="0" width="3" height="35" fill="#0B2240"/>
+            <rect x="197" y="0" width="3" height="35" fill="#0B2240"/>
+          </svg>
+          <div class="barcode-number">4 901234 591825 0989</div>
+        </div>
+      </div>
+
+      <!-- Right: Editorial Article Pull-Quote & Statement -->
+      <div class="editor-statement-card">
+        <div class="quote-mark">“</div>
+        <div class="editorial-quote-content">
+          <div class="editorial-label" style="margin-bottom: 8px;">INTERVIEW PROFILE ✦ 編輯室推薦</div>
+          <h2 class="editorial-quote-lead">
+            「以日系藥妝現場實務為基石，融會4年帶訓與服飾引導銷售歷練，<br>
+            將對<span class="quote-highlight">美妝保養的真摯熱忱</span>化為大江門市的溫暖即戰力。」
+          </h2>
+          <p class="editorial-lead-body">
+            黃博詩具備完整的門市營運第一線視野：在日系藥妝 Tomod's 的兩年間，熟稔日系陳列美學、POS金流收銀與顧客保養諮詢；在 Levi's 鍛鍊出敏銳的客群需求洞察與主動引導銷售技巧；更在獸醫院任職4年期間，獲拔擢擔任專責培訓講師，具備將服務規範標準化、細膩引導新人的儲備幹部特質。
+          </p>
+        </div>
+
+        <div class="editorial-meta-pills">
+          <span class="meta-tag accent">★ 日系藥妝 2年實戰經驗</span>
+          <span class="meta-tag accent">★ 新人教育帶訓 4年講師</span>
+          <span class="meta-tag">門市陳列與進銷存</span>
+          <span class="meta-tag">主動引導銷售</span>
+          <span class="meta-tag">極佳顧客好評</span>
+          <span class="meta-tag">地緣大園 近大江店</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =======================================================================
+         SECTION 2: 6 CORE ADVANTAGES (FEATURE SPREAD)
+         ======================================================================= -->
+    <section id="advantages" class="highlights-section">
+      <div class="section-editorial-header">
+        <div class="sec-title-wrap">
+          <span class="sec-number">02</span>
+          <h2 class="sec-title-main">核心競爭優勢</h2>
+          <span class="sec-title-jp">６つの強みと即戦力</span>
+        </div>
+        <span class="sec-en-badge">CORE STRENGTHS</span>
+      </div>
+
+      <div class="feature-grid">
+
+        <!-- Card 1 -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-top-meta">
+              <span class="feature-num">FEATURE 01</span>
+              <span class="feature-badge">即戰力實務</span>
+            </div>
+            <h3 class="feature-title">日系藥妝門市經驗（2年）</h3>
+            <p class="feature-desc">
+              具備 Tomod's 2年實務經驗，深度熟悉日系連鎖門市運作模式，涵蓋收銀結帳、陳列補貨、庫存盤點與顧客諮詢。
+            </p>
+          </div>
+          <div class="feature-footer-tag">#日系陳列 #POS金流 #盤點補貨</div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-top-meta">
+              <span class="feature-num">FEATURE 02</span>
+              <span class="feature-badge">幹部帶訓潛力</span>
+            </div>
+            <h3 class="feature-title">新人培訓講師資歷（4年）</h3>
+            <p class="feature-desc">
+              於獸醫院服務4年期間獲主管拔擢擔任訓練櫃台人員講師，具備標準 SOP 傳授技巧、耐心理論指導與新人培育管理潛力。
+            </p>
+          </div>
+          <div class="feature-footer-tag">#帶訓講師 #SOP傳授 #團隊溝通</div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-top-meta">
+              <span class="feature-num">FEATURE 03</span>
+              <span class="feature-badge">銷售提袋率</span>
+            </div>
+            <h3 class="feature-title">連鎖服飾主動銷售（2年）</h3>
+            <p class="feature-desc">
+              任職美式連鎖品牌 Levi's 2年，具備身型需求分析、主動引導銷售、加購推薦與庫房進銷存管理之完整實務。
+            </p>
+          </div>
+          <div class="feature-footer-tag">#連鎖零售 #主動引導 #業績達成</div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-top-meta">
+              <span class="feature-num">FEATURE 04</span>
+              <span class="feature-badge">美妝真摯熱情</span>
+            </div>
+            <h3 class="feature-title">熱愛美妝保養與成分研究</h3>
+            <p class="feature-desc">
+              日常精研各類美妝與護膚保養技巧，妝容經常獲得顧客讚許。熱衷鑽研產品成分、訴求與功效，樂於主動向顧客推薦合適商品。
+            </p>
+          </div>
+          <div class="feature-footer-tag">#彩妝保養 #成分分析 #口碑推薦</div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-top-meta">
+              <span class="feature-num">FEATURE 05</span>
+              <span class="feature-badge">地緣與高配合度</span>
+            </div>
+            <h3 class="feature-title">大江店地緣與排班彈性</h3>
+            <p class="feature-desc">
+              居住於桃園大園區，通勤大江門市車程極為便捷。目前大學進修時間規律彈性，可全心配合門市早班、晚班與假日調度。
+            </p>
+          </div>
+          <div class="feature-footer-tag">#大園鄰近 #全班次配合 #隨時到職</div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-top-meta">
+              <span class="feature-num">FEATURE 06</span>
+              <span class="feature-badge">高顧客好感度</span>
+            </div>
+            <h3 class="feature-title">優良顧客應對與笑容評價</h3>
+            <p class="feature-desc">
+              累積餐飲、零售、藥妝與櫃台客服多重前線經驗，面對顧客始終保持親切同理心與從容笑容，在過去團隊中皆獲極高讚譽。
+            </p>
+          </div>
+          <div class="feature-footer-tag">#日系禮儀 #親切笑容 #抗壓溝通</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 3: CAREER JOURNEY (EDITORIAL INTERVIEW TIMELINE)
+         ======================================================================= -->
+    <section id="career" class="timeline-section">
+      <div class="section-editorial-header">
+        <div class="sec-title-wrap">
+          <span class="sec-number">03</span>
+          <h2 class="sec-title-main">工作與服務經歷</h2>
+          <span class="sec-title-jp">キャリアジャーニー ｜ 実務経験</span>
+        </div>
+        <span class="sec-en-badge">CAREER ARCHIVE</span>
+      </div>
+
+      <div class="editorial-timeline">
+
+        <!-- Job 1 (Featured) -->
+        <article class="timeline-article featured">
+          <div class="featured-ribbon">HIGHLIGHT ✦ 儲備管理亮點</div>
+          
+          <div class="article-header">
+            <div class="company-title-wrap">
+              <h3 class="company-name">獸醫院 ｜ 櫃台助理</h3>
+              <span class="role-badge">櫃台服務 ＆ 新人帶訓</span>
+            </div>
+            <div class="article-tenure">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
+              任職時間：4 年
+            </div>
+          </div>
+
+          <div class="article-spotlight-box">
+            <span class="spotlight-icon">★</span>
+            <div><strong>關鍵成果：</strong>任職期間表現優異，受拔擢兼任「訓練櫃台人員講師」，負責規劃新進人員實務帶訓SOP與考核指導。</div>
+          </div>
+
+          <ul class="article-duty-list">
+            <li><strong>帶訓傳承：</strong>擔任訓練櫃台人員講師，負責新進人員實務帶訓、服務標準流程與應變演練。</li>
+            <li><strong>顧客應對：</strong>負責櫃台預約掛號、收費結帳、突發狀況應變與專業諮詢，維持良好的就診流暢度。</li>
+            <li><strong>高情商溝通：</strong>面對焦慮或各類特殊顧客需求具備高度耐心與同理心，人際互動表現獲得院所與顧客極佳評價。</li>
+            <li><strong>跨部門協調：</strong>具備高抗壓性，能流暢協調櫃台與醫療團隊之間的快節奏運作。</li>
+          </ul>
+        </article>
+
+        <!-- Job 2 -->
+        <article class="timeline-article">
+          <div class="article-header">
+            <div class="company-title-wrap">
+              <h3 class="company-name">Tomod's 日系藥妝 ｜ 門市人員</h3>
+              <span class="role-badge">日系藥妝前線實務</span>
+            </div>
+            <div class="article-tenure">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
+              任職時間：2 年
+            </div>
+          </div>
+
+          <ul class="article-duty-list">
+            <li><strong>POS收銀與金流：</strong>熟練操作門市 POS 收銀、發票結帳、會員積點兌換及每日交班金流核算。</li>
+            <li><strong>商品陳列與進銷存：</strong>負責商品陳列補貨、端架檔期促銷展架陳列、缺貨查補與週期性庫存盤點管理。</li>
+            <li><strong>美妝保養諮詢：</strong>提供顧客日系美妝、護膚保養與保健商品專業諮詢，細膩說明質地與用法，落實業績銷售。</li>
+            <li><strong>日式服務規範：</strong>徹底貫徹日式連鎖藥妝服務禮儀、迎賓招呼標準與賣場潔淨維護。</li>
+          </ul>
+        </article>
+
+        <!-- Job 3 -->
+        <article class="timeline-article">
+          <div class="article-header">
+            <div class="company-title-wrap">
+              <h3 class="company-name">Levi's 連鎖服飾 ｜ 門市人員</h3>
+              <span class="role-badge">連鎖零售主動銷售</span>
+            </div>
+            <div class="article-tenure">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
+              任職時間：2 年
+            </div>
+          </div>
+
+          <ul class="article-duty-list">
+            <li><strong>主動提案銷售：</strong>主動接待顧客，透過身型分析與穿搭風格引導，達成個人與門市高標準業績目標。</li>
+            <li><strong>商品整燙與庫房管理：</strong>執行商品陳列、補貨上架、商品整燙保養與庫房進銷存快速清點。</li>
+            <li><strong>團隊凝聚力：</strong>與門市同仁維持緊密合作默契，共同維持賣場秩序，營造讓顧客賓至如歸的購物氛圍。</li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 4: ESSAY & MOTIVATION (EDITORIAL SPREAD)
+         ======================================================================= -->
+    <section id="motivation" class="essay-section">
+      <div class="section-editorial-header">
+        <div class="sec-title-wrap">
+          <span class="sec-number">04</span>
+          <h2 class="sec-title-main">應徵動機與專業熱忱</h2>
+          <span class="sec-title-jp">志望動機と情熱 ｜ インタビュー</span>
+        </div>
+        <span class="sec-en-badge">ASPIRATION & PASSION</span>
+      </div>
+
+      <div class="essay-grid">
+
+        <!-- Essay 1 -->
+        <div class="essay-card">
+          <div>
+            <div class="essay-label">COLUMN 01 ✦ BEAUTY LIFESTYLE</div>
+            <h3 class="essay-title">對美妝保養的濃厚興趣與成分探索</h3>
+            <p class="essay-text">
+              我由衷熱愛美妝與護膚保養，平時熱衷於親身體驗並研究各類彩妝技法與保養程序。在日常生活與工作中，<strong>我的個人妝容經常受到身邊朋友、同事與顧客的真誠讚賞</strong>。<br><br>
+              對我而言，化妝不只是修飾，更是傳遞自信與好氣色的生活態度。我熱愛主動與人交流、分享護膚保養的每道步驟與彩妝心得，並持續追蹤日本最新美妝潮流、深入探討各品牌明星商品的<strong>成分特性與護膚功效</strong>。這份天然的熱忱，讓我面對前來挑選藥妝的顧客時，能自然而然流露出專業與說服力。
+            </p>
+          </div>
+        </div>
+
+        <!-- Essay 2 -->
+        <div class="essay-card">
+          <div>
+            <div class="essay-label">COLUMN 02 ✦ STORE MANAGEMENT</div>
+            <h3 class="essay-title">應徵松本清儲備幹部之期許與展望</h3>
+            <p class="essay-text">
+              松本清（Matsumoto Kiyoshi）是亞洲最具代表性且深受喜愛的日系藥妝龍頭，擁有獨樹一幟的自有品牌（matsukiyo）與無可取代的日本潮流選品。身為藥妝愛好者與零售工作者，松本清始終是我心中最嚮往的品牌殿堂。<br><br>
+              我期盼將過去在 <strong>Tomod's 累積的2年日系藥妝實務</strong>、<strong>Levi's 的主動引導銷售能量</strong>，以及在 <strong>獸醫院擔任4年培訓講師所淬鍊出的帶訓與溝通能力</strong> 融會貫通。在中壢大江店從基層做起，迅速熟悉門市營運細節，協助店長帶領團隊，成為兼具<strong>熱情服務親和力</strong>與<strong>管理執行潛力</strong>的優秀門市儲備幹部！
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 5: SKILLS & SPECS (MAGAZINE ATTRIBUTES)
+         ======================================================================= -->
+    <section id="traits" class="skills-section">
+      <div class="section-editorial-header">
+        <div class="sec-title-wrap">
+          <span class="sec-number">05</span>
+          <h2 class="sec-title-main">個人特質與語言能力</h2>
+          <span class="sec-title-jp">パーソナリティ ＆ スキルデータ</span>
+        </div>
+        <span class="sec-en-badge">ATTRIBUTES & SPECS</span>
+      </div>
+
+      <div class="specs-grid">
+
+        <!-- Left: Traits Catalog -->
+        <div class="specs-card">
+          <h3 class="specs-card-title">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg>
+            個人核心特質標籤（Personal Strengths）
+          </h3>
+          <div class="pills-catalog">
+            <span class="spec-pill star">★ 親和力極高</span>
+            <span class="spec-pill star">★ 笑容親切有感染力</span>
+            <span class="spec-pill star">★ 做事細心不遺漏</span>
+            <span class="spec-pill star">★ 動作俐落敏捷</span>
+            <span class="spec-pill star">★ 團隊合作精神</span>
+            <span class="spec-pill star">★ 高抗壓與應變力</span>
+            <span class="spec-pill">接觸人群表現極佳</span>
+            <span class="spec-pill">熱愛主動分享</span>
+            <span class="spec-pill">具備帶訓講師耐心</span>
+            <span class="spec-pill">熟悉日式服務禮儀</span>
+          </div>
+        </div>
+
+        <!-- Right: Language Specs -->
+        <div class="specs-card">
+          <h3 class="specs-card-title">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7 2a1 1 0 011 1v1h3a1 1 0 110 2H9.578a18.87 18.87 0 01-1.724 4.78c.29.354.596.696.914 1.026a1 1 0 11-1.44 1.389c-.188-.196-.373-.396-.554-.6a19.098 19.098 0 01-3.107 3.567 1 1 0 01-1.334-1.49c1.2-1.073 2.18-2.316 2.92-3.69a16.7 16.7 0 01-2.073-3.682A1 1 0 115.02 4.417c.5 1.01 1.135 1.947 1.884 2.784A16.89 16.89 0 008 4H3a1 1 0 010-2h4zm7.5 7a1 1 0 011 1v6a1 1 0 11-2 0v-6a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+            語言能力檔案（Language Profile）
+          </h3>
+          <div class="language-table">
+            <div class="lang-item">
+              <div class="lang-header">
+                <span class="lang-name">ENGLISH ｜ 英語能力</span>
+                <span class="lang-level">一般日常對話</span>
+              </div>
+              <p class="lang-desc">可應對外籍旅客基本接待、門市問詢指引與收銀結帳溝通。</p>
+            </div>
+
+            <div class="lang-item" style="border-left-color: var(--mk-yellow);">
+              <div class="lang-header">
+                <span class="lang-name">JAPANESE ｜ 日語能力</span>
+                <span class="lang-level" style="color: var(--mk-navy-soft);">積極自主進修中</span>
+              </div>
+              <p class="lang-desc">正積極自學日語中，努力精進門市日式招呼語（いらっしゃいませ）、商品分類與基礎服務用語。</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 6: AVAILABILITY & CALL TO ACTION
+         ======================================================================= -->
+    <section id="availability" class="editorial-callout-banner">
+      <div class="callout-flex">
+        <div class="callout-info">
+          <span class="callout-badge">IMMEDIATE AVAILABILITY</span>
+          <h2 class="callout-heading">出勤與排班全力配合 ✦ 隨時到職</h2>
+          <p class="callout-text">
+            黃博詩現居住於桃園市大園區，地緣鄰近中壢大江購物中心，具備無與倫比的通勤便利性。可完全配合門市早班、晚班、假日尖峰排班及深夜/早晨盤點調度。誠摯期待能為松本清中壢大江店貢獻所長！
+          </p>
+        </div>
+
+        <div class="callout-action-btns">
+          <a href="tel:0989591825" class="mag-btn mag-btn-primary" style="font-size: 1.02rem; padding: 14px 26px;">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            撥打電話：0989-591-825
+          </a>
+          <a href="mailto:mystiqueduncan@gmail.com" class="mag-btn mag-btn-secondary" style="font-size: 1.02rem; padding: 14px 22px;">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            寄發電子郵件
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Editorial Footer -->
+  <footer class="mag-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span style="background: var(--mk-yellow); color: var(--mk-navy); padding: 2px 6px; font-weight: 900;">MK</span>
+        <span>松本清 門市儲備幹部 應徵履歷專刊 ｜ 黃博詩 (HUANG BO-SHIH)</span>
+      </div>
+      <div>
+        <span>ISSUE NO. 2026-MK-01 ✦ TAOYUAN METRO WALK STORE CANDIDATE</span>
+      </div>
+      <div>
+        <span>© 2026 BO-SHIH HUANG. ALL RIGHTS RESERVED.</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
