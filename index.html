@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>黃博詩 ｜ 松本清 門市儲備幹部 應徵特輯檔案</title>
-  <meta name="description" content="黃博詩應徵松本清（Matsumoto Kiyoshi）中壢大江店門市儲備幹部。結合日系藥妝實務、連鎖零售銷售與4年新人帶訓經驗之個人履歷專刊。">
+  <title>黃博詩 ｜ 松本清 區域營運經理 應徵特輯檔案</title>
+  <meta name="description" content="黃博詩應徵松本清（Matsumoto Kiyoshi）區域營運經理。結合日系藥妝 Tomod's 6年（店長3年）全盤營運、連鎖零售銷售與4年新人帶訓經驗之個人履歷專刊。">
   
   <!-- Favicon / Theme -->
   <meta name="theme-color" content="#FFD600">
@@ -382,42 +382,75 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      overflow-x: auto;
-      white-space: nowrap;
-      scrollbar-width: none;
-    }
-
-    .subnav-items::-webkit-scrollbar {
-      display: none;
+      flex-wrap: wrap;
+      gap: 10px 14px;
     }
 
     .subnav-links {
       display: flex;
-      gap: 20px;
+      flex-wrap: wrap;
+      gap: 6px 8px;
       list-style: none;
+      align-items: center;
+      padding: 0;
+      margin: 0;
     }
 
-    .subnav-links a {
-      color: var(--ink-secondary);
-      text-decoration: none;
-      font-family: var(--font-mono);
+    .subnav-links li {
+      display: inline-flex;
+    }
+
+    /* Matsukiyo signature button style */
+    .nav-btn-mk {
+      background: var(--mk-yellow);
+      color: var(--mk-navy);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--mk-navy);
+      font-family: var(--font-sans);
       font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      transition: color 0.2s ease;
+      font-weight: 800;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
+      box-shadow: 2px 2px 0 var(--mk-navy);
+      text-decoration: none;
+      transition: all 0.15s ease;
+      white-space: nowrap;
     }
 
-    .subnav-links a:hover {
+    .nav-btn-mk:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0 var(--mk-navy);
+      background: #FFE033;
+      color: var(--mk-navy);
+    }
+
+    .nav-btn-mk:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0 var(--mk-navy);
+    }
+
+    .nav-btn-mk span.num {
       color: var(--mk-red);
+      font-weight: 900;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
     }
 
-    .subnav-links a span.num {
-      color: var(--mk-navy-soft);
-      font-weight: 400;
+    .nav-btn-mk.btn-accent {
+      background: var(--mk-navy);
+      color: var(--mk-yellow);
+      border-color: var(--mk-navy);
+    }
+
+    .nav-btn-mk.btn-accent span.num {
+      color: #FFFFFF;
+    }
+
+    .nav-btn-mk.btn-accent:hover {
+      background: var(--mk-navy-light);
+      color: #FFFFFF;
     }
 
     .subnav-status-badge {
@@ -425,12 +458,14 @@
       align-items: center;
       gap: 8px;
       font-family: var(--font-sans);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: #0F5132;
       background: #D1E7DD;
       padding: 4px 12px;
       border-radius: 30px;
+      border: 1px solid #BADBCC;
+      white-space: nowrap;
     }
 
     .status-dot {
@@ -1338,7 +1373,7 @@
         <span>MATSUKIYO CANDIDATE ARCHIVE ✦ VOL. 2026</span>
       </div>
       <div>
-        <span>STORE CANDIDATE: 中壢大江店（大園區）</span>
+        <span>TARGET ROLE: 區域營運經理（全區巡店督導）</span>
       </div>
       <div>
         <span>CONTACT: 0989-591-825</span>
@@ -1362,8 +1397,8 @@
 
         <div class="editorial-issue-meta">
           <div><strong>ISSUE:</strong> 2026 RECRUITMENT EDITORIAL</div>
-          <div><strong>POSITION:</strong> 門市儲備幹部 (STORE SUPERVISOR CANDIDATE)</div>
-          <div><strong>DESIRED STORE:</strong> 中壢大江店（桃園市大園區）</div>
+          <div><strong>POSITION:</strong> 區域營運經理 (DISTRICT OPERATIONS MANAGER)</div>
+          <div><strong>DESIRED REGION:</strong> 桃竹苗 ＆ 大台北區域門市</div>
         </div>
       </div>
 
@@ -1377,11 +1412,11 @@
             <span class="candidate-en-name">HUANG BO-SHIH</span>
           </div>
           <p class="candidate-tagline">
-            日系藥妝實務經驗 × 4年連鎖體系帶訓講師 × 充滿熱忱的美妝生活探索者
+            日系藥妝 6年歷練（店長3年） × 4年連鎖體系帶訓講師 × 充滿熱忱的美妝生活探索者
           </p>
           <div class="target-store-pill">
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-            志願分店：松本清 中壢大江店（大園區）｜ 門市儲備幹部
+            志願職位：台灣松本清 ｜ 區域營運經理（門市營運督導）
           </div>
         </div>
 
@@ -1393,7 +1428,7 @@
           </a>
           <a href="contact.html" target="_blank" class="mag-btn mag-btn-secondary">
             <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            寄發電子信箱 ↗
+            查看聯絡資訊 (含照片) ↗
           </a>
           <button onclick="window.print()" class="mag-btn mag-btn-ghost">
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
@@ -1409,17 +1444,18 @@
   <div class="mag-subnav-strip">
     <div class="container subnav-items">
       <ul class="subnav-links">
-        <li><a href="#profile"><span class="num">01/</span> 基本檔名</a></li>
-        <li><a href="#advantages"><span class="num">02/</span> 核心優勢</a></li>
-        <li><a href="#career"><span class="num">03/</span> 工作履歷</a></li>
-        <li><a href="#motivation"><span class="num">04/</span> 應徵動機</a></li>
-        <li><a href="#traits"><span class="num">05/</span> 特質與語能</a></li>
-        <li><a href="#availability"><span class="num">06/</span> 出勤與排班</a></li>
-        <li><a href="trend.html" target="_blank" style="background: var(--mk-yellow); color: var(--mk-navy); padding: 3px 10px; border-radius: var(--radius-sm); border: 1.5px solid var(--mk-navy); font-weight: 800; display: inline-flex; align-items: center; gap: 4px; box-shadow: 2px 2px 0 var(--mk-navy);"><span class="num" style="color: var(--mk-red); font-weight: 900;">07/</span> 產業趨勢分析 ↗</a></li>
+        <li><a href="#profile" class="nav-btn-mk"><span class="num">01/</span> 簡介檔案</a></li>
+        <li><a href="#advantages" class="nav-btn-mk"><span class="num">02/</span> 核心優勢</a></li>
+        <li><a href="#career" class="nav-btn-mk"><span class="num">03/</span> 職涯歷程</a></li>
+        <li><a href="#motivation" class="nav-btn-mk"><span class="num">04/</span> 應徵動機</a></li>
+        <li><a href="#traits" class="nav-btn-mk"><span class="num">05/</span> 特質語能</a></li>
+        <li><a href="#availability" class="nav-btn-mk"><span class="num">06/</span> 巡店出勤</a></li>
+        <li><a href="trend.html" target="_blank" class="nav-btn-mk"><span class="num">07/</span> 產業趨勢分析 ↗</a></li>
+        <li><a href="contact.html" target="_blank" class="nav-btn-mk btn-accent"><span class="num">08/</span> 聯絡面試者 ↗</a></li>
       </ul>
       <div class="subnav-status-badge">
         <span class="status-dot"></span>
-        狀態：隨時可到職 ｜ 彈性排班
+        狀態：隨時可到職 ｜ 彈性配合巡店
       </div>
     </div>
   </div>
@@ -1440,30 +1476,48 @@
             <span class="passport-stamp">VERIFIED 2026</span>
           </div>
 
+          <!-- Candidate Photo & Official Badge -->
+          <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1.5px dashed var(--mk-navy);">
+            <div style="width: 78px; height: 94px; border-radius: var(--radius-sm); border: 2px solid var(--mk-navy); overflow: hidden; box-shadow: 2px 2px 0 var(--mk-yellow); flex-shrink: 0; background: #fff;">
+              <img src="profile.jpg" alt="黃博詩 面試者照片" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;">
+            </div>
+            <div>
+              <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--mk-red); font-weight: 800; letter-spacing: 0.1em; display: block;">OFFICIAL CANDIDATE ✦ 面試者照片</span>
+              <span style="font-family: var(--font-serif-tc); font-size: 1.25rem; font-weight: 900; color: var(--mk-navy);">黃博詩</span>
+              <span style="display: block; font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-secondary); font-weight: 700;">HUANG BO-SHIH</span>
+              <span style="display: inline-block; background: var(--mk-yellow); color: var(--mk-navy); font-size: 0.72rem; font-weight: 800; padding: 1px 6px; border-radius: 2px; margin-top: 2px; border: 1px solid var(--mk-navy);">區域營運經理候選人</span>
+            </div>
+          </div>
+
           <div class="passport-rows">
             <div class="passport-row">
               <span class="p-label">Candidate Name / 姓名</span>
-              <span class="p-val" style="font-size: 1.15rem;">黃博詩 (Huang Bo-Shih)</span>
+              <span class="p-val" style="font-size: 1.1rem;">黃博詩 (Huang Bo-Shih)</span>
             </div>
 
             <div class="passport-row">
               <span class="p-label">Applied Role / 應徵職位</span>
-              <span class="p-val highlight-text">門市儲備幹部</span>
+              <span class="p-val highlight-text" style="font-size: 1.05rem;">區域營運經理</span>
             </div>
 
             <div class="passport-row">
-              <span class="p-label">Target Store / 志願門市</span>
-              <span class="p-val">中壢大江店（大園區）</span>
+              <span class="p-label">Target Region / 志願區域</span>
+              <span class="p-val">桃竹苗 ＆ 大台北區域</span>
+            </div>
+
+            <div class="passport-row">
+              <span class="p-label">Core Tenure / 核心歷練</span>
+              <span class="p-val">Tomod's 6年（店長3年）</span>
             </div>
 
             <div class="passport-row">
               <span class="p-label">Location / 居住地區</span>
-              <span class="p-val">桃園市大園區（近大江店）</span>
+              <span class="p-val">桃園市大園區（機動巡店）</span>
             </div>
 
             <div class="passport-row">
               <span class="p-label">Phone / 聯絡電話</span>
-              <span class="p-val"><a href="tel:0989591825" style="color: inherit; text-decoration: none;">0989-591-825</a></span>
+              <span class="p-val"><a href="tel:0989591825" style="color: inherit; text-decoration: none; font-weight: 700;">0989-591-825</a></span>
             </div>
 
             <div class="passport-row">
@@ -1472,15 +1526,10 @@
             </div>
 
             <div class="passport-row">
-              <span class="p-label">Education / 最高學歷</span>
-              <span class="p-val">目前大學進修中（排班彈性充足）</span>
-            </div>
-
-            <div class="passport-row">
               <span class="p-label">Availability / 到職時間</span>
               <span class="p-val available-tag">
                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                隨時可到職
+                隨時可到職 ｜ 全時段配合
               </span>
             </div>
           </div>
@@ -1531,23 +1580,23 @@
       <div class="editor-statement-card">
         <div class="quote-mark">“</div>
         <div class="editorial-quote-content">
-          <div class="editorial-label" style="margin-bottom: 8px;">INTERVIEW PROFILE ✦ 編輯室推薦</div>
+          <div class="editorial-label" style="margin-bottom: 8px;">INTERVIEW PROFILE ✦ 面試者簡介</div>
           <h2 class="editorial-quote-lead">
-            「以日系藥妝現場實務為基石，融會4年帶訓與服飾引導銷售歷練，<br>
-            將對<span class="quote-highlight">美妝保養的真摯熱忱</span>化為大江門市的溫暖即戰力。」
+            「以日系藥妝 Tomod's 6年（店長3年）現場營運為基石，融會4年帶訓與服飾引導銷售歷練，<br>
+            將對<span class="quote-highlight">美妝保養的真摯熱忱與門市營運管理</span>轉化為松本清跨門市卓越成長的推動力。」
           </h2>
           <p class="editorial-lead-body">
-            黃博詩具備完整的門市營運第一線視野：在日系藥妝 Tomod's 的兩年間，熟稔日系陳列美學、POS金流收銀與顧客保養諮詢；在 Levi's 鍛鍊出敏銳的客群需求洞察與主動引導銷售技巧；更在獸醫院任職4年期間，獲拔擢擔任專責培訓講師，具備將服務規範標準化、細膩引導新人的儲備幹部特質。
+            黃博詩具備由門市前線基層穩健晉升至店長的全盤營運視野：在日系藥妝 Tomod's 的 6 年間（含店長管理資歷 3 年），精通門市最基本所有運作，掌管同仁管理培育、出勤排班與門市收益統整；深度對接上架品牌總部派員之專業產品研習；每月定期出席總公司高階會議掌握最新目標方針，每週自主主持門市週會布達決策並迅速解決前線問題。更在獸醫院任職 4 年期間擔任專責培訓講師，具備將服務規範標準化、培育管理梯隊的優質管理素養，能精準承接總部方針並賦能各門市店長。
           </p>
         </div>
 
         <div class="editorial-meta-pills">
-          <span class="meta-tag accent">★ 日系藥妝 2年實戰經驗</span>
+          <span class="meta-tag accent">★ 日系藥妝 6年（店長3年）</span>
           <span class="meta-tag accent">★ 新人教育帶訓 4年講師</span>
-          <span class="meta-tag">門市陳列與進銷存</span>
-          <span class="meta-tag">主動引導銷售</span>
-          <span class="meta-tag">極佳顧客好評</span>
-          <span class="meta-tag">地緣大園 近大江店</span>
+          <span class="meta-tag">門市全盤損益統整</span>
+          <span class="meta-tag">品牌原廠培訓研習</span>
+          <span class="meta-tag">每週門市週會主持</span>
+          <span class="meta-tag">總部策略精準落地</span>
         </div>
       </div>
 
@@ -1573,14 +1622,14 @@
           <div>
             <div class="feature-top-meta">
               <span class="feature-num">FEATURE 01</span>
-              <span class="feature-badge">即戰力實務</span>
+              <span class="feature-badge">店長全盤營運</span>
             </div>
-            <h3 class="feature-title">日系藥妝門市經驗（2年）</h3>
+            <h3 class="feature-title">日系藥妝店長管理經驗（6年）</h3>
             <p class="feature-desc">
-              具備 Tomod's 2年實務經驗，深度熟悉日系連鎖門市運作模式，涵蓋收銀結帳、陳列補貨、庫存盤點與顧客諮詢。
+              深耕日系藥妝 Tomod's 6年（由基層員工晉升店長滿3年），精通門市最基本所有運作，熟稔人員管理及培訓、店面收益損益統整、品牌總部課程研習、每月總部營運月會與每週門市例會主持。
             </p>
           </div>
-          <div class="feature-footer-tag">#日系陳列 #POS金流 #盤點補貨</div>
+          <div class="feature-footer-tag">#店長資歷3年 #全盤營運 #損益統整 #品牌培訓</div>
         </div>
 
         <!-- Card 2 -->
@@ -1588,7 +1637,7 @@
           <div>
             <div class="feature-top-meta">
               <span class="feature-num">FEATURE 02</span>
-              <span class="feature-badge">幹部帶訓潛力</span>
+              <span class="feature-badge">管理帶訓潛力</span>
             </div>
             <h3 class="feature-title">新人培訓講師資歷（4年）</h3>
             <p class="feature-desc">
@@ -1633,14 +1682,14 @@
           <div>
             <div class="feature-top-meta">
               <span class="feature-num">FEATURE 05</span>
-              <span class="feature-badge">地緣與高配合度</span>
+              <span class="feature-badge">區域巡店與機動</span>
             </div>
-            <h3 class="feature-title">大江店地緣與排班彈性</h3>
+            <h3 class="feature-title">區域機動巡店與出勤高配合度</h3>
             <p class="feature-desc">
-              居住於桃園大園區，通勤大江門市車程極為便捷。目前大學進修時間規律彈性，可全心配合門市早班、晚班與假日調度。
+              居住於桃園大園區，具備機動交通能力，可靈活往返桃竹苗與大台北門市商圈。全心配合區域巡店輔導、總公司月會、突發狀況排解與假日專案調度。
             </p>
           </div>
-          <div class="feature-footer-tag">#大園鄰近 #全班次配合 #隨時到職</div>
+          <div class="feature-footer-tag">#區域巡查 #跨店輔導 #全時段配合 #隨時到職</div>
         </div>
 
         <!-- Card 6 -->
@@ -1678,12 +1727,12 @@
 
         <!-- Job 1 (Featured) -->
         <article class="timeline-article featured">
-          <div class="featured-ribbon">HIGHLIGHT ✦ 儲備管理亮點</div>
+          <div class="featured-ribbon">Career Journey 職涯歷程 ✦ 帶訓傳承實績</div>
           
           <div class="article-header">
             <div class="company-title-wrap">
-              <h3 class="company-name">獸醫院 ｜ 櫃台助理</h3>
-              <span class="role-badge">櫃台服務 ＆ 新人帶訓</span>
+              <h3 class="company-name">獸醫院 ｜ 櫃台助理兼新人培訓講師</h3>
+              <span class="role-badge">櫃台服務 ＆ 新人帶訓講師</span>
             </div>
             <div class="article-tenure">
               <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
@@ -1704,24 +1753,32 @@
           </ul>
         </article>
 
-        <!-- Job 2 -->
-        <article class="timeline-article">
+        <!-- Job 2 (Featured Core) -->
+        <article class="timeline-article featured" style="border-left-color: var(--mk-yellow);">
+          <div class="featured-ribbon" style="background: var(--mk-yellow); color: var(--mk-navy);">Career Journey 職涯歷程 ✦ 核心店長管理實績</div>
+          
           <div class="article-header">
             <div class="company-title-wrap">
-              <h3 class="company-name">Tomod's 日系藥妝 ｜ 門市人員</h3>
-              <span class="role-badge">日系藥妝前線實務</span>
+              <h3 class="company-name">Tomod's 日系藥妝 ｜ 門市基層正職 → 門市店長</h3>
+              <span class="role-badge">日系藥妝 6年（店長資歷 3年）</span>
             </div>
             <div class="article-tenure">
               <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
-              任職時間：2 年
+              任職時間：6 年（店長 3 年）
             </div>
           </div>
 
+          <div class="article-spotlight-box">
+            <span class="spotlight-icon">★</span>
+            <div><strong>關鍵成果與核心職責：</strong>深耕日系藥妝體系6年，從最基層扎實做起，因營運與溝通卓越獲拔擢晉升店長（任店長滿3年）。精通門市最基本所有運作，全權掌管同仁管理培訓、門市收益損益統整、上架品牌總部研習對接；每月出席總公司營運月會掌握戰略目標，每週自主主持門市週會布達決策並解決前線問題。</div>
+          </div>
+
           <ul class="article-duty-list">
-            <li><strong>POS收銀與金流：</strong>熟練操作門市 POS 收銀、發票結帳、會員積點兌換及每日交班金流核算。</li>
-            <li><strong>商品陳列與進銷存：</strong>負責商品陳列補貨、端架檔期促銷展架陳列、缺貨查補與週期性庫存盤點管理。</li>
-            <li><strong>美妝保養諮詢：</strong>提供顧客日系美妝、護膚保養與保健商品專業諮詢，細膩說明質地與用法，落實業績銷售。</li>
-            <li><strong>日式服務規範：</strong>徹底貫徹日式連鎖藥妝服務禮儀、迎賓招呼標準與賣場潔淨維護。</li>
+            <li><strong>店面最基本所有運作精通：</strong>由第一線基層做起，精通門市最基本且核心的所有運作，包括日系陳列美學、補貨上架、缺貨查補、POS金流收銀結帳、庫存盤點與賣場環境整潔維護。</li>
+            <li><strong>人員管理與培訓、統整店面收益：</strong>全面掌管門市人力編制，負責門市同仁之招募面試、出勤排班、教育訓練、日常指導與帶訓考核；統整店面營收數據、營業額目標達成與門市損益（P&L）成本控管。</li>
+            <li><strong>上架品牌總公司專業課程研習：</strong>在我們通路上架之各大品牌，總公司皆會派遣該品牌專業講師至門市授課，深入了解各品牌最新產品特性、成分訴求與品牌故事，帶領全店同仁轉化為專業客製化諮詢能量。</li>
+            <li><strong>店面整體營運管理與總部方針對接：</strong>全權負責店面整體營運狀況；定期與區域營運經理（區督導）深入討論營運現況與業績對策；每個月定期前往總公司召開營運會議，第一手精準掌握公司最新戰略方針、經營目標與行銷推廣方向。</li>
+            <li><strong>每週自主主持門市週會、解決前線問題：</strong>每星期自主召開店面週會議，向全體店員宣達公司核心決策，檢討營運數據指標，傾聽同仁反饋，並與店員共同討論迅速解決門市日常遇到的各項營運問題。</li>
           </ul>
         </article>
 
@@ -1778,11 +1835,11 @@
         <!-- Essay 2 -->
         <div class="essay-card">
           <div>
-            <div class="essay-label">COLUMN 02 ✦ STORE MANAGEMENT</div>
-            <h3 class="essay-title">應徵松本清儲備幹部之期許與展望</h3>
+            <div class="essay-label">COLUMN 02 ✦ Career Goals & Outlook</div>
+            <h3 class="essay-title">應徵松本清區域營運經理之期許與展望</h3>
             <p class="essay-text">
-              松本清（Matsumoto Kiyoshi）是亞洲最具代表性且深受喜愛的日系藥妝龍頭，擁有獨樹一幟的自有品牌（matsukiyo）與無可取代的日本潮流選品。身為藥妝愛好者與零售工作者，松本清始終是我心中最嚮往的品牌殿堂。<br><br>
-              我期盼將過去在 <strong>Tomod's 累積的2年日系藥妝實務</strong>、<strong>Levi's 的主動引導銷售能量</strong>，以及在 <strong>獸醫院擔任4年培訓講師所淬鍊出的帶訓與溝通能力</strong> 融會貫通。在中壢大江店從基層做起，迅速熟悉門市營運細節，協助店長帶領團隊，成為兼具<strong>熱情服務親和力</strong>與<strong>管理執行潛力</strong>的優秀門市儲備幹部！
+              松本清（Matsumoto Kiyoshi）是亞洲最具代表性且深受喜愛的日系藥妝龍頭，擁有獨樹一幟的自有品牌（matsukiyo）與無可取代的日本潮流選品。身為深耕日系藥妝 6 年（含店長 3 年）的零售管理者，松本清始終是我心中最嚮往展現管理格局的殿堂。<br><br>
+              我期盼將過去在 <strong>Tomod's 6 年扎根營運（晉升店長 3 年）</strong> 所淬鍊出的「全盤門市運作、人員培訓考核、門市收益損益統整、品牌原廠研習對接、每週門市週會主持與總部方針落地」之扎實功底，結合 <strong>獸醫院 4 年培訓講師</strong> 所建構的標準化 SOP 傳承經驗，以及 <strong>Levi's 主動銷售</strong> 的客單提袋能量。擔任松本清<strong>區域營運經理（District Operations Manager）</strong>，以區域督導之高度巡迴輔導各門市店長，精準傳遞總部經營方針，統整各店收益與人效，打造兼具<strong>日系溫度</strong>與<strong>卓越營運績效</strong>的標竿區域團隊！
             </p>
           </div>
         </div>
@@ -1806,7 +1863,7 @@
           </h3>
 
           <p style="font-family: var(--font-sans); font-size: 0.94rem; color: #E2DFD7; line-height: 1.75; margin-bottom: 22px; max-width: 820px;">
-            為具體展現門市儲備幹部的宏觀產業視野與營運管理潛力，特別針對美妝實體門市進行專題研究。結合<strong>麥肯錫（McKinsey）</strong>、<strong>經濟部統計處</strong>、<strong>凱度消費者指數</strong>與 <strong>91APP</strong> 等權威數據，深度剖析「五感體驗與 OMO 高客單」的核心優勢延續，並提出「展廳現象、缺工租金與庫存報損」的具體科技化改善對策。
+            為具體展現區域營運經理的宏觀產業視野與全盤管理實力，特別針對美妝實體門市進行專題研究。結合<strong>麥肯錫（McKinsey）</strong>、<strong>經濟部統計處</strong>、<strong>凱度消費者指數</strong>與 <strong>91APP</strong> 等權威數據，深度剖析「五感體驗與 OMO 高客單」的核心優勢延續，並提出「展廳現象、缺工租金與庫存報損」的具體科技化改善對策。
           </p>
 
           <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
@@ -1895,7 +1952,7 @@
           <span class="callout-badge">IMMEDIATE AVAILABILITY</span>
           <h2 class="callout-heading">出勤與排班全力配合 ✦ 隨時到職</h2>
           <p class="callout-text">
-            黃博詩現居住於桃園市大園區，地緣鄰近中壢大江購物中心，具備無與倫比的通勤便利性。可完全配合門市早班、晚班、假日尖峰排班及深夜/早晨盤點調度。誠摯期待能為松本清中壢大江店貢獻所長！
+            黃博詩現居住於桃園市大園區，具備機動巡店與跨區督導的交通優勢，出勤調度彈性高。可全力配合區域各門市早晚巡檢、假日營運尖峰督導、總公司月度營運決策會議與突發門市支援調度。誠摯期待能為松本清全區門市營運創造卓越價值！
           </p>
         </div>
 
@@ -1919,10 +1976,10 @@
     <div class="container footer-inner">
       <div class="footer-brand">
         <span style="background: var(--mk-yellow); color: var(--mk-navy); padding: 2px 6px; font-weight: 900;">MK</span>
-        <span>松本清 門市儲備幹部 應徵履歷專刊 ｜ 黃博詩 (HUANG BO-SHIH)</span>
+        <span>台灣松本清 區域營運經理 應徵履歷專刊 ｜ 黃博詩 (HUANG BO-SHIH)</span>
       </div>
       <div>
-        <span>ISSUE NO. 2026-MK-01 ✦ TAOYUAN METRO WALK STORE CANDIDATE</span>
+        <span>ISSUE NO. 2026-MK-01 ✦ DISTRICT OPERATIONS CANDIDATE</span>
       </div>
       <div>
         <span>© 2026 BO-SHIH HUANG. ALL RIGHTS RESERVED.</span>

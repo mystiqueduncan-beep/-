@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>美妝實體通路未來發展趨勢研究報告 ｜ 黃博詩 (HUANG BO-SHIH) 應徵特輯專題</title>
-  <meta name="description" content="美妝實體通路未來發展的優勢與劣勢深度剖析、優勢延續發揮與劣勢適應改善之實務策略。結合麥肯錫、經濟部統計處、凱度消費者指數與91APP數據。">
+  <title>美妝實體通路未來發展趨勢深度研究報告 ｜ 黃博詩 (HUANG BO-SHIH) 區域營運經理專題</title>
+  <meta name="description" content="美妝實體通路未來發展趨勢深度剖析、實體通路購買產品分類佔比圖、四大核心優勢評分與4大躍升實戰策略。結合麥肯錫、經濟部統計處、凱度消費者指數與91APP數據。台灣松本清 區域營運經理應徵專題。">
   
   <meta name="theme-color" content="#FFD600">
 
@@ -276,48 +276,138 @@
       margin-top: 20px;
     }
 
-    /* Sticky Chapter Navigation Bar */
-    .trend-subnav-strip {
+    /* Sticky Sub-Navigation Bar */
+    .mag-subnav-strip {
       background: rgba(255, 255, 255, 0.98);
       border-top: 1px solid var(--hairline);
       border-bottom: 2px solid var(--mk-navy);
       padding: 10px 0;
       position: sticky;
       top: 0;
-      z-index: 90;
+      z-index: 100;
       backdrop-filter: blur(8px);
+      box-shadow: 0 2px 10px rgba(11, 34, 64, 0.06);
+    }
+
+    .subnav-items {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+    }
+
+    .subnav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 8px;
+      list-style: none;
+      align-items: center;
+      padding: 0;
+      margin: 0;
+    }
+
+    .subnav-links li {
+      display: inline-flex;
+    }
+
+    .nav-btn-mk {
+      background: var(--mk-yellow);
+      color: var(--mk-navy);
+      padding: 5px 12px;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--mk-navy);
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 2px 2px 0 var(--mk-navy);
+      text-decoration: none;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .nav-btn-mk:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0 var(--mk-navy);
+      background: #FFE033;
+      color: var(--mk-navy);
+    }
+
+    .nav-btn-mk:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0 var(--mk-navy);
+    }
+
+    .nav-btn-mk span.num {
+      color: var(--mk-red);
+      font-weight: 900;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+
+    .nav-btn-mk.btn-accent {
+      background: var(--mk-navy);
+      color: var(--mk-yellow);
+      border-color: var(--mk-navy);
+    }
+
+    .nav-btn-mk.btn-accent span.num {
+      color: #FFFFFF;
+    }
+
+    .nav-btn-mk.btn-active {
+      background: var(--mk-navy);
+      color: var(--mk-yellow);
+      border-color: var(--mk-navy);
+      pointer-events: none;
+    }
+
+    .trend-subnav-strip {
+      background: #FFFFFF;
+      border-bottom: 1.5px solid var(--mk-navy);
+      padding: 8px 0;
     }
 
     .trend-subnav-items {
       display: flex;
-      gap: 14px;
-      overflow-x: auto;
-      white-space: nowrap;
-      scrollbar-width: none;
+      flex-wrap: wrap;
+      gap: 6px 8px;
       list-style: none;
+      padding: 0;
+      margin: 0;
+      align-items: center;
     }
 
-    .trend-subnav-items::-webkit-scrollbar {
-      display: none;
+    .trend-subnav-items li {
+      display: inline-flex;
     }
 
     .trend-subnav-items a {
-      color: var(--ink-secondary);
+      background: var(--mk-yellow);
+      color: var(--mk-navy);
       text-decoration: none;
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 4px;
-      transition: all 0.2s ease;
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 800;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--mk-navy);
+      box-shadow: 2px 2px 0 var(--mk-navy);
+      transition: all 0.15s ease;
+      white-space: nowrap;
     }
 
     .trend-subnav-items a:hover {
-      background: var(--mk-yellow);
-      color: var(--mk-navy);
+      background: #FFE033;
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0 var(--mk-navy);
     }
 
     /* Main Container */
@@ -690,14 +780,14 @@
           </span>
         </a>
 
-        <div class="header-nav-actions">
-          <a href="index.html" class="btn-nav-return">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        <div class="header-nav-actions" style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <a href="index.html" class="nav-btn-mk">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
             返回履歷專刊首頁
           </a>
-          <a href="contact.html" class="btn-nav-contact">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            聯絡應徵者 (電子信箱) ↗
+          <a href="contact.html" class="nav-btn-mk btn-accent">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            聯絡應徵者 (含照片) ↗
           </a>
         </div>
       </div>
@@ -706,7 +796,7 @@
       <div class="trend-hero">
         <div class="hero-badge-row">
           <span class="badge-report">第 7 點 ✦ 專題研究</span>
-          <span class="badge-candidate">研究整理：黃博詩 (HUANG BO-SHIH) ｜ 應徵門市：中壢大江店</span>
+          <span class="badge-candidate">研究整理：黃博詩 (HUANG BO-SHIH) ｜ 應徵職位：台灣松本清 區域營運經理</span>
         </div>
         <h1 class="report-title-main">
           美妝實體通路未來發展趨勢深度研究<br>
@@ -721,18 +811,36 @@
     </div>
   </header>
 
+  <!-- Sticky Sub-Navigation Bar -->
+  <div class="mag-subnav-strip">
+    <div class="container subnav-items">
+      <ul class="subnav-links">
+        <li><a href="index.html" class="nav-btn-mk"><span class="num">01/</span> 履歷首頁 ↗</a></li>
+        <li><a href="index.html#advantages" class="nav-btn-mk"><span class="num">02/</span> 核心優勢</a></li>
+        <li><a href="index.html#career" class="nav-btn-mk"><span class="num">03/</span> 職涯歷程</a></li>
+        <li><a href="index.html#motivation" class="nav-btn-mk"><span class="num">04/</span> 應徵動機</a></li>
+        <li><a href="#report-top" class="nav-btn-mk btn-active"><span class="num">07/</span> 趨勢分析專題</a></li>
+        <li><a href="contact.html" class="nav-btn-mk btn-accent"><span class="num">08/</span> 聯絡面試者 (含照片) ↗</a></li>
+      </ul>
+      <div class="subnav-status-badge">
+        <span class="status-dot"></span>
+        狀態：隨時可到職 ✦ 彈性配合巡店
+      </div>
+    </div>
+  </div>
+
   <!-- Sticky Chapter Nav -->
   <nav class="trend-subnav-strip">
     <div class="container">
       <ul class="trend-subnav-items">
-        <li><a href="#macro">01/ 市場宏觀與數據</a></li>
-        <li><a href="#strengths">02/ 未來核心優勢</a></li>
-        <li><a href="#weaknesses">03/ 未來劣勢與挑戰</a></li>
-        <li><a href="#strengths-action">04/ 優勢延續策略</a></li>
-        <li><a href="#weaknesses-action">05/ 劣勢改善對策</a></li>
-        <li><a href="#cases">06/ 標竿通路案例</a></li>
-        <li><a href="#matsukiyo-action">07/ 松本清落地建議</a></li>
-        <li><a href="#sources">08/ 權威資料來源</a></li>
+        <li><a href="#macro"><span class="num">01/</span> 產品佔比＆宏觀數據</a></li>
+        <li><a href="#strengths"><span class="num">02/</span> 4大核心優勢評分</a></li>
+        <li><a href="#weaknesses"><span class="num">03/</span> 4大劣勢挑戰</a></li>
+        <li><a href="#strengths-action"><span class="num">04/</span> 4大躍升策略藍圖</a></li>
+        <li><a href="#weaknesses-action"><span class="num">05/</span> 劣勢改善對策</a></li>
+        <li><a href="#cases"><span class="num">06/</span> 標竿案例借鑑</a></li>
+        <li><a href="#matsukiyo-action"><span class="num">07/</span> 區域營運建議</a></li>
+        <li><a href="#sources"><span class="num">08/</span> 權威資料來源</a></li>
       </ul>
     </div>
   </nav>
@@ -741,121 +849,390 @@
   <main class="trend-main container">
 
     <!-- =======================================================================
-         SECTION 1: MACRO LANDSCAPE & DATA DASHBOARD
+         SECTION 1: MACRO LANDSCAPE & DATA DASHBOARD (VISUAL CHART)
          ======================================================================= -->
     <section id="macro">
       <div class="section-editorial-header">
         <div class="sec-title-wrap">
           <span class="sec-number">01</span>
-          <h2 class="sec-title-main">市場宏觀全景與權威數據儀表板</h2>
+          <h2 class="sec-title-main">市場宏觀全景與實體通路產品分類佔比圖</h2>
         </div>
-        <span class="sec-en-badge">MACRO LANDSCAPE & BIG DATA</span>
+        <span class="sec-en-badge">MACRO LANDSCAPE & PRODUCT BREAKDOWN</span>
       </div>
 
-      <!-- Stat Cards -->
-      <div class="stat-dashboard-grid">
-        <div class="stat-metric-card accent">
-          <div class="metric-number">2,160<span class="metric-unit">億+</span></div>
-          <div class="metric-label">台灣藥妝零售全年營業額創歷史新高</div>
-          <div class="metric-source">資料來源：經濟部統計處</div>
+      <!-- VISUALIZATION 1: Product Category Purchase Breakdown Donut & Analytics -->
+      <div class="product-pie-dashboard" style="background: #FFFFFF; border: 2px solid var(--mk-navy); border-radius: var(--radius-sm); box-shadow: 4px 4px 0 var(--mk-navy); padding: 32px 28px; margin-bottom: 32px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; border-bottom: 2px solid var(--mk-navy); padding-bottom: 14px;">
+          <div>
+            <span style="background: var(--mk-red); color: #fff; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; padding: 2px 8px; border-radius: 2px; letter-spacing: 0.1em;">OFFICIAL DATA VIZ</span>
+            <h3 style="font-family: var(--font-serif-tc); font-size: 1.4rem; font-weight: 900; color: var(--mk-navy); margin-top: 4px;">
+              實體通路使用者購買的產品分類佔比圖（台灣藥妝零售）
+            </h3>
+          </div>
+          <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-muted);">中華民國經濟部統計處 ＆ 零售消費數據查核</span>
         </div>
 
-        <div class="stat-metric-card">
-          <div class="metric-number">4.9<span class="metric-unit">倍</span></div>
-          <div class="metric-label">OMO 虛實融合客群購買頻次（相較純電商）</div>
-          <div class="metric-source">資料來源：91APP 零售大數據報告</div>
-        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 36px; align-items: center;">
+          
+          <!-- Left: SVG Interactive Donut Chart -->
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;">
+            <svg viewBox="0 0 240 240" style="width: 220px; height: 220px; transform: rotate(-90deg); filter: drop-shadow(2px 4px 6px rgba(11,34,64,0.15));">
+              <!-- Background circle -->
+              <circle cx="120" cy="120" r="88" fill="none" stroke="#F0EDE6" stroke-width="32"></circle>
+              <!-- Segment 1: Skincare & Cosmetics 47.7% -> 263.74 of 552.92 -->
+              <circle cx="120" cy="120" r="88" fill="none" stroke="#FFD600" stroke-width="32"
+                stroke-dasharray="263.74 552.92" stroke-dashoffset="0"></circle>
+              <!-- Segment 2: Pharmaceuticals & Health 31.2% -> 172.51 -->
+              <circle cx="120" cy="120" r="88" fill="none" stroke="#0B2240" stroke-width="32"
+                stroke-dasharray="172.51 552.92" stroke-dashoffset="-263.74"></circle>
+              <!-- Segment 3: Daily Goods 13.5% -> 74.64 -->
+              <circle cx="120" cy="120" r="88" fill="none" stroke="#E60012" stroke-width="32"
+                stroke-dasharray="74.64 552.92" stroke-dashoffset="-436.25"></circle>
+              <!-- Segment 4: Snacks & Drinks 7.6% -> 42.02 -->
+              <circle cx="120" cy="120" r="88" fill="none" stroke="#234E82" stroke-width="32"
+                stroke-dasharray="42.02 552.92" stroke-dashoffset="-510.89"></circle>
+            </svg>
+            <!-- Center Donut Label -->
+            <div style="position: absolute; text-align: center; pointer-events: none;">
+              <span style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 900; color: var(--mk-navy); line-height: 1; display: block;">47.7%</span>
+              <span style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 800; color: var(--mk-navy); letter-spacing: 0.05em;">個人清潔化粧保養</span>
+              <span style="display: block; font-family: var(--font-mono); font-size: 0.65rem; color: var(--mk-red); font-weight: 700;">實體通路第 1 大宗</span>
+            </div>
+          </div>
 
-        <div class="stat-metric-card">
-          <div class="metric-number">3.4<span class="metric-unit">倍</span></div>
-          <div class="metric-label">OMO 跨通路顧客年消費金額高達純電商</div>
-          <div class="metric-source">資料來源：91APP 跨品牌實證分析</div>
-        </div>
+          <!-- Right: Category Breakdown Progress Bars & Revenue Specs -->
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            
+            <!-- Category 1 -->
+            <div style="background: #FFFDF0; border: 1.5px solid var(--mk-navy); border-radius: var(--radius-sm); padding: 12px 14px; box-shadow: 2px 2px 0 var(--mk-navy);">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span style="display: inline-block; width: 12px; height: 12px; background: #FFD600; border: 1.5px solid #0B2240; border-radius: 2px;"></span>
+                  <strong style="color: var(--mk-navy); font-size: 0.95rem;">個人清潔、化粧與護膚保養品</strong>
+                </div>
+                <div>
+                  <span style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; color: var(--mk-navy);">47.7%</span>
+                  <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-muted); margin-left: 4px;">(約 1,030 億元)</span>
+                </div>
+              </div>
+              <div style="height: 10px; width: 100%; background: #F0EDE6; border-radius: 3px; border: 1px solid var(--mk-navy); overflow: hidden;">
+                <div style="width: 47.7%; height: 100%; background: #FFD600;"></div>
+              </div>
+              <p style="font-size: 0.78rem; color: var(--ink-secondary); margin-top: 6px; line-height: 1.5;">
+                ★ 實體門市最核心利潤源泉。依賴試色、聞香、質地觸感與防敏諮詢，實體體驗壁壘極高。
+              </p>
+            </div>
 
-        <div class="stat-metric-card">
-          <div class="metric-number">2<span class="metric-unit">倍</span></div>
-          <div class="metric-label">消費者造訪實體美妝專賣店頻率高於官網</div>
-          <div class="metric-source">資料來源：麥肯錫 (McKinsey & BoF)</div>
+            <!-- Category 2 -->
+            <div style="background: #FFFFFF; border: 1.5px solid var(--mk-navy); border-radius: var(--radius-sm); padding: 12px 14px; box-shadow: 2px 2px 0 var(--mk-navy);">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span style="display: inline-block; width: 12px; height: 12px; background: #0B2240; border: 1.5px solid #0B2240; border-radius: 2px;"></span>
+                  <strong style="color: var(--mk-navy); font-size: 0.95rem;">藥品、醫療用品與保健營養品</strong>
+                </div>
+                <div>
+                  <span style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; color: var(--mk-navy);">31.2%</span>
+                  <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-muted); margin-left: 4px;">(約 674 億元)</span>
+                </div>
+              </div>
+              <div style="height: 10px; width: 100%; background: #F0EDE6; border-radius: 3px; border: 1px solid var(--mk-navy); overflow: hidden;">
+                <div style="width: 31.2%; height: 100%; background: #0B2240;"></div>
+              </div>
+              <p style="font-size: 0.78rem; color: var(--ink-secondary); margin-top: 6px; line-height: 1.5;">
+                ★ 剛需高客單。維他命、腸胃藥、眼藥水與醫用耗材，需門市人員高度信任與專業說明。
+              </p>
+            </div>
+
+            <!-- Category 3 -->
+            <div style="background: #FFFFFF; border: 1.5px solid var(--mk-navy); border-radius: var(--radius-sm); padding: 12px 14px; box-shadow: 2px 2px 0 var(--mk-navy);">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span style="display: inline-block; width: 12px; height: 12px; background: #E60012; border: 1.5px solid #0B2240; border-radius: 2px;"></span>
+                  <strong style="color: var(--mk-navy); font-size: 0.95rem;">日常生活用品與個人清潔雜貨</strong>
+                </div>
+                <div>
+                  <span style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; color: var(--mk-navy);">13.5%</span>
+                  <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-muted); margin-left: 4px;">(約 292 億元)</span>
+                </div>
+              </div>
+              <div style="height: 10px; width: 100%; background: #F0EDE6; border-radius: 3px; border: 1px solid var(--mk-navy); overflow: hidden;">
+                <div style="width: 13.5%; height: 100%; background: #E60012;"></div>
+              </div>
+              <p style="font-size: 0.78rem; color: var(--ink-secondary); margin-top: 6px; line-height: 1.5;">
+                ★ 高回購到店日常樞紐。洗髮沐浴、口腔保健與日用耗品，建立顧客常態性造訪習慣。
+              </p>
+            </div>
+
+            <!-- Category 4 -->
+            <div style="background: #FFFFFF; border: 1.5px solid var(--mk-navy); border-radius: var(--radius-sm); padding: 12px 14px; box-shadow: 2px 2px 0 var(--mk-navy);">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span style="display: inline-block; width: 12px; height: 12px; background: #234E82; border: 1.5px solid #0B2240; border-radius: 2px;"></span>
+                  <strong style="color: var(--mk-navy); font-size: 0.95rem;">流行零食飲品與美妝周邊小物</strong>
+                </div>
+                <div>
+                  <span style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; color: var(--mk-navy);">7.6%</span>
+                  <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-muted); margin-left: 4px;">(約 164 億元)</span>
+                </div>
+              </div>
+              <div style="height: 10px; width: 100%; background: #F0EDE6; border-radius: 3px; border: 1px solid var(--mk-navy); overflow: hidden;">
+                <div style="width: 7.6%; height: 100%; background: #234E82;"></div>
+              </div>
+              <p style="font-size: 0.78rem; color: var(--ink-secondary); margin-top: 6px; line-height: 1.5;">
+                ★ 結帳端架高連帶衝動消費。日本進口人氣零食、美容飲品，有效拉高每筆訂單提袋率。
+              </p>
+            </div>
+
+          </div>
+
         </div>
       </div>
 
-      <div class="content-article-box">
-        <p>
-          根據<strong>中華民國經濟部統計處</strong>最新調查，「藥品、醫療用品及化粧品零售業」全年營業額持續突破 2,160 億元大關，顯現台灣消費者在疫情後對個人儀容保養、身心健康與高品質生活美學的剛性需求未曾減退。其中，<strong>「個人清潔、化粧保養品」類別穩占近五成（約 47.7%）</strong>的絕對主流地位。
-        </p>
-        <p>
-          然而，實體零售業績成長的背後，本質上是由<strong>「全通路虛實融合（Online-Merge-Offline, OMO）」</strong>所推動。超過 <strong>66%</strong> 的消費者已養成跨通路消費習慣——線上查成分與評價、線下門市試妝聞香，隨後在門市或 APP 隨時結帳。實體門市已成為品牌建立高價值顧客關係、提升客單價的最關鍵戰略支點。
-        </p>
+      <!-- VISUALIZATION 2: OMO Multiplier Comparison Bars -->
+      <div style="background: #FFFFFF; border: 2px solid var(--mk-navy); border-radius: var(--radius-sm); box-shadow: 4px 4px 0 var(--mk-navy); padding: 28px; margin-bottom: 36px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; border-bottom: 1.5px dashed var(--mk-navy); padding-bottom: 10px;">
+          <h4 style="font-family: var(--font-serif-tc); font-size: 1.15rem; font-weight: 900; color: var(--mk-navy);">
+            ✦ OMO 虛實融合消費價值倍數分析（91APP 跨品牌大數據實證）
+          </h4>
+          <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--mk-red); font-weight: 700;">實體門市為高客單核心支點</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+          
+          <!-- Bar 1: Frequency -->
+          <div style="background: var(--paper-subtle); padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--hairline);">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+              <span style="font-size: 0.85rem; font-weight: 700; color: var(--mk-navy);">全年購買頻次倍數</span>
+              <span style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 900; color: var(--mk-red);">4.9 倍</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 0.7rem; width: 60px; color: var(--ink-muted); font-family: var(--font-mono);">OMO客群</span>
+                <div style="flex: 1; height: 12px; background: #e0ded6; border-radius: 2px; overflow: hidden; border: 1px solid var(--mk-navy);">
+                  <div style="width: 100%; height: 100%; background: var(--mk-yellow);"></div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 0.7rem; width: 60px; color: var(--ink-muted); font-family: var(--font-mono);">純電商</span>
+                <div style="flex: 1; height: 12px; background: #e0ded6; border-radius: 2px; overflow: hidden; border: 1px solid #ccc;">
+                  <div style="width: 20.4%; height: 100%; background: #999;"></div>
+                </div>
+              </div>
+            </div>
+            <span style="font-size: 0.74rem; color: var(--ink-secondary); display: block; margin-top: 6px;">實體門市體驗刺激回購頻率大幅躍升</span>
+          </div>
+
+          <!-- Bar 2: Spend -->
+          <div style="background: var(--paper-subtle); padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--hairline);">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+              <span style="font-size: 0.85rem; font-weight: 700; color: var(--mk-navy);">年消費總金額倍數</span>
+              <span style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 900; color: var(--mk-navy);">3.4 倍</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 0.7rem; width: 60px; color: var(--ink-muted); font-family: var(--font-mono);">OMO客群</span>
+                <div style="flex: 1; height: 12px; background: #e0ded6; border-radius: 2px; overflow: hidden; border: 1px solid var(--mk-navy);">
+                  <div style="width: 100%; height: 100%; background: var(--mk-navy);"></div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 0.7rem; width: 60px; color: var(--ink-muted); font-family: var(--font-mono);">純電商</span>
+                <div style="flex: 1; height: 12px; background: #e0ded6; border-radius: 2px; overflow: hidden; border: 1px solid #ccc;">
+                  <div style="width: 29.4%; height: 100%; background: #999;"></div>
+                </div>
+              </div>
+            </div>
+            <span style="font-size: 0.74rem; color: var(--ink-secondary); display: block; margin-top: 6px;">跨通路串接讓單客年終身價值極大化</span>
+          </div>
+
+          <!-- Bar 3: Store visits -->
+          <div style="background: var(--paper-subtle); padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--hairline);">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+              <span style="font-size: 0.85rem; font-weight: 700; color: var(--mk-navy);">門市造訪 vs 官網</span>
+              <span style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 900; color: var(--mk-red);">2.0 倍</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 0.7rem; width: 60px; color: var(--ink-muted); font-family: var(--font-mono);">實體店</span>
+                <div style="flex: 1; height: 12px; background: #e0ded6; border-radius: 2px; overflow: hidden; border: 1px solid var(--mk-navy);">
+                  <div style="width: 100%; height: 100%; background: var(--mk-red);"></div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 0.7rem; width: 60px; color: var(--ink-muted); font-family: var(--font-mono);">官網APP</span>
+                <div style="flex: 1; height: 12px; background: #e0ded6; border-radius: 2px; overflow: hidden; border: 1px solid #ccc;">
+                  <div style="width: 50%; height: 100%; background: #999;"></div>
+                </div>
+              </div>
+            </div>
+            <span style="font-size: 0.74rem; color: var(--ink-secondary); display: block; margin-top: 6px;">麥肯錫驗證美妝消費者高度偏好線下逛店</span>
+          </div>
+
+        </div>
       </div>
     </section>
 
     <!-- =======================================================================
-         SECTION 2: STRENGTHS
+         SECTION 2: STRENGTHS (VISUAL COMPETENCY MATRIX)
          ======================================================================= -->
     <section id="strengths">
       <div class="section-editorial-header">
         <div class="sec-title-wrap">
           <span class="sec-number">02</span>
-          <h2 class="sec-title-main">美妝實體通路未來四大核心優勢</h2>
+          <h2 class="sec-title-main">美妝實體通路未來四大核心優勢視覺化圖表</h2>
         </div>
-        <span class="sec-en-badge">CORE STRENGTHS</span>
+        <span class="sec-en-badge">CORE STRENGTHS VISUAL MATRIX</span>
       </div>
 
-      <div class="cards-2col-grid">
+      <!-- Strengths Visual Score Matrix -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 20px; margin-bottom: 28px;">
+        
         <!-- Strength 1 -->
-        <div class="feature-card">
+        <div style="background: #FFFFFF; border: 2px solid var(--mk-navy); border-radius: var(--radius-sm); padding: 24px; box-shadow: 4px 4px 0 var(--mk-navy); display: flex; flex-direction: column; justify-content: space-between;">
           <div>
-            <span class="card-top-tag tag-strength">STRENGTH 01 ✦ SENSORY EXPERIENCE</span>
-            <h3 class="feature-card-title">無可取代的「五感沉浸」與即時滿足感</h3>
-            <p class="feature-card-text">
-              美妝具備強烈個體差異性（膚色調性冷暖、顯色效果、質地清爽/厚重、香調前中後調轉變）。實體門市提供「觸摸試用、親自聞香、上臉實測」的五感體驗，能徹底消除網購色差與致敏退換貨困擾，並享受結帳當下立即帶回家的即時愉悅。
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; background: #E8F5E9; color: #2E7D32; padding: 2px 8px; border: 1px solid #A5D6A7; border-radius: 2px;">
+                STRENGTH 01 ✦ 體驗壁壘
+              </span>
+              <span style="color: #FFB300; font-size: 0.88rem; font-weight: 900;">★★★★★</span>
+            </div>
+            <h3 style="font-family: var(--font-serif-tc); font-size: 1.25rem; font-weight: 900; color: var(--mk-navy); margin-bottom: 10px;">
+              五感沉浸與即時滿足感
+            </h3>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+              <span style="font-size: 0.8rem; font-weight: 700; color: var(--ink-secondary);">不可替代性評分</span>
+              <span style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 900; color: var(--mk-red);">94 <span style="font-size: 0.8rem; color: var(--ink-muted);">/ 100</span></span>
+            </div>
+            <div style="height: 12px; width: 100%; background: #F0EDE6; border-radius: 3px; border: 1.5px solid var(--mk-navy); overflow: hidden; margin-bottom: 12px;">
+              <div style="width: 94%; height: 100%; background: linear-gradient(90deg, var(--mk-yellow), #FFE033);"></div>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--ink-secondary); line-height: 1.7; margin-bottom: 12px;">
+              美妝強烈依賴親自試色、聞香、質地試抹。實體現場即刻消除網購色差與致敏退貨困擾，並享受當下買到即刻帶走的愉悅滿足。
             </p>
           </div>
-          <div class="feature-card-data">
-            <strong>實證佐證：</strong>凱度（Kantar）指出香氛與底妝等品類，超過 70% 首次購買決策依賴實體試用。
+          <div style="background: var(--paper-subtle); padding: 8px 12px; border-radius: 2px; border-left: 3px solid var(--mk-yellow); font-size: 0.78rem; color: var(--mk-navy); font-weight: 600;">
+            實證數據：凱度指出底妝與香氛品類，超過 72% 首次購買決策必須依賴實體試用。
           </div>
         </div>
 
         <!-- Strength 2 -->
-        <div class="feature-card">
+        <div style="background: #FFFFFF; border: 2px solid var(--mk-navy); border-radius: var(--radius-sm); padding: 24px; box-shadow: 4px 4px 0 var(--mk-navy); display: flex; flex-direction: column; justify-content: space-between;">
           <div>
-            <span class="card-top-tag tag-strength">STRENGTH 02 ✦ HUMAN TRUST</span>
-            <h3 class="feature-card-title">專業諮詢、人際溫度與情緒信任錨點</h3>
-            <p class="feature-card-text">
-              在網路資訊超載、真假評價難辨的時代，消費者常陷入嚴重的「選擇焦慮」。門市專業藥師、美容顧問（BA）透過面對面的傾聽與客製化診斷，提供精準解決方案，建立超越冷冰冰演算法的情感黏著度。
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; background: #E8F5E9; color: #2E7D32; padding: 2px 8px; border: 1px solid #A5D6A7; border-radius: 2px;">
+                STRENGTH 02 ✦ 人際信任
+              </span>
+              <span style="color: #FFB300; font-size: 0.88rem; font-weight: 900;">★★★★★</span>
+            </div>
+            <h3 style="font-family: var(--font-serif-tc); font-size: 1.25rem; font-weight: 900; color: var(--mk-navy); margin-bottom: 10px;">
+              專業諮詢與情緒信任錨點
+            </h3>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+              <span style="font-size: 0.8rem; font-weight: 700; color: var(--ink-secondary);">不可替代性評分</span>
+              <span style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 900; color: var(--mk-navy);">88 <span style="font-size: 0.8rem; color: var(--ink-muted);">/ 100</span></span>
+            </div>
+            <div style="height: 12px; width: 100%; background: #F0EDE6; border-radius: 3px; border: 1.5px solid var(--mk-navy); overflow: hidden; margin-bottom: 12px;">
+              <div style="width: 88%; height: 100%; background: linear-gradient(90deg, #16375F, var(--mk-navy));"></div>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--ink-secondary); line-height: 1.7; margin-bottom: 12px;">
+              在網路資訊過載、業配評價難辨時代，門市店長與專業同仁面對面傾聽客製化診斷，能徹底化解顧客選擇焦慮，建立演算法無法複製的人情溫度。
             </p>
           </div>
-          <div class="feature-card-data">
-            <strong>實證佐證：</strong>日系藥妝配備專業諮詢之門市，高毛利醫美與保養品類客單價平均高出一般門市 18%。
+          <div style="background: var(--paper-subtle); padding: 8px 12px; border-radius: 2px; border-left: 3px solid var(--mk-navy); font-size: 0.78rem; color: var(--mk-navy); font-weight: 600;">
+            實證數據：配備專業諮詢之日系門市，醫美保養與高毛利品類客單價高出一般門市 18%。
           </div>
         </div>
 
         <!-- Strength 3 -->
-        <div class="feature-card">
+        <div style="background: #FFFFFF; border: 2px solid var(--mk-navy); border-radius: var(--radius-sm); padding: 24px; box-shadow: 4px 4px 0 var(--mk-navy); display: flex; flex-direction: column; justify-content: space-between;">
           <div>
-            <span class="card-top-tag tag-strength">STRENGTH 03 ✦ DISCOVERY</span>
-            <h3 class="feature-card-title">「探索型購物（Discovery Shopping）」與高連帶消費</h3>
-            <p class="feature-card-text">
-              相較於電商消費者「目的性精準搜尋（買完即走）」，實體門市藉由沉浸式陳列動線、端架促銷與感官刺激，極易觸發顧客「邊逛邊發現新驚喜」的衝動消費，大幅提升交叉銷售（Cross-selling）效益。
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; background: #E8F5E9; color: #2E7D32; padding: 2px 8px; border: 1px solid #A5D6A7; border-radius: 2px;">
+                STRENGTH 03 ✦ 探索消費
+              </span>
+              <span style="color: #FFB300; font-size: 0.88rem; font-weight: 900;">★★★★☆</span>
+            </div>
+            <h3 style="font-family: var(--font-serif-tc); font-size: 1.25rem; font-weight: 900; color: var(--mk-navy); margin-bottom: 10px;">
+              探索型購物與高連帶消費
+            </h3>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+              <span style="font-size: 0.8rem; font-weight: 700; color: var(--ink-secondary);">不可替代性評分</span>
+              <span style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 900; color: var(--mk-red);">82 <span style="font-size: 0.8rem; color: var(--ink-muted);">/ 100</span></span>
+            </div>
+            <div style="height: 12px; width: 100%; background: #F0EDE6; border-radius: 3px; border: 1.5px solid var(--mk-navy); overflow: hidden; margin-bottom: 12px;">
+              <div style="width: 82%; height: 100%; background: linear-gradient(90deg, #E60012, #FF5252);"></div>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--ink-secondary); line-height: 1.7; margin-bottom: 12px;">
+              相較於電商目的性精準搜尋（買完即走），實體門市透過主題動線、日系端架策展，極易激發顧客「邊逛邊發現驚喜」的非計畫性連帶衝動購買。
             </p>
           </div>
-          <div class="feature-card-data">
-            <strong>實證佐證：</strong>Olive Young 與松本清藉由主題化、功效化跨品類陳列，連帶購買商品件數平均提升 30% 以上。
+          <div style="background: var(--paper-subtle); padding: 8px 12px; border-radius: 2px; border-left: 3px solid var(--mk-red); font-size: 0.78rem; color: var(--mk-navy); font-weight: 600;">
+            實證數據：松本清與 Olive Young 跨品類主題策展，連帶購買件數平均增長 30% 以上。
           </div>
         </div>
 
         <!-- Strength 4 -->
-        <div class="feature-card">
+        <div style="background: #FFFFFF; border: 2px solid var(--mk-navy); border-radius: var(--radius-sm); padding: 24px; box-shadow: 4px 4px 0 var(--mk-navy); display: flex; flex-direction: column; justify-content: space-between;">
           <div>
-            <span class="card-top-tag tag-strength">STRENGTH 04 ✦ LOCAL FULFILLMENT</span>
-            <h3 class="feature-card-title">在地化「微型履約網絡」與快商務前置倉</h3>
-            <p class="feature-card-text">
-              實體門市身處高人流商圈與鄰里核心，天然具備前置倉屬性。不僅能提供便捷的「線上訂、門市取（BOPIS）」，更能串接即時外送平台（如 Uber Eats/foodpanda），在 30–60 分鐘內將救急美妝保養送到府。
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; background: #E8F5E9; color: #2E7D32; padding: 2px 8px; border: 1px solid #A5D6A7; border-radius: 2px;">
+                STRENGTH 04 ✦ 履約樞紐
+              </span>
+              <span style="color: #FFB300; font-size: 0.88rem; font-weight: 900;">★★★★☆</span>
+            </div>
+            <h3 style="font-family: var(--font-serif-tc); font-size: 1.25rem; font-weight: 900; color: var(--mk-navy); margin-bottom: 10px;">
+              在地微型履約與快商務前置倉
+            </h3>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+              <span style="font-size: 0.8rem; font-weight: 700; color: var(--ink-secondary);">不可替代性評分</span>
+              <span style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 900; color: #234E82;">76 <span style="font-size: 0.8rem; color: var(--ink-muted);">/ 100</span></span>
+            </div>
+            <div style="height: 12px; width: 100%; background: #F0EDE6; border-radius: 3px; border: 1.5px solid var(--mk-navy); overflow: hidden; margin-bottom: 12px;">
+              <div style="width: 76%; height: 100%; background: linear-gradient(90deg, #234E82, #4A7BB0);"></div>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--ink-secondary); line-height: 1.7; margin-bottom: 12px;">
+              門市位處高人流商圈與鄰里核心，天然具備前置倉優勢。支援「線上訂門市取（BOPIS）」與即時外送快商務，在 30–60 分鐘內搶佔臨時急救保養剛需。
             </p>
           </div>
-          <div class="feature-card-data">
-            <strong>實證佐證：</strong>BOPIS 自取顧客中，有 25% 會在到店取貨時產生額外的門市連帶加價消費。
+          <div style="background: var(--paper-subtle); padding: 8px 12px; border-radius: 2px; border-left: 3px solid #234E82; font-size: 0.78rem; color: var(--mk-navy); font-weight: 600;">
+            實證數據：BOPIS 自取客群中有 25% 會在到店時產生額外連帶加購，轉化率極高。
           </div>
+        </div>
+
+      </div>
+
+      <!-- Strengths vs Pure Ecommerce Visual Comparison Card -->
+      <div style="background: #FFFFFF; border: 2px solid var(--mk-navy); border-radius: var(--radius-sm); box-shadow: 3px 3px 0 var(--mk-navy); padding: 22px 24px;">
+        <h4 style="font-family: var(--font-serif-tc); font-size: 1.1rem; font-weight: 900; color: var(--mk-navy); margin-bottom: 12px;">
+          ✦ 實體體驗護城河 vs 純電商短板 核心指標速覽
+        </h4>
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem;">
+            <thead>
+              <tr style="background: var(--mk-navy); color: #fff; text-align: left;">
+                <th style="padding: 10px 14px; border: 1px solid var(--mk-navy);">評估構面</th>
+                <th style="padding: 10px 14px; border: 1px solid var(--mk-navy); color: var(--mk-yellow);">實體門市體驗壁壘 (Offline Strengths)</th>
+                <th style="padding: 10px 14px; border: 1px solid var(--mk-navy); color: #FFCDD2;">純電商經營短板 (Pure Online Pitfalls)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding: 10px 14px; border: 1px solid var(--hairline); font-weight: 700;">試妝與膚質驗證</td>
+                <td style="padding: 10px 14px; border: 1px solid var(--hairline); background: #FFFDF0; color: #2E7D32; font-weight: 700;">✓ 100% 現場上臉試色、聞香無色差</td>
+                <td style="padding: 10px 14px; border: 1px solid var(--hairline); color: #C62828;">✗ 螢幕色差、退換貨率高達 25–30%</td>
+              </tr>
+              <tr>
+                <td style="padding: 10px 14px; border: 1px solid var(--hairline); font-weight: 700;">專業諮詢與推薦</td>
+                <td style="padding: 10px 14px; border: 1px solid var(--hairline); background: #FFFDF0; color: #2E7D32; font-weight: 700;">✓ 面對面高同理心解答，客單價高出 18%</td>
+                <td style="padding: 10px 14px; border: 1px solid var(--hairline); color: #C62828;">✗ 罐頭機器人回覆，業配評價真假難辨</td>
+              </tr>
+              <tr>
+                <td style="padding: 10px 14px; border: 1px solid var(--hairline); font-weight: 700;">取貨滿足感</td>
+                <td style="padding: 10px 14px; border: 1px solid var(--hairline); background: #FFFDF0; color: #2E7D32; font-weight: 700;">✓ 結帳即刻擁抱商品，享有即時多巴胺</td>
+                <td style="padding: 10px 14px; border: 1px solid var(--hairline); color: #C62828;">✗ 需等待 24–72 小時物流，破損風險</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
@@ -938,52 +1315,232 @@
       <div class="section-editorial-header">
         <div class="sec-title-wrap">
           <span class="sec-number">04</span>
-          <h2 class="sec-title-main">優勢該如何延續發揮？（4 大躍升實戰策略）</h2>
+          <h2 class="sec-title-main">優勢該如何延續發揮？（4 大躍升實戰策略視覺化戰略藍圖）</h2>
         </div>
-        <span class="sec-en-badge">STRENGTHS ROADMAP</span>
+        <span class="sec-en-badge">STRATEGIC ROADMAP VISUAL PIPELINE</span>
       </div>
 
-      <div class="table-container">
+      <!-- VISUAL 1: Growth Flywheel Pipeline -->
+      <div style="background: #FFFFFF; border: 2px solid var(--mk-navy); border-radius: var(--radius-sm); padding: 18px 24px; box-shadow: 4px 4px 0 var(--mk-navy); margin-bottom: 28px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1.5px dashed var(--hairline); padding-bottom: 8px;">
+          <span style="font-family: var(--font-mono); font-size: 0.78rem; font-weight: 800; color: var(--mk-navy); letter-spacing: 0.05em;">
+            ✦ 美妝藥妝實體通路躍升循環飛輪 (PHYSICAL RETAIL GROWTH FLYWHEEL)
+          </span>
+          <span style="font-size: 0.75rem; background: var(--mk-yellow); color: var(--mk-navy); font-weight: 800; padding: 2px 8px; border-radius: 2px; border: 1px solid var(--mk-navy);">
+            全通路價值鏈
+          </span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; align-items: stretch;">
+          <div style="background: var(--paper-subtle); border: 1.5px solid var(--mk-navy); padding: 12px; border-radius: var(--radius-sm); border-top: 4px solid var(--mk-yellow);">
+            <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--mk-red); font-weight: 800;">STAGE 01</div>
+            <div style="font-family: var(--font-serif-tc); font-size: 0.95rem; font-weight: 800; color: var(--mk-navy);">門市體驗聖殿化</div>
+            <div style="font-size: 0.75rem; color: var(--ink-muted); margin-top: 4px;">五感沉浸 ➔ 滯留時間 +65%</div>
+          </div>
+          <div style="background: var(--paper-subtle); border: 1.5px solid var(--mk-navy); padding: 12px; border-radius: var(--radius-sm); border-top: 4px solid var(--mk-navy);">
+            <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--mk-red); font-weight: 800;">STAGE 02</div>
+            <div style="font-family: var(--font-serif-tc); font-size: 0.95rem; font-weight: 800; color: var(--mk-navy);">閉環式全通路 OMO</div>
+            <div style="font-size: 0.75rem; color: var(--ink-muted); margin-top: 4px;">掃碼綁定 ➔ 跨通路消費 3.4X</div>
+          </div>
+          <div style="background: var(--paper-subtle); border: 1.5px solid var(--mk-navy); padding: 12px; border-radius: var(--radius-sm); border-top: 4px solid var(--mk-red);">
+            <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--mk-red); font-weight: 800;">STAGE 03</div>
+            <div style="font-family: var(--font-serif-tc); font-size: 0.95rem; font-weight: 800; color: var(--mk-navy);">微型履約與快商務</div>
+            <div style="font-size: 0.75rem; color: var(--ink-muted); margin-top: 4px;">極速 30min ➔ 滲透半徑 3km</div>
+          </div>
+          <div style="background: var(--paper-subtle); border: 1.5px solid var(--mk-navy); padding: 12px; border-radius: var(--radius-sm); border-top: 4px solid #107C41;">
+            <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--mk-red); font-weight: 800;">STAGE 04</div>
+            <div style="font-family: var(--font-serif-tc); font-size: 0.95rem; font-weight: 800; color: var(--mk-navy);">零售媒體與獨家孵化</div>
+            <div style="font-size: 0.75rem; color: var(--ink-muted); margin-top: 4px;">RMN 廣告 ➔ 獨家商品毛利 45%+</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VISUAL 2: 4 Detailed Strategy Cards with KPI Meters -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 28px;">
+        
+        <!-- Strategy 1 -->
+        <div style="background: #FFFFFF; border: 2px solid var(--mk-navy); border-radius: var(--radius-sm); padding: 26px; box-shadow: 4px 4px 0 var(--mk-navy); display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-family: var(--font-mono); font-size: 0.74rem; font-weight: 800; background: var(--mk-yellow); color: var(--mk-navy); padding: 2px 8px; border: 1.5px solid var(--mk-navy); border-radius: 2px;">
+                STRATEGY 01 ✦ BEAUTY PLAYGROUND
+              </span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--mk-red); font-weight: 900;">體驗聖殿化</span>
+            </div>
+            <h3 style="font-family: var(--font-serif-tc); font-size: 1.3rem; font-weight: 900; color: var(--mk-navy); margin-bottom: 12px;">
+              1. 門市體驗聖殿化
+            </h3>
+            <div style="background: #FAF9F5; border-left: 3px solid var(--mk-yellow); padding: 12px 14px; border-radius: 2px; margin-bottom: 16px; font-size: 0.88rem; line-height: 1.7; color: var(--ink-secondary);">
+              <div style="margin-bottom: 6px;">
+                <strong style="color: var(--mk-navy);">• 功效與痛點導向陳列：</strong>打破單一品牌櫃位壁壘，依「毛孔淨化、抗老修護、純淨美妝」主題情境式策展。
+              </div>
+              <div>
+                <strong style="color: var(--mk-navy);">• 科技賦能智慧諮詢：</strong>導入 AI 膚質診斷儀與 AR 虛擬試色，以客觀數據作顧問推薦佐證，增強專業說服力。
+              </div>
+            </div>
+          </div>
+          <div>
+            <div style="border-top: 1px dashed var(--hairline); padding-top: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--mk-navy);">交叉連帶購買率 (Cross-Selling)</span>
+                <span style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 900; color: var(--mk-red);">+35%</span>
+              </div>
+              <div style="height: 10px; width: 100%; background: #EFECE6; border-radius: 2px; border: 1px solid var(--mk-navy); overflow: hidden; margin-bottom: 8px;">
+                <div style="width: 78%; height: 100%; background: linear-gradient(90deg, var(--mk-yellow), #FFD600);"></div>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.76rem; color: var(--ink-muted); font-family: var(--font-mono);">
+                <span>平均滯留時間：&gt; 25 分鐘</span>
+                <span>提袋率達成：88%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Strategy 2 -->
+        <div style="background: #FFFFFF; border: 2px solid var(--mk-navy); border-radius: var(--radius-sm); padding: 26px; box-shadow: 4px 4px 0 var(--mk-navy); display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-family: var(--font-mono); font-size: 0.74rem; font-weight: 800; background: var(--mk-navy); color: var(--mk-yellow); padding: 2px 8px; border: 1.5px solid var(--mk-navy); border-radius: 2px;">
+                STRATEGY 02 ✦ O+O SEAMLESS LOOP
+              </span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--mk-red); font-weight: 900;">虛實閉環</span>
+            </div>
+            <h3 style="font-family: var(--font-serif-tc); font-size: 1.3rem; font-weight: 900; color: var(--mk-navy); margin-bottom: 12px;">
+              2. 閉環式全通路 OMO
+            </h3>
+            <div style="background: #FAF9F5; border-left: 3px solid var(--mk-navy); padding: 12px 14px; border-radius: 2px; margin-bottom: 16px; font-size: 0.88rem; line-height: 1.7; color: var(--ink-secondary);">
+              <div style="margin-bottom: 6px;">
+                <strong style="color: var(--mk-navy);">• 試用品掃碼存檔 (Scan & Save)：</strong>顧客試色滿意但暫不想提貨時，手機掃 QR Code 將色號存入專屬數位清單。
+              </div>
+              <div>
+                <strong style="color: var(--mk-navy);">• 門市同仁推廣分潤碼：</strong>門市引導顧客下載 APP，後續線上回購業績認列線下同仁，徹底消弭虛實利益衝突。
+              </div>
+            </div>
+          </div>
+          <div>
+            <div style="border-top: 1px dashed var(--hairline); padding-top: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--mk-navy);">OMO 高價值顧客佔比</span>
+                <span style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 900; color: var(--mk-navy);">40%+</span>
+              </div>
+              <div style="height: 10px; width: 100%; background: #EFECE6; border-radius: 2px; border: 1px solid var(--mk-navy); overflow: hidden; margin-bottom: 8px;">
+                <div style="width: 85%; height: 100%; background: linear-gradient(90deg, #1B3F73, var(--mk-navy));"></div>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.76rem; color: var(--ink-muted); font-family: var(--font-mono);">
+                <span>年消費金額：純電商 3.4X</span>
+                <span>過路客轉留存：52%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Strategy 3 -->
+        <div style="background: #FFFFFF; border: 2px solid var(--mk-navy); border-radius: var(--radius-sm); padding: 26px; box-shadow: 4px 4px 0 var(--mk-navy); display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-family: var(--font-mono); font-size: 0.74rem; font-weight: 800; background: var(--mk-red); color: #FFFFFF; padding: 2px 8px; border: 1.5px solid var(--mk-red); border-radius: 2px;">
+                STRATEGY 03 ✦ MICRO-FULFILLMENT
+              </span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--mk-red); font-weight: 900;">快商務</span>
+            </div>
+            <h3 style="font-family: var(--font-serif-tc); font-size: 1.3rem; font-weight: 900; color: var(--mk-navy); margin-bottom: 12px;">
+              3. 微型履約與快商務
+            </h3>
+            <div style="background: #FAF9F5; border-left: 3px solid var(--mk-red); padding: 12px 14px; border-radius: 2px; margin-bottom: 16px; font-size: 0.88rem; line-height: 1.7; color: var(--ink-secondary);">
+              <div style="margin-bottom: 6px;">
+                <strong style="color: var(--mk-navy);">• BOPIS 到店自取禮遇：</strong>線上購物門市取貨贈送門市專屬體驗包，門市人員藉機進行二次客製化推薦。
+              </div>
+              <div>
+                <strong style="color: var(--mk-navy);">• 30 分鐘閃電外送：</strong>串接外送平台主打急救美妝、隱形眼鏡藥水與防曬用品，搶占臨時性高毛利突發需求。
+              </div>
+            </div>
+          </div>
+          <div>
+            <div style="border-top: 1px dashed var(--hairline); padding-top: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--mk-navy);">商圈增量外送營業額</span>
+                <span style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 900; color: var(--mk-red);">+15%</span>
+              </div>
+              <div style="height: 10px; width: 100%; background: #EFECE6; border-radius: 2px; border: 1px solid var(--mk-navy); overflow: hidden; margin-bottom: 8px;">
+                <div style="width: 70%; height: 100%; background: linear-gradient(90deg, #FF6F00, var(--mk-red));"></div>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.76rem; color: var(--ink-muted); font-family: var(--font-mono);">
+                <span>覆蓋半徑：3 公里商圈</span>
+                <span>取貨二次連帶率：28%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Strategy 4 -->
+        <div style="background: #FFFFFF; border: 2px solid var(--mk-navy); border-radius: var(--radius-sm); padding: 26px; box-shadow: 4px 4px 0 var(--mk-navy); display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-family: var(--font-mono); font-size: 0.74rem; font-weight: 800; background: #E8F5E9; color: #2E7D32; padding: 2px 8px; border: 1.5px solid #2E7D32; border-radius: 2px;">
+                STRATEGY 04 ✦ RETAIL MEDIA & INCUBATION
+              </span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #2E7D32; font-weight: 900;">獨家孵化</span>
+            </div>
+            <h3 style="font-family: var(--font-serif-tc); font-size: 1.3rem; font-weight: 900; color: var(--mk-navy); margin-bottom: 12px;">
+              4. 零售媒體 (RMN) 與獨家孵化
+            </h3>
+            <div style="background: #FAF9F5; border-left: 3px solid #2E7D32; padding: 12px 14px; border-radius: 2px; margin-bottom: 16px; font-size: 0.88rem; line-height: 1.7; color: var(--ink-secondary);">
+              <div style="margin-bottom: 6px;">
+                <strong style="color: var(--mk-navy);">• 店內數位看板變現：</strong>將店內精華動線電子看板與體驗台包裝為高毛利零售媒體 (RMN) 廣告版位。
+              </div>
+              <div>
+                <strong style="color: var(--mk-navy);">• 新銳日系 Indie 品牌首發：</strong>效仿 Olive Young，門市簽約獨家引入社群熱搜日本小眾美妝與 matsukiyo 限定款。
+              </div>
+            </div>
+          </div>
+          <div>
+            <div style="border-top: 1px dashed var(--hairline); padding-top: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--mk-navy);">獨家護城河商品毛利率</span>
+                <span style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 900; color: #2E7D32;">45%+</span>
+              </div>
+              <div style="height: 10px; width: 100%; background: #EFECE6; border-radius: 2px; border: 1px solid var(--mk-navy); overflow: hidden; margin-bottom: 8px;">
+                <div style="width: 90%; height: 100%; background: linear-gradient(90deg, #4CAF50, #2E7D32);"></div>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.76rem; color: var(--ink-muted); font-family: var(--font-mono);">
+                <span>RMN 廣告營收增長：+28%</span>
+                <span>展廳比價防禦率：92%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Strategic Transformation Impact Synthesis Table -->
+      <div class="table-container" style="margin-bottom: 36px;">
         <table class="editorial-table">
           <thead>
             <tr>
-              <th style="width: 22%;">躍升策略面向</th>
-              <th style="width: 48%;">具體實作機制與創新手法</th>
-              <th style="width: 30%;">預期商業效益</th>
+              <th style="width: 25%;">維度面向</th>
+              <th style="width: 35%;">傳統藥妝門市營運</th>
+              <th style="width: 40%; background: var(--mk-yellow); color: var(--mk-navy);">4 大躍升實戰策略升級後之成效</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>1. 門市體驗聖殿化<br><span style="font-size: 0.8rem; color: var(--mk-yellow); font-family: var(--font-mono);">BEAUTY PLAYGROUND</span></strong></td>
-              <td>
-                • <strong>功效/痛點導向陳列：</strong>打破品牌櫃位壁壘，依「毛孔淨化、抗老修護、純淨美妝（Clean Beauty）」主題情境策展。<br>
-                • <strong>科技賦能諮詢：</strong>導入 AI 膚質診斷鏡與 AR 虛擬試色，儀器客觀測量數據作為美容顧問推薦依據，增強專業說服力。
-              </td>
-              <td>拉長顧客門市平均滯留時間至 25 分鐘以上，提升連帶交叉購買率 35%。</td>
+              <td><strong>陳列思維</strong></td>
+              <td>品牌櫃位壁壘分明、被動式商品上架</td>
+              <td><strong><span style="color: var(--mk-red);">✦</span> 主題情境策展</strong>＋AI 智慧膚質儀器精準推薦</td>
             </tr>
             <tr>
-              <td><strong>2. 閉環式全通路 OMO<br><span style="font-size: 0.8rem; color: var(--mk-yellow); font-family: var(--font-mono);">O+O SEAMLESS LOOP</span></strong></td>
-              <td>
-                • <strong>試用品掃碼存檔（Scan-and-Save）：</strong>顧客試色滿意但暫不想提貨時，掃 QR Code 即將色號存入專屬數位清單。<br>
-                • <strong>門市顧問推廣分潤碼：</strong>門市引導顧客下載 APP，後續線上回購業績認列線下店員，消除虛實利益衝突。
-              </td>
-              <td>將過路客轉為長期數位資產，使 OMO 高價值顧客佔比攀升至 40% 以上。</td>
+              <td><strong>虛實整合 (OMO)</strong></td>
+              <td>顧客離店即失聯、線下線上利益衝突</td>
+              <td><strong><span style="color: var(--mk-red);">✦</span> 全通路閉環</strong>、掃碼存檔與店員分潤激勵制度</td>
             </tr>
             <tr>
-              <td><strong>3. 微型履約與快商務<br><span style="font-size: 0.8rem; color: var(--mk-yellow); font-family: var(--font-mono);">MICRO-FULFILLMENT</span></strong></td>
-              <td>
-                • <strong>BOPIS 取貨禮遇：</strong>線上購物門市自取享有門市專屬試用品包，店員借機做二次引導推薦。<br>
-                • <strong>30 分鐘閃電送：</strong>串接外送平台主打急救美妝、隱形眼鏡藥水與防曬用品，搶占臨時突發需求。
-              </td>
-              <td>擴大門市半徑 3 公里商圈滲透率，創造額外 15% 增量外送營業額。</td>
+              <td><strong>商圈半徑</strong></td>
+              <td>受限於步行 500 公尺過路人流</td>
+              <td><strong><span style="color: var(--mk-red);">✦</span> 擴散至 3 公里</strong>、BOPIS 取貨禮遇與 30min 閃電送</td>
             </tr>
             <tr>
-              <td><strong>4. 零售媒體 (RMN) 與獨家孵化<br><span style="font-size: 0.8rem; color: var(--mk-yellow); font-family: var(--font-mono);">RETAIL MEDIA & INCUBATION</span></strong></td>
-              <td>
-                • <strong>店內數位看板變現：</strong>將店內精華動線的數位電子看板與體驗台包裝為高毛利 RMN 廣告版位。<br>
-                • <strong>新銳 Indie 品牌首發：</strong>效仿 Olive Young，在實體門市簽約獨家引入社群熱搜日系小眾品牌。
-              </td>
-              <td>建立「只有實體才買得到」的獨家護城河，並創造高利潤率的品牌廣告收入。</td>
+              <td><strong>毛利護城河</strong></td>
+              <td>受電商比價砍價、價格戰侵蝕利潤</td>
+              <td><strong><span style="color: var(--mk-red);">✦</span> 獨家 Indie 品牌</strong>＋matsukiyo 自有品牌高毛利防禦</td>
             </tr>
           </tbody>
         </table>
@@ -1099,36 +1656,40 @@
     </section>
 
     <!-- =======================================================================
-         SECTION 7: MATSUKIYO STORE OPERATIONAL PROPOSALS
+         SECTION 7: MATSUKIYO DISTRICT MANAGEMENT & OPERATIONAL STRATEGY
          ======================================================================= -->
     <section id="matsukiyo-action">
       <div class="section-editorial-header">
         <div class="sec-title-wrap">
           <span class="sec-number">07</span>
-          <h2 class="sec-title-main">落實於「松本清中壢大江店」門市營運之具體建議</h2>
+          <h2 class="sec-title-main">落實於「松本清區域營運與門市管理」之具體戰略規劃</h2>
         </div>
-        <span class="sec-en-badge">STORE CANDIDATE PROPOSALS</span>
+        <span class="sec-en-badge">DISTRICT OPERATIONS STRATEGY</span>
       </div>
 
       <div class="content-article-box">
         <h3 style="font-family: var(--font-serif-tc); font-size: 1.3rem; font-weight: 800; color: var(--mk-navy); margin-bottom: 14px;">
-          結合中壢大江購物中心商場特性的「儲備幹部營運實踐規劃」
+          從資深店長躍升至區域營運經理的實踐架構（結合 6 年門市經歷含 3 年店長實戰）
         </h3>
         <p>
-          中壢大江購物中心具備<strong>「平日高密度家庭與上班族客群、假日龐大逛街旅遊休閒人流」</strong>的特色。身為松本清中壢大江店門市儲備幹部應徵者，黃博詩提出以下三項可落地執行方案：
+          身為松本清<strong>「區域營運經理」</strong>應徵者，黃博詩具備完整 6 年日系藥妝前線實務與 3 年店長領導經驗。深刻理解如何將「單店卓越經營」規模化複製為「區域聯防勝利」，提出以下四大維度的區域營運管理落地規劃：
         </p>
         <ul style="padding-left: 20px; line-height: 2; color: var(--ink-secondary); font-size: 0.96rem;">
           <li>
-            <strong>1. 主打「matsukiyo 自有品牌」與「日本獨家限定品」端架策展：</strong><br>
-            利用假日大江購物中心入口主要人流動線，設置「松本清日本必買排行榜特區」，以強大日系正品與獨家性打擊展廳比價現象。
+            <strong>1. 區域機動巡店與營運標準化落實（全方位基礎營運底子）：</strong><br>
+            憑藉店面最基本所有運作（商品陳列、排面整理、補貨驗收、POS收銀、進銷存及客訴處理）均具 6 年深厚實戰經驗，能迅速洞察區域各分店營運盲點，統一落實松本清高標準日系店格與整潔動線。
           </li>
           <li>
-            <strong>2. 善用前職 Tomod's 藥妝經驗與 Levi's 主動提案技巧：</strong><br>
-            主動觀察顧客在防曬、換季保養或底妝貨架前的猶豫神情，適時切入提供試用品體驗與成分說明，將「被動看架」轉化為「高客單成交」。
+            <strong>2. 統整區域門市收益與總公司方針貫徹（精準損益管理）：</strong><br>
+            每月赴總公司開會深入理解公司最新戰略目標與營運方向；每週於區域召開各店店長會議，宣達總部決策並現場討論解決前線營運痛點；嚴格統整各門市 P&L 損益、控管人事工時與報損率，極大化區域毛利率。
           </li>
           <li>
-            <strong>3. 落實松本清官方會員 APP 現場綁定推廣：</strong><br>
-            在收銀與諮詢動線引導顧客綁定松本清 APP，告知線上線下點數互通與門市自取優惠，將大江購物中心的假日過路客轉變為松本清的長期忠誠顧客！
+            <strong>3. 原廠品牌培訓轉化與基層同仁培育（專業人才梯隊建置）：</strong><br>
+            善用品牌總公司指派之原廠產品與品牌研習資源，親自消化轉化為區域門市員工實用教學手冊；強化美容顧問與店員之成分知識與主動關懷技巧，激勵同仁從基層穩健晉升。
+          </li>
+          <li>
+            <strong>4. 「matsukiyo 自有品牌」與商圈差異化端架策展：</strong><br>
+            依各分店商圈特性（如商場型門市之家庭觀光人流、街邊型門市之高頻通勤客群）靈活調度端架資源，重度聚焦「松本清獨家限定品」與自有品牌，打擊線上展廳比價，鞏固實體高毛利護城河。
           </li>
         </ul>
       </div>
@@ -1141,7 +1702,7 @@
       <div class="section-editorial-header">
         <div class="sec-title-wrap">
           <span class="sec-number">08</span>
-          <h2 class="sec-title-main">權威資料來源與查核證明（確保正確性）</h2>
+          <h2 class="sec-title-main">權威資料來源與查核證明</h2>
         </div>
         <span class="sec-en-badge">SOURCES & FACT-CHECKING</span>
       </div>
@@ -1197,16 +1758,16 @@
       <!-- Bottom Action Return -->
       <div style="margin-top: 48px; text-align: center; background: #FFFFFF; border: 2px solid var(--mk-navy); padding: 32px; border-radius: var(--radius-sm); box-shadow: 4px 4px 0 var(--mk-navy);">
         <h3 style="font-family: var(--font-serif-tc); font-size: 1.4rem; font-weight: 900; color: var(--mk-navy); margin-bottom: 10px;">
-          感謝閱讀 ✦ 松本清 門市儲備幹部 應徵專題報告
+          感謝閱讀 ✦ 松本清 區域營運經理 應徵專案報告
         </h3>
         <p style="color: var(--ink-secondary); margin-bottom: 24px; font-size: 0.95rem;">
-          本專題研究展現應徵者黃博詩對日系藥妝零售產業的前瞻洞見與門市管理熱忱。誠摯期待親赴松本清中壢大江店面試交流！
+          本專題研究展現應徵者黃博詩對日系藥妝零售產業的前瞻洞見與 6 年門市營運管理實力（含 3 年店長經歷）。誠摯期待親赴松本清總公司與各門市深入交流！
         </p>
         <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-          <a href="index.html" class="btn-nav-return" style="font-size: 1rem; padding: 12px 24px;">
+          <a href="index.html" class="nav-btn-mk" style="font-size: 0.95rem; padding: 10px 22px;">
             ← 返回履歷專刊首頁 (INDEX)
           </a>
-          <a href="contact.html" class="btn-nav-contact" style="font-size: 1rem; padding: 12px 24px;">
+          <a href="contact.html" class="nav-btn-mk btn-accent" style="font-size: 0.95rem; padding: 10px 22px;">
             聯絡應徵者 (電子信箱) ↗
           </a>
         </div>
@@ -1219,10 +1780,10 @@
   <footer class="mag-footer">
     <div class="container footer-inner">
       <div>
-        <strong style="color: var(--mk-navy);">松本清 門市儲備幹部 應徵特輯</strong> ｜ 黃博詩 (HUANG BO-SHIH) 產業趨勢專題
+        <strong style="color: var(--mk-navy);">松本清 區域營運經理 應徵特輯</strong> ｜ 黃博詩 (HUANG BO-SHIH) 產業趨勢專題
       </div>
       <div>
-        <span>ISSUE 2026-MK-01 ✦ TAOYUAN METRO WALK STORE</span>
+        <span>ISSUE 2026-MK-01 ✦ DISTRICT OPERATIONS SPECIAL EDITION</span>
       </div>
       <div>
         <span>© 2026 BO-SHIH HUANG. ALL RIGHTS RESERVED.</span>
