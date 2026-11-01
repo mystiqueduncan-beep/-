@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>黃博詩 ｜ 個人應徵作品集 ✦ 台灣松本清 區域營運經理</title>
-  <meta name="description" content="黃博詩個人應徵作品集：志願應徵台灣松本清（Matsumoto Kiyoshi）區域營運經理。具備日系藥妝 6 年歷練（含店長管理 3 年）、4 年連鎖體系新人帶訓實務與 2 年連鎖零售銷售經驗。">
+  <title>黃博詩 ｜ 個人應徵作品集 ✦ 應徵目標：台灣松本清 區域營運經理</title>
+  <meta name="description" content="黃博詩個人應徵作品集：志願應徵台灣松本清區域營運經理。日系藥妝 6 年歷練（含店長管理 3 年）、動物醫院任職 4 年（期間兼任新人帶訓工作），目前於萬能科技大學研讀企業管理系。">
 
   <!-- Favicon / Theme -->
-  <meta name="theme-color" content="#FFD600">
+  <meta name="theme-color" content="#0B2240">
 
-  <!-- Google Fonts: 縮減至 2 套主要字型家族，兼顧日系雜誌感與極速載入 -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Noto+Serif+TC:wght@600;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -19,14 +19,14 @@
        DESIGN SYSTEM: 日系雜誌風格 (JAPANESE EDITORIAL STYLE)
        ========================================================================== */
     :root {
-      /* Signature Colors */
-      --mk-yellow: #FFD600;
-      --mk-yellow-light: #FFF9D2;
-      --mk-yellow-warm: #FFF275;
+      /* Signature Palette */
       --mk-navy: #0B2240;
       --mk-navy-dark: #06152B;
       --mk-navy-light: #16375F;
       --mk-navy-soft: #234E82;
+      --mk-yellow: #FFD600;
+      --mk-yellow-light: #FFF9D2;
+      --mk-yellow-warm: #FFE033;
       --mk-red: #C5161D;
       --mk-red-soft: #FFF0F0;
 
@@ -45,11 +45,9 @@
       --font-sans: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --font-mono: 'Space Mono', "SFMono-Regular", Consolas, monospace;
 
-      /* Elevation & Shapes */
+      /* Radius & Shadows */
       --radius-sm: 4px;
       --radius-md: 8px;
-      --radius-lg: 12px;
-      --shadow-editorial: 0 3px 12px rgba(11, 34, 64, 0.06);
       --shadow-card: 3px 3px 0 var(--mk-navy);
       --shadow-card-lg: 5px 5px 0 var(--mk-navy);
     }
@@ -68,20 +66,22 @@
       background-color: var(--paper-bg);
       color: var(--ink-primary);
       font-family: var(--font-sans);
-      line-height: 1.8;
+      font-size: 16px;
+      line-height: 1.75;
+      text-align: left;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
     }
 
-    /* 錨點滾動偏移，避免固定導覽列遮蔽標題 */
+    /* 錨點跳轉位移，避免被固定導覽列遮蔽 */
     section[id] {
       scroll-margin-top: 80px;
     }
 
-    /* Container System */
+    /* Container System (寬度約 1140px，保持舒適留白) */
     .container {
-      max-width: 1060px;
+      max-width: 1140px;
       margin: 0 auto;
       padding: 0 24px;
     }
@@ -93,8 +93,8 @@
       background-color: var(--mk-navy);
       color: #FFFFFF;
       font-family: var(--font-mono);
-      font-size: 0.76rem;
-      letter-spacing: 0.08em;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
       padding: 8px 0;
       border-bottom: 2px solid var(--mk-yellow);
     }
@@ -113,7 +113,7 @@
       font-weight: 800;
       padding: 2px 8px;
       border-radius: 2px;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       margin-right: 6px;
     }
 
@@ -150,7 +150,7 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
       padding-bottom: 14px;
       border-bottom: 2px solid var(--mk-navy);
     }
@@ -164,7 +164,7 @@
       border: 1.5px solid var(--mk-navy);
       padding: 4px 12px;
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 800;
       box-shadow: 2px 2px 0 var(--mk-navy);
       letter-spacing: 0.04em;
@@ -172,14 +172,14 @@
 
     .target-role-badge {
       font-family: var(--font-mono);
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       color: var(--ink-secondary);
       text-align: right;
     }
 
     .target-role-badge strong {
       color: var(--mk-navy);
-      font-weight: 700;
+      font-weight: 800;
     }
 
     /* Hero Grid */
@@ -201,7 +201,7 @@
       font-size: 0.78rem;
       font-weight: 700;
       color: var(--mk-red);
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       display: inline-flex;
       align-items: center;
@@ -246,10 +246,10 @@
 
     .candidate-en-name {
       font-family: var(--font-mono);
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       color: var(--mk-navy-soft);
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
     }
 
     .hero-position-highlight {
@@ -260,10 +260,11 @@
       color: #FFFFFF;
       padding: 6px 14px;
       border-radius: var(--radius-sm);
-      font-size: 0.95rem;
+      font-size: 0.94rem;
       font-weight: 700;
       margin-top: 4px;
       align-self: flex-start;
+      flex-wrap: wrap;
     }
 
     .hero-position-highlight span.sub {
@@ -273,10 +274,11 @@
     }
 
     .hero-professional-intro {
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       color: var(--ink-secondary);
-      line-height: 1.75;
+      line-height: 1.8;
       margin-top: 4px;
+      text-align: left;
     }
 
     .hero-professional-intro strong {
@@ -285,12 +287,42 @@
       padding: 0 2px;
     }
 
+    /* Current Education Banner inside Hero */
+    .hero-edu-pill {
+      background: #FFFDF0;
+      border: 1.5px solid var(--mk-yellow);
+      border-left: 4px solid var(--mk-navy);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+
+    .hero-edu-pill .tag {
+      background: var(--mk-navy);
+      color: var(--mk-yellow);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 2px;
+    }
+
+    .hero-edu-pill .text {
+      font-size: 0.88rem;
+      color: var(--mk-navy);
+      font-weight: 700;
+    }
+
     /* 3 Confirmed Key Highlights */
     .hero-key-pillars {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      margin-top: 10px;
+      margin-top: 8px;
     }
 
     .key-pillar-card {
@@ -319,12 +351,12 @@
     }
 
     .pillar-desc {
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: var(--ink-secondary);
       line-height: 1.55;
     }
 
-    /* Hero Right Card: Photo & Action CTAs */
+    /* Hero Right Card */
     .hero-action-card {
       background: #FFFFFF;
       border: 2px solid var(--mk-navy);
@@ -333,7 +365,7 @@
       box-shadow: var(--shadow-card-lg);
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 16px;
     }
 
     .hero-photo-row {
@@ -364,7 +396,7 @@
     .hero-dossier-mini {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
     }
 
     .dossier-meta-item {
@@ -512,31 +544,24 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
-      color: #0F5132;
-      background: #D1E7DD;
+      color: var(--mk-navy);
+      background: var(--paper-subtle);
       padding: 4px 12px;
       border-radius: 30px;
-      border: 1px solid #BADBCC;
+      border: 1px solid var(--hairline);
       white-space: nowrap;
     }
 
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #198754;
-    }
-
     /* ==========================================================================
-       SECTION EDITORIAL HEADERS
+       SECTION EDITORIAL HEADERS & LAYOUT
        ========================================================================== */
     .section-editorial-header {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
       padding-bottom: 10px;
       border-bottom: 2px solid var(--mk-navy);
       position: relative;
@@ -566,9 +591,9 @@
 
     .sec-title-sub {
       font-family: var(--font-mono);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--ink-muted);
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       font-weight: 700;
     }
@@ -582,15 +607,15 @@
     }
 
     /* ==========================================================================
-       SECTION 1: 核心能力 (CORE COMPETENCIES - 4 DIMENSIONS)
+       CARDS 2x2 GRID (STRICT 2 COLUMNS ON DESKTOP, NO 3+1 ORPHAN)
        ========================================================================== */
-    .competency-grid {
+    .grid-2x2 {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
 
-    .competency-card {
+    .editorial-card {
       background: #FFFFFF;
       border: 1.5px solid var(--mk-navy);
       border-radius: var(--radius-sm);
@@ -598,58 +623,57 @@
       box-shadow: var(--shadow-card);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      justify-content: flex-start;
+      gap: 12px;
     }
 
-    .competency-card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-card-lg);
-    }
-
-    .comp-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      border-bottom: 1px dashed var(--hairline);
-      padding-bottom: 8px;
-    }
-
-    .comp-dim-tag {
+    /* Tag styles */
+    .card-top-tag {
       font-family: var(--font-mono);
       font-size: 0.74rem;
       font-weight: 800;
-      color: var(--mk-red);
-      background: var(--mk-red-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       padding: 2px 8px;
       border-radius: 2px;
+      align-self: flex-start;
+    }
+
+    .tag-navy {
+      background: var(--mk-navy);
+      color: var(--mk-yellow);
+    }
+
+    .tag-yellow {
+      background: var(--mk-yellow);
+      color: var(--mk-navy);
+      border: 1px solid var(--mk-navy);
+    }
+
+    .tag-red {
+      background: var(--mk-red-soft);
+      color: var(--mk-red);
       border: 1px solid var(--mk-red);
     }
 
-    .comp-scope {
-      font-size: 0.78rem;
-      color: var(--ink-muted);
-      font-family: var(--font-mono);
-    }
-
-    .comp-title {
+    .card-heading {
       font-family: var(--font-serif);
       font-size: 1.25rem;
       font-weight: 800;
       color: var(--mk-navy);
-      margin-bottom: 10px;
       line-height: 1.4;
     }
 
-    .comp-desc {
-      font-size: 0.92rem;
+    .card-body-text {
+      font-size: 0.94rem;
       color: var(--ink-secondary);
-      line-height: 1.7;
-      margin-bottom: 14px;
+      line-height: 1.75;
+      text-align: left;
     }
 
-    .comp-tasks {
+    /* Task bullet list */
+    .task-bullet-list {
       list-style: none;
       display: flex;
       flex-direction: column;
@@ -658,244 +682,161 @@
       padding: 12px 14px;
       border-radius: var(--radius-sm);
       border: 1px solid var(--hairline);
+      margin-top: 4px;
     }
 
-    .comp-tasks li {
-      font-size: 0.84rem;
+    .task-bullet-list li {
+      font-size: 0.86rem;
       color: var(--ink-secondary);
-      line-height: 1.5;
+      line-height: 1.55;
       display: flex;
       align-items: baseline;
       gap: 6px;
     }
 
-    .comp-tasks li::before {
+    .task-bullet-list li::before {
       content: "▪";
       color: var(--mk-navy);
       font-weight: bold;
     }
 
     /* ==========================================================================
-       SECTION 2: 實務案例 (PRACTICE CASES - STAR 格式)
+       SECTION: STAR CASES (VERTICAL WIDE LAYOUT, NOT NARROW)
        ========================================================================== */
-    .cases-container {
+    .case-stack {
       display: flex;
       flex-direction: column;
       gap: 24px;
     }
 
-    .star-case-card {
+    .wide-star-case {
       background: #FFFFFF;
       border: 2px solid var(--mk-navy);
       border-radius: var(--radius-sm);
-      padding: 28px;
+      padding: 26px 28px;
       box-shadow: var(--shadow-card);
-      position: relative;
     }
 
-    .case-badge-row {
+    .case-header-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 8px;
       margin-bottom: 12px;
+      border-bottom: 1px dashed var(--hairline);
+      padding-bottom: 8px;
     }
 
-    .case-category-pill {
-      background: var(--mk-navy);
-      color: var(--mk-yellow);
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      font-weight: 800;
-      padding: 3px 10px;
-      border-radius: 2px;
-      letter-spacing: 0.06em;
-    }
-
-    .case-source-tag {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      color: var(--ink-muted);
-      font-weight: 700;
-    }
-
-    .case-title {
-      font-family: var(--font-serif);
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: var(--mk-navy);
-      margin-bottom: 18px;
-      line-height: 1.4;
-    }
-
-    .star-grid {
+    .star-fields-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 14px;
-      margin-bottom: 16px;
+      margin-top: 14px;
     }
 
-    .star-block {
+    .star-field-box {
       background: var(--paper-bg);
       border: 1px solid var(--hairline);
       border-radius: var(--radius-sm);
       padding: 14px 16px;
     }
 
-    .star-block.full-width {
+    .star-field-box.full-width {
       grid-column: 1 / -1;
     }
 
-    .star-label {
+    .star-field-label {
       font-family: var(--font-mono);
-      font-size: 0.74rem;
+      font-size: 0.76rem;
       font-weight: 800;
-      letter-spacing: 0.05em;
       margin-bottom: 4px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      display: block;
     }
 
-    .star-label.lbl-situation { color: #854D0E; }
-    .star-label.lbl-role { color: var(--mk-navy-soft); }
-    .star-label.lbl-action { color: #166534; }
-    .star-label.lbl-result { color: var(--mk-red); }
-    .star-label.lbl-reusable { color: #4338CA; }
-
-    .star-content {
-      font-size: 0.9rem;
-      color: var(--ink-secondary);
-      line-height: 1.65;
-    }
-
-    .star-block-highlight {
-      background: #FFFDF0;
-      border: 1.5px solid var(--mk-yellow);
-      border-left: 4px solid var(--mk-navy);
-    }
+    .lbl-situation { color: #854D0E; }
+    .lbl-role { color: var(--mk-navy-soft); }
+    .lbl-action { color: #166534; }
+    .lbl-result { color: var(--mk-navy); }
+    .lbl-reflection { color: #4338CA; }
 
     /* ==========================================================================
-       SECTION 3: 工作經歷與教育背景 (TIMELINE)
+       SECTION: CAREER TIMELINE & EDUCATION
        ========================================================================== */
-    .timeline-wrapper {
+    .timeline-stack {
       display: flex;
       flex-direction: column;
-      gap: 22px;
+      gap: 20px;
     }
 
-    .career-item-card {
+    .career-entry-card {
       background: #FFFFFF;
       border: 1.5px solid var(--mk-navy);
       border-radius: var(--radius-sm);
       padding: 24px;
       box-shadow: var(--shadow-card);
-      position: relative;
     }
 
-    .career-item-card.featured-career {
+    .career-entry-card.featured-store {
       border: 2px solid var(--mk-navy);
       border-left: 6px solid var(--mk-yellow);
     }
 
-    .career-header {
+    .career-title-bar {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       border-bottom: 1px solid var(--hairline);
-      padding-bottom: 10px;
+      padding-bottom: 8px;
     }
 
-    .career-company-wrap {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .career-company {
+    .company-title {
       font-family: var(--font-serif);
       font-size: 1.3rem;
       font-weight: 800;
       color: var(--mk-navy);
     }
 
-    .career-role-pill {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--mk-navy);
-      background: var(--paper-subtle);
-      padding: 3px 10px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--hairline);
-    }
-
-    .career-tenure {
+    .tenure-text {
       font-family: var(--font-mono);
       font-size: 0.85rem;
       font-weight: 700;
       color: var(--mk-red);
-      white-space: nowrap;
     }
 
-    .career-logo-box {
-      margin: 12px 0 14px 0;
-    }
-
-    .career-logo-wrap {
-      display: inline-block;
-      background: #FFFFFF;
-      border: 1.5px solid var(--mk-navy);
-      border-radius: var(--radius-sm);
-      padding: 6px 14px;
-      box-shadow: 2px 2px 0 var(--mk-navy);
-      max-width: 220px;
-    }
-
-    .career-logo-wrap img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: contain;
-    }
-
-    .career-attribution {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--ink-muted);
-      margin-top: 3px;
-    }
-
-    .career-spotlight {
-      background: var(--mk-yellow-light);
-      border-left: 3px solid var(--mk-navy);
-      padding: 10px 14px;
-      margin-bottom: 14px;
-      font-size: 0.92rem;
+    .career-role-badge {
+      font-size: 0.85rem;
       font-weight: 700;
       color: var(--mk-navy);
+      background: var(--paper-subtle);
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--hairline);
+      display: inline-block;
+      margin-left: 8px;
     }
 
-    .career-duties {
+    .duty-bullet-list {
       list-style: none;
       display: flex;
       flex-direction: column;
       gap: 8px;
+      margin-top: 12px;
     }
 
-    .career-duties li {
+    .duty-bullet-list li {
       font-size: 0.92rem;
       color: var(--ink-secondary);
       line-height: 1.7;
       position: relative;
       padding-left: 20px;
+      text-align: left;
     }
 
-    .career-duties li::before {
+    .duty-bullet-list li::before {
       content: "―";
       position: absolute;
       left: 0;
@@ -903,242 +844,154 @@
       font-weight: bold;
     }
 
-    /* Education Card */
-    .education-card {
-      background: var(--paper-bg);
-      border: 1.5px dashed var(--mk-navy);
+    /* Education Block Dedicated */
+    .edu-dedicated-card {
+      background: #FFFFFF;
+      border: 2px solid var(--mk-navy);
       border-radius: var(--radius-sm);
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
+      padding: 28px;
+      box-shadow: var(--shadow-card);
+      border-left: 6px solid var(--mk-navy);
     }
 
-    .edu-title {
+    .edu-school-name {
       font-family: var(--font-serif);
-      font-size: 1.15rem;
-      font-weight: 800;
+      font-size: 1.5rem;
+      font-weight: 900;
       color: var(--mk-navy);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
-    .edu-status {
+    .edu-status-badge {
       font-family: var(--font-mono);
-      font-size: 0.82rem;
-      color: var(--ink-secondary);
+      font-size: 0.8rem;
+      font-weight: 800;
+      background: var(--mk-yellow);
+      color: var(--mk-navy);
+      border: 1px solid var(--mk-navy);
+      padding: 3px 10px;
+      border-radius: 2px;
+    }
+
+    .edu-dates {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--mk-red);
+      margin: 8px 0 12px 0;
     }
 
     /* ==========================================================================
-       SECTION 4: 通路研究與作品 (RESEARCH HIGHLIGHTS)
+       SECTION: POST-HIRE WORK PROPOSAL (3 STAGES)
        ========================================================================== */
-    .research-banner-card {
-      background: linear-gradient(135deg, var(--mk-navy) 0%, #16375F 100%);
-      color: #FFFFFF;
-      border: 2px solid var(--mk-yellow);
-      border-radius: var(--radius-sm);
-      padding: 32px;
-      box-shadow: var(--shadow-card-lg);
-    }
-
-    .research-top-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 12px;
-      border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
-      padding-bottom: 8px;
-    }
-
-    .research-title {
-      font-family: var(--font-serif);
-      font-size: 1.45rem;
-      font-weight: 900;
-      color: #FFFFFF;
-      margin-bottom: 12px;
-      line-height: 1.4;
-    }
-
-    .research-summary-lead {
-      font-size: 0.96rem;
-      color: #E5E1D8;
-      line-height: 1.8;
-      margin-bottom: 20px;
-      max-width: 880px;
-    }
-
-    .research-stats-grid {
+    .proposal-stages-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-bottom: 24px;
-    }
-
-    .research-stat-box {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 214, 0, 0.4);
-      border-radius: var(--radius-sm);
-      padding: 14px;
-    }
-
-    .stat-num {
-      font-family: var(--font-mono);
-      font-size: 1.6rem;
-      font-weight: 900;
-      color: var(--mk-yellow);
-      line-height: 1;
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .stat-label {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: #FFFFFF;
-      display: block;
-      margin-bottom: 2px;
-    }
-
-    .stat-source {
-      font-size: 0.72rem;
-      color: rgba(255, 255, 255, 0.65);
-      font-family: var(--font-mono);
-    }
-
-    .research-action-row {
-      display: flex;
-      align-items: center;
       gap: 16px;
-      flex-wrap: wrap;
+      margin-top: 14px;
     }
 
-    /* ==========================================================================
-       SECTION 5: 個人特質與出勤配合度 (ATTRIBUTES & AVAILABILITY)
-       ========================================================================== */
-    .specs-spread-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    .specs-card {
-      background: #FFFFFF;
+    .stage-card {
+      background: var(--paper-bg);
       border: 1.5px solid var(--mk-navy);
       border-radius: var(--radius-sm);
-      padding: 24px;
-      box-shadow: var(--shadow-card);
-    }
-
-    .specs-card-title {
-      font-family: var(--font-serif);
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--mk-navy);
-      margin-bottom: 14px;
-      border-bottom: 1px dashed var(--hairline);
-      padding-bottom: 8px;
-    }
-
-    .pills-catalog {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .spec-pill {
-      background: var(--paper-bg);
-      border: 1px solid var(--hairline);
-      color: var(--ink-primary);
-      font-size: 0.86rem;
-      font-weight: 600;
-      padding: 6px 12px;
-      border-radius: var(--radius-sm);
-    }
-
-    .spec-pill.star {
-      background: var(--mk-yellow-light);
-      border-color: var(--mk-yellow);
-      color: var(--mk-navy);
-      font-weight: 700;
-    }
-
-    .language-table {
+      padding: 18px;
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
 
-    .lang-item {
-      padding: 10px 14px;
-      background: var(--paper-bg);
-      border-radius: var(--radius-sm);
-      border-left: 3px solid var(--mk-navy);
-    }
-
-    .lang-header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 4px;
-    }
-
-    .lang-name {
+    .stage-badge {
       font-family: var(--font-mono);
-      font-size: 0.82rem;
+      font-size: 0.72rem;
+      font-weight: 800;
+      background: var(--mk-navy);
+      color: var(--mk-yellow);
+      padding: 2px 8px;
+      border-radius: 2px;
+      align-self: flex-start;
+    }
+
+    .stage-title {
+      font-family: var(--font-serif);
+      font-size: 1.12rem;
       font-weight: 800;
       color: var(--mk-navy);
+      line-height: 1.35;
     }
 
-    .lang-level {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--mk-red);
-    }
-
-    .lang-desc {
-      font-size: 0.84rem;
+    .stage-content {
+      font-size: 0.88rem;
       color: var(--ink-secondary);
+      line-height: 1.65;
+    }
+
+    .stage-meta-box {
+      margin-top: auto;
+      padding-top: 8px;
+      border-top: 1px dashed var(--hairline);
+      font-size: 0.8rem;
+      color: var(--ink-muted);
       line-height: 1.5;
     }
 
-    /* Availability Callout Banner */
-    .availability-card {
-      background: var(--mk-navy);
-      color: #FFFFFF;
+    /* ==========================================================================
+       SECTION: RESEARCH SUMMARY & REAL DATA CHART
+       ========================================================================== */
+    .research-summary-panel {
+      background: #FFFFFF;
+      border: 2px solid var(--mk-navy);
       border-radius: var(--radius-sm);
       padding: 28px;
-      margin-top: 20px;
-      border-left: 6px solid var(--mk-yellow);
+      box-shadow: var(--shadow-card-lg);
+    }
+
+    .data-bars-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .data-bar-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .data-bar-meta {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--mk-navy);
     }
 
-    .avail-info {
-      max-width: 680px;
+    .data-bar-track {
+      height: 14px;
+      background: var(--paper-bg);
+      border: 1px solid var(--mk-navy);
+      border-radius: 2px;
+      overflow: hidden;
     }
 
-    .avail-heading {
-      font-family: var(--font-serif);
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: #FFFFFF;
-      margin-bottom: 8px;
+    .data-bar-fill {
+      height: 100%;
+      background: var(--mk-yellow);
     }
 
-    .avail-text {
-      font-size: 0.92rem;
-      color: #D1D9E3;
-      line-height: 1.7;
-    }
+    .data-bar-fill.fill-pharma { background: var(--mk-navy); }
+    .data-bar-fill.fill-food { background: var(--mk-red); }
+    .data-bar-fill.fill-home { background: #234E82; }
+    .data-bar-fill.fill-apparel { background: #854D0E; }
 
     /* ==========================================================================
-       SECTION 6: 聯絡與履歷下載 (CONTACT & RESUME)
+       SECTION: CONTACT & RESUME
        ========================================================================== */
-    .contact-action-spread {
+    .contact-action-panel {
       background: #FFFFFF;
       border: 2px solid var(--mk-navy);
       border-radius: var(--radius-sm);
@@ -1146,14 +999,14 @@
       box-shadow: var(--shadow-card-lg);
     }
 
-    .contact-spread-grid {
+    .contact-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
       margin-top: 18px;
     }
 
-    .contact-box {
+    .contact-card-item {
       background: var(--paper-bg);
       border: 1.5px solid var(--mk-navy);
       border-radius: var(--radius-sm);
@@ -1163,34 +1016,11 @@
       gap: 10px;
     }
 
-    .contact-box-label {
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      font-weight: 800;
-      color: var(--ink-muted);
-      letter-spacing: 0.08em;
-    }
-
-    .contact-huge-val {
-      font-family: var(--font-mono);
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--mk-navy);
-    }
-
-    .contact-btn-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    /* ==========================================================================
-       EDITORIAL FOOTER
-       ========================================================================== */
+    /* Footer */
     footer.mag-footer {
       background: #FFFFFF;
       border-top: 2px solid var(--mk-navy);
-      padding: 30px 0;
+      padding: 28px 0;
       font-family: var(--font-mono);
       font-size: 0.8rem;
       color: var(--ink-muted);
@@ -1201,34 +1031,19 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    .footer-brand {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--mk-navy);
-      font-weight: 700;
+      gap: 12px;
     }
 
     /* ==========================================================================
-       RESPONSIVE ADAPTATIONS (360px, 390px, 768px, 1024px)
+       RESPONSIVE RULES (360px, 390px, 768px, 1024px)
        ========================================================================== */
     @media (max-width: 960px) {
-      .mag-hero-grid {
-        grid-template-columns: 1fr;
-      }
-      .competency-grid,
-      .specs-spread-grid,
-      .contact-spread-grid,
+      .mag-hero-grid,
+      .grid-2x2,
+      .star-fields-grid,
+      .proposal-stages-grid,
+      .contact-grid,
       .hero-key-pillars {
-        grid-template-columns: 1fr;
-      }
-      .star-grid {
-        grid-template-columns: 1fr;
-      }
-      .research-stats-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -1237,90 +1052,53 @@
       .container {
         padding: 0 16px;
       }
-
-      .ticker-inner {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
+      .candidate-name {
+        font-size: 2.2rem;
       }
-
-      .masthead-meta-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
+      .candidate-en-name {
+        display: block;
+        font-size: 0.95rem;
       }
-
-      .target-role-badge {
-        text-align: left;
-      }
-
       .hero-name-row {
         flex-direction: column;
         align-items: flex-start;
         gap: 4px;
       }
-
-      .candidate-name {
-        font-size: 2.2rem;
-      }
-
-      .candidate-en-name {
-        font-size: 0.95rem;
-        word-break: break-word;
-      }
-
-      .hero-position-highlight {
-        font-size: 0.88rem;
-        padding: 6px 10px;
-        line-height: 1.4;
-      }
-
-      .hero-position-highlight span.sub {
-        display: block;
-        margin-top: 2px;
-      }
-
-      .career-header {
+      .ticker-inner {
         flex-direction: column;
         align-items: flex-start;
         gap: 6px;
       }
-
-      .mag-subnav-strip {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+      .masthead-meta-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
       }
-
+      .target-role-badge {
+        text-align: left;
+      }
       .subnav-items {
-        flex-wrap: nowrap;
         overflow-x: auto;
+        flex-wrap: nowrap;
         justify-content: flex-start;
         padding-bottom: 4px;
       }
-
       .subnav-links {
         flex-wrap: nowrap;
       }
-
       .subnav-status-badge {
         display: none;
       }
-
-      .availability-card {
-        padding: 20px;
+      .wide-star-case {
+        padding: 18px 16px;
       }
-
-      .avail-heading {
-        font-size: 1.2rem;
-      }
-
-      .contact-huge-val {
-        font-size: 1.1rem;
+      .edu-school-name {
+        font-size: 1.3rem;
       }
     }
 
     /* ==========================================================================
-       PRINT STYLES (A4 PRINTER / SAVE AS PDF OPTIMIZATION)
+       PRINT STYLES
        ========================================================================== */
     @media print {
       body {
@@ -1328,91 +1106,49 @@
         color: #000000 !important;
         font-size: 11pt;
       }
-
       .mag-top-ticker,
       .mag-subnav-strip,
       .hero-cta-group,
-      .research-action-row,
-      .contact-btn-row,
-      .mag-btn,
-      .top-switch-link {
+      .top-switch-link,
+      .mag-btn {
         display: none !important;
       }
-
-      header.mag-header {
-        padding: 10px 0;
-        border-bottom: 2px solid #000000;
-      }
-
-      .candidate-name {
-        font-size: 24pt;
-        color: #000000 !important;
-      }
-
-      .candidate-name::after {
-        display: none !important;
-      }
-
-      .competency-card,
-      .star-case-card,
-      .career-item-card,
-      .specs-card,
-      .research-banner-card,
-      .contact-action-spread {
+      .editorial-card,
+      .wide-star-case,
+      .career-entry-card,
+      .edu-dedicated-card,
+      .research-summary-panel,
+      .contact-action-panel {
         box-shadow: none !important;
-        border: 1px solid #333333 !important;
+        border: 1px solid #333 !important;
         page-break-inside: avoid;
-        margin-bottom: 16px;
-      }
-
-      .research-banner-card {
-        background: #FAFAFA !important;
-        color: #000000 !important;
-      }
-
-      .research-title,
-      .stat-num,
-      .stat-label,
-      .research-summary-lead {
-        color: #000000 !important;
-      }
-
-      .availability-card {
-        background: #F5F5F5 !important;
-        color: #000000 !important;
-        border: 1px solid #333333 !important;
-      }
-
-      .avail-heading,
-      .avail-text {
-        color: #000000 !important;
+        margin-bottom: 14px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Editorial Ticker Bar -->
+  <!-- Top Bar -->
   <div class="mag-top-ticker">
     <div class="container ticker-inner">
       <div>
-        <span class="ticker-pill">個人應徵專刊</span>
-        <span>黃博詩 ｜ 應徵台灣松本清 區域營運經理 (桃竹苗 / 大台北門市)</span>
+        <span class="ticker-pill">個人應徵作品集</span>
+        <span>黃博詩 ｜ 志願應徵：台灣松本清 區域營運經理 ｜ 桃竹苗 ＆ 大台北門市</span>
       </div>
       <div style="display: flex; align-items: center; gap: 12px;">
-        <span style="font-family: var(--font-mono); font-weight: 700;">TEL: 0989-591-825</span>
-        <a href="mobile.html" class="top-switch-link" title="前往手機最適化專版">
+        <span style="font-weight: 700;">TEL: 0989-591-825</span>
+        <a href="mobile.html" class="top-switch-link" title="前往手機專版">
           📱 手機專版 ↗
         </a>
       </div>
     </div>
   </div>
 
-  <!-- Header / Magazine Masthead -->
+  <!-- Masthead -->
   <header class="mag-header" id="top">
     <div class="container">
 
-      <!-- Masthead Top Meta Row -->
       <div class="masthead-meta-row">
         <div class="portfolio-badge">
           <span>PORTFOLIO ✦ 個人應徵作品集</span>
@@ -1422,10 +1158,10 @@
         </div>
       </div>
 
-      <!-- Candidate Main Title & Hero Grid -->
+      <!-- Hero Grid -->
       <div class="mag-hero-grid">
         <div class="hero-primary-info">
-          <div class="applicant-label">APPLICANT DOSSIER ✦ 應徵者專訪特輯</div>
+          <div class="applicant-label">APPLICANT PROFILE ✦ 應徵者個人專刊</div>
 
           <div class="hero-name-row">
             <h1 class="candidate-name">黃博詩</h1>
@@ -1433,30 +1169,36 @@
           </div>
 
           <div class="hero-position-highlight">
-            <span>志願應徵：區域營運經理（門市營運督導）</span>
-            <span class="sub">｜ 志願服務區域：桃竹苗 ＆ 大台北門市</span>
+            <span>志願應徵職位：區域營運經理（門市營運督導）</span>
+            <span class="sub">｜ 希望服務區域：桃竹苗 ＆ 大台北門市</span>
           </div>
 
           <p class="hero-professional-intro">
-            深耕<strong>日系藥妝 6 年歷練（含門市店長管理 3 年）</strong>，具備基層晉升至店長的全盤門市運作實務，融會<strong>4 年連鎖體系新人培育講師</strong>與 <strong>2 年連鎖零售主動銷售</strong>經驗。專注於門市標準化營運、人員出勤排班、庫存損益控管與總部政策落地，致力協助松本清打造高人效與日系溫度的標竿區域門市團隊。
+            具備<strong>日系藥妝 6 年歷練（含門市店長管理 3 年）</strong>與門市新人帶訓工作實務，目前於<strong>萬能科技大學研讀企業管理系</strong>。專注於門市現場營運標準、排班調度、商品進銷存與跨門市溝通協作，期盼將單店管理實務轉化為區域營運督導之管理助力。
           </p>
 
-          <!-- 3 Confirmed Key Highlights -->
+          <!-- Currently Enrolled Highlight -->
+          <div class="hero-edu-pill">
+            <span class="tag">目前學歷</span>
+            <span class="text">萬能科技大學 企業管理系 ｜ 研讀中（2026.10 入學 ｜ 預計 2030.06 畢業）</span>
+          </div>
+
+          <!-- 3 Confirmed Pillars -->
           <div class="hero-key-pillars">
             <div class="key-pillar-card">
-              <span class="pillar-num">01 / 藥妝店長實務</span>
-              <div class="pillar-title">日系藥妝 6年（店長3年）</div>
-              <p class="pillar-desc">Tomod's 扎實經歷，掌管排班出勤、庫存盤點、損益統整與每週例會主持。</p>
+              <span class="pillar-num">01 / 日系藥妝歷練</span>
+              <div class="pillar-title">藥妝 6年（店長 3年）</div>
+              <p class="pillar-desc">Tomod's 門市正職至店長，負責排班出勤、庫存盤點、損益統整與每週例會。</p>
             </div>
             <div class="key-pillar-card">
-              <span class="pillar-num">02 / 帶訓傳承能力</span>
-              <div class="pillar-title">培訓講師資歷（連鎖體系）</div>
-              <p class="pillar-desc">任職獸醫院 4 年期間兼任帶訓講師，規劃標準作業流程與新人實務指導考核。</p>
+              <span class="pillar-num">02 / 門市帶訓工作</span>
+              <div class="pillar-title">動物醫院任職 4年</div>
+              <p class="pillar-desc">築心動物醫院服務 4 年，期間兼任新進人員帶訓工作與流程傳承。</p>
             </div>
             <div class="key-pillar-card">
-              <span class="pillar-num">03 / 零售銷售洞察</span>
-              <div class="pillar-title">連鎖服飾銷售（2年）</div>
-              <p class="pillar-desc">Levi's 主動銷售，具備顧客風格引導、高客單連帶推薦與庫房進銷存管理。</p>
+              <span class="pillar-num">03 / 連鎖零售銷售</span>
+              <div class="pillar-title">服飾門市人員 2年</div>
+              <p class="pillar-desc">Levi's 門市主動銷售、顧客風格諮詢、陳列整燙與庫房進銷存管理。</p>
             </div>
           </div>
         </div>
@@ -1471,7 +1213,7 @@
               <div class="dossier-meta-item"><strong>應徵者：</strong>黃博詩</div>
               <div class="dossier-meta-item"><strong>志願職位：</strong>區域營運經理</div>
               <div class="dossier-meta-item"><strong>現居地：</strong>桃園市大園區</div>
-              <div class="dossier-meta-item"><strong>可到職日：</strong>隨時到職</div>
+              <div class="dossier-meta-item"><strong>修業狀態：</strong>萬能科大企管在學</div>
             </div>
           </div>
 
@@ -1480,7 +1222,7 @@
               <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
               查看工作經歷
             </a>
-            <a href="contact.html" class="mag-btn mag-btn-primary">
+            <a href="#contact" class="mag-btn mag-btn-primary">
               <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
               聯絡我 (電話 / 信箱)
             </a>
@@ -1503,17 +1245,18 @@
   <div class="mag-subnav-strip">
     <div class="container subnav-items">
       <ul class="subnav-links">
-        <li><a href="#competencies" class="nav-btn-mk"><span class="num">01/</span> 核心能力</a></li>
-        <li><a href="#cases" class="nav-btn-mk"><span class="num">02/</span> 實務案例</a></li>
-        <li><a href="#career" class="nav-btn-mk"><span class="num">03/</span> 工作經歷</a></li>
-        <li><a href="#research" class="nav-btn-mk"><span class="num">04/</span> 通路研究</a></li>
-        <li><a href="#traits" class="nav-btn-mk"><span class="num">05/</span> 特質與出勤</a></li>
-        <li><a href="#contact" class="nav-btn-mk"><span class="num">06/</span> 聯絡資訊</a></li>
-        <li><a href="trend.html" target="_blank" class="nav-btn-mk btn-accent"><span class="num">07/</span> 完整趨勢專題 ↗</a></li>
+        <li><a href="#motivation" class="nav-btn-mk"><span class="num">01/</span> 應徵動機</a></li>
+        <li><a href="#competencies" class="nav-btn-mk"><span class="num">02/</span> 核心能力</a></li>
+        <li><a href="#cases" class="nav-btn-mk"><span class="num">03/</span> 實務案例</a></li>
+        <li><a href="#career" class="nav-btn-mk"><span class="num">04/</span> 工作經歷</a></li>
+        <li><a href="#education" class="nav-btn-mk"><span class="num">05/</span> 教育背景</a></li>
+        <li><a href="#proposal" class="nav-btn-mk"><span class="num">06/</span> 工作構想</a></li>
+        <li><a href="#research" class="nav-btn-mk"><span class="num">07/</span> 通路研究</a></li>
+        <li><a href="#contact" class="nav-btn-mk"><span class="num">08/</span> 聯絡資訊</a></li>
+        <li><a href="trend.html" target="_blank" class="nav-btn-mk btn-accent"><span class="num">專題/</span> 完整趨勢研究 ↗</a></li>
       </ul>
       <div class="subnav-status-badge">
-        <span class="status-dot"></span>
-        隨時可到職 ｜ 機動巡店出勤
+        <span>在學修業中 ｜ 彈性排班協調</span>
       </div>
     </div>
   </div>
@@ -1522,572 +1265,604 @@
   <main class="mag-main container">
 
     <!-- =======================================================================
-         1. 核心能力 (CORE COMPETENCIES - 4 主要面向)
+         1. 應徵動機 (MOTIVATION)
          ======================================================================= -->
-    <section id="competencies" class="section-block">
+    <section id="motivation" class="section-block">
       <div class="section-editorial-header">
         <div class="sec-title-wrap">
           <span class="sec-number">01</span>
+          <h2 class="sec-title-main">應徵動機</h2>
+          <span class="sec-title-sub">APPLICATION MOTIVATION & OBJECTIVES</span>
+        </div>
+        <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">志向與規劃</span>
+      </div>
+
+      <div class="editorial-card" style="border-left: 6px solid var(--mk-navy);">
+        <h3 class="card-heading">為什麼選擇台灣松本清？為什麼希望從單店管理走向區域營運？</h3>
+        <div class="card-body-text">
+          <p style="margin-bottom: 12px;">
+            <strong>• 為什麼想加入台灣松本清：</strong><br>
+            松本清作為日系藥妝代表性品牌，以鮮明的陳列美學、特色自有品牌（matsukiyo）與多元進口選品深獲市場喜愛。在日系藥妝體系歷練 6 年的過程中，我始終關注松本清在商圈策展與顧客服務上的細緻標準，期盼能將自己的現場營運實務，貢獻於松本清的區域拓展。
+          </p>
+          <p style="margin-bottom: 12px;">
+            <strong>• 為什麼希望從單店管理往區域營運發展：</strong><br>
+            在 Tomod's 擔任店長 3 年期間，我體會到「單店營運順暢」依賴於嚴謹的排班、庫存與例會執行；但若要讓品牌形象與營運品質一致，則需要有區域高度的溝通與巡檢支持。從單店走向區域營運，是將第一線解決問題的實務經驗，轉化為輔導更多店長、落實總部方針的自然延伸。
+          </p>
+          <p>
+            <strong>• 過去經驗如何支援目標職務：</strong><br>
+            基層至店長的完整歷練，讓我深諳門市人員的日常工作負擔與痛點；而在動物醫院 4 年期間兼任新人帶訓的經驗，則讓我具備耐性指導、流程拆解與跨單位溝通的能力。配合目前在萬能科大企業管理系研讀的管理理論，能以更客觀有條理的架構協助各分店維持穩健營運。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         2. 核心能力 (CORE COMPETENCIES - 2x2 GRID)
+         ======================================================================= -->
+    <section id="competencies" class="section-block">
+      <div id="advantages" style="position: relative; top: -80px; visibility: hidden;"></div>
+      <div class="section-editorial-header">
+        <div class="sec-title-wrap">
+          <span class="sec-number">02</span>
           <h2 class="sec-title-main">核心管理能力</h2>
           <span class="sec-title-sub">CORE OPERATIONAL COMPETENCIES</span>
         </div>
         <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">4 大管理面向</span>
       </div>
 
-      <div class="competency-grid">
-
-        <!-- Dimension 1: 門市全盤營運與損益控管 -->
-        <div class="competency-card">
-          <div>
-            <div class="comp-header">
-              <span class="comp-dim-tag">面向 01</span>
-              <span class="comp-scope">門市全盤營運</span>
-            </div>
-            <h3 class="comp-title">門市標準化營運與損益控管</h3>
-            <p class="comp-desc">
-              深諳日系藥妝第一線運作細節，能自基層視角精準檢核賣場水準，並站在店長高度統整營運成本、營收與人效指標。
-            </p>
-          </div>
-          <ul class="comp-tasks">
-            <li><strong>排班調度：</strong>掌握時段客流規律，彈性配置門市早晚班人力以因應促銷高峰。</li>
-            <li><strong>進銷存控管：</strong>定期盤點庫存、管理缺貨查補與退換貨流程，降低報損成本。</li>
-            <li><strong>陳列美學：</strong>維持日系藥妝端架飽滿度與清晰價格標示，提高進店進店提袋率。</li>
-            <li><strong>損益檢視：</strong>統整門市月營收數據與消耗品支出，協助門市維持健康利潤。</li>
+      <div class="grid-2x2">
+        <!-- Comp 1 -->
+        <div class="editorial-card">
+          <span class="card-top-tag tag-yellow">面向 01 ✦ 門市營運</span>
+          <h3 class="card-heading">門市標準化營運與日常排班</h3>
+          <p class="card-body-text">
+            熟悉日系藥妝第一線門市日常運作，能以基層與店長雙重視角檢視賣場陳列維護、進銷存盤點與日常出勤排班調度。
+          </p>
+          <ul class="task-bullet-list">
+            <li><strong>出勤排班調度：</strong>依據平假日客流節奏調整人力配置，確保關鍵時段服務順暢。</li>
+            <li><strong>商品進銷存管理：</strong>執行定期盤點、缺貨查補與退換貨流程，維護貨架整潔飽滿。</li>
+            <li><strong>營收損益檢視：</strong>定期檢視門市日常營收數據與耗損項目，協助控制門市營運成本。</li>
           </ul>
         </div>
 
-        <!-- Dimension 2: 人員帶訓與梯隊建立 -->
-        <div class="competency-card">
-          <div>
-            <div class="comp-header">
-              <span class="comp-dim-tag">面向 02</span>
-              <span class="comp-scope">培育與梯隊</span>
-            </div>
-            <h3 class="comp-title">人員實務帶訓與培育傳承</h3>
-            <p class="comp-desc">
-              兼具 4 年連鎖體系培訓講師經驗與店長帶店經歷，能將抽象規章轉化為標準步驟，打造具凝聚力與專業度的團隊。
-            </p>
-          </div>
-          <ul class="comp-tasks">
-            <li><strong>SOP 拆解指導：</strong>將結帳、收銀、諮詢及退換貨流程標準化，降低新手摸索期。</li>
-            <li><strong>階段指導考核：</strong>實施階段式帶訓檢核，耐心引導同仁建立服務信心與獨立作業能力。</li>
-            <li><strong>品牌知識賦能：</strong>對接品牌原廠培訓課程，帶領同仁掌握美妝成分特點並轉化為諮詢語言。</li>
-            <li><strong>副店梯隊儲備：</strong>發掘具潛力資深員工，傳授排班與門市管理思維，建立接班梯隊。</li>
+        <!-- Comp 2 -->
+        <div class="editorial-card">
+          <span class="card-top-tag tag-navy">面向 02 ✦ 人員帶訓</span>
+          <h3 class="card-heading">人員實務帶訓與工作指導</h3>
+          <p class="card-body-text">
+            具備門市新人實務帶訓與兼任培訓工作經驗，能將門市工作流程梳理為步驟指引，耐心引導同仁熟練工作技能。
+          </p>
+          <ul class="task-bullet-list">
+            <li><strong>標準作業程序指導：</strong>將收銀、補貨、諮詢與退換貨流程逐步拆解說明。</li>
+            <li><strong>工作進度關懷：</strong>觀察新進同仁作業瓶頸，給予具體回饋，協助建立服務信心。</li>
+            <li><strong>商品特性交流：</strong>對接品牌原廠說明資料，協助同仁理解商品特色與適用品項。</li>
           </ul>
         </div>
 
-        <!-- Dimension 3: 顧客滿意與高情商服務 -->
-        <div class="competency-card">
-          <div>
-            <div class="comp-header">
-              <span class="comp-dim-tag">面向 03</span>
-              <span class="comp-scope">服務與體驗</span>
-            </div>
-            <h3 class="comp-title">顧客滿意體驗與客訴從容應對</h3>
-            <p class="comp-desc">
-              跨足藥妝、連鎖服飾與醫療前線，面對多元顧客始終保持同理心與親切笑容，建立值得信賴的專業形象。
-            </p>
-          </div>
-          <ul class="comp-tasks">
-            <li><strong>主動引導推薦：</strong>善於傾聽顧客膚質或生活需求，提供合適商品提案而非強推推銷。</li>
-            <li><strong>客訴迅速排解：</strong>面對消費爭議或焦慮顧客，第一時間同理傾聽、釐清問題並圓融化解。</li>
-            <li><strong>日系服務禮儀：</strong>落實日式迎賓問候與整潔標準，營造舒適自在的購物氛圍。</li>
-            <li><strong>常客關係維護：</strong>透過親切互動累積熟客信任感，帶動門市回購率與品牌口碑。</li>
+        <!-- Comp 3 -->
+        <div class="editorial-card">
+          <span class="card-top-tag tag-yellow">面向 03 ✦ 服務應對</span>
+          <h3 class="card-heading">顧客需求了解與客訴應對</h3>
+          <p class="card-body-text">
+            跨足藥妝、連鎖服飾與醫療前線服務，面對多元顧客保持同理心與耐性，以客觀態度了解需求並妥善處理客訴。
+          </p>
+          <ul class="task-bullet-list">
+            <li><strong>需求了解與建議：</strong>傾聽顧客膚況偏好與使用需求，提供客觀商品選購輔助說明。</li>
+            <li><strong>客訴傾聽與釐清：</strong>面對現場消費疑問，第一時間同理聆聽、確認原委並依規範協助。</li>
+            <li><strong>服務動線維護：</strong>落實日系店格之整潔標準，營造友善自在的購物環境。</li>
           </ul>
         </div>
 
-        <!-- Dimension 4: 總部政策對接與跨門市協作 -->
-        <div class="competency-card">
-          <div>
-            <div class="comp-header">
-              <span class="comp-dim-tag">面向 04</span>
-              <span class="comp-scope">溝通與落地</span>
-            </div>
-            <h3 class="comp-title">總部策略落地與跨單位雙向協作</h3>
-            <p class="comp-desc">
-              具備高階會議理解力與前線溝通共感，能將總部行銷方針準確轉化為門市行動，並如實向上反饋前線實況。
-            </p>
-          </div>
-          <ul class="comp-tasks">
-            <li><strong>總部方針轉化：</strong>出席總部營運會議後，將檔期促銷方案整理為清晰明確的門市執行清單。</li>
-            <li><strong>門市週會主持：</strong>每週自主主持門市例會，檢討指標、宣達政策並共同討論解決前線難點。</li>
-            <li><strong>跨部門溝通：</strong>流暢協調總部行銷、物流配送與門市現場，確保檔期陳列 100% 同步到位。</li>
-            <li><strong>區域巡檢視野：</strong>具備跨店管理同理心，能協助各店長排除營運盲點，確保區域標準一致。</li>
+        <!-- Comp 4 -->
+        <div class="editorial-card">
+          <span class="card-top-tag tag-navy">面向 04 ✦ 總部政策</span>
+          <h3 class="card-heading">總部方針布達與門市例會協調</h3>
+          <p class="card-body-text">
+            具備總部月會理解力與門市主持例會經驗，能將公司行銷政策轉化為門市執行項目，並雙向反映現場狀況。
+          </p>
+          <ul class="task-bullet-list">
+            <li><strong>總部政策清單化：</strong>出席營運月會後，整理促銷活動與陳列指引為門市檢查重點。</li>
+            <li><strong>門市週會主持：</strong>每週主持門市例會，布達營運重點並討論前線同仁遭遇之作業難點。</li>
+            <li><strong>跨部門溝通協作：</strong>協調物流配送與門市現場陳列進度，確保檔期陳列按時到位。</li>
           </ul>
         </div>
-
       </div>
     </section>
 
     <!-- =======================================================================
-         2. 實務案例 (PRACTICE CASES - STAR 格式)
+         3. 真實工作案例 (PRACTICE CASES - WIDE STAR FORMAT)
          ======================================================================= -->
     <section id="cases" class="section-block">
       <div class="section-editorial-header">
         <div class="sec-title-wrap">
-          <span class="sec-number">02</span>
-          <h2 class="sec-title-main">實務工作案例</h2>
-          <span class="sec-title-sub">PROVEN PRACTICE CASES (STAR)</span>
+          <span class="sec-number">03</span>
+          <h2 class="sec-title-main">工作實務案例</h2>
+          <span class="sec-title-sub">WORK PRACTICE CASES (STAR FORMAT)</span>
         </div>
-        <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">發現問題 ✦ 採取行動 ✦ 確認成果</span>
+        <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">情境 ✦ 角色 ✦ 行動 ✦ 結果</span>
       </div>
 
-      <div class="cases-container">
-
-        <!-- Case 1: 新進人員實務帶訓與 SOP 標準化 -->
-        <article class="star-case-card">
-          <div class="case-badge-row">
-            <span class="case-category-pill">CASE 01 ✦ 人員帶訓與梯隊建立</span>
-            <span class="case-source-tag">連鎖體系培訓講師實績</span>
+      <div class="case-stack">
+        <!-- Case 1 -->
+        <article class="wide-star-case">
+          <div class="case-header-row">
+            <span class="card-top-tag tag-navy">案例 01 ✦ 新人帶訓流程</span>
+            <span style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-muted);">動物醫院兼任新人帶訓經驗</span>
           </div>
-          <h3 class="case-title">新進同仁實務帶訓與服務 SOP 模組化建立</h3>
+          <h3 class="card-heading" style="margin-bottom: 6px;">新進同仁實務帶訓指引與步驟化梳理</h3>
 
-          <div class="star-grid">
-            <div class="star-block">
-              <span class="star-label lbl-situation">【問題／情境】當時遇到什麼困難？</span>
-              <p class="star-content">
-                連鎖前線新進同仁到職初期面臨繁複的預約登記、結帳流程與顧客諮詢應對，容易因緊張或各資深同仁口傳口授標準不一，導致初期作業出錯率偏高、服務品質波動。
+          <div class="star-fields-grid">
+            <div class="star-field-box">
+              <span class="star-field-label lbl-situation">【情境／問題】當時遇到什麼狀況？</span>
+              <p class="card-body-text">
+                前線櫃台新進同仁到職初期需同時面對掛號系統、收費結帳與顧客諮詢，因各資深同仁指導方式略有差異，新人初期容易緊張焦慮，作業步驟常有疏漏。
               </p>
             </div>
 
-            <div class="star-block">
-              <span class="star-label lbl-role">【我的角色】我負責哪些部分？</span>
-              <p class="star-content">
-                受主管拔擢兼任「新人培訓講師」，負責統整櫃台服務流程、規劃帶訓計畫，並主導新進同仁實務操練與考核評估。
+            <div class="star-field-box">
+              <span class="star-field-label lbl-role">【我的角色】我負責哪些部分？</span>
+              <p class="card-body-text">
+                任職期間兼任新人帶訓工作，負責陪伴新進同仁熟悉櫃台各項作業，並給予日常工作反饋。
               </p>
             </div>
 
-            <div class="star-block full-width">
-              <span class="star-label lbl-action">【採取行動】我實際如何處理、帶領或協調？</span>
-              <p class="star-content">
-                將日常作業梳理為清晰的步驟式 SOP 指引；導入「示範 → 模擬演練 → 實作反饋」的三階段培訓模組，給予新人具體的改善建議而非指責；並設計日常檢核表，追蹤每位同仁的掌握進度。
+            <div class="star-field-box full-width">
+              <span class="star-field-label lbl-action">【採取行動】我實際如何處理與指導？</span>
+              <p class="card-body-text">
+                將櫃台作業梳理為清晰的步驟式指引，依照「重點觀摩 → 步驟演練 → 實際操作陪同」的順序循序漸進指導；並鼓勵新人在遇到不確定時主動提問，給予耐心說明。
               </p>
             </div>
 
-            <div class="star-block star-block-highlight">
-              <span class="star-label lbl-result">【結果】有哪些可驗證的變化？</span>
-              <p class="star-content">
-                新進人員均能在預期期限內沉穩獨立上線，作業失誤率顯著下降，新手同仁面對顧客的緊張感大幅消除，帶訓成果獲得主管與跨部門團隊高度肯定。
+            <div class="star-field-box" style="border-left: 3px solid var(--mk-navy);">
+              <span class="star-field-label lbl-result">【結果／觀察】有哪些實質變化？</span>
+              <p class="card-body-text">
+                新進人員面對顧客時的緊張感明顯降低，能依標準步驟沉穩處理掛號與結帳，門市夥伴間的交接默契也更加順暢。
               </p>
             </div>
 
-            <div class="star-block star-block-highlight">
-              <span class="star-label lbl-reusable">【可延伸的方法】哪些做法可供其他門市參考？</span>
-              <p class="star-content">
-                建立「階梯式帶訓檢核表」與「常見情境速查手冊」，可模組化提供各門市店長作為培訓工具，確保區域內各分店的新進人員具備一致的服務水準。
-              </p>
-            </div>
-          </div>
-        </article>
-
-        <!-- Case 2: 門市排班平衡與缺貨補貨流程優化 -->
-        <article class="star-case-card">
-          <div class="case-badge-row">
-            <span class="case-category-pill">CASE 02 ✦ 門市營運與庫存管理</span>
-            <span class="case-source-tag">Tomod's 日系藥妝店長實績</span>
-          </div>
-          <h3 class="case-title">門市客流排班調度與熱銷商品補貨流程優化</h3>
-
-          <div class="star-grid">
-            <div class="star-block">
-              <span class="star-label lbl-situation">【問題／情境】當時遇到什麼困難？</span>
-              <p class="star-content">
-                藥妝門市平日與假日、離峰與尖峰時段的客流量落差顯著，尖峰時收銀台容易排隊壅塞，且熱銷美妝品在客流高峰期經常因補貨不及出現陳列空缺，影響顧客購物體驗與提袋率。
-              </p>
-            </div>
-
-            <div class="star-block">
-              <span class="star-label lbl-role">【我的角色】我負責哪些部分？</span>
-              <p class="star-content">
-                擔任門市店長，全權負責門市人員排班調度、商品陳列維護、進銷存管理與每日賣場巡檢。
-              </p>
-            </div>
-
-            <div class="star-block full-width">
-              <span class="star-label lbl-action">【採取行動】我實際如何處理、帶領或協調？</span>
-              <p class="star-content">
-                分析過往客流數據與檔期活動節奏，重新配置早晚班與尖峰重疊時段人力；建立「尖峰前 1 小時定時巡補陳列」機制，針對熱銷商品設定安全庫存預警，並要求收銀同仁落實機動支援開台標準。
-              </p>
-            </div>
-
-            <div class="star-block star-block-highlight">
-              <span class="star-label lbl-result">【結果】有哪些可驗證的變化？</span>
-              <p class="star-content">
-                尖峰時段顧客結帳等候時間大幅縮短，熱門端架與美妝展示面全天候維持飽滿整齊，有效減少因缺貨導致的客訴與潛在訂單流失，門市整體營運流暢度明顯提升。
-              </p>
-            </div>
-
-            <div class="star-block star-block-highlight">
-              <span class="star-label lbl-reusable">【可延伸的方法】哪些做法可供其他門市參考？</span>
-              <p class="star-content">
-                將「尖峰客流預排班模組」與「熱銷品定時巡補機制」列為巡店督導的重點查核清單，協助各門市店長建立主動補貨意識，提升區域門市的賣場陳列品質。
+            <div class="star-field-box" style="border-left: 3px solid #4338CA;">
+              <span class="star-field-label lbl-reflection">【可延伸的方法】對區域營運督導的參考價值？</span>
+              <p class="card-body-text">
+                以「步驟化指引＋循序漸進陪同」作為帶訓工具，巡店督導時能協助新任店長更具體地培育新同仁，建立一致的門市服務品質。
               </p>
             </div>
           </div>
         </article>
 
-        <!-- Case 3: 總部政策精準布達與前線即時雙向溝通 -->
-        <article class="star-case-card">
-          <div class="case-badge-row">
-            <span class="case-category-pill">CASE 03 ✦ 總部政策與跨單位協作</span>
-            <span class="case-source-tag">Tomod's 日系藥妝店長實績</span>
+        <!-- Case 2 -->
+        <article class="wide-star-case">
+          <div class="case-header-row">
+            <span class="card-top-tag tag-yellow">案例 02 ✦ 門市排班與補貨</span>
+            <span style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-muted);">Tomod's 日系藥妝店長經驗</span>
           </div>
-          <h3 class="case-title">總公司營運方針精準落地與門市雙向溝通機制</h3>
+          <h3 class="card-heading" style="margin-bottom: 6px;">門市尖峰時段排班微調與補貨動線維護</h3>
 
-          <div class="star-grid">
-            <div class="star-block">
-              <span class="star-label lbl-situation">【問題／情境】當時遇到什麼困難？</span>
-              <p class="star-content">
-                總部每月定期推出最新戰略方針、行銷檔期與促銷活動，但前線門市人員常因公告繁雜而抓不到重點，導致陳列或促銷活動執行時產生資訊落差。
+          <div class="star-fields-grid">
+            <div class="star-field-box">
+              <span class="star-field-label lbl-situation">【情境／問題】當時遇到什麼狀況？</span>
+              <p class="card-body-text">
+                藥妝門市平日傍晚與假日客流集中，尖峰時收銀台容易出現排隊人潮，且熱銷保養品若未及時巡補容易出現排面空缺，影響賣場美觀與顧客購物流暢度。
               </p>
             </div>
 
-            <div class="star-block">
-              <span class="star-label lbl-role">【我的角色】我負責哪些部分？</span>
-              <p class="star-content">
-                每個月定期前往總公司出席營運月會掌握第一手方針，每週自主召開門市例會負責決策布達與前線問題協調。
+            <div class="star-field-box">
+              <span class="star-field-label lbl-role">【我的角色】我負責哪些部分？</span>
+              <p class="card-body-text">
+                擔任門市店長，全權負責出勤排班表編制、賣場陳列標準維護與商品庫存巡檢。
               </p>
             </div>
 
-            <div class="star-block full-width">
-              <span class="star-label lbl-action">【採取行動】我實際如何處理、帶領或協調？</span>
-              <p class="star-content">
-                將總部龐雜的會議內容濃縮為「重點行動檢查表」，於每週門市例會逐項布達；例會中改變單向宣達模式，鼓勵同仁反映現場顧客常見問題與陳列困難，並在會中即時協調對策。
+            <div class="star-field-box full-width">
+              <span class="star-field-label lbl-action">【採取行動】我實際如何處理與調整？</span>
+              <p class="card-body-text">
+                檢視不同時段的人流規律，調整早晚班交接重疊時段的人力配置；並與同仁約定於尖峰來客前進行排面查補，由備勤人員適時支援第二收銀台。
               </p>
             </div>
 
-            <div class="star-block star-block-highlight">
-              <span class="star-label lbl-result">【結果】有哪些可驗證的變化？</span>
-              <p class="star-content">
-                促銷活動檔期更換能於首日 100% 準確就緒，店員對促銷方案理解透徹，跨班別溝通落差大幅降低，門市團隊展現高度的執行力與自主解決問題能力。
+            <div class="star-field-box" style="border-left: 3px solid var(--mk-navy);">
+              <span class="star-field-label lbl-result">【結果／觀察】有哪些實質變化？</span>
+              <p class="card-body-text">
+                尖峰時段收銀台等候情況獲得舒緩，熱門貨架陳列維持整齊飽滿，門市同仁在忙碌時段的工作節奏亦更具條理。
               </p>
             </div>
 
-            <div class="star-block star-block-highlight">
-              <span class="star-label lbl-reusable">【可延伸的方法】哪些做法可供其他門市參考？</span>
-              <p class="star-content">
-                區域巡店時建立「雙向回饋訪談機制」，督導在布達總部決策之餘，同步傾聽店長與前線同仁在執行上的具體障礙，協助排除跨部門卡點。
+            <div class="star-field-box" style="border-left: 3px solid #4338CA;">
+              <span class="star-field-label lbl-reflection">【可延伸的方法】對區域營運督導的參考價值？</span>
+              <p class="card-body-text">
+                將「尖峰前預排補貨＋機動開台支援」列為巡店時的觀察指標，協助各門市店長根據商圈特性彈性調整工作節奏。
               </p>
             </div>
           </div>
         </article>
 
+        <!-- Case 3 -->
+        <article class="wide-star-case">
+          <div class="case-header-row">
+            <span class="card-top-tag tag-navy">案例 03 ✦ 總部方針溝通</span>
+            <span style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-muted);">Tomod's 日系藥妝店長經驗</span>
+          </div>
+          <h3 class="card-heading" style="margin-bottom: 6px;">總部行銷檔期指引轉化與門市例會雙向溝通</h3>
+
+          <div class="star-fields-grid">
+            <div class="star-field-box">
+              <span class="star-field-label lbl-situation">【情境／問題】當時遇到什麼狀況？</span>
+              <p class="card-body-text">
+                總部每期促銷活動與陳列指引資訊量較大，門市同仁在繁忙日常中不易第一時間消化所有細節，偶有陳列重點掌握不一致的情況。
+              </p>
+            </div>
+
+            <div class="star-field-box">
+              <span class="star-field-label lbl-role">【我的角色】我負責哪些部分？</span>
+              <p class="card-body-text">
+                代表門市出席總公司營運月會掌握方針，每週自主主持門市週會布達決策並協調前線問題。
+              </p>
+            </div>
+
+            <div class="star-field-box full-width">
+              <span class="star-field-label lbl-action">【採取行動】我實際如何處理與溝通？</span>
+              <p class="card-body-text">
+                將總部會議重點整理為簡明條列的「本週行動事項」，在門市週會逐項宣達；並在會中預留時間讓同仁反映現場顧客常見問題，共同確認執行細節。
+              </p>
+            </div>
+
+            <div class="star-field-box" style="border-left: 3px solid var(--mk-navy);">
+              <span class="star-field-label lbl-result">【結果／觀察】有哪些實質變化？</span>
+              <p class="card-body-text">
+                門市各班別對促銷活動的理解更加一致，陳列更換作業能依時程完成，同仁在向顧客說明活動時亦更有把握。
+              </p>
+            </div>
+
+            <div class="star-field-box" style="border-left: 3px solid #4338CA;">
+              <span class="star-field-label lbl-reflection">【可延伸的方法】對區域營運督導的參考價值？</span>
+              <p class="card-body-text">
+                區域經理扮演總部與門市的轉譯橋樑，建立簡潔明確的執行清單並保持雙向傾聽，能有效促進多店方針同步。
+              </p>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
     <!-- =======================================================================
-         3. 工作經歷與教育背景 (CAREER TIMELINE)
+         4. 工作經歷 (CAREER TIMELINE)
          ======================================================================= -->
     <section id="career" class="section-block">
       <div class="section-editorial-header">
         <div class="sec-title-wrap">
-          <span class="sec-number">03</span>
-          <h2 class="sec-title-main">工作歷程與教育背景</h2>
-          <span class="sec-title-sub">CAREER JOURNEY & EDUCATION</span>
+          <span class="sec-number">04</span>
+          <h2 class="sec-title-main">工作經歷</h2>
+          <span class="sec-title-sub">WORK EXPERIENCE</span>
         </div>
-        <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">時間順序 ✦ 職責與升遷</span>
+        <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">工作經歷與主要職責</span>
       </div>
 
-      <div class="timeline-wrapper">
-
-        <!-- Job 1: Tomod's 日系藥妝 (Core Store Manager Experience) -->
-        <article class="career-item-card featured-career">
-          <div class="career-header">
-            <div class="career-company-wrap">
-              <h3 class="career-company">Tomod's 日系藥妝</h3>
-              <span class="career-role-pill">門市正職 → 門市店長</span>
+      <div class="timeline-stack">
+        <!-- Job 1 -->
+        <article class="career-entry-card featured-store">
+          <div class="career-title-bar">
+            <div>
+              <span class="company-title">Tomod's 日系藥妝</span>
+              <span class="career-role-badge">門市正職 → 門市店長</span>
             </div>
-            <div class="career-tenure">藥妝經歷 6 年（含店長管理 3 年）</div>
+            <div class="tenure-text">藥妝經歷 6 年（含門市店長 3 年）</div>
           </div>
 
-          <div class="career-logo-box">
-            <div class="career-logo-wrap">
-              <img src="tomods-logo.jpg" alt="Tomod's 日系藥妝" width="220" height="48">
+          <div style="margin: 10px 0;">
+            <div style="background: #FFFFFF; border: 1.5px solid var(--mk-navy); border-radius: var(--radius-sm); padding: 6px 12px; display: inline-block; max-width: 200px;">
+              <img src="tomods-logo.jpg" alt="Tomod's 日系藥妝" width="200" height="44" style="width: 100%; height: auto; display: block; object-fit: contain;">
             </div>
-            <div class="career-attribution">出處：TOMOD'S 官方商標</div>
+            <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-muted); margin-top: 2px;">出處：TOMOD'S 官方商標</div>
           </div>
 
-          <div class="career-spotlight">
-            ★ <strong>升遷歷程與核心管理實績：</strong>
-            自基層門市同仁穩健起步，熟稔進貨盤點、收銀與陳列，因表現優異晉升為門市店長（任店長滿 3 年）。全權負責單店全盤營運、人員招募排班、店面收益損益統整，並定期出席總公司高階會議對接方針。
-          </div>
-
-          <ul class="career-duties">
-            <li><strong>店面全盤營運掌控：</strong>從第一線做起，熟稔商品日系陳列、進銷存盤點、POS 結帳及賣場環境整潔標準。</li>
-            <li><strong>人員出勤管理與考核：</strong>負責門市同仁之日常排班、工作指派、帶訓指導與考核評定，維持團隊向心力。</li>
-            <li><strong>門市收益與損益統整：</strong>統整門市日常營收數據、營業目標進度追蹤，並控管各項營運成本與耗損。</li>
-            <li><strong>品牌總部課程研習：</strong>積極參與上架品牌原廠講師之專業產品培訓，掌握成分功效並轉化為團隊客製化諮詢力。</li>
-            <li><strong>總部方針對接與主持例會：</strong>每月赴總公司召開營運會議掌握決策，每週自主主持門市週會，布達方針並排除前線障礙。</li>
+          <ul class="duty-bullet-list">
+            <li><strong>店面全盤營運掌握：</strong>由門市基層正職起步，執行商品日系陳列、缺貨查補、POS 收銀及賣場環境整潔維護。</li>
+            <li><strong>門市人員排班與出勤管理：</strong>負責門市同仁日常出勤排班編制、工作調度與日常帶訓指導。</li>
+            <li><strong>營收與成本項目檢視：</strong>統整門市營收記錄、追蹤營業目標達成進度，並控管日常消耗品等營運成本。</li>
+            <li><strong>品牌商品研習參與：</strong>參與上架品牌原廠講師之商品研習，了解產品特色並與同仁交流顧客諮詢要點。</li>
+            <li><strong>總部月會出席與門市週會主持：</strong>出席總部營運會議掌握最新經營方針，每週自主主持門市例會布達事項並協調排解前線問題。</li>
           </ul>
         </article>
 
-        <!-- Job 2: 築心動物醫院 (Training Lecturer Experience) -->
-        <article class="career-item-card">
-          <div class="career-header">
-            <div class="career-company-wrap">
-              <h3 class="career-company">築心動物醫院</h3>
-              <span class="career-role-pill">櫃台助理兼新人培訓講師</span>
+        <!-- Job 2 -->
+        <article class="career-entry-card">
+          <div class="career-title-bar">
+            <div>
+              <span class="company-title">築心動物醫院</span>
+              <span class="career-role-badge">櫃台助理兼新人帶訓</span>
             </div>
-            <div class="career-tenure">任職時間：4 年（期間兼任帶訓講師）</div>
+            <div class="tenure-text">任職時間：4 年（期間兼任新人帶訓工作）</div>
           </div>
 
-          <div class="career-logo-box">
-            <div class="career-logo-wrap" style="max-width: 170px;">
-              <img src="zhuxin-hospital-logo.jpg" alt="築心動物醫院" width="170" height="42">
+          <div style="margin: 10px 0;">
+            <div style="background: #FFFFFF; border: 1.5px solid var(--mk-navy); border-radius: var(--radius-sm); padding: 6px 10px; display: inline-block; max-width: 160px;">
+              <img src="zhuxin-hospital-logo.jpg" alt="築心動物醫院" width="160" height="40" style="width: 100%; height: auto; display: block; object-fit: contain;">
             </div>
-            <div class="career-attribution">出處：築心動物醫院</div>
+            <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-muted); margin-top: 2px;">出處：築心動物醫院</div>
           </div>
 
-          <div class="career-spotlight" style="background: var(--paper-subtle); border-left-color: var(--mk-navy);">
-            ★ <strong>帶訓傳承實績：</strong>
-            服務期間表現深獲信賴，受主管拔擢兼任「訓練櫃台人員講師」，主導新進人員實務帶訓SOP規劃與階段式考核評估。
-          </div>
-
-          <ul class="career-duties">
-            <li><strong>新人教育培訓：</strong>擔任帶訓講師，指導新進同仁標準服務流程、預約掛號規範與各項應變技能。</li>
-            <li><strong>櫃台專業服務：</strong>負責前線預約安排、收費結帳、專業諮詢與突發狀況應變，維持流暢就診節奏。</li>
-            <li><strong>高情商溝通：</strong>以高度同理心與耐性應對焦慮飼主及特殊需求，人際互動表現深獲院方與顧客肯定。</li>
-            <li><strong>跨部門溝通協作：</strong>在快節奏運作中保持高抗壓性，順暢串接前線櫃台與專業醫療團隊。</li>
+          <ul class="duty-bullet-list">
+            <li><strong>新人帶訓工作：</strong>服務期間兼任新進人員帶訓，指導櫃台預約登記流程、收費規範與常見應變作業。</li>
+            <li><strong>櫃台服務應對：</strong>負責門診預約掛號、收費結帳、專業諮詢指引與就診動線引導。</li>
+            <li><strong>溝通與耐性維護：</strong>以同理心與耐性傾聽飼主需求，妥處緊張與焦慮情緒，維持前線順暢互動。</li>
           </ul>
         </article>
 
-        <!-- Job 3: Levi's 連鎖服飾 (Active Retail Sales Experience) -->
-        <article class="career-item-card">
-          <div class="career-header">
-            <div class="career-company-wrap">
-              <h3 class="career-company">Levi's 連鎖服飾</h3>
-              <span class="career-role-pill">門市人員</span>
+        <!-- Job 3 -->
+        <article class="career-entry-card">
+          <div class="career-title-bar">
+            <div>
+              <span class="company-title">Levi's 連鎖服飾</span>
+              <span class="career-role-badge">門市銷售人員</span>
             </div>
-            <div class="career-tenure">任職時間：2 年</div>
+            <div class="tenure-text">任職時間：2 年</div>
           </div>
 
-          <div class="career-logo-box" style="max-width: 420px;">
-            <div class="career-logo-wrap" style="max-width: 100%;">
-              <img src="levis-campaign.jpg" alt="Levi's 連鎖門市形象" width="420" height="180">
+          <div style="margin: 10px 0; max-width: 360px;">
+            <div style="background: #FFFFFF; border: 1.5px solid var(--mk-navy); border-radius: var(--radius-sm); overflow: hidden;">
+              <img src="levis-campaign.jpg" alt="Levi's 連鎖服飾門市形象" width="360" height="150" style="width: 100%; height: auto; display: block; object-fit: cover;">
             </div>
-            <div class="career-attribution">出處：LEVI'S 官方素材</div>
+            <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-muted); margin-top: 2px;">出處：LEVI'S 官方素材</div>
           </div>
 
-          <div class="career-spotlight" style="background: var(--paper-subtle); border-left-color: var(--mk-navy);">
-            ★ <strong>連鎖主動銷售實務：</strong>
-            第一線主動提案銷售、顧客身型穿搭風格引導、門市陳列整燙與庫房進銷存管理，具備敏銳客群洞察與連帶銷售推薦能力。
-          </div>
-
-          <ul class="career-duties">
-            <li><strong>主動提案銷售：</strong>分析顧客身型與穿著喜好，主動引導試穿，達成個人與門市高標銷售表現。</li>
-            <li><strong>商品整燙與庫存：</strong>執行門市視覺陳列、補貨上架、商品整燙保養與庫房進銷存清點。</li>
-            <li><strong>團隊凝聚與氛圍：</strong>與同仁緊密合作維護賣場動線，營造親切專業的購物體驗。</li>
+          <ul class="duty-bullet-list">
+            <li><strong>門市主動銷售：</strong>主動接待顧客，透過身型分析與穿搭風格引導，達成個人與門市銷售目標。</li>
+            <li><strong>商品整燙與庫房進銷存：</strong>執行門市視覺陳列、補貨上架、商品整燙與庫存清點。</li>
+            <li><strong>團隊協作配合：</strong>與同仁維持良好默契，共同維護賣場動線與舒適購物氛圍。</li>
           </ul>
         </article>
-
-        <!-- Education Background -->
-        <div class="education-card">
-          <div>
-            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--mk-red); font-weight: 800; display: block;">ACADEMIC BACKGROUND</span>
-            <div class="edu-title">教育背景 ｜ 大學學歷</div>
-            <p style="font-size: 0.88rem; color: var(--ink-secondary); margin-top: 4px;">
-              具備完整高等教育背景，在學期間扎根邏輯思維與人際溝通素養。（確切學校與科系詳見完整履歷表）
-            </p>
-          </div>
-          <div class="edu-status">
-            <span style="background: var(--paper-card); border: 1px solid var(--hairline); padding: 4px 10px; border-radius: 4px; font-weight: 700; color: var(--mk-navy);">學歷確認無誤</span>
-          </div>
-        </div>
-
       </div>
     </section>
 
     <!-- =======================================================================
-         4. 通路研究與作品 (RETAIL RESEARCH & SPECIAL REPORT)
+         5. 教育背景 (EDUCATION BACKGROUND - DEDICATED SECTION)
+         ======================================================================= -->
+    <section id="education" class="section-block">
+      <div class="section-editorial-header">
+        <div class="sec-title-wrap">
+          <span class="sec-number">05</span>
+          <h2 class="sec-title-main">教育背景</h2>
+          <span class="sec-title-sub">EDUCATION BACKGROUND</span>
+        </div>
+        <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">在學修業資訊</span>
+      </div>
+
+      <div class="edu-dedicated-card">
+        <div class="edu-school-name">
+          <span>萬能科技大學</span>
+          <span style="font-weight: 700; color: var(--ink-secondary); font-size: 1.25rem;">企業管理系</span>
+          <span class="edu-status-badge">研讀中</span>
+        </div>
+
+        <div class="edu-dates">
+          <span>2026.10 入學 ｜ 預計 2030.06 畢業</span>
+        </div>
+
+        <p class="card-body-text">
+          目前於萬能科技大學企業管理系在學研讀中。透過企管專業課程扎根組織管理、營運規劃、財務報表與行銷策略理論，並與過去 6 年日系藥妝前線門市實務相互印證。<br>
+          <span style="font-size: 0.88rem; color: var(--ink-muted); display: block; margin-top: 6px;">
+            ※ 出勤配合說明：修業期間之排班配合與出勤安排，將配合課業進度並與主管充分溝通，共同規劃穩定出勤方案。
+          </span>
+        </p>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         6. 到任後工作構想 (POST-HIRE WORKING PROPOSAL)
+         ======================================================================= -->
+    <section id="proposal" class="section-block">
+      <div class="section-editorial-header">
+        <div class="sec-title-wrap">
+          <span class="sec-number">06</span>
+          <h2 class="sec-title-main">到任後工作構想</h2>
+          <span class="sec-title-sub">POST-HIRE OPERATIONAL PROPOSAL</span>
+        </div>
+        <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">工作構想，實際依公司制度與主管安排調整</span>
+      </div>
+
+      <div class="editorial-card" style="border-top: 4px solid var(--mk-navy); margin-bottom: 16px;">
+        <p class="card-body-text" style="font-size: 0.9rem;">
+          以下為若有幸加入台灣松本清擔任區域營運經理，初步擬定之三階段工作構想。所有規劃均需立足於公司既有制度與主管工作指派，涉及資訊系統、會員架構、採購簽約或分潤機制等事項，屬總部跨部門權責，將全力配合總部評估與執行。
+        </p>
+      </div>
+
+      <div class="proposal-stages-grid">
+        <!-- Stage 1 -->
+        <div class="stage-card">
+          <span class="stage-badge">第一階段 ✦ 現況了解</span>
+          <h4 class="stage-title">熟悉規範與商圈特性</h4>
+          <p class="stage-content">
+            • 熟悉公司營運手冊、標準作業規範與既有流程。<br>
+            • 走訪所屬責任區域各門市，了解商圈客群與店長配置。<br>
+            • 掌握各分店目前營運指標與日常作業排程。
+          </p>
+          <div class="stage-meta-box">
+            <strong>合作對象：</strong>直屬主管、區域店長<br>
+            <strong>觀察指標：</strong>規範理解度、門市巡查覆蓋
+          </div>
+        </div>
+
+        <!-- Stage 2 -->
+        <div class="stage-card">
+          <span class="stage-badge">第二階段 ✦ 辨識重點</span>
+          <h4 class="stage-title">檢視痛點與共商優先項</h4>
+          <p class="stage-content">
+            • 與店長討論排班調度、商品查補或新進帶訓難點。<br>
+            • 檢視現場顧客常見諮詢與客訴模式。<br>
+            • 與主管商討挑選 1～2 項具改善潛力的常態項目。
+          </p>
+          <div class="stage-meta-box">
+            <strong>合作對象：</strong>直屬主管、門市店長與夥伴<br>
+            <strong>觀察指標：</strong>問題清單聚焦度、可行性共識
+          </div>
+        </div>
+
+        <!-- Stage 3 -->
+        <div class="stage-card">
+          <span class="stage-badge">第三階段 ✦ 試行檢討</span>
+          <h4 class="stage-title">適度試行與記錄反饋</h4>
+          <p class="stage-content">
+            • 在主管核可之適當門市範圍內試行微調做法。<br>
+            • 定期記錄執行成效、同仁反饋與顧客反應。<br>
+            • 檢討執行成果，客觀評估是否值得推廣或持續優化。
+          </p>
+          <div class="stage-meta-box">
+            <strong>合作對象：</strong>試行門市團隊、直屬主管<br>
+            <strong>觀察指標：</strong>同仁執行反饋、流程順暢度記錄
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         7. 通路研究精華 (RETAIL RESEARCH HIGHLIGHTS)
          ======================================================================= -->
     <section id="research" class="section-block">
       <div class="section-editorial-header">
         <div class="sec-title-wrap">
-          <span class="sec-number">04</span>
-          <h2 class="sec-title-main">實體通路趨勢研究精要</h2>
-          <span class="sec-title-sub">RETAIL TREND RESEARCH INSIGHTS</span>
+          <span class="sec-number">07</span>
+          <h2 class="sec-title-main">實體通路趨勢研究摘要</h2>
+          <span class="sec-title-sub">RETAIL RESEARCH & MARKET INSIGHTS</span>
         </div>
-        <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">宏觀視野 ✦ 營運策略</span>
+        <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">數據事實 ✦ 觀察建議</span>
       </div>
 
-      <div class="research-banner-card">
-        <div class="research-top-meta">
-          <span style="font-family: var(--font-mono); font-size: 0.78rem; font-weight: 800; color: var(--mk-yellow); letter-spacing: 0.1em;">
-            SPECIAL RESEARCH REPORT ✦ 專案研究報告
+      <div class="research-summary-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; border-bottom: 1.5px dashed var(--hairline); padding-bottom: 8px;">
+          <span style="font-family: var(--font-mono); font-size: 0.78rem; font-weight: 800; color: var(--mk-navy);">
+            RESEARCH HIGHLIGHT ✦ 官方統計與市場調查數據
           </span>
-          <span style="font-family: var(--font-mono); font-size: 0.74rem; color: rgba(255, 255, 255, 0.7);">
-            資料查核：經濟部統計處 ＆ 凱度 ＆ 麥肯錫 ＆ 91APP
+          <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--ink-muted);">
+            來源：經濟部統計處 ＆ 創市際市場研究顧問
           </span>
         </div>
 
-        <h3 class="research-title">美妝實體通路未來發展：優勢、劣勢與轉型經營策略研究</h3>
-
-        <p class="research-summary-lead">
-          為展現區域營運經理的宏觀產業視野與門市策略思考，特別針對美妝實體通路進行專題分析。研究聚焦於<strong>實體五感體驗的不可替代性</strong>，分析「試色、質地體驗與專業諮詢」如何為實體門市構築護城河，並提出科技化排班、庫存防損與 OMO 虛實融合之具體落地對策。
+        <h3 class="card-heading" style="margin-bottom: 8px;">
+          2024 年藥粧零售業銷售商品結構（經濟部統計處）
+        </h3>
+        <p class="card-body-text" style="font-size: 0.88rem; margin-bottom: 14px;">
+          依經濟部《批發、零售及餐飲業動態統計調查》資料，2024 年（民國 113 年）台灣藥粧零售業銷售商品結構中，「個人清潔、化粧保養」為最大宗銷售來源（列示前五大類，非全部分類）：
         </p>
 
-        <!-- 3 Core Research Stats -->
-        <div class="research-stats-grid">
-          <div class="research-stat-box">
-            <span class="stat-num">47.7%</span>
-            <span class="stat-label">個人清潔、化粧與護膚保養品佔比</span>
-            <span class="stat-source">來源：經濟部統計處藥妝零售業商品分類調查</span>
+        <!-- MOEA 2024 Horizontal Bars (Verified Exact Figures) -->
+        <div class="data-bars-container">
+          <!-- 1 -->
+          <div class="data-bar-row">
+            <div class="data-bar-meta">
+              <span>1. 個人清潔、化粧保養品</span>
+              <span style="font-family: var(--font-mono);">47.7%</span>
+            </div>
+            <div class="data-bar-track">
+              <div class="data-bar-fill" style="width: 47.7%;"></div>
+            </div>
           </div>
-
-          <div class="research-stat-box">
-            <span class="stat-num">3.4 倍</span>
-            <span class="stat-label">OMO 虛實整合客群之年消費總額倍數</span>
-            <span class="stat-source">來源：91APP 跨品牌大數據實證研究</span>
+          <!-- 2 -->
+          <div class="data-bar-row">
+            <div class="data-bar-meta">
+              <span>2. 藥品及醫療用品</span>
+              <span style="font-family: var(--font-mono);">21.4%</span>
+            </div>
+            <div class="data-bar-track">
+              <div class="data-bar-fill fill-pharma" style="width: 21.4%;"></div>
+            </div>
           </div>
-
-          <div class="research-stat-box">
-            <span class="stat-num">43%</span>
-            <span class="stat-label">美妝市場消費者維持實體購買管道佔比</span>
-            <span class="stat-source">來源：創市際 ＆ 凱度消費者指數</span>
+          <!-- 3 -->
+          <div class="data-bar-row">
+            <div class="data-bar-meta">
+              <span>3. 食品</span>
+              <span style="font-family: var(--font-mono);">13.7%</span>
+            </div>
+            <div class="data-bar-track">
+              <div class="data-bar-fill fill-food" style="width: 13.7%;"></div>
+            </div>
+          </div>
+          <!-- 4 -->
+          <div class="data-bar-row">
+            <div class="data-bar-meta">
+              <span>4. 家庭器具及用品</span>
+              <span style="font-family: var(--font-mono);">7.3%</span>
+            </div>
+            <div class="data-bar-track">
+              <div class="data-bar-fill fill-home" style="width: 7.3%;"></div>
+            </div>
+          </div>
+          <!-- 5 -->
+          <div class="data-bar-row">
+            <div class="data-bar-meta">
+              <span>5. 衣著鞋襪、配件及個人用品</span>
+              <span style="font-family: var(--font-mono);">7.0%</span>
+            </div>
+            <div class="data-bar-track">
+              <div class="data-bar-fill fill-apparel" style="width: 7.0%;"></div>
+            </div>
           </div>
         </div>
 
-        <p style="font-size: 0.9rem; color: #E5E1D8; line-height: 1.7; margin-bottom: 22px;">
-          <strong>區域營運實務價值：</strong>數據證實彩妝保養品極度依賴實體現場體驗，區域營運經理應致力於督導各門市優化「試妝台清潔與試用品管理」、落實「專業成分諮詢賦能」，將實體門市打造成無法被純電商取代的高黏著度生活場域。
-        </p>
+        <div style="background: var(--paper-bg); border-left: 3px solid var(--mk-navy); padding: 10px 14px; margin: 16px 0; font-size: 0.85rem; color: var(--ink-secondary); line-height: 1.65;">
+          <strong>【消費者購買管道分布】（創市際 2026/04/15 第 289 期調查）：</strong><br>
+          台灣消費者購買美容保養品之常用管道為：藥妝店 45.2%、網路 42.5%、生活雜貨百貨 28.7%、百貨專櫃 24.4%（受訪者複選，各項比例獨立計算非合計 100%）。數據顯示實體藥妝店仍為消費者選購之重要通路。
+        </div>
 
-        <div class="research-action-row">
-          <a href="trend.html" target="_blank" class="mag-btn mag-btn-primary" style="font-size: 0.98rem; padding: 12px 22px;">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-            閱讀完整研究報告（圖表與策略藍圖） ↗
+        <div style="margin-top: 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+          <a href="trend.html" target="_blank" class="mag-btn mag-btn-primary">
+            閱讀完整實體通路趨勢研究報告 ↗
           </a>
-          <span style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--mk-yellow);">
-            新分頁開啟 ✦ 包含 4 大優勢、4 大挑戰與標竿案例分析
+          <span style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-muted);">
+            新分頁開啟 ✦ 包含 4 大優勢、4 大挑戰、案例分析與完整資料來源列表
           </span>
         </div>
       </div>
     </section>
 
     <!-- =======================================================================
-         5. 個人特質與出勤配合度 (ATTRIBUTES & MOBILITY)
-         ======================================================================= -->
-    <section id="traits" class="section-block">
-      <div class="section-editorial-header">
-        <div class="sec-title-wrap">
-          <span class="sec-number">05</span>
-          <h2 class="sec-title-main">個人特質與出勤配合度</h2>
-          <span class="sec-title-sub">PERSONAL TRAITS & MOBILITY</span>
-        </div>
-        <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">工作風格 ✦ 巡店彈性</span>
-      </div>
-
-      <div class="specs-spread-grid">
-
-        <!-- Left: Personal Traits -->
-        <div class="specs-card">
-          <h3 class="specs-card-title">個人工作特質（Personal Strengths）</h3>
-          <div class="pills-catalog">
-            <span class="spec-pill star">★ 高親和力與主動溝通</span>
-            <span class="spec-pill star">★ 笑容親切有同理心</span>
-            <span class="spec-pill star">★ 細心且執行力俐落</span>
-            <span class="spec-pill star">★ 團隊合作與帶訓耐心</span>
-            <span class="spec-pill star">★ 高抗壓性與臨場應變</span>
-            <span class="spec-pill">日系服務禮儀素養</span>
-            <span class="spec-pill">熱愛美妝成分鑽研</span>
-            <span class="spec-pill">跨單位協調溝通</span>
-          </div>
-        </div>
-
-        <!-- Right: Language Skills -->
-        <div class="specs-card">
-          <h3 class="specs-card-title">語言能力（Language Profile）</h3>
-          <div class="language-table">
-            <div class="lang-item">
-              <div class="lang-header">
-                <span class="lang-name">ENGLISH ｜ 英語</span>
-                <span class="lang-level">日常接待會話</span>
-              </div>
-              <p class="lang-desc">可進行外籍旅客基本接待、門市商品指引與收銀結帳說明。</p>
-            </div>
-            <div class="lang-item" style="border-left-color: var(--mk-yellow);">
-              <div class="lang-header">
-                <span class="lang-name">JAPANESE ｜ 日語</span>
-                <span class="lang-level" style="color: var(--mk-navy-soft);">持續自主進修</span>
-              </div>
-              <p class="lang-desc">自學進修中，熟練門市日式接待招呼語、基本商品分類與服務用語。</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Availability Callout Banner -->
-      <div class="availability-card">
-        <div class="avail-info">
-          <span style="font-family: var(--font-mono); font-size: 0.72rem; background: var(--mk-yellow); color: var(--mk-navy); font-weight: 800; padding: 2px 8px; border-radius: 2px;">
-            MOBILITY & SCHEDULING
-          </span>
-          <h3 class="avail-heading" style="margin-top: 8px;">出勤與巡店調度全力配合 ✦ 隨時可到職</h3>
-          <p class="avail-text">
-            黃博詩現居住於<strong>桃園市大園區</strong>，鄰近國道與大眾運輸動線，具備極佳的跨區機動交通彈性。可全心配合桃竹苗與大台北門市早晚巡檢、假日營運尖峰督導、總公司月度營運會議與緊急門市支援排班。
-          </p>
-        </div>
-        <div>
-          <a href="#contact" class="mag-btn mag-btn-primary" style="white-space: nowrap;">
-            查看聯絡方式 ↘
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- =======================================================================
-         6. 聯絡與履歷下載 (CONTACT & RESUME DOWNLOAD)
+         8. 聯絡與履歷下載 (CONTACT & RESUME)
          ======================================================================= -->
     <section id="contact" class="section-block">
       <div class="section-editorial-header">
         <div class="sec-title-wrap">
-          <span class="sec-number">06</span>
-          <h2 class="sec-title-main">聯絡我與履歷下載</h2>
+          <span class="sec-number">08</span>
+          <h2 class="sec-title-main">聯絡資訊與履歷下載</h2>
           <span class="sec-title-sub">CONTACT & RESUME DOWNLOAD</span>
         </div>
-        <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">快速通聯 ✦ 誠摯期待交流</span>
+        <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">快速通聯 ✦ 履歷檔案</span>
       </div>
 
-      <div class="contact-action-spread">
+      <div class="contact-action-panel">
         <div>
-          <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--mk-red); font-weight: 800; letter-spacing: 0.08em;">
-            DIRECT CONTACT ✦ 應徵者直接聯繫
-          </span>
-          <h3 style="font-family: var(--font-serif); font-size: 1.5rem; font-weight: 900; color: var(--mk-navy); margin-top: 4px;">
-            誠摯期待參與松本清面談與深入交流
-          </h3>
-          <p style="font-size: 0.94rem; color: var(--ink-secondary); line-height: 1.7; margin-top: 6px;">
-            感謝主管撥冗閱讀本專刊！若您對黃博詩的日系藥妝營運經驗、新人培訓資歷或實體通路研究有興趣，歡迎隨時透過電話或電子郵件與我聯繫。
+          <span class="card-top-tag tag-navy">DIRECT CONTACT</span>
+          <h3 class="card-heading" style="margin-top: 8px;">誠摯期待參與松本清面試交流</h3>
+          <p class="card-body-text" style="margin-top: 4px;">
+            若您對我的日系藥妝門市經歷、帶訓工作或工作構想有興趣，歡迎隨時透過電話或電子郵件與我聯繫。
           </p>
         </div>
 
-        <div class="contact-spread-grid">
+        <div class="contact-grid">
           <!-- Phone Card -->
-          <div class="contact-box">
-            <span class="contact-box-label">行動電話 (MOBILE PHONE)</span>
-            <div class="contact-huge-val">0989-591-825</div>
-            <div class="contact-btn-row">
-              <a href="tel:0989591825" class="mag-btn mag-btn-secondary" style="font-size: 0.85rem; padding: 8px 14px;">
-                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          <div class="contact-card-item">
+            <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-muted); font-weight: 700;">行動電話 (MOBILE)</span>
+            <div style="font-family: var(--font-mono); font-size: 1.3rem; font-weight: 900; color: var(--mk-navy);">
+              <a href="tel:0989591825" style="color: inherit; text-decoration: none;">0989-591-825</a>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px;">
+              <a href="tel:0989591825" class="mag-btn mag-btn-secondary" style="font-size: 0.84rem; padding: 6px 12px; min-height: 38px;">
                 撥打電話
               </a>
-              <a href="contact.html" class="mag-btn mag-btn-outline" style="font-size: 0.85rem; padding: 8px 14px;">
+              <a href="contact.html" class="mag-btn mag-btn-outline" style="font-size: 0.84rem; padding: 6px 12px; min-height: 38px;">
                 完整聯絡頁面 ↗
               </a>
             </div>
           </div>
 
           <!-- Email Card -->
-          <div class="contact-box">
-            <span class="contact-box-label">電子信箱 (EMAIL ADDRESS)</span>
-            <div class="contact-huge-val" style="font-size: 1.1rem; word-break: break-all;">mystiqueduncan@gmail.com</div>
-            <div class="contact-btn-row">
-              <a href="mailto:mystiqueduncan@gmail.com" class="mag-btn mag-btn-secondary" style="font-size: 0.85rem; padding: 8px 14px;">
-                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          <div class="contact-card-item">
+            <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-muted); font-weight: 700;">電子郵件 (EMAIL)</span>
+            <div style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 900; color: var(--mk-navy); word-break: break-all;">
+              <a href="mailto:mystiqueduncan@gmail.com" style="color: inherit; text-decoration: none;">mystiqueduncan@gmail.com</a>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px;">
+              <a href="mailto:mystiqueduncan@gmail.com" class="mag-btn mag-btn-secondary" style="font-size: 0.84rem; padding: 6px 12px; min-height: 38px;">
                 發送信件
               </a>
-              <a href="resume.pdf" download="黃博詩_松本清區域營運經理_履歷表.pdf" class="mag-btn mag-btn-primary" style="font-size: 0.85rem; padding: 8px 14px;">
-                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <a href="resume.pdf" download="黃博詩_松本清區域營運經理_履歷表.pdf" class="mag-btn mag-btn-primary" style="font-size: 0.84rem; padding: 6px 12px; min-height: 38px;">
                 下載 A4 PDF 履歷
               </a>
             </div>
@@ -2102,13 +1877,15 @@
   <!-- Editorial Footer -->
   <footer class="mag-footer">
     <div class="container footer-inner">
-      <div class="footer-brand">
+      <div style="display: flex; align-items: center; gap: 8px;">
         <span style="background: var(--mk-yellow); color: var(--mk-navy); padding: 2px 6px; font-weight: 800; border: 1px solid var(--mk-navy);">MK</span>
-        <span>黃博詩 (HUANG BO-SHIH) ｜ 個人應徵作品集 ✦ 應徵職位：台灣松本清 區域營運經理</span>
+        <strong style="color: var(--mk-navy);">黃博詩 ｜ 個人應徵作品集</strong>
+        <span>（志願應徵目標：台灣松本清 區域營運經理）</span>
       </div>
       <div>
-        <a href="#top" style="color: var(--mk-navy); text-decoration: none; font-weight: 700; margin-right: 14px;">↑ 回到頂端</a>
-        <span>© 2026 BO-SHIH HUANG. ALL RIGHTS RESERVED.</span>
+        <span style="margin-right: 14px;">內容更新日期：2026 年 11 月</span>
+        <a href="#top" style="color: var(--mk-navy); text-decoration: none; font-weight: 700; margin-right: 14px;">↑ 回頂端</a>
+        <span>© 2026 BO-SHIH HUANG</span>
       </div>
     </div>
   </footer>
