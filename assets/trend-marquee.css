@@ -73,32 +73,10 @@
   transform: translateY(3px);
   box-shadow: 0 1px 0 #0B2240;
 }
-.keycap-marquee__group a:focus-visible,
-.keycap-marquee__toggle:focus-visible {
+.keycap-marquee__group a:focus-visible {
   outline: 3px solid #A90E16;
   outline-offset: 4px;
 }
-.keycap-marquee__toggle {
-  flex: 0 0 46px;
-  width: 46px;
-  height: 46px;
-  border: 1.5px solid #0B2240;
-  border-radius: 7px;
-  background: #FFFDF8;
-  color: #0B2240;
-  box-shadow: 0 4px 0 #0B2240;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-.keycap-marquee__toggle[hidden] { display: none !important; }
-.keycap-marquee__toggle:hover { background: #FFF9D2; }
-.keycap-marquee__toggle:active { transform: translateY(3px); box-shadow: 0 1px 0 #0B2240; }
-.keycap-marquee__toggle svg { display: block; width: 19px; height: 19px; fill: currentColor; }
-.keycap-marquee__toggle .keycap-icon-play { display: none; }
-.keycap-marquee.is-paused .keycap-icon-pause { display: none; }
-.keycap-marquee.is-paused .keycap-icon-play { display: block; }
 
 /* Animation is only enabled after JS adds an accessible inert duplicate group. */
 .keycap-marquee.is-enhanced .keycap-marquee__belt {
@@ -107,7 +85,7 @@
 }
 .keycap-marquee.is-enhanced:hover .keycap-marquee__belt,
 .keycap-marquee.is-enhanced .keycap-marquee__viewport:focus-within .keycap-marquee__belt,
-.keycap-marquee.is-paused .keycap-marquee__belt {
+.keycap-marquee__viewport:hover .keycap-marquee__belt {
   animation-play-state: paused;
 }
 @keyframes keycap-marquee-scroll {
@@ -124,12 +102,11 @@
   .keycap-marquee__group { gap: 10px; padding: 3px 3px 7px; }
   .keycap-marquee__group li { scroll-snap-align: start; }
   .keycap-marquee__group a { font-size: .82rem; padding: 8px 13px; min-height: 44px; }
-  .keycap-marquee__toggle { display: none !important; }
   .keycap-marquee.is-enhanced .keycap-marquee__belt { animation: none !important; transform: none !important; }
   .keycap-marquee__group--duplicate { display: none !important; }
 }
 @media print {
-  .keycap-marquee__toggle, .keycap-marquee__group--duplicate { display: none !important; }
+  .keycap-marquee__group--duplicate { display: none !important; }
   .keycap-marquee.is-enhanced .keycap-marquee__belt { animation: none !important; transform: none !important; }
   .keycap-marquee__viewport { overflow: visible; }
   .keycap-marquee__group { flex-wrap: wrap; width: auto; }
