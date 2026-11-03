@@ -112,7 +112,7 @@
 }
 @keyframes keycap-marquee-scroll {
   from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(calc(-50% - var(--keycap-gap) / 2), 0, 0); }
+  to { transform: translate3d(calc(-50% - 7px), 0, 0); }
 }
 /* Mobile, touch/pointer devices and reduced-motion users get native manual scrolling. */
 @media (max-width: 768px), (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
@@ -134,4 +134,41 @@
   .keycap-marquee__viewport { overflow: visible; }
   .keycap-marquee__group { flex-wrap: wrap; width: auto; }
   .keycap-marquee__belt { width: auto; }
+}
+
+/* The separate mobile research page keeps its original eight anchors; swipe instead of autoplay. */
+.mobile-keycap-nav {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 10px;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 3px 12px;
+  scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+.mobile-keycap-nav .btn-subcard-nav {
+  flex: 0 0 auto;
+  min-height: 46px;
+  width: auto;
+  padding: 10px 14px;
+  background: #FFFDF8;
+  color: #0B2240;
+  border: 1.5px solid #0B2240;
+  border-radius: 7px;
+  box-shadow: 0 4px 0 #0B2240;
+  text-align: left;
+  white-space: nowrap;
+  scroll-snap-align: start;
+  transition: background-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+.mobile-keycap-nav .btn-subcard-nav:hover { background: #FFD600; transform: translateY(-2px); box-shadow: 0 6px 0 #0B2240; }
+.mobile-keycap-nav .btn-subcard-nav:active { transform: translateY(3px); box-shadow: 0 1px 0 #0B2240; }
+.mobile-keycap-nav .btn-subcard-nav:focus-visible,
+.mobile-keycap-nav:focus-visible { outline: 3px solid #A90E16; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .keycap-marquee__belt, .mobile-keycap-nav .btn-subcard-nav { animation: none !important; transition: none !important; }
 }
