@@ -96,3 +96,21 @@ section[id] { scroll-margin-top: 110px; }
 @media (max-width: 768px) {
   .cards-2col-grid, .cards-2x2-grid { grid-template-columns: minmax(0, 1fr); }
 }
+
+
+/* Verified, attributed illustrative photographs. No real employment scene is implied. */
+.source-photo { max-width: 680px; margin: 18px 0 24px; overflow: hidden; background: #fff; border: 1px solid #DCD8CE; border-radius: 5px; }
+.source-photo-image { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #F0EDE5; }
+.source-photo-image img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.source-photo-credit { position: absolute; bottom: 8px; right: 8px; max-width: calc(100% - 16px); color: #fff; background: rgba(6,21,43,.92); padding: 5px 9px; font-size: .73rem; line-height: 1.35; }
+.source-photo figcaption { padding: 10px 12px; font-size: .8rem; line-height: 1.65; color: #3D4148; }
+.source-photo figcaption a, .source-verification a { color: #0B396B; text-underline-offset: 3px; }
+.source-verification { margin: 18px 0; padding: 14px 16px; background: #FFFDF0; border: 1px solid #DCD8CE; border-left: 4px solid #0B2240; color: #293744; font-size: .83rem; line-height: 1.8; overflow-wrap: anywhere; }
+.source-verification a { display: inline; overflow-wrap: anywhere; }
+@media (max-width: 640px) {
+  .source-photo { margin: 12px 0 18px; }
+  .source-photo figcaption { font-size: .76rem; padding: 10px; }
+  .source-photo-credit { font-size: .66rem; bottom: 6px; right: 6px; }
+  .source-verification { padding: 12px; font-size: .78rem; }
+}
+@media print { .source-photo { break-inside: avoid; } .source-photo-credit { position: static; background: transparent; color: #0B2240; } }
