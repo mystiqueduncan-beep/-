@@ -1,0 +1,26 @@
+/* Additive accessibility and narrow-screen safeguards. No content changes. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid #c5161d;
+  outline-offset: 3px;
+}
+@media (max-width: 640px) {
+  .container, .editorial-card, .wide-star-case, .career-entry-card,
+  .edu-dedicated-card, .research-summary-panel, .contact-action-panel {
+    min-width: 0;
+  }
+  .footer-inner, .footer-inner > div, .contact-card-item,
+  .hero-action-card, .hero-primary-info {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  img, svg, video, iframe { max-width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
