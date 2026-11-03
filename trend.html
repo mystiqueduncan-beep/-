@@ -616,6 +616,8 @@
   <meta property="og:image:alt" content="黃博詩">
   <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/trend-marquee.css">
+  <script src="assets/trend-marquee.js" defer></script>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -681,10 +683,13 @@
     </div>
   </header>
 
-  <!-- Sticky Chapter Nav -->
-  <nav class="trend-subnav-strip">
+  <!-- Sticky Chapter Navigation: keyboard-keycap marquee / keyboard-accessible fallback -->
+  <nav class="trend-subnav-strip" aria-label="研究章節導覽">
     <div class="container">
-      <ul class="trend-subnav-items">
+      <div class="keycap-marquee" data-keycap-marquee>
+        <div class="keycap-marquee__viewport" tabindex="0" aria-label="章節快速導覽，可左右捲動">
+          <div class="keycap-marquee__belt">
+            <ul class="keycap-marquee__group">
         <li><a href="#summary"><span class="num">00/</span> 研究精要</a></li>
         <li><a href="#macro"><span class="num">01/</span> 購買管道＆商品結構</a></li>
         <li><a href="#strengths"><span class="num">02/</span> 4大核心優勢</a></li>
@@ -695,6 +700,13 @@
         <li><a href="#matsukiyo-action"><span class="num">07/</span> 區域營運規劃</a></li>
         <li><a href="#sources"><span class="num">08/</span> 資料來源</a></li>
       </ul>
+          </div>
+        </div>
+        <button class="keycap-marquee__toggle" type="button" aria-label="暫停章節導覽自動滑動" hidden>
+          <svg class="keycap-icon-pause" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+          <svg class="keycap-icon-play" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M7 4.5a1 1 0 0 1 1.52-.85l11 7.5a1 1 0 0 1 0 1.7l-11 7.5A1 1 0 0 1 7 19.5z"/></svg>
+        </button>
+      </div>
     </div>
   </nav>
 
