@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="canonical" href="https://mystiqueduncan-beep.github.io/-/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:url" content="https://mystiqueduncan-beep.github.io/-/">
   <title>黃博詩 ｜ 個人應徵作品集 ✦ 應徵目標：台灣松本清 區域營運經理</title>
   <meta name="description" content="黃博詩個人應徵作品集：志願應徵台灣松本清區域營運經理。日系藥妝 6 年歷練（含店長管理 3 年）、動物醫院任職 4 年（期間兼任新人帶訓工作），目前於萬能科技大學研讀企業管理系。">
 
@@ -1097,6 +1101,14 @@
       }
     }
 
+    /* Accessibility and mobile */
+    :focus-visible { outline: 3px solid var(--mk-red); outline-offset: 4px; }
+    .skip-link { position:absolute; left:12px; top:-100px; z-index:9999; padding:10px 16px; background:#fff; color:var(--mk-navy); border:2px solid var(--mk-navy); }
+    .skip-link:focus { top:12px; }
+    .subnav-items, .subnav-links, .contact-card-item, .editorial-card { min-width:0; }
+    .contact-card-item a { overflow-wrap:anywhere; }
+    @media (max-width:640px) { .hero-action-card, .research-summary-panel, .contact-action-panel { padding:18px; } .mag-hero-grid { gap:24px; } }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *, *::before, *::after { animation-duration:0.01ms !important; transition-duration:0.01ms !important; } }
     /* ==========================================================================
        PRINT STYLES
        ========================================================================== */
@@ -1128,6 +1140,7 @@
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">跳至主要內容</a>
 
   <!-- Top Bar -->
   <div class="mag-top-ticker">
@@ -1207,7 +1220,7 @@
         <div class="hero-action-card">
           <div class="hero-photo-row">
             <div class="hero-photo-frame">
-              <img src="profile.jpg" alt="黃博詩 (Huang Bo-Shih)" width="90" height="108">
+              <img fetchpriority="high" decoding="async" src="profile.jpg" alt="黃博詩 (Huang Bo-Shih)" width="90" height="108">
             </div>
             <div class="hero-dossier-mini">
               <div class="dossier-meta-item"><strong>應徵者：</strong>黃博詩</div>
@@ -1253,7 +1266,7 @@
         <li><a href="#proposal" class="nav-btn-mk"><span class="num">06/</span> 工作構想</a></li>
         <li><a href="#research" class="nav-btn-mk"><span class="num">07/</span> 通路研究</a></li>
         <li><a href="#contact" class="nav-btn-mk"><span class="num">08/</span> 聯絡資訊</a></li>
-        <li><a href="trend.html" target="_blank" class="nav-btn-mk btn-accent"><span class="num">專題/</span> 完整趨勢研究 ↗</a></li>
+        <li><a href="trend.html" target="_blank" rel="noopener noreferrer" class="nav-btn-mk btn-accent"><span class="num">專題/</span> 完整趨勢研究 ↗</a></li>
       </ul>
       <div class="subnav-status-badge">
         <span>在學研讀中 ｜ 到職與排班面談確認</span>
@@ -1262,7 +1275,7 @@
   </div>
 
   <!-- Main Content -->
-  <main class="mag-main container">
+  <main class="mag-main container" id="main-content">
 
     <!-- =======================================================================
          1. 應徵動機 (MOTIVATION)
@@ -1809,7 +1822,7 @@
         </div>
 
         <div style="margin-top: 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
-          <a href="trend.html" target="_blank" class="mag-btn mag-btn-primary">
+          <a href="trend.html" target="_blank" rel="noopener noreferrer" class="mag-btn mag-btn-primary">
             閱讀完整實體通路趨勢研究報告 ↗
           </a>
           <span style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-muted);">
