@@ -77,7 +77,7 @@ for rel,old in base.items():
 # Independently validate metadata that is excluded from original-resume text parity.
 for rel in ('index.html','mobile.html'):
  html=(ROOT/rel).read_text()
- for author,part,licensed in [('Sukriramli','Guardian_Malaysia_Store_Inside_Look.jpg','/by-sa/4.0/'),('Ariel Palmon','Veterinary_analyzed_Room.jpg','/by-sa/3.0/')]:
+ for author,part,licensed in [('Raysonho','VitaminSupplementPills.jpg','/publicdomain/zero/1.0/'),('MarkBuckawicki','Veterinary_Office_with_dog.JPG','/publicdomain/zero/1.0/')]:
   if not all(v in html for v in (author,part,licensed,'非築心動物醫院' if author=='Ariel Palmon' else "非 TOMOD'S")):errors.append(rel+': attribution missing '+author)
 for rel in ('index.html','mobile.html','trend.html','mobile-trend.html'):
  html=(ROOT/rel).read_text()
