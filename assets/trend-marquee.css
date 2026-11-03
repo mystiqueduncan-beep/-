@@ -170,3 +170,28 @@
   .home-keycap-strip .home-keycap-layout { padding-top: 8px; padding-bottom: 12px; }
 }
 @media print { .home-keycap-strip .keycap-marquee__group { flex-wrap: wrap; } }
+
+/* Permanent, non-scrolling shortcut beneath the homepage's eight chapter keys. */
+.home-keycap-strip .home-research-shortcut { display: flex; justify-content: flex-start; align-items: center; min-width: 0; padding: 1px 3px 3px; }
+.home-keycap-strip .home-research-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: max-content;
+  max-width: 100%;
+  min-height: 46px;
+  padding: 10px 16px;
+  background: #0B2240;
+  border: 1.5px solid #0B2240;
+  border-radius: 7px;
+  box-shadow: 0 4px 0 #0B2240;
+  color: #FFD600;
+  font-weight: 800;
+  text-decoration: none;
+  line-height: 1.4;
+  white-space: normal;
+}
+.home-keycap-strip .home-research-link .num { color: #FFD600; }
+.home-keycap-strip .home-research-link:hover { background: #173C68; transform: translateY(-2px); box-shadow: 0 6px 0 #0B2240; }
+.home-keycap-strip .home-research-link:active { transform: translateY(3px); box-shadow: 0 1px 0 #0B2240; }
+.home-keycap-strip .home-research-link:focus-visible { outline: 3px solid #A90E16; outline-offset: 4px; }
