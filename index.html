@@ -1136,6 +1136,8 @@
   <meta property="og:image:alt" content="黃博詩">
   <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/trend-marquee.css">
+  <script src="assets/trend-marquee.js" defer></script>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -1253,10 +1255,13 @@
     </div>
   </header>
 
-  <!-- Sticky Sub-Navigation Bar -->
-  <nav class="mag-subnav-strip" aria-label="履歷章節">
-    <div class="container subnav-items">
-      <ul class="subnav-links">
+  <!-- Sticky Sub-Navigation Bar: accessible keycap marquee -->
+  <nav class="mag-subnav-strip home-keycap-strip" aria-label="履歷章節">
+    <div class="container subnav-items home-keycap-layout">
+      <div class="keycap-marquee" data-keycap-marquee>
+        <div class="keycap-marquee__viewport" tabindex="0" aria-label="履歷章節導覽，可左右捲動">
+          <div class="keycap-marquee__belt">
+            <ul class="keycap-marquee__group">
         <li><a href="#motivation" class="nav-btn-mk"><span class="num">01/</span> 應徵動機</a></li>
         <li><a href="#competencies" class="nav-btn-mk"><span class="num">02/</span> 核心能力</a></li>
         <li><a href="#cases" class="nav-btn-mk"><span class="num">03/</span> 營運改善構想</a></li>
@@ -1267,6 +1272,13 @@
         <li><a href="#contact" class="nav-btn-mk"><span class="num">08/</span> 聯絡資訊</a></li>
         <li><a href="trend.html" target="_blank" rel="noopener noreferrer" class="nav-btn-mk btn-accent"><span class="num">專題/</span> 完整趨勢研究 ↗</a></li>
       </ul>
+          </div>
+        </div>
+        <button class="keycap-marquee__toggle" type="button" aria-label="暫停章節導覽自動滑動" hidden>
+          <svg class="keycap-icon-pause" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+          <svg class="keycap-icon-play" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M7 4.5a1 1 0 0 1 1.52-.85l11 7.5a1 1 0 0 1 0 1.7l-11 7.5A1 1 0 0 1 7 19.5z"/></svg>
+        </button>
+      </div>
       <div class="subnav-status-badge">
         <span>在學研讀中 ｜ 到職與排班面談確認</span>
       </div>
