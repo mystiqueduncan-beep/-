@@ -215,3 +215,83 @@
   .mobile-keycap-marquee.is-mobile-auto .mobile-keycap-belt { animation:none !important; transform:none !important; }
   .mobile-keycap-group--duplicate { display:none !important; }
 }
+
+/* Shared visual specification across homepage, desktop research and mobile research marquees.
+   Scope deliberately excludes the fixed, dark-blue "完整趨勢研究" shortcut. */
+:root {
+  --marquee-key-bg: #FFFDF8;
+  --marquee-key-ink: #0B2240;
+  --marquee-key-number: #A90E16;
+  --marquee-key-selected: #FFD600;
+  --marquee-key-height: 46px;
+  --marquee-key-radius: 7px;
+  --marquee-key-border: 1.5px solid var(--marquee-key-ink);
+  --marquee-key-shadow: 0 4px 0 var(--marquee-key-ink);
+}
+.keycap-marquee__group a,
+.mobile-keycap-marquee .mobile-keycap-group .btn-subcard-nav {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: auto;
+  min-height: var(--marquee-key-height);
+  padding: 9px 16px;
+  background: var(--marquee-key-bg);
+  color: var(--marquee-key-ink);
+  border: var(--marquee-key-border);
+  border-radius: var(--marquee-key-radius);
+  box-shadow: var(--marquee-key-shadow);
+  font-family: var(--font-sans, "Noto Sans TC", sans-serif);
+  font-size: .83rem;
+  font-weight: 800;
+  line-height: 1.35;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+.keycap-marquee__group a .num,
+.mobile-keycap-marquee .mobile-keycap-group .btn-subcard-nav .num {
+  color: var(--marquee-key-number);
+  font-family: var(--font-mono, monospace);
+  font-size: .76rem;
+  font-weight: 800;
+}
+.keycap-marquee__group a:hover,
+.keycap-marquee__group a.is-current,
+.mobile-keycap-marquee .mobile-keycap-group .btn-subcard-nav:hover,
+.mobile-keycap-marquee .mobile-keycap-group .btn-subcard-nav:focus-visible {
+  background: var(--marquee-key-selected);
+}
+.keycap-marquee__group a:hover,
+.mobile-keycap-marquee .mobile-keycap-group .btn-subcard-nav:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--marquee-key-ink);
+}
+.keycap-marquee__group a:active,
+.mobile-keycap-marquee .mobile-keycap-group .btn-subcard-nav:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--marquee-key-ink);
+}
+.keycap-marquee__group a:focus-visible,
+.mobile-keycap-marquee .mobile-keycap-group .btn-subcard-nav:focus-visible {
+  outline: 3px solid var(--marquee-key-number);
+  outline-offset: 3px;
+}
+@media (max-width: 768px), (hover: none), (pointer: coarse) {
+  .keycap-marquee__group a,
+  .mobile-keycap-marquee .mobile-keycap-group .btn-subcard-nav {
+    min-height: 44px;
+    padding: 8px 13px;
+    font-size: .82rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .keycap-marquee__group a,
+  .mobile-keycap-marquee .mobile-keycap-group .btn-subcard-nav {
+    transition: none !important;
+  }
+}
