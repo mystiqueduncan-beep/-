@@ -1,0 +1,289 @@
+/*
+ * Matsukiyo-inspired editorial design system for the personal portfolio.
+ * Original CSS and content remain in place. No third-party brand imagery is copied.
+ * All motion below is progressive enhancement; page content is visible by default.
+ */
+:root {
+  --mk-inspired-yellow: #FFDB00;
+  --mk-inspired-yellow-light: #FFF7C7;
+  --mk-inspired-yellow-pale: #FFFCED;
+  --mk-inspired-navy: #0B2240;
+  --mk-inspired-red: #C5161D;
+  --mk-inspired-stroke: #DCDDD9;
+  --mk-inspired-shadow: 0 12px 30px rgba(11, 34, 64, 0.075);
+  --mk-inspired-shadow-hover: 0 16px 34px rgba(11, 34, 64, 0.135);
+  --mk-inspired-radius: 13px;
+}
+
+/* Storefront rhythm: large clean panels separated by bright editorial stripes. */
+body {
+  background-color: #F7F6F0;
+  background-image: linear-gradient(180deg, rgba(255, 247, 199, .32), transparent 530px);
+}
+.mag-top-ticker,
+.mobile-top-bar {
+  background-color: var(--mk-inspired-navy);
+}
+.mag-top-ticker { border-bottom: 3px solid var(--mk-inspired-yellow); }
+.mag-header {
+  position: relative;
+  overflow: clip;
+  border-top: 4px solid var(--mk-inspired-yellow);
+  background: linear-gradient(111deg, #FFFFFF 0%, #FFFFFF 57%, #FFF9D9 100%);
+}
+.mag-header::after {
+  content: "";
+  position: absolute;
+  right: -85px;
+  top: 9%;
+  width: min(32vw, 420px);
+  aspect-ratio: 1;
+  border: 35px solid rgba(255, 219, 0, .11);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.mag-header > * { position: relative; z-index: 1; }
+.mag-subnav-strip,
+.trend-subnav-strip {
+  border-bottom: 3px solid var(--mk-inspired-navy);
+  background: #FFFFFF;
+}
+.mobile-app-wrapper {
+  background: #F8F7F2;
+}
+.mobile-status-strip {
+  border-bottom: 2px solid var(--mk-inspired-yellow);
+}
+.mobile-top-bar { border-bottom: 3px solid var(--mk-inspired-yellow); }
+
+/* Hero: the yellow and white brand language, but still clearly a CV. */
+:is(.hero-primary-info, .trend-hero, .candidate-info-box) {
+  position: relative;
+  isolation: isolate;
+}
+:is(.hero-action-card, .hero-dossier-mini, .trend-hero, .contact-card-outer) {
+  border-radius: var(--mk-inspired-radius);
+}
+.hero-professional-intro,
+.report-lead-quote,
+.candidate-intro-lead {
+  border-radius: 10px;
+  border-inline-start: 5px solid var(--mk-inspired-yellow);
+  background-color: #FFFCED;
+}
+:is(.portfolio-badge, .badge-report, .brand-logo-badge, .ticker-pill) {
+  box-shadow: 2px 3px 0 rgba(11, 34, 64, .18);
+}
+:is(.hero-photo-frame, .candidate-photo-frame, .photo-frame) {
+  border-radius: 13px;
+  overflow: hidden;
+  box-shadow: 9px 10px 0 rgba(11, 34, 64, .13);
+}
+:is(.hero-photo-frame, .candidate-photo-frame, .photo-frame, .source-photo-image) img {
+  transition: transform .55s cubic-bezier(.2,.7,.2,1), filter .45s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  :is(.hero-photo-frame, .candidate-photo-frame, .photo-frame, .source-photo-image):hover img {
+    transform: scale(1.035);
+  }
+}
+
+/* Distinctive category headers with restrained yellow accents. */
+.section-editorial-header {
+  position: relative;
+  gap: 12px 18px;
+  margin-bottom: 25px;
+  padding: 15px 18px;
+  border: 1px solid var(--mk-inspired-stroke);
+  border-left: 6px solid var(--mk-inspired-yellow);
+  border-bottom: 2px solid var(--mk-inspired-navy);
+  border-radius: 10px;
+  background: linear-gradient(100deg, #FFF9DA, #FFFFFF 38%, #FFFFFF 100%);
+  box-shadow: 0 5px 14px rgba(11,34,64,.045);
+}
+.section-editorial-header .sec-number {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  min-height: 34px;
+  padding: 2px 7px;
+  border: 1px solid var(--mk-inspired-navy);
+  border-radius: 5px;
+  background: var(--mk-inspired-yellow);
+  color: var(--mk-inspired-red);
+  box-shadow: 2px 3px 0 var(--mk-inspired-navy);
+}
+.section-editorial-header .sec-title-main {
+  line-height: 1.35;
+}
+:is(.section-block, main.trend-main > section[id]) {
+  scroll-margin-top: 110px;
+}
+
+/* Retail-inspired clean card system, with the text left untouched. */
+:is(
+  .editorial-card,
+  .content-article-box,
+  .feature-card,
+  .wide-star-case,
+  .career-entry-card,
+  .edu-dedicated-card,
+  .stage-card,
+  .contact-card-item,
+  .case-box,
+  .research-summary-panel,
+  .contact-action-panel,
+  .method-card,
+  .contact-card-outer,
+  .mobile-card,
+  .timeline-job-card,
+  .mobile-case-box,
+  .mobile-subcard,
+  .adv-dim-card,
+  .stage-card-mini
+) {
+  border-radius: var(--mk-inspired-radius);
+  box-shadow: var(--mk-inspired-shadow);
+}
+:is(.feature-card, .editorial-card, .wide-star-case, .career-entry-card, .mobile-card, .timeline-job-card, .mobile-subcard) {
+  background-color: #FFFFFF;
+}
+:is(.feature-card, .wide-star-case, .career-entry-card, .mobile-card, .timeline-job-card, .mobile-case-box) {
+  border-color: var(--mk-inspired-stroke);
+}
+.feature-card {
+  overflow: hidden;
+  border-top: 5px solid var(--mk-inspired-yellow);
+}
+.cards-2x2-grid,
+.cards-2col-grid,
+.star-fields-grid,
+.contact-grid {
+  gap: clamp(14px, 2vw, 24px);
+}
+:is(.content-article-box, .editorial-card, .feature-card, .wide-star-case) {
+  padding-block: clamp(20px, 2.4vw, 31px);
+}
+:is(.mobile-card, .timeline-job-card, .mobile-subcard, .mobile-case-box) {
+  overflow-wrap: anywhere;
+}
+.mobile-card-title {
+  padding-bottom: 11px;
+  border-bottom: 2px solid var(--mk-inspired-yellow);
+}
+:is(.mobile-card, .timeline-job-card) {
+  border-top: 4px solid var(--mk-inspired-yellow);
+}
+.mobile-content { padding-inline: clamp(12px, 3vw, 18px); }
+.mobile-content > :is(.mobile-card, .timeline-job-card, .edu-card-mobile, .mobile-trend-banner) {
+  margin-bottom: 20px;
+}
+
+/* Strong merchandise-like CTAs: high contrast and keyboard-visible. */
+:is(.mag-btn-primary, .btn-action-primary, .btn-contact-action.yellow) {
+  border-radius: 8px;
+  box-shadow: 0 4px 0 var(--mk-inspired-navy);
+}
+:is(.mag-btn, .btn-action-primary, .btn-contact-action, .method-action-btns a) {
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+}
+:is(.mag-btn, .btn-action-primary, .btn-contact-action, .method-action-btns a):focus-visible {
+  outline: 3px solid var(--mk-inspired-red);
+  outline-offset: 4px;
+}
+@media (hover: hover) and (pointer: fine) {
+  :is(.editorial-card, .feature-card, .wide-star-case, .career-entry-card, .timeline-job-card, .mobile-case-box, .method-card):hover {
+    box-shadow: var(--mk-inspired-shadow-hover);
+  }
+  :is(.mag-btn, .btn-action-primary, .btn-contact-action, .method-action-btns a):hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* Framed, predictable visual crops with no new images or attributions. */
+.source-photo {
+  border-radius: 12px;
+  box-shadow: var(--mk-inspired-shadow);
+}
+.source-photo figcaption {
+  border-top: 3px solid var(--mk-inspired-yellow);
+  background: #FFFFFF;
+}
+.source-photo-credit {
+  border: 1px solid rgba(255,255,255,.55);
+  border-radius: 5px;
+}
+:is(.data-bar-track, .table-container) {
+  border-radius: 8px;
+}
+.data-bar-fill { transform-origin: left center; }
+.source-verification {
+  border-left: 5px solid var(--mk-inspired-yellow);
+  border-radius: 8px;
+  background: #FFFCED;
+}
+
+/* Dark footer bookend and brighter section transitions. */
+.mag-footer, .mobile-footer {
+  border-top: 5px solid var(--mk-inspired-yellow);
+}
+.mobile-bottom-bar {
+  border-top: 3px solid var(--mk-inspired-yellow);
+}
+
+/* The three existing marquee controls keep their shared keycap geometry.
+   The independent dark "完整趨勢研究" CTA is intentionally not changed. */
+
+/* A section only becomes initially concealed if JavaScript observed it and
+   specifically marked it while still BELOW the viewport. */
+.mk-motion-item {
+  transition: opacity .68s ease, transform .7s cubic-bezier(.2,.74,.19,1);
+}
+.mk-motion-pending {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+}
+.mk-motion-in,
+.mk-motion-pending:focus-within,
+.mk-motion-pending:target {
+  opacity: 1;
+  transform: none;
+}
+@media (max-width: 680px) {
+  .mag-header::after { width: 240px; right: -130px; top: 5%; }
+  .section-editorial-header {
+    padding: 13px 12px;
+    border-left-width: 5px;
+    border-radius: 9px;
+  }
+  .section-editorial-header .sec-number {
+    min-width: 36px;
+    min-height: 31px;
+    font-size: .9rem;
+  }
+  .mobile-card-title { line-height: 1.45; }
+  .mk-motion-pending { transform: translate3d(0, 15px, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mk-motion-item, .mk-motion-pending, .mk-motion-in,
+  :is(.hero-photo-frame, .candidate-photo-frame, .photo-frame, .source-photo-image) img,
+  :is(.mag-btn, .btn-action-primary, .btn-contact-action, .method-action-btns a) {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+@media print {
+  body, .mag-header, .mobile-app-wrapper { background: #FFFFFF !important; }
+  .mk-motion-item, .mk-motion-pending, .mk-motion-in {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .mag-header::after { display: none; }
+  .section-editorial-header, .mobile-card, .editorial-card, .feature-card {
+    box-shadow: none !important;
+  }
+}
