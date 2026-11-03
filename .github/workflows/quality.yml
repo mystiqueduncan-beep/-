@@ -1,0 +1,18 @@
+name: Resume source quality
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Resume facts, links, resources and SEO
+        run: python3 _qa/check.py
+      - name: JavaScript syntax
+        run: node --check assets/contact.js
+      - name: HTML structure
+        run: npx --yes --package=html-validate@11.18.0 html-validate --config _qa/htmlvalidate.json *.html mobile/*.html

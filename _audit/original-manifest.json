@@ -1,0 +1,62 @@
+{
+  "contact.html": {
+    "bytes": 33614,
+    "sha256": "ede0ea6d1664dec9c180988ef55699d9e3c04f3c4fbab6e29adbbdd9bec7ad7e"
+  },
+  "profile.jpg": {
+    "bytes": 77446,
+    "sha256": "625821eb9cc12a3db0fa13df0e4b3cf3e3da665f877f987396661bcc90749a7e"
+  },
+  "index.html": {
+    "bytes": 71883,
+    "sha256": "7971be61f4cb29e95da52c986b226d0a9d92da7abe5297f7f7657b9a887edf1b"
+  },
+  "trend.html": {
+    "bytes": 78742,
+    "sha256": "2c7ffbe32b161eb213965802f9e96d59465a7afa7d0fcc621e6cbcdc54ee84c5"
+  },
+  "mobile-contact.html": {
+    "bytes": 27760,
+    "sha256": "dc9d93c49560c8000a9fe7d1a5713107de02e37e592ff3f615f3ff46a6ddb71b"
+  },
+  "zhuxin-hospital-logo.jpg": {
+    "bytes": 14234,
+    "sha256": "8469e100a026d316025ce8fe7643efc49167908ddca8a320ccc1889b3b7e9093"
+  },
+  "mobile.html": {
+    "bytes": 56570,
+    "sha256": "9c1d0dc7f5023defc69d2b765852d34e8bc165c93d6e13fd199a5f201a909038"
+  },
+  "resume.pdf": {
+    "bytes": 4016958,
+    "sha256": "ad689f35fe32b0613c7edfcbac8fe1e612b6a4fe824a88ad391be74d00c65ce4"
+  },
+  "trend-market-channels.jpg": {
+    "bytes": 358941,
+    "sha256": "321a26cb73a7ec5ad75c9987d26bf25196e0ebe789e1d981d35905c6d89c5d74"
+  },
+  "levis-campaign.jpg": {
+    "bytes": 116589,
+    "sha256": "7a779a794770f527ae3a3a83da05a572ad86ba85078ca846589bdc5d990660bb"
+  },
+  "tomods-logo.jpg": {
+    "bytes": 11601,
+    "sha256": "3afac19940fbb50baaacc0a0a6054002949f44976391acc0409b2dc9309a819d"
+  },
+  "mobile-trend.html": {
+    "bytes": 50561,
+    "sha256": "d135cd07d671ead33492fa8edd0aec4a9b60453c750a2d3705eb2016800fd5b1"
+  },
+  "mobile/contact.html": {
+    "bytes": 528,
+    "sha256": "0ff2778d42a10ff84e642a67befa559294d0de3c735989020f4b2d6c35a1c20c"
+  },
+  "mobile/index.html": {
+    "bytes": 486,
+    "sha256": "bc0fde33516edbf71df91f0d239da9f18b47d9dcbfaa3d7840cdf6cc6786a8c0"
+  },
+  "mobile/trend.html": {
+    "bytes": 517,
+    "sha256": "3854654e1c69b13fae0247186eae293dd78f4a6a987e43b41dfd0c50812783d4"
+  }
+}

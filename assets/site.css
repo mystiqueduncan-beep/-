@@ -1,0 +1,98 @@
+/* Shared quality improvements. Page-specific editorial styles stay in each HTML file. */
+:root { --ink-muted: #595e67; }
+html { scroll-padding-top: 100px; }
+body { overflow-wrap: break-word; }
+main:focus { outline: none; }
+:focus-visible { outline: 3px solid var(--mk-red, #C5161D); outline-offset: 4px; }
+.skip-link { position: fixed; top: 12px; left: 12px; transform: translateY(-200%); z-index: 10000; padding: 12px 18px; background: #fff; color: #0B2240; border: 2px solid #0B2240; font-weight: 700; }
+.skip-link:focus { transform: none; }
+img { max-width: 100%; }
+main, .container, .subnav-items, .subnav-links, .editorial-card, .contact-card-item,
+.candidate-portrait-col, .candidate-details-col, .contact-dossier-grid > *,
+.source-content, .grid-2 > *, .grid-2x2 > *, .hero-dossier-mini { min-width: 0; }
+a[href^="mailto:"], .method-huge-text, .contact-value { overflow-wrap: anywhere; }
+button { font: inherit; cursor: pointer; }
+.mag-btn, .nav-btn-mk, .btn-switch-desktop, .btn-switch-mobile,
+.bottom-nav-item, .mobile-bottom-bar a, .top-switch-link { min-height: 44px !important; }
+.mag-btn, .nav-btn-mk { white-space: normal; text-align: center; }
+section[id] { scroll-margin-top: 110px; }
+.table-container { max-width: 100%; }
+.toast-msg { max-width: calc(100vw - 32px); }
+/* Do not let a fixed mobile bar cover a focused link or the last content. */
+.mobile-content { padding-bottom: 24px; }
+.mobile-bottom-bar { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+@media (max-width: 820px) {
+  .contact-dossier-grid { grid-template-columns: minmax(0, 1fr); }
+  .photo-frame { width: 100%; }
+  .subnav-status-badge { white-space: normal; }
+  .strength-row { flex-wrap: wrap; }
+}
+@media (max-width: 640px) {
+  .hero-action-card, .research-summary-panel, .contact-action-panel { padding: 18px; }
+  .mag-hero-grid { gap: 24px; }
+  .sec-title-wrap { flex-wrap: wrap; gap: 8px; }
+  .sec-title-main { font-size: 1.3rem; }
+  .sec-title-sub { line-height: 1.6; }
+  .contact-dossier-grid, .contact-header-badge, .contact-bottom-links { padding: 20px 16px; }
+  .subnav-status-badge { max-width: 100%; }
+  .spec-entry { flex-wrap: wrap; gap: 4px 12px; }
+  .spec-entry .v { overflow-wrap: anywhere; }
+  .footer-inner > div { flex-wrap: wrap; }
+  /* Inline research grids were originally desktop-only. Keep all content in reading order. */
+  main [style*="grid-template-columns"] { grid-template-columns: minmax(0, 1fr) !important; }
+  .source-item { padding: 16px 12px; gap: 10px; }
+  .mag-subnav-strip { position: static; }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .mobile-top-bar { position: static; }
+  .mobile-bottom-bar { position: static; }
+  body { padding-bottom: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+@media print {
+  .skip-link, .mobile-bottom-bar, .mobile-top-bar, .toast-msg { display: none !important; }
+  body { padding-bottom: 0; }
+}
+@media (max-width: 640px) {
+  .subnav-items { display: block; overflow: visible; }
+  .subnav-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; width: 100%; }
+  .subnav-links a { width: 100%; justify-content: flex-start; }
+  .subnav-links .num { flex-shrink: 0; }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .mobile-bottom-bar { left: auto; transform: none; margin: auto; }
+}
+/* Reliable local CJK fallback for the downloadable PDF; web font identity stays unchanged. */
+@media print {
+  @page { size: A4; margin: 14mm; }
+  body { font-family: 'Noto Sans CJK TC', sans-serif; font-size: 10pt; }
+  h1, h2, h3, .candidate-name, .sec-title-main, .company-title, .stage-title, .card-heading {
+    font-family: 'Noto Serif CJK TC', serif;
+  }
+  .mag-main.container, .container { max-width: none; padding: 0; }
+  .mag-hero-grid, .grid-2x2, .star-fields-grid, .proposal-stages-grid, .contact-grid, .hero-key-pillars { grid-template-columns: 1fr; }
+  .mag-hero-section { padding: 10px 0; }
+  .section-block { margin-bottom: 20px; }
+  .section-editorial-header { break-after: avoid; }
+  .editorial-card, .wide-star-case, .career-entry-card, .edu-dedicated-card, .research-summary-panel, .contact-action-panel { break-inside: auto; }
+  h1, h2, h3, h4 { break-after: avoid; }
+  p, li { orphans: 3; widows: 3; }
+}
+:root { --mk-red: #C5161D; }
+.mobile-card-title { font-size: inherit; }
+.trend-subnav-items a { min-height: 44px; }
+@media (max-width: 640px) {
+  .trend-subnav-strip { position: static; }
+  .trend-subnav-items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; }
+  .trend-subnav-items a { white-space: normal; }
+}
+
+.nav-btn-mk span.num { color: #A90E16; }
+.cards-2col-grid, .cards-2x2-grid, .feature-card { min-width: 0; }
+.feature-card { overflow-wrap: anywhere; }
+@media (max-width: 768px) {
+  .cards-2col-grid, .cards-2x2-grid { grid-template-columns: minmax(0, 1fr); }
+}
