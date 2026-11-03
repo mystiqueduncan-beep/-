@@ -6,14 +6,21 @@ import json, re, hashlib
 ROOT=Path(__file__).resolve().parents[1]
 class Page(HTMLParser):
  def __init__(self,s):
-  super().__init__(convert_charrefs=True);self.hidden=0;self.text=[];self.tags=[];self.feed(s)
+  super().__init__(convert_charrefs=True);self.hidden=0;self.suppressed=0;self.text=[];self.tags=[];self.feed(s)
  def handle_starttag(self,t,a):
   self.tags.append((t,dict(a)))
+  attrs=dict(a);classes=attrs.get('class','').split()
+  voids=('img','source','br','hr','meta','link','input','area','wbr')
+  if self.suppressed:
+   if t not in voids:self.suppressed+=1
+  elif ('audited-visual' in classes or 'audited-source-note' in classes) and t not in voids:
+   self.suppressed=1
   if t in ('style','script'):self.hidden+=1
  def handle_endtag(self,t):
   if t in ('style','script'):self.hidden-=1
+  if self.suppressed:self.suppressed-=1
  def handle_data(self,d):
-  if not self.hidden and d.strip():self.text.append(d.strip())
+  if not self.hidden and not self.suppressed and d.strip():self.text.append(d.strip())
 def compact(s):return re.sub(r'\s+','',s).lstrip('\ufeff')
 training='服務期間兼任新進人員帶訓工作，負責規劃新進同仁實務帶訓指引與步驟化操作考核。'
 def normalized(text):
@@ -27,6 +34,15 @@ def expected_text(rel,text):
   'mobile-contact.html':'具同理心與耐性，協助新進人員熟悉櫃台作業指引與流程。'
  }
  if rel in additions:s=s.replace(additions[rel],additions[rel]+training)
+ # Whitelist verified corrections to the original source attributions only.
+ s=s.replace('《批發、零售及餐飲業動態統計調查》','《114年批發、零售及餐飲業經營實況調查》')
+ if rel in ('trend.html','mobile-trend.html'):
+  s=s.replace('《2024 零售全通路 OMO 趨勢報告》','91APP 官方〈AI 驅動零售新體驗〉（2025/08/14）')
+ if rel=='trend.html':
+  s=s.replace('台灣個人保養與美妝市場研究報告。探討底妝與香氛等品類在選購時對實體門市試用之質地確認需求。','Kantar 官方資料可支持美妝消費趨勢與實體專櫃服務體驗的相關討論；但特定「底妝與香氛試用需求」尚無可逐項核對的 Kantar 公開數據，故不歸因為已驗證的研究結論。')
+ if rel=='mobile-trend.html':
+  s=s.replace('台灣個人保養與美妝市場研究報告。佐證底妝與香氛等品類在首次選購時高度依賴實體門市試用之行為洞察。','Kantar 公開資料可支持美妝市場與實體專櫃體驗的討論；但未找到可直接支持「底妝及香氛首次選購高度依賴實體試用」的 Kantar 原始數據，因此不將此歸因列為已證實結論。')
+  s=s.replace('（2026/04/15 執行，藥妝店 45.2%','（2026/04/15 發布、2026/03/12–03/19 調查，藥妝店 45.2%')
  return compact(s)
 base=json.loads((ROOT/'_audit/baseline-text.json').read_text())
 errors=[];links=0;results=[]
@@ -58,6 +74,19 @@ for rel,old in base.items():
   if 'mobile' in rel and not any(a.get('name')=='robots' and a.get('content')=='noindex,follow' for t,a in p.tags):errors.append(rel+': mobile indexing')
   for literal in ['萬能科技大學','企業管理系','2026.10','2030.06']:
    if literal not in compact(''.join(p.text)):errors.append(rel+': education '+literal)
+# Independently validate metadata that is excluded from original-resume text parity.
+for rel in ('index.html','mobile.html'):
+ html=(ROOT/rel).read_text()
+ for author,part,licensed in [('Sukriramli','Guardian_Malaysia_Store_Inside_Look.jpg','/by-sa/4.0/'),('Ariel Palmon','Veterinary_analyzed_Room.jpg','/by-sa/3.0/')]:
+  if not all(v in html for v in (author,part,licensed,'非築心動物醫院' if author=='Ariel Palmon' else "非 TOMOD'S")):errors.append(rel+': attribution missing '+author)
+for rel in ('index.html','mobile.html','trend.html','mobile-trend.html'):
+ html=(ROOT/rel).read_text()
+ for origin in ('moea.gov.tw','ixresearch.com'):
+  if origin not in html:errors.append(rel+': research source hyperlink missing '+origin)
+for rel in ('trend.html','mobile-trend.html'):
+ html=(ROOT/rel).read_text()
+ for origin in ('91app.com','kantarworldpanel.com'):
+  if origin not in html:errors.append(rel+': research source hyperlink missing '+origin)
 manifest=json.loads((ROOT/'_audit/original-manifest.json').read_text())
 for name,item in manifest.items():
  if name.endswith('.jpg') and hashlib.sha256((ROOT/name).read_bytes()).hexdigest()!=item['sha256']:errors.append(name+': original image changed')
