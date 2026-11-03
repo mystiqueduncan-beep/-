@@ -83,9 +83,9 @@
   animation: keycap-marquee-scroll var(--keycap-duration) linear infinite;
   will-change: transform;
 }
-.keycap-marquee.is-enhanced:hover .keycap-marquee__belt,
-.keycap-marquee.is-enhanced .keycap-marquee__viewport:focus-within .keycap-marquee__belt,
-.keycap-marquee__viewport:hover .keycap-marquee__belt {
+/* Only the JavaScript-verified pointer hovering an actual chapter key pauses playback.
+   Hovering whitespace, a retained click focus, or another section never freezes the marquee. */
+.keycap-marquee.is-enhanced.is-hover-paused .keycap-marquee__belt {
   animation-play-state: paused;
 }
 @keyframes keycap-marquee-scroll {

@@ -18,5 +18,7 @@ jobs:
           node --check assets/trend-marquee.js
           node --check assets/mobile-trend-marquee.js
           node --check assets/mk-inspired.js
+      - name: Desktop marquee interaction regression
+        run: node --test _qa/marquee-interaction.test.cjs
       - name: HTML structure
         run: npx --yes --package=html-validate@11.18.0 html-validate --config _qa/htmlvalidate.json *.html mobile/*.html
