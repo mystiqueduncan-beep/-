@@ -20,11 +20,9 @@ body {
   background-color: #F7F6F0;
   background-image: linear-gradient(180deg, rgba(255, 247, 199, .32), transparent 530px);
 }
-.mag-top-ticker,
-.mobile-top-bar {
-  background-color: var(--mk-inspired-navy);
-}
-.mag-top-ticker { border-bottom: 3px solid var(--mk-inspired-yellow); }
+.mag-top-ticker { background-color: var(--mk-inspired-navy); border-bottom: 3px solid var(--mk-inspired-yellow); }
+/* Keep mobile header on white: its existing logo and controls use dark text. */
+.mobile-top-bar { background-color: #FFFFFF; }
 .mag-header {
   position: relative;
   overflow: clip;
@@ -179,6 +177,33 @@ body {
 .mobile-content { padding-inline: clamp(12px, 3vw, 18px); }
 .mobile-content > :is(.mobile-card, .timeline-job-card, .edu-card-mobile, .mobile-trend-banner) {
   margin-bottom: 20px;
+}
+
+
+/* Alternating category rhythm adapted from the official product listing layout. */
+main.mag-main .section-block:nth-of-type(even) {
+  padding: clamp(14px, 2.2vw, 24px);
+  border: 1px solid rgba(226, 204, 113, .45);
+  border-radius: 17px;
+  background: linear-gradient(135deg, #FFFAE3 0%, #FFFDF4 52%, rgba(255,255,255,.28) 100%);
+}
+main.trend-main > section[id]:nth-of-type(even) {
+  padding: clamp(14px, 2vw, 23px);
+  border-radius: 17px;
+  background: linear-gradient(145deg, rgba(255,247,199,.60), rgba(255,255,255,.64) 44%);
+}
+main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
+  border-left: 4px solid var(--mk-inspired-yellow);
+}
+.hero-professional-intro {
+  padding: 12px 15px;
+}
+@media (max-width: 680px) {
+  main.mag-main .section-block:nth-of-type(even),
+  main.trend-main > section[id]:nth-of-type(even) {
+    padding: 12px;
+    border-radius: 12px;
+  }
 }
 
 /* Strong merchandise-like CTAs: high contrast and keyboard-visible. */
