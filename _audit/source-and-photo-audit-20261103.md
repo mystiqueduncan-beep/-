@@ -13,8 +13,8 @@
 5. 市場策略、假設、標竿案例仍是作者分析，不等於已獲研究證實的因果事實。尚未逐件驗證所有品牌策略執行結果，需人工複核後才可稱為全面核實。
 
 ## 新增圖像來源、作者、授權
-- 藥妝通路陳列照片：Guardian Malaysia Store Inside Look，攝影Sukriramli，自製照片，CC BY-SA 4.0，來源 https://commons.wikimedia.org/wiki/File:Guardian_Malaysia_Store_Inside_Look.jpg ，授權 https://creativecommons.org/licenses/by-sa/4.0/ 。頁面明示為「馬來西亞 Guardian 示意；不是 Tomod's 門市」。影像由Wikimedia縮圖顯示，CSS依容器裁切；未改原圖或謊稱任職現場。
-- 獸醫院空間照片：Veterinary analyzed Room，攝影Ariel Palmon，自製照片，CC BY-SA 3.0，來源 https://commons.wikimedia.org/wiki/File:Veterinary_analyzed_Room.jpg ，授權 https://creativecommons.org/licenses/by-sa/3.0/ 。頁面明示不是築心動物醫院；以CSS裁切顯示。
+- 藥妝商品陳列照片：VitaminSupplementPills.jpg，攝影Raysonho @ Open Grid Scheduler / Grid Engine，加拿大多倫多藥妝通路之保健用品貨架。CC0 1.0，來源 https://commons.wikimedia.org/wiki/File:VitaminSupplementPills.jpg ，授權 https://creativecommons.org/publicdomain/zero/1.0/ 。頁面明示「不是 TOMOD'S 門市或本人工作照片」，Wikimedia縮圖顯示並以CSS依容器裁切。
+- 獸醫院診療空間照片：Veterinary Office with dog.JPG，攝影MarkBuckawicki，包含診療空間與犬隻。CC0 1.0，來源 https://commons.wikimedia.org/wiki/File:Veterinary_Office_with_dog.JPG ，授權 https://creativecommons.org/publicdomain/zero/1.0/ 。頁面明示不是築心動物醫院或本人工作場景；以CSS裁切顯示。
 - 兩圖以外部Wikimedia縮圖連結載入，沒有將照片位元組複製入儲存庫。載入速度與可用性依外部主機而異；仍需正式網站實際網路及手機瀏覽器驗證。
 - 學校官方照片未取得可確認授權，暫不加入，以免誤用受著作權保護的校園攝影。
 
