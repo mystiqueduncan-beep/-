@@ -17,6 +17,9 @@ jobs:
           node --check assets/contact.js
           node --check assets/trend-marquee.js
           node --check assets/mk-inspired.js
+          node --check assets/view-router.js
+      - name: Automatic device routing and manual override tests
+        run: node --test _qa/device-routing.test.cjs
       - name: Desktop marquee interaction regression
         run: node --test _qa/marquee-interaction.test.cjs
       - name: HTML structure
