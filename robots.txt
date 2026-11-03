@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /-/
+Sitemap: https://mystiqueduncan-beep.github.io/-/sitemap.xml
