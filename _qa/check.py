@@ -39,6 +39,8 @@ def expected_text(rel,text):
  if rel in ('trend.html','mobile-trend.html'):
   s=s.replace('《2024 零售全通路 OMO 趨勢報告》','91APP 官方〈AI 驅動零售新體驗〉（2025/08/14）')
  if rel=='trend.html':
+  # The summary content remains; only its redundant marquee shortcut was removed.
+  s=s.replace('00/研究精要','',1)
   s=s.replace('台灣個人保養與美妝市場研究報告。探討底妝與香氛等品類在選購時對實體門市試用之質地確認需求。','Kantar 官方資料可支持美妝消費趨勢與實體專櫃服務體驗的相關討論；但特定「底妝與香氛試用需求」尚無可逐項核對的 Kantar 公開數據，故不歸因為已驗證的研究結論。')
  if rel=='mobile-trend.html':
   s=s.replace('台灣個人保養與美妝市場研究報告。佐證底妝與香氛等品類在首次選購時高度依賴實體門市試用之行為洞察。','Kantar 公開資料可支持美妝市場與實體專櫃體驗的討論；但未找到可直接支持「底妝及香氛首次選購高度依賴實體試用」的 Kantar 原始數據，因此不將此歸因列為已證實結論。')
