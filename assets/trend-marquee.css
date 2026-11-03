@@ -106,7 +106,7 @@
   will-change: transform;
 }
 .keycap-marquee.is-enhanced:hover .keycap-marquee__belt,
-.keycap-marquee.is-enhanced:focus-within .keycap-marquee__belt,
+.keycap-marquee.is-enhanced .keycap-marquee__viewport:focus-within .keycap-marquee__belt,
 .keycap-marquee.is-paused .keycap-marquee__belt {
   animation-play-state: paused;
 }
