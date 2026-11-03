@@ -36,3 +36,5 @@ HTML 檢查採 recommended，僅停用 `no-inline-style`（保留既有行內設
 合併必須等待使用者確認。備份分支 `backup/resume-before-quality-20261103` 指向原始正式 commit。回復時建立新分支，以 `git revert` 回復本 PR 的合併 commit（merge commit 使用 `git revert -m 1 <merge-sha>`；squash commit 使用 `git revert <squash-sha>`），經 PR 審查再合併；不得強制推送或重設正式歷史。
 
 GitHub Pages 專案路徑為 `/-/`。資源採相對路徑；canonical、OG、sitemap 使用完整正式網址。專案的 `robots.txt` 不等同網域根目錄 `/robots.txt`，不能控制整個 `github.io` 網域的爬取政策；頁面索引控制以 meta robots 為準。
+
+完整交付報告：[_audit/report.md](_audit/report.md)；截圖與 Lighthouse 原始證據：[_audit/qa-evidence.zip](_audit/qa-evidence.zip)。

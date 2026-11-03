@@ -139,7 +139,10 @@ python3 _qa/print_pdf.py
 - 正式 Pages：最近成功 run 41454414594，`dynamic/pages/pages-build-deployment`；logs 明列 checkout ref main、source `.`、Jekyll，build/deploy 均 success。
 - 既有 PR #1（draft）：resume-site-audit-20261103-v2，3da71dfe4d83a18bec7b160b65ae29f989d81369，只改首頁17行新增／4行刪除。已讀全文差異，本次包含其安全改善並擴及所有頁；沒有推送該分支或關閉／合併該 PR。
 - 遠端備份：backup/resume-before-quality-20261103，指向原 main。
-- 本次獨立分支：resume-quality-20261103。PR 與最終 commit 於交付連結／PR head 核對；不覆寫既有分支。
+- 本次獨立分支：resume-quality-20261103；程式碼 commit：db9dbfff8a1b99931862e625e3c54180294aca98。
+- 審查 PR：https://github.com/mystiqueduncan-beep/-/pull/2 ，open、未合併。
+- GitHub CI 已通過：https://github.com/mystiqueduncan-beep/-/actions/runs/41573058176 ，履歷／連結／JS／HTML 步驟均 success。
+- 截圖與 Lighthouse 原始證據：本目錄 qa-evidence.zip；內含 24 組載入完整圖片的修改前後截圖（無損 WebP；過長圖分段並附座標 manifest，與原截圖像素相同）、12 份 Lighthouse 原始 JSON、所有結果與工具。
 - 新增品質 CI 是 pull_request / workflow_dispatch，contents:read；沒有 Pages 寫入或部署步驟。
 - 本次正式部署狀態：未合併、未部署。請勿同時合併首頁舊 PR #1，以免產生重複或衝突；選定本次整體 PR 後再處理舊 PR。
 
