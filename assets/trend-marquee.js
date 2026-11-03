@@ -13,6 +13,47 @@
     "(min-width: 769px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)"
   );
   let duplicate = null;
+  // A clicked anchor retains focus after hash navigation. That focus must not
+  // permanently pause the animation; require an actual new pointer movement.
+  let resumeAfterNavigation = false;
+  const mousePointer = (event) => event.pointerType === "mouse" || event.pointerType === "pen";
+
+  function chapterLink(node) {
+    if (!node || typeof node.closest !== "function") return null;
+    const link = node.closest(".keycap-marquee__group a");
+    return link && belt.contains(link) ? link : null;
+  }
+
+  function setHoverPaused(shouldPause) {
+    nav.classList.toggle("is-hover-paused", Boolean(shouldPause) && playback.matches && !resumeAfterNavigation);
+  }
+
+  // Only hovering an actual chapter key pauses. Blank space in the strip does not.
+  nav.addEventListener("pointerover", (event) => {
+    if (mousePointer(event) && chapterLink(event.target)) setHoverPaused(true);
+  });
+  nav.addEventListener("pointerout", (event) => {
+    if (mousePointer(event) && chapterLink(event.target) && !chapterLink(event.relatedTarget)) {
+      setHoverPaused(false);
+    }
+  });
+  nav.addEventListener("pointerleave", () => {
+    resumeAfterNavigation = false;
+    setHoverPaused(false);
+  });
+  nav.addEventListener("pointermove", (event) => {
+    if (!mousePointer(event) || !resumeAfterNavigation) return;
+    resumeAfterNavigation = false;
+    setHoverPaused(Boolean(chapterLink(event.target)));
+  });
+
+  // Resume immediately on click, including while the page scrolls to an anchor.
+  // Do not re-pause beneath a stationary cursor until the user moves it again.
+  nav.addEventListener("click", (event) => {
+    if (!chapterLink(event.target)) return;
+    resumeAfterNavigation = true;
+    setHoverPaused(false);
+  });
 
   function updateCurrent() {
     const active = window.location.hash || "#summary";
@@ -51,11 +92,17 @@
         duplicate = null;
       }
       nav.classList.remove("is-enhanced");
+      resumeAfterNavigation = false;
+      setHoverPaused(false);
     }
     updateCurrent();
   }
 
-  window.addEventListener("hashchange", updateCurrent);
+  window.addEventListener("hashchange", () => {
+    resumeAfterNavigation = true;
+    setHoverPaused(false);
+    updateCurrent();
+  });
   if (typeof playback.addEventListener === "function") {
     playback.addEventListener("change", syncMode);
   } else if (typeof playback.addListener === "function") {
