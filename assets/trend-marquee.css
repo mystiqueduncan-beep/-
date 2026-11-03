@@ -195,3 +195,23 @@
 .home-keycap-strip .home-research-link:hover { background: #173C68; transform: translateY(-2px); box-shadow: 0 6px 0 #0B2240; }
 .home-keycap-strip .home-research-link:active { transform: translateY(3px); box-shadow: 0 1px 0 #0B2240; }
 .home-keycap-strip .home-research-link:focus-visible { outline: 3px solid #A90E16; outline-offset: 4px; }
+
+/* Mobile research chapter marquee: no separate pause control. */
+.mobile-keycap-marquee { display:block; scroll-snap-type:none; }
+.mobile-keycap-belt { display:flex; gap:10px; width:max-content; }
+.mobile-keycap-group { display:flex; flex:0 0 auto; gap:10px; width:max-content; }
+.mobile-keycap-marquee.is-mobile-auto .mobile-keycap-belt { animation:mobile-keycap-scroll 60s linear infinite; }
+.mobile-keycap-marquee.is-mobile-auto:hover .mobile-keycap-belt,
+.mobile-keycap-marquee.is-mobile-auto:focus-within .mobile-keycap-belt { animation-play-state:paused; }
+@keyframes mobile-keycap-scroll {
+  from { transform:translateX(0); }
+  to { transform:translateX(calc(-50% - 5px)); }
+}
+@media (prefers-reduced-motion:reduce) {
+  .mobile-keycap-marquee.is-mobile-auto .mobile-keycap-belt { animation:none !important; transform:none !important; }
+  .mobile-keycap-group--duplicate { display:none !important; }
+}
+@media print {
+  .mobile-keycap-marquee.is-mobile-auto .mobile-keycap-belt { animation:none !important; transform:none !important; }
+  .mobile-keycap-group--duplicate { display:none !important; }
+}
