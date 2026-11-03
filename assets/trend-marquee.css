@@ -1,0 +1,174 @@
+/* Trend report / keycap carousel navigation. Scoped to the chapter nav only. */
+.trend-subnav-strip .keycap-marquee {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  padding: 12px 0 15px;
+}
+.keycap-marquee__viewport {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.keycap-marquee__viewport::-webkit-scrollbar { display: none; }
+.keycap-marquee__belt {
+  --keycap-gap: 14px;
+  --keycap-duration: 48s;
+  display: flex;
+  align-items: stretch;
+  gap: var(--keycap-gap);
+  width: max-content;
+  will-change: auto;
+}
+.keycap-marquee__group {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: stretch;
+  gap: var(--keycap-gap);
+  width: max-content;
+  list-style: none;
+  padding: 3px 3px 6px;
+  margin: 0;
+}
+.keycap-marquee__group li { flex: 0 0 auto; display: flex; }
+.keycap-marquee__group a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 9px 16px;
+  border: 1.5px solid #0B2240;
+  border-radius: 7px;
+  background: #FFFDF8;
+  box-shadow: 0 4px 0 #0B2240;
+  color: #0B2240;
+  font-family: var(--font-sans, "Noto Sans TC", sans-serif);
+  font-size: .83rem;
+  font-weight: 800;
+  line-height: 1.35;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+.keycap-marquee__group a .num {
+  color: #A90E16;
+  font-family: var(--font-mono, monospace);
+  font-size: .76rem;
+  font-weight: 800;
+}
+.keycap-marquee__group a:hover,
+.keycap-marquee__group a.is-current {
+  background: #FFD600;
+}
+.keycap-marquee__group a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #0B2240;
+}
+.keycap-marquee__group a:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #0B2240;
+}
+.keycap-marquee__group a:focus-visible,
+.keycap-marquee__toggle:focus-visible {
+  outline: 3px solid #A90E16;
+  outline-offset: 4px;
+}
+.keycap-marquee__toggle {
+  flex: 0 0 46px;
+  width: 46px;
+  height: 46px;
+  border: 1.5px solid #0B2240;
+  border-radius: 7px;
+  background: #FFFDF8;
+  color: #0B2240;
+  box-shadow: 0 4px 0 #0B2240;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.keycap-marquee__toggle[hidden] { display: none !important; }
+.keycap-marquee__toggle:hover { background: #FFF9D2; }
+.keycap-marquee__toggle:active { transform: translateY(3px); box-shadow: 0 1px 0 #0B2240; }
+.keycap-marquee__toggle svg { display: block; width: 19px; height: 19px; fill: currentColor; }
+.keycap-marquee__toggle .keycap-icon-play { display: none; }
+.keycap-marquee.is-paused .keycap-icon-pause { display: none; }
+.keycap-marquee.is-paused .keycap-icon-play { display: block; }
+
+/* Animation is only enabled after JS adds an accessible inert duplicate group. */
+.keycap-marquee.is-enhanced .keycap-marquee__belt {
+  animation: keycap-marquee-scroll var(--keycap-duration) linear infinite;
+  will-change: transform;
+}
+.keycap-marquee.is-enhanced:hover .keycap-marquee__belt,
+.keycap-marquee.is-enhanced .keycap-marquee__viewport:focus-within .keycap-marquee__belt,
+.keycap-marquee.is-paused .keycap-marquee__belt {
+  animation-play-state: paused;
+}
+@keyframes keycap-marquee-scroll {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(calc(-50% - 7px), 0, 0); }
+}
+/* Mobile, touch/pointer devices and reduced-motion users get native manual scrolling. */
+@media (max-width: 768px), (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .trend-subnav-strip .keycap-marquee { gap: 0; padding: 10px 0 13px; }
+  .keycap-marquee__viewport {
+    scrollbar-width: thin;
+    scroll-snap-type: x proximity;
+  }
+  .keycap-marquee__group { gap: 10px; padding: 3px 3px 7px; }
+  .keycap-marquee__group li { scroll-snap-align: start; }
+  .keycap-marquee__group a { font-size: .82rem; padding: 8px 13px; min-height: 44px; }
+  .keycap-marquee__toggle { display: none !important; }
+  .keycap-marquee.is-enhanced .keycap-marquee__belt { animation: none !important; transform: none !important; }
+  .keycap-marquee__group--duplicate { display: none !important; }
+}
+@media print {
+  .keycap-marquee__toggle, .keycap-marquee__group--duplicate { display: none !important; }
+  .keycap-marquee.is-enhanced .keycap-marquee__belt { animation: none !important; transform: none !important; }
+  .keycap-marquee__viewport { overflow: visible; }
+  .keycap-marquee__group { flex-wrap: wrap; width: auto; }
+  .keycap-marquee__belt { width: auto; }
+}
+
+/* The separate mobile research page keeps its original eight anchors; swipe instead of autoplay. */
+.mobile-keycap-nav {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 10px;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 3px 12px;
+  scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+.mobile-keycap-nav .btn-subcard-nav {
+  flex: 0 0 auto;
+  min-height: 46px;
+  width: auto;
+  padding: 10px 14px;
+  background: #FFFDF8;
+  color: #0B2240;
+  border: 1.5px solid #0B2240;
+  border-radius: 7px;
+  box-shadow: 0 4px 0 #0B2240;
+  text-align: left;
+  white-space: nowrap;
+  scroll-snap-align: start;
+  transition: background-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+.mobile-keycap-nav .btn-subcard-nav:hover { background: #FFD600; transform: translateY(-2px); box-shadow: 0 6px 0 #0B2240; }
+.mobile-keycap-nav .btn-subcard-nav:active { transform: translateY(3px); box-shadow: 0 1px 0 #0B2240; }
+.mobile-keycap-nav .btn-subcard-nav:focus-visible,
+.mobile-keycap-nav:focus-visible { outline: 3px solid #A90E16; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .keycap-marquee__belt, .mobile-keycap-nav .btn-subcard-nav { animation: none !important; transition: none !important; }
+}

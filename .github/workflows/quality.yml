@@ -13,6 +13,8 @@ jobs:
       - name: Resume facts, links, resources and SEO
         run: python3 _qa/check.py
       - name: JavaScript syntax
-        run: node --check assets/contact.js
+        run: |
+          node --check assets/contact.js
+          node --check assets/trend-marquee.js
       - name: HTML structure
         run: npx --yes --package=html-validate@11.18.0 html-validate --config _qa/htmlvalidate.json *.html mobile/*.html
