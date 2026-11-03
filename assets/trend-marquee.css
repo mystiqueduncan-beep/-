@@ -172,3 +172,24 @@
 @media (prefers-reduced-motion: reduce) {
   .keycap-marquee__belt, .mobile-keycap-nav .btn-subcard-nav { animation: none !important; transition: none !important; }
 }
+
+/* Resume homepage: preserve the status badge below the keycap strip. */
+.home-keycap-strip .home-keycap-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  min-width: 0;
+  padding-top: 10px;
+  padding-bottom: 12px;
+}
+.home-keycap-strip .keycap-marquee { display: flex; align-items: center; gap: 14px; width: 100%; min-width: 0; }
+.home-keycap-strip .keycap-marquee__group a.btn-accent { background: #0B2240; color: #FFD600; }
+.home-keycap-strip .keycap-marquee__group a.btn-accent .num { color: #FFD600; }
+.home-keycap-strip .keycap-marquee__group a.btn-accent:hover { background: #173C68; }
+.home-keycap-strip .subnav-status-badge { align-self: flex-start; margin: 0; }
+@media (max-width: 768px), (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .home-keycap-strip .keycap-marquee { gap: 0; }
+  .home-keycap-strip .home-keycap-layout { padding-top: 8px; padding-bottom: 12px; }
+}
+@media print { .home-keycap-strip .keycap-marquee__group { flex-wrap: wrap; } }
