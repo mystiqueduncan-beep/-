@@ -13,7 +13,7 @@ class Page(HTMLParser):
   voids=('img','source','br','hr','meta','link','input','area','wbr')
   if self.suppressed:
    if t not in voids:self.suppressed+=1
-  elif ('audited-visual' in classes or 'audited-source-note' in classes) and t not in voids:
+  elif ('audited-visual' in classes or 'audited-source-note' in classes or (t=='figure' and 'career-photo' in classes)) and t not in voids:
    self.suppressed=1
   if t in ('style','script'):self.hidden+=1
  def handle_endtag(self,t):
@@ -27,6 +27,10 @@ def normalized(text):
  return compact(''.join(text).replace('跳至主要內容',''))
 def expected_text(rel,text):
  s=''.join(text)
+ if rel in ('index.html','mobile.html'):
+  for credit in ("出處：TOMOD'S 官方商標",'出處：築心動物醫院',"出處：LEVI'S 官方素材"):
+   if s.count(credit)!=1:raise ValueError('unexpected original logo credit: '+rel)
+   s=s.replace(credit,'',1)
  s=re.sub(r'桃園市大園區(?:（機動巡店）)?','桃園市大園區（機動巡店）',s) if '/' not in rel else s
  additions={
   'index.html':'服務期間兼任新進人員帶訓，指導櫃台預約登記流程、收費規範與常見應變作業。',
@@ -58,10 +62,10 @@ def expected_text(rel,text):
   s=s.replace('台灣個人保養與美妝市場研究報告。佐證底妝與香氛等品類在首次選購時高度依賴實體門市試用之行為洞察。','Kantar 公開資料可支持美妝市場與實體專櫃體驗的討論；但未找到可直接支持「底妝及香氛首次選購高度依賴實體試用」的 Kantar 原始數據，因此不將此歸因列為已證實結論。')
   s=s.replace('（2026/04/15 執行，藥妝店 45.2%','（2026/04/15 發布、2026/03/12–03/19 調查，藥妝店 45.2%')
  return compact(s)
-base=json.loads((ROOT/'_audit/baseline-text.json').read_text())
+base=json.loads((ROOT/'_audit/baseline-text.json').read_text(encoding='utf-8'))
 errors=[];links=0;results=[]
 for rel,old in base.items():
- f=ROOT/rel;p=Page(f.read_text());ids=[a['id'] for t,a in p.tags if 'id' in a]
+ f=ROOT/rel;p=Page(f.read_text(encoding='utf-8'));ids=[a['id'] for t,a in p.tags if 'id' in a]
  if len(ids)!=len(set(ids)):errors.append(rel+': duplicate id')
  same=expected_text(rel,old)==normalized(p.text)
  results.append({'page':rel,'text_matches_except_confirmed_additions':same})
@@ -75,7 +79,7 @@ for rel,old in base.items():
    links+=1
    if not target.is_file():errors.append(rel+': missing '+value);continue
    if u.fragment and target.suffix=='.html':
-    targetids=[a.get('id') for t,a in Page(target.read_text()).tags]
+    targetids=[a.get('id') for t,a in Page(target.read_text(encoding='utf-8')).tags]
     if unquote(u.fragment) not in targetids:errors.append(rel+': missing fragment '+value)
   if t=='a' and a.get('target')=='_blank' and 'noopener' not in a.get('rel',''):errors.append(rel+': unsafe new tab')
   if t=='img' and any(k not in a for k in ['alt','width','height']):errors.append(rel+': image metadata missing')
@@ -90,18 +94,30 @@ for rel,old in base.items():
    if literal not in compact(''.join(p.text)):errors.append(rel+': education '+literal)
 # Independently validate metadata that is excluded from original-resume text parity.
 for rel in ('index.html','mobile.html'):
- html=(ROOT/rel).read_text()
- for author,part,licensed in [('Raysonho','VitaminSupplementPills.jpg','/publicdomain/zero/1.0/'),('MarkBuckawicki','Veterinary_Office_with_dog.JPG','/publicdomain/zero/1.0/')]:
-  if not all(v in html for v in (author,part,licensed,'非築心動物醫院' if author=='Ariel Palmon' else "非 TOMOD'S")):errors.append(rel+': attribution missing '+author)
+ html=(ROOT/rel).read_text(encoding='utf-8')
+ figures=re.findall(r'<figure class="career-photo"[^>]*>(.*?)</figure>',html,re.S)
+ career=html.split('id="career"',1)[1].split('</section>',1)[0]
+ expected=[('3.bp.blogspot.com/', 'wowonews.com/2019/01/tomods-.html', 'WoWoNews'),
+           ('www.zhuxin.com.tw/proimage/images/1696680526.jpg','zhuxin.com.tw/about/inside-look','築心動物醫院'),
+           ('i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg','models.com/work/levis-levis-timeless-campaign-2026','Mark Mahaney')]
+ if len(figures)!=3 or len(re.findall(r'<img\b',career))!=3:errors.append(rel+': expected exactly three career photos')
+ for figure,(image,source,credit) in zip(figures,expected):
+  tags=Page(figure).tags
+  if any(t in ('p','ul','li','h2','h3') for t,a in tags):errors.append(rel+': resume content inside photo metadata')
+  if '非本人工作照片' not in figure:errors.append(rel+': missing photo context')
+  images=[a for t,a in tags if t=='img'];anchors=[a for t,a in tags if t=='a']
+  if len(images)!=1 or image not in images[0].get('src',''):errors.append(rel+': selected photo mismatch '+image)
+  if not any(source in a.get('href','') for a in anchors) or credit not in figure:errors.append(rel+': selected photo attribution missing '+source)
+  if images and (not images[0].get('alt') or images[0].get('loading')!='lazy' or images[0].get('decoding')!='async'):errors.append(rel+': photo loading/alt metadata')
 for rel in ('index.html','mobile.html','trend.html','mobile-trend.html'):
- html=(ROOT/rel).read_text()
+ html=(ROOT/rel).read_text(encoding='utf-8')
  for origin in ('moea.gov.tw','ixresearch.com'):
   if origin not in html:errors.append(rel+': research source hyperlink missing '+origin)
 for rel in ('trend.html','mobile-trend.html'):
- html=(ROOT/rel).read_text()
+ html=(ROOT/rel).read_text(encoding='utf-8')
  for origin in ('91app.com','kantarworldpanel.com'):
   if origin not in html:errors.append(rel+': research source hyperlink missing '+origin)
-manifest=json.loads((ROOT/'_audit/original-manifest.json').read_text())
+manifest=json.loads((ROOT/'_audit/original-manifest.json').read_text(encoding='utf-8'))
 for name,item in manifest.items():
  if name.endswith('.jpg') and hashlib.sha256((ROOT/name).read_bytes()).hexdigest()!=item['sha256']:errors.append(name+': original image changed')
 report={'pages':results,'local_links_and_resources_checked':links,'errors':errors}
