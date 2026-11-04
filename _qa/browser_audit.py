@@ -16,11 +16,11 @@ with sync_playwright() as p:
   for width in [320,375,390,430,768,1024,1440]:
    page=browser.new_page(viewport={'width':width,'height':844});errors=[]
    page.on('pageerror',lambda e:errors.append(str(e)))
-   # Same explicit offline-font condition as the recorded audit; no public CWV claim.
+   # Offline external resources: audit local assets only; report remote images separately.
    page.route('https://**/*',lambda r:r.abort());page.goto(base+name+'?view='+('mobile' if name.startswith('mobile') else 'desktop'))
    for img in page.locator('img').all():img.scroll_into_view_if_needed();page.wait_for_timeout(100)
    page.wait_for_timeout(200);page.evaluate('scrollTo(0,0)')
-   row=page.evaluate('''()=>({overflow:document.documentElement.scrollWidth>innerWidth,brokenImages:[...document.images].filter(i=>!i.complete||!i.naturalWidth).map(i=>i.currentSrc)})''')
+   row=page.evaluate('''()=>({overflow:document.documentElement.scrollWidth>innerWidth,externalImagesNotChecked:[...document.images].filter(i=>new URL(i.src).origin!==location.origin).map(i=>i.src),brokenImages:[...document.images].filter(i=>new URL(i.src).origin===location.origin&&(!i.complete||!i.naturalWidth)).map(i=>i.currentSrc)})''')
    row.update(file=name,width=width,errors=errors)
    if name in ('index.html','trend.html') and width == 1440:
     toggle=page.locator('.keycap-marquee__toggle')
@@ -42,6 +42,9 @@ with sync_playwright() as p:
     row['marquee_interactions']='passed'
 
    if width in (390,1440):
+    # Audit fully revealed content, not transient opacity during entrance effects.
+    page.emulate_media(reduced_motion='reduce')
+    page.wait_for_timeout(800)
     page.screenshot(path=str(out/f'{name}-{width}.png'),full_page=True)
     if args.axe:
      page.add_script_tag(path=args.axe)
@@ -50,6 +53,6 @@ with sync_playwright() as p:
  browser.close()
 server.shutdown();(out/'browser.json').write_text(json.dumps(results,ensure_ascii=False,indent=2))
 failed=[r for r in results if r['overflow'] or r['brokenImages'] or r['errors'] or r.get('axe',{}).get('violations')]
-print(json.dumps([{'file':r['file'],'width':r['width'],'overflow':r['overflow'],'brokenImages':r['brokenImages'],'errors':r['errors'],'violations':[{'id':v['id'],'nodes':[n['target'] for n in v['nodes']]} for v in r.get('axe',{}).get('violations',[])]} for r in failed], ensure_ascii=False))
+print(json.dumps([{'file':r['file'],'width':r['width'],'overflow':r['overflow'],'brokenImages':r['brokenImages'],'errors':r['errors'],'externalImagesNotChecked':r.get('externalImagesNotChecked',[]),'violations':[{'id':v['id'],'nodes':[n['target'] for n in v['nodes']]} for v in r.get('axe',{}).get('violations',[])]} for r in failed], ensure_ascii=False))
 print(f'{len(results)} viewport cases; {len(failed)} failed. Review axe incomplete items manually.')
 raise SystemExit(bool(failed))
