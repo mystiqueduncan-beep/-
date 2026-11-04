@@ -1,4 +1,4 @@
-﻿/* Progressive enhancement: original nine chapter links remain functional without JS. */
+/* Progressive enhancement: original nine chapter links remain functional without JS. */
 (() => {
   "use strict";
   const nav = document.querySelector("[data-keycap-marquee]");
@@ -8,12 +8,11 @@
   const original = nav.querySelector(".keycap-marquee__group");
   if (!belt || !original) return;
 
-  // Avoid playing under reduced motion, on small screens and with touch pointers.
-  const playback = window.matchMedia(
-    "(min-width: 769px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)"
-  );
+  // Respect user preference for reduced motion across desktop, tablet and mobile.
+  const playback = window.matchMedia("(prefers-reduced-motion: no-preference)");
   let duplicate = null;
   const viewport = nav.querySelector(".keycap-marquee__viewport");
+
   // Show the original list so every keyboard target remains visible.
   nav.addEventListener("focusin", (event) => {
     const link = chapterLink(event.target);
@@ -28,12 +27,52 @@
       if (viewport) viewport.scrollLeft = 0;
     }
   });
+
+  // Touch handling for mobile & tablet: pause during touch swiping and resume after release.
+  let touchResumeTimer = null;
+  function setTouchPaused(shouldPause) {
+    if (touchResumeTimer) {
+      clearTimeout(touchResumeTimer);
+      touchResumeTimer = null;
+    }
+    nav.classList.toggle("is-touch-paused", Boolean(shouldPause) && playback.matches);
+  }
+
   nav.addEventListener("pointerdown", (event) => {
     nav.classList.remove("is-keyboard-paused");
+    if (event.pointerType === "touch") {
+      setTouchPaused(true);
+    }
     const link = chapterLink(event.target);
     // Duplicates accept pointer clicks without becoming hidden focus targets.
     if (link && link.closest('[aria-hidden="true"]')) event.preventDefault();
   });
+  nav.addEventListener("pointerup", (event) => {
+    if (event.pointerType === "touch") {
+      if (touchResumeTimer) clearTimeout(touchResumeTimer);
+      touchResumeTimer = setTimeout(() => {
+        setTouchPaused(false);
+      }, 1200);
+    }
+  });
+  nav.addEventListener("pointercancel", (event) => {
+    if (event.pointerType === "touch") {
+      if (touchResumeTimer) clearTimeout(touchResumeTimer);
+      touchResumeTimer = setTimeout(() => {
+        setTouchPaused(false);
+      }, 1200);
+    }
+  });
+
+  if (viewport) {
+    viewport.addEventListener("scroll", () => {
+      if (touchResumeTimer) clearTimeout(touchResumeTimer);
+      touchResumeTimer = setTimeout(() => {
+        setTouchPaused(false);
+      }, 1200);
+    }, { passive: true });
+  }
+
   // A clicked anchor retains focus after hash navigation. That focus must not
   // permanently pause the animation; require an actual new pointer movement.
   let resumeAfterNavigation = false;
@@ -74,6 +113,7 @@
     if (!chapterLink(event.target)) return;
     resumeAfterNavigation = true;
     setHoverPaused(false);
+    setTouchPaused(false);
   });
 
   function updateCurrent() {
@@ -114,6 +154,7 @@
       nav.classList.remove("is-enhanced");
       resumeAfterNavigation = false;
       setHoverPaused(false);
+      setTouchPaused(false);
     }
     updateCurrent();
   }
@@ -121,6 +162,7 @@
   window.addEventListener("hashchange", () => {
     resumeAfterNavigation = true;
     setHoverPaused(false);
+    setTouchPaused(false);
     updateCurrent();
   });
   if (typeof playback.addEventListener === "function") {

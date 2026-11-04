@@ -30,21 +30,17 @@ with sync_playwright() as p:
    row=page.evaluate('''()=>({overflow:document.documentElement.scrollWidth>innerWidth,externalImagesNotChecked:[...document.images].filter(i=>new URL(i.src).origin!==location.origin).map(i=>i.src),brokenImages:[...document.images].filter(i=>new URL(i.src).origin===location.origin&&(!i.complete||!i.naturalWidth)).map(i=>i.currentSrc)})''')
    row.update(file=name,width=width,errors=errors)
    if name in ('index.html','trend.html') and width == 1440:
-    toggle=page.locator('.keycap-marquee__toggle')
-    toggle.click()
-    assert toggle.get_attribute('aria-pressed') == 'true'
-    assert page.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e).animationName") == 'none'
-    page.mouse.move(0,0)
-    assert toggle.get_attribute('aria-pressed') == 'true'
-    toggle.click()
-    assert toggle.get_attribute('aria-pressed') == 'false'
+    assert page.locator('.keycap-marquee__toggle').count() == 0, 'Toggle button should not exist'
     assert page.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e).animationName") != 'none'
-    page.keyboard.press('Shift+Tab')
-    assert page.locator('.keycap-marquee').evaluate("e=>e.classList.contains('is-keyboard-paused')")
-    assert page.evaluate("()=>{const r=document.activeElement.getBoundingClientRect();return r.left>=0&&r.right<=innerWidth}")
+    first_key = page.locator('.keycap-marquee__group a').first
+    first_key.dispatch_event('pointerover', {'pointerType': 'mouse'})
+    assert page.locator('.keycap-marquee').evaluate("e=>e.classList.contains('is-hover-paused')")
+    page.locator('.keycap-marquee').dispatch_event('pointerleave', {'pointerType': 'mouse'})
+    assert not page.locator('.keycap-marquee').evaluate("e=>e.classList.contains('is-hover-paused')")
     page.locator('h1').click()
+    page.keyboard.press('Tab')
     page.emulate_media(reduced_motion='reduce')
-    expect(toggle).to_be_hidden()
+    assert page.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e).animationName") == 'none'
     page.emulate_media(reduced_motion='no-preference')
     row['marquee_interactions']='passed'
 
@@ -82,4 +78,3 @@ failed=[r for r in results if r['overflow'] or r['brokenImages'] or r['errors'] 
 print(json.dumps([{'file':r['file'],'width':r['width'],'overflow':r['overflow'],'brokenImages':r['brokenImages'],'errors':r['errors'],'externalImagesNotChecked':r.get('externalImagesNotChecked',[]),'violations':[{'id':v['id'],'nodes':[n['target'] for n in v['nodes']]} for v in r.get('axe',{}).get('violations',[])]} for r in failed], ensure_ascii=False))
 print(f'{len(results)} viewport cases; {len(failed)} failed. Review axe incomplete items manually.')
 raise SystemExit(bool(failed))
-
