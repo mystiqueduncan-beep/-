@@ -24,3 +24,15 @@ jobs:
         run: node --test _qa/marquee-interaction.test.cjs
       - name: HTML structure
         run: npx --yes --package=html-validate@11.18.0 html-validate --config _qa/htmlvalidate.json *.html mobile/*.html
+
+  browser-accessibility:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install browser audit dependencies
+        run: |
+          python3 -m pip install playwright==1.51.1
+          python3 -m playwright install --with-deps chromium
+          npm install --no-save --package-lock=false axe-core@4.10.3
+      - name: Responsive layouts, keyboard controls and axe
+        run: python3 _qa/browser_audit.py --out /tmp/browser-audit --axe node_modules/axe-core/axe.min.js

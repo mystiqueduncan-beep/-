@@ -11,17 +11,36 @@ server=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(Handler
 threading.Thread(target=server.serve_forever,daemon=True).start();base=f'http://127.0.0.1:{server.server_port}/-/'
 results=[]
 with sync_playwright() as p:
- browser=p.chromium.launch(executable_path=shutil.which('chromium') or None,args=['--no-sandbox'])
+ browser=p.chromium.launch(args=['--no-sandbox'])
  for name in ['index.html','contact.html','trend.html','mobile.html','mobile-contact.html','mobile-trend.html']:
   for width in [320,375,390,430,768,1024,1440]:
    page=browser.new_page(viewport={'width':width,'height':844});errors=[]
    page.on('pageerror',lambda e:errors.append(str(e)))
    # Same explicit offline-font condition as the recorded audit; no public CWV claim.
-   page.route('https://**/*',lambda r:r.abort());page.goto(base+name)
+   page.route('https://**/*',lambda r:r.abort());page.goto(base+name+'?view='+('mobile' if name.startswith('mobile') else 'desktop'))
    for img in page.locator('img').all():img.scroll_into_view_if_needed();page.wait_for_timeout(100)
    page.wait_for_timeout(200);page.evaluate('scrollTo(0,0)')
    row=page.evaluate('''()=>({overflow:document.documentElement.scrollWidth>innerWidth,brokenImages:[...document.images].filter(i=>!i.complete||!i.naturalWidth).map(i=>i.currentSrc)})''')
    row.update(file=name,width=width,errors=errors)
+   if name in ('index.html','trend.html') and width == 1440:
+    toggle=page.locator('.keycap-marquee__toggle')
+    toggle.click()
+    assert toggle.get_attribute('aria-pressed') == 'true'
+    assert page.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e).animationName") == 'none'
+    page.mouse.move(0,0)
+    assert toggle.get_attribute('aria-pressed') == 'true'
+    toggle.click()
+    assert toggle.get_attribute('aria-pressed') == 'false'
+    assert page.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e).animationName") != 'none'
+    page.keyboard.press('Shift+Tab')
+    assert page.locator('.keycap-marquee').evaluate("e=>e.classList.contains('is-keyboard-paused')")
+    assert page.evaluate("()=>{const r=document.activeElement.getBoundingClientRect();return r.left>=0&&r.right<=innerWidth}")
+    page.locator('h1').click()
+    page.emulate_media(reduced_motion='reduce')
+    assert not toggle.is_visible()
+    page.emulate_media(reduced_motion='no-preference')
+    row['marquee_interactions']='passed'
+
    if width in (390,1440):
     page.screenshot(path=str(out/f'{name}-{width}.png'),full_page=True)
     if args.axe:
