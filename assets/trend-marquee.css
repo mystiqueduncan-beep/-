@@ -1,4 +1,4 @@
-/* Trend report / keycap carousel navigation. Scoped to the chapter nav only. */
+﻿/* Trend report / keycap carousel navigation. Scoped to the chapter nav only. */
 .trend-subnav-strip .keycap-marquee {
   display: flex;
   align-items: center;
@@ -88,32 +88,13 @@
 .keycap-marquee.is-enhanced.is-hover-paused .keycap-marquee__belt {
   animation-play-state: paused;
 }
-.keycap-marquee__toggle {
-  flex: 0 0 auto;
-  min-height: 44px;
-  padding: 8px 12px;
-  border: 1.5px solid #0B2240;
-  border-radius: 7px;
-  background: #FFFDF8;
-  color: #0B2240;
-  font: inherit;
-  font-size: .82rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-.keycap-marquee__toggle[hidden] { display: none; }
-.keycap-marquee__toggle:focus-visible { outline: 3px solid #A90E16; outline-offset: 3px; }
-.keycap-marquee__toggle[aria-pressed="true"] { background: #FFD600; }
-.keycap-marquee.is-user-paused .keycap-marquee__belt,
+/* Keyboard focus pauses the marquee so users can navigate links without them scrolling away. */
 .keycap-marquee.is-keyboard-paused .keycap-marquee__belt {
   animation: none;
   transform: none;
 }
-.keycap-marquee.is-user-paused .keycap-marquee__group--duplicate,
 .keycap-marquee.is-keyboard-paused .keycap-marquee__group--duplicate { display: none; }
-.keycap-marquee.is-user-paused .keycap-marquee__viewport,
 .keycap-marquee.is-keyboard-paused .keycap-marquee__viewport { scrollbar-width: thin; }
-@media print { .keycap-marquee__toggle { display: none; } }
 @keyframes keycap-marquee-scroll {
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(calc(-50% - 7px), 0, 0); }
