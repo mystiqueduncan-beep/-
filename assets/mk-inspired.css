@@ -110,7 +110,7 @@ body {
   border: 1px solid var(--mk-inspired-navy);
   border-radius: 5px;
   background: var(--mk-inspired-yellow);
-  color: var(--mk-inspired-red);
+  color: #A90E16;
   box-shadow: 2px 3px 0 var(--mk-inspired-navy);
 }
 .section-editorial-header .sec-title-main {

@@ -13,6 +13,41 @@
     "(min-width: 769px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)"
   );
   let duplicate = null;
+  const viewport = nav.querySelector(".keycap-marquee__viewport");
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = "keycap-marquee__toggle";
+  toggle.textContent = "暫停跑馬燈";
+  toggle.setAttribute("aria-pressed", "false");
+  nav.appendChild(toggle);
+  let manuallyPaused = false;
+  toggle.addEventListener("click", () => {
+    manuallyPaused = !manuallyPaused;
+    nav.classList.toggle("is-user-paused", manuallyPaused);
+    toggle.setAttribute("aria-pressed", String(manuallyPaused));
+    toggle.textContent = manuallyPaused ? "繼續跑馬燈" : "暫停跑馬燈";
+    if (viewport) viewport.scrollLeft = 0;
+  });
+  // Show the original list so every keyboard target remains visible.
+  nav.addEventListener("focusin", (event) => {
+    const link = chapterLink(event.target);
+    if (link && link.matches(":focus-visible")) {
+      nav.classList.add("is-keyboard-paused");
+      link.scrollIntoView({ block: "nearest", inline: "nearest" });
+    }
+  });
+  nav.addEventListener("focusout", (event) => {
+    if (!nav.contains(event.relatedTarget)) {
+      nav.classList.remove("is-keyboard-paused");
+      if (viewport) viewport.scrollLeft = 0;
+    }
+  });
+  nav.addEventListener("pointerdown", (event) => {
+    nav.classList.remove("is-keyboard-paused");
+    const link = chapterLink(event.target);
+    // Duplicates accept pointer clicks without becoming hidden focus targets.
+    if (link && link.closest('[aria-hidden="true"]')) event.preventDefault();
+  });
   // A clicked anchor retains focus after hash navigation. That focus must not
   // permanently pause the animation; require an actual new pointer movement.
   let resumeAfterNavigation = false;
@@ -71,12 +106,12 @@
   }
 
   function syncMode() {
+    toggle.hidden = !playback.matches;
     if (playback.matches) {
       if (!duplicate) {
         duplicate = original.cloneNode(true);
         duplicate.classList.add("keycap-marquee__group--duplicate");
         duplicate.setAttribute("aria-hidden", "true");
-        duplicate.setAttribute("inert", "");
         duplicate.querySelectorAll("a").forEach((link) => {
           link.setAttribute("tabindex", "-1");
           link.removeAttribute("aria-current");
