@@ -42,19 +42,25 @@
     }
   }, { threshold: 0.04, rootMargin: "0px 0px -35px 0px" });
 
-  let pending = 0;
+  // Batch geometry reads before writing classes. Reading each rectangle after
+  // mutating the previous element can force repeated style/layout recalculation.
+  const toObserve = [];
+  const firstScreenLimit = window.innerHeight * 0.87;
   for (const el of targets) {
     if (el.closest('[hidden], [aria-hidden="true"]')) continue;
     const box = el.getBoundingClientRect();
     if (box.width === 0 || box.height === 0) continue;
     // Never conceal the first screen, focused elements, or anchor-linked content.
-    if (box.top < window.innerHeight * 0.87 ||
+    if (box.top < firstScreenLimit ||
         el.matches(":target") || el.contains(document.activeElement)) continue;
+    toObserve.push(el);
+  }
+  if (!toObserve.length) return;
+
+  for (const el of toObserve) {
     el.classList.add("mk-motion-item", "mk-motion-pending");
     observer.observe(el);
-    pending++;
   }
-  if (!pending) return;
 
   const revealEverything = () => {
     observer.disconnect();
