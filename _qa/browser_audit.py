@@ -19,9 +19,12 @@ with sync_playwright() as p:
    # Offline external resources: audit local assets only; report remote images separately.
    page.route('https://**/*',lambda r:r.abort());page.goto(base+name+'?view='+('mobile' if name.startswith('mobile') else 'desktop'))
    for img in page.locator('img').all():
-    # Scroll stable frames rather than intentionally hidden failed images.
-    target = img.locator('xpath=..') if img.locator('xpath=..').get_attribute('class') == 'career-photo__frame' else img
-    if target.is_visible(): target.scroll_into_view_if_needed()
+    # Scroll stable parent figure or visible image; avoid hidden failed elements
+    target = img.locator('xpath=ancestor::figure[1]')
+    if target.count():
+     if target.is_visible(): target.scroll_into_view_if_needed()
+    elif img.is_visible():
+     img.scroll_into_view_if_needed()
     page.wait_for_timeout(100)
    page.wait_for_timeout(200);page.evaluate('scrollTo(0,0)')
    row=page.evaluate('''()=>({overflow:document.documentElement.scrollWidth>innerWidth,externalImagesNotChecked:[...document.images].filter(i=>new URL(i.src).origin!==location.origin).map(i=>i.src),brokenImages:[...document.images].filter(i=>new URL(i.src).origin===location.origin&&(!i.complete||!i.naturalWidth)).map(i=>i.currentSrc)})''')
@@ -69,12 +72,12 @@ with sync_playwright() as p:
    for figure in photos.all():
     figure.scroll_into_view_if_needed()
     expect(figure).to_have_css('opacity','1')
-    if mode not in ('no-js','script-failure'):assert figure.locator('.career-photo__fallback').is_visible()
+    if mode not in ('no-js','script-failure'):expect(figure.locator('.career-photo__fallback')).to_be_visible()
    page.emulate_media(media='print')
    for figure in photos.all():expect(figure).to_have_css('opacity','1')
    page.close()
  browser.close()
-server.shutdown();(out/'browser.json').write_text(json.dumps(results,ensure_ascii=False,indent=2))
+server.shutdown();(out/'browser.json').write_text(json.dumps(results,ensure_ascii=False,indent=2),encoding='utf-8')
 failed=[r for r in results if r['overflow'] or r['brokenImages'] or r['errors'] or r.get('axe',{}).get('violations')]
 print(json.dumps([{'file':r['file'],'width':r['width'],'overflow':r['overflow'],'brokenImages':r['brokenImages'],'errors':r['errors'],'externalImagesNotChecked':r.get('externalImagesNotChecked',[]),'violations':[{'id':v['id'],'nodes':[n['target'] for n in v['nodes']]} for v in r.get('axe',{}).get('violations',[])]} for r in failed], ensure_ascii=False))
 print(f'{len(results)} viewport cases; {len(failed)} failed. Review axe incomplete items manually.')
