@@ -1,0 +1,21 @@
+/* Exactly one selected source photo per work-experience card. */
+#career .career-photo { margin: 16px 0 20px; max-width: 740px; width: 100%; }
+#career .career-photo__frame { position: relative; display: grid; place-items: center; width: 100%; aspect-ratio: 3 / 2; min-height: 200px; overflow: hidden; border: 1.5px solid var(--mk-navy, #0b2240); border-radius: 12px; background: #f7f5f0; }
+#career .career-photo__frame img { display: block; width: 100%; height: 100%; object-fit: contain; }
+#career .career-photo__credit { padding-top: 9px; font-size: 0.72rem; line-height: 1.6; color: var(--ink-muted, #666); overflow-wrap: anywhere; }
+#career .career-photo__credit a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+#career .career-photo__credit a:focus-visible { outline: 3px solid var(--mk-red, #c5161d); outline-offset: 3px; }
+#career .career-photo__fallback { display: none; text-align: center; padding: 18px; font-size: .82rem; color: #4b5563; }
+#career .career-photo__frame.image-load-failed img { display: none; }
+#career .career-photo__frame.image-load-failed .career-photo__fallback { display: block; }
+@media (max-width: 640px) {
+  #career .career-photo { margin: 12px 0 16px; }
+  #career .career-photo__frame { aspect-ratio: 4 / 3; min-height: 170px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .career-photo-js #career .career-photo { opacity: 0; transform: translate3d(0, 24px, 0); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1); }
+  .career-photo-js #career .career-photo.is-visible { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce), print {
+  #career .career-photo { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
