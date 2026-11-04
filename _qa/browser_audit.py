@@ -1,7 +1,7 @@
 """Optional browser QA. Requires Playwright; axe-core path is passed explicitly."""
 import argparse,functools,http.server,json,shutil,threading
 from pathlib import Path
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, expect
 ap=argparse.ArgumentParser();ap.add_argument('--root',default=str(Path(__file__).resolve().parents[1]));ap.add_argument('--out',required=True);ap.add_argument('--axe');args=ap.parse_args()
 out=Path(args.out);out.mkdir(parents=True,exist_ok=True)
 class Handler(http.server.SimpleHTTPRequestHandler):
@@ -37,7 +37,7 @@ with sync_playwright() as p:
     assert page.evaluate("()=>{const r=document.activeElement.getBoundingClientRect();return r.left>=0&&r.right<=innerWidth}")
     page.locator('h1').click()
     page.emulate_media(reduced_motion='reduce')
-    assert not toggle.is_visible()
+    expect(toggle).to_be_hidden()
     page.emulate_media(reduced_motion='no-preference')
     row['marquee_interactions']='passed'
 
@@ -50,5 +50,6 @@ with sync_playwright() as p:
  browser.close()
 server.shutdown();(out/'browser.json').write_text(json.dumps(results,ensure_ascii=False,indent=2))
 failed=[r for r in results if r['overflow'] or r['brokenImages'] or r['errors'] or r.get('axe',{}).get('violations')]
+print(json.dumps([{'file':r['file'],'width':r['width'],'overflow':r['overflow'],'brokenImages':r['brokenImages'],'errors':r['errors'],'violations':[{'id':v['id'],'nodes':[n['target'] for n in v['nodes']]} for v in r.get('axe',{}).get('violations',[])]} for r in failed], ensure_ascii=False))
 print(f'{len(results)} viewport cases; {len(failed)} failed. Review axe incomplete items manually.')
 raise SystemExit(bool(failed))
