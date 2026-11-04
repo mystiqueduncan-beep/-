@@ -31,7 +31,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Install browser audit dependencies
         run: |
-          python3 -m pip install playwright==1.51.1
+          python3 -m pip install playwright==1.51.0
           python3 -m playwright install --with-deps chromium
           npm install --no-save --package-lock=false axe-core@4.10.3
       - name: Responsive layouts, keyboard controls and axe
