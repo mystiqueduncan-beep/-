@@ -36,3 +36,21 @@ jobs:
           npm install --no-save --package-lock=false axe-core@4.10.3
       - name: Responsive layouts, keyboard controls and axe
         run: python3 _qa/browser_audit.py --out /tmp/browser-audit --axe node_modules/axe-core/axe.min.js
+
+  release-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Install browser
+        run: |
+          python3 -m pip install playwright==1.51.0
+          python3 -m playwright install --with-deps chromium
+      - name: Online images, screenshots and Lighthouse
+        run: python3 _qa/release_audit.py
+      - name: Preserve audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-audit
+          path: /tmp/release-audit
