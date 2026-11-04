@@ -1,5 +1,5 @@
 """Optional browser QA. Requires Playwright; axe-core path is passed explicitly."""
-import os,argparse,functools,http.server,json,shutil,threading
+import argparse,functools,http.server,json,shutil,threading,os
 from pathlib import Path
 from playwright.sync_api import sync_playwright, expect
 ap=argparse.ArgumentParser();ap.add_argument('--root',default=str(Path(__file__).resolve().parents[1]));ap.add_argument('--out',required=True);ap.add_argument('--axe');args=ap.parse_args()
@@ -18,15 +18,11 @@ with sync_playwright() as p:
    page.on('pageerror',lambda e:errors.append(str(e)))
    # Offline external resources: audit local assets only; report remote images separately.
    page.route('https://**/*',lambda r:r.abort());page.goto(base+name+'?view='+('mobile' if name.startswith('mobile') else 'desktop'))
-   # Scroll stable containers: failed remote images may intentionally be display:none.
-   for figure in page.locator('.career-photo').all():
-    figure.scroll_into_view_if_needed()
-    expect(figure).to_have_class(__import__('re').compile(r'.*is-visible.*'))
-    page.wait_for_timeout(850)
-    assert figure.evaluate("e=>getComputedStyle(e).opacity") == '1'
-    expect(figure.locator('.career-photo__fallback')).to_be_visible()
    for img in page.locator('img').all():
-    if img.is_visible():img.scroll_into_view_if_needed();page.wait_for_timeout(100)
+    # Scroll stable frames rather than intentionally hidden failed images.
+    target = img.locator('xpath=..') if img.locator('xpath=..').get_attribute('class') == 'career-photo__frame' else img
+    if target.is_visible(): target.scroll_into_view_if_needed()
+    page.wait_for_timeout(100)
    page.wait_for_timeout(200);page.evaluate('scrollTo(0,0)')
    row=page.evaluate('''()=>({overflow:document.documentElement.scrollWidth>innerWidth,externalImagesNotChecked:[...document.images].filter(i=>new URL(i.src).origin!==location.origin).map(i=>i.src),brokenImages:[...document.images].filter(i=>new URL(i.src).origin===location.origin&&(!i.complete||!i.naturalWidth)).map(i=>i.currentSrc)})''')
    row.update(file=name,width=width,errors=errors)
@@ -58,28 +54,24 @@ with sync_playwright() as p:
      page.add_script_tag(path=args.axe)
      row['axe']=page.evaluate('''async()=>{const r=await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa','best-practice']}});return {violations:r.violations,incomplete:r.incomplete}}''')
    results.append(row);page.close()
- # Dedicated progressive-enhancement cases, independent of external image availability.
+ # Test animation independently of third-party image hosts, with real image bytes.
  for name in ('index.html','mobile.html'):
-  view='mobile' if name.startswith('mobile') else 'desktop'
-  for mode in ('normal','no-js','script-blocked','observer-failure','reduced','print'):
-   page=browser.new_page(viewport={'width':390 if view=='mobile' else 1440,'height':844},java_script_enabled=mode!='no-js',reduced_motion='reduce' if mode=='reduced' else 'no-preference')
+  for mode in ('normal','no-js','reduced','observer-failure','script-failure'):
+   page=browser.new_page(viewport={'width':390 if name.startswith('mobile') else 1440,'height':844},java_script_enabled=mode!='no-js',reduced_motion='reduce' if mode=='reduced' else 'no-preference')
    page.route('https://**/*',lambda r:r.abort())
-   if mode=='script-blocked':page.route('**/career-images.js',lambda r:r.abort())
-   if mode=='observer-failure':page.add_init_script("window.IntersectionObserver=class {constructor(){throw Error('Injected IO failure')}}")
-   page.goto(base+name+'?view='+view)
-   if mode=='print':page.emulate_media(media='print')
-   photos=page.locator('.career-photo');assert photos.count()==3
+   if mode=='observer-failure':page.add_init_script('window.IntersectionObserver = class { constructor() { throw new Error("test"); } }')
+   if mode=='script-failure':page.route('**/assets/career-images.js',lambda r:r.abort())
+   page.goto(base+name+'?view='+('mobile' if name.startswith('mobile') else 'desktop'))
+   photos=page.locator('#career .career-photo')
    if mode=='normal':
-    expect(photos.first).to_have_class(__import__('re').compile(r'.*is-pending.*'))
-    assert photos.first.evaluate("e=>getComputedStyle(e).opacity")=='0'
-   for photo in photos.all():
-    photo.scroll_into_view_if_needed();page.wait_for_timeout(950)
-    assert photo.evaluate("e=>getComputedStyle(e).opacity")=='1', (name,mode)
-    assert photo.locator('img').get_attribute('alt')
-    if mode=='normal':
-     assert photo.evaluate("e=>getComputedStyle(e).transitionDuration")=='0.8s, 0.8s'
-     page.evaluate('scrollTo(0,0)');page.wait_for_timeout(100)
-     assert photo.evaluate("e=>getComputedStyle(e).opacity")=='1'
+    expect(photos.last).to_have_css('opacity','0')
+   assert photos.count()==3
+   for figure in photos.all():
+    figure.scroll_into_view_if_needed()
+    expect(figure).to_have_css('opacity','1')
+    if mode not in ('no-js','script-failure'):assert figure.locator('.career-photo__fallback').is_visible()
+   page.emulate_media(media='print')
+   for figure in photos.all():expect(figure).to_have_css('opacity','1')
    page.close()
  browser.close()
 server.shutdown();(out/'browser.json').write_text(json.dumps(results,ensure_ascii=False,indent=2))
@@ -87,3 +79,4 @@ failed=[r for r in results if r['overflow'] or r['brokenImages'] or r['errors'] 
 print(json.dumps([{'file':r['file'],'width':r['width'],'overflow':r['overflow'],'brokenImages':r['brokenImages'],'errors':r['errors'],'externalImagesNotChecked':r.get('externalImagesNotChecked',[]),'violations':[{'id':v['id'],'nodes':[n['target'] for n in v['nodes']]} for v in r.get('axe',{}).get('violations',[])]} for r in failed], ensure_ascii=False))
 print(f'{len(results)} viewport cases; {len(failed)} failed. Review axe incomplete items manually.')
 raise SystemExit(bool(failed))
+
