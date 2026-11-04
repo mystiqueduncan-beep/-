@@ -13,7 +13,7 @@ class Page(HTMLParser):
   voids=('img','source','br','hr','meta','link','input','area','wbr')
   if self.suppressed:
    if t not in voids:self.suppressed+=1
-  elif ('audited-visual' in classes or 'audited-source-note' in classes or 'career-photo' in classes) and t not in voids:
+  elif ('audited-visual' in classes or 'audited-source-note' in classes or (t=='figure' and 'career-photo' in classes)) and t not in voids:
    self.suppressed=1
   if t in ('style','script'):self.hidden+=1
  def handle_endtag(self,t):
@@ -28,8 +28,9 @@ def normalized(text):
 def expected_text(rel,text):
  s=''.join(text)
  if rel in ('index.html','mobile.html'):
-  for note in ("出處：TOMOD'S 官方商標", '出處：築心動物醫院', "出處：LEVI'S 官方素材"):
-   s=s.replace(note,'')
+  for credit in ("出處：TOMOD'S 官方商標",'出處：築心動物醫院',"出處：LEVI'S 官方素材"):
+   if s.count(credit)!=1:raise ValueError('unexpected original logo credit: '+rel)
+   s=s.replace(credit,'',1)
  s=re.sub(r'桃園市大園區(?:（機動巡店）)?','桃園市大園區（機動巡店）',s) if '/' not in rel else s
  additions={
   'index.html':'服務期間兼任新進人員帶訓，指導櫃台預約登記流程、收費規範與常見應變作業。',
@@ -94,16 +95,20 @@ for rel,old in base.items():
 # Independently validate metadata that is excluded from original-resume text parity.
 for rel in ('index.html','mobile.html'):
  html=(ROOT/rel).read_text()
- photos=re.findall(r'<figure class="career-photo" data-career-reveal>(.*?)</figure>',html,re.S)
- if len(photos)!=3:errors.append(rel+': expected exactly three selected career photos')
- expected=[('3.bp.blogspot.com', 'wowonews.com/2019/01/tomods-.html', 'TOMOD’S'),('zhuxin.com.tw/proimage/images/1696680526.jpg','zhuxin.com.tw/about/inside-look','築心動物醫院'),('i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg','models.com/work/levis-levis-timeless-campaign-2026','Mark Mahaney')]
- for photo,(image,source,credit) in zip(photos,expected):
-  parsed=Page(photo)
-  imgs=[a for t,a in parsed.tags if t=='img']
-  if len(imgs)!=1 or image not in imgs[0].get('src',''):errors.append(rel+': selected photo mismatch '+image)
-  if not all(v in photo for v in (source,credit,'非本人工作照片')):errors.append(rel+': selected photo source missing '+source)
-  if any(t in ('p','ul','li','h2','h3') for t,a in parsed.tags):errors.append(rel+': resume content inside photo metadata')
-  if imgs and (imgs[0].get('loading')!='lazy' or imgs[0].get('decoding')!='async'):errors.append(rel+': photo loading metadata')
+ figures=re.findall(r'<figure class="career-photo"[^>]*>(.*?)</figure>',html,re.S)
+ career=html.split('id="career"',1)[1].split('</section>',1)[0]
+ expected=[('3.bp.blogspot.com/', 'wowonews.com/2019/01/tomods-.html', 'WoWoNews'),
+           ('www.zhuxin.com.tw/proimage/images/1696680526.jpg','zhuxin.com.tw/about/inside-look','築心動物醫院'),
+           ('i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg','models.com/work/levis-levis-timeless-campaign-2026','Mark Mahaney')]
+ if len(figures)!=3 or len(re.findall(r'<img\b',career))!=3:errors.append(rel+': expected exactly three career photos')
+ for figure,(image,source,credit) in zip(figures,expected):
+  tags=Page(figure).tags
+  if any(t in ('p','ul','li','h2','h3') for t,a in tags):errors.append(rel+': resume content inside photo metadata')
+  if '非本人工作照片' not in figure:errors.append(rel+': missing photo context')
+  images=[a for t,a in tags if t=='img'];anchors=[a for t,a in tags if t=='a']
+  if len(images)!=1 or image not in images[0].get('src',''):errors.append(rel+': selected photo mismatch '+image)
+  if not any(source in a.get('href','') for a in anchors) or credit not in figure:errors.append(rel+': selected photo attribution missing '+source)
+  if images and (not images[0].get('alt') or images[0].get('loading')!='lazy' or images[0].get('decoding')!='async'):errors.append(rel+': photo loading/alt metadata')
 for rel in ('index.html','mobile.html','trend.html','mobile-trend.html'):
  html=(ROOT/rel).read_text()
  for origin in ('moea.gov.tw','ixresearch.com'):
@@ -118,4 +123,3 @@ for name,item in manifest.items():
 report={'pages':results,'local_links_and_resources_checked':links,'errors':errors}
 print(json.dumps(report,ensure_ascii=False,indent=2))
 raise SystemExit(bool(errors))
-

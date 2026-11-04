@@ -18,6 +18,7 @@ jobs:
           node --check assets/trend-marquee.js
           node --check assets/mk-inspired.js
           node --check assets/view-router.js
+          node --check assets/career-images.js
       - name: Automatic device routing and manual override tests
         run: node --test _qa/device-routing.test.cjs
       - name: Desktop marquee interaction regression
@@ -46,8 +47,18 @@ jobs:
         run: |
           python3 -m pip install playwright==1.51.0
           python3 -m playwright install --with-deps chromium
-      - name: Online images, screenshots and Lighthouse
-        run: python3 _qa/release_audit.py
+      - name: Prepare unchanged PR baseline
+        run: |
+          git fetch origin f12856b1c424a542e9051c3d6976147ed387da79 --depth=1
+          mkdir -p /tmp/resume-before
+          git archive f12856b1c424a542e9051c3d6976147ed387da79 | tar -x -C /tmp/resume-before
+      - name: Baseline images and three Lighthouse runs per device
+        id: baseline
+        continue-on-error: true
+        run: python3 _qa/release_audit.py --root /tmp/resume-before --out /tmp/release-audit/before
+      - name: Online images, screenshots and three Lighthouse runs per device
+        if: always()
+        run: python3 _qa/release_audit.py --out /tmp/release-audit/after
       - name: Preserve audit evidence
         if: always()
         uses: actions/upload-artifact@v4
