@@ -16,7 +16,9 @@ with sync_playwright() as p:
   errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
   page.goto('http://127.0.0.1:8765/'+name+'?view='+('mobile' if name.startswith('mobile') else 'desktop'),wait_until='networkidle')
   for img in page.locator('img').all():
-   img.scroll_into_view_if_needed()
+   frame=img.locator('xpath=..')
+   target=frame if frame.get_attribute('class')=='career-photo__frame' else img
+   if target.is_visible():target.scroll_into_view_if_needed()
    try: img.evaluate("(i)=>i.decode()")
    except Exception: pass
   row=page.evaluate("()=>({overflow:document.documentElement.scrollWidth>innerWidth,images:[...document.images].map(i=>({src:i.currentSrc,loaded:i.complete&&i.naturalWidth>0}))})")
@@ -35,16 +37,18 @@ print('ONLINE_IMAGES_AND_LAYOUT='+json.dumps(rows),flush=True)
 (out/'online.json').write_text(json.dumps(rows,indent=2))
 env=dict(os.environ,CHROME_PATH=chrome)
 summaries=[]
-for name,view in [('index.html','desktop'),('mobile.html','mobile')]:
- report=out/(name+'-lighthouse.json')
- cmd=['npx','--yes','lighthouse@12.8.2','http://127.0.0.1:8765/'+name+'?view='+view,'--chrome-flags=--no-sandbox --headless','--output=json','--output-path='+str(report),'--quiet']
- if view=='desktop':cmd+=['--preset=desktop']
- subprocess.run(cmd,env=env,check=True)
- data=json.loads(report.read_text())
- summary={'page':name,'scores':{k:v['score'] for k,v in data['categories'].items()},'runtimeError':data.get('runtimeError'),'findings':[{'id':k,'title':v['title'],'score':v.get('score'),'displayValue':v.get('displayValue')} for k,v in data['audits'].items() if v.get('score') is not None and v['score']<1]}
- summaries.append(summary)
+for attempt in range(1,4):
+ for name,view in [('index.html','desktop'),('mobile.html','mobile')]:
+  report=out/(name+'-'+str(attempt)+'-lighthouse.json')
+  cmd=['npx','--yes','lighthouse@12.8.2','http://127.0.0.1:8765/'+name+'?view='+view,'--chrome-flags=--no-sandbox --headless','--output=json','--output-path='+str(report),'--quiet']
+  if view=='desktop':cmd+=['--preset=desktop']
+  subprocess.run(cmd,env=env,check=True)
+  data=json.loads(report.read_text())
+  summary={'page':name,'attempt':attempt,'lighthouseVersion':data.get('lighthouseVersion'),'environment':data.get('environment'),'configSettings':data.get('configSettings'),'scores':{k:v['score'] for k,v in data['categories'].items()},'runtimeError':data.get('runtimeError'),'findings':[{'id':k,'title':v['title'],'score':v.get('score'),'displayValue':v.get('displayValue')} for k,v in data['audits'].items() if v.get('score') is not None and v['score']<1]}
+  summaries.append(summary)
 print('LIGHTHOUSE_SUMMARY='+json.dumps(summaries),flush=True)
 (out/'lighthouse-summary.json').write_text(json.dumps(summaries,indent=2))
 server.shutdown()
 assert all(not r['overflow'] and not r['errors'] and all(i['loaded'] for i in r['images']) for r in rows),'Online image/layout checks failed'
 assert all(not r['runtimeError'] for r in summaries),'Lighthouse runtime failed'
+

@@ -13,9 +13,10 @@
   #career .career-photo__frame { aspect-ratio: 4 / 3; min-height: 170px; }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .career-photo-js #career .career-photo { opacity: 0; transform: translate3d(0, 24px, 0); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1); }
-  .career-photo-js #career .career-photo.is-visible { opacity: 1; transform: none; }
+  #career .career-photo.is-pending { opacity: 0; transform: translate3d(0, 24px, 0); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1); }
+  #career .career-photo.is-visible { opacity: 1; transform: none; }
 }
 @media (prefers-reduced-motion: reduce), print {
   #career .career-photo { opacity: 1 !important; transform: none !important; transition: none !important; }
 }
+
