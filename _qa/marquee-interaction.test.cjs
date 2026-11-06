@@ -159,18 +159,10 @@ test("CSS has no whole-strip hover or focus-within pause selector", () => {
 });
 
 
-test("explicit pause survives pointer exit, navigation and responsive changes", () => {
+test("no visible pause or play button exists in CSS or DOM", () => {
+  assert.doesNotMatch(css, /\.keycap-marquee__toggle/);
+  assert.doesNotMatch(css, /is-user-paused/);
   const h = makeHarness();
-  h.toggle.events.get("click")();
-  assert.equal(h.toggle.attributes.get("aria-pressed"), "true");
-  h.dispatch("pointerleave", h.originals[0]);
-  h.windowEvents.get("hashchange")();
-  h.playback.matches = false; h.mediaEvents.get("change")();
-  assert.equal(h.toggle.hidden, true);
-  h.playback.matches = true; h.mediaEvents.get("change")();
-  assert.equal(h.toggle.hidden, false);
-  assert.equal(h.nav.classList.contains("is-user-paused"), true);
-  h.toggle.events.get("click")();
   assert.equal(h.nav.classList.contains("is-user-paused"), false);
 });
 
