@@ -19,3 +19,4 @@ async function copyValue(value, label) {
 }
 function copyPhone() { return copyValue('0989591825', '電話號碼'); }
 function copyEmail() { return copyValue('mystiqueduncan@gmail.com', '電子郵件'); }
+function copyLineId() { return copyValue('bobozhihuang', 'LINE ID'); }
