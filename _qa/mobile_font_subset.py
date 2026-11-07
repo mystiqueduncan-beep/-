@@ -1,4 +1,4 @@
-"""Keep Google Fonts requests limited to the characters used by mobile.html.
+"""Keep Google Fonts requests limited to the characters used by the resume homepages.
 
 Run without arguments after editing the page, or use --check in CI.
 """
@@ -49,12 +49,13 @@ if __name__ == '__main__':
     arguments = argparse.ArgumentParser()
     arguments.add_argument('--check', action='store_true')
     options = arguments.parse_args()
-    page = Path(__file__).resolve().parents[1] / 'mobile.html'
-    original = page.read_text(encoding='utf-8')
-    updated = subset_page(original)
-    if options.check:
-        if updated != original:
-            raise SystemExit('Run python3 _qa/mobile_font_subset.py to include updated text')
-        print('Mobile font subset covers page text and accessibility labels.')
-    else:
-        page.write_text(updated, encoding='utf-8')
+    for name in ('mobile.html', 'index.html'):
+        page = Path(__file__).resolve().parents[1] / name
+        original = page.read_text(encoding='utf-8')
+        updated = subset_page(original)
+        if options.check:
+            if updated != original:
+                raise SystemExit('Run python3 _qa/mobile_font_subset.py to include updated text')
+            print(f'{name}: font subset covers page text and accessibility labels.')
+        else:
+            page.write_text(updated, encoding='utf-8')
