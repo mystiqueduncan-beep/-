@@ -1,4 +1,4 @@
-/* One-time section reveals for the personal portfolio.
+/* One-time right-to-left section reveals for the personal portfolio.
    Content stays visible if this script fails, JavaScript is disabled, or reduced motion is preferred. */
 (() => {
   "use strict";
@@ -6,8 +6,15 @@
   if (!("IntersectionObserver" in window) || (reduced && reduced.matches)) return;
 
   const selectors = [
-    ".mag-hero-grid",
-    "main > section",
+    ".mag-header > .container",
+    ".source-verification",
+    "main section",
+    ".key-pillar-card",
+    ".hero-action-card",
+    "main .star-field-box",
+    "main .stage-meta-box",
+    "main .candidate-info-box",
+    "main .candidate-specs-box",
     "main .timeline-job-card",
     "main .mobile-case-box",
     "main .pillar-mini-card",
