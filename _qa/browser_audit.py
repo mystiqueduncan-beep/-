@@ -41,9 +41,6 @@ with sync_playwright() as p:
     if motion_allowed:
      assert marquee.evaluate("e=>e.classList.contains('is-enhanced')")
      assert belt.evaluate("e=>getComputedStyle(e).animationName") != 'none'
-    page.emulate_media(reduced_motion='reduce')
-    assert belt.evaluate("e=>getComputedStyle(e).animationName") == 'none'
-    if motion_allowed:
      first_key = page.locator('.keycap-marquee__group a').first
      first_key.dispatch_event('pointerover', {'pointerType': 'mouse'})
      assert marquee.evaluate("e=>e.classList.contains('is-hover-paused')")
@@ -51,6 +48,8 @@ with sync_playwright() as p:
      assert not marquee.evaluate("e=>e.classList.contains('is-hover-paused')")
      page.locator('h1').click()
      page.keyboard.press('Tab')
+    page.emulate_media(reduced_motion='reduce')
+    assert belt.evaluate("e=>getComputedStyle(e).animationName") == 'none'
     page.emulate_media(reduced_motion='no-preference')
     row['marquee_interactions']='passed'
 
