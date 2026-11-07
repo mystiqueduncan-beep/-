@@ -31,6 +31,19 @@ with sync_playwright() as p:
               callback(entries, observer);
             }, options); }
           };''')
+        held = browser.new_page(viewport={'width':390 if mobile else 1440,'height':844})
+        held.route('https://**/*', lambda r: r.abort())
+        held.add_init_script('window.IntersectionObserver=class {observe(){} unobserve(){} disconnect(){}}')
+        held.goto(url)
+        held.wait_for_timeout(800)
+        # Independent coverage contract: page sections, articles, card units and source notes.
+        units = held.locator('.mag-header > .container, main section, main article, .key-pillar-card, .hero-action-card, .star-field-box, .stage-meta-box, .candidate-info-box, .candidate-specs-box, .source-verification, main .method-card')
+        for unit in units.all():
+            assert unit.evaluate('(e)=>e.matches(".mk-motion-pending,.mk-pop-pending")'), (name, unit.get_attribute('class'))
+        states = held.locator('.mk-motion-pending,.mk-pop-pending').evaluate_all('(es)=>es.map(e=>({x:new DOMMatrix(getComputedStyle(e).transform).m41,opacity:getComputedStyle(e).opacity}))')
+        assert states and all(x['x'] > 0 and x['opacity'] == '0' for x in states), (name, states)
+        assert held.evaluate('document.documentElement.scrollWidth<=innerWidth'), name
+        held.close()
         page.goto(url)
         page.wait_for_timeout(800)
         items = page.locator('.mk-motion-item,.mk-pop-item')
@@ -46,7 +59,7 @@ with sync_playwright() as p:
             if item.count():
                 state = item.evaluate('(e)=>{const s=getComputedStyle(e); const m=new DOMMatrix(s.transform);return {opacity:s.opacity,x:m.m41,scale:m.a}}')
                 assert state['opacity'] == '0', (name, state)
-                assert state['x'] < 0 if kind == 'slide' else state['scale'] < 1, (name, state)
+                assert state['x'] > 0 and (kind == 'slide' or state['scale'] < 1), (name, state)
         for item in items.all():
             item.evaluate('(e)=>scrollTo({top:scrollY+e.getBoundingClientRect().top-180,behavior:"instant"})')
             expect(item).not_to_have_class(re.compile('.*(?:mk-motion-pending|mk-pop-pending).*'))
