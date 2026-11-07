@@ -1,4 +1,4 @@
-﻿/* Trend report / keycap carousel navigation. Scoped to the chapter nav only. */
+/* Trend report / keycap carousel navigation. Scoped to the chapter nav only. */
 .trend-subnav-strip .keycap-marquee {
   display: flex;
   align-items: center;
@@ -88,6 +88,9 @@
 .keycap-marquee.is-enhanced.is-hover-paused .keycap-marquee__belt {
   animation-play-state: paused;
 }
+.keycap-marquee.is-enhanced.is-touch-paused .keycap-marquee__belt {
+  animation-play-state: paused;
+}
 /* Keyboard focus pauses the marquee so users can navigate links without them scrolling away. */
 .keycap-marquee.is-keyboard-paused .keycap-marquee__belt {
   animation: none;
@@ -99,16 +102,25 @@
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(calc(-50% - 7px), 0, 0); }
 }
-/* Mobile, touch/pointer devices and reduced-motion users get native manual scrolling. */
-@media (max-width: 768px), (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+
+/* Responsive padding and sizes on narrow screens while keeping smooth autoplay. */
+@media (max-width: 768px) {
   .trend-subnav-strip .keycap-marquee { gap: 0; padding: 10px 0 13px; }
+  .keycap-marquee__viewport {
+    scrollbar-width: none;
+  }
+  .keycap-marquee__viewport::-webkit-scrollbar { display: none; }
+  .keycap-marquee__group { gap: 14px; padding: 3px 3px 7px; }
+  .keycap-marquee__group a { font-size: .82rem; padding: 8px 13px; min-height: 44px; }
+}
+
+/* Reduced-motion users get native manual scrolling without autoplay animation. */
+@media (prefers-reduced-motion: reduce) {
   .keycap-marquee__viewport {
     scrollbar-width: thin;
     scroll-snap-type: x proximity;
   }
-  .keycap-marquee__group { gap: 10px; padding: 3px 3px 7px; }
   .keycap-marquee__group li { scroll-snap-align: start; }
-  .keycap-marquee__group a { font-size: .82rem; padding: 8px 13px; min-height: 44px; }
   .keycap-marquee.is-enhanced .keycap-marquee__belt { animation: none !important; transform: none !important; }
   .keycap-marquee__group--duplicate { display: none !important; }
 }
@@ -172,7 +184,7 @@
 .home-keycap-strip .keycap-marquee__group a.btn-accent .num { color: #FFD600; }
 .home-keycap-strip .keycap-marquee__group a.btn-accent:hover { background: #173C68; }
 .home-keycap-strip .subnav-status-badge { align-self: flex-start; margin: 0; }
-@media (max-width: 768px), (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+@media (max-width: 768px) {
   .home-keycap-strip .keycap-marquee { gap: 0; }
   .home-keycap-strip .home-keycap-layout { padding-top: 8px; padding-bottom: 12px; }
 }

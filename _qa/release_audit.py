@@ -1,5 +1,5 @@
 """Online release audit: external images, screenshots and Lighthouse."""
-import argparse,functools,http.server,json,os,subprocess,threading
+import argparse,functools,http.server,json,os,subprocess,threading,shutil
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 ap=argparse.ArgumentParser();ap.add_argument('--root',default=str(Path(__file__).resolve().parents[1]));ap.add_argument('--out',default='/tmp/release-audit');args=ap.parse_args()
@@ -37,11 +37,12 @@ with sync_playwright() as p:
 print('ONLINE_IMAGES_AND_LAYOUT='+json.dumps(rows),flush=True)
 (out/'online.json').write_text(json.dumps(rows,indent=2),encoding='utf-8')
 env=dict(os.environ,CHROME_PATH=chrome)
+npx_cmd = shutil.which('npx') or 'npx'
 summaries=[]
 for name,view in [('index.html','desktop'),('mobile.html','mobile')]:
  for attempt in range(3):
   report=out/(name+f'-{attempt+1}-lighthouse.json')
-  cmd=['npx','--yes','lighthouse@12.8.2','http://127.0.0.1:8765/'+name+'?view='+view,'--chrome-flags=--no-sandbox --headless','--output=json','--output-path='+str(report),'--quiet']
+  cmd=[npx_cmd,'--yes','lighthouse@12.8.2','http://127.0.0.1:8765/'+name+'?view='+view,'--chrome-flags=--no-sandbox --headless','--output=json','--output-path='+str(report),'--quiet']
   if view=='desktop':cmd+=['--preset=desktop']
   subprocess.run(cmd,env=env,check=True)
   data=json.loads(report.read_text(encoding='utf-8'))

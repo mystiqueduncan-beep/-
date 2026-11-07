@@ -31,13 +31,20 @@
           }
         } catch (_) { showAll(); }
       }, { threshold: 0.01 });
+      // Read all positions before marking or observing any photo. Alternating
+      // dataset/class writes and rectangle reads forces repeated synchronous layout.
+      const initialPositions = [];
+      const fold = window.innerHeight;
       for (const figure of photos) {
         if (figure.dataset.revealInitialized) continue;
+        initialPositions.push({ figure, belowFold: figure.getBoundingClientRect().top >= fold });
+      }
+      for (const { figure, belowFold } of initialPositions) {
         figure.dataset.revealInitialized = 'true';
-        observer.observe(figure);
-        if (figure.getBoundingClientRect().top >= innerHeight) figure.classList.add('is-pending');
+        if (belowFold) figure.classList.add('is-pending');
         else show(figure);
       }
+      for (const { figure } of initialPositions) observer.observe(figure);
       document.addEventListener('focusin', event => {
         const figure = event.target.closest('.career-photo');
         if (figure) { show(figure); observer.unobserve(figure); }

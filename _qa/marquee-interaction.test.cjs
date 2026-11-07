@@ -1,5 +1,5 @@
 "use strict";
-// Zero-dependency regression for both desktop pages sharing trend-marquee.js.
+// Regression tests for shared marquee navigation (trend-marquee.js & trend-marquee.css).
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -23,11 +23,15 @@ function classes() {
     contains(value) { return set.has(value); }
   };
 }
+
 function link(href, duplicated = false) {
   const attributes = new Map([["href", href]]);
   return {
     classList: classes(),
-    matches() { return true; },
+    matches(selector) {
+      if (selector === ":focus-visible") return true;
+      return true;
+    },
     scrollIntoView() { this.scrolled = true; },
     getAttribute(name) { return attributes.get(name) || null; },
     setAttribute(name, value) { attributes.set(name, String(value)); },
@@ -39,13 +43,15 @@ function link(href, duplicated = false) {
     }
   };
 }
-function makeHarness() {
+
+function makeHarness(options = {}) {
   const events = new Map();
   const windowEvents = new Map();
   const mediaEvents = new Map();
   const playback = {
-    matches: true,
-    addEventListener(name, callback) { mediaEvents.set(name, callback); }
+    matches: options.prefersReducedMotion ? false : true,
+    addEventListener(name, callback) { mediaEvents.set(name, callback); },
+    addListener(callback) { mediaEvents.set("change", callback); }
   };
   const originals = [link("#motivation"), link("#career")];
   let cloned = null;
@@ -64,15 +70,23 @@ function makeHarness() {
     }
   };
   const belt = {
-    style: { setProperty() {} },
+    style: {
+      properties: new Map(),
+      setProperty(name, value) { this.properties.set(name, String(value)); },
+      getProperty(name) { return this.properties.get(name) || null; }
+    },
     contains(node) { return originals.includes(node) || Boolean(cloned && cloned.links.includes(node)); },
     appendChild() {}
   };
-  const viewport = { scrollLeft: 0 };
-  const toggle = { attributes: new Map(), events: new Map(), setAttribute(k,v) { this.attributes.set(k,v); }, addEventListener(k,v) { this.events.set(k,v); } };
+  const viewport = {
+    scrollLeft: 0,
+    events: new Map(),
+    addEventListener(name, callback) { this.events.set(name, callback); }
+  };
+  const createdElements = [];
   const nav = {
-    appendChild() {},
-    contains(node) { return originals.includes(node) || node === toggle; },
+    appendChild(node) { createdElements.push(node); },
+    contains(node) { return originals.includes(node); },
     classList: classes(),
     querySelector(selector) {
       if (selector === ".keycap-marquee__viewport") return viewport;
@@ -88,21 +102,68 @@ function makeHarness() {
     matchMedia() { return playback; },
     addEventListener(name, callback) { windowEvents.set(name, callback); }
   };
-  const document = { querySelector() { return nav; }, createElement() { return toggle; } };
-  class ResizeObserver { observe() {} }
+  const document = {
+    querySelector() { return nav; },
+    createElement(tag) {
+      const el = {
+        tagName: tag,
+        attributes: new Map(),
+        events: new Map(),
+        classList: classes(),
+        setAttribute(k, v) { this.attributes.set(k, v); },
+        addEventListener(k, v) { this.events.set(k, v); }
+      };
+      createdElements.push(el);
+      return el;
+    }
+  };
+  let resizeCallback = null;
+  class ResizeObserver {
+    constructor(callback) { resizeCallback = callback; }
+    observe() {}
+  }
 
-  vm.runInNewContext(source, { window, document, ResizeObserver });
+  vm.runInNewContext(source, {
+    window,
+    document,
+    ResizeObserver,
+    setTimeout,
+    clearTimeout
+  });
+
   return {
-    nav, toggle, viewport, getClone: () => cloned, belt, originals, playback, window, events, windowEvents, mediaEvents,
-    dispatch(name, target, relatedTarget = null) {
+    nav,
+    viewport,
+    getClone: () => cloned,
+    belt,
+    originals,
+    playback,
+    window,
+    events,
+    windowEvents,
+    mediaEvents,
+    createdElements,
+    triggerResize() { if (resizeCallback) resizeCallback(); },
+    dispatch(name, target, relatedTarget = null, pointerType = "mouse") {
       const listener = events.get(name);
       assert.ok(listener, "missing event handler: " + name);
-      listener({ target, relatedTarget, pointerType: "mouse" });
+      listener({ target, relatedTarget, pointerType });
     }
   };
 }
 
-test("only an actual chapter key pauses; blank strip and mouse exit do not", () => {
+test("autoplays smoothly on load with duplicate group and no pause/play button", () => {
+  const h = makeHarness();
+  assert.equal(h.nav.classList.contains("is-enhanced"), true, "marquee must be enhanced for autoplay");
+  assert.ok(h.getClone(), "duplicate group must be created for continuous loop");
+  assert.equal(h.createdElements.length, 0, "no pause or play button should be created by script");
+  assert.equal(h.nav.classList.contains("is-hover-paused"), false);
+  assert.equal(h.nav.classList.contains("is-touch-paused"), false);
+  assert.equal(h.nav.classList.contains("is-keyboard-paused"), false);
+  assert.ok(h.belt.style.properties.has("--keycap-duration"), "duration must be computed");
+});
+
+test("only an actual chapter key pauses on desktop hover; blank strip and mouse exit do not", () => {
   const h = makeHarness();
   assert.equal(h.nav.classList.contains("is-enhanced"), true);
   assert.equal(h.nav.classList.contains("is-hover-paused"), false);
@@ -163,6 +224,7 @@ test("no visible pause or play button exists in CSS or DOM", () => {
   assert.doesNotMatch(css, /\.keycap-marquee__toggle/);
   assert.doesNotMatch(css, /is-user-paused/);
   const h = makeHarness();
+  assert.equal(h.createdElements.length, 0);
   assert.equal(h.nav.classList.contains("is-user-paused"), false);
 });
 
@@ -189,4 +251,58 @@ test("duplicates remain pointer-operable but never acquire pointer focus", () =>
   assert.equal(h.nav.classList.contains("is-hover-paused"), true);
   h.dispatch("click", clone.links[0]);
   assert.equal(h.nav.classList.contains("is-hover-paused"), false);
+});
+
+test("mobile touch interaction pauses during swipe and resumes after release", async () => {
+  const h = makeHarness();
+  assert.equal(h.nav.classList.contains("is-touch-paused"), false);
+  // Touch pointer down on a keycap
+  h.dispatch("pointerdown", h.originals[0], null, "touch");
+  assert.equal(h.nav.classList.contains("is-touch-paused"), true);
+
+  // Releasing touch
+  h.dispatch("pointerup", h.originals[0], null, "touch");
+  // Clicking immediately restores
+  h.dispatch("click", h.originals[0]);
+  assert.equal(h.nav.classList.contains("is-touch-paused"), false);
+
+  // Another touch then wait for timer
+  h.dispatch("pointerdown", h.originals[1], null, "touch");
+  assert.equal(h.nav.classList.contains("is-touch-paused"), true);
+  h.dispatch("pointerup", h.originals[1], null, "touch");
+  await new Promise(r => setTimeout(r, 1300));
+  assert.equal(h.nav.classList.contains("is-touch-paused"), false);
+});
+
+test("system prefers-reduced-motion cleanly disables autoplay and removes duplicates", () => {
+  const h = makeHarness({ prefersReducedMotion: true });
+  assert.equal(h.nav.classList.contains("is-enhanced"), false);
+  assert.equal(h.getClone(), null);
+  // Switching preference back restores autoplay
+  h.playback.matches = true;
+  h.mediaEvents.get("change")();
+  assert.equal(h.nav.classList.contains("is-enhanced"), true);
+  assert.ok(h.getClone());
+});
+
+test("resize observer dynamically updates marquee animation duration", () => {
+  const h = makeHarness();
+  const initialDuration = h.belt.style.getProperty("--keycap-duration");
+  assert.ok(initialDuration);
+  h.triggerResize();
+  assert.equal(h.belt.style.getProperty("--keycap-duration"), initialDuration);
+});
+
+test("gracefully handles missing DOM elements or media query API", () => {
+  // If nav is missing, should exit without throwing
+  let errored = false;
+  try {
+    vm.runInNewContext(source, {
+      window: { matchMedia: () => ({ matches: true }) },
+      document: { querySelector: () => null }
+    });
+  } catch (e) {
+    errored = true;
+  }
+  assert.equal(errored, false, "should not throw when nav element is missing");
 });

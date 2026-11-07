@@ -41,6 +41,13 @@ with sync_playwright() as p:
     if motion_allowed:
      assert marquee.evaluate("e=>e.classList.contains('is-enhanced')")
      assert belt.evaluate("e=>getComputedStyle(e).animationName") != 'none'
+     first_key = page.locator('.keycap-marquee__group a').first
+     first_key.dispatch_event('pointerover', {'pointerType': 'mouse'})
+     assert marquee.evaluate("e=>e.classList.contains('is-hover-paused')")
+     marquee.dispatch_event('pointerleave', {'pointerType': 'mouse'})
+     assert not marquee.evaluate("e=>e.classList.contains('is-hover-paused')")
+     page.locator('h1').click()
+     page.keyboard.press('Tab')
     page.emulate_media(reduced_motion='reduce')
     assert belt.evaluate("e=>getComputedStyle(e).animationName") == 'none'
     page.emulate_media(reduced_motion='no-preference')
@@ -80,4 +87,3 @@ failed=[r for r in results if r['overflow'] or r['brokenImages'] or r['errors'] 
 print(json.dumps([{'file':r['file'],'width':r['width'],'overflow':r['overflow'],'brokenImages':r['brokenImages'],'errors':r['errors'],'externalImagesNotChecked':r.get('externalImagesNotChecked',[]),'violations':[{'id':v['id'],'nodes':[n['target'] for n in v['nodes']]} for v in r.get('axe',{}).get('violations',[])]} for r in failed], ensure_ascii=False))
 print(f'{len(results)} viewport cases; {len(failed)} failed. Review axe incomplete items manually.')
 raise SystemExit(bool(failed))
-

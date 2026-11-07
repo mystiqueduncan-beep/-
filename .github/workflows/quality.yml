@@ -12,6 +12,8 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Resume facts, links, resources and SEO
         run: python3 _qa/check.py
+      - name: Mobile font character coverage
+        run: python3 _qa/mobile_font_subset.py --check
       - name: JavaScript syntax
         run: |
           node --check assets/contact.js
@@ -36,6 +38,8 @@ jobs:
           python3 -m pip install playwright==1.51.0
           python3 -m playwright install --with-deps chromium
           npm install --no-save --package-lock=false axe-core@4.10.3
+      - name: One-time section and contact reveals
+        run: python3 _qa/section_reveal_audit.py
       - name: Responsive layouts, keyboard controls and axe
         run: python3 _qa/browser_audit.py --out /tmp/browser-audit --axe node_modules/axe-core/axe.min.js
 
@@ -50,9 +54,9 @@ jobs:
           python3 -m playwright install --with-deps chromium
       - name: Prepare unchanged PR baseline
         run: |
-          git fetch origin f12856b1c424a542e9051c3d6976147ed387da79 --depth=1
+          git fetch origin bb6219831f65a5dc52966efd6943a7cfc328db8a --depth=1
           mkdir -p /tmp/resume-before
-          git archive f12856b1c424a542e9051c3d6976147ed387da79 | tar -x -C /tmp/resume-before
+          git archive bb6219831f65a5dc52966efd6943a7cfc328db8a | tar -x -C /tmp/resume-before
       - name: Baseline images and three Lighthouse runs per device
         id: baseline
         continue-on-error: true
