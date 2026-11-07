@@ -40,11 +40,21 @@ def expected_text(rel,text):
   s=''.join(text)
  if rel=='index.html':
   s=s.replace('新分頁開啟 ✦', '原分頁開啟 ✦', 1)
+ # User-approved contact navigation labels; retain icons and version switches.
+ contact_labels={
+  'index.html': [('聯絡我 (電話 / 信箱)', '聯絡資訊')],
+  'mobile.html': [('聯絡資訊與履歷下載', '聯絡資訊'), ('聯絡我', '聯絡資訊')],
+  'trend.html': [('查看聯絡資訊', '聯絡資訊')],
+  'mobile/contact.html': [('如未自動轉跳請點此', '聯絡資訊')]
+ }
+ for old_label,new_label in contact_labels.get(rel,[]):
+  if s.count(old_label)!=1:raise ValueError('unexpected contact navigation baseline: '+rel)
+  s=s.replace(old_label,new_label,1)
  if rel in ('contact.html','mobile-contact.html'):
-  # User-approved LINE ID and official-link label; the older baseline stays unchanged.
+  # User-approved LINE actions; the older baseline stays unchanged.
   needle='複製 Email'
   if s.count(needle)!=1:raise ValueError('unexpected contact baseline')
-  s=s.replace(needle,needle+'LINE 帳號 (LINE)bobozhihuang開啟 LINE',1)
+  s=s.replace(needle,needle+'LINE 帳號 (LINE)bobozhihuang開啟 LINE複製 LINE ID',1)
  if rel in ('index.html','mobile.html'):
   for credit in ("出處：TOMOD'S 官方商標",'出處：築心動物醫院',"出處：LEVI'S 官方素材"):
    if s.count(credit)!=1:raise ValueError('unexpected original logo credit: '+rel)
