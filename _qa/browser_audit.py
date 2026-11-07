@@ -30,17 +30,27 @@ with sync_playwright() as p:
    row=page.evaluate('''()=>({overflow:document.documentElement.scrollWidth>innerWidth,externalImagesNotChecked:[...document.images].filter(i=>new URL(i.src).origin!==location.origin).map(i=>i.src),brokenImages:[...document.images].filter(i=>new URL(i.src).origin===location.origin&&(!i.complete||!i.naturalWidth)).map(i=>i.currentSrc)})''')
    row.update(file=name,width=width,errors=errors)
    if name in ('index.html','trend.html') and width == 1440:
-    assert page.locator('.keycap-marquee__toggle').count() == 0, 'Toggle button should not exist'
-    assert page.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e).animationName") != 'none'
-    first_key = page.locator('.keycap-marquee__group a').first
-    first_key.dispatch_event('pointerover', {'pointerType': 'mouse'})
-    assert page.locator('.keycap-marquee').evaluate("e=>e.classList.contains('is-hover-paused')")
-    page.locator('.keycap-marquee').dispatch_event('pointerleave', {'pointerType': 'mouse'})
-    assert not page.locator('.keycap-marquee').evaluate("e=>e.classList.contains('is-hover-paused')")
-    page.locator('h1').click()
-    page.keyboard.press('Tab')
+    # The pause toggle was intentionally removed. Verify the marquee itself.
+    marquee=page.locator('[data-keycap-marquee]')
+    belt=marquee.locator('.keycap-marquee__belt')
+    expect(marquee).to_have_count(1)
+    expect(belt).to_have_count(1)
+    expect(page.locator('.keycap-marquee__toggle')).to_have_count(0)
+    assert marquee.locator('.keycap-marquee__group:not(.keycap-marquee__group--duplicate) a').count() > 0
+    motion_allowed=page.evaluate("""() => matchMedia('(min-width: 769px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)').matches""")
+    if motion_allowed:
+     assert marquee.evaluate("e=>e.classList.contains('is-enhanced')")
+     assert belt.evaluate("e=>getComputedStyle(e).animationName") != 'none'
     page.emulate_media(reduced_motion='reduce')
-    assert page.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e).animationName") == 'none'
+    assert belt.evaluate("e=>getComputedStyle(e).animationName") == 'none'
+    if motion_allowed:
+     first_key = page.locator('.keycap-marquee__group a').first
+     first_key.dispatch_event('pointerover', {'pointerType': 'mouse'})
+     assert marquee.evaluate("e=>e.classList.contains('is-hover-paused')")
+     marquee.dispatch_event('pointerleave', {'pointerType': 'mouse'})
+     assert not marquee.evaluate("e=>e.classList.contains('is-hover-paused')")
+     page.locator('h1').click()
+     page.keyboard.press('Tab')
     page.emulate_media(reduced_motion='no-preference')
     row['marquee_interactions']='passed'
 

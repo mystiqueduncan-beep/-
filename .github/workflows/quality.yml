@@ -21,6 +21,7 @@ jobs:
           node --check assets/mk-inspired.js
           node --check assets/view-router.js
           node --check assets/career-images.js
+          node --check assets/page-transitions.js
       - name: Automatic device routing and manual override tests
         run: node --test _qa/device-routing.test.cjs
       - name: Desktop marquee interaction regression

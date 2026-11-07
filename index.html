@@ -1143,6 +1143,7 @@
   <link rel="stylesheet" href="assets/mk-inspired.css">
   <link rel="stylesheet" href="assets/accessibility-overrides.css">
   <script src="assets/mk-inspired.js" defer></script>
+  <script src="assets/page-transitions.js" defer></script>
   <link rel="stylesheet" href="assets/career-images.css">
   <script src="assets/career-images.js" defer></script>
 </head>
@@ -1226,9 +1227,6 @@
         <!-- Hero Right Action Card -->
         <div class="hero-action-card">
           <div class="hero-photo-row">
-            <div class="hero-photo-frame">
-              <img decoding="async" fetchpriority="high" src="profile.jpg" alt="黃博詩 (Huang Bo-Shih)" width="90" height="108">
-            </div>
             <div class="hero-dossier-mini">
               <div class="dossier-meta-item"><strong>應徵者：</strong>黃博詩</div>
               <div class="dossier-meta-item"><strong>志願職位：</strong>區域營運經理</div>
@@ -1242,7 +1240,7 @@
               <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
               查看工作經歷
             </a>
-            <a href="#contact" class="mag-btn mag-btn-primary">
+            <a href="contact.html" class="mag-btn mag-btn-primary">
               <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
               聯絡我 (電話 / 信箱)
             </a>
@@ -1275,13 +1273,13 @@
         <li><a href="#education" class="nav-btn-mk"><span class="num">05/</span> 教育背景</a></li>
         <li><a href="#proposal" class="nav-btn-mk"><span class="num">06/</span> 工作構想</a></li>
         <li><a href="#research" class="nav-btn-mk"><span class="num">07/</span> 通路研究</a></li>
-        <li><a href="#contact" class="nav-btn-mk"><span class="num">08/</span> 聯絡資訊</a></li>
+        <li><a href="contact.html" class="nav-btn-mk"><span class="num">08/</span> 聯絡資訊</a></li>
       </ul>
           </div>
         </div>
       </div>
       <div class="home-research-shortcut">
-        <a href="trend.html" target="_blank" rel="noopener noreferrer" class="nav-btn-mk btn-accent home-research-link"><span class="num">專題/</span> 完整趨勢研究 ↗</a>
+        <a href="trend.html" class="nav-btn-mk btn-accent home-research-link"><span class="num">專題/</span> 完整趨勢研究 ↗</a>
       </div>
       <div class="subnav-status-badge">
         <span>在學研讀中 ｜ 到職與排班面談確認</span>
@@ -1844,74 +1842,16 @@
           <strong>官方資料核對：</strong><a href="https://www.moea.gov.tw/MNS/POPULACE/news/News.aspx?kind=1&amp;menu_id=40&amp;news_id=123868" target="_blank" rel="noopener noreferrer">經濟部統計處（113年商品銷售結構；114年經營實況調查）</a>；<a href="https://www.ixresearch.com/reports/%E5%89%B5%E5%B8%82%E9%9A%9B%E9%9B%99%E9%80%B1%E5%88%8A%E7%AC%AC%E4%BA%8C%E5%85%AB%E4%B9%9D%E6%9C%9F-20260415/" target="_blank" rel="noopener noreferrer">創市際雙週刊第289期</a>。創市際於2026/03/12–03/19調查15–64歲網友，有效樣本1,106份，2026/04/15發布；購買管道為複選結果，不能概括為全體人口。
         </aside>
         <div style="margin-top: 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
-          <a href="trend.html" target="_blank" rel="noopener noreferrer" class="mag-btn mag-btn-primary">
+          <a href="trend.html" class="mag-btn mag-btn-primary">
             閱讀完整實體通路趨勢研究報告 ↗
           </a>
           <span style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-muted);">
-            新分頁開啟 ✦ 包含 4 大優勢、4 大挑戰、案例分析與完整資料來源列表
+            原分頁開啟 ✦ 包含 4 大優勢、4 大挑戰、案例分析與完整資料來源列表
           </span>
         </div>
       </div>
     </section>
 
-    <!-- =======================================================================
-         8. 聯絡與履歷下載 (CONTACT & RESUME)
-         ======================================================================= -->
-    <section id="contact" class="section-block">
-      <div class="section-editorial-header">
-        <div class="sec-title-wrap">
-          <span class="sec-number">08</span>
-          <h2 class="sec-title-main">聯絡資訊與履歷下載</h2>
-          <span class="sec-title-sub">CONTACT &amp; RESUME DOWNLOAD</span>
-        </div>
-        <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">快速通聯 ✦ 履歷檔案</span>
-      </div>
-
-      <div class="contact-action-panel">
-        <div>
-          <span class="card-top-tag tag-navy">DIRECT CONTACT</span>
-          <h3 class="card-heading" style="margin-top: 8px;">誠摯期待參與松本清面試交流</h3>
-          <p class="card-body-text" style="margin-top: 4px;">
-            現居桃園市大園區（機動巡店）。到職時間、排班與巡店安排，可於面談時進一步確認。若您對我的日系藥妝門市經歷、帶訓工作或營運構想有興趣，歡迎隨時透過電話或電子郵件與我聯繫。
-          </p>
-        </div>
-
-        <div class="contact-grid">
-          <!-- Phone Card -->
-          <div class="contact-card-item">
-            <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-muted); font-weight: 700;">行動電話 (MOBILE)</span>
-            <div style="font-family: var(--font-mono); font-size: 1.3rem; font-weight: 900; color: var(--mk-navy);">
-              <a href="tel:0989591825" style="color: inherit; text-decoration: none;">0989-591-825</a>
-            </div>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px;">
-              <a href="tel:0989591825" class="mag-btn mag-btn-secondary" style="font-size: 0.84rem; padding: 6px 12px; min-height: 38px;">
-                撥打電話
-              </a>
-              <a href="contact.html" class="mag-btn mag-btn-outline" style="font-size: 0.84rem; padding: 6px 12px; min-height: 38px;">
-                完整聯絡頁面 ↗
-              </a>
-            </div>
-          </div>
-
-          <!-- Email Card -->
-          <div class="contact-card-item">
-            <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-muted); font-weight: 700;">電子郵件 (EMAIL)</span>
-            <div style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 900; color: var(--mk-navy); word-break: break-all;">
-              <a href="mailto:mystiqueduncan@gmail.com" style="color: inherit; text-decoration: none;">mystiqueduncan@gmail.com</a>
-            </div>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px;">
-              <a href="mailto:mystiqueduncan@gmail.com" class="mag-btn mag-btn-secondary" style="font-size: 0.84rem; padding: 6px 12px; min-height: 38px;">
-                發送信件
-              </a>
-              <a href="resume.pdf" download="黃博詩_松本清區域營運經理_履歷表.pdf" class="mag-btn mag-btn-primary" style="font-size: 0.84rem; padding: 6px 12px; min-height: 38px;">
-                下載 A4 PDF 履歷
-              </a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
 
   </main>
 

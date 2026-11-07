@@ -219,6 +219,7 @@ test("CSS has no whole-strip hover or focus-within pause selector", () => {
   assert.doesNotMatch(css, /\.keycap-marquee__viewport:(?:hover|focus-within)\s+\.keycap-marquee__belt/);
 });
 
+
 test("no visible pause or play button exists in CSS or DOM", () => {
   assert.doesNotMatch(css, /\.keycap-marquee__toggle/);
   assert.doesNotMatch(css, /is-user-paused/);

@@ -26,7 +26,25 @@ training='服務期間兼任新進人員帶訓工作，負責規劃新進同仁�
 def normalized(text):
  return compact(''.join(text).replace('跳至主要內容',''))
 def expected_text(rel,text):
- s=''.join(text)
+ # User-approved removal: homepage contact blocks now live only on full contact pages.
+ if rel=='index.html':
+  start=text.index('CONTACT & RESUME DOWNLOAD')-2
+  if text[start:start+3]!=['08','聯絡資訊與履歷下載','CONTACT & RESUME DOWNLOAD']:raise ValueError('unexpected desktop contact baseline')
+  end=text.index('MK',start)
+  s=''.join(text[:start]+text[end:])
+ elif rel=='mobile.html':
+  start=text.index('09/ 聯絡資訊與履歷下載')
+  end=text.index('MK',start)
+  s=''.join(text[:start]+text[end:])
+ else:
+  s=''.join(text)
+ if rel=='index.html':
+  s=s.replace('新分頁開啟 ✦', '原分頁開啟 ✦', 1)
+ if rel in ('contact.html','mobile-contact.html'):
+  # New verified LINE ID is authorized by the user; the older baseline stays unchanged.
+  needle='複製 Email'
+  if s.count(needle)!=1:raise ValueError('unexpected contact baseline')
+  s=s.replace(needle,needle+'LINE 帳號 (LINE)bobozhihuang複製 LINE ID',1)
  if rel in ('index.html','mobile.html'):
   for credit in ("出處：TOMOD'S 官方商標",'出處：築心動物醫院',"出處：LEVI'S 官方素材"):
    if s.count(credit)!=1:raise ValueError('unexpected original logo credit: '+rel)
