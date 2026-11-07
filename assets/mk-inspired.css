@@ -15,6 +15,8 @@
   --mk-inspired-radius: 13px;
 }
 
+html { overflow-x: clip; }
+
 /* Storefront rhythm: large clean panels separated by bright editorial stripes. */
 body {
   overflow-x: clip;
