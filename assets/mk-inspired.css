@@ -261,14 +261,14 @@ main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
 /* The three existing marquee controls keep their shared keycap geometry.
    The independent dark "完整趨勢研究" CTA is intentionally not changed. */
 
-/* A section only becomes initially concealed if JavaScript observed it and
-   specifically marked it while still BELOW the viewport. */
+/* Progressive reveal for every section as it enters the viewport. The script
+   marks content only when IntersectionObserver is available and motion is allowed. */
 .mk-motion-item {
-  transition: opacity .68s ease, transform .7s cubic-bezier(.2,.74,.19,1);
+  transition: opacity .62s ease, transform .66s cubic-bezier(.2,.74,.19,1);
 }
 .mk-motion-pending {
   opacity: 0;
-  transform: translate3d(0, 24px, 0);
+  transform: translate3d(-30px, 0, 0);
 }
 .mk-motion-in,
 .mk-motion-pending:focus-within,
@@ -276,6 +276,23 @@ main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
   opacity: 1;
   transform: none;
 }
+.mk-pop-item {
+  transition: opacity .4s ease, transform .52s cubic-bezier(.18,.82,.25,1.18);
+}
+.mk-pop-pending {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0) scale(.88);
+}
+.mk-pop-in,
+.mk-pop-pending:focus-within,
+.mk-pop-pending:target {
+  opacity: 1;
+  transform: none;
+}
+/* Contact methods pop in with a short stagger, then remain visible. */
+.contact-methods-stack > .method-card:nth-of-type(1) { transition-delay: 0ms; }
+.contact-methods-stack > .method-card:nth-of-type(2) { transition-delay: 70ms; }
+.contact-methods-stack > .method-card:nth-of-type(3) { transition-delay: 140ms; }
 @media (max-width: 680px) {
   .mag-header::after { width: 240px; right: -130px; top: 5%; }
   .section-editorial-header {
@@ -289,10 +306,12 @@ main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
     font-size: .9rem;
   }
   .mobile-card-title { line-height: 1.45; }
-  .mk-motion-pending { transform: translate3d(0, 15px, 0); }
+  .mk-motion-pending { transform: translate3d(-20px, 0, 0); }
+  .mk-pop-pending { transform: translate3d(0, 12px, 0) scale(.91); }
 }
 @media (prefers-reduced-motion: reduce) {
   .mk-motion-item, .mk-motion-pending, .mk-motion-in,
+  .mk-pop-item, .mk-pop-pending, .mk-pop-in,
   :is(.hero-photo-frame, .candidate-photo-frame, .photo-frame, .source-photo-image) img,
   :is(.mag-btn, .btn-action-primary, .btn-contact-action, .method-action-btns a) {
     opacity: 1 !important;
@@ -302,7 +321,8 @@ main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
 }
 @media print {
   body, .mag-header, .mobile-app-wrapper { background: #FFFFFF !important; }
-  .mk-motion-item, .mk-motion-pending, .mk-motion-in {
+  .mk-motion-item, .mk-motion-pending, .mk-motion-in,
+  .mk-pop-item, .mk-pop-pending, .mk-pop-in {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;

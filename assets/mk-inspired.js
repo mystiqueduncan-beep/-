@@ -1,11 +1,13 @@
-/* Section entrances for the personal portfolio, inspired by storefront editorial pacing.
-   No copy/images modified. Nothing is hidden if this script fails or JS is disabled. */
+/* One-time section reveals for the personal portfolio.
+   Content stays visible if this script fails, JavaScript is disabled, or reduced motion is preferred. */
 (() => {
   "use strict";
   const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)");
   if (!("IntersectionObserver" in window) || (reduced && reduced.matches)) return;
 
   const selectors = [
+    "main > section",
+    "main .contact-card-outer",
     "main .section-editorial-header",
     "main .editorial-card",
     "main .wide-star-case",
@@ -17,20 +19,18 @@
     "main .feature-card",
     "main .case-box",
     "main .content-article-box",
-    "main .contact-card-outer",
-    "main .method-card",
-    "main.mobile-content > .mobile-card",
-    "main.mobile-content > .timeline-job-card",
-    "main.mobile-content > .mobile-trend-banner",
-    "main.mobile-content > .edu-card-mobile",
-    "main.mobile-content > .mobile-case-box"
+    "main .mobile-subcard",
+    "main .adv-dim-card",
+    "main .stage-card-mini"
   ];
-  const targets = [...document.querySelectorAll(selectors.join(","))];
-  if (!targets.length) return;
+  const targets = [...new Set(document.querySelectorAll(selectors.join(",")))];
+  const contactMethods = [...document.querySelectorAll("main .contact-methods-stack > .method-card, main > section .method-card")];
+  const allTargets = [...new Set([...targets, ...contactMethods])];
+  if (!allTargets.length) return;
 
-  const reveal = (el) => {
-    el.classList.remove("mk-motion-pending");
-    el.classList.add("mk-motion-in");
+  const reveal = el => {
+    el.classList.remove("mk-motion-pending", "mk-pop-pending");
+    el.classList.add(el.classList.contains("mk-pop-item") ? "mk-pop-in" : "mk-motion-in");
   };
 
   const observer = new IntersectionObserver(entries => {
@@ -40,55 +40,48 @@
         observer.unobserve(entry.target);
       }
     }
-  }, { threshold: 0.04, rootMargin: "0px 0px -35px 0px" });
+  }, { threshold: 0.02, rootMargin: "0px 0px -24px 0px" });
 
-  // Batch geometry reads before writing classes. Reading each rectangle after
-  // mutating the previous element can force repeated style/layout recalculation.
-  const toObserve = [];
-  const firstScreenLimit = window.innerHeight * 0.87;
-  for (const el of targets) {
-    if (el.closest('[hidden], [aria-hidden="true"]')) continue;
+  // Mark all content units before observing. Every section, including content
+  // already in the first viewport, uses the same entrance treatment.
+  const toObserve = allTargets.filter(el => {
+    if (el.closest('[hidden], [aria-hidden="true"]')) return false;
     const box = el.getBoundingClientRect();
-    if (box.width === 0 || box.height === 0) continue;
-    // Never conceal the first screen, focused elements, or anchor-linked content.
-    if (box.top < firstScreenLimit ||
-        el.matches(":target") || el.contains(document.activeElement)) continue;
-    toObserve.push(el);
-  }
-  if (!toObserve.length) return;
-
+    return box.width > 0 && box.height > 0;
+  });
   for (const el of toObserve) {
-    el.classList.add("mk-motion-item", "mk-motion-pending");
+    const isContactMethod = contactMethods.includes(el);
+    el.classList.add(isContactMethod ? "mk-pop-item" : "mk-motion-item");
+    el.classList.add(isContactMethod ? "mk-pop-pending" : "mk-motion-pending");
+  }
+  for (const el of toObserve) {
     observer.observe(el);
   }
 
   const revealEverything = () => {
     observer.disconnect();
-    targets.forEach(reveal);
+    allTargets.forEach(reveal);
   };
 
-  // Keyboard users should never navigate to visually concealed content.
-  document.addEventListener("focusin", event => {
-    const target = event.target.closest(".mk-motion-pending");
-    if (target) {
-      reveal(target);
-      observer.unobserve(target);
+  // Reveal the focused item and any hidden ancestors so keyboard users never
+  // land inside content that is still visually concealed.
+  const revealFocusedAncestors = target => {
+    let pending = target.closest(".mk-motion-pending, .mk-pop-pending");
+    while (pending) {
+      reveal(pending);
+      observer.unobserve(pending);
+      pending = target.parentElement?.closest(".mk-motion-pending, .mk-pop-pending") || null;
     }
+  };
+  document.addEventListener("focusin", event => {
+    revealFocusedAncestors(event.target);
   });
   window.addEventListener("hashchange", () => {
     const id = decodeURIComponent(location.hash.slice(1));
     if (!id) return;
     const target = document.getElementById(id);
     if (!target) return;
-    const parent = target.closest(".mk-motion-pending");
-    if (parent) {
-      reveal(parent);
-      observer.unobserve(parent);
-    }
-    if (target.classList.contains("mk-motion-pending")) {
-      reveal(target);
-      observer.unobserve(target);
-    }
+    revealFocusedAncestors(target);
   });
   window.addEventListener("beforeprint", revealEverything, { once: true });
   window.addEventListener("pagehide", revealEverything, { once: true });
