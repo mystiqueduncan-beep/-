@@ -6,7 +6,11 @@
   if (!("IntersectionObserver" in window) || (reduced && reduced.matches)) return;
 
   const selectors = [
+    ".mag-hero-grid",
     "main > section",
+    "main .timeline-job-card",
+    "main .mobile-case-box",
+    "main .pillar-mini-card",
     "main .contact-card-outer",
     "main .section-editorial-header",
     "main .editorial-card",
@@ -33,14 +37,17 @@
     el.classList.add(el.classList.contains("mk-pop-item") ? "mk-pop-in" : "mk-motion-in");
   };
 
-  const observer = new IntersectionObserver(entries => {
-    for (const entry of entries) {
-      if (entry.isIntersecting) {
-        reveal(entry.target);
-        observer.unobserve(entry.target);
+  let observer;
+  try {
+    observer = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          reveal(entry.target);
+          observer.unobserve(entry.target);
+        }
       }
-    }
-  }, { threshold: 0.02, rootMargin: "0px 0px -24px 0px" });
+    }, { threshold: 0, rootMargin: "0px 0px -24px 0px" });
+  } catch (_) { return; }
 
   // Mark all content units before observing. Every section, including content
   // already in the first viewport, uses the same entrance treatment.
@@ -54,8 +61,12 @@
     el.classList.add(isContactMethod ? "mk-pop-item" : "mk-motion-item");
     el.classList.add(isContactMethod ? "mk-pop-pending" : "mk-motion-pending");
   }
-  for (const el of toObserve) {
-    observer.observe(el);
+  try {
+    for (const el of toObserve) observer.observe(el);
+  } catch (_) {
+    observer.disconnect();
+    allTargets.forEach(reveal);
+    return;
   }
 
   const revealEverything = () => {
@@ -76,13 +87,17 @@
   document.addEventListener("focusin", event => {
     revealFocusedAncestors(event.target);
   });
-  window.addEventListener("hashchange", () => {
-    const id = decodeURIComponent(location.hash.slice(1));
+  const revealHashTarget = () => {
+    let id;
+    try { id = decodeURIComponent(location.hash.slice(1)); }
+    catch (_) { return; }
     if (!id) return;
     const target = document.getElementById(id);
     if (!target) return;
     revealFocusedAncestors(target);
-  });
+  };
+  window.addEventListener("hashchange", revealHashTarget);
+  revealHashTarget();
   window.addEventListener("beforeprint", revealEverything, { once: true });
   window.addEventListener("pagehide", revealEverything, { once: true });
   if (reduced) {

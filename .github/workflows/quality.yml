@@ -38,6 +38,8 @@ jobs:
           python3 -m pip install playwright==1.51.0
           python3 -m playwright install --with-deps chromium
           npm install --no-save --package-lock=false axe-core@4.10.3
+      - name: One-time section and contact reveals
+        run: python3 _qa/section_reveal_audit.py
       - name: Responsive layouts, keyboard controls and axe
         run: python3 _qa/browser_audit.py --out /tmp/browser-audit --axe node_modules/axe-core/axe.min.js
 
