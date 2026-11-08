@@ -18,6 +18,8 @@ class Text(HTMLParser):
 def digest(source):return hashlib.sha256(re.sub(r'\s+','',''.join(Text(source).parts)).lstrip('\ufeff').encode()).hexdigest()
 if __name__=='__main__':
  manifest=json.loads((ROOT/'_audit/editorial-main-text-sha256.json').read_text())
+ current={name:digest((ROOT/name).read_text(encoding='utf-8')) for name in manifest['pages']}
+ print('CURRENT_EDITED_TEXT_SHA256='+json.dumps(current,ensure_ascii=False,sort_keys=True),flush=True)
  for name,expected in manifest['pages'].items():
-  assert digest((ROOT/name).read_text(encoding='utf-8'))==expected,name+': main text changed'
-  print(name+': exact main text, chart labels, SVG descriptions and credits preserved')
+  assert current[name]==expected,name+': main text changed'
+  print(name+': exact approved text, chart labels, SVG descriptions and credits preserved')
