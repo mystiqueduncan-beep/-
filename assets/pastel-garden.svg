@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 600" fill="none">
+<!-- Original botanical/stationery illustration, created for this portfolio. -->
+<g stroke="#a47484" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M75 140C25 104 44 56 70 73C90 42 125 74 106 102Z" fill="#e5c1cb"/>
+ <path d="m460 86 6-24 10 19 22 5-19 12-4 22-13-18-23-3Z" fill="#f2e4db"/>
+ <path d="M469 438c47-50 72-30 51-4 36 6 29 43 0 33 8 34-27 45-39 16-20 25-46 7-28-14-29-7-18-36 16-31Z" fill="#e8ced5"/>
+ <circle cx="485" cy="457" r="14" fill="#faf3e5"/>
+ <path d="M85 445c-6-45-42-76-49-106M73 405c-46 2-54-20-50-35 30-6 48 5 50 35ZM51 367c14-35 37-36 45-28-4 25-22 33-45 28ZM88 446c-37 7-53-7-53-21 26-12 45-7 53 21Z" fill="#c2d0c3" stroke="#889d8b"/>
+ <path d="m59 491 29 8-9 49-37-11Z" fill="#e8ced5"/>
+ <path d="m43 500 45 10m-48 3 45 10m-48 3 45 10" stroke="#faf6f1"/>
+ <path d="M463 213c22-38 63-13 40 17l-21 25-27-27c-23-25 5-44 8-15Z" fill="#dfb7c3"/>
+ <path d="m129 51 4-19m-17 13 24-5m300 292 17 6m-9-15-1 24"/>
+ <path d="m405 519 8 9-5 12 13-2 9 10 2-14 12-6-13-6-1-14-9 10Z" fill="#c5d0c6" stroke="#889d8b"/>
+ <path d="M143 554c29-12 44-11 59 0m-51 14c18-7 28-7 40-2" stroke="#c5a1ac"/>
+</g>
+<g fill="#d9b4c0"><circle cx="424" cy="50" r="4"/><circle cx="507" cy="350" r="5"/><circle cx="26" cy="277" r="4"/><circle cx="158" cy="575" r="3"/></g>
+<path d="M170 69c98-29 266 31 291 169 25 144-84 301-208 276C108 485 78 329 92 212 97 149 120 85 170 69Z" stroke="#dec2cb" stroke-width="2" stroke-dasharray="5 9"/>
+</svg>

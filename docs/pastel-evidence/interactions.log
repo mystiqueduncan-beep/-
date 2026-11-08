@@ -1,0 +1,23 @@
+[
+  {
+    "page": "index",
+    "marquee": "pass",
+    "hover": "pass"
+  },
+  {
+    "page": "trend",
+    "marquee": "pass",
+    "hover": "pass"
+  },
+  {
+    "page": "mobile",
+    "marquee": "pass",
+    "touch": "pass"
+  },
+  {
+    "page": "mobile-trend",
+    "marquee": "pass",
+    "touch": "pass"
+  }
+]
+Same-tab transition and history passed.

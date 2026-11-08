@@ -1,0 +1,11 @@
+✔ _qa/device-routing.test.cjs (146.132778ms)
+✔ _qa/marquee-interaction.test.cjs (1480.219158ms)
+✔ _qa/trend-charts.test.cjs (299.972226ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1942.858716
