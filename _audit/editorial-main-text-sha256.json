@@ -2,17 +2,17 @@
   "base": "5646383cf2ea0bb24201ee18fc51e43540f0d8df",
   "pages": {
     "contact.html": "b9775d822a83bbd6eb99d0662d82a175b412f87be16d42ba971251f1acc0fcf8",
-    "index.html": "0224a12505a30174fbef36a080d0a7704b945357c360cf29b2e16e5c874656f2",
+    "index.html": "55fcc7423aa839cf0db9d0426d85485bde87bfe12e0ecab410f13f7710e79d12",
     "mobile-contact.html": "9b10e0b4838d9fda2a001c75132eaa62c790a0f66dc9d00952789866ca70c9ae",
     "mobile-trend.html": "a75f671426ab4284d3fb43d84b3e31ea5ca7208f0ab6fc8938c95f0eeb3c424d",
     "mobile.html": "21764acf26ab8f76e60aac3d7494b7005d793e161172822fd52b9907a1e0a78b",
     "trend.html": "1fa35debc418f99e06c0a07e58d53a185ed1c5a27e8aad8a4c5e363a3495cab8"
   },
   "note": "Updated to user-approved removal of contact strengths/attendance and all mobile marquees, simplified link labels, and photo-free home pages. Original data/facts independently validated by _qa/check.py.",
-  "approval": "2026-11-09 — restore exactly three previously approved career photos and their source credit captions, keeping hero portrait removed",
+  "approval": "2026-11-09 — restore three work experience photos, fade in with one-second opacity animation, and remove only the homepage marquee contact shortcut; all résumé facts preserved",
   "prior_sha256": {
     "contact.html": "b9775d822a83bbd6eb99d0662d82a175b412f87be16d42ba971251f1acc0fcf8",
-    "index.html": "50d9254a1efc57234d223f162b73ac7f12ebec7d9fa89cc4f2913e3818f2fda9",
+    "index.html": "0224a12505a30174fbef36a080d0a7704b945357c360cf29b2e16e5c874656f2",
     "mobile-contact.html": "9b10e0b4838d9fda2a001c75132eaa62c790a0f66dc9d00952789866ca70c9ae",
     "mobile-trend.html": "a75f671426ab4284d3fb43d84b3e31ea5ca7208f0ab6fc8938c95f0eeb3c424d",
     "mobile.html": "f093fffe5af68c85a5f93d4b61bef4a435af428deade1d9018e4afcee6fbd1ae",
