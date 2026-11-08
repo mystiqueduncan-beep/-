@@ -167,8 +167,8 @@ def expected_text(rel,text):
   marker=compact('以日系藥妝 Tomod\'s 6年門市實務')
   if s.count(marker)!=1:raise ValueError(rel+': unexpected profile text position')
   k=s.index(marker);s=s[:k]+compact(study_text)+s[k:]
-  if s.count('聯絡資訊')!=2:raise ValueError(rel+': unexpected contact label count')
-  s=s.replace('聯絡資訊','個人及聯絡資訊')
+  s=swap('個人作品集聯絡資訊電腦版','個人作品集個人及聯絡資訊電腦版')
+  s=swap('藥妝專題研究聯絡資訊','藥妝專題研究個人及聯絡資訊')
  elif rel=='trend.html':
   s=swap('📱切換手機版↗','手機版')
   s=swap('｜萬能科技大學 企業管理系 研讀中（2026.10 入學 ｜ 預計 2030.06 畢業）','')
