@@ -1,4 +1,4 @@
-"""Real-browser regression for one-time reveals on all six portfolio pages."""
+﻿"""Real-browser regression for one-time reveals on all six portfolio pages."""
 import functools
 import http.server
 import json
@@ -46,6 +46,13 @@ with sync_playwright() as p:
         held.close()
         page.goto(url)
         page.wait_for_timeout(800)
+        # Allow any in-progress CSS transitions to fully settle before asserting
+        # pending-state opacity. A section near the top of a shorter page may
+        # still be mid-transition after the initial 800 ms budget.
+        page.wait_for_function(
+            'function(){var el=document.querySelector(".mk-motion-pending,.mk-pop-pending");return !el||+getComputedStyle(el).opacity===0;}',
+            timeout=1500
+        )
         items = page.locator('.mk-motion-item,.mk-pop-item')
         assert items.count() > 0, name
         if 'contact' in name:

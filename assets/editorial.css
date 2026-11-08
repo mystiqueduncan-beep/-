@@ -1,0 +1,377 @@
+/*
+ * Editorial Portfolio Design System — VOGUE-inspired
+ * Overlays the existing mk-inspired theme with a high-fashion magazine aesthetic.
+ * Does NOT touch mk-inspired.css structural rules or animation system.
+ * Load after site.css and mk-inspired.css.
+ */
+
+/* ==========================================================================
+   DESIGN TOKENS — Editorial Monochrome Palette
+   ========================================================================== */
+:root {
+  --ed-black:    #111111;
+  --ed-dark:     #333333;
+  --ed-gray:     #777777;
+  --ed-hairline: #DDDDDD;
+  --ed-white:    #FFFFFF;
+  --ed-ivory:    #FAF9F6;
+  --ed-red:      #A61E25;
+
+  /* Override mk-* colour tokens to editorial palette */
+  --mk-navy:         var(--ed-black);
+  --mk-navy-dark:    #000000;
+  --mk-navy-light:   var(--ed-dark);
+  --mk-navy-soft:    var(--ed-gray);
+  --mk-yellow:       var(--ed-black);
+  --mk-yellow-light: var(--ed-ivory);
+  --mk-yellow-warm:  var(--ed-ivory);
+  --mk-red:          var(--ed-red);
+  --paper-bg:        var(--ed-ivory);
+  --paper-card:      var(--ed-white);
+  --paper-subtle:    #F3F2EF;
+  --ink-primary:     var(--ed-black);
+  --ink-secondary:   var(--ed-dark);
+  --ink-muted:       var(--ed-gray);
+  --hairline:        var(--ed-hairline);
+  --hairline-dark:   var(--ed-black);
+
+  /* Editorial Typography Stack (Playfair + Noto Serif TC for headings) */
+  --font-serif:      'Playfair Display', 'Noto Serif TC', Georgia, serif;
+  --font-sans:       'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:       'Space Mono', 'SFMono-Regular', Consolas, monospace;
+  --font-serif-tc:   'Noto Serif TC', 'Playfair Display', serif;
+
+  /* Editorial Shadows — hairline only, no coloured offset */
+  --mk-inspired-shadow:       0 1px 4px rgba(0,0,0,.07), 0 0 0 1px var(--ed-hairline);
+  --mk-inspired-shadow-hover: 0 4px 16px rgba(0,0,0,.12), 0 0 0 1px var(--ed-black);
+  --shadow-card:    1px 1px 0 var(--ed-black);
+  --shadow-card-lg: 2px 2px 0 var(--ed-black);
+  --mk-inspired-radius: 0px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+}
+
+/* ==========================================================================
+   GLOBAL RESETS FOR EDITORIAL FEEL
+   ========================================================================== */
+html { background: var(--ed-ivory); }
+body {
+  background: var(--ed-ivory);
+  color: var(--ed-black);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Remove all yellow bg gradients from mk-inspired.css */
+.mag-header,
+.mobile-app-wrapper { background-image: none !important; }
+.mag-header::after { display: none !important; }
+
+/* ==========================================================================
+   HEADER & TOP BAR
+   ========================================================================== */
+.mag-top-ticker {
+  background: var(--ed-black) !important;
+  border-bottom: 1px solid var(--ed-dark) !important;
+}
+
+.mag-header {
+  background: var(--ed-white) !important;
+  border-top: 3px solid var(--ed-black) !important;
+  border-bottom: 1px solid var(--ed-hairline);
+}
+
+.mag-subnav-strip,
+.trend-subnav-strip {
+  background: var(--ed-white) !important;
+  border-bottom: 2px solid var(--ed-black) !important;
+}
+
+.mobile-top-bar {
+  background: var(--ed-white) !important;
+  border-bottom: 2px solid var(--ed-black) !important;
+}
+
+.mobile-status-strip {
+  background: var(--ed-black) !important;
+  border-bottom: none !important;
+}
+
+.mobile-app-wrapper { background: var(--ed-ivory) !important; }
+
+/* Nav buttons — editorial text style */
+.nav-btn-mk {
+  background: transparent !important;
+  border: 1px solid var(--ed-hairline) !important;
+  color: var(--ed-black) !important;
+  box-shadow: none !important;
+}
+.nav-btn-mk:hover,
+.nav-btn-mk:focus-visible {
+  background: var(--ed-black) !important;
+  color: var(--ed-white) !important;
+  border-color: var(--ed-black) !important;
+}
+.nav-btn-mk span.num { color: var(--ed-red) !important; }
+
+/* ==========================================================================
+   HERO / COVER SECTION
+   ========================================================================== */
+.hero-action-card,
+.hero-dossier-mini,
+.candidate-info-box,
+.candidate-specs-box {
+  background: var(--ed-white) !important;
+  border: 1px solid var(--ed-hairline) !important;
+  border-radius: 0 !important;
+  box-shadow: var(--mk-inspired-shadow) !important;
+}
+
+/* Profile photo — editorial square crop with hairline border */
+:is(.hero-photo-frame, .candidate-photo-frame, .photo-frame) {
+  border-radius: 0 !important;
+  border: 1px solid var(--ed-hairline) !important;
+  box-shadow: 3px 3px 0 var(--ed-black) !important;
+  overflow: hidden;
+}
+
+/* Large display name — Playfair Display */
+.candidate-name,
+h1.candidate-name,
+.mag-candidate-name {
+  font-family: var(--font-serif) !important;
+  font-weight: 900 !important;
+  letter-spacing: -.02em;
+  color: var(--ed-black) !important;
+}
+
+/* Intro quote block — editorial left-rule */
+.hero-professional-intro,
+.report-lead-quote,
+.candidate-intro-lead {
+  background: var(--ed-ivory) !important;
+  border-left: 3px solid var(--ed-black) !important;
+  border-radius: 0 !important;
+}
+
+/* Key pillars / star cards */
+.key-pillar-card,
+.star-field-box,
+.hero-action-card {
+  background: var(--ed-white) !important;
+  border: 1px solid var(--ed-black) !important;
+  border-radius: 0 !important;
+  box-shadow: 2px 2px 0 var(--ed-black) !important;
+}
+
+/* Badges — editorial tag style */
+:is(.portfolio-badge, .badge-report, .brand-logo-badge, .ticker-pill) {
+  background: var(--ed-black) !important;
+  color: var(--ed-white) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* ==========================================================================
+   SECTION HEADERS
+   ========================================================================== */
+.section-editorial-header {
+  background: var(--ed-white) !important;
+  border: 1px solid var(--ed-black) !important;
+  border-left: 4px solid var(--ed-black) !important;
+  border-bottom: 2px solid var(--ed-black) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.section-editorial-header .sec-number {
+  background: var(--ed-black) !important;
+  color: var(--ed-white) !important;
+  border: 1px solid var(--ed-black) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.section-editorial-header .sec-number .num { color: var(--ed-white) !important; }
+
+/* Section header English badge */
+.sec-en-badge {
+  font-family: var(--font-mono) !important;
+  font-size: 0.65rem !important;
+  letter-spacing: .12em;
+  color: var(--ed-gray) !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+/* ==========================================================================
+   CARDS
+   ========================================================================== */
+:is(
+  .editorial-card, .content-article-box, .feature-card, .wide-star-case,
+  .career-entry-card, .edu-dedicated-card, .stage-card, .contact-card-item,
+  .case-box, .research-summary-panel, .contact-action-panel, .method-card,
+  .contact-card-outer, .mobile-card, .timeline-job-card, .mobile-case-box,
+  .mobile-subcard, .adv-dim-card, .stage-card-mini
+) {
+  background: var(--ed-white) !important;
+  border: 1px solid var(--ed-hairline) !important;
+  border-radius: 0 !important;
+  box-shadow: var(--mk-inspired-shadow) !important;
+}
+
+/* Even cards — ivory tint instead of yellow */
+main.mag-main .section-block:nth-of-type(even),
+main.trend-main > section[id]:nth-of-type(even) {
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+/* Hover: lift + black border */
+@media (hover: hover) and (pointer: fine) {
+  :is(.editorial-card, .feature-card, .wide-star-case, .career-entry-card,
+      .timeline-job-card, .mobile-case-box, .method-card):hover {
+    box-shadow: var(--mk-inspired-shadow-hover) !important;
+    border-color: var(--ed-black) !important;
+  }
+}
+
+/* Company titles inside cards */
+.company-title, .stage-title, .card-heading {
+  font-family: var(--font-serif-tc) !important;
+  color: var(--ed-black) !important;
+}
+
+/* ==========================================================================
+   BUTTONS & CTAS
+   ========================================================================== */
+:is(.mag-btn-primary, .btn-action-primary, .btn-contact-action.yellow) {
+  background: var(--ed-black) !important;
+  color: var(--ed-white) !important;
+  border: 1px solid var(--ed-black) !important;
+  border-radius: 0 !important;
+  box-shadow: 2px 2px 0 var(--ed-dark) !important;
+}
+
+:is(.mag-btn, .btn-action-primary, .btn-contact-action, .method-action-btns a):focus-visible {
+  outline: 2px solid var(--ed-black) !important;
+  outline-offset: 3px;
+}
+
+/* Navy-coloured buttons → black */
+[style*="background: #0B2240"],
+[style*="background:#0B2240"],
+[style*="background-color: #0B2240"],
+[style*="background-color:#0B2240"] {
+  background: var(--ed-black) !important;
+}
+
+/* Yellow-coloured buttons → white/ivory */
+[style*="background: #FFD600"],
+[style*="background:#FFD600"],
+[style*="background-color: #FFD600"],
+[style*="background-color:#FFD600"] {
+  background: var(--ed-ivory) !important;
+  color: var(--ed-black) !important;
+}
+
+/* ==========================================================================
+   MARQUEE / TICKER
+   ========================================================================== */
+.mag-top-ticker .marquee-track,
+.mobile-status-strip .marquee-track {
+  color: #CCCCCC !important;
+}
+
+/* ==========================================================================
+   SECTION REVEALS — Timing refinement (see also section_reveal_audit.py fix)
+   Existing mk-motion-* classes unchanged; only transition speed adjusted
+   to match the editorial slower/refined pace.
+   ========================================================================== */
+.mk-motion-item {
+  transition: opacity .7s ease, transform .75s cubic-bezier(.2,.75,.2,1) !important;
+}
+.mk-pop-item {
+  transition: opacity .45s ease, transform .58s cubic-bezier(.18,.82,.25,1.1) !important;
+}
+
+/* ==========================================================================
+   CHART 01-A — Override colour theme for editorial B&W
+   ========================================================================== */
+.channel-study { color: var(--ed-black) !important; }
+
+.channel-metric {
+  background: var(--ed-ivory) !important;
+  border: 1px solid var(--ed-black) !important;
+  box-shadow: 2px 2px 0 var(--ed-black) !important;
+}
+.channel-metric:nth-child(1) { background: var(--ed-black) !important; color: var(--ed-white) !important; }
+.channel-metric:nth-child(1) > strong { color: var(--ed-white) !important; }
+.channel-metric:nth-child(1) > span { color: #CCCCCC !important; }
+
+.channel-track { border: 1px solid var(--ed-black) !important; background: var(--ed-hairline) !important; }
+
+/* Override inline colour styles on channel-fill bars */
+.channel-fill[style*="#FFD600"] { background: var(--ed-black) !important; }
+.channel-fill[style*="#0B2240"] { background: var(--ed-dark) !important; }
+.channel-fill[style*="#C5161D"] { background: var(--ed-red) !important; }
+.channel-fill[style*="#5576A0"] { background: var(--ed-gray) !important; }
+
+.channel-row:is(:hover,:focus,:active) {
+  border-color: var(--ed-black) !important;
+  background: var(--ed-ivory) !important;
+}
+.channel-row:focus-visible { outline: 2px solid var(--ed-black) !important; }
+.channel-summary p {
+  border: 1px solid var(--ed-black) !important;
+  box-shadow: 1px 1px 0 var(--ed-black) !important;
+  background: var(--ed-ivory) !important;
+}
+
+/* ==========================================================================
+   SOURCE NOTES & VERIFICATION BLOCKS
+   ========================================================================== */
+.source-verification {
+  background: var(--ed-ivory) !important;
+  border-left: 3px solid var(--ed-black) !important;
+  border-radius: 0 !important;
+}
+
+.source-photo { border-radius: 0 !important; border: 1px solid var(--ed-hairline) !important; }
+.source-photo figcaption { border-top: 1px solid var(--ed-hairline) !important; background: var(--ed-white) !important; }
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.mag-footer,
+.mobile-footer {
+  background: var(--ed-black) !important;
+  color: var(--ed-white) !important;
+  border-top: 1px solid var(--ed-dark) !important;
+}
+
+.mobile-bottom-bar {
+  background: var(--ed-white) !important;
+  border-top: 1px solid var(--ed-hairline) !important;
+}
+
+/* ==========================================================================
+   PRINT — Keep editorial black on white
+   ========================================================================== */
+@media print {
+  body, .mag-header, .mobile-app-wrapper, .source-photo figcaption {
+    background: #FFFFFF !important;
+  }
+  .mag-footer, .mobile-footer {
+    background: #FFFFFF !important;
+    color: #111111 !important;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE ADJUSTMENTS
+   ========================================================================== */
+@media (max-width: 680px) {
+  .section-editorial-header { border-left-width: 3px !important; }
+  .key-pillar-card, .star-field-box { box-shadow: 1px 1px 0 var(--ed-black) !important; }
+}
