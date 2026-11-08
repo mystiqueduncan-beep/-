@@ -322,7 +322,7 @@ test("homepage matches research page continuous marquee without extra DOM contro
   }
   assert.match(css, /@keyframes keycap-marquee-scroll/);
   assert.doesNotMatch(css, /home-keycap-shuttle|is-home-animated/);
-  assert.match(css, /max-width:\\s*min\\(100%, 620px\\)/);
+  assert.ok(css.includes("max-width: min(100%, 620px)"));
 });
 
 test("homepage reduced motion and hover/touch controls match research page", () => {
