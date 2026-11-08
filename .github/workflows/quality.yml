@@ -11,7 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Resume facts, links, resources and SEO
-        run: python3 _qa/check.py
+        run: |
+          python3 _qa/check.py
+          python3 _qa/editorial_content.py
       - name: Mobile font character coverage
         run: python3 _qa/mobile_font_subset.py --check
       - name: JavaScript syntax

@@ -19,7 +19,7 @@
 
 ## 內容與功能
 
-九頁原始文字核對通過。工作照片 URL／來源署名、原始 JPG、履歷 PDF、學歷、任職期間與描述、研究段落及 SVG 幾何未更改。圖表 45.2%、42.5%、28.7%、24.4% 維持原始比例；獨立檢查完整名稱、百分比、CSS 絕對寬度、複選題及非市場占有率語義，沒有正規化。
+九頁原始文字核對通過。另以最新 main 六頁完整正文 SHA-256 逐頁比較，包含 audited 圖表與 SVG 說明，全部完全相同；新增的手機導覽僅排除已獨立驗證的重複標籤，見 `_qa/editorial_content.py` 及 `content-parity.log`。工作照片 URL／來源署名、原始 JPG、履歷 PDF、學歷、任職期間與描述、研究段落及 SVG 幾何未更改。圖表 45.2%、42.5%、28.7%、24.4% 維持原始比例；獨立檢查完整名稱、百分比、CSS 絕對寬度、複選題及非市場占有率語義，沒有正規化。
 
 原有互動 JavaScript 未修改。保留右往左進場方向、原有 observer 觸發、一次性顯示、鍵盤焦點、錨點、返回歷史、print、停用 JS／observer／reduced-motion 回退。三個聯絡方式只彈出一次並持續顯示；站內同分頁切換，原有跨文件轉場保留。
 
@@ -38,6 +38,7 @@
 
 ```sh
 python3 _qa/check.py
+python3 _qa/editorial_content.py
 python3 _qa/mobile_font_subset.py --check
 node --test _qa/*.test.cjs
 CHROME_PATH=/usr/bin/chromium python3 _qa/section_reveal_audit.py
@@ -52,9 +53,9 @@ Lighthouse 12.8.2／系統 Chromium／本機 Python HTTP server，預設桌機�
 | 版本 | 桌機 | 手機 |
 | --- | --- | --- |
 | 原版 main | 98 / 96 / 100 / 100 | 97 / 95 / 100 / 69 |
-| 移除高成本 pretty 換行後 | 100 / 100 / 100 / 100 | 97 / 100 / 100 / 69 |
+| 最終版（手機含跑馬燈） | 100 / 100 / 100 / 100 | 98 / 100 / 100 / 69 |
 
-早期並行測試曾測得效能 79／77；追查 forced reflow 並移除逐段 pretty 文字重排後改善。上述為本機個別測量，不冒稱三次中位數。手機原有 noindex,follow 導致 SEO 低於 80，依要求保留政策。
+早期並行測試曾測得效能 79／77；追查 forced reflow 並移除逐段 pretty 文字重排後改善。最終手機跑馬燈加入後再次單獨重測為 98／100／100／69；並行 reveal 稽核時另有 74 分結果，保留於本機原始紀錄，不用於同環境基準比較。上述為本機個別測量，不冒稱三次中位數。手機原有 noindex,follow 導致 SEO 低於 80，依要求保留政策。
 
 ## 原始 CI 根因
 
@@ -63,6 +64,8 @@ Lighthouse 12.8.2／系統 Chromium／本機 Python HTTP server，預設桌機�
 - source-integrity：trend／mobile-trend 的舊圖表標籤仍在 baseline，但 Page parser 排除 audited-visual 整塊，新增 SVG title／desc 又進入正文核對。保留既有完整性契約，精確列明這兩項表示方式差異，另增加圖表資料獨立檢查，沒有重建或覆寫原始基準。
 - browser-accessibility：section_reveal_audit 在 CSS 過渡中要求 opacity 嚴格為 0，實際為 0.000569405、x=29.9641；是稽核取樣競態。原 main 的等待只看第一個 pending 元素，本次在取樣目標等待其動畫完成，若 observer 已讓它進場則跳過 pending 斷言；held-observer 仍獨立驗證每個單元 opacity=0、x>0，沒有放寬正式進場方向契約。
 - PR #26 尚未合併，其資料與技術改善已有相近內容進入 main，本次從最新 main 工作，不 cherry-pick 舊分支；PR #16 只記錄圖片授權且有歷史衝突，未更動該 PR。
+
+桌機與手機圖表實際畫面：[桌機圖表](retro-preview/trend-chart.webp)、[手機圖表](retro-preview/mobile-trend-chart.webp)。
 
 ## 限制與待確認
 
