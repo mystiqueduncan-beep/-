@@ -1,4 +1,4 @@
-/* Progressive enhancement: original nine chapter links remain functional without JS. */
+/* Progressive enhancement: original chapter links remain functional without JS. */
 (() => {
   "use strict";
   const nav = document.querySelector("[data-keycap-marquee]");
@@ -7,6 +7,7 @@
   const belt = nav.querySelector(".keycap-marquee__belt");
   const original = nav.querySelector(".keycap-marquee__group");
   if (!belt || !original) return;
+  const isHomepage = Boolean(nav.closest(".home-keycap-strip"));
 
   // Respect user preference for reduced motion across desktop, tablet and mobile.
   const playback = window.matchMedia("(prefers-reduced-motion: no-preference)");
@@ -131,9 +132,24 @@
     });
   }
 
+  // The homepage deliberately uses one group of links. It moves out and back
+  // rather than cloning links for a seamless one-way loop.
+  // Other pages retain their existing, independently verified marquee behavior.
+  function updateTravel() {
+    if (isHomepage) {
+      const travel = viewport ? Math.max(0, Math.ceil(original.scrollWidth - viewport.clientWidth)) : 0;
+      belt.style.setProperty("--keycap-home-offset", "-" + travel + "px");
+      belt.style.setProperty("--keycap-duration", Math.max(14, Math.min(45, travel / 22)).toFixed(1) + "s");
+      nav.classList.toggle("is-home-animated", travel > 1);
+    } else {
+      const distance = original.getBoundingClientRect().width + 14;
+      belt.style.setProperty("--keycap-duration", Math.max(48, Math.min(115, distance / 30)).toFixed(1) + "s");
+    }
+  }
+
   function syncMode() {
     if (playback.matches) {
-      if (!duplicate) {
+      if (!isHomepage && !duplicate) {
         duplicate = original.cloneNode(true);
         duplicate.classList.add("keycap-marquee__group--duplicate");
         duplicate.setAttribute("aria-hidden", "true");
@@ -143,15 +159,14 @@
         });
         belt.appendChild(duplicate);
       }
-      const distance = original.getBoundingClientRect().width + 14;
-      belt.style.setProperty("--keycap-duration", Math.max(48, Math.min(115, distance / 30)).toFixed(1) + "s");
+      updateTravel();
       nav.classList.add("is-enhanced");
     } else {
       if (duplicate) {
         duplicate.remove();
         duplicate = null;
       }
-      nav.classList.remove("is-enhanced");
+      nav.classList.remove("is-enhanced", "is-home-animated");
       resumeAfterNavigation = false;
       setHoverPaused(false);
       setTouchPaused(false);
@@ -171,12 +186,11 @@
     playback.addListener(syncMode);
   }
   if (typeof ResizeObserver !== "undefined") {
-    new ResizeObserver(() => {
-      if (playback.matches) {
-        const distance = original.getBoundingClientRect().width + 14;
-        belt.style.setProperty("--keycap-duration", Math.max(48, Math.min(115, distance / 30)).toFixed(1) + "s");
-      }
-    }).observe(original);
+    const observer = new ResizeObserver(() => {
+      if (playback.matches) updateTravel();
+    });
+    observer.observe(original);
+    if (isHomepage && viewport) observer.observe(viewport);
   }
   syncMode();
 })();
