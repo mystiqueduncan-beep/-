@@ -36,6 +36,12 @@ with sync_playwright() as p:
         held.add_init_script('window.IntersectionObserver=class {observe(){} unobserve(){} disconnect(){}}')
         held.goto(url)
         held.wait_for_timeout(800)
+        # Slower (1.4s) transitions may still be settling towards the hidden
+        # pending pose; verify the final pose, not a mid-transition frame.
+        held.wait_for_function(
+            '() => [...document.querySelectorAll(".mk-motion-pending,.mk-pop-pending")].every(e => getComputedStyle(e).opacity === "0")',
+            timeout=3500
+        )
         # Independent coverage contract: page sections, articles, card units and source notes.
         units = held.locator('.mag-header > .container, main section, main article, .key-pillar-card, .hero-action-card, .star-field-box, .stage-meta-box, .candidate-info-box, .candidate-specs-box, .source-verification, main .method-card')
         for unit in units.all():
@@ -51,7 +57,7 @@ with sync_playwright() as p:
         # still be mid-transition after the initial 800 ms budget.
         page.wait_for_function(
             'function(){var el=document.querySelector(".mk-motion-pending,.mk-pop-pending");return !el||+getComputedStyle(el).opacity===0;}',
-            timeout=1500
+            timeout=3500
         )
         items = page.locator('.mk-motion-item,.mk-pop-item')
         assert items.count() > 0, name

@@ -144,7 +144,7 @@
         belt.appendChild(duplicate);
       }
       const distance = original.getBoundingClientRect().width + 14;
-      belt.style.setProperty("--keycap-duration", Math.max(38, Math.min(90, distance / 38)).toFixed(1) + "s");
+      belt.style.setProperty("--keycap-duration", Math.max(48, Math.min(115, distance / 30)).toFixed(1) + "s");
       nav.classList.add("is-enhanced");
     } else {
       if (duplicate) {
@@ -174,7 +174,7 @@
     new ResizeObserver(() => {
       if (playback.matches) {
         const distance = original.getBoundingClientRect().width + 14;
-        belt.style.setProperty("--keycap-duration", Math.max(38, Math.min(90, distance / 38)).toFixed(1) + "s");
+        belt.style.setProperty("--keycap-duration", Math.max(48, Math.min(115, distance / 30)).toFixed(1) + "s");
       }
     }).observe(original);
   }
