@@ -11,7 +11,6 @@
 }
 body {background:var(--paper-bg);color:var(--ink-primary);line-height:1.85}
 h1,h2,h3 {text-wrap:balance}
-p,li {text-wrap:pretty}
 .container {max-width:1240px}
 .mag-top-ticker,.mobile-status-strip {background:#493B3B!important;color:#FAF6F0!important;border:0!important}
 .ticker-pill {background:#EACBD0!important;color:#493B3B!important;box-shadow:none!important}
@@ -162,3 +161,6 @@ main.mag-main .section-block:nth-of-type(even),main.trend-main>section[id]:nth-o
 .hero-position-highlight>span {color:#493B3B!important}
 .table-container td {color:#493B3B!important}
 .mobile-footer,.mobile-footer strong,.mobile-footer>div,footer[style] strong,footer[style]>div {color:#493B3B!important}
+.mobile-chapter-strip {padding:10px 16px;border-bottom:1px solid var(--hairline);background:#FAF6F0;min-width:0}
+.mobile-chapter-strip .keycap-marquee {display:flex;min-width:0}
+.mobile-chapter-strip .keycap-marquee__group a {font-size:.78rem;min-height:44px;padding:8px 14px}

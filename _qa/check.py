@@ -89,6 +89,9 @@ def expected_text(rel,text):
   s=s.replace(removed_nav,'')
   s=s.replace('台灣個人保養與美妝市場研究報告。佐證底妝與香氛等品類在首次選購時高度依賴實體門市試用之行為洞察。','Kantar 公開資料可支持美妝市場與實體專櫃體驗的討論；但未找到可直接支持「底妝及香氛首次選購高度依賴實體試用」的 Kantar 原始數據，因此不將此歸因列為已證實結論。')
   s=s.replace('（2026/04/15 執行，藥妝店 45.2%','（2026/04/15 發布、2026/03/12–03/19 調查，藥妝店 45.2%')
+ # Current redesign duplicates existing chapter labels into the mobile marquee.
+ if rel=='mobile.html':s=s.replace('01/ 應徵者專訪特輯','01/應徵動機02/核心能力03/營運改善構想04/工作經歷05/教育背景06/工作構想07/通路研究08/聯絡資訊01/ 應徵者專訪特輯',1)
+ if rel=='mobile-trend.html':s=s.replace('TAIWAN RETAIL STRATEGY RESEARCH','01/購買管道＆商品結構02/4大核心優勢03/4大劣勢挑戰04/4大躍升實戰策略05/劣勢改善對策06/標竿案例借鑑07/區域營運規劃08/資料來源TAIWAN RETAIL STRATEGY RESEARCH',1)
  # The legacy chart labels moved inside audited-visual in PR #26. Validate
  # that independent chart below rather than silently dropping its data contract.
  if rel in ('trend.html','mobile-trend.html'):

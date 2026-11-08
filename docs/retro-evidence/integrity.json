@@ -1,0 +1,42 @@
+{
+  "pages": [
+    {
+      "page": "contact.html",
+      "text_matches_except_confirmed_additions": true
+    },
+    {
+      "page": "index.html",
+      "text_matches_except_confirmed_additions": true
+    },
+    {
+      "page": "mobile-contact.html",
+      "text_matches_except_confirmed_additions": true
+    },
+    {
+      "page": "mobile-trend.html",
+      "text_matches_except_confirmed_additions": true
+    },
+    {
+      "page": "mobile.html",
+      "text_matches_except_confirmed_additions": true
+    },
+    {
+      "page": "trend.html",
+      "text_matches_except_confirmed_additions": true
+    },
+    {
+      "page": "mobile/contact.html",
+      "text_matches_except_confirmed_additions": true
+    },
+    {
+      "page": "mobile/index.html",
+      "text_matches_except_confirmed_additions": true
+    },
+    {
+      "page": "mobile/trend.html",
+      "text_matches_except_confirmed_additions": true
+    }
+  ],
+  "local_links_and_resources_checked": 160,
+  "errors": []
+}

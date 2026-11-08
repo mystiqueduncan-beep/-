@@ -25,7 +25,7 @@ jobs:
       - name: Automatic device routing and manual override tests
         run: node --test _qa/device-routing.test.cjs
       - name: Desktop marquee interaction regression
-        run: node --test _qa/marquee-interaction.test.cjs
+        run: node --test _qa/marquee-interaction.test.cjs _qa/trend-charts.test.cjs
       - name: HTML structure
         run: npx --yes --package=html-validate@11.18.0 html-validate --config _qa/htmlvalidate.json *.html mobile/*.html
 
@@ -40,6 +40,8 @@ jobs:
           npm install --no-save --package-lock=false axe-core@4.10.3
       - name: One-time section and contact reveals
         run: python3 _qa/section_reveal_audit.py
+      - name: Editorial mouse, touch and same-tab transitions
+        run: python3 _qa/editorial_interactions.py
       - name: Responsive layouts, keyboard controls and axe
         run: python3 _qa/browser_audit.py --out /tmp/browser-audit --axe node_modules/axe-core/axe.min.js
 
@@ -53,10 +55,12 @@ jobs:
           python3 -m pip install playwright==1.51.0
           python3 -m playwright install --with-deps chromium
       - name: Prepare unchanged PR baseline
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || '5646383cf2ea0bb24201ee18fc51e43540f0d8df' }}
         run: |
-          git fetch origin bb6219831f65a5dc52966efd6943a7cfc328db8a --depth=1
+          git fetch origin "$BASE_SHA" --depth=1
           mkdir -p /tmp/resume-before
-          git archive bb6219831f65a5dc52966efd6943a7cfc328db8a | tar -x -C /tmp/resume-before
+          git archive "$BASE_SHA" | tar -x -C /tmp/resume-before
       - name: Baseline images and three Lighthouse runs per device
         id: baseline
         continue-on-error: true
