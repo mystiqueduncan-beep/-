@@ -1,4 +1,4 @@
-"""Whole-page text parity against main 5646383, including audited charts and SVG text."""
+"""Whole-page text fingerprints of the approved portfolio after intentional UI removals. Facts and data are independently checked by check.py."""
 from html.parser import HTMLParser
 from pathlib import Path
 import hashlib,json,re
