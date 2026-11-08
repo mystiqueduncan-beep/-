@@ -121,7 +121,6 @@ def expected_text(rel,text):
  # User-authorized Nov 9 consolidation: preserve old factual source text in
  # baseline-text.json and specify precisely which visible UI strings moved.
  def swap(a,b):
-  nonlocal_dummy=None
   aa,bb=compact(a),compact(b)
   if s.count(aa)!=1:raise ValueError(rel+': approved UI change source mismatch '+aa[:40])
   return s.replace(aa,bb,1)
@@ -223,6 +222,28 @@ else:
   errors.append('index.html: contact shortcut still in marquee')
 if 'href="contact.html"' not in home:
  errors.append('index.html: missing separate contact link')
+# Verify all visible version-switch and contact-link labels are consistent.
+for rel in ('index.html','mobile.html','contact.html','mobile-contact.html','trend.html','mobile-trend.html'):
+ html=(ROOT/rel).read_text(encoding='utf-8')
+ switches=re.findall(r'<a\b[^>]*href="[^"]+\?view=(desktop|mobile)"[^>]*>(.*?)</a>',html,re.S)
+ if len(switches)!=1:
+  errors.append(rel+': expected exactly one view switch')
+ else:
+  view,body=switches[0]
+  label=re.sub(r'<[^>]*>','',body).strip()
+  if label!=('電腦版' if view=='desktop' else '手機版'):
+   errors.append(rel+': inconsistent version switch label '+label)
+ contact_refs=re.findall(r'<a\b[^>]*href="(?:mobile-)?contact\.html"[^>]*>(.*?)</a>',html,re.S)
+ for body in contact_refs:
+  label=re.sub(r'<[^>]*>','',body).strip()
+  if label!='個人及聯絡資訊':
+   errors.append(rel+': inconsistent contact link '+label)
+ if rel in ('index.html','mobile.html'):
+  if re.search(r'<section\b[^>]*id="education"',html):
+   errors.append(rel+': school information still on homepage')
+ if rel in ('contact.html','mobile-contact.html'):
+  if len(re.findall(r'<section\b[^>]*id="education"',html))!=1:
+   errors.append(rel+': missing consolidated education panel')
 # Independently validate metadata that is excluded from original-resume text parity.
 for rel in ('index.html','mobile.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
