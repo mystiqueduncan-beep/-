@@ -153,7 +153,7 @@ home=(ROOT/'index.html').read_text(encoding='utf-8')
 if 'class="keycap-marquee"' not in home:errors.append('index.html: missing homepage marquee')
 else:
  marquee=home.split('class="keycap-marquee"',1)[1].split('</nav>',1)[0]
- if re.search(r'href="contact\\.html"',marquee):
+ if 'href="contact.html"' in marquee:
   errors.append('index.html: contact shortcut still in marquee')
 if 'href="contact.html"' not in home:
  errors.append('index.html: missing separate contact link')
