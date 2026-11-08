@@ -623,6 +623,8 @@
   <link rel="stylesheet" href="assets/mk-inspired.css">
   <script src="assets/mk-inspired.js" defer></script>
   <script src="assets/page-transitions.js" defer></script>
+  <link rel="stylesheet" href="assets/trend-charts.css">
+  <script src="assets/trend-charts.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">跳至主要內容</a>
@@ -804,60 +806,37 @@
           <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-muted);">資料來源：創市際市場研究顧問 (InsightXplorer) 2026/04/15</span>
         </div>
 
-        <!-- Pure CSS/HTML Horizontal Bar Chart -->
-        <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px;">
-          <!-- Channel 1: Drugstore -->
-          <div>
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px;">
-              <span style="font-size: 0.92rem; font-weight: 700; color: var(--mk-navy);">
-                藥妝店（松本清、屈臣氏、康是美等）
-              </span>
-              <span style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 900; color: var(--mk-navy);">45.2%</span>
-            </div>
-            <div style="height: 16px; width: 100%; background: #F0EDE6; border-radius: 3px; border: 1px solid var(--mk-navy); overflow: hidden;">
-              <div style="width: 45.2%; height: 100%; background: var(--mk-yellow);"></div>
-            </div>
-          </div>
-
-          <!-- Channel 2: Online -->
-          <div>
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px;">
-              <span style="font-size: 0.92rem; font-weight: 700; color: var(--mk-navy);">
-                網路（電商平台、品牌官方旗艦店）
-              </span>
-              <span style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 900; color: var(--mk-navy);">42.5%</span>
-            </div>
-            <div style="height: 16px; width: 100%; background: #F0EDE6; border-radius: 3px; border: 1px solid var(--mk-navy); overflow: hidden;">
-              <div style="width: 42.5%; height: 100%; background: var(--mk-navy);"></div>
-            </div>
-          </div>
-
-          <!-- Channel 3: Lifestyle store -->
-          <div>
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px;">
-              <span style="font-size: 0.92rem; font-weight: 700; color: var(--mk-navy);">
-                生活百貨（寶雅、唐吉訶德等）
-              </span>
-              <span style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 900; color: var(--mk-navy);">28.7%</span>
-            </div>
-            <div style="height: 16px; width: 100%; background: #F0EDE6; border-radius: 3px; border: 1px solid var(--mk-navy); overflow: hidden;">
-              <div style="width: 28.7%; height: 100%; background: var(--mk-red);"></div>
-            </div>
-          </div>
-
-          <!-- Channel 4: Dept store counter -->
-          <div>
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px;">
-              <span style="font-size: 0.92rem; font-weight: 700; color: var(--mk-navy);">
-                百貨專櫃
-              </span>
-              <span style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 900; color: var(--mk-navy);">24.4%</span>
-            </div>
-            <div style="height: 16px; width: 100%; background: #F0EDE6; border-radius: 3px; border: 1px solid var(--mk-navy); overflow: hidden;">
-              <div style="width: 24.4%; height: 100%; background: var(--mk-navy-soft);"></div>
-            </div>
-          </div>
-        </div>
+        <div class="channel-study" aria-label="購買管道調查圖表">
+  <div class="channel-metrics">
+    <div class="channel-metric"><span>NO. 01｜藥妝店</span><strong>45.2<span>%</span></strong><span>受訪樣本選擇比例最高</span></div>
+    <div class="channel-metric"><span>NO. 02｜網路</span><strong>42.5<span>%</span></strong><span>與藥妝店相差 <b>2.7 個百分點</b></span></div>
+  </div>
+  <p class="channel-method" id="channel-method">受訪樣本的選擇比例｜複選題，各項獨立計算，加總不等於 100%；非市場占有率，不能推論為全體消費者的絕對偏好。</p>
+  <div class="channel-scale" aria-hidden="true"><span>0%</span><span>50%</span><span>100%</span></div>
+  <ul class="channel-bars" aria-describedby="channel-method">
+    <li class="channel-row" tabindex="0" aria-label="藥妝店（松本清、屈臣氏、康是美等），受訪樣本選擇比例 45.2%">
+      <div class="channel-label"><span><b>藥妝店</b><span class="channel-detail">（松本清、屈臣氏、康是美等）</span></span><strong class="channel-value">45.2%</strong></div>
+      <div class="channel-track" aria-hidden="true"><span class="channel-fill" style="width: 45.2%; background: #FFD600;"></span></div>
+    </li>
+    <li class="channel-row" tabindex="0" aria-label="網路（電商平台、品牌官方旗艦店），受訪樣本選擇比例 42.5%">
+      <div class="channel-label"><span><b>網路</b><span class="channel-detail">（電商平台、品牌官方旗艦店）</span></span><strong class="channel-value">42.5%</strong></div>
+      <div class="channel-track" aria-hidden="true"><span class="channel-fill" style="width: 42.5%; background: #0B2240;"></span></div>
+    </li>
+    <li class="channel-row" tabindex="0" aria-label="生活百貨（寶雅、唐吉訶德等），受訪樣本選擇比例 28.7%">
+      <div class="channel-label"><span><b>生活百貨</b><span class="channel-detail">（寶雅、唐吉訶德等）</span></span><strong class="channel-value">28.7%</strong></div>
+      <div class="channel-track" aria-hidden="true"><span class="channel-fill" style="width: 28.7%; background: #C5161D;"></span></div>
+    </li>
+    <li class="channel-row" tabindex="0" aria-label="百貨專櫃，受訪樣本選擇比例 24.4%">
+      <div class="channel-label"><span><b>百貨專櫃</b><span class="channel-detail"></span></span><strong class="channel-value">24.4%</strong></div>
+      <div class="channel-track" aria-hidden="true"><span class="channel-fill" style="width: 24.4%; background: #5576A0;"></span></div>
+    </li>
+  </ul>
+  <div class="channel-summary" aria-label="研究摘要">
+    <p><b>01｜首選管道</b>藥妝店是本次調查中選擇比例最高的管道。</p>
+    <p><b>02｜比例差距</b>網路與藥妝店之間相差 2.7 個百分點。</p>
+    <p><b>03｜跨通路選擇</b>多通路採購反映消費者跨通路選擇的行為模式。</p>
+  </div>
+</div>
 
         <div style="background: var(--paper-subtle); border-left: 3px solid var(--mk-navy); padding: 8px 12px; font-size: 0.78rem; color: var(--ink-secondary); font-family: var(--font-mono); margin-bottom: 18px;">
           ✦ 調查說明：本題為複選題，各管道佔比加總不為 100%；反映當前消費者跨通路採購之多渠道行為模式。
@@ -895,7 +874,7 @@
       </div>
 
       <!-- VISUALIZATION 01-B: Retail Category Structure (MOEA 2024) -->
-      <div style="background: #FFFFFF; border: 2px solid var(--mk-navy); border-radius: var(--radius-sm); box-shadow: 4px 4px 0 var(--mk-navy); padding: 28px 24px; margin-bottom: 28px;">
+      <div class="category-study" style="background: #FFFFFF; border: 2px solid var(--mk-navy); border-radius: var(--radius-sm); box-shadow: 4px 4px 0 var(--mk-navy); padding: 28px 24px; margin-bottom: 28px;">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; border-bottom: 2px solid var(--mk-navy); padding-bottom: 12px;">
           <div>
             <span style="background: var(--mk-red); color: #fff; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; padding: 2px 8px; border-radius: 2px;">CHART 01-B ✦ 商品銷售結構</span>
@@ -909,7 +888,7 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 28px; align-items: center; margin-bottom: 18px;">
           <!-- Left: SVG Donut -->
           <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;">
-            <svg viewBox="0 0 240 240" style="width: 210px; height: 210px; transform: rotate(-90deg); filter: drop-shadow(2px 4px 6px rgba(11,34,64,0.12));">
+            <svg class="category-donut" viewBox="0 0 240 240" role="img" aria-labelledby="category-title category-desc"><title id="category-title">2024 年藥粧零售業銷售商品結構</title><desc id="category-desc">個人清潔化粧保養 47.7%、藥品及醫療用品 21.4%、食品 13.7%、家庭器具及用品 7.3%、衣著鞋襪配件及個人用品 7.0%、其他 2.9%。</desc>
               <!-- Background -->
               <circle cx="120" cy="120" r="88" fill="none" stroke="#F0EDE6" stroke-width="32"></circle>
               <!-- Seg 1: 47.7% (263.74) -->
@@ -942,7 +921,7 @@
           <div style="display: flex; flex-direction: column; gap: 10px;">
             <!-- Cat 1 -->
             <div style="background: #FFFDF0; border: 1px solid var(--mk-navy); border-radius: var(--radius-sm); padding: 8px 12px;">
-              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+              <div class="category-label" style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
                 <div style="display: flex; align-items: center; gap: 6px;">
                   <span style="width: 10px; height: 10px; background: #FFD600; border: 1px solid #0B2240; display: inline-block;"></span>
                   <strong style="color: var(--mk-navy); font-size: 0.88rem;">1. 個人清潔、化粧保養</strong>
@@ -956,7 +935,7 @@
 
             <!-- Cat 2 -->
             <div style="background: #FFFFFF; border: 1px solid var(--hairline); border-radius: var(--radius-sm); padding: 8px 12px;">
-              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+              <div class="category-label" style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
                 <div style="display: flex; align-items: center; gap: 6px;">
                   <span style="width: 10px; height: 10px; background: #0B2240; border: 1px solid #0B2240; display: inline-block;"></span>
                   <strong style="color: var(--mk-navy); font-size: 0.88rem;">2. 藥品及醫療用品</strong>
@@ -970,7 +949,7 @@
 
             <!-- Cat 3 -->
             <div style="background: #FFFFFF; border: 1px solid var(--hairline); border-radius: var(--radius-sm); padding: 8px 12px;">
-              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+              <div class="category-label" style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
                 <div style="display: flex; align-items: center; gap: 6px;">
                   <span style="width: 10px; height: 10px; background: #E60012; border: 1px solid #0B2240; display: inline-block;"></span>
                   <strong style="color: var(--mk-navy); font-size: 0.88rem;">3. 食品</strong>
@@ -984,7 +963,7 @@
 
             <!-- Cat 4 -->
             <div style="background: #FFFFFF; border: 1px solid var(--hairline); border-radius: var(--radius-sm); padding: 8px 12px;">
-              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+              <div class="category-label" style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
                 <div style="display: flex; align-items: center; gap: 6px;">
                   <span style="width: 10px; height: 10px; background: #234E82; border: 1px solid #0B2240; display: inline-block;"></span>
                   <strong style="color: var(--mk-navy); font-size: 0.88rem;">4. 家庭器具及用品</strong>
@@ -998,7 +977,7 @@
 
             <!-- Cat 5 -->
             <div style="background: #FFFFFF; border: 1px solid var(--hairline); border-radius: var(--radius-sm); padding: 8px 12px;">
-              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+              <div class="category-label" style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
                 <div style="display: flex; align-items: center; gap: 6px;">
                   <span style="width: 10px; height: 10px; background: #107C41; border: 1px solid #0B2240; display: inline-block;"></span>
                   <strong style="color: var(--mk-navy); font-size: 0.88rem;">5. 衣著鞋襪、配件及個人用品</strong>
