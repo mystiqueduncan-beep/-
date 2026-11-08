@@ -13,7 +13,7 @@ results=[]
 with sync_playwright() as p:
  browser=p.chromium.launch(executable_path=os.environ.get('CHROME_PATH'),args=['--no-sandbox'])
  for name in ['index.html','contact.html','trend.html','mobile.html','mobile-contact.html','mobile-trend.html']:
-  for width in [320,375,390,430,768,1024,1440]:
+  for width in [320,375,390,428,768,1024,1440,1920]:
    page=browser.new_page(viewport={'width':width,'height':844});errors=[]
    page.on('pageerror',lambda e:errors.append(str(e)))
    # Offline external resources: audit local assets only; report remote images separately.

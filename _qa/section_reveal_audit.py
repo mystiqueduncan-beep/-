@@ -64,6 +64,12 @@ with sync_playwright() as p:
         for selector, kind in (('.mk-motion-pending', 'slide'), ('.mk-pop-pending', 'pop')):
             item = page.locator(selector).last
             if item.count():
+                # Observer callbacks can reveal this target between locator resolution
+                # and style sampling. Held-observer coverage above proves the exact
+                # pending pose independently; accept either stable lifecycle state here.
+                item.evaluate("(e)=>Promise.all(e.getAnimations().map(a=>a.finished.catch(()=>{})))")
+                if not item.count():
+                    continue
                 state = item.evaluate('(e)=>{const s=getComputedStyle(e); const m=new DOMMatrix(s.transform);return {opacity:s.opacity,x:m.m41,scale:m.a}}')
                 assert state['opacity'] == '0', (name, state)
                 assert state['x'] > 0 and (kind == 'slide' or state['scale'] < 1), (name, state)

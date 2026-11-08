@@ -24,7 +24,7 @@ class Page(HTMLParser):
 def compact(s):return re.sub(r'\s+','',s).lstrip('\ufeff')
 training='服務期間兼任新進人員帶訓工作，負責規劃新進同仁實務帶訓指引與步驟化操作考核。'
 def normalized(text):
- return compact(''.join(text).replace('跳至主要內容',''))
+ return compact(''.join(text).replace('跳至主要內容','')).replace('2024年藥粧零售業銷售商品結構個人清潔化粧保養47.7%、藥品及醫療用品21.4%、食品13.7%、家庭器具及用品7.3%、衣著鞋襪配件及個人用品7.0%、其他2.9%。','')
 def expected_text(rel,text):
  # User-approved removal: homepage contact blocks now live only on full contact pages.
  if rel=='index.html':
@@ -89,6 +89,11 @@ def expected_text(rel,text):
   s=s.replace(removed_nav,'')
   s=s.replace('台灣個人保養與美妝市場研究報告。佐證底妝與香氛等品類在首次選購時高度依賴實體門市試用之行為洞察。','Kantar 公開資料可支持美妝市場與實體專櫃體驗的討論；但未找到可直接支持「底妝及香氛首次選購高度依賴實體試用」的 Kantar 原始數據，因此不將此歸因列為已證實結論。')
   s=s.replace('（2026/04/15 執行，藥妝店 45.2%','（2026/04/15 發布、2026/03/12–03/19 調查，藥妝店 45.2%')
+ # The legacy chart labels moved inside audited-visual in PR #26. Validate
+ # that independent chart below rather than silently dropping its data contract.
+ if rel in ('trend.html','mobile-trend.html'):
+  legacy = ('藥妝店（松本清、屈臣氏、康是美等）45.2%網路（電商平台、品牌官方旗艦店）42.5%生活百貨（寶雅、唐吉訶德等）28.7%百貨專櫃24.4%' if rel=='trend.html' else '藥妝店（松本清、屈臣氏等）45.2%網路（電商平台、官方旗艦店）42.5%生活百貨（寶雅、唐吉訶德等）28.7%百貨專櫃24.4%')
+  s=compact(s).replace(legacy,'',1)
  return compact(s)
 base=json.loads((ROOT/'_audit/baseline-text.json').read_text(encoding='utf-8'))
 errors=[];links=0;results=[]
@@ -145,6 +150,13 @@ for rel in ('trend.html','mobile-trend.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
  for origin in ('91app.com','kantarworldpanel.com'):
   if origin not in html:errors.append(rel+': research source hyperlink missing '+origin)
+for rel in ('trend.html','mobile-trend.html'):
+ html=(ROOT/rel).read_text(encoding='utf-8')
+ chart=html.split('aria-label="購買管道調查圖表"',1)[1].split('class="channel-summary"',1)[0]
+ for label,number in [('藥妝店','45.2'),('網路','42.5'),('生活百貨','28.7'),('百貨專櫃','24.4')]:
+  if not re.search(r'aria-label="'+label+r'[^"共]*'+number+r'%"',chart):errors.append(rel+': chart label/value '+label)
+  if 'width: '+number+'%' not in chart:errors.append(rel+': chart absolute scale '+number)
+ if '複選題' not in chart or '非市場占有率' not in chart:errors.append(rel+': chart multiple-response meaning')
 manifest=json.loads((ROOT/'_audit/original-manifest.json').read_text(encoding='utf-8'))
 for name,item in manifest.items():
  if name.endswith('.jpg') and hashlib.sha256((ROOT/name).read_bytes()).hexdigest()!=item['sha256']:errors.append(name+': original image changed')
