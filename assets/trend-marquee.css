@@ -181,26 +181,10 @@
 }
 .home-keycap-strip .keycap-marquee { display: flex; align-items: center; gap: 14px; width: 100%; min-width: 0; }
 
-/* Homepage only: one set of links, with gentle back-and-forth autoplay.
-   Constrain the viewport so the strip still animates on wider screens. */
+/* Keep the homepage strip narrower than one full chapter cycle.
+   The loop's offscreen visual clone does not display repeated buttons side-by-side. */
 .home-keycap-strip .keycap-marquee__viewport {
-  max-width: min(100%, 760px);
-}
-.home-keycap-strip .keycap-marquee.is-enhanced.is-home-animated .keycap-marquee__belt {
-  animation: home-keycap-shuttle var(--keycap-duration) ease-in-out infinite alternate;
-}
-/* The homepage animation shorthand must not override interaction pauses. */
-.home-keycap-strip .keycap-marquee.is-enhanced.is-home-animated.is-hover-paused .keycap-marquee__belt,
-.home-keycap-strip .keycap-marquee.is-enhanced.is-home-animated.is-touch-paused .keycap-marquee__belt {
-  animation-play-state: paused;
-}
-.home-keycap-strip .keycap-marquee.is-keyboard-paused .keycap-marquee__belt {
-  animation: none !important;
-  transform: none !important;
-}
-@keyframes home-keycap-shuttle {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(var(--keycap-home-offset, 0px), 0, 0); }
+  max-width: min(100%, 620px);
 }
 .home-keycap-strip .keycap-marquee__group a.btn-accent { background: #0B2240; color: #FFD600; }
 .home-keycap-strip .keycap-marquee__group a.btn-accent .num { color: #FFD600; }
