@@ -80,8 +80,8 @@
       }
     };
 
-    // 400ms matches the fade-out duration
-    setTimeout(navigate, 400);
+    // 500ms matches the fade-out duration
+    setTimeout(navigate, 500);
 
     // Fallback safety timeout: restore if navigation did not proceed
     setTimeout(() => {

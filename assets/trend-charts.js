@@ -15,7 +15,7 @@
       observer.disconnect();
       // Keep section reveals intact; animate only this chart's child elements.
       chart.classList.add('is-entering');
-      window.setTimeout(finish, 800);
+      window.setTimeout(finish, 1750);
     }, { threshold: 0, rootMargin: '0px 0px -24px 0px' });
     observer.observe(chart);
   } catch (_) { finish(); }

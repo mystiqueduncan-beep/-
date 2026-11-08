@@ -461,3 +461,86 @@ body.page-trend.page-desktop .mag-header::after {bottom:-20px!important}
 body.page-trend.page-desktop .report-heading-topic,body.page-trend.page-desktop .report-heading-subject {display:block;color:#654753!important;font-size:1em}
 body.page-trend.page-desktop .report-title-main>br {display:none}
 body.page-trend.page-desktop .report-title-main>span[style] {display:block;font-size:.52em!important;line-height:1.75;margin-top:16px}
+
+
+/* Final polish: gentler one-time entrances and an editorial chart palette.
+   Keep the site's original content, geometry, accessibility fallbacks, and navigation. */
+:root {
+  --chart-rose: #a66f82;
+  --chart-sage: #748a79;
+  --chart-plum: #876f92;
+  --chart-blue: #6e8397;
+  --chart-clay: #b17769;
+  --chart-other: #b5abb0;
+  --chart-track: #e9dfe2;
+  --chart-ink: #533e46;
+  --chart-outline: #cbaab5;
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* Scroll reveal is deliberately slower than small button feedback. */
+  .mk-motion-item {
+    transition: opacity 1.35s cubic-bezier(.22, 1, .36, 1),
+                transform 1.4s cubic-bezier(.22, 1, .36, 1) !important;
+  }
+  .mk-pop-item {
+    transition: opacity .9s cubic-bezier(.22, 1, .36, 1),
+                transform 1s cubic-bezier(.2, .85, .28, 1.06) !important;
+  }
+  #career .career-photo {
+    transition: opacity 1.6s cubic-bezier(.22, 1, .36, 1),
+                transform 1.6s cubic-bezier(.22, 1, .36, 1) !important;
+  }
+  /* A fast focus/anchor reveal is still necessary for keyboard users. */
+  :is(.mk-motion-item, .mk-pop-item):is(:focus-within, :target, :has(:target)) {
+    transition: none !important;
+  }
+  :is(.mag-btn, .btn-action-primary, .btn-action-secondary, .btn-contact-action,
+      .method-action-btns a, .method-action-btns button) {
+    transition-duration: .32s !important;
+  }
+  body.page-trend .channel-study.is-entering .channel-metric {
+    animation: channel-card 1.5s cubic-bezier(.22, 1, .36, 1) both !important;
+  }
+  body.page-trend .channel-study.is-entering .channel-metric:nth-child(2) {
+    animation-delay: .12s !important;
+  }
+  body.page-trend .channel-study.is-entering .channel-fill {
+    animation: channel-bar 1.5s cubic-bezier(.22, 1, .36, 1) both !important;
+  }
+  body.page-trend .channel-study.is-entering .channel-value {
+    animation: channel-value 1.5s ease both !important;
+  }
+  /* The continuous marquee stays continuous; only its movement is eased. */
+  .mobile-keycap-marquee.is-mobile-auto .mobile-keycap-belt {
+    animation-duration: 78s !important;
+  }
+}
+/* Purchase-channel bars keep four independently distinguishable categories. */
+body.page-trend .channel-row:nth-child(1) .channel-fill { background: var(--chart-rose) !important; }
+body.page-trend .channel-row:nth-child(2) .channel-fill { background: var(--chart-sage) !important; }
+body.page-trend .channel-row:nth-child(3) .channel-fill { background: var(--chart-plum) !important; }
+body.page-trend .channel-row:nth-child(4) .channel-fill { background: var(--chart-blue) !important; }
+body.page-trend .channel-track { background: var(--chart-track) !important; }
+body.page-trend .channel-row:focus-visible { outline-color: var(--chart-ink) !important; }
+
+/* Product-structure donut: change strokes only, never dash arrays or offsets. */
+body.page-trend .category-study .category-donut circle:nth-of-type(1) { stroke: var(--chart-track) !important; }
+body.page-trend .category-study .category-donut circle:nth-of-type(2) { stroke: var(--chart-rose) !important; }
+body.page-trend .category-study .category-donut circle:nth-of-type(3) { stroke: var(--chart-sage) !important; }
+body.page-trend .category-study .category-donut circle:nth-of-type(4) { stroke: var(--chart-plum) !important; }
+body.page-trend .category-study .category-donut circle:nth-of-type(5) { stroke: var(--chart-blue) !important; }
+body.page-trend .category-study .category-donut circle:nth-of-type(6) { stroke: var(--chart-clay) !important; }
+body.page-trend .category-study .category-donut circle:nth-of-type(7) { stroke: var(--chart-other) !important; }
+/* Desktop and mobile category keys and progress bars use the same segment colors.
+   Attribute selectors deliberately target only styling attributes, not labels/data. */
+body.page-trend .category-study [style*="background: #FFD600"] { background: var(--chart-rose) !important; }
+body.page-trend .category-study [style*="background: #0B2240"] { background: var(--chart-sage) !important; }
+body.page-trend .category-study [style*="background: #E60012"],
+body.page-trend .category-study [style*="background: #C5161D"] { background: var(--chart-plum) !important; }
+body.page-trend .category-study [style*="background: #234E82"],
+body.page-trend .category-study [style*="background: #16375F"] { background: var(--chart-blue) !important; }
+body.page-trend .category-study [style*="background: #107C41"] { background: var(--chart-clay) !important; }
+body.page-trend .category-study [style*="background: #F0EDE6"] { background: var(--chart-track) !important; }
+body.page-trend .category-study [style*="background: #FFFDF0"] { background: #fff9f7 !important; }
+body.page-trend .category-study [style*="border: 1px solid #0B2240"] { border-color: var(--chart-outline) !important; }
+body.page-trend .category-study .category-label { color: var(--chart-ink) !important; }
