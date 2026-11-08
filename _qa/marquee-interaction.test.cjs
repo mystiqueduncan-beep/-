@@ -330,3 +330,17 @@ test("homepage handles reduced motion and fitting widths without a clone", () =>
   assert.equal(h.nav.classList.contains("is-home-animated"), false);
   assert.equal(h.belt.style.getProperty("--keycap-home-offset"), "-0px");
 });
+
+test("homepage hover and touch pauses override the shuttle animation", () => {
+  assert.match(css, /\\.home-keycap-strip \\.keycap-marquee\\.is-enhanced\\.is-home-animated\\.is-hover-paused/);
+  assert.match(css, /\\.home-keycap-strip \\.keycap-marquee\\.is-enhanced\\.is-home-animated\\.is-touch-paused/);
+  const h = makeHarness({ isHomepage: true });
+  h.dispatch("pointerover", h.originals[0]);
+  assert.equal(h.nav.classList.contains("is-hover-paused"), true);
+  h.dispatch("pointerout", h.originals[0]);
+  assert.equal(h.nav.classList.contains("is-hover-paused"), false);
+  h.dispatch("pointerdown", h.originals[0], null, "touch");
+  assert.equal(h.nav.classList.contains("is-touch-paused"), true);
+  h.dispatch("click", h.originals[0]);
+  assert.equal(h.nav.classList.contains("is-touch-paused"), false);
+});
