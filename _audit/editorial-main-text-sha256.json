@@ -1,11 +1,12 @@
 {
   "base": "5646383cf2ea0bb24201ee18fc51e43540f0d8df",
   "pages": {
-    "index.html": "6e39c7df2fac57474f65f06436902b2a109613fca616f3788802f228d2bcd751",
-    "mobile.html": "4893dc27ba7cfc11a1baf7220c9594fdb0ee544fff9133d5a9c84ebe79b83be6",
-    "contact.html": "dd2851e2f43644542fd75105f7d2dd4bb5032e90ad15d2bd54416531533719c2",
-    "mobile-contact.html": "24b4a57c39820f9c143755fb0dd4de12b5902de9a57409d70d221b7f15956c8f",
-    "trend.html": "1fa35debc418f99e06c0a07e58d53a185ed1c5a27e8aad8a4c5e363a3495cab8",
-    "mobile-trend.html": "a75f671426ab4284d3fb43d84b3e31ea5ca7208f0ab6fc8938c95f0eeb3c424d"
-  }
+    "contact.html": "b9775d822a83bbd6eb99d0662d82a175b412f87be16d42ba971251f1acc0fcf8",
+    "index.html": "50d9254a1efc57234d223f162b73ac7f12ebec7d9fa89cc4f2913e3818f2fda9",
+    "mobile-contact.html": "9b10e0b4838d9fda2a001c75132eaa62c790a0f66dc9d00952789866ca70c9ae",
+    "mobile-trend.html": "a75f671426ab4284d3fb43d84b3e31ea5ca7208f0ab6fc8938c95f0eeb3c424d",
+    "mobile.html": "f093fffe5af68c85a5f93d4b61bef4a435af428deade1d9018e4afcee6fbd1ae",
+    "trend.html": "1fa35debc418f99e06c0a07e58d53a185ed1c5a27e8aad8a4c5e363a3495cab8"
+  },
+  "note": "Updated to user-approved removal of contact strengths/attendance and all mobile marquees, simplified link labels, and photo-free home pages. Original data/facts independently validated by _qa/check.py."
 }
