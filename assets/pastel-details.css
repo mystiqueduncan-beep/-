@@ -592,3 +592,129 @@ body.page-home .career-spread .duty-list,body.page-home .career-spread .duty-bul
  body.page-home .career-entry-card .career-spread,
  body.page-home .timeline-job-card .career-spread{
  display:flex!important;flex-direction:column!important;gap:16px!important}}
+
+
+/* Responsive desktop edition for portrait and landscape tablets, 768–1024px. */
+body.page-home .mobile-profile-intro {
+ font-size: .86rem; line-height: 1.8; color: #65505a;
+ margin: 12px 0 20px;
+}
+body.page-contact .education-profile {
+ max-width: 100%; margin: 30px 0 22px;
+ padding: clamp(18px,2.5vw,30px);
+ border-radius: 22px; border: 1px solid #dbc3cc;
+ background: #fbf1f3; color: #533e46;
+}
+body.page-contact .education-profile h2 {
+ font: 800 clamp(1.15rem,2.2vw,1.45rem)/1.5 var(--font-sans);
+ color:#795263; margin:0 0 14px;
+}
+body.page-contact .education-profile__grid {
+ display:flex; flex-wrap:wrap; justify-content:space-between;
+ align-items:center; gap:14px 22px; min-width:0;
+}
+body.page-contact .education-profile__school,
+body.page-contact .education-profile__meta {
+ display:flex; flex-direction:column; gap:5px; min-width:0;
+}
+body.page-contact .education-profile__school strong {font-size:1.06rem}
+body.page-contact .education-profile__school span {font-weight:700}
+body.page-contact .education-profile__meta {font-size:.85rem}
+body.page-contact .education-profile__badge {
+ display:inline-flex; align-self:flex-start; border-radius:20px;
+ padding:4px 12px; color:#775163; background:#f2dfe5;
+ font-weight:800; border:1px solid #dac0ca;
+}
+body.page-contact .education-profile p {
+ font-size:.88rem; line-height:1.9; margin:18px 0 0; color:#65505a;
+}
+body.page-contact.page-mobile .mobile-content .education-profile {
+ margin:20px 0; padding:18px; border-radius:20px;
+}
+body.page-contact.page-mobile .mobile-bottom-bar .bottom-nav-item {
+ flex:1 1 0; min-width:0; padding-inline:2px; text-align:center;
+}
+body.page-contact.page-mobile .mobile-bottom-bar .bottom-nav-item:last-child,
+body.page-home.page-mobile .mobile-bottom-bar .bottom-nav-item:last-child {
+ font-size:.64rem; overflow-wrap:anywhere;
+}
+@media (min-width:768px) and (max-width:1024px) {
+ body.page-desktop .container {
+  width:calc(100% - 36px); max-width:980px;
+  min-width:0; margin-inline:auto;
+ }
+ body.page-desktop .mag-top-ticker .ticker-inner {
+  display:flex; flex-wrap:wrap; justify-content:space-between;
+  gap:10px 18px; align-items:center;
+ }
+ body.page-home.page-desktop .cover-layout .hero-primary-info {
+  max-width:900px!important; grid-template-columns:minmax(0,1fr)!important;
+  grid-template-areas:'heading' 'introduction' 'highlights'!important;
+  gap:16px!important;
+ }
+ body.page-home.page-desktop .hero-action-card {
+  display:grid!important; grid-template-columns:minmax(0,1fr)!important;
+  gap:16px!important; padding:22px!important;
+ }
+ body.page-home.page-desktop .hero-cta-group {
+  grid-template-columns:repeat(2,minmax(0,1fr))!important; gap:10px!important;
+ }
+ body.page-desktop :is(.section-block,.trend-main>section) {
+  padding:clamp(18px,2.8vw,28px)!important;
+ }
+ body.page-desktop :is(.grid-2x2,.cards-2x2-grid) {
+  gap:20px!important;
+ }
+ body.page-contact.page-desktop .contact-dossier-grid.interview-spread {
+  gap:24px!important;
+ }
+ body.page-contact.page-desktop .candidate-portrait-col .photo-frame {
+  width:min(100%,350px); margin-inline:auto;
+ }
+ body.page-contact.page-desktop :is(.candidate-portrait-col,.candidate-details-col) {
+  min-width:0; overflow-wrap:anywhere;
+ }
+ body.page-trend.page-desktop :is(.table-container,.channel-study,.channel-chart,.channel-method) {
+  max-width:100%; min-width:0;
+ }
+ body.page-desktop .mag-footer .footer-inner {
+  display:flex; flex-wrap:wrap; gap:12px;
+ }
+}
+@media (min-width:768px) and (max-width:900px) {
+ body.page-desktop :is(.grid-2x2,.cards-2x2-grid) {
+  grid-template-columns:minmax(0,1fr)!important;
+ }
+ body.page-home.page-desktop .career-entry-card .career-spread {
+  display:flex!important; flex-direction:column!important;
+  gap:18px!important;
+ }
+ body.page-home.page-desktop .career-photo {
+  width:min(100%,560px)!important; align-self:center;
+ }
+ body.page-contact.page-desktop .contact-dossier-grid.interview-spread {
+  grid-template-columns:minmax(0,1fr)!important;
+ }
+ body.page-contact.page-desktop .candidate-portrait-col {
+  max-width:640px; width:100%; margin-inline:auto;
+ }
+ body.page-trend.page-desktop .cards-2x2-grid {
+  grid-template-columns:minmax(0,1fr)!important;
+ }
+ body.page-trend.page-desktop .channel-study {
+  display:block!important;
+ }
+ body.page-trend.page-desktop .channel-metrics {
+  border-right:0!important; padding-bottom:18px;
+ }
+}
+@media (max-width:767px) {
+ body.page-contact .education-profile__grid {
+  flex-direction:column; align-items:flex-start;
+ }
+ body.page-home.page-mobile .mobile-bottom-bar a,
+ body.page-contact.page-mobile .mobile-bottom-bar a {
+  flex:1 1 0; min-width:0!important; padding-inline:2px;
+  text-align:center;
+ }
+}
