@@ -151,8 +151,11 @@ for rel in ('index.html','mobile.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
  figures=re.findall(r'<figure class="career-photo"[^>]*>(.*?)</figure>',html,re.S)
  career=html.split('id="career"',1)[1].split('</section>',1)[0]
- if figures or re.search(r'<img\b',career) or re.search(r'<img\b',html):
-  errors.append(rel+': homepage must be photo-free')
+ if len(figures)!=3 or len(re.findall(r'<img\\b',career))!=3 or len(re.findall(r'<img\\b',html))!=3:
+  errors.append(rel+': exactly three career images, no hero photo')
+ for origin in ('3.bp.blogspot.com','www.zhuxin.com.tw','i.mdel.net'):
+  if origin not in career:errors.append(rel+': missing career photo '+origin)
+
 for rel in ('contact.html','mobile-contact.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
  if len(re.findall(r'<img\b',html))!=1 or 'src="contact-portrait.webp"' not in html:

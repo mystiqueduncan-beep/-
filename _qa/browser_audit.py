@@ -62,12 +62,12 @@ with sync_playwright() as p:
      page.add_script_tag(path=args.axe)
      row['axe']=page.evaluate('''async()=>{const r=await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa','best-practice']}});return {violations:r.violations,incomplete:r.incomplete}}''')
    results.append(row);page.close()
- # The homepage intentionally contains no photographs.
+ # Restore only the three work-history photos, not the hero portrait.
  for name in ('index.html','mobile.html'):
   page=browser.new_page(viewport={'width':390 if name.startswith('mobile') else 1440,'height':844})
   page.goto(base+name+'?view='+('mobile' if name.startswith('mobile') else 'desktop'))
-  assert page.locator('img').count()==0,name
-  assert page.locator('.career-photo').count()==0,name
+  expect(page.locator('.career-photo img')).to_have_count(3)
+  assert page.locator('img').count()==3,name
   page.close()
  for name in ('contact.html','mobile-contact.html'):
   page=browser.new_page(viewport={'width':390 if name.startswith('mobile') else 1440,'height':844})

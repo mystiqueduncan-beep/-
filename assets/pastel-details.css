@@ -575,3 +575,18 @@ body.page-contact .contact-main{padding-top:clamp(20px,3.5vw,44px)!important}
   grid-template-columns:minmax(0,1fr)!important}
  body.page-home.page-mobile .mobile-content{padding-top:18px!important}
  body.page-home.page-mobile .timeline-job-card .career-spread{padding:8px 0 0!important}}
+
+/* Career photographs only; the hero remains photo-free. */
+body.page-home .career-entry-card .career-spread,
+body.page-home .timeline-job-card .career-spread{
+ display:grid!important;grid-template-columns:minmax(0,.95fr) minmax(0,1.25fr)!important;
+ align-items:start!important;gap:clamp(16px,2.5vw,28px)!important}
+body.page-home .career-spread .career-photo{display:block!important;min-width:0;width:100%;margin:0}
+body.page-home .career-spread .career-photo__frame{overflow:hidden;border-radius:12px}
+body.page-home .career-spread .career-photo img{
+ display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;object-position:center}
+body.page-home .career-spread .duty-list,body.page-home .career-spread .duty-bullet-list{min-width:0;width:100%}
+@media(max-width:800px){
+ body.page-home .career-entry-card .career-spread,
+ body.page-home .timeline-job-card .career-spread{
+ display:flex!important;flex-direction:column!important;gap:16px!important}}
