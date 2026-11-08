@@ -1,0 +1,11 @@
+{
+  "base": "5646383cf2ea0bb24201ee18fc51e43540f0d8df",
+  "pages": {
+    "index.html": "6e39c7df2fac57474f65f06436902b2a109613fca616f3788802f228d2bcd751",
+    "mobile.html": "4893dc27ba7cfc11a1baf7220c9594fdb0ee544fff9133d5a9c84ebe79b83be6",
+    "contact.html": "dd2851e2f43644542fd75105f7d2dd4bb5032e90ad15d2bd54416531533719c2",
+    "mobile-contact.html": "24b4a57c39820f9c143755fb0dd4de12b5902de9a57409d70d221b7f15956c8f",
+    "trend.html": "1fa35debc418f99e06c0a07e58d53a185ed1c5a27e8aad8a4c5e363a3495cab8",
+    "mobile-trend.html": "a75f671426ab4284d3fb43d84b3e31ea5ca7208f0ab6fc8938c95f0eeb3c424d"
+  }
+}

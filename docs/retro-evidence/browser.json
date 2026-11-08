@@ -1,0 +1,4672 @@
+[
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "brokenImages": [],
+    "file": "index.html",
+    "width": 320,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "brokenImages": [],
+    "file": "index.html",
+    "width": 375,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "brokenImages": [],
+    "file": "index.html",
+    "width": 390,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious",
+          "tags": [
+            "cat.aria",
+            "wcag2a",
+            "wcag412",
+            "EN-301-549",
+            "EN-9.4.1.2"
+          ],
+          "description": "Ensure ARIA attributes are not prohibited for an element's role",
+          "help": "Elements must only use permitted ARIA attributes",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/aria-prohibited-attr?application=axeAPI",
+          "nodes": [
+            {
+              "any": [],
+              "all": [],
+              "none": [
+                {
+                  "id": "aria-prohibited-attr",
+                  "data": {
+                    "role": null,
+                    "nodeName": "div",
+                    "messageKey": "noRoleSingular",
+                    "prohibited": [
+                      "aria-label"
+                    ]
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "aria-label attribute is not well supported on a div with no valid role attribute."
+                }
+              ],
+              "impact": "serious",
+              "html": "<div class=\"keycap-marquee__viewport\" tabindex=\"0\" aria-label=\"履歷章節導覽，可左右捲動\">",
+              "target": [
+                ".keycap-marquee__viewport"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute is not well supported on a div with no valid role attribute."
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT"
+          ],
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "11.4pt (15.2px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgGradient",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<strong>日系藥妝 6 年歷練（含門市店長管理 3 年）</strong>",
+                      "target": [
+                        ".hero-professional-intro > strong:nth-child(1)"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a background gradient"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>日系藥妝 6 年歷練（含門市店長管理 3 年）</strong>",
+              "target": [
+                ".hero-professional-intro > strong:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "11.4pt (15.2px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgGradient",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<strong>萬能科技大學研讀企業管理系</strong>",
+                      "target": [
+                        ".hero-professional-intro > strong:nth-child(2)"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a background gradient"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>萬能科技大學研讀企業管理系</strong>",
+              "target": [
+                ".hero-professional-intro > strong:nth-child(2)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "brokenImages": [],
+    "file": "index.html",
+    "width": 428,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "brokenImages": [],
+    "file": "index.html",
+    "width": 768,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "brokenImages": [],
+    "file": "index.html",
+    "width": 1024,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "brokenImages": [],
+    "file": "index.html",
+    "width": 1440,
+    "errors": [],
+    "marquee_interactions": "passed",
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious",
+          "tags": [
+            "cat.aria",
+            "wcag2a",
+            "wcag412",
+            "EN-301-549",
+            "EN-9.4.1.2"
+          ],
+          "description": "Ensure ARIA attributes are not prohibited for an element's role",
+          "help": "Elements must only use permitted ARIA attributes",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/aria-prohibited-attr?application=axeAPI",
+          "nodes": [
+            {
+              "any": [],
+              "all": [],
+              "none": [
+                {
+                  "id": "aria-prohibited-attr",
+                  "data": {
+                    "role": null,
+                    "nodeName": "div",
+                    "messageKey": "noRoleSingular",
+                    "prohibited": [
+                      "aria-label"
+                    ]
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "aria-label attribute is not well supported on a div with no valid role attribute."
+                }
+              ],
+              "impact": "serious",
+              "html": "<div class=\"keycap-marquee__viewport\" tabindex=\"0\" aria-label=\"履歷章節導覽，可左右捲動\">",
+              "target": [
+                ".keycap-marquee__viewport"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute is not well supported on a div with no valid role attribute."
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT"
+          ],
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "11.4pt (15.2px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgGradient",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<strong>日系藥妝 6 年歷練（含門市店長管理 3 年）</strong>",
+                      "target": [
+                        ".hero-professional-intro > strong:nth-child(1)"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a background gradient"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>日系藥妝 6 年歷練（含門市店長管理 3 年）</strong>",
+              "target": [
+                ".hero-professional-intro > strong:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "11.4pt (15.2px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgGradient",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<strong>萬能科技大學研讀企業管理系</strong>",
+                      "target": [
+                        ".hero-professional-intro > strong:nth-child(2)"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a background gradient"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>萬能科技大學研讀企業管理系</strong>",
+              "target": [
+                ".hero-professional-intro > strong:nth-child(2)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "brokenImages": [],
+    "file": "index.html",
+    "width": 1920,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "contact.html",
+    "width": 320,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "contact.html",
+    "width": 375,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "contact.html",
+    "width": 390,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT"
+          ],
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.4pt (12.48px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span>PORTFOLIO ✦ 個人應徵作品集</span>",
+              "target": [
+                ".contact-header-badge > span:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "7.8pt (10.4px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"photo-watermark-tag\">CANDIDATE PORTFOLIO ✦ 2026</div>",
+              "target": [
+                ".photo-watermark-tag"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"specs-box-title\">",
+              "target": [
+                ".specs-box-title"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"k\">志願職位</span>",
+              "target": [
+                ".spec-entry:nth-child(2) > .k"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"v\" style=\"color: var(--mk-red); font-weight: 800;\">區域營運經理</span>",
+              "target": [
+                ".spec-entry:nth-child(2) > .v"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"k\">志願區域</span>",
+              "target": [
+                ".spec-entry:nth-child(3) > .k"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"v\">桃竹苗 ＆ 大台北門市</span>",
+              "target": [
+                ".spec-entry:nth-child(3) > .v"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"k\">核心資歷</span>",
+              "target": [
+                ".spec-entry:nth-child(4) > .k"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"v\">Tomod's 6年（店長3年）</span>",
+              "target": [
+                ".spec-entry:nth-child(4) > .v"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"k\">帶訓實務</span>",
+              "target": [
+                ".spec-entry:nth-child(5) > .k"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"v\">動物醫院任職4年，期間兼任新人帶訓工作</span>",
+              "target": [
+                ".spec-entry:nth-child(5) > .v"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"k\">目前學歷</span>",
+              "target": [
+                ".spec-entry:nth-child(6) > .k"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"v\" style=\"color: var(--mk-navy); font-weight: 800;\">萬能科技大學 企業管理系 研讀中<br><span style=\"font-size: 0.72rem; color: var(--mk-red); font-family: var(--font-mono);\">2026.10 入學 ｜ 預計 2030.06 畢業</span></span>",
+              "target": [
+                ".spec-entry:nth-child(6) > .v"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-size: 0.72rem; color: var(--mk-red); font-family: var(--font-mono);\">2026.10 入學 ｜ 預計 2030.06 畢業</span>",
+              "target": [
+                ".v > span"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"k\">居住區域</span>",
+              "target": [
+                ".spec-entry:nth-child(7) > .k"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"v\">桃園市大園區（機動巡店）</span>",
+              "target": [
+                ".spec-entry:nth-child(7) > .v"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"k\">出勤安排</span>",
+              "target": [
+                ".spec-entry:nth-child(8) > .k"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"v\">到職時間、排班與巡店安排，可於面談時進一步確認。</span>",
+              "target": [
+                ".spec-entry:nth-child(8) > .v"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"candidate-furigana\">コウ・ハクシ ✦ HUANG BO-SHIH</span>",
+              "target": [
+                ".candidate-furigana"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "11.4pt (15.2px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>Tomod's 6年門市實務（含店長3年）</strong>",
+              "target": [
+                "p > strong:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "11.4pt (15.2px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>動物醫院任職4年期間兼任新人帶訓工作</strong>",
+              "target": [
+                "strong:nth-child(2)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "11.4pt (15.2px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>連鎖零售主動銷售歷練</strong>",
+              "target": [
+                "strong:nth-child(3)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"method-card-label\">",
+              "target": [
+                ".method-card.mk-pop-item.mk-pop-in:nth-child(1) > .method-card-label"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "12.0pt (16px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"method-huge-text\" id=\"phoneText\">0989-591-825</div>",
+              "target": [
+                "#phoneText"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.6pt (12.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"tel:0989591825\" class=\"nav-btn-mk outline\">",
+              "target": [
+                "a[href=\"tel:0989591825\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.6pt (12.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<button type=\"button\" onclick=\"copyPhone()\" class=\"nav-btn-mk\" id=\"copyPhoneBtn\">",
+              "target": [
+                "#copyPhoneBtn"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"method-card-label\">",
+              "target": [
+                ".method-card.mk-pop-item.mk-pop-in:nth-child(2) > .method-card-label"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "12.0pt (16px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"method-huge-text\" id=\"emailText\" style=\"font-size: 1.25rem;\">mystiqueduncan@gmail.com</div>",
+              "target": [
+                "#emailText"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.6pt (12.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"mailto:mystiqueduncan@gmail.com\" class=\"nav-btn-mk outline\">",
+              "target": [
+                ".method-card.mk-pop-item.mk-pop-in:nth-child(2) > .method-value-row > .method-action-btns > .outline"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.6pt (12.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<button type=\"button\" onclick=\"copyEmail()\" class=\"nav-btn-mk\" id=\"copyEmailBtn\">",
+              "target": [
+                "#copyEmailBtn"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"method-card-label\">LINE 帳號 (LINE)</div>",
+              "target": [
+                ".method-card.mk-pop-item.mk-pop-in:nth-child(3) > .method-card-label"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "12.0pt (16px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"method-huge-text\" id=\"lineIdText\">bobozhihuang</div>",
+              "target": [
+                "#lineIdText"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.6pt (12.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"https://line.me/ti/p/dRBv9S5imM\" class=\"nav-btn-mk\" id=\"openLineBtn\">開啟 LINE</a>",
+              "target": [
+                "#openLineBtn"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.6pt (12.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<button type=\"button\" onclick=\"copyLineId()\" class=\"nav-btn-mk\" id=\"copyLineIdBtn\">複製 LINE ID</button>",
+              "target": [
+                "#copyLineIdBtn"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "12.6pt (16.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span>✦ 區域營運經理 3 大核心戰力優勢速覽</span>",
+              "target": [
+                ".fast-view-title > span"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"strength-tag\">藥妝 6年（店長3年）</span>",
+              "target": [
+                ".strength-row:nth-child(2) > .strength-tag"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.6pt (14.08px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>Tomod's 日系藥妝 門市基層至店長：</strong>",
+              "target": [
+                ".strength-row:nth-child(2) > div > strong"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"strength-tag\">兼任帶訓</span>",
+              "target": [
+                ".strength-row:nth-child(3) > .strength-tag"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.6pt (14.08px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>築心動物醫院 櫃台助理兼新人帶訓：</strong>",
+              "target": [
+                ".strength-row:nth-child(3) > div > strong"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"strength-tag\">主動銷售 2年</span>",
+              "target": [
+                ".strength-row:nth-child(4) > .strength-tag"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.6pt (14.08px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>Levi's 連鎖服飾 門市人員：</strong>",
+              "target": [
+                ".strength-row:nth-child(4) > div > strong"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.6pt (14.08px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"index.html\" class=\"nav-btn-mk\" style=\"font-size: 0.88rem; padding: 6px 14px;\">",
+              "target": [
+                ".contact-bottom-links > a[href=\"index.html\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.6pt (14.08px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"resume.pdf\" download=\"黃博詩_松本清區域營運經理_履歷表.pdf\" class=\"nav-btn-mk\" style=\"font-size: 0.88rem; padding: 6px 14px; background: var(--mk-yellow);\">",
+              "target": [
+                "a[href$=\"resume.pdf\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.6pt (14.08px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<button type=\"button\" onclick=\"window.print()\" class=\"nav-btn-mk\" style=\"font-size: 0.88rem; padding: 6px 14px; background: #FFFFFF; cursor: pointer;\">",
+              "target": [
+                "button[onclick=\"window.print()\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.6pt (14.08px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"trend.html\" class=\"nav-btn-mk btn-accent\" style=\"font-size: 0.88rem; padding: 6px 14px;\">\n            <span class=\"num\">07/</span> 實體通路趨勢研究 ↗\n          </a>",
+              "target": [
+                ".contact-bottom-links > .btn-accent[href$=\"trend.html\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.6pt (12.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"num\">07/</span>",
+              "target": [
+                ".contact-bottom-links > .btn-accent[href$=\"trend.html\"] > .num"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "contact.html",
+    "width": 428,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "contact.html",
+    "width": 768,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "contact.html",
+    "width": 1024,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "contact.html",
+    "width": 1440,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT"
+          ],
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.4pt (12.48px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span>PORTFOLIO ✦ 個人應徵作品集</span>",
+              "target": [
+                ".contact-header-badge > span:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.4pt (12.48px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"color: var(--mk-navy-soft); font-weight: 700;\">志願目標：台灣松本清 ｜ 區域營運經理 (DISTRICT OPERATIONS MANAGER)</span>",
+              "target": [
+                ".contact-header-badge > span:nth-child(2)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "7.8pt (10.4px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"photo-watermark-tag\">CANDIDATE PORTFOLIO ✦ 2026</div>",
+              "target": [
+                ".photo-watermark-tag"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"specs-box-title\">",
+              "target": [
+                ".specs-box-title"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"k\">志願職位</span>",
+              "target": [
+                ".spec-entry:nth-child(2) > .k"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"v\" style=\"color: var(--mk-red); font-weight: 800;\">區域營運經理</span>",
+              "target": [
+                ".spec-entry:nth-child(2) > .v"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"k\">志願區域</span>",
+              "target": [
+                ".spec-entry:nth-child(3) > .k"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"v\">桃竹苗 ＆ 大台北門市</span>",
+              "target": [
+                ".spec-entry:nth-child(3) > .v"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"k\">核心資歷</span>",
+              "target": [
+                ".spec-entry:nth-child(4) > .k"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"v\">Tomod's 6年（店長3年）</span>",
+              "target": [
+                ".spec-entry:nth-child(4) > .v"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"k\">帶訓實務</span>",
+              "target": [
+                ".spec-entry:nth-child(5) > .k"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"v\">動物醫院任職4年，期間兼任新人帶訓工作</span>",
+              "target": [
+                ".spec-entry:nth-child(5) > .v"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"k\">目前學歷</span>",
+              "target": [
+                ".spec-entry:nth-child(6) > .k"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"v\" style=\"color: var(--mk-navy); font-weight: 800;\">萬能科技大學 企業管理系 研讀中<br><span style=\"font-size: 0.72rem; color: var(--mk-red); font-family: var(--font-mono);\">2026.10 入學 ｜ 預計 2030.06 畢業</span></span>",
+              "target": [
+                ".spec-entry:nth-child(6) > .v"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-size: 0.72rem; color: var(--mk-red); font-family: var(--font-mono);\">2026.10 入學 ｜ 預計 2030.06 畢業</span>",
+              "target": [
+                ".v > span"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"k\">居住區域</span>",
+              "target": [
+                ".spec-entry:nth-child(7) > .k"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"v\">桃園市大園區（機動巡店）</span>",
+              "target": [
+                ".spec-entry:nth-child(7) > .v"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"k\">出勤安排</span>",
+              "target": [
+                ".spec-entry:nth-child(8) > .k"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"v\">到職時間、排班與巡店安排，可於面談時進一步確認。</span>",
+              "target": [
+                ".spec-entry:nth-child(8) > .v"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"candidate-furigana\">コウ・ハクシ ✦ HUANG BO-SHIH</span>",
+              "target": [
+                ".candidate-furigana"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "44.4pt (59.2px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "3:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<h1 class=\"candidate-name-huge\">黃博詩</h1>",
+              "target": [
+                "h1"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "13.8pt (18.4px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"candidate-en-badge\">DISTRICT OPERATIONS MANAGER APPLICANT</span>",
+              "target": [
+                ".candidate-en-badge"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.2pt (13.6px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"candidate-position-pill\">",
+              "target": [
+                ".candidate-position-pill"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "11.4pt (15.2px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>Tomod's 6年門市實務（含店長3年）</strong>",
+              "target": [
+                "p > strong:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "11.4pt (15.2px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>連鎖零售主動銷售歷練</strong>",
+              "target": [
+                "strong:nth-child(3)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"method-card-label\">",
+              "target": [
+                ".method-card.mk-pop-item.mk-pop-in:nth-child(1) > .method-card-label"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "18.0pt (24px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "3:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"method-huge-text\" id=\"phoneText\">0989-591-825</div>",
+              "target": [
+                "#phoneText"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.6pt (12.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"tel:0989591825\" class=\"nav-btn-mk outline\">",
+              "target": [
+                "a[href=\"tel:0989591825\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.6pt (12.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<button type=\"button\" onclick=\"copyPhone()\" class=\"nav-btn-mk\" id=\"copyPhoneBtn\">",
+              "target": [
+                "#copyPhoneBtn"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"method-card-label\">",
+              "target": [
+                ".method-card.mk-pop-item.mk-pop-in:nth-child(2) > .method-card-label"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "18.0pt (24px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "3:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"method-huge-text\" id=\"emailText\" style=\"font-size: 1.25rem;\">mystiqueduncan@gmail.com</div>",
+              "target": [
+                "#emailText"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.6pt (12.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"mailto:mystiqueduncan@gmail.com\" class=\"nav-btn-mk outline\">",
+              "target": [
+                ".method-card.mk-pop-item.mk-pop-in:nth-child(2) > .method-value-row > .method-action-btns > .outline"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.6pt (12.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<button type=\"button\" onclick=\"copyEmail()\" class=\"nav-btn-mk\" id=\"copyEmailBtn\">",
+              "target": [
+                "#copyEmailBtn"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"method-card-label\">LINE 帳號 (LINE)</div>",
+              "target": [
+                ".method-card.mk-pop-item.mk-pop-in:nth-child(3) > .method-card-label"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "18.0pt (24px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "3:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"method-huge-text\" id=\"lineIdText\">bobozhihuang</div>",
+              "target": [
+                "#lineIdText"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.6pt (12.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"https://line.me/ti/p/dRBv9S5imM\" class=\"nav-btn-mk\" id=\"openLineBtn\">開啟 LINE</a>",
+              "target": [
+                "#openLineBtn"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.6pt (12.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<button type=\"button\" onclick=\"copyLineId()\" class=\"nav-btn-mk\" id=\"copyLineIdBtn\">複製 LINE ID</button>",
+              "target": [
+                "#copyLineIdBtn"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "12.6pt (16.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span>✦ 區域營運經理 3 大核心戰力優勢速覽</span>",
+              "target": [
+                ".fast-view-title > span"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"strength-tag\">藥妝 6年（店長3年）</span>",
+              "target": [
+                ".strength-row:nth-child(2) > .strength-tag"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.6pt (14.08px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div><strong>Tomod's 日系藥妝 門市基層至店長：</strong> 熟稔門市日常營運、排班調度、陳列與門市收益統整；對接品牌原廠培訓；定期赴總公司參加營運會議掌握方針，每週自主主持門市例會解決問題。</div>",
+              "target": [
+                ".strength-row:nth-child(2) > div"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.6pt (14.08px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>Tomod's 日系藥妝 門市基層至店長：</strong>",
+              "target": [
+                ".strength-row:nth-child(2) > div > strong"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"strength-tag\">兼任帶訓</span>",
+              "target": [
+                ".strength-row:nth-child(3) > .strength-tag"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.6pt (14.08px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div><strong>築心動物醫院 櫃台助理兼新人帶訓：</strong> 動物醫院任職4年，期間兼任新人帶訓工作，具備耐心溝通與流程傳承經驗。服務期間兼任新進人員帶訓工作，負責規劃新進同仁實務帶訓指引與步驟化操作考核。</div>",
+              "target": [
+                ".strength-row:nth-child(3) > div"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.6pt (14.08px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>築心動物醫院 櫃台助理兼新人帶訓：</strong>",
+              "target": [
+                ".strength-row:nth-child(3) > div > strong"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"strength-tag\">主動銷售 2年</span>",
+              "target": [
+                ".strength-row:nth-child(4) > .strength-tag"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.6pt (14.08px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div><strong>Levi's 連鎖服飾 門市人員：</strong> 主動洞察客群痛點與風格需求，善於引導推薦與庫存排面管理。</div>",
+              "target": [
+                ".strength-row:nth-child(4) > div"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.6pt (14.08px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>Levi's 連鎖服飾 門市人員：</strong>",
+              "target": [
+                ".strength-row:nth-child(4) > div > strong"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.6pt (14.08px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"index.html\" class=\"nav-btn-mk\" style=\"font-size: 0.88rem; padding: 6px 14px;\">",
+              "target": [
+                ".contact-bottom-links > a[href=\"index.html\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.6pt (14.08px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"resume.pdf\" download=\"黃博詩_松本清區域營運經理_履歷表.pdf\" class=\"nav-btn-mk\" style=\"font-size: 0.88rem; padding: 6px 14px; background: var(--mk-yellow);\">",
+              "target": [
+                "a[href$=\"resume.pdf\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.6pt (14.08px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<button type=\"button\" onclick=\"window.print()\" class=\"nav-btn-mk\" style=\"font-size: 0.88rem; padding: 6px 14px; background: #FFFFFF; cursor: pointer;\">",
+              "target": [
+                "button[onclick=\"window.print()\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.6pt (14.08px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"trend.html\" class=\"nav-btn-mk btn-accent\" style=\"font-size: 0.88rem; padding: 6px 14px;\">\n            <span class=\"num\">07/</span> 實體通路趨勢研究 ↗\n          </a>",
+              "target": [
+                ".contact-bottom-links > .btn-accent[href$=\"trend.html\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.6pt (12.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"contact-card-outer mk-motion-item mk-motion-in\">",
+                      "target": [
+                        ".contact-card-outer"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"num\">07/</span>",
+              "target": [
+                ".contact-bottom-links > .btn-accent[href$=\"trend.html\"] > .num"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "contact.html",
+    "width": 1920,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "trend.html",
+    "width": 320,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "trend.html",
+    "width": 375,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "trend.html",
+    "width": 390,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious",
+          "tags": [
+            "cat.aria",
+            "wcag2a",
+            "wcag412",
+            "EN-301-549",
+            "EN-9.4.1.2"
+          ],
+          "description": "Ensure ARIA attributes are not prohibited for an element's role",
+          "help": "Elements must only use permitted ARIA attributes",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/aria-prohibited-attr?application=axeAPI",
+          "nodes": [
+            {
+              "any": [],
+              "all": [],
+              "none": [
+                {
+                  "id": "aria-prohibited-attr",
+                  "data": {
+                    "role": null,
+                    "nodeName": "div",
+                    "messageKey": "noRoleSingular",
+                    "prohibited": [
+                      "aria-label"
+                    ]
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "aria-label attribute is not well supported on a div with no valid role attribute."
+                }
+              ],
+              "impact": "serious",
+              "html": "<div class=\"keycap-marquee__viewport\" tabindex=\"0\" aria-label=\"章節快速導覽，可左右捲動\">",
+              "target": [
+                ".keycap-marquee__viewport"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute is not well supported on a div with no valid role attribute."
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT"
+          ],
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "24.0pt (32px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "3:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-family: var(--font-display); font-size: 2rem; font-weight: 900; color: var(--mk-navy); line-height: 1; display: block;\">47.7%</span>",
+              "target": [
+                ".category-study > div:nth-child(2) > div:nth-child(1) > div > span:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "8.9pt (11.84px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-family: var(--font-sans); font-size: 0.74rem; font-weight: 800; color: var(--mk-navy);\">個人清潔化粧保養</span>",
+              "target": [
+                ".category-study > div:nth-child(2) > div:nth-child(1) > div > span:nth-child(2)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "7.8pt (10.4px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"display: block; font-family: var(--font-mono); font-size: 0.65rem; color: var(--mk-red); font-weight: 700;\">第 1 大主力品類</span>",
+              "target": [
+                ".category-study > div:nth-child(2) > div:nth-child(1) > div > span:nth-child(3)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "trend.html",
+    "width": 428,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "trend.html",
+    "width": 768,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "trend.html",
+    "width": 1024,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "trend.html",
+    "width": 1440,
+    "errors": [],
+    "marquee_interactions": "passed",
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious",
+          "tags": [
+            "cat.aria",
+            "wcag2a",
+            "wcag412",
+            "EN-301-549",
+            "EN-9.4.1.2"
+          ],
+          "description": "Ensure ARIA attributes are not prohibited for an element's role",
+          "help": "Elements must only use permitted ARIA attributes",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/aria-prohibited-attr?application=axeAPI",
+          "nodes": [
+            {
+              "any": [],
+              "all": [],
+              "none": [
+                {
+                  "id": "aria-prohibited-attr",
+                  "data": {
+                    "role": null,
+                    "nodeName": "div",
+                    "messageKey": "noRoleSingular",
+                    "prohibited": [
+                      "aria-label"
+                    ]
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "aria-label attribute is not well supported on a div with no valid role attribute."
+                }
+              ],
+              "impact": "serious",
+              "html": "<div class=\"keycap-marquee__viewport\" tabindex=\"0\" aria-label=\"章節快速導覽，可左右捲動\">",
+              "target": [
+                ".keycap-marquee__viewport"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute is not well supported on a div with no valid role attribute."
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT"
+          ],
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "24.0pt (32px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "3:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-family: var(--font-display); font-size: 2rem; font-weight: 900; color: var(--mk-navy); line-height: 1; display: block;\">47.7%</span>",
+              "target": [
+                ".category-study > div:nth-child(2) > div:nth-child(1) > div > span:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "8.9pt (11.84px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-family: var(--font-sans); font-size: 0.74rem; font-weight: 800; color: var(--mk-navy);\">個人清潔化粧保養</span>",
+              "target": [
+                ".category-study > div:nth-child(2) > div:nth-child(1) > div > span:nth-child(2)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "7.8pt (10.4px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"display: block; font-family: var(--font-mono); font-size: 0.65rem; color: var(--mk-red); font-weight: 700;\">第 1 大主力品類</span>",
+              "target": [
+                ".category-study > div:nth-child(2) > div:nth-child(1) > div > span:nth-child(3)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "trend.html",
+    "width": 1920,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "brokenImages": [],
+    "file": "mobile.html",
+    "width": 320,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "brokenImages": [],
+    "file": "mobile.html",
+    "width": 375,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "brokenImages": [],
+    "file": "mobile.html",
+    "width": 390,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious",
+          "tags": [
+            "cat.aria",
+            "wcag2a",
+            "wcag412",
+            "EN-301-549",
+            "EN-9.4.1.2"
+          ],
+          "description": "Ensure ARIA attributes are not prohibited for an element's role",
+          "help": "Elements must only use permitted ARIA attributes",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/aria-prohibited-attr?application=axeAPI",
+          "nodes": [
+            {
+              "any": [],
+              "all": [],
+              "none": [
+                {
+                  "id": "aria-prohibited-attr",
+                  "data": {
+                    "role": null,
+                    "nodeName": "div",
+                    "messageKey": "noRoleSingular",
+                    "prohibited": [
+                      "aria-label"
+                    ]
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "aria-label attribute is not well supported on a div with no valid role attribute."
+                }
+              ],
+              "impact": "serious",
+              "html": "<div class=\"keycap-marquee__viewport\" tabindex=\"0\" aria-label=\"章節導覽，可左右捲動\">",
+              "target": [
+                ".keycap-marquee__viewport"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute is not well supported on a div with no valid role attribute."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "brokenImages": [],
+    "file": "mobile.html",
+    "width": 428,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "brokenImages": [],
+    "file": "mobile.html",
+    "width": 768,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "brokenImages": [],
+    "file": "mobile.html",
+    "width": 1024,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "brokenImages": [],
+    "file": "mobile.html",
+    "width": 1440,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious",
+          "tags": [
+            "cat.aria",
+            "wcag2a",
+            "wcag412",
+            "EN-301-549",
+            "EN-9.4.1.2"
+          ],
+          "description": "Ensure ARIA attributes are not prohibited for an element's role",
+          "help": "Elements must only use permitted ARIA attributes",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/aria-prohibited-attr?application=axeAPI",
+          "nodes": [
+            {
+              "any": [],
+              "all": [],
+              "none": [
+                {
+                  "id": "aria-prohibited-attr",
+                  "data": {
+                    "role": null,
+                    "nodeName": "div",
+                    "messageKey": "noRoleSingular",
+                    "prohibited": [
+                      "aria-label"
+                    ]
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "aria-label attribute is not well supported on a div with no valid role attribute."
+                }
+              ],
+              "impact": "serious",
+              "html": "<div class=\"keycap-marquee__viewport\" tabindex=\"0\" aria-label=\"章節導覽，可左右捲動\">",
+              "target": [
+                ".keycap-marquee__viewport"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute is not well supported on a div with no valid role attribute."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "brokenImages": [],
+    "file": "mobile.html",
+    "width": 1920,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "mobile-contact.html",
+    "width": 320,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "mobile-contact.html",
+    "width": 375,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "mobile-contact.html",
+    "width": 390,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": []
+    }
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "mobile-contact.html",
+    "width": 428,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "mobile-contact.html",
+    "width": 768,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "mobile-contact.html",
+    "width": 1024,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "mobile-contact.html",
+    "width": 1440,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT"
+          ],
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"specs-box-title\">",
+              "target": [
+                ".specs-box-title"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "9.6pt (12.8px)",
+                    "fontWeight": "normal",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"k\">應徵職位</span>",
+              "target": [
+                ".spec-entry:nth-child(2) > .k"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "9.6pt (12.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"v\" style=\"color: var(--mk-red);\">區域營運經理 (門市督導)</span>",
+              "target": [
+                ".spec-entry:nth-child(2) > .v"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "9.6pt (12.8px)",
+                    "fontWeight": "normal",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"k\">志願區域</span>",
+              "target": [
+                ".spec-entry:nth-child(3) > .k"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "9.6pt (12.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"v\">桃竹苗 ＆ 大台北門市</span>",
+              "target": [
+                ".spec-entry:nth-child(3) > .v"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "mobile-contact.html",
+    "width": 1920,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "mobile-trend.html",
+    "width": 320,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "mobile-trend.html",
+    "width": 375,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "mobile-trend.html",
+    "width": 390,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious",
+          "tags": [
+            "cat.aria",
+            "wcag2a",
+            "wcag412",
+            "EN-301-549",
+            "EN-9.4.1.2"
+          ],
+          "description": "Ensure ARIA attributes are not prohibited for an element's role",
+          "help": "Elements must only use permitted ARIA attributes",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/aria-prohibited-attr?application=axeAPI",
+          "nodes": [
+            {
+              "any": [],
+              "all": [],
+              "none": [
+                {
+                  "id": "aria-prohibited-attr",
+                  "data": {
+                    "role": null,
+                    "nodeName": "div",
+                    "messageKey": "noRoleSingular",
+                    "prohibited": [
+                      "aria-label"
+                    ]
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "aria-label attribute is not well supported on a div with no valid role attribute."
+                }
+              ],
+              "impact": "serious",
+              "html": "<div class=\"keycap-marquee__viewport\" tabindex=\"0\" aria-label=\"章節導覽，可左右捲動\">",
+              "target": [
+                ".keycap-marquee__viewport"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute is not well supported on a div with no valid role attribute."
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT"
+          ],
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "21.6pt (28.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "3:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-family: var(--font-display); font-size: 1.8rem; font-weight: 900; color: var(--mk-navy); line-height: 1; display: block;\">47.7%</span>",
+              "target": [
+                ".category-study > div:nth-child(3) > div > span:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-size: 0.72rem; font-weight: 800; color: var(--mk-navy);\">個人清潔化粧保養</span>",
+              "target": [
+                ".category-study > div:nth-child(3) > div > span:nth-child(2)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "7.4pt (9.92px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"display: block; font-family: var(--font-mono); font-size: 0.62rem; color: var(--mk-red); font-weight: 700;\">第 1 大主力品類</span>",
+              "target": [
+                "div:nth-child(3) > div > span:nth-child(3)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "mobile-trend.html",
+    "width": 428,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "mobile-trend.html",
+    "width": 768,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "mobile-trend.html",
+    "width": 1024,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "mobile-trend.html",
+    "width": 1440,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious",
+          "tags": [
+            "cat.aria",
+            "wcag2a",
+            "wcag412",
+            "EN-301-549",
+            "EN-9.4.1.2"
+          ],
+          "description": "Ensure ARIA attributes are not prohibited for an element's role",
+          "help": "Elements must only use permitted ARIA attributes",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/aria-prohibited-attr?application=axeAPI",
+          "nodes": [
+            {
+              "any": [],
+              "all": [],
+              "none": [
+                {
+                  "id": "aria-prohibited-attr",
+                  "data": {
+                    "role": null,
+                    "nodeName": "div",
+                    "messageKey": "noRoleSingular",
+                    "prohibited": [
+                      "aria-label"
+                    ]
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "aria-label attribute is not well supported on a div with no valid role attribute."
+                }
+              ],
+              "impact": "serious",
+              "html": "<div class=\"keycap-marquee__viewport\" tabindex=\"0\" aria-label=\"章節導覽，可左右捲動\">",
+              "target": [
+                ".keycap-marquee__viewport"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute is not well supported on a div with no valid role attribute."
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT"
+          ],
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "21.6pt (28.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "3:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-family: var(--font-display); font-size: 1.8rem; font-weight: 900; color: var(--mk-navy); line-height: 1; display: block;\">47.7%</span>",
+              "target": [
+                ".category-study > div:nth-child(3) > div > span:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-size: 0.72rem; font-weight: 800; color: var(--mk-navy);\">個人清潔化粧保養</span>",
+              "target": [
+                ".category-study > div:nth-child(3) > div > span:nth-child(2)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "7.4pt (9.92px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"display: block; font-family: var(--font-mono); font-size: 0.62rem; color: var(--mk-red); font-weight: 700;\">第 1 大主力品類</span>",
+              "target": [
+                "div:nth-child(3) > div > span:nth-child(3)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "externalImagesNotChecked": [],
+    "brokenImages": [],
+    "file": "mobile-trend.html",
+    "width": 1920,
+    "errors": []
+  }
+]

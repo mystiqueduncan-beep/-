@@ -1,0 +1,33 @@
+[
+  {
+    "page": "index",
+    "revealedOnce": 56,
+    "contactPops": 0
+  },
+  {
+    "page": "mobile",
+    "revealedOnce": 26,
+    "contactPops": 0
+  },
+  {
+    "page": "trend",
+    "revealedOnce": 38,
+    "contactPops": 0
+  },
+  {
+    "page": "mobile-trend",
+    "revealedOnce": 39,
+    "contactPops": 0
+  },
+  {
+    "page": "contact",
+    "revealedOnce": 6,
+    "contactPops": 3
+  },
+  {
+    "page": "mobile-contact",
+    "revealedOnce": 5,
+    "contactPops": 3
+  }
+]
+Six pages: one-time scrolling, contact pops, focus, hashes, print and fallbacks passed.

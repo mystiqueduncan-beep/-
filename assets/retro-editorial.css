@@ -1,0 +1,196 @@
+/* Low-saturation campaign scrapbook. Original illustrations; no reference-site assets.
+   Page motion and navigation remain owned by their existing scripts/styles. */
+:root {
+ --paper-bg:#fff9f7; --paper-card:#fffcfa; --paper-subtle:#f5e7e6;
+ --ink-primary:#533e46; --ink-secondary:#65505a; --ink-muted:#775c66;
+ --hairline:#dcc3c9; --hairline-dark:#ac8190;
+ --mk-navy:#654753; --mk-navy-dark:#533e46; --mk-navy-light:#775c66; --mk-navy-soft:#775c66;
+ --mk-yellow:#e5c4cc; --mk-yellow-light:#f6e5e9; --mk-yellow-warm:#f2dfe4; --mk-red:#885365;
+ --pastel-pink:#ecd3db; --pastel-rose:#d6aeba; --pastel-sage:#cbd6ce;
+ --font-serif-tc:'Noto Sans TC','PingFang TC',sans-serif;
+ --font-serif:'Noto Sans TC','PingFang TC',sans-serif;
+ --font-sans:'Noto Sans TC','PingFang TC',sans-serif;
+ --shadow-card:none; --shadow-card-lg:none; --mk-inspired-shadow:none; --mk-inspired-shadow-hover:none;
+}
+html {background:var(--paper-bg)}
+body {background:var(--paper-bg)!important;background-image:none!important;color:var(--ink-primary);line-height:1.85}
+h1,h2,h3 {text-wrap:balance}
+.container {max-width:1220px}
+img {max-width:100%}
+/* Slim utility line, with the full masthead kept in its original location. */
+.mag-top-ticker,.mobile-status-strip {background:#ecd3db!important;color:#533e46!important;border:0!important}
+.ticker-pill {background:#fff9f7!important;color:#654753!important;box-shadow:none!important;border:0!important;border-radius:20px!important}
+.top-switch-link {color:#654753!important;border-color:#ac8190!important;border-radius:20px!important}
+.mag-header {position:relative;background:#f4e4e9!important;background-image:none!important;border:0!important;padding:28px 0 50px!important}
+.mag-header::after {display:none!important}
+.masthead-meta-row {border:0!important;gap:16px;margin-bottom:34px!important}
+.portfolio-badge,.matsukiyo-logo-badge,.badge-report {color:#654753!important;background:transparent!important;border:0!important;box-shadow:none!important;letter-spacing:.08em}
+.portfolio-badge {padding-left:0!important}
+.target-role-badge {font-size:.75rem!important}
+/* A poster-like opening: headline + introduction, then a separate highlight shelf. */
+.cover-layout {display:block!important}
+.cover-layout .hero-primary-info {display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);grid-template-areas:'heading portrait' 'introduction portrait' 'highlights highlights';gap:20px 58px;align-items:center}
+.cover-story {display:contents}
+.cover-heading {grid-area:heading;min-width:0;position:relative;padding-top:16px}
+.applicant-label {display:inline-flex!important;width:fit-content;background:#fff9f7!important;border:1px solid #cba5b3!important;border-radius:22px!important;padding:5px 14px!important;color:#775163!important;font-size:.68rem!important;letter-spacing:.09em!important}
+.hero-name-row {display:block!important;margin:16px 0 20px!important}
+.candidate-name {color:#885365!important;font:900 clamp(3.7rem,6vw,6.1rem)/1.35 var(--font-sans)!important;letter-spacing:.06em!important;display:block!important;background:none!important;border:0!important;text-shadow:3px 4px 0 #fffcfa}
+.candidate-name::after {display:none!important}
+.candidate-en-name {display:block;font:700 .8rem/1.7 var(--font-sans)!important;letter-spacing:.12em;color:#775c66}
+.hero-position-highlight {background:transparent!important;color:#533e46!important;border:0!important;padding:0!important;font-size:.94rem!important;line-height:1.9!important}
+.hero-position-highlight>span,.hero-position-highlight .sub {color:#65505a!important}
+.hero-position-highlight .sub {font-size:.8rem!important}
+.cover-introduction {grid-area:introduction;min-width:0;align-self:start}
+.hero-professional-intro {padding:0!important;border:0!important;background:transparent!important;border-radius:0!important;font-size:.94rem!important;line-height:2!important;margin-bottom:20px!important}
+.hero-edu-pill {padding:12px 0!important;border:0!important;border-top:1px dashed #b58e9c!important;border-radius:0!important;box-shadow:none!important;background:transparent!important;font-size:.78rem!important;line-height:1.9!important}
+.hero-edu-pill .tag {background:#885365!important;color:#fff9f7!important;border-radius:15px!important;white-space:nowrap}
+/* Portrait is a real photograph in a stationery collage, with original botanical doodles. */
+.cover-portrait {grid-area:portrait;position:relative;margin:0;align-self:center;justify-self:center;width:min(100%,420px);padding:24px 36px 34px;isolation:isolate}
+.cover-portrait::before {content:'';position:absolute;inset:-70px -48px -65px;background:url('pastel-garden.svg') center/contain no-repeat;z-index:-1;pointer-events:none}
+.cover-portrait::after {content:'';position:absolute;width:110px;height:30px;background:repeating-linear-gradient(130deg,#d4b8bfaa 0 7px,#efe1e6bb 7px 14px);top:10px;left:calc(50% - 55px);transform:rotate(-9deg);z-index:2}
+.cover-portrait img {display:block;width:100%;height:360px;object-fit:cover;object-position:50% 22%;border:12px solid #fffcfa;border-bottom-width:40px;border-radius:4px;transform:rotate(5deg);box-shadow:0 7px 24px #88536515;filter:saturate(.78)}
+.hero-key-pillars {grid-area:highlights;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:30px!important;margin:36px 0 0!important;padding:24px 0 0;border-top:1px dashed #cba5b3}
+.key-pillar-card {background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important;padding:0 0 4px!important}
+.pillar-num {color:#885365!important;font-size:.7rem!important;letter-spacing:.04em}
+.pillar-title {font-family:var(--font-sans)!important;font-size:1.1rem!important;font-weight:800!important}
+.pillar-desc {font-size:.79rem!important;line-height:1.85!important;max-width:32em}
+.hero-action-card {margin-top:30px!important;padding:20px 24px!important;background:#fff9f7!important;border:1px solid #e1c8d0!important;border-radius:24px!important;box-shadow:none!important;display:grid!important;grid-template-columns:1fr 1.6fr;gap:24px;align-items:center}
+.hero-dossier-mini {background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;font-size:.76rem!important}
+.hero-cta-group {display:grid!important;grid-template-columns:1fr 1fr;gap:10px!important}
+:is(.mag-btn,.btn-action-primary,.btn-action-secondary,.btn-contact-action,.method-action-btns a,.method-action-btns button) {box-shadow:none!important;border-width:1px!important;border-radius:26px!important;min-height:44px;line-height:1.6}
+.mag-btn-primary,.btn-action-primary,.btn-contact-action.yellow {background:#885365!important;border-color:#885365!important;color:#fffcfa!important}
+.mag-btn-secondary,.mag-btn-outline,.btn-action-secondary {background:#fffcfa!important;color:#654753!important;border-color:#bd96a5!important}
+/* Rounded moving chapter labels; original JS controls all pause/resume behavior. */
+.mag-subnav-strip,.trend-subnav-strip {background:#fff9f7!important;border-color:#dcc3c9!important;border-width:1px!important;box-shadow:none!important}
+.nav-btn-mk,.keycap-marquee a {background:#fffcfa!important;border:1px solid #bd96a5!important;box-shadow:none!important;border-radius:24px!important;color:#654753!important}
+.nav-btn-mk .num,.keycap-marquee a .num,.nav-btn-mk.btn-accent .num {color:#885365!important}
+.nav-btn-mk:hover,.keycap-marquee a:hover,.keycap-marquee a.is-current {background:#ecd3db!important}
+.subnav-status-badge {background:#f6e5e9!important;color:#654753!important;border:0!important}
+.mobile-chapter-strip {min-width:0;padding:10px 16px;background:#fff9f7;border-bottom:1px solid #dcc3c9}
+.mobile-chapter-strip .keycap-marquee {display:flex;min-width:0}
+.mobile-chapter-strip .keycap-marquee__group a {font-size:.78rem;min-height:44px;padding:8px 14px}
+/* Large, distinct story sections, rather than a repeated deck of pink cards. */
+.mag-main {padding-top:40px!important}
+.section-block,.trend-main>section {position:relative;margin:0 0 60px!important;padding:34px!important;border:0!important;border-radius:36px!important;background:transparent!important}
+main.mag-main .section-block:nth-of-type(even),main.trend-main>section[id]:nth-of-type(even) {background:#f7ebee!important;border:0!important;border-radius:36px!important}
+.section-editorial-header {display:flex!important;align-items:center!important;flex-wrap:wrap;gap:12px;background:transparent!important;border:0!important;box-shadow:none!important;padding:0 0 25px!important;margin-bottom:16px!important}
+.sec-title-wrap {display:flex;align-items:center;flex-wrap:wrap;gap:12px!important}
+.sec-number {display:inline-grid!important;place-items:center;background:#ecd3db!important;border:0!important;border-radius:50%!important;width:44px!important;height:44px!important;color:#654753!important;font:800 1rem var(--font-sans)!important;box-shadow:none!important;padding:0!important;flex-shrink:0}
+.sec-title-main {font:800 clamp(1.35rem,2.1vw,1.9rem)/1.6 var(--font-sans)!important;letter-spacing:.03em!important;color:#654753!important}
+.sec-title-sub {display:block!important;width:100%;font:700 .67rem/1.8 var(--font-sans)!important;letter-spacing:.13em;color:#775c66!important;margin-left:56px!important}
+.section-editorial-header>span {font-size:.75rem!important;color:#775c66!important}
+:is(.editorial-card,.wide-star-case,.career-entry-card,.edu-dedicated-card,.stage-card,.research-summary-panel,.contact-action-panel,.feature-card,.content-article-box,.case-box,.mobile-card,.mobile-subcard,.adv-dim-card,.timeline-job-card,.mobile-case-box,.stage-card-mini,.star-field-box) {box-shadow:none!important;border:0!important;border-radius:0!important;background:transparent!important}
+.editorial-card {padding:0!important}
+.editorial-columns {columns:2;column-gap:40px;column-rule:1px dashed #dcc3c9}
+.editorial-columns p {break-inside:avoid}
+.card-heading,.feature-card-title,.adv-dim-title {font-weight:800!important;font-family:var(--font-sans)!important;line-height:1.7!important;color:#654753!important}
+.grid-2x2,.cards-2x2-grid {grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:28px 44px!important}
+.grid-2x2>*,.cards-2x2-grid>* {padding:18px 0!important;border-top:1px dashed #c5a4b0!important}
+.grid-2x2>:nth-child(even),.cards-2x2-grid>:nth-child(even) {margin-top:34px}
+.wide-star-case {display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.7fr);gap:32px;padding:28px 0!important;border-top:1px dashed #c5a4b0!important}
+.star-fields-grid {grid-template-columns:1fr 1fr!important;gap:20px!important}
+.star-field-box {padding:0!important}
+/* Work-history collage: the content sits next to its taped photograph. */
+.timeline-stack {gap:40px!important}
+.career-entry-card {padding:26px 0!important;border-top:1px dashed #c5a4b0!important}
+.career-title-bar {background:transparent!important;border:0!important;padding:0 0 22px!important;gap:16px}
+.company-title {font-family:var(--font-sans)!important;font-weight:800!important;font-size:1.6rem!important;color:#654753!important}
+.career-role-badge {display:inline-block;background:#fff9f7!important;color:#775163!important;border:1px solid #dcc3c9!important;border-radius:20px!important;box-shadow:none!important}
+.tenure-text {color:#775163!important}
+.career-spread {display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:42px;align-items:center}
+.career-spread .career-photo {position:relative;max-width:none!important;width:100%!important;margin:8px 0 18px!important;padding:12px 12px 18px;background:#fffcfa;border:1px solid #e4d3d8;border-radius:4px;rotate:-2deg}
+.career-spread .career-photo::after {content:'';position:absolute;top:-10px;left:calc(50% - 38px);width:76px;height:22px;background:repeating-linear-gradient(120deg,#e0c5cdbb 0 5px,#f5e8eccc 5px 10px);rotate:6deg}
+.career-spread .career-photo__frame {border:0!important;aspect-ratio:4/3;background:#f2e6e7!important;border-radius:0!important}
+.career-spread .career-photo__credit {background:transparent!important;font-size:.72rem!important;padding-top:12px!important;color:#775c66!important}
+.career-spread ul {padding-top:0}
+.career-entry-card:nth-child(2) .career-spread {grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);padding-left:7%}
+.career-entry-card:nth-child(2) .career-photo {rotate:2deg}
+.career-entry-card:nth-child(3) .career-spread {grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);padding-right:8%}
+#career {background:#f4e1e7!important}
+#career>.section-editorial-header {position:relative}
+#career>.section-editorial-header::after {content:'';width:56px;height:56px;position:absolute;right:10px;top:-6px;background:url('pastel-flower.svg') center/contain no-repeat}
+.edu-dedicated-card {display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:30px!important;background:#fffcfa!important;border:1px dashed #bd96a5!important;border-radius:26px!important}
+.proposal-stages-grid {gap:32px!important}
+.stage-card {border-top:1px dashed #c5a4b0!important;padding:20px 0!important}
+.stage-card:nth-child(2) {margin-top:30px}
+.source-verification {background:#f4e9e7!important;border:0!important;border-left:2px solid #ba929f!important;box-shadow:none!important;border-radius:0 18px 18px 0!important;color:#65505a!important}
+main [style*="box-shadow"] {box-shadow:none!important;border-width:1px!important}
+main [style*="#FFFDF0"],main [style*="#FFFBE6"] {background:#f6e5e9!important}
+.table-container td {color:#533e46!important}
+.mag-footer,.mobile-footer {background:#e9ced8!important;color:#533e46!important;border-top:0!important}
+.mobile-footer strong,.mobile-footer>div,footer[style] strong,footer[style]>div {color:#533e46!important}
+:where(a,button,[tabindex]):focus-visible {outline:3px solid #885365!important;outline-offset:4px}
+/* Handheld campaign: full-width poster, then separate caption and profile notes. */
+.mobile-app-wrapper {max-width:768px!important;background:#fff9f7!important;background-image:none!important}
+.mobile-top-bar {background:#f4e4e9!important;border-bottom:1px solid #dcc3c9!important;box-shadow:none!important}
+.mobile-bottom-bar {background:#fff9f7!important;border-top:1px solid #c9a7b5!important;box-shadow:none!important;padding-bottom:env(safe-area-inset-bottom)}
+.mobile-bottom-bar a {color:#775c66!important}
+.mobile-bottom-bar a.active {color:#885365!important}
+.mobile-content {padding:24px 18px!important}
+.mobile-card {margin-bottom:32px!important;padding:26px 0!important;border-top:1px dashed #dcc3c9!important}
+.mobile-card-title {padding:0 0 18px!important;border:0!important;background:transparent!important;line-height:1.7!important;font:800 1.25rem/1.7 var(--font-sans)!important;color:#654753!important}
+.mobile-badge {background:#ecd3db!important;color:#654753!important;border:0!important;border-radius:20px!important;box-shadow:none!important}
+.mobile-cover {background:#f4e4e9!important;margin:-24px -18px 32px!important;padding:24px 22px 30px!important;border:0!important;border-radius:0 0 38px 38px!important}
+.mobile-cover>.mobile-card-title {font-size:.95rem!important;justify-content:center;gap:10px!important}
+.pastel-mobile-scene {display:flex!important;flex-direction:column;position:relative;gap:18px!important;align-items:center!important;padding:20px 12px 8px!important;isolation:isolate}
+.pastel-mobile-scene::before {content:'';position:absolute;inset:-12px -10px 80px;z-index:-1;pointer-events:none;background:url('pastel-garden.svg') center/contain no-repeat}
+.mobile-cover-portrait {position:relative;max-width:210px;width:64%;margin:0 0 12px;padding:9px 9px 28px;background:#fffcfa;rotate:4deg;box-shadow:0 8px 22px #88536512}
+.mobile-cover-portrait::after {content:'';position:absolute;top:-10px;left:calc(50% - 36px);width:72px;height:23px;background:#d8bcc5bb;rotate:-9deg}
+.mobile-cover-portrait img {display:block;width:100%;height:210px;object-fit:cover;object-position:50% 22%;border-radius:0!important;filter:saturate(.78)}
+.candidate-info-box {text-align:center;background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;min-width:0}
+.candidate-info-box h1 {font:900 2.8rem/1.4 var(--font-sans)!important;letter-spacing:.05em;color:#885365!important;text-shadow:2px 3px #fffcfa}
+.candidate-info-box .en-name {font-size:.68rem!important;letter-spacing:.04em!important}
+.role-pill {background:#fffcfa!important;color:#654753!important;border:1px solid #bd96a5!important;border-radius:20px!important}
+.hero-edu-tag {background:transparent!important;border:0!important;border-top:1px dashed #c5a4b0!important;box-shadow:none!important;padding:16px 0 0!important;margin-top:24px!important;color:#65505a!important;font-size:.8rem!important}
+.pillar-mini-grid {display:block!important;margin-top:22px}
+.pillar-mini-card {padding:14px 0!important;background:transparent!important;border:0!important;border-top:1px dashed #c5a4b0!important;box-shadow:none!important}
+.pillar-mini-title {font-size:.86rem!important;line-height:1.9!important;flex-wrap:wrap}
+.pillar-mini-desc {font-size:.79rem!important}
+.pastel-profile-notes {background:#fffcfa!important;border:1px solid #e1c8d0!important;border-radius:24px!important;padding:12px!important;margin:20px 0!important}
+.mobile-case-box,.adv-dim-card {padding:20px 0!important;border-top:1px dashed #c5a4b0!important}
+.mobile-content #motivation {border-left:0!important}
+.mobile-content #career {padding:24px 16px!important;margin:0 -18px 32px!important;border-radius:32px!important}
+.timeline-job-card {padding:22px 0!important;border-top:1px dashed #c5a4b0!important;margin-left:0!important}
+.timeline-job-card::before {display:none!important}
+.timeline-job-card .career-spread {grid-template-columns:1fr;gap:16px}
+.timeline-job-card .career-photo {width:92%!important;justify-self:center;padding:9px 9px 14px}
+.timeline-job-card:nth-of-type(even) .career-photo {rotate:2deg}
+.timeline-job-card .job-title {font:800 1.12rem/1.8 var(--font-sans)!important;color:#654753!important}
+.edu-card-mobile {background:#f5e7e6!important;border:1px dashed #c5a4b0!important;border-radius:24px!important;box-shadow:none!important;padding:20px!important}
+@media (max-width:1024px) {
+ .cover-layout .hero-primary-info {gap:20px 24px;grid-template-columns:1.15fr 1fr}
+ .cover-portrait {padding:24px 28px}.cover-portrait::before {inset:-45px -10px}
+ .cover-portrait img {height:310px}
+ .hero-action-card {grid-template-columns:1fr 1.5fr;gap:20px}
+ .section-block,.trend-main>section {padding:26px!important}
+}
+@media (max-width:768px) {
+ .cover-layout .hero-primary-info {grid-template-columns:1fr;grid-template-areas:'heading' 'portrait' 'introduction' 'highlights';gap:24px}
+ .cover-heading {text-align:center}.applicant-label {margin-inline:auto}.cover-portrait {max-width:320px;margin-block:25px}
+ .candidate-name {font-size:3.7rem!important}.hero-key-pillars {grid-template-columns:1fr!important;margin-top:0!important;gap:20px!important}
+ .hero-action-card {grid-template-columns:1fr!important}.hero-cta-group {grid-template-columns:1fr!important}
+ .editorial-columns {columns:1}.wide-star-case {display:block}.star-fields-grid {grid-template-columns:1fr!important}
+ .grid-2x2,.cards-2x2-grid {grid-template-columns:1fr!important}.grid-2x2>:nth-child(even),.cards-2x2-grid>:nth-child(even) {margin-top:0}
+ .career-entry-card:nth-child(n) .career-spread {padding:0;grid-template-columns:1fr;gap:28px}
+ .career-spread .career-photo {width:92%!important;justify-self:center}
+ .edu-dedicated-card {grid-template-columns:1fr!important}.stage-card:nth-child(2) {margin-top:0}
+ .section-block,.trend-main>section {margin-bottom:36px!important;padding:24px 18px!important}
+ .section-editorial-header>span {display:none}#career>.section-editorial-header::after {display:none}
+ .sec-title-sub {margin-left:0!important}
+}
+@media (max-width:375px) {
+ .mobile-content {padding-inline:16px!important}.mobile-cover {margin-inline:-16px!important;padding-inline:18px!important}
+ .mobile-cover-portrait {width:62%;max-width:190px}.mobile-cover-portrait img {height:190px}
+ .candidate-info-box h1 {font-size:2.5rem!important}.pastel-mobile-scene {padding-inline:4px!important}
+ .mobile-content #career {margin-inline:-16px!important}
+}
+@media print {
+ body {background:#fff!important}.mag-header,.mobile-cover {background:#fff!important}
+ .cover-portrait::before,.cover-portrait::after,.mobile-cover-portrait::after {display:none}
+ .cover-portrait img {height:240px;transform:none}.career-photo {rotate:0deg!important}.mag-btn {display:none!important}
+}
+/* The old utility bars used pale text on dark ink; keep them readable on mist pink. */
+.mag-top-ticker a,.mobile-status-strip .status-dot-badge,.mobile-status-strip .status-dot-badge>span {color:#654753!important}
+.mag-top-ticker a {border-color:#ac8190!important;border-radius:20px!important}
+.status-dot {background:#885365!important}
+body::before {display:none!important}

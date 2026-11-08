@@ -1,0 +1,3201 @@
+[
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "file": "index.html",
+    "width": 320,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "file": "index.html",
+    "width": 375,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "file": "index.html",
+    "width": 390,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious",
+          "tags": [
+            "cat.aria",
+            "wcag2a",
+            "wcag412",
+            "EN-301-549",
+            "EN-9.4.1.2"
+          ],
+          "description": "Ensure ARIA attributes are not prohibited for an element's role",
+          "help": "Elements must only use permitted ARIA attributes",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/aria-prohibited-attr?application=axeAPI",
+          "nodes": [
+            {
+              "any": [],
+              "all": [],
+              "none": [
+                {
+                  "id": "aria-prohibited-attr",
+                  "data": {
+                    "role": null,
+                    "nodeName": "div",
+                    "messageKey": "noRoleSingular",
+                    "prohibited": [
+                      "aria-label"
+                    ]
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "aria-label attribute is not well supported on a div with no valid role attribute."
+                }
+              ],
+              "impact": "serious",
+              "html": "<div class=\"keycap-marquee__viewport\" tabindex=\"0\" aria-label=\"履歷章節導覽，可左右捲動\">",
+              "target": [
+                ".keycap-marquee__viewport"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute is not well supported on a div with no valid role attribute."
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT"
+          ],
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "messageKey": "complexTextShadows"
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's contrast could not be determined because it uses complex text shadows"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<h1 class=\"candidate-name\">黃博詩</h1>",
+              "target": [
+                "h1"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's contrast could not be determined because it uses complex text shadows"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "11.3pt (15.04px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgGradient",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<strong>日系藥妝 6 年歷練（含門市店長管理 3 年）</strong>",
+                      "target": [
+                        ".hero-professional-intro > strong:nth-child(1)"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a background gradient"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>日系藥妝 6 年歷練（含門市店長管理 3 年）</strong>",
+              "target": [
+                ".hero-professional-intro > strong:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "11.3pt (15.04px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgGradient",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<strong>萬能科技大學研讀企業管理系</strong>",
+                      "target": [
+                        ".hero-professional-intro > strong:nth-child(2)"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a background gradient"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>萬能科技大學研讀企業管理系</strong>",
+              "target": [
+                ".hero-professional-intro > strong:nth-child(2)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<figure class=\"career-photo is-visible\" data-career-reveal=\"\">",
+                      "target": [
+                        ".featured-store > .career-spread > .career-photo.is-visible[data-career-reveal=\"\"]"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"https://www.wowonews.com/2019/01/tomods-.html\" target=\"_blank\" rel=\"noopener noreferrer\">TOMOD’S 門市形象｜WoWoNews（2019）</a>",
+              "target": [
+                ".featured-store > .career-spread > .career-photo.is-visible[data-career-reveal=\"\"] > figcaption > a[target=\"_blank\"][rel=\"noopener noreferrer\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<figure class=\"career-photo is-visible\" data-career-reveal=\"\">",
+                      "target": [
+                        ".career-entry-card:nth-child(2) > .career-spread > .career-photo.is-visible[data-career-reveal=\"\"]"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"https://www.zhuxin.com.tw/about/inside-look\" target=\"_blank\" rel=\"noopener noreferrer\">築心動物醫院｜官方院內環境</a>",
+              "target": [
+                ".career-entry-card:nth-child(2) > .career-spread > .career-photo.is-visible[data-career-reveal=\"\"] > figcaption > a[target=\"_blank\"][rel=\"noopener noreferrer\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "file": "index.html",
+    "width": 428,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "file": "index.html",
+    "width": 768,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "file": "index.html",
+    "width": 1024,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "file": "index.html",
+    "width": 1440,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious",
+          "tags": [
+            "cat.aria",
+            "wcag2a",
+            "wcag412",
+            "EN-301-549",
+            "EN-9.4.1.2"
+          ],
+          "description": "Ensure ARIA attributes are not prohibited for an element's role",
+          "help": "Elements must only use permitted ARIA attributes",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/aria-prohibited-attr?application=axeAPI",
+          "nodes": [
+            {
+              "any": [],
+              "all": [],
+              "none": [
+                {
+                  "id": "aria-prohibited-attr",
+                  "data": {
+                    "role": null,
+                    "nodeName": "div",
+                    "messageKey": "noRoleSingular",
+                    "prohibited": [
+                      "aria-label"
+                    ]
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "aria-label attribute is not well supported on a div with no valid role attribute."
+                }
+              ],
+              "impact": "serious",
+              "html": "<div class=\"keycap-marquee__viewport\" tabindex=\"0\" aria-label=\"履歷章節導覽，可左右捲動\">",
+              "target": [
+                ".keycap-marquee__viewport"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute is not well supported on a div with no valid role attribute."
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT"
+          ],
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "messageKey": "complexTextShadows"
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's contrast could not be determined because it uses complex text shadows"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<h1 class=\"candidate-name\">黃博詩</h1>",
+              "target": [
+                "h1"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's contrast could not be determined because it uses complex text shadows"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "11.3pt (15.04px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgGradient",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<strong>日系藥妝 6 年歷練（含門市店長管理 3 年）</strong>",
+                      "target": [
+                        ".hero-professional-intro > strong:nth-child(1)"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a background gradient"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>日系藥妝 6 年歷練（含門市店長管理 3 年）</strong>",
+              "target": [
+                ".hero-professional-intro > strong:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "11.3pt (15.04px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgGradient",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<strong>萬能科技大學研讀企業管理系</strong>",
+                      "target": [
+                        ".hero-professional-intro > strong:nth-child(2)"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a background gradient"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>萬能科技大學研讀企業管理系</strong>",
+              "target": [
+                ".hero-professional-intro > strong:nth-child(2)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "12.0pt (16px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"section-editorial-header\">",
+                      "target": [
+                        "#career > .section-editorial-header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"sec-number\">04</span>",
+              "target": [
+                "#career > .section-editorial-header > .sec-title-wrap > .sec-number"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "22.7pt (30.24px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "3:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"section-editorial-header\">",
+                      "target": [
+                        "#career > .section-editorial-header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<h2 class=\"sec-title-main\">工作經歷</h2>",
+              "target": [
+                "#career > .section-editorial-header > .sec-title-wrap > h2"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.0pt (10.72px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"section-editorial-header\">",
+                      "target": [
+                        "#career > .section-editorial-header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"sec-title-sub\">WORK EXPERIENCE</span>",
+              "target": [
+                "#career > .section-editorial-header > .sec-title-wrap > .sec-title-sub"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.0pt (12px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"section-editorial-header\">",
+                      "target": [
+                        "#career > .section-editorial-header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);\">工作經歷與主要職責</span>",
+              "target": [
+                "#career > .section-editorial-header > span"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<figure class=\"career-photo is-visible\" data-career-reveal=\"\">",
+                      "target": [
+                        ".featured-store > .career-spread > .career-photo.is-visible[data-career-reveal=\"\"]"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"https://www.wowonews.com/2019/01/tomods-.html\" target=\"_blank\" rel=\"noopener noreferrer\">TOMOD’S 門市形象｜WoWoNews（2019）</a>",
+              "target": [
+                ".featured-store > .career-spread > .career-photo.is-visible[data-career-reveal=\"\"] > figcaption > a[target=\"_blank\"][rel=\"noopener noreferrer\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<figure class=\"career-photo is-visible\" data-career-reveal=\"\">",
+                      "target": [
+                        ".career-entry-card:nth-child(2) > .career-spread > .career-photo.is-visible[data-career-reveal=\"\"]"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"https://www.zhuxin.com.tw/about/inside-look\" target=\"_blank\" rel=\"noopener noreferrer\">築心動物醫院｜官方院內環境</a>",
+              "target": [
+                ".career-entry-card:nth-child(2) > .career-spread > .career-photo.is-visible[data-career-reveal=\"\"] > figcaption > a[target=\"_blank\"][rel=\"noopener noreferrer\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "file": "index.html",
+    "width": 1920,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "contact.html",
+    "width": 320,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "contact.html",
+    "width": 375,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "contact.html",
+    "width": 390,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT"
+          ],
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "7.0pt (9.28px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"photo-frame\">\n              <img decoding=\"async\" fetchpriority=\"high\" width=\"813\" height=\"896\" src=\"profile.jpg\" alt=\"黃博詩 (HUANG BO-SHIH)\">\n              <div class=\"photo-watermark-tag\">CANDIDATE PORTFOLIO ✦ 2026</div>\n            </div>",
+                      "target": [
+                        ".photo-frame"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"photo-watermark-tag\">CANDIDATE PORTFOLIO ✦ 2026</div>",
+              "target": [
+                ".photo-watermark-tag"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "contact.html",
+    "width": 428,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "contact.html",
+    "width": 768,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "contact.html",
+    "width": 1024,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "contact.html",
+    "width": 1440,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT"
+          ],
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "7.0pt (9.28px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"photo-frame\">\n              <img decoding=\"async\" fetchpriority=\"high\" width=\"813\" height=\"896\" src=\"profile.jpg\" alt=\"黃博詩 (HUANG BO-SHIH)\">\n              <div class=\"photo-watermark-tag\">CANDIDATE PORTFOLIO ✦ 2026</div>\n            </div>",
+                      "target": [
+                        ".photo-frame"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"photo-watermark-tag\">CANDIDATE PORTFOLIO ✦ 2026</div>",
+              "target": [
+                ".photo-watermark-tag"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "contact.html",
+    "width": 1920,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "trend.html",
+    "width": 320,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "trend.html",
+    "width": 375,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "trend.html",
+    "width": 390,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious",
+          "tags": [
+            "cat.aria",
+            "wcag2a",
+            "wcag412",
+            "EN-301-549",
+            "EN-9.4.1.2"
+          ],
+          "description": "Ensure ARIA attributes are not prohibited for an element's role",
+          "help": "Elements must only use permitted ARIA attributes",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/aria-prohibited-attr?application=axeAPI",
+          "nodes": [
+            {
+              "any": [],
+              "all": [],
+              "none": [
+                {
+                  "id": "aria-prohibited-attr",
+                  "data": {
+                    "role": null,
+                    "nodeName": "div",
+                    "messageKey": "noRoleSingular",
+                    "prohibited": [
+                      "aria-label"
+                    ]
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "aria-label attribute is not well supported on a div with no valid role attribute."
+                }
+              ],
+              "impact": "serious",
+              "html": "<div class=\"keycap-marquee__viewport\" tabindex=\"0\" aria-label=\"章節快速導覽，可左右捲動\">",
+              "target": [
+                ".keycap-marquee__viewport"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute is not well supported on a div with no valid role attribute."
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT"
+          ],
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "13.8pt (18.4px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"logo-jp\">個人作品集</span>",
+              "target": [
+                ".logo-jp"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"logo-en\">\n            個人通路研究<span style=\"font-family: var(--font-mono); font-size: 0.55rem; color: var(--mk-yellow); letter-spacing: 0.2em;\">REPORT</span>\n          </span>",
+              "target": [
+                ".logo-en"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "6.6pt (8.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-family: var(--font-mono); font-size: 0.55rem; color: var(--mk-yellow); letter-spacing: 0.2em;\">REPORT</span>",
+              "target": [
+                ".logo-en > span"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.2pt (13.6px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"index.html\" class=\"nav-btn-mk\">\n            <svg width=\"15\" height=\"15\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M10 19l-7-7m0 0l7-7m-7 7h18\"></path></svg>\n            返回作品集首頁\n          </a>",
+              "target": [
+                ".masthead-row > div > .nav-btn-mk[href=\"index.html\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.2pt (13.6px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"contact.html\" class=\"nav-btn-mk btn-accent\">",
+              "target": [
+                ".masthead-row > div > .btn-accent.nav-btn-mk[href$=\"contact.html\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"badge-report\">專題研究 ✦ 實體通路趨勢</span>",
+              "target": [
+                ".badge-report"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.1pt (12.16px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"badge-candidate\">研究整理：黃博詩 (HUANG BO-SHIH) ｜ 志願應徵：台灣松本清 區域營運經理 ｜ 萬能科技大學 企業管理系 研讀中（2026.10 入學 ｜ 預計 2030.06 畢業）</span>",
+              "target": [
+                ".badge-candidate"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "28.8pt (38.4px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "3:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"report-heading-topic\">實體通路趨勢研究：</span>",
+              "target": [
+                ".report-heading-topic"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "28.8pt (38.4px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "3:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"report-heading-subject\">美妝實體通路未來發展</span>",
+              "target": [
+                ".report-heading-subject"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "15.0pt (19.968px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "3:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-size: 0.75em; color: var(--mk-navy-soft);\">優勢延續發揮 × 劣勢適應改善之實戰經營策略</span>",
+              "target": [
+                "h1 > span:nth-child(4)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "11.5pt (15.36px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"report-title-jp\">ビューティー実店舗の未来戦略 ｜ 強みと弱みの分析と店舗オペレーション革新</span>",
+              "target": [
+                ".report-title-jp"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "11.8pt (15.68px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>研究核心結論：</strong>",
+              "target": [
+                ".report-lead-quote > strong:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "11.8pt (15.68px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>「品牌信任錨點、五感體驗中心與全通路 OMO 服務履約樞紐」</strong>",
+              "target": [
+                ".report-lead-quote > strong:nth-child(2)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "24.0pt (32px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "3:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-family: var(--font-display); font-size: 2rem; font-weight: 900; color: var(--mk-navy); line-height: 1; display: block;\">47.7%</span>",
+              "target": [
+                ".category-study > div:nth-child(2) > div:nth-child(1) > div > span:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "8.9pt (11.84px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-family: var(--font-sans); font-size: 0.74rem; font-weight: 800; color: var(--mk-navy);\">個人清潔化粧保養</span>",
+              "target": [
+                ".category-study > div:nth-child(2) > div:nth-child(1) > div > span:nth-child(2)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "7.8pt (10.4px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"display: block; font-family: var(--font-mono); font-size: 0.65rem; color: var(--mk-red); font-weight: 700;\">第 1 大主力品類</span>",
+              "target": [
+                ".category-study > div:nth-child(2) > div:nth-child(1) > div > span:nth-child(3)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "trend.html",
+    "width": 428,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "trend.html",
+    "width": 768,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "trend.html",
+    "width": 1024,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "trend.html",
+    "width": 1440,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious",
+          "tags": [
+            "cat.aria",
+            "wcag2a",
+            "wcag412",
+            "EN-301-549",
+            "EN-9.4.1.2"
+          ],
+          "description": "Ensure ARIA attributes are not prohibited for an element's role",
+          "help": "Elements must only use permitted ARIA attributes",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/aria-prohibited-attr?application=axeAPI",
+          "nodes": [
+            {
+              "any": [],
+              "all": [],
+              "none": [
+                {
+                  "id": "aria-prohibited-attr",
+                  "data": {
+                    "role": null,
+                    "nodeName": "div",
+                    "messageKey": "noRoleSingular",
+                    "prohibited": [
+                      "aria-label"
+                    ]
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "aria-label attribute is not well supported on a div with no valid role attribute."
+                }
+              ],
+              "impact": "serious",
+              "html": "<div class=\"keycap-marquee__viewport\" tabindex=\"0\" aria-label=\"章節快速導覽，可左右捲動\">",
+              "target": [
+                ".keycap-marquee__viewport"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute is not well supported on a div with no valid role attribute."
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT"
+          ],
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "13.8pt (18.4px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"logo-jp\">個人作品集</span>",
+              "target": [
+                ".logo-jp"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.8pt (13.12px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"logo-en\">\n            個人通路研究<span style=\"font-family: var(--font-mono); font-size: 0.55rem; color: var(--mk-yellow); letter-spacing: 0.2em;\">REPORT</span>\n          </span>",
+              "target": [
+                ".logo-en"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "6.6pt (8.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-family: var(--font-mono); font-size: 0.55rem; color: var(--mk-yellow); letter-spacing: 0.2em;\">REPORT</span>",
+              "target": [
+                ".logo-en > span"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.2pt (13.6px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"index.html\" class=\"nav-btn-mk\">\n            <svg width=\"15\" height=\"15\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M10 19l-7-7m0 0l7-7m-7 7h18\"></path></svg>\n            返回作品集首頁\n          </a>",
+              "target": [
+                ".masthead-row > div > .nav-btn-mk[href=\"index.html\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "10.2pt (13.6px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"contact.html\" class=\"nav-btn-mk btn-accent\">",
+              "target": [
+                ".masthead-row > div > .btn-accent.nav-btn-mk[href$=\"contact.html\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"badge-report\">專題研究 ✦ 實體通路趨勢</span>",
+              "target": [
+                ".badge-report"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "9.1pt (12.16px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"badge-candidate\">研究整理：黃博詩 (HUANG BO-SHIH) ｜ 志願應徵：台灣松本清 區域營運經理 ｜ 萬能科技大學 企業管理系 研讀中（2026.10 入學 ｜ 預計 2030.06 畢業）</span>",
+              "target": [
+                ".badge-candidate"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "45.4pt (60.48px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "3:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"report-heading-topic\">實體通路趨勢研究：</span>",
+              "target": [
+                ".report-heading-topic"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "45.4pt (60.48px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "3:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"report-heading-subject\">美妝實體通路未來發展</span>",
+              "target": [
+                ".report-heading-subject"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "23.6pt (31.4496px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "3:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-size: 0.75em; color: var(--mk-navy-soft);\">優勢延續發揮 × 劣勢適應改善之實戰經營策略</span>",
+              "target": [
+                "h1 > span:nth-child(4)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "11.5pt (15.36px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"report-title-jp\">ビューティー実店舗の未来戦略 ｜ 強みと弱みの分析と店舗オペレーション革新</span>",
+              "target": [
+                ".report-title-jp"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "11.8pt (15.68px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"report-lead-quote\">\n          <strong>研究核心結論：</strong> 實體門市在數位化浪潮中並非被動承受衝擊，其定位已從單純「商品交易終點」，轉型為<strong>「品牌信任錨點、五感體驗中心與全通路 OMO 服務履約樞紐」</strong>。唯有在門市端放大親自試用與人際諮詢價值，在流程端落實標準化管理與雙向帶訓，實體通路方能在成本壓力與電商比價中有助形成實體門市之差異化競爭優勢。\n        </div>",
+              "target": [
+                ".report-lead-quote"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "11.8pt (15.68px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>研究核心結論：</strong>",
+              "target": [
+                ".report-lead-quote > strong:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "11.8pt (15.68px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<header class=\"mag-header\">",
+                      "target": [
+                        "header"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<strong>「品牌信任錨點、五感體驗中心與全通路 OMO 服務履約樞紐」</strong>",
+              "target": [
+                ".report-lead-quote > strong:nth-child(2)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "24.0pt (32px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "3:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-family: var(--font-display); font-size: 2rem; font-weight: 900; color: var(--mk-navy); line-height: 1; display: block;\">47.7%</span>",
+              "target": [
+                ".category-study > div:nth-child(2) > div:nth-child(1) > div > span:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "8.9pt (11.84px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-family: var(--font-sans); font-size: 0.74rem; font-weight: 800; color: var(--mk-navy);\">個人清潔化粧保養</span>",
+              "target": [
+                ".category-study > div:nth-child(2) > div:nth-child(1) > div > span:nth-child(2)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "7.8pt (10.4px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"display: block; font-family: var(--font-mono); font-size: 0.65rem; color: var(--mk-red); font-weight: 700;\">第 1 大主力品類</span>",
+              "target": [
+                ".category-study > div:nth-child(2) > div:nth-child(1) > div > span:nth-child(3)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "trend.html",
+    "width": 1920,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "file": "mobile.html",
+    "width": 320,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "file": "mobile.html",
+    "width": 375,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "file": "mobile.html",
+    "width": 390,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious",
+          "tags": [
+            "cat.aria",
+            "wcag2a",
+            "wcag412",
+            "EN-301-549",
+            "EN-9.4.1.2"
+          ],
+          "description": "Ensure ARIA attributes are not prohibited for an element's role",
+          "help": "Elements must only use permitted ARIA attributes",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/aria-prohibited-attr?application=axeAPI",
+          "nodes": [
+            {
+              "any": [],
+              "all": [],
+              "none": [
+                {
+                  "id": "aria-prohibited-attr",
+                  "data": {
+                    "role": null,
+                    "nodeName": "div",
+                    "messageKey": "noRoleSingular",
+                    "prohibited": [
+                      "aria-label"
+                    ]
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "aria-label attribute is not well supported on a div with no valid role attribute."
+                }
+              ],
+              "impact": "serious",
+              "html": "<div class=\"keycap-marquee__viewport\" tabindex=\"0\" aria-label=\"章節導覽，可左右捲動\">",
+              "target": [
+                ".keycap-marquee__viewport"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute is not well supported on a div with no valid role attribute."
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT"
+          ],
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.2pt (10.88px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"candidate-head-grid pastel-mobile-scene\">",
+                      "target": [
+                        ".candidate-head-grid"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-family: var(--font-mono); font-size: 0.68rem; color: var(--mk-red); font-weight: 800; display: block;\">APPLICANT PROFILE</span>",
+              "target": [
+                ".candidate-info-box > span:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "33.6pt (44.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "3:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"candidate-head-grid pastel-mobile-scene\">",
+                      "target": [
+                        ".candidate-head-grid"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<h1>黃博詩</h1>",
+              "target": [
+                "h1"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.2pt (10.88px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"candidate-head-grid pastel-mobile-scene\">",
+                      "target": [
+                        ".candidate-head-grid"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"en-name\">HUANG BO-SHIH (コウ・ハクシ)</span>",
+              "target": [
+                ".en-name"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.9pt (11.84px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"candidate-head-grid pastel-mobile-scene\">",
+                      "target": [
+                        ".candidate-head-grid"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"role-pill\">志願應徵：區域營運經理</span>",
+              "target": [
+                ".role-pill"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<figure class=\"career-photo is-visible\" data-career-reveal=\"\">",
+                      "target": [
+                        ".featured > .career-spread > .career-photo.is-visible[data-career-reveal=\"\"]"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"https://www.wowonews.com/2019/01/tomods-.html\" target=\"_blank\" rel=\"noopener noreferrer\">TOMOD’S 門市形象｜WoWoNews（2019）</a>",
+              "target": [
+                ".featured > .career-spread > .career-photo.is-visible[data-career-reveal=\"\"] > figcaption > a[target=\"_blank\"][rel=\"noopener noreferrer\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<figure class=\"career-photo is-visible\" data-career-reveal=\"\">",
+                      "target": [
+                        "article:nth-child(3) > .career-spread > .career-photo.is-visible[data-career-reveal=\"\"]"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"https://www.zhuxin.com.tw/about/inside-look\" target=\"_blank\" rel=\"noopener noreferrer\">築心動物醫院｜官方院內環境</a>",
+              "target": [
+                "article:nth-child(3) > .career-spread > .career-photo.is-visible[data-career-reveal=\"\"] > figcaption > a[target=\"_blank\"][rel=\"noopener noreferrer\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "file": "mobile.html",
+    "width": 428,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "file": "mobile.html",
+    "width": 768,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "file": "mobile.html",
+    "width": 1024,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "file": "mobile.html",
+    "width": 1440,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious",
+          "tags": [
+            "cat.aria",
+            "wcag2a",
+            "wcag412",
+            "EN-301-549",
+            "EN-9.4.1.2"
+          ],
+          "description": "Ensure ARIA attributes are not prohibited for an element's role",
+          "help": "Elements must only use permitted ARIA attributes",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/aria-prohibited-attr?application=axeAPI",
+          "nodes": [
+            {
+              "any": [],
+              "all": [],
+              "none": [
+                {
+                  "id": "aria-prohibited-attr",
+                  "data": {
+                    "role": null,
+                    "nodeName": "div",
+                    "messageKey": "noRoleSingular",
+                    "prohibited": [
+                      "aria-label"
+                    ]
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "aria-label attribute is not well supported on a div with no valid role attribute."
+                }
+              ],
+              "impact": "serious",
+              "html": "<div class=\"keycap-marquee__viewport\" tabindex=\"0\" aria-label=\"章節導覽，可左右捲動\">",
+              "target": [
+                ".keycap-marquee__viewport"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute is not well supported on a div with no valid role attribute."
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT"
+          ],
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.2pt (10.88px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"candidate-head-grid pastel-mobile-scene\">",
+                      "target": [
+                        ".candidate-head-grid"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-family: var(--font-mono); font-size: 0.68rem; color: var(--mk-red); font-weight: 800; display: block;\">APPLICANT PROFILE</span>",
+              "target": [
+                ".candidate-info-box > span:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "33.6pt (44.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "3:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"candidate-head-grid pastel-mobile-scene\">",
+                      "target": [
+                        ".candidate-head-grid"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<h1>黃博詩</h1>",
+              "target": [
+                "h1"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.2pt (10.88px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"candidate-head-grid pastel-mobile-scene\">",
+                      "target": [
+                        ".candidate-head-grid"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"en-name\">HUANG BO-SHIH (コウ・ハクシ)</span>",
+              "target": [
+                ".en-name"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.9pt (11.84px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"candidate-head-grid pastel-mobile-scene\">",
+                      "target": [
+                        ".candidate-head-grid"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span class=\"role-pill\">志願應徵：區域營運經理</span>",
+              "target": [
+                ".role-pill"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<figure class=\"career-photo is-visible\" data-career-reveal=\"\">",
+                      "target": [
+                        ".featured > .career-spread > .career-photo.is-visible[data-career-reveal=\"\"]"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"https://www.wowonews.com/2019/01/tomods-.html\" target=\"_blank\" rel=\"noopener noreferrer\">TOMOD’S 門市形象｜WoWoNews（2019）</a>",
+              "target": [
+                ".featured > .career-spread > .career-photo.is-visible[data-career-reveal=\"\"] > figcaption > a[target=\"_blank\"][rel=\"noopener noreferrer\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "normal",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<figcaption class=\"career-photo__credit\">圖片來源：<a href=\"https://www.zhuxin.com.tw/about/inside-look\" target=\"_blank\" rel=\"noopener noreferrer\">築心動物醫院｜官方院內環境</a>（僅作課堂履歷展示，非本人工作照片）</figcaption>",
+              "target": [
+                "article:nth-child(3) > .career-spread > .career-photo.is-visible[data-career-reveal=\"\"] > figcaption"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "normal",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<figure class=\"career-photo is-visible\" data-career-reveal=\"\">",
+                      "target": [
+                        "article:nth-child(3) > .career-spread > .career-photo.is-visible[data-career-reveal=\"\"]"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<a href=\"https://www.zhuxin.com.tw/about/inside-look\" target=\"_blank\" rel=\"noopener noreferrer\">築心動物醫院｜官方院內環境</a>",
+              "target": [
+                "article:nth-child(3) > .career-spread > .career-photo.is-visible[data-career-reveal=\"\"] > figcaption > a[target=\"_blank\"][rel=\"noopener noreferrer\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [
+      "https://3.bp.blogspot.com/-WmbzDsTtO28/XDSUXChB3HI/AAAAAAADcIo/dItqFhcqpnoeshQ6CKgioXpMwFuvTPTIwCLcBGAs/s1600/%25E7%2589%25B9%25E5%2588%25A5%25E4%25BB%2595%25E6%25A8%25A3%25E5%25BA%2597%25E5%25BD%25A9%25E5%25A6%259D%25E5%2595%2586%25E5%2593%2581%25E5%258D%2580%25E7%2589%25B9%25E4%25BB%25A5%25E7%25B0%25A1%25E7%25B4%2584%25E9%25BB%2591%25E9%25A2%25A8%25E6%25A0%25BC%25E8%25A3%259D%25E6%25BD%25A2%25EF%25BC%258C%25E8%25AE%2593%25E5%25A6%25B3%25E6%2584%259F%25E5%258F%2597%25E8%2588%2587%25E9%2581%258E%25E5%258E%25BB%25E4%25B8%258D%25E5%2590%258C%25E7%259A%2584Tomod%25E2%2580%2599s.JPG",
+      "https://www.zhuxin.com.tw/proimage/images/1696680526.jpg",
+      "https://i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg"
+    ],
+    "file": "mobile.html",
+    "width": 1920,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "mobile-contact.html",
+    "width": 320,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "mobile-contact.html",
+    "width": 375,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "mobile-contact.html",
+    "width": 390,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT"
+          ],
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "7.0pt (9.28px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"photo-frame\">\n        <img decoding=\"async\" fetchpriority=\"high\" width=\"813\" height=\"896\" src=\"profile.jpg\" alt=\"黃博詩\">\n        <div class=\"photo-watermark-tag\">CANDIDATE PORTFOLIO ✦ 2026</div>\n      </div>",
+                      "target": [
+                        ".photo-frame"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"photo-watermark-tag\">CANDIDATE PORTFOLIO ✦ 2026</div>",
+              "target": [
+                ".photo-watermark-tag"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "mobile-contact.html",
+    "width": 428,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "mobile-contact.html",
+    "width": 768,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "mobile-contact.html",
+    "width": 1024,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "mobile-contact.html",
+    "width": 1440,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT"
+          ],
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fontSize": "7.0pt (9.28px)",
+                    "fontWeight": "bold",
+                    "messageKey": "pseudoContent",
+                    "expectedContrastRatio": "4.5:1"
+                  },
+                  "relatedNodes": [
+                    {
+                      "html": "<div class=\"photo-frame\">\n        <img decoding=\"async\" fetchpriority=\"high\" width=\"813\" height=\"896\" src=\"profile.jpg\" alt=\"黃博詩\">\n        <div class=\"photo-watermark-tag\">CANDIDATE PORTFOLIO ✦ 2026</div>\n      </div>",
+                      "target": [
+                        ".photo-frame"
+                      ]
+                    }
+                  ],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined due to a pseudo element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<div class=\"photo-watermark-tag\">CANDIDATE PORTFOLIO ✦ 2026</div>",
+              "target": [
+                ".photo-watermark-tag"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "mobile-contact.html",
+    "width": 1920,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "mobile-trend.html",
+    "width": 320,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "mobile-trend.html",
+    "width": 375,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "mobile-trend.html",
+    "width": 390,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious",
+          "tags": [
+            "cat.aria",
+            "wcag2a",
+            "wcag412",
+            "EN-301-549",
+            "EN-9.4.1.2"
+          ],
+          "description": "Ensure ARIA attributes are not prohibited for an element's role",
+          "help": "Elements must only use permitted ARIA attributes",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/aria-prohibited-attr?application=axeAPI",
+          "nodes": [
+            {
+              "any": [],
+              "all": [],
+              "none": [
+                {
+                  "id": "aria-prohibited-attr",
+                  "data": {
+                    "role": null,
+                    "nodeName": "div",
+                    "messageKey": "noRoleSingular",
+                    "prohibited": [
+                      "aria-label"
+                    ]
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "aria-label attribute is not well supported on a div with no valid role attribute."
+                }
+              ],
+              "impact": "serious",
+              "html": "<div class=\"keycap-marquee__viewport\" tabindex=\"0\" aria-label=\"章節導覽，可左右捲動\">",
+              "target": [
+                ".keycap-marquee__viewport"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute is not well supported on a div with no valid role attribute."
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT"
+          ],
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "21.6pt (28.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "3:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-family: var(--font-display); font-size: 1.8rem; font-weight: 900; color: var(--mk-navy); line-height: 1; display: block;\">47.7%</span>",
+              "target": [
+                ".category-study > div:nth-child(3) > div > span:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-size: 0.72rem; font-weight: 800; color: var(--mk-navy);\">個人清潔化粧保養</span>",
+              "target": [
+                ".category-study > div:nth-child(3) > div > span:nth-child(2)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "7.4pt (9.92px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"display: block; font-family: var(--font-mono); font-size: 0.62rem; color: var(--mk-red); font-weight: 700;\">第 1 大主力品類</span>",
+              "target": [
+                "div:nth-child(3) > div > span:nth-child(3)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "mobile-trend.html",
+    "width": 428,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "mobile-trend.html",
+    "width": 768,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "mobile-trend.html",
+    "width": 1024,
+    "errors": []
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "mobile-trend.html",
+    "width": 1440,
+    "errors": [],
+    "axe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious",
+          "tags": [
+            "cat.aria",
+            "wcag2a",
+            "wcag412",
+            "EN-301-549",
+            "EN-9.4.1.2"
+          ],
+          "description": "Ensure ARIA attributes are not prohibited for an element's role",
+          "help": "Elements must only use permitted ARIA attributes",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/aria-prohibited-attr?application=axeAPI",
+          "nodes": [
+            {
+              "any": [],
+              "all": [],
+              "none": [
+                {
+                  "id": "aria-prohibited-attr",
+                  "data": {
+                    "role": null,
+                    "nodeName": "div",
+                    "messageKey": "noRoleSingular",
+                    "prohibited": [
+                      "aria-label"
+                    ]
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "aria-label attribute is not well supported on a div with no valid role attribute."
+                }
+              ],
+              "impact": "serious",
+              "html": "<div class=\"keycap-marquee__viewport\" tabindex=\"0\" aria-label=\"章節導覽，可左右捲動\">",
+              "target": [
+                ".keycap-marquee__viewport"
+              ],
+              "failureSummary": "Fix all of the following:\n  aria-label attribute is not well supported on a div with no valid role attribute."
+            }
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT"
+          ],
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "21.6pt (28.8px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "3:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-family: var(--font-display); font-size: 1.8rem; font-weight: 900; color: var(--mk-navy); line-height: 1; display: block;\">47.7%</span>",
+              "target": [
+                ".category-study > div:nth-child(3) > div > span:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "8.6pt (11.52px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"font-size: 0.72rem; font-weight: 800; color: var(--mk-navy);\">個人清潔化粧保養</span>",
+              "target": [
+                ".category-study > div:nth-child(3) > div > span:nth-child(2)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "any": [
+                {
+                  "id": "color-contrast",
+                  "data": {
+                    "fgColor": null,
+                    "bgColor": null,
+                    "contrastRatio": 0,
+                    "fontSize": "7.4pt (9.92px)",
+                    "fontWeight": "bold",
+                    "messageKey": "bgOverlap",
+                    "expectedContrastRatio": "4.5:1",
+                    "shadowColor": null
+                  },
+                  "relatedNodes": [],
+                  "impact": "serious",
+                  "message": "Element's background color could not be determined because it is overlapped by another element"
+                }
+              ],
+              "all": [],
+              "none": [],
+              "impact": "serious",
+              "html": "<span style=\"display: block; font-family: var(--font-mono); font-size: 0.62rem; color: var(--mk-red); font-weight: 700;\">第 1 大主力品類</span>",
+              "target": [
+                "div:nth-child(3) > div > span:nth-child(3)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "overflow": false,
+    "brokenImages": [],
+    "externalImagesNotChecked": [],
+    "file": "mobile-trend.html",
+    "width": 1920,
+    "errors": []
+  }
+]

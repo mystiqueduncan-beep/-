@@ -1,0 +1,181 @@
+{
+  "desktop": {
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "version": "12.8.2",
+    "fetchTime": "2026-11-08T13:06:31.698Z",
+    "findings": [
+      {
+        "id": "uses-long-cache-ttl",
+        "title": "Serve static assets with an efficient cache policy",
+        "value": "18 resources found"
+      },
+      {
+        "id": "render-blocking-resources",
+        "title": "Eliminate render-blocking resources",
+        "value": "Est savings of 70 ms"
+      },
+      {
+        "id": "unminified-css",
+        "title": "Minify CSS",
+        "value": "Est savings of 19 KiB"
+      },
+      {
+        "id": "unused-css-rules",
+        "title": "Reduce unused CSS",
+        "value": "Est savings of 33 KiB"
+      },
+      {
+        "id": "modern-image-formats",
+        "title": "Serve images in next-gen formats",
+        "value": "Est savings of 45 KiB"
+      },
+      {
+        "id": "uses-text-compression",
+        "title": "Enable text compression",
+        "value": "Est savings of 129 KiB"
+      },
+      {
+        "id": "uses-responsive-images",
+        "title": "Properly size images",
+        "value": "Est savings of 65 KiB"
+      },
+      {
+        "id": "cache-insight",
+        "title": "Use efficient cache lifetimes",
+        "value": "Est savings of 270 KiB"
+      },
+      {
+        "id": "document-latency-insight",
+        "title": "Document request latency",
+        "value": "Est savings of 56 KiB"
+      },
+      {
+        "id": "image-delivery-insight",
+        "title": "Improve image delivery",
+        "value": "Est savings of 62 KiB"
+      },
+      {
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "value": null
+      },
+      {
+        "id": "render-blocking-insight",
+        "title": "Render blocking requests",
+        "value": "Est savings of 110 ms"
+      }
+    ]
+  },
+  "mobile": {
+    "scores": {
+      "performance": 97,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 69
+    },
+    "version": "12.8.2",
+    "fetchTime": "2026-11-08T13:06:46.456Z",
+    "findings": [
+      {
+        "id": "first-contentful-paint",
+        "title": "First Contentful Paint",
+        "value": "1.8 s"
+      },
+      {
+        "id": "largest-contentful-paint",
+        "title": "Largest Contentful Paint",
+        "value": "2.4 s"
+      },
+      {
+        "id": "interactive",
+        "title": "Time to Interactive",
+        "value": "2.4 s"
+      },
+      {
+        "id": "mainthread-work-breakdown",
+        "title": "Minimize main-thread work",
+        "value": "2.1 s"
+      },
+      {
+        "id": "prioritize-lcp-image",
+        "title": "Preload Largest Contentful Paint image",
+        "value": "Est savings of 150 ms"
+      },
+      {
+        "id": "uses-long-cache-ttl",
+        "title": "Serve static assets with an efficient cache policy",
+        "value": "16 resources found"
+      },
+      {
+        "id": "render-blocking-resources",
+        "title": "Eliminate render-blocking resources",
+        "value": "Est savings of 680 ms"
+      },
+      {
+        "id": "unminified-css",
+        "title": "Minify CSS",
+        "value": "Est savings of 13 KiB"
+      },
+      {
+        "id": "unused-css-rules",
+        "title": "Reduce unused CSS",
+        "value": "Est savings of 45 KiB"
+      },
+      {
+        "id": "modern-image-formats",
+        "title": "Serve images in next-gen formats",
+        "value": "Est savings of 45 KiB"
+      },
+      {
+        "id": "uses-text-compression",
+        "title": "Enable text compression",
+        "value": "Est savings of 117 KiB"
+      },
+      {
+        "id": "uses-responsive-images",
+        "title": "Properly size images",
+        "value": "Est savings of 63 KiB"
+      },
+      {
+        "id": "is-crawlable",
+        "title": "Page is blocked from indexing",
+        "value": null
+      },
+      {
+        "id": "cache-insight",
+        "title": "Use efficient cache lifetimes",
+        "value": "Est savings of 264 KiB"
+      },
+      {
+        "id": "document-latency-insight",
+        "title": "Document request latency",
+        "value": "Est savings of 47 KiB"
+      },
+      {
+        "id": "image-delivery-insight",
+        "title": "Improve image delivery",
+        "value": "Est savings of 71 KiB"
+      },
+      {
+        "id": "lcp-discovery-insight",
+        "title": "LCP request discovery",
+        "value": null
+      },
+      {
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "value": null
+      },
+      {
+        "id": "render-blocking-insight",
+        "title": "Render blocking requests",
+        "value": "Est savings of 820 ms"
+      }
+    ]
+  }
+}
