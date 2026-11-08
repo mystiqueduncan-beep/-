@@ -56,6 +56,7 @@ function makeHarness(options = {}) {
   const originals = [link("#motivation"), link("#career")];
   let cloned = null;
   const original = {
+    scrollWidth: options.groupWidth || 1100,
     getBoundingClientRect() { return { width: 700 }; },
     cloneNode() {
       cloned = {
@@ -79,12 +80,14 @@ function makeHarness(options = {}) {
     appendChild() {}
   };
   const viewport = {
+    clientWidth: options.viewportWidth || 760,
     scrollLeft: 0,
     events: new Map(),
     addEventListener(name, callback) { this.events.set(name, callback); }
   };
   const createdElements = [];
   const nav = {
+    closest(selector) { return selector === ".home-keycap-strip" && options.isHomepage ? this : null; },
     appendChild(node) { createdElements.push(node); },
     contains(node) { return originals.includes(node); },
     classList: classes(),
@@ -305,4 +308,25 @@ test("gracefully handles missing DOM elements or media query API", () => {
     errored = true;
   }
   assert.equal(errored, false, "should not throw when nav element is missing");
+});
+
+test("homepage keeps only the six original links and shuttles without a duplicate group", () => {
+  const h = makeHarness({ isHomepage: true, groupWidth: 1100, viewportWidth: 760 });
+  assert.equal(h.getClone(), null, "homepage must not clone the chapter keys");
+  assert.equal(h.nav.classList.contains("is-enhanced"), true);
+  assert.equal(h.nav.classList.contains("is-home-animated"), true);
+  assert.equal(h.belt.style.getProperty("--keycap-home-offset"), "-340px");
+  assert.match(css, /@keyframes home-keycap-shuttle/);
+});
+
+test("homepage handles reduced motion and fitting widths without a clone", () => {
+  const h = makeHarness({ isHomepage: true, groupWidth: 650, viewportWidth: 760, prefersReducedMotion: true });
+  assert.equal(h.getClone(), null);
+  assert.equal(h.nav.classList.contains("is-enhanced"), false);
+  h.playback.matches = true;
+  h.mediaEvents.get("change")();
+  assert.equal(h.getClone(), null);
+  assert.equal(h.nav.classList.contains("is-enhanced"), true);
+  assert.equal(h.nav.classList.contains("is-home-animated"), false);
+  assert.equal(h.belt.style.getProperty("--keycap-home-offset"), "-0px");
 });
