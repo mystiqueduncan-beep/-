@@ -151,11 +151,11 @@ for rel in ('index.html','mobile.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
  figures=re.findall(r'<figure class="career-photo"[^>]*>(.*?)</figure>',html,re.S)
  career=html.split('id="career"',1)[1].split('</section>',1)[0]
- if figures or re.search(r'<img\\b',career) or re.search(r'<img\\b',html):
+ if figures or re.search(r'<img\b',career) or re.search(r'<img\b',html):
   errors.append(rel+': homepage must be photo-free')
 for rel in ('contact.html','mobile-contact.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
- if len(re.findall(r'<img\\b',html))!=1 or 'src="contact-portrait.webp"' not in html:
+ if len(re.findall(r'<img\b',html))!=1 or 'src="contact-portrait.webp"' not in html:
   errors.append(rel+': contact photo mismatch')
 for rel in ('index.html','mobile.html','trend.html','mobile-trend.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
