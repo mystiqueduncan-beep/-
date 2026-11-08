@@ -486,9 +486,11 @@ body.page-trend.page-desktop .report-title-main>span[style] {display:block;font-
     transition: opacity .9s cubic-bezier(.22, 1, .36, 1),
                 transform 1s cubic-bezier(.2, .85, .28, 1.06) !important;
   }
+  /* Career photos appear with a pure, one-second opacity fade.
+     No slide/zoom; the existing observer still triggers each photo only once. */
   #career .career-photo {
-    transition: opacity 1.6s cubic-bezier(.22, 1, .36, 1),
-                transform 1.6s cubic-bezier(.22, 1, .36, 1) !important;
+    transition: opacity 1s ease-in-out !important;
+    transform: none !important;
   }
   /* A fast focus/anchor reveal is still necessary for keyboard users. */
   :is(.mk-motion-item, .mk-pop-item):is(:focus-within, :target, :has(:target)) {
@@ -575,3 +577,18 @@ body.page-contact .contact-main{padding-top:clamp(20px,3.5vw,44px)!important}
   grid-template-columns:minmax(0,1fr)!important}
  body.page-home.page-mobile .mobile-content{padding-top:18px!important}
  body.page-home.page-mobile .timeline-job-card .career-spread{padding:8px 0 0!important}}
+
+/* Career photographs only; the hero remains photo-free. */
+body.page-home .career-entry-card .career-spread,
+body.page-home .timeline-job-card .career-spread{
+ display:grid!important;grid-template-columns:minmax(0,.95fr) minmax(0,1.25fr)!important;
+ align-items:start!important;gap:clamp(16px,2.5vw,28px)!important}
+body.page-home .career-spread .career-photo{display:block!important;min-width:0;width:100%;margin:0}
+body.page-home .career-spread .career-photo__frame{overflow:hidden;border-radius:12px}
+body.page-home .career-spread .career-photo img{
+ display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;object-position:center}
+body.page-home .career-spread .duty-list,body.page-home .career-spread .duty-bullet-list{min-width:0;width:100%}
+@media(max-width:800px){
+ body.page-home .career-entry-card .career-spread,
+ body.page-home .timeline-job-card .career-spread{
+ display:flex!important;flex-direction:column!important;gap:16px!important}}

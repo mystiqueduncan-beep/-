@@ -108,6 +108,8 @@ def expected_text(rel,text):
  if rel=='index.html':
   s=s.replace('專題/完整趨勢研究↗','藥妝專題研究')
   s=s.replace('閱讀完整實體通路趨勢研究報告↗','藥妝專題研究')
+  # User requested removing only the desktop homepage marquee contact shortcut.
+  s=s.replace('08/聯絡資訊','',1)
  if rel=='mobile.html':
   s=s.replace('專題閱讀完整通路趨勢專題↗','藥妝專題研究')
   s=s.replace('工作經歷趨勢研究聯絡資訊','工作經歷藥妝專題研究聯絡資訊')
@@ -146,13 +148,25 @@ for rel,old in base.items():
   if 'mobile' in rel and not any(a.get('name')=='robots' and a.get('content')=='noindex,follow' for t,a in p.tags):errors.append(rel+': mobile indexing')
   for literal in ['萬能科技大學','企業管理系','2026.10','2030.06']:
    if literal not in compact(''.join(p.text)):errors.append(rel+': education '+literal)
+# The contact button must be absent from the homepage marquee only.
+home=(ROOT/'index.html').read_text(encoding='utf-8')
+if 'class="keycap-marquee"' not in home:errors.append('index.html: missing homepage marquee')
+else:
+ marquee=home.split('class="keycap-marquee"',1)[1].split('</nav>',1)[0]
+ if 'href="contact.html"' in marquee:
+  errors.append('index.html: contact shortcut still in marquee')
+if 'href="contact.html"' not in home:
+ errors.append('index.html: missing separate contact link')
 # Independently validate metadata that is excluded from original-resume text parity.
 for rel in ('index.html','mobile.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
  figures=re.findall(r'<figure class="career-photo"[^>]*>(.*?)</figure>',html,re.S)
  career=html.split('id="career"',1)[1].split('</section>',1)[0]
- if figures or re.search(r'<img\b',career) or re.search(r'<img\b',html):
-  errors.append(rel+': homepage must be photo-free')
+ if len(figures)!=3 or len(re.findall(r'<img\b',career))!=3 or len(re.findall(r'<img\b',html))!=3:
+  errors.append(rel+': exactly three career images, no hero photo')
+ for origin in ('3.bp.blogspot.com','www.zhuxin.com.tw','i.mdel.net'):
+  if origin not in career:errors.append(rel+': missing career photo '+origin)
+
 for rel in ('contact.html','mobile-contact.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
  if len(re.findall(r'<img\b',html))!=1 or 'src="contact-portrait.webp"' not in html:
