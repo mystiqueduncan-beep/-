@@ -62,25 +62,20 @@ with sync_playwright() as p:
      page.add_script_tag(path=args.axe)
      row['axe']=page.evaluate('''async()=>{const r=await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa','best-practice']}});return {violations:r.violations,incomplete:r.incomplete}}''')
    results.append(row);page.close()
- # Test animation independently of third-party image hosts, with real image bytes.
+ # The homepage intentionally contains no photographs.
  for name in ('index.html','mobile.html'):
-  for mode in ('normal','no-js','reduced','observer-failure','script-failure'):
-   page=browser.new_page(viewport={'width':390 if name.startswith('mobile') else 1440,'height':844},java_script_enabled=mode!='no-js',reduced_motion='reduce' if mode=='reduced' else 'no-preference')
-   page.route('https://**/*',lambda r:r.abort())
-   if mode=='observer-failure':page.add_init_script('window.IntersectionObserver = class { constructor() { throw new Error("test"); } }')
-   if mode=='script-failure':page.route('**/assets/career-images.js',lambda r:r.abort())
-   page.goto(base+name+'?view='+('mobile' if name.startswith('mobile') else 'desktop'))
-   photos=page.locator('#career .career-photo')
-   if mode=='normal':
-    expect(photos.last).to_have_css('opacity','0')
-   assert photos.count()==3
-   for figure in photos.all():
-    figure.scroll_into_view_if_needed()
-    expect(figure).to_have_css('opacity','1')
-    if mode not in ('no-js','script-failure'):expect(figure.locator('.career-photo__fallback')).to_be_visible()
-   page.emulate_media(media='print')
-   for figure in photos.all():expect(figure).to_have_css('opacity','1')
-   page.close()
+  page=browser.new_page(viewport={'width':390 if name.startswith('mobile') else 1440,'height':844})
+  page.goto(base+name+'?view='+('mobile' if name.startswith('mobile') else 'desktop'))
+  assert page.locator('img').count()==0,name
+  assert page.locator('.career-photo').count()==0,name
+  page.close()
+ for name in ('contact.html','mobile-contact.html'):
+  page=browser.new_page(viewport={'width':390 if name.startswith('mobile') else 1440,'height':844})
+  page.goto(base+name+'?view='+('mobile' if name.startswith('mobile') else 'desktop'))
+  photo=page.locator('img[src="contact-portrait.webp"]')
+  expect(photo).to_have_count(1)
+  assert photo.evaluate('(e)=>e.complete && e.naturalWidth===900 && e.naturalHeight===1197')
+  page.close()
  browser.close()
 server.shutdown();(out/'browser.json').write_text(json.dumps(results,ensure_ascii=False,indent=2),encoding='utf-8')
 failed=[r for r in results if r['overflow'] or r['brokenImages'] or r['errors'] or r.get('axe',{}).get('violations')]
