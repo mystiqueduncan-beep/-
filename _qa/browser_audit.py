@@ -37,6 +37,9 @@ with sync_playwright() as p:
     expect(belt).to_have_count(1)
     expect(page.locator('.keycap-marquee__toggle')).to_have_count(0)
     assert marquee.locator('.keycap-marquee__group:not(.keycap-marquee__group--duplicate) a').count() > 0
+    if name == 'index.html':
+     expect(marquee.locator('a[href="contact.html"]')).to_have_count(0)
+     expect(page.locator('.hero-cta-group a[href="contact.html"]')).to_have_count(1)
     motion_allowed=page.evaluate("""() => matchMedia('(min-width: 769px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)').matches""")
     if motion_allowed:
      assert marquee.evaluate("e=>e.classList.contains('is-enhanced')")
@@ -68,6 +71,14 @@ with sync_playwright() as p:
   page.goto(base+name+'?view='+('mobile' if name.startswith('mobile') else 'desktop'))
   expect(page.locator('.career-photo img')).to_have_count(3)
   assert page.locator('img').count()==3,name
+  # Verify both the requested fade timing and the accessibility fallback.
+  page.emulate_media(reduced_motion='no-preference')
+  states=page.locator('.career-photo').evaluate_all(
+   '(es)=>es.map(e=>({p:getComputedStyle(e).transitionProperty,d:getComputedStyle(e).transitionDuration,t:getComputedStyle(e).transform}))')
+  assert all(v['p']=='opacity' and v['d']=='1s' and v['t']=='none' for v in states),(name,states)
+  page.emulate_media(reduced_motion='reduce')
+  assert all(x=='0s' for x in page.locator('.career-photo').evaluate_all(
+   '(es)=>es.map(e=>getComputedStyle(e).transitionDuration)')),name
   page.close()
  for name in ('contact.html','mobile-contact.html'):
   page=browser.new_page(viewport={'width':390 if name.startswith('mobile') else 1440,'height':844})
