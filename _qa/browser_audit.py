@@ -13,8 +13,8 @@ results=[]
 with sync_playwright() as p:
  browser=p.chromium.launch(executable_path=os.environ.get('CHROME_PATH'),args=['--no-sandbox'])
  for name in ['index.html','contact.html','trend.html','mobile.html','mobile-contact.html','mobile-trend.html']:
-  for width in [320,375,390,428,768,1024,1440,1920]:
-   page=browser.new_page(viewport={'width':width,'height':844});errors=[]
+  for width in [320,375,390,428,768,820,900,1024,1440,1920]:
+   page=browser.new_page(viewport={'width':width,'height':(1024 if width==768 else 768 if width==1024 else 844)});errors=[]
    page.on('pageerror',lambda e:errors.append(str(e)))
    # Offline external resources: audit local assets only; report remote images separately.
    page.route('https://**/*',lambda r:r.abort());page.goto(base+name+'?view='+('mobile' if name.startswith('mobile') else 'desktop'))
@@ -65,6 +65,32 @@ with sync_playwright() as p:
      page.add_script_tag(path=args.axe)
      row['axe']=page.evaluate('''async()=>{const r=await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa','best-practice']}});return {violations:r.violations,incomplete:r.incomplete}}''')
    results.append(row);page.close()
+ # Explicit tablet and navigation acceptance checks on all six versions.
+ for name in ['index.html','contact.html','trend.html','mobile.html','mobile-contact.html','mobile-trend.html']:
+  is_mobile=name.startswith('mobile')
+  page=browser.new_page(viewport={'width':820 if not is_mobile else 390,'height':1100})
+  page.goto(base+name+'?view='+('mobile' if is_mobile else 'desktop'))
+  switch=page.locator('a[href*="?view="]')
+  expect(switch).to_have_count(1)
+  assert switch.first.text_content().strip()==('電腦版' if is_mobile else '手機版'),name
+  destination='mobile-contact.html' if is_mobile else 'contact.html'
+  for link in page.locator('a[href="'+destination+'"]').all():
+   assert link.text_content().strip()=='個人及聯絡資訊',(name,link.text_content())
+  if name in ('index.html','mobile.html'):
+   assert page.locator('#education').count()==0,name
+   assert page.locator('#career .career-photo img').count()==3,name
+   intro=page.locator('.mobile-profile-intro' if is_mobile else '.hero-professional-intro').text_content()
+   assert '萬能科技大學' not in intro and "Tomod's" not in intro,name
+  if name in ('contact.html','mobile-contact.html'):
+   education=page.locator('#education')
+   expect(education).to_have_count(1)
+   assert '萬能科技大學' in education.text_content()
+   assert '2026.10' in education.text_content() and '2030.06' in education.text_content()
+  if name=='contact.html':
+   columns=page.locator('.contact-dossier-grid.interview-spread').evaluate(
+    '(e)=>getComputedStyle(e).gridTemplateColumns.trim().split(/\s+/).length')
+   assert columns==1,('tablet contact columns',columns)
+  page.close()
  # Restore only the three work-history photos, not the hero portrait.
  for name in ('index.html','mobile.html'):
   page=browser.new_page(viewport={'width':390 if name.startswith('mobile') else 1440,'height':844})

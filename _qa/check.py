@@ -117,15 +117,80 @@ def expected_text(rel,text):
  if rel=='mobile-contact.html':
   s=s.replace('實體通路趨勢研究專題↗','藥妝專題研究')
   s=s.replace('職涯歷程趨勢研究聯絡資訊','職涯歷程藥妝專題研究聯絡資訊')
+
+ # User-authorized Nov 9 consolidation: preserve old factual source text in
+ # baseline-text.json and specify precisely which visible UI strings moved.
+ def swap(a,b):
+  aa,bb=compact(a),compact(b)
+  if s.count(aa)!=1:raise ValueError(rel+': approved UI change source mismatch '+aa[:40])
+  return s.replace(aa,bb,1)
+ def cut_between(a,b):
+  aa,bb=compact(a),compact(b)
+  if s.count(aa)!=1:raise ValueError(rel+': source start mismatch '+aa)
+  st=s.index(aa);en=s.index(bb,st+len(aa))
+  if en<=st:raise ValueError(rel+': invalid authorized relocation')
+  return s[:st]+s[en:]
+ intro_old=('具備日系藥妝 6 年歷練（含門市店長管理 3 年）與門市新人帶訓工作實務，'
+            '目前於萬能科技大學研讀企業管理系。專注於門市現場營運標準、排班調度、'
+            '商品進銷存與跨門市溝通協作，期盼將單店管理實務轉化為區域營運督導之管理助力。')
+ intro_new='重視門市營運標準、服務品質與溝通協調，期望投入區域營運管理，讓門市日常作業更加穩定一致。'
+ study_text='教育背景萬能科技大學企業管理系研讀中2026.10入學｜預計2030.06畢業目前於萬能科技大學企業管理系研讀中，持續補充管理知識，並思考如何與過往門市實務結合。'
+ if rel=='index.html':
+  s=swap('📱手機專版↗','手機版')
+  s=swap(intro_old,intro_new)
+  s=swap('目前學歷萬能科技大學 企業管理系 ｜ 研讀中（2026.10 入學 ｜ 預計 2030.06 畢業）','')
+  s=cut_between('01 / 日系藥妝歷練','應徵者：')
+  s=swap('修業狀態：萬能科大企管在學','')
+  s=swap('聯絡資訊','個人及聯絡資訊')
+  s=swap('05/教育背景','')
+  s=swap('在學研讀中｜到職與排班面談確認','到職與排班面談確認')
+  s=cut_between('05教育背景EDUCATIONBACKGROUND','06到任後工作構想')
+ elif rel=='mobile.html':
+  s=swap('💻電腦版↗','電腦版')
+  s=swap('萬能科大企管研讀中｜到職排班面談確認','到職排班面談確認')
+  s=swap('目前學歷：萬能科技大學 企業管理系 ｜ 研讀中2026.10 入學 ｜ 預計 2030.06 畢業','')
+  s=swap(intro_old,intro_new)
+  s=cut_between('01日系藥妝歷練','志願職位')
+  s=swap('核心歷練Tomod\'s6年（店長3年）帶訓經歷動物醫院4年（期間兼任帶訓）目前學歷萬能科技大學企管系研讀中','')
+  s=cut_between('06/教育背景EDUCATION','07/到任後工作構想')
+  if s.count('聯絡資訊')!=2:raise ValueError(rel+': unexpected contact entry count')
+  s=s.replace('聯絡資訊','個人及聯絡資訊')
+ elif rel=='contact.html':
+  s=swap('黃博詩個人應徵作品集｜聯絡資訊頁','黃博詩個人應徵作品集｜個人及聯絡資訊')
+  s=swap('📱切換手機版(iPhone最適化)↗','手機版')
+  marker='返回履歷專刊首頁↗'
+  if s.count(marker)!=2:raise ValueError(rel+': missing return links')
+  k=s.rindex(marker);s=s[:k]+compact(study_text)+s[k:]
+ elif rel=='mobile-contact.html':
+  s=swap('💻電腦版↗','電腦版')
+  marker=compact('以日系藥妝 Tomod\'s 6年門市實務')
+  if s.count(marker)!=1:raise ValueError(rel+': unexpected profile text position')
+  k=s.index(marker);s=s[:k]+compact(study_text)+s[k:]
+  s=swap('個人作品集聯絡資訊電腦版','個人作品集個人及聯絡資訊電腦版')
+  s=swap('藥妝專題研究聯絡資訊','藥妝專題研究個人及聯絡資訊')
+ elif rel=='trend.html':
+  s=swap('📱切換手機版↗','手機版')
+  s=swap('｜萬能科技大學 企業管理系 研讀中（2026.10 入學 ｜ 預計 2030.06 畢業）','')
+  if s.count('聯絡資訊↗')!=2:raise ValueError(rel+': unexpected links to contact')
+  s=s.replace('聯絡資訊↗','個人及聯絡資訊')
+ elif rel=='mobile-trend.html':
+  s=swap('💻電腦版↗','電腦版')
+  s=swap('｜目前學歷：萬能科技大學 企業管理系 研讀中（2026.10 入學 ｜ 預計 2030.06 畢業）','')
  return compact(s)
 base=json.loads((ROOT/'_audit/baseline-text.json').read_text(encoding='utf-8'))
 errors=[];links=0;results=[]
 for rel,old in base.items():
  f=ROOT/rel;p=Page(f.read_text(encoding='utf-8'));ids=[a['id'] for t,a in p.tags if 'id' in a]
  if len(ids)!=len(set(ids)):errors.append(rel+': duplicate id')
- same=expected_text(rel,old)==normalized(p.text)
+ expect=expected_text(rel,old)
+ actual=normalized(p.text)
+ same=expect==actual
  results.append({'page':rel,'text_matches_except_confirmed_additions':same})
- if not same:errors.append(rel+': unexpected content difference')
+ if not same:
+  import difflib
+  changes=[(tag,expect[i:j],actual[k:l]) for tag,i,j,k,l in difflib.SequenceMatcher(None,expect,actual,autojunk=True).get_opcodes() if tag!='equal']
+  print('APPROVED_TEXT_DIFF '+rel+' '+json.dumps([{'op':tag,'old':a[:270],'new':b[:270]} for tag,a,b in changes[:24]],ensure_ascii=False),flush=True)
+  errors.append(rel+': unexpected content difference')
  for t,a in p.tags:
   for attr in (['href'] if t=='a' else ['src'] if t in ('img','script') else ['srcset'] if t=='source' else ['href'] if t=='link' and a.get('rel')=='stylesheet' else []):
    value=a.get(attr,'');u=urlsplit(value)
@@ -146,7 +211,7 @@ for rel,old in base.items():
   for name in ['description']:
    if not any(t=='meta' and a.get('name')==name and a.get('content') for t,a in p.tags):errors.append(rel+': '+name)
   if 'mobile' in rel and not any(a.get('name')=='robots' and a.get('content')=='noindex,follow' for t,a in p.tags):errors.append(rel+': mobile indexing')
-  for literal in ['萬能科技大學','企業管理系','2026.10','2030.06']:
+  for literal in (['萬能科技大學','企業管理系','2026.10','2030.06'] if rel in ('contact.html','mobile-contact.html') else []):
    if literal not in compact(''.join(p.text)):errors.append(rel+': education '+literal)
 # The contact button must be absent from the homepage marquee only.
 home=(ROOT/'index.html').read_text(encoding='utf-8')
@@ -157,6 +222,28 @@ else:
   errors.append('index.html: contact shortcut still in marquee')
 if 'href="contact.html"' not in home:
  errors.append('index.html: missing separate contact link')
+# Verify all visible version-switch and contact-link labels are consistent.
+for rel in ('index.html','mobile.html','contact.html','mobile-contact.html','trend.html','mobile-trend.html'):
+ html=(ROOT/rel).read_text(encoding='utf-8')
+ switches=re.findall(r'<a\b[^>]*href="[^"]+\?view=(desktop|mobile)"[^>]*>(.*?)</a>',html,re.S)
+ if len(switches)!=1:
+  errors.append(rel+': expected exactly one view switch')
+ else:
+  view,body=switches[0]
+  label=re.sub(r'<[^>]*>','',body).strip()
+  if label!=('電腦版' if view=='desktop' else '手機版'):
+   errors.append(rel+': inconsistent version switch label '+label)
+ contact_refs=re.findall(r'<a\b[^>]*href="(?:mobile-)?contact\.html"[^>]*>(.*?)</a>',html,re.S)
+ for body in contact_refs:
+  label=re.sub(r'<[^>]*>','',body).strip()
+  if label!='個人及聯絡資訊':
+   errors.append(rel+': inconsistent contact link '+label)
+ if rel in ('index.html','mobile.html'):
+  if re.search(r'<section\b[^>]*id="education"',html):
+   errors.append(rel+': school information still on homepage')
+ if rel in ('contact.html','mobile-contact.html'):
+  if len(re.findall(r'<section\b[^>]*id="education"',html))!=1:
+   errors.append(rel+': missing consolidated education panel')
 # Independently validate metadata that is excluded from original-resume text parity.
 for rel in ('index.html','mobile.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
