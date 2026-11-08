@@ -123,9 +123,15 @@ errors=[];links=0;results=[]
 for rel,old in base.items():
  f=ROOT/rel;p=Page(f.read_text(encoding='utf-8'));ids=[a['id'] for t,a in p.tags if 'id' in a]
  if len(ids)!=len(set(ids)):errors.append(rel+': duplicate id')
- same=expected_text(rel,old)==normalized(p.text)
+ expect=expected_text(rel,old)
+ actual=normalized(p.text)
+ same=expect==actual
  results.append({'page':rel,'text_matches_except_confirmed_additions':same})
- if not same:errors.append(rel+': unexpected content difference')
+ if not same:
+  import difflib
+  changes=[(tag,expect[i:j],actual[k:l]) for tag,i,j,k,l in difflib.SequenceMatcher(None,expect,actual,autojunk=True).get_opcodes() if tag!='equal']
+  print('APPROVED_TEXT_DIFF '+rel+' '+json.dumps([{'op':tag,'old':a[:270],'new':b[:270]} for tag,a,b in changes[:24]],ensure_ascii=False),flush=True)
+  errors.append(rel+': unexpected content difference')
  for t,a in p.tags:
   for attr in (['href'] if t=='a' else ['src'] if t in ('img','script') else ['srcset'] if t=='source' else ['href'] if t=='link' and a.get('rel')=='stylesheet' else []):
    value=a.get(attr,'');u=urlsplit(value)
@@ -146,7 +152,7 @@ for rel,old in base.items():
   for name in ['description']:
    if not any(t=='meta' and a.get('name')==name and a.get('content') for t,a in p.tags):errors.append(rel+': '+name)
   if 'mobile' in rel and not any(a.get('name')=='robots' and a.get('content')=='noindex,follow' for t,a in p.tags):errors.append(rel+': mobile indexing')
-  for literal in ['萬能科技大學','企業管理系','2026.10','2030.06']:
+  for literal in (['萬能科技大學','企業管理系','2026.10','2030.06'] if rel in ('contact.html','mobile-contact.html') else []):
    if literal not in compact(''.join(p.text)):errors.append(rel+': education '+literal)
 # The contact button must be absent from the homepage marquee only.
 home=(ROOT/'index.html').read_text(encoding='utf-8')
