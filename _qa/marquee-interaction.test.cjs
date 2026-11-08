@@ -332,8 +332,8 @@ test("homepage handles reduced motion and fitting widths without a clone", () =>
 });
 
 test("homepage hover and touch pauses override the shuttle animation", () => {
-  assert.match(css, /\\.home-keycap-strip \\.keycap-marquee\\.is-enhanced\\.is-home-animated\\.is-hover-paused/);
-  assert.match(css, /\\.home-keycap-strip \\.keycap-marquee\\.is-enhanced\\.is-home-animated\\.is-touch-paused/);
+  assert.ok(css.includes(".home-keycap-strip .keycap-marquee.is-enhanced.is-home-animated.is-hover-paused"));
+  assert.ok(css.includes(".home-keycap-strip .keycap-marquee.is-enhanced.is-home-animated.is-touch-paused"));
   const h = makeHarness({ isHomepage: true });
   h.dispatch("pointerover", h.originals[0]);
   assert.equal(h.nav.classList.contains("is-hover-paused"), true);
