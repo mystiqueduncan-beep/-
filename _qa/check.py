@@ -89,14 +89,32 @@ def expected_text(rel,text):
   s=s.replace(removed_nav,'')
   s=s.replace('台灣個人保養與美妝市場研究報告。佐證底妝與香氛等品類在首次選購時高度依賴實體門市試用之行為洞察。','Kantar 公開資料可支持美妝市場與實體專櫃體驗的討論；但未找到可直接支持「底妝及香氛首次選購高度依賴實體試用」的 Kantar 原始數據，因此不將此歸因列為已證實結論。')
   s=s.replace('（2026/04/15 執行，藥妝店 45.2%','（2026/04/15 發布、2026/03/12–03/19 調查，藥妝店 45.2%')
- # Current redesign duplicates existing chapter labels into the mobile marquee.
- if rel=='mobile.html':s=s.replace('01/ 應徵者專訪特輯','01/應徵動機02/核心能力03/營運改善構想04/工作經歷05/教育背景06/工作構想07/通路研究08/聯絡資訊01/ 應徵者專訪特輯',1)
- if rel=='mobile-trend.html':s=s.replace('TAIWAN RETAIL STRATEGY RESEARCH','01/購買管道＆商品結構02/4大核心優勢03/4大劣勢挑戰04/4大躍升實戰策略05/劣勢改善對策06/標竿案例借鑑07/區域營運規劃08/資料來源TAIWAN RETAIL STRATEGY RESEARCH',1)
+ # All mobile chapter marquees were removed by explicit request.
  # The legacy chart labels moved inside audited-visual in PR #26. Validate
  # that independent chart below rather than silently dropping its data contract.
  if rel in ('trend.html','mobile-trend.html'):
   legacy = ('藥妝店（松本清、屈臣氏、康是美等）45.2%網路（電商平台、品牌官方旗艦店）42.5%生活百貨（寶雅、唐吉訶德等）28.7%百貨專櫃24.4%' if rel=='trend.html' else '藥妝店（松本清、屈臣氏等）45.2%網路（電商平台、官方旗艦店）42.5%生活百貨（寶雅、唐吉訶德等）28.7%百貨專櫃24.4%')
   s=compact(s).replace(legacy,'',1)
+ s=compact(s)
+ if rel=='contact.html':
+  start=s.index('01/首頁↗')
+  end=s.index('PORTFOLIO✦個人應徵作品集',start)
+  s=s[:start]+s[end:]
+ if rel in ('contact.html','mobile-contact.html'):
+  s=s.replace('出勤安排到職時間、排班與巡店安排，可於面談時進一步確認。','',1)
+  a='✦區域營運經理3大核心戰力優勢速覽' if rel=='contact.html' else '✦區域營運經理3大核心戰力速覽'
+  b='返回履歷專刊首頁↗' if rel=='contact.html' else '←返回手機履歷專刊首頁'
+  s=s[:s.index(a)]+s[s.index(b,s.index(a)):]
+ if rel=='index.html':
+  s=s.replace('專題/完整趨勢研究↗','藥妝專題研究')
+  s=s.replace('閱讀完整實體通路趨勢研究報告↗','藥妝專題研究')
+ if rel=='mobile.html':
+  s=s.replace('專題閱讀完整通路趨勢專題↗','藥妝專題研究')
+  s=s.replace('工作經歷趨勢研究聯絡資訊','工作經歷藥妝專題研究聯絡資訊')
+ if rel=='contact.html':s=s.replace('07/實體通路趨勢研究↗','藥妝專題研究')
+ if rel=='mobile-contact.html':
+  s=s.replace('實體通路趨勢研究專題↗','藥妝專題研究')
+  s=s.replace('職涯歷程趨勢研究聯絡資訊','職涯歷程藥妝專題研究聯絡資訊')
  return compact(s)
 base=json.loads((ROOT/'_audit/baseline-text.json').read_text(encoding='utf-8'))
 errors=[];links=0;results=[]
@@ -133,18 +151,12 @@ for rel in ('index.html','mobile.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
  figures=re.findall(r'<figure class="career-photo"[^>]*>(.*?)</figure>',html,re.S)
  career=html.split('id="career"',1)[1].split('</section>',1)[0]
- expected=[('3.bp.blogspot.com/', 'wowonews.com/2019/01/tomods-.html', 'WoWoNews'),
-           ('www.zhuxin.com.tw/proimage/images/1696680526.jpg','zhuxin.com.tw/about/inside-look','築心動物醫院'),
-           ('i.mdel.net/i/db/2026/3/2765277/2765277-800w.jpg','models.com/work/levis-levis-timeless-campaign-2026','Mark Mahaney')]
- if len(figures)!=3 or len(re.findall(r'<img\b',career))!=3:errors.append(rel+': expected exactly three career photos')
- for figure,(image,source,credit) in zip(figures,expected):
-  tags=Page(figure).tags
-  if any(t in ('p','ul','li','h2','h3') for t,a in tags):errors.append(rel+': resume content inside photo metadata')
-  if '非本人工作照片' not in figure:errors.append(rel+': missing photo context')
-  images=[a for t,a in tags if t=='img'];anchors=[a for t,a in tags if t=='a']
-  if len(images)!=1 or image not in images[0].get('src',''):errors.append(rel+': selected photo mismatch '+image)
-  if not any(source in a.get('href','') for a in anchors) or credit not in figure:errors.append(rel+': selected photo attribution missing '+source)
-  if images and (not images[0].get('alt') or images[0].get('loading')!='lazy' or images[0].get('decoding')!='async'):errors.append(rel+': photo loading/alt metadata')
+ if figures or re.search(r'<img\b',career) or re.search(r'<img\b',html):
+  errors.append(rel+': homepage must be photo-free')
+for rel in ('contact.html','mobile-contact.html'):
+ html=(ROOT/rel).read_text(encoding='utf-8')
+ if len(re.findall(r'<img\b',html))!=1 or 'src="contact-portrait.webp"' not in html:
+  errors.append(rel+': contact photo mismatch')
 for rel in ('index.html','mobile.html','trend.html','mobile-trend.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
  for origin in ('moea.gov.tw','ixresearch.com'):

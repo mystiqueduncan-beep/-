@@ -544,3 +544,34 @@ body.page-trend .category-study [style*="background: #F0EDE6"] { background: var
 body.page-trend .category-study [style*="background: #FFFDF0"] { background: #fff9f7 !important; }
 body.page-trend .category-study [style*="border: 1px solid #0B2240"] { border-color: var(--chart-outline) !important; }
 body.page-trend .category-study .category-label { color: var(--chart-ink) !important; }
+
+
+/* Photo-free resume, single portrait contact, compact chapterless mobile UI. */
+.ui-code,.nav-btn-mk>.num,.keycap-marquee__group a>.num,
+.section-editorial-header .sec-number{display:none!important}
+.section-editorial-header .sec-title-wrap{gap:10px!important}
+.section-editorial-header .sec-title-sub{margin-left:0!important}
+body.page-home.page-desktop .cover-layout .hero-primary-info{
+ grid-template-columns:minmax(0,1fr)!important;
+ grid-template-areas:'heading' 'introduction' 'highlights'!important;
+ max-width:1080px;margin-inline:auto;gap:24px!important}
+body.page-home.page-desktop .cover-heading{max-width:960px}
+body.page-home.page-desktop .hero-professional-intro{max-width:920px}
+body.page-home .career-entry-card .career-spread,
+body.page-home .timeline-job-card .career-spread{
+ display:block!important;grid-template-columns:minmax(0,1fr)!important;padding:12px 0 0!important}
+body.page-home .career-spread .duty-bullet-list{
+ width:100%!important;max-width:none!important;margin:0!important}
+body.page-home.page-mobile .pastel-mobile-scene{padding:12px 4px 4px!important;gap:8px!important}
+body.page-home.page-mobile .candidate-info-box{width:100%;max-width:100%;margin-inline:auto}
+body.page-home.page-mobile .mobile-cover{padding-bottom:22px!important}
+body.page-contact .photo-frame img{
+ height:auto!important;aspect-ratio:auto!important;object-fit:contain!important;object-position:center!important}
+body.page-contact .candidate-specs-box .spec-entry:last-child{padding-bottom:0;margin-bottom:0}
+body.page-contact .contact-main{padding-top:clamp(20px,3.5vw,44px)!important}
+@media(max-width:768px){
+ body.page-home.page-desktop .cover-layout .hero-primary-info{
+  grid-template-areas:'heading' 'introduction' 'highlights'!important;
+  grid-template-columns:minmax(0,1fr)!important}
+ body.page-home.page-mobile .mobile-content{padding-top:18px!important}
+ body.page-home.page-mobile .timeline-job-card .career-spread{padding:8px 0 0!important}}

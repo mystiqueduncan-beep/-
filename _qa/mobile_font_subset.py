@@ -7,7 +7,7 @@ import re
 import string
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import quote
+from urllib.parse import quote, unquote
 
 
 class VisibleText(HTMLParser):
@@ -54,8 +54,18 @@ if __name__ == '__main__':
         original = page.read_text(encoding='utf-8')
         updated = subset_page(original)
         if options.check:
-            if updated != original:
-                raise SystemExit('Run python3 _qa/mobile_font_subset.py to include updated text')
+            # Deleting approved sections can leave harmless extra characters in
+            # the existing Google Fonts URL. Require complete glyph coverage
+            # without forcing a URL rewrite solely to remove unused glyphs.
+            pattern = r'&text=([^"<>]*)'
+            actual = re.findall(pattern, original)
+            required = re.findall(pattern, updated)
+            if len(actual) != 2 or len(required) != 2:
+                raise SystemExit(name + ': two font subset links required')
+            for have, need in zip(actual, required):
+                missing = set(unquote(need)) - set(unquote(have))
+                if missing:
+                    raise SystemExit(name + ': missing font glyphs ' + repr(''.join(sorted(missing))))
             print(f'{name}: font subset covers page text and accessibility labels.')
         else:
             page.write_text(updated, encoding='utf-8')
