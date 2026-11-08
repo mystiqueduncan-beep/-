@@ -7,7 +7,7 @@
   const belt = nav.querySelector(".keycap-marquee__belt");
   const original = nav.querySelector(".keycap-marquee__group");
   if (!belt || !original) return;
-  const isHomepage = Boolean(nav.closest(".home-keycap-strip"));
+  const isHomepage = typeof nav.closest === "function" && Boolean(nav.closest(".home-keycap-strip"));
 
   // Respect user preference for reduced motion across desktop, tablet and mobile.
   const playback = window.matchMedia("(prefers-reduced-motion: no-preference)");
