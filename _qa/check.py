@@ -300,23 +300,31 @@ for rel in ('trend.html','mobile-trend.html'):
    errors.append(rel+': research marquee titles must have no numeric prefixes and retain original anchors')
  if rel=='mobile-trend.html' and ('data-keycap-marquee' in html or 'class="mobile-bottom-bar"' not in html):
   errors.append(rel+': mobile research navigation regression')
-# Verify user-supplied photo remains bit-for-bit unchanged and is used only
-# on the two personal/contact pages; the existing work photos stay untouched.
+# Keep the earlier user's original portrait intact as a provenance backup.
+# The newly uploaded photograph is used only for the circular contact avatar.
 portrait_path=ROOT/'contact-portrait-20261109.jpg'
 portrait_sha256='07b12e127431934991eb06749525344e02389b28919bd0465879848897f0ffef'
 if not portrait_path.is_file() or hashlib.sha256(portrait_path.read_bytes()).hexdigest()!=portrait_sha256:
- errors.append('contact portrait: source photograph differs from original user upload')
+ errors.append('contact portrait: prior original photograph differs from approved source')
+avatar_path=ROOT/'contact-avatar-20261109.webp'
+if not avatar_path.is_file():
+ errors.append('new circular profile image asset missing')
+else:
+ avatar_data=avatar_path.read_bytes()
+ if (not avatar_data.startswith(b'RIFF') or b'WEBP' not in avatar_data[:16]
+     or hashlib.sha256(avatar_data).hexdigest()!='fb51a75f707f9669580fddcd296d151cd3d7e0062b6c29ef6e0b3bbaeac486d9'):
+  errors.append('new profile photo: WebP crop does not match the uploaded photograph')
 for rel in ('contact.html','mobile-contact.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
  if len(re.findall(r'<img\b',html))!=1:
   errors.append(rel+': expected exactly one personal portrait image')
- if len(re.findall(r'<img\b[^>]*src="contact-portrait-20261109.jpg"',html))!=1:
-  errors.append(rel+': missing unedited user-provided portrait')
+ if len(re.findall(r'<img\b[^>]*src="contact-avatar-20261109.webp"',html))!=1:
+  errors.append(rel+': new circular portrait missing')
  if 'contact-portrait-fade.css' not in html:
   errors.append(rel+': portrait fade style missing')
 for rel in ('index.html','mobile.html','trend.html','mobile-trend.html'):
- if 'contact-portrait-20261109.jpg' in (ROOT/rel).read_text(encoding='utf-8'):
-  errors.append(rel+': private contact portrait should not appear here')
+ if 'contact-avatar-20261109.webp' in (ROOT/rel).read_text(encoding='utf-8'):
+  errors.append(rel+': new portrait must stay contact-only')
 # Shared top-positioned version switch and contact-only photo reveal.
 for rel in ('index.html','mobile.html','trend.html','mobile-trend.html','contact.html','mobile-contact.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
