@@ -130,7 +130,7 @@ with sync_playwright() as p:
         rows.append({'page': name, 'revealedOnce': items.count(), 'contactPops': page.locator('.mk-pop-in').count()})
         # Focus into an offscreen pending unit must reveal all ancestors.
         page.goto(url)
-        focus = page.locator('main summary').last if name == 'mobile-trend' else page.locator('main a, main button').last
+        focus = page.locator('main summary').last if name in ('trend', 'mobile-trend') else page.locator('main a, main button').last
         focus.evaluate('(e)=>e.focus({preventScroll:true})')
         assert focus.evaluate('(e)=>!e.closest(".mk-motion-pending,.mk-pop-pending")')
         # Direct and changed hashes expose descendant targets and their ancestors.
