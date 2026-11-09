@@ -109,9 +109,9 @@ with sync_playwright() as p:
  for name in ('contact.html','mobile-contact.html'):
   page=browser.new_page(viewport={'width':390 if name.startswith('mobile') else 1440,'height':844})
   page.goto(base+name+'?view='+('mobile' if name.startswith('mobile') else 'desktop'))
-  photo=page.locator('img[src="contact-portrait.webp"]')
+  photo=page.locator('img[src="contact-portrait.webp?v=20261109"]')
   expect(photo).to_have_count(1)
-  assert photo.evaluate('(e)=>e.complete && e.naturalWidth===900 && e.naturalHeight===1197')
+  assert photo.evaluate('(e)=>e.complete && e.naturalWidth===540 && e.naturalHeight===720')
   page.close()
  browser.close()
 server.shutdown();(out/'browser.json').write_text(json.dumps(results,ensure_ascii=False,indent=2),encoding='utf-8')
