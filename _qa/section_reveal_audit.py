@@ -55,6 +55,14 @@ with sync_playwright() as p:
         assert items.count() > 0, name
         if 'contact' in name:
             assert page.locator('.mk-pop-item').count() == 3
+        if name in ('index', 'mobile'):
+            selector = '.hero-cta-group > .mk-pop-item' if name == 'index' else '.mobile-hero-actions > .mk-pop-item'
+            buttons = page.locator(selector)
+            assert buttons.count() == 4, name
+            assert page.locator('.mk-pop-item').count() == 4, name
+            delays = buttons.evaluate_all('(es)=>es.map(e=>getComputedStyle(e).transitionDelay)')
+            assert delays == ['0s', '0.1s', '0.2s', '0.3s'], (name, delays)
+            assert buttons.last.evaluate('(e)=>e.tagName.toLowerCase()') == 'button', name
         if name == 'mobile':
             assert page.locator('.timeline-job-card.mk-motion-item').count() == 3
             assert page.locator('.mobile-case-box.mk-motion-item').count() == 3
