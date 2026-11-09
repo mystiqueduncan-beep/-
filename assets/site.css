@@ -117,8 +117,8 @@ section[id] { scroll-margin-top: 110px; }
 
 /* ==========================================================================
    Page Transitions: Smooth Cross-Document Transitions & Fallback
-   Old page fade-out: ~500ms ease-in-out
-   New page fade-in:  ~900ms ease-in-out
+   Old page fade-out: ~380ms ease-in-out
+   New page fade-in:  ~680ms ease-in-out
    ========================================================================== */
 
 /* 1. Native Cross-Document View Transitions (Chrome 126+, Edge 126+) */
@@ -127,11 +127,11 @@ section[id] { scroll-margin-top: 110px; }
 }
 
 ::view-transition-old(root) {
-  animation: 500ms ease-in-out both page-fade-out;
+  animation: 380ms ease-in-out both page-fade-out;
 }
 
 ::view-transition-new(root) {
-  animation: 900ms ease-in-out both page-fade-in;
+  animation: 680ms ease-in-out both page-fade-in;
 }
 
 @keyframes page-fade-out {
@@ -154,12 +154,12 @@ section[id] { scroll-margin-top: 110px; }
 
 /* 2. Progressive Enhancement Fallback (Safari, Firefox, etc.) */
 html.page-trans-fallback body {
-  animation: page-fade-in 550ms ease-in-out both;
+  animation: page-fade-in 420ms ease-in-out both;
 }
 
 html.page-trans-fallback body.is-page-exiting {
   opacity: 0 !important;
-  transition: opacity 500ms ease-in-out !important;
+  transition: opacity 380ms ease-in-out !important;
 }
 
 /* 3. Reduced Motion: Instant Transition */
