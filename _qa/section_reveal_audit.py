@@ -79,8 +79,12 @@ with sync_playwright() as p:
         # Center each unit to give short elements full visibility and tall ones
         # at least 80% viewport coverage; the animation must then complete.
         for item in items.all():
-            item.evaluate('(e)=>e.scrollIntoView({block:"center",behavior:"instant"})')
-            expect(item).not_to_have_class(re.compile('.*(?:mk-motion-pending|mk-pop-pending).*'))
+            item.evaluate('(e)=>{e.scrollIntoView({block:"center",behavior:"instant"});dispatchEvent(new Event("scroll"));}')
+            try:
+                expect(item).not_to_have_class(re.compile('.*(?:mk-motion-pending|mk-pop-pending).*'))
+            except AssertionError:
+                print('Reveal position:', name, item.evaluate('(e)=>({cls:e.className,rect:e.getBoundingClientRect().toJSON(),y:scrollY,vh:innerHeight,scrollHeight:document.documentElement.scrollHeight})'))
+                raise
             expect(item).to_have_css('opacity', '1')
         # Revisit every item from the bottom: no target is concealed or replayed.
         for item in reversed(items.all()):
