@@ -176,6 +176,16 @@ def expected_text(rel,text):
  elif rel=='mobile-trend.html':
   s=swap('💻電腦版↗','電腦版')
   s=swap('｜目前學歷：萬能科技大學 企業管理系 研讀中（2026.10 入學 ｜ 預計 2030.06 畢業）','')
+ # Explicit user approval: availability/start-date information is shown only
+ # on the contact page (both desktop and mobile), not on either homepage.
+ # Preserve the immutable original resume baseline and check the exact relocation.
+ if rel=='index.html':
+  s=swap('到職與排班面談確認','')
+ elif rel=='mobile.html':
+  s=swap('到職排班面談確認黃博詩應徵專刊','')
+ elif rel=='contact.html':
+  s=swap('居住區域桃園市大園區（機動巡店）',
+         '居住區域桃園市大園區（機動巡店）到職與排班可於面談時進一步確認')
  return compact(s)
 base=json.loads((ROOT/'_audit/baseline-text.json').read_text(encoding='utf-8'))
 errors=[];links=0;results=[]
@@ -244,6 +254,17 @@ for rel in ('index.html','mobile.html','contact.html','mobile-contact.html','tre
  if rel in ('contact.html','mobile-contact.html'):
   if len(re.findall(r'<section\b[^>]*id="education"',html))!=1:
    errors.append(rel+': missing consolidated education panel')
+# Verify availability information is visible only on the personal contact pages.
+for rel in ('index.html','mobile.html','trend.html','mobile-trend.html'):
+ page_text=compact(''.join(Page((ROOT/rel).read_text(encoding='utf-8')).text))
+ if any(t in page_text for t in ('到職與排班面談確認','到職排班面談確認','出勤安排：可於面談時進一步確認')):
+  errors.append(rel+': start-date/scheduling availability must be on contact page only')
+contact_page=compact(''.join(Page((ROOT/'contact.html').read_text(encoding='utf-8')).text))
+mobile_contact_page=compact(''.join(Page((ROOT/'mobile-contact.html').read_text(encoding='utf-8')).text))
+if '到職與排班可於面談時進一步確認' not in contact_page:
+ errors.append('contact.html: missing start-date/scheduling information')
+if '出勤安排：可於面談時進一步確認' not in mobile_contact_page:
+ errors.append('mobile-contact.html: missing attendance availability information')
 # Independently validate metadata that is excluded from original-resume text parity.
 for rel in ('index.html','mobile.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
