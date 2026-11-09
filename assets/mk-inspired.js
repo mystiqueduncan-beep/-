@@ -37,7 +37,9 @@
   ];
   const targets = [...new Set(document.querySelectorAll(selectors.join(",")))];
   const contactMethods = [...document.querySelectorAll("main .contact-methods-stack > .method-card, main > section .method-card")];
-  const allTargets = [...new Set([...targets, ...contactMethods])];
+  // Homepage CTA buttons share the one-time pop-in used by contact methods.
+  const heroActions = [...document.querySelectorAll(".hero-cta-group > .mag-btn, .mobile-hero-actions > a, .mobile-hero-actions > button")];
+  const allTargets = [...new Set([...targets, ...contactMethods, ...heroActions])];
   if (!allTargets.length) return;
 
   // A brief glimpse at the bottom of the screen must not trigger the entrance.
@@ -100,9 +102,10 @@
     return box.width > 0 && box.height > 0;
   });
   for (const el of toObserve) {
-    const isContactMethod = contactMethods.includes(el);
-    el.classList.add(isContactMethod ? "mk-pop-item" : "mk-motion-item");
-    el.classList.add(isContactMethod ? "mk-pop-pending" : "mk-motion-pending");
+    const heroIndex = heroActions.indexOf(el);
+    const isPopItem = contactMethods.includes(el) || heroIndex !== -1;
+    el.classList.add(isPopItem ? "mk-pop-item" : "mk-motion-item");
+    el.classList.add(isPopItem ? "mk-pop-pending" : "mk-motion-pending");
     pending.add(el);
   }
   try {

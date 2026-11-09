@@ -15,7 +15,14 @@ class Text(HTMLParser):
   if tag=='nav' and self.newnav:self.newnav-=1
  def handle_data(self,data):
   if not self.hidden and not self.newnav:self.parts.append(data)
-def digest(source):return hashlib.sha256(re.sub(r'\s+','',''.join(Text(source).parts)).lstrip('\ufeff').encode()).hexdigest()
+def digest(source,name=''):
+ parts=''.join(Text(source).parts)
+ if name=='mobile.html':
+  # UI-only print CTA added Nov 9; original resume text fingerprint must remain identical.
+  label='列印／另存 PDF'
+  assert parts.count(label)==1,name+': expected exactly one new print action label'
+  parts=parts.replace(label,'',1)
+ return hashlib.sha256(re.sub(r'\s+','',parts).lstrip('\ufeff').encode()).hexdigest()
 if __name__=='__main__':
  manifest=json.loads((ROOT/'_audit/editorial-main-text-sha256.json').read_text())
  approved=json.loads((ROOT/'_audit/regional-analysis-approved-sha1.json').read_text())['pages']
@@ -27,7 +34,7 @@ if __name__=='__main__':
    assert actual==approved[name],name+': regional analysis content not approved'
    current[name]=actual
   else:
-   actual=digest((ROOT/name).read_text(encoding='utf-8'))
+   actual=digest((ROOT/name).read_text(encoding='utf-8'),name)
    assert actual==expected,name+': main text changed'
    current[name]=actual
   print(name+': approved content and factual data preserved')

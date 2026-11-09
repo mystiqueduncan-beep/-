@@ -155,6 +155,8 @@ def expected_text(rel,text):
   s=cut_between('06/教育背景EDUCATION','07/到任後工作構想')
   if s.count('聯絡資訊')!=2:raise ValueError(rel+': unexpected contact entry count')
   s=s.replace('聯絡資訊','個人及聯絡資訊')
+  # User-requested UI-only print action on the mobile homepage; resume facts stay untouched.
+  s=swap('下載 A4 PDF 履歷','下載 A4 PDF 履歷列印／另存 PDF')
  elif rel=='contact.html':
   s=swap('黃博詩個人應徵作品集｜聯絡資訊頁','黃博詩個人應徵作品集｜個人及聯絡資訊')
   s=swap('📱切換手機版(iPhone最適化)↗','手機版')
