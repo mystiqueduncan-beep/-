@@ -1,0 +1,144 @@
+/*
+ * Desktop editorial density pass (2026-11-09).
+ * Content, mobile layouts and existing one-time reveal logic remain unchanged.
+ * Both desktop chapter strips keep the same trend-marquee.js animation.
+ */
+body.page-home.page-desktop .home-keycap-strip .keycap-marquee__viewport {
+  max-width: 100% !important;
+}
+body.page-home.page-desktop .home-keycap-strip .keycap-marquee {
+  width: 100%;
+  padding: 12px 0 15px;
+  gap: 14px;
+}
+body.page-home.page-desktop .home-keycap-strip .home-keycap-layout {
+  gap: 6px;
+  padding-top: 0;
+  padding-bottom: 8px;
+}
+body.page-home.page-desktop .home-keycap-strip .keycap-marquee__belt {
+  flex: 0 0 auto;
+}
+@media (min-width: 821px) {
+  /* Resume homepage: tighten spacing without compressing text or photos. */
+  body.page-home.page-desktop .mag-header {
+    padding: 22px 0 28px !important;
+  }
+  body.page-home.page-desktop .masthead-meta-row {
+    margin-bottom: 20px !important;
+  }
+  body.page-home.page-desktop .cover-layout .hero-primary-info {
+    column-gap: clamp(22px, 3vw, 40px) !important;
+    row-gap: 14px !important;
+  }
+  body.page-home.page-desktop .hero-name-row {
+    margin: 12px 0 14px !important;
+  }
+  body.page-home.page-desktop .hero-key-pillars {
+    margin: 18px 0 0 !important;
+    padding-top: 16px !important;
+    gap: 18px !important;
+  }
+  body.page-home.page-desktop .hero-action-card {
+    margin-top: 16px !important;
+    padding: 18px 22px !important;
+  }
+  body.page-home.page-desktop main.mag-main {
+    padding-top: 24px !important;
+    padding-bottom: 40px !important;
+  }
+  body.page-home.page-desktop main.mag-main > .section-block {
+    margin-bottom: 28px !important;
+    padding: 24px !important;
+  }
+  body.page-home.page-desktop main.mag-main .section-editorial-header {
+    padding-bottom: 12px !important;
+    margin-bottom: 14px !important;
+  }
+  body.page-home.page-desktop .grid-2x2,
+  body.page-home.page-desktop .cards-2x2-grid {
+    gap: 18px 24px !important;
+  }
+  body.page-home.page-desktop .grid-2x2 > :nth-child(even),
+  body.page-home.page-desktop .cards-2x2-grid > :nth-child(even) {
+    margin-top: 0 !important;
+  }
+  body.page-home.page-desktop .wide-star-case {
+    gap: 22px !important;
+    padding-block: 20px !important;
+  }
+  body.page-home.page-desktop .career-entry-card {
+    padding-block: 20px !important;
+  }
+  body.page-home.page-desktop .stage-card:nth-child(2) {
+    margin-top: 12px !important;
+  }
+
+  /* Research report: reduce large gaps and staggered empty areas. */
+  body.page-trend.page-desktop .mag-header {
+    padding: 22px 0 32px !important;
+  }
+  body.page-trend.page-desktop .trend-hero {
+    padding: 14px 0 6px !important;
+  }
+  body.page-trend.page-desktop .hero-badge-row {
+    margin-bottom: 12px !important;
+  }
+  body.page-trend.page-desktop .report-title-main {
+    font-size: clamp(2.5rem, 4.3vw, 4.6rem) !important;
+    line-height: 1.28 !important;
+  }
+  body.page-trend.page-desktop .report-lead-quote {
+    margin-top: 18px !important;
+    padding: 18px 22px !important;
+  }
+  body.page-trend.page-desktop main.trend-main {
+    padding-top: 24px !important;
+    padding-bottom: 46px !important;
+  }
+  body.page-trend.page-desktop main.trend-main > section[id] {
+    margin-top: 0 !important;
+    margin-bottom: 28px !important;
+    padding: 24px !important;
+  }
+  body.page-trend.page-desktop main.trend-main .section-editorial-header {
+    padding-bottom: 12px !important;
+    margin-bottom: 14px !important;
+  }
+  body.page-trend.page-desktop .cards-2x2-grid,
+  body.page-trend.page-desktop .experience,
+  body.page-trend.page-desktop .strategies,
+  body.page-trend.page-desktop .metric-grid {
+    gap: 18px !important;
+  }
+  body.page-trend.page-desktop .cards-2x2-grid > :nth-child(even),
+  body.page-trend.page-desktop .feature-card:nth-child(even) {
+    margin-top: 0 !important;
+  }
+  body.page-trend.page-desktop .feature-card,
+  body.page-trend.page-desktop .content-article-box,
+  body.page-trend.page-desktop .case-box {
+    padding: 20px !important;
+  }
+  body.page-trend.page-desktop .case-box {
+    margin-bottom: 16px !important;
+  }
+  body.page-trend.page-desktop .viz-comparison,
+  body.page-trend.page-desktop .swimlane-panel,
+  body.page-trend.page-desktop .decision-map {
+    margin-block: 18px !important;
+    padding: 22px !important;
+  }
+  body.page-trend.page-desktop .viz-caption {
+    margin: 8px 0 14px !important;
+  }
+  body.page-trend.page-desktop .source-item {
+    padding-block: 14px !important;
+  }
+}
+/* Keep print uncluttered and readable; no new animation or pause controls. */
+@media print {
+  body.page-home.page-desktop .home-keycap-strip .keycap-marquee__viewport {
+    max-width: 100% !important;
+  }
+}
