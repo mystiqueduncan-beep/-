@@ -1,4 +1,4 @@
-/* One-time right-to-left section reveals for the personal portfolio.
+/* One-time left-to-right section reveals after a content unit fully enters the viewport.
    Content stays visible if this script fails, JavaScript is disabled, or reduced motion is preferred. */
 (() => {
   "use strict";
@@ -40,25 +40,60 @@
   const allTargets = [...new Set([...targets, ...contactMethods])];
   if (!allTargets.length) return;
 
+  // A brief glimpse at the bottom of the screen must not trigger the entrance.
+  // Compact blocks wait until their entire height is in the visible viewport.
+  // Sections taller than a screen cannot fit fully; reveal after they cover 80%
+  // of the usable screen height, on both desktop and mobile.
+  const hasFullyEntered = el => {
+    const rect = el.getBoundingClientRect();
+    const viewportHeight = document.documentElement.clientHeight || window.innerHeight;
+    const visibleBottom = viewportHeight - Math.min(48, Math.max(20, viewportHeight * 0.06));
+    const usableHeight = visibleBottom;
+    if (!rect.width || !rect.height || usableHeight <= 0) return false;
+    if (rect.height <= usableHeight) {
+      return rect.top >= -1 && rect.bottom <= visibleBottom + 1;
+    }
+    const visibleHeight = Math.max(0, Math.min(rect.bottom, visibleBottom) - Math.max(rect.top, 0));
+    return visibleHeight >= usableHeight * 0.8;
+  };
+
+  const pending = new Set();
+  let observer;
+  let scheduled = false;
+  let listening = false;
+  const detachChecks = () => {
+    if (!listening) return;
+    listening = false;
+    window.removeEventListener("scroll", scheduleCheck);
+    window.removeEventListener("resize", scheduleCheck);
+    window.removeEventListener("pageshow", scheduleCheck);
+  };
   const reveal = el => {
     el.classList.remove("mk-motion-pending", "mk-pop-pending");
     el.classList.add(el.classList.contains("mk-pop-item") ? "mk-pop-in" : "mk-motion-in");
+    pending.delete(el);
+    observer?.unobserve(el);
+    if (!pending.size) detachChecks();
   };
+  const checkPending = () => {
+    // Read all positions first; write classes afterwards to avoid layout thrashing.
+    const ready = [...pending].filter(hasFullyEntered);
+    ready.forEach(reveal);
+  };
+  function scheduleCheck() {
+    if (scheduled || !pending.size) return;
+    scheduled = true;
+    window.requestAnimationFrame(() => {
+      scheduled = false;
+      checkPending();
+    });
+  }
 
-  let observer;
   try {
-    observer = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          reveal(entry.target);
-          observer.unobserve(entry.target);
-        }
-      }
-    }, { threshold: 0, rootMargin: "0px 0px -24px 0px" });
+    observer = new IntersectionObserver(() => scheduleCheck(), { threshold: 0 });
   } catch (_) { return; }
 
-  // Mark all content units before observing. Every section, including content
-  // already in the first viewport, uses the same entrance treatment.
+  // Establish the pending pose before starting any observation.
   const toObserve = allTargets.filter(el => {
     if (el.closest('[hidden], [aria-hidden="true"]')) return false;
     const box = el.getBoundingClientRect();
@@ -68,6 +103,7 @@
     const isContactMethod = contactMethods.includes(el);
     el.classList.add(isContactMethod ? "mk-pop-item" : "mk-motion-item");
     el.classList.add(isContactMethod ? "mk-pop-pending" : "mk-motion-pending");
+    pending.add(el);
   }
   try {
     for (const el of toObserve) observer.observe(el);
@@ -77,9 +113,20 @@
     return;
   }
 
+  // Scroll checks are essential: intersection alone fires too early, and does
+  // not fire again as a partially visible block becomes fully visible.
+  if (pending.size) {
+    window.addEventListener("scroll", scheduleCheck, { passive: true });
+    window.addEventListener("resize", scheduleCheck, { passive: true });
+    window.addEventListener("pageshow", scheduleCheck);
+    listening = true;
+    scheduleCheck();
+  }
+
   const revealEverything = () => {
     observer.disconnect();
     allTargets.forEach(reveal);
+    detachChecks();
   };
 
   // Reveal the focused item and any hidden ancestors so keyboard users never
