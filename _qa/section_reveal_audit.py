@@ -24,7 +24,7 @@ with sync_playwright() as p:
         # Check the real viewport entrance rather than first-pixel intersections.
         held = browser.new_page(viewport={'width':390 if mobile else 1440,'height':844})
         held.route('https://**/*', lambda r: r.abort())
-        held.add_init_script('window.IntersectionObserver=class {observe(){} unobserve(){} disconnect(){}}')
+        held.add_init_script('window.IntersectionObserver=class {observe(){} unobserve(){} disconnect(){}}; window.requestAnimationFrame=()=>0')
         held.goto(url)
         held.wait_for_timeout(800)
         # Slower (1.4s) transitions may still be settling towards the hidden
