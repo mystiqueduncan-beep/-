@@ -23,6 +23,7 @@ jobs:
           node --check assets/contact.js
           node --check assets/trend-marquee.js
           node --check assets/mk-inspired.js
+          node --check assets/research-cta.js
           node --check assets/view-router.js
           node --check assets/career-images.js
           node --check assets/page-transitions.js
@@ -46,6 +47,8 @@ jobs:
           npm install --no-save --package-lock=false axe-core@4.10.3
       - name: One-time section and contact reveals
         run: python3 _qa/section_reveal_audit.py
+      - name: Cross-page research CTA frame, reveal, glow, and accessibility
+        run: python3 _qa/research_cta_audit.py
       - name: Editorial mouse, touch and same-tab transitions
         run: python3 _qa/editorial_interactions.py
       - name: Responsive layouts, keyboard controls and axe
