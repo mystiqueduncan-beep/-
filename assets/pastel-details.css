@@ -507,7 +507,7 @@ body.page-trend.page-desktop .report-title-main>span[style] {display:block;font-
   }
   /* Research visualization panels should fade; their bars/values own the
      informative motion and continue to animate on first entry. */
-  body.page-trend .motion-ready .viz-reveal {
+  .motion-ready body.page-trend .viz-reveal {
     translate: none !important;
     transition: opacity .45s ease-out !important;
   }
