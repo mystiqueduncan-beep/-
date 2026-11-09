@@ -20,14 +20,17 @@
  }));
  const reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)");
  if(!("IntersectionObserver" in window)||(reduced&&reduced.matches))return;
- const items=[...document.querySelectorAll(".viz-comparison,.swimlane-panel,.metric-tile,.decision-map,.timeline-control,.stats,.split .box")];
+ // The shared site observer already manages mk-motion-item cards; never
+ // attach a second entrance observer to them, which would replay reveals.
+ const items=[...document.querySelectorAll(".viz-comparison,.swimlane-panel,.metric-tile,.decision-map,.timeline-control,.stats,.split .box")]
+  .filter(el=>!el.matches(".mk-motion-item, .mk-pop-item"));
  if(!items.length)return;
  let observer;
  try{
   observer=new IntersectionObserver(entries=>entries.forEach(e=>{
    if(e.isIntersecting){e.target.classList.add("is-visible");observer.unobserve(e.target);}
   }),{threshold:.08});
-  items.forEach(x=>observer.observe(x));
+  items.forEach(x=>{x.classList.add("viz-reveal");observer.observe(x);});
   document.documentElement.classList.add("motion-ready");
  }catch(_){
   if(observer)observer.disconnect();
