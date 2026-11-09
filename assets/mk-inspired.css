@@ -300,6 +300,20 @@ main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
 .contact-methods-stack > .method-card:nth-of-type(1) { transition-delay: 0ms; }
 .contact-methods-stack > .method-card:nth-of-type(2) { transition-delay: 50ms; }
 .contact-methods-stack > .method-card:nth-of-type(3) { transition-delay: 100ms; }
+/* Resume hero actions follow the same pop-in treatment, in visual order. */
+.hero-cta-group > .mk-pop-item:nth-child(1),
+.mobile-hero-actions > .mk-pop-item:nth-child(1) { transition-delay: 0ms; }
+.hero-cta-group > .mk-pop-item:nth-child(2),
+.mobile-hero-actions > .mk-pop-item:nth-child(2) { transition-delay: 100ms; }
+.hero-cta-group > .mk-pop-item:nth-child(3),
+.mobile-hero-actions > .mk-pop-item:nth-child(3) { transition-delay: 200ms; }
+.hero-cta-group > .mk-pop-item:nth-child(4),
+.mobile-hero-actions > .mk-pop-item:nth-child(4) { transition-delay: 300ms; }
+.mobile-hero-actions > .mobile-print-action {
+  border-style: dashed;
+  box-shadow: none;
+  font-family: inherit;
+}
 @media (max-width: 680px) {
   .mag-header::after { width: 240px; right: -130px; top: 5%; }
   .section-editorial-header {
