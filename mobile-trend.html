@@ -1,998 +1,683 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <script src="assets/view-router.js"></script>
-  <title>實體通路趨勢研究 ｜ 黃博詩 ｜ 松本清 區域營運經理 專案（手機專版）</title>
-  <meta name="description" content="美妝實體通路趨勢研究手機專版：台灣美妝保養購買管道調查 (創市際 2026/04/15)、2024藥粧商品結構 (經濟部統計處)、4大核心優勢、4大劣勢挑戰與躍升策略。黃博詩應徵台灣松本清區域營運經理專題。">
 
-  <meta name="theme-color" content="#111111">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="松本清-趨勢研究">
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Noto+Sans+TC:wght@400;500;600;700;800;900&family=Noto+Serif+TC:wght@600;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-
-  <style>
+<html lang="zh-Hant"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>黃博詩｜藥粧產業研究 × 區域營運改善提案</title>
+<meta name="description" content="藥粧產業趨勢研究與區域營運改善提案，包含市場數據、六項改善方針、90天推進計畫、KPI及研究來源。">
+<link rel="canonical" href="https://github.com/mystiqueduncan-beep/-/blob/47376e5ca57710ca3de356a886da4981eb6b8491/trend.html">
+<meta property="og:type" content="website"><meta property="og:title" content="藥粧產業研究 × 區域營運改善提案｜黃博詩">
+<meta property="og:description" content="市場判讀、經驗連結、六項改善方針、90天計畫、成效追蹤及研究來源。">
+<meta property="og:url" content="https://mystiqueduncan-beep.github.io/-/trend.html">
+<meta name="twitter:card" content="summary">
+<meta name="robots" content="noindex,follow">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<script src="assets/view-router.js"></script>
+<script src="assets/page-transitions.js" defer></script>
+<style>
+.analysis-switch-bar{display:flex;justify-content:flex-end;padding:4px 20px 10px}
+.analysis-switch-bar a{display:inline-flex;min-height:44px;align-items:center;padding:9px 15px;background:#fff9f7;color:#654753;text-decoration:none;font-size:.84rem;font-weight:750;border:1px solid #b98b9a;border-radius:16px}
+.analysis-switch-bar a:hover{background:#ecd3db}
+.page-trend.page-mobile .mag-top-ticker{display:none}
+.page-trend.page-mobile .mobile-top-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;background:#f4e4e9;border-bottom:1px solid #dcc3c9}
+.page-trend.page-mobile .mobile-top-bar a{font-weight:800;text-decoration:none;color:#654753}
+.page-trend.page-mobile .mobile-top-bar .btn-switch-desktop{padding:8px 13px;border:1px solid #b98b9a;border-radius:12px;background:#fffaf7;white-space:nowrap}
+.page-trend.page-mobile .mag-header .masthead-row,.page-trend.page-mobile .analysis-switch-bar{display:none}
+.page-trend.page-mobile .mobile-bottom-bar{position:fixed;left:50%;bottom:0;transform:translateX(-50%);z-index:80;display:flex;justify-content:space-around;align-items:center;width:min(100%,768px);min-height:65px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:#fff9f7;border-top:1px solid #c9a7b5}
+.page-trend.page-mobile .mobile-bottom-bar a{display:inline-flex;min-height:44px;align-items:center;justify-content:center;flex:1;padding:7px 6px;font-weight:750;font-size:.78rem;text-decoration:none;color:#775c66}
+.page-trend.page-mobile .mobile-bottom-bar a.active{color:#885365;background:#f4e4e9;border-radius:12px}
+.page-trend.page-mobile .trend-main{padding-bottom:120px}
+@media(max-width:375px){.page-trend.page-mobile .metric-grid{grid-template-columns:1fr}.page-trend.page-mobile .barrow{grid-template-columns:105px minmax(30px,1fr) 40px}.page-trend.page-mobile .phase-dot{width:42px;height:42px}}
+</style><style>
+:root{--navy:#0B2240;--yellow:#FFD600;--red:#C5161D;--paper:#F7F5F0;--line:#DCD8CE;--muted:#606771}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--navy);font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif;line-height:1.8}a{color:inherit}button{font:inherit;cursor:pointer}a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--red);outline-offset:5px}.wrap{max-width:1140px;margin:auto;padding:0 28px}.top{background:var(--navy);color:white;border-bottom:4px solid var(--yellow);font:11px/1.7 monospace;letter-spacing:.08em}.top .wrap{display:flex;justify-content:space-between;padding-top:9px;padding-bottom:9px}.mast{display:flex;justify-content:space-between;align-items:center;padding:25px 0 18px;border-bottom:2px solid var(--navy);gap:16px}.badge{background:var(--yellow);border:1px solid var(--navy);padding:4px 12px;box-shadow:3px 3px 0 var(--navy);font-weight:800;font-size:12px}.meta{font-size:12px;text-align:right}.hero{display:grid;grid-template-columns:1.55fr 1fr;gap:50px;padding:57px 0 45px;align-items:center}.eyebrow{font:700 11px/1.7 monospace;letter-spacing:.12em;color:var(--red)}h1{font-family:"Noto Serif TC","Songti TC",serif;font-size:clamp(34px,4.7vw,57px);line-height:1.3;letter-spacing:.03em;margin:15px 0 20px}h1 mark{color:var(--navy);background:linear-gradient(transparent 65%,var(--yellow) 65%)}.lead{color:#49515d;font-size:15px;max-width:600px}.byline{font-size:12px;margin-top:22px}.cover{background:var(--navy);color:white;padding:28px;border:1px solid var(--navy);box-shadow:7px 7px 0 var(--yellow);position:relative}.cover .no{font:70px/1 monospace;color:var(--yellow);letter-spacing:-.07em}.cover h2{font-size:23px;margin:14px 0}.cover p{font-size:13px;color:#d9e0ea;margin:8px 0}.cover hr{border:0;border-top:1px solid #536075;margin:20px 0}.cover small{font-size:11px}.nav{position:sticky;top:0;background:var(--paper);z-index:10;border-top:1px solid var(--navy);border-bottom:1px solid var(--navy);display:flex;gap:12px;padding:13px 0;overflow:auto}.nav a{flex:none;text-decoration:none;background:#fff;border:1px solid var(--navy);box-shadow:2px 2px 0 var(--navy);padding:5px 13px;font-size:12px;font-weight:700}.nav a:hover{background:var(--yellow)}section{scroll-margin-top:85px;margin-top:65px}.heading{display:flex;align-items:center;gap:16px;border-bottom:2px solid var(--navy);padding-bottom:13px;margin-bottom:25px}.heading .n{font:700 36px monospace;color:var(--red)}h2{margin:0;font-family:"Noto Serif TC","Songti TC",serif;font-size:28px}.eng{display:block;color:var(--muted);font:10px monospace;letter-spacing:.1em;margin-top:4px}.note{font-size:12px;color:var(--muted)}.stats{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--navy);background:white}.stat{padding:25px;border-right:1px solid var(--line)}.stat:last-child{border:0}.stat strong{font:700 43px/1.3 monospace;display:block}.stat b{font-size:13px}.stat small{display:block;font-size:11px;color:var(--muted)}.split{display:grid;grid-template-columns:1fr 1fr;gap:25px;margin-top:26px}.box{background:white;border:1px solid var(--line);padding:24px}.box h3{font-size:17px;margin:0 0 12px}.box p{font-size:14px;margin:8px 0}.barrow{display:grid;grid-template-columns:145px 1fr 45px;gap:10px;align-items:center;font-size:12px;margin:10px 0}.bar{background:#efede7;height:9px}.bar i{display:block;background:var(--navy);height:100%}.quote{border-left:5px solid var(--yellow);padding:12px 20px;margin-top:24px;font-size:16px;font-weight:600}.experience{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.exp{padding:24px;background:#fff;border-top:4px solid var(--navy)}.exp b{font-size:20px}.exp .years{font:700 30px monospace;display:block;margin:10px 0;color:var(--red)}.exp p{font-size:13px}.exp small{display:block;border-top:1px solid var(--line);padding-top:12px;font-size:12px}.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:22px}.flow div{background:var(--paper);padding:17px}.flow b{display:block;font-size:14px}.flow p{font-size:12px;color:var(--muted);margin:6px 0}.filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:22px}.filters button{background:white;border:1px solid var(--navy);padding:7px 15px;font-size:12px}.filters button[aria-pressed=true]{background:var(--navy);color:white}.strategies{display:grid;grid-template-columns:1fr 1fr;gap:20px}.strategy{background:white;border:1px solid var(--navy);box-shadow:3px 3px 0 var(--navy);padding:24px}.strategy[hidden]{display:none}.strategy h3{font-size:20px;margin:12px 0}.label{font-size:10px;font-weight:800;background:#fff5bc;padding:4px 8px;display:inline-block}.label.hq{background:#e5ebf3}.strategy p{font-size:13px;margin:10px 0}.strategy strong{color:var(--red)}.kpi{border-top:1px solid var(--line);padding-top:10px;font-size:12px}.roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.phase{background:white;border:1px solid var(--line);padding:23px}.phase:nth-child(2){background:#fff9d2}.phase strong{font:700 28px monospace}.phase h3{font-size:19px}.phase ul{padding-left:20px;font-size:13px}.deliver{font-size:12px;border-top:1px solid var(--line);padding-top:12px}.tablewrap{overflow-x:auto;border:1px solid var(--navy)}table{border-collapse:collapse;width:100%;min-width:650px;background:white;font-size:12px}th{text-align:left;background:var(--navy);color:white;padding:13px}td{padding:14px;border-bottom:1px solid var(--line);vertical-align:top}td:first-child{font-weight:700;width:18%}.decision{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px;margin-top:23px}.decision div{padding:18px;border-left:3px solid var(--yellow);background:white;font-size:12px}.decision b{display:block;font-size:15px}.closing{background:var(--navy);color:white;padding:35px;margin-top:60px;display:grid;grid-template-columns:1fr 1.6fr;gap:30px}.closing h2{color:var(--yellow);font-size:27px}.closing p{font-size:14px;margin:0}.sources{font-size:12px}.sources details{border-bottom:1px solid var(--line);padding:14px 0}.sources summary{cursor:pointer;font-weight:700}.sources a{overflow-wrap:anywhere}.sources p{color:var(--muted)}footer{margin-top:45px;border-top:2px solid var(--navy);padding:22px 0 35px;font-size:11px;display:flex;justify-content:space-between}.reveal{animation:enter .55s ease both}@keyframes enter{from{opacity:0;transform:translateX(-22px)}to{opacity:1;transform:none}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{animation:none}}@media(max-width:720px){.wrap{padding:0 20px}.top .wrap span:last-child{display:none}.mast{align-items:start}.meta{font-size:10px}.hero{grid-template-columns:1fr;gap:22px;padding:35px 0}.hero h1{font-size:39px}.cover{padding:23px}.cover .no{font-size:45px}.cover h2{font-size:21px}.stats,.experience,.roadmap,.strategies,.split,.closing{grid-template-columns:1fr}.stat{border-right:0;border-bottom:1px solid var(--line);padding:18px 22px}.stat strong{font-size:35px}.flow{grid-template-columns:1fr 1fr}.decision{grid-template-columns:1fr}.heading h2{font-size:23px}.heading .n{font-size:29px}.heading{gap:12px}section{margin-top:46px}.barrow{grid-template-columns:130px 1fr 42px;font-size:11px}.closing{gap:16px;padding:25px}footer{gap:20px}.nav{margin:0 -20px;padding:12px 20px}.strategy{padding:21px}}
+</style><style>
+    /* ==========================================================================
+       DESIGN SYSTEM: MATSUKIYO × JAPANESE FASHION EDITORIAL
+       ========================================================================== */
     :root {
       --mk-yellow: #FFD600;
       --mk-yellow-light: #FFF9D2;
+      --mk-yellow-tint: #FEFDF6;
       --mk-navy: #0B2240;
       --mk-navy-dark: #06152B;
-      --mk-navy-soft: #16375F;
-      --mk-red: #C5161D;
+      --mk-navy-light: #16375F;
+      --mk-navy-soft: #234E82;
+      --mk-red: #E60012;
       --mk-red-soft: #FFF0F0;
-      --paper-bg: #F5F3ED;
+
+      --paper-bg: #F7F5F0;
       --paper-card: #FFFFFF;
+      --paper-subtle: #F2EFE9;
       --ink-primary: #1C1C1E;
       --ink-secondary: #4A4D53;
       --ink-muted: #7A7D84;
-      --hairline: #E5E2DA;
+      --hairline: #E2DFD7;
+
+      --font-serif-tc: 'Noto Serif TC', 'Shippori Mincho', serif;
+      --font-serif-jp: 'Shippori Mincho', 'Noto Serif TC', serif;
+      --font-sans: 'Plus Jakarta Sans', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Cinzel', 'Shippori Mincho', serif;
+      --font-mono: 'Space Mono', monospace;
+
       --radius-sm: 4px;
       --radius-md: 8px;
-      --radius-lg: 12px;
-      --font-serif-tc: 'Noto Serif TC', serif;
-      --font-sans: 'Noto Sans TC', -apple-system, sans-serif;
-      --font-mono: 'Space Mono', monospace;
-      --font-display: 'Cinzel', serif;
+      --radius-lg: 14px;
+      --shadow-editorial: 0 4px 20px rgba(11, 34, 64, 0.06);
+      --shadow-hover: 0 10px 30px rgba(11, 34, 64, 0.12);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      background-color: #ECE9E1;
+      background-color: var(--paper-bg);
       color: var(--ink-primary);
       font-family: var(--font-sans);
-      line-height: 1.75;
-      font-size: 15px;
+      line-height: 1.85;
       -webkit-font-smoothing: antialiased;
-      padding-bottom: calc(76px + env(safe-area-inset-bottom));
-    }
-
-    .mobile-app-wrapper {
-      max-width: 480px;
-      margin: 0 auto;
-      background-color: var(--paper-bg);
-      min-height: 100vh;
-      box-shadow: 0 0 35px rgba(11, 34, 64, 0.15);
       position: relative;
     }
 
-    /* Top Sticky Header */
-    .mobile-top-bar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: #FFFFFF;
-      border-bottom: 2px solid var(--mk-navy);
-      padding: calc(10px + env(safe-area-inset-top)) 16px 10px 16px;
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(#00000008 1px, transparent 1px);
+      background-size: 24px 24px;
+      opacity: 0.7;
+      z-index: 999;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Top Ticker */
+    .mag-top-ticker {
+      background-color: var(--mk-navy);
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 8px 0;
+      border-bottom: 2px solid var(--mk-yellow);
+    }
+
+    .ticker-inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 10px rgba(11, 34, 64, 0.06);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .ticker-pill {
+      background: var(--mk-yellow);
+      color: var(--mk-navy-dark);
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 2px;
+      font-size: 0.68rem;
+    }
+
+    /* Header */
+    header.mag-header {
+      background-color: #FFFFFF;
+      border-bottom: 1px solid var(--hairline);
+      padding: 36px 0 28px 0;
+    }
+
+    .masthead-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      border-bottom: 2px solid var(--mk-navy);
+      padding-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 16px;
     }
 
     .matsukiyo-logo-badge {
       display: inline-flex;
       align-items: stretch;
       background: var(--mk-yellow);
-      border: 1.5px solid var(--mk-navy);
-      box-shadow: 2px 2px 0 var(--mk-navy);
+      border: 2px solid var(--mk-navy);
+      box-shadow: 3px 3px 0px var(--mk-navy);
       text-decoration: none;
+      transition: transform 0.2s ease;
+    }
+
+    .matsukiyo-logo-badge:hover {
+      transform: scale(1.02);
     }
 
     .logo-jp {
       background: var(--mk-yellow);
       color: var(--mk-navy);
+      font-family: var(--font-sans);
       font-weight: 900;
-      font-size: 0.95rem;
-      padding: 4px 8px;
-      border-right: 1.5px solid var(--mk-navy);
+      font-size: 1.15rem;
+      padding: 6px 14px;
+      border-right: 2px solid var(--mk-navy);
       display: flex;
       align-items: center;
+      letter-spacing: -0.02em;
     }
 
     .logo-en {
       background: var(--mk-navy);
-      color: var(--mk-yellow);
-      font-family: var(--font-mono);
-      font-weight: 800;
-      font-size: 0.72rem;
-      padding: 4px 8px;
-      display: flex;
-      align-items: center;
-      letter-spacing: 0.05em;
-    }
-
-    .btn-switch-desktop {
-      font-size: 0.76rem;
-      font-weight: 700;
-      color: var(--mk-navy);
-      background: var(--paper-bg);
-      border: 1.5px solid var(--mk-navy);
-      padding: 4px 8px;
-      border-radius: var(--radius-sm);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
-      box-shadow: 1.5px 1.5px 0 var(--mk-navy);
-      white-space: nowrap;
-    }
-
-    /* Status Strip */
-    .mobile-status-strip {
-      background-color: var(--mk-navy);
       color: #FFFFFF;
-      padding: 6px 16px;
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 6px 14px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      border-bottom: 2px solid var(--mk-yellow);
+      letter-spacing: 0.12em;
     }
 
-    .status-dot-badge {
+    .nav-btn-mk {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      color: var(--mk-yellow);
+      background: var(--paper-bg);
+      color: var(--mk-navy);
+      border: 1.5px solid var(--mk-navy);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
       font-weight: 700;
+      text-decoration: none;
+      box-shadow: 2px 2px 0px var(--mk-navy);
+      transition: all 0.2s ease;
     }
 
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
+    .nav-btn-mk:hover {
+      background: var(--mk-yellow-light);
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0px var(--mk-navy);
+    }
+
+    .nav-btn-mk.btn-accent {
       background: var(--mk-yellow);
     }
 
-    /* Main Container */
-    .mobile-content {
-      padding: 16px;
+    /* Trend Hero Section */
+    .trend-hero {
+      padding: 24px 0 10px 0;
     }
 
-    /* Cards */
-    .mobile-card {
+    .hero-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .badge-report {
+      background: var(--mk-navy);
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 3px 10px;
+      border-radius: 2px;
+    }
+
+    .badge-candidate {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: var(--mk-navy-soft);
+      font-weight: 700;
+    }
+
+    .report-title-main {
+      font-family: var(--font-serif-tc);
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--mk-navy);
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .report-title-jp {
+      font-family: var(--font-serif-jp);
+      font-size: 0.96rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.04em;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .report-lead-quote {
+      background: var(--paper-subtle);
+      border-left: 4px solid var(--mk-yellow);
+      border-right: 1px solid var(--hairline);
+      border-top: 1px solid var(--hairline);
+      border-bottom: 1px solid var(--hairline);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 18px 24px;
+      font-size: 0.98rem;
+      color: var(--ink-secondary);
+      line-height: 1.85;
+      box-shadow: 2px 2px 8px rgba(11, 34, 64, 0.04);
+    }
+
+    /* Sticky Chapter Navigation */
+    .trend-subnav-strip {
+      background: #FFFFFF;
+      border-top: 1px solid var(--hairline);
+      border-bottom: 2px solid var(--mk-navy);
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      box-shadow: 0 4px 12px rgba(11, 34, 64, 0.06);
+    }
+
+    .trend-subnav-items {
+      display: flex;
+      gap: 6px;
+      list-style: none;
+      overflow-x: auto;
+      padding: 8px 0;
+      scrollbar-width: none;
+    }
+
+    .trend-subnav-items::-webkit-scrollbar {
+      display: none;
+    }
+
+    .trend-subnav-items a {
+      color: var(--mk-navy);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      padding: 5px 10px;
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+      transition: background 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .trend-subnav-items a:hover {
+      background: var(--mk-yellow-light);
+    }
+
+    .trend-subnav-items a .num {
+      color: var(--mk-red);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+    }
+
+    /* Main Container */
+    main.trend-main {
+      padding: 40px 0 80px 0;
+    }
+
+    /* Section Headers */
+    .section-editorial-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--mk-navy);
+      position: relative;
+    }
+
+    .sec-title-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .sec-number {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--mk-red);
+    }
+
+    .sec-title-main {
+      font-family: var(--font-serif-tc);
+      font-size: 1.55rem;
+      font-weight: 900;
+      color: var(--mk-navy);
+    }
+
+    .sec-en-badge {
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      color: var(--mk-navy-soft);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    /* Editorial Content Boxes */
+    .content-article-box {
+      background: #FFFFFF;
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-sm);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-editorial);
+      margin-bottom: 36px;
+    }
+
+    .content-article-box p {
+      font-size: 0.98rem;
+      color: var(--ink-secondary);
+      line-height: 1.85;
+      margin-bottom: 16px;
+    }
+
+    .content-article-box p strong {
+      color: var(--mk-navy);
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       STRICT 2x2 GRID SYSTEM (徹底解決 3+1 孤兒卡片問題)
+       ========================================================================== */
+    .cards-2col-grid,
+    .cards-2x2-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    @media (max-width: 768px) {
+      .cards-2col-grid,
+      .cards-2x2-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .feature-card {
       background: #FFFFFF;
       border: 1.5px solid var(--mk-navy);
       border-radius: var(--radius-sm);
+      padding: 24px;
       box-shadow: 3px 3px 0 var(--mk-navy);
-      padding: 18px 16px;
-      margin-bottom: 20px;
       position: relative;
-      scroll-margin-top: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    .mobile-card-title {
+    .card-top-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 2px 8px;
+      border-radius: 2px;
+      margin-bottom: 10px;
+      width: fit-content;
+    }
+
+    .tag-strength {
+      background: #E8F5E9;
+      color: #216327;
+      border: 1px solid #A5D6A7;
+    }
+
+    .tag-weakness {
+      background: #FFEBEE;
+      color: #C62828;
+      border: 1px solid #EF9A9A;
+    }
+
+    .tag-strategy {
+      background: var(--mk-yellow-light);
+      color: var(--mk-navy);
+      border: 1px solid #FFE082;
+    }
+
+    .feature-card-title {
       font-family: var(--font-serif-tc);
       font-size: 1.22rem;
       font-weight: 900;
       color: var(--mk-navy);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1.5px dashed var(--mk-navy);
-      padding-bottom: 8px;
+      margin-bottom: 10px;
+      line-height: 1.4;
     }
 
-    .mobile-badge {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      font-weight: 800;
-      padding: 2px 6px;
+    .feature-card-text {
+      font-size: 0.88rem;
+      color: var(--ink-secondary);
+      line-height: 1.72;
+      margin-bottom: 14px;
+    }
+
+    .feature-card-data {
+      background: var(--paper-subtle);
+      border-left: 3px solid var(--mk-navy);
+      padding: 9px 12px;
+      font-size: 0.82rem;
+      color: var(--ink-primary);
       border-radius: 2px;
-      letter-spacing: 0.08em;
+      line-height: 1.6;
     }
 
-    .badge-yellow {
-      background: var(--mk-yellow);
+    /* Editorial Table */
+    .table-container {
+      background: #FFFFFF;
+      border: 2px solid var(--mk-navy);
+      border-radius: var(--radius-sm);
+      box-shadow: 3px 3px 0 var(--mk-navy);
+      overflow-x: auto;
+      margin-bottom: 32px;
+    }
+
+    .editorial-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    .editorial-table th {
+      background-color: var(--mk-navy);
+      color: #FFFFFF;
+      font-family: var(--font-serif-tc);
+      font-weight: 700;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--mk-yellow);
+      letter-spacing: 0.05em;
+    }
+
+    .editorial-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--hairline);
+      color: var(--ink-secondary);
+      vertical-align: top;
+      line-height: 1.65;
+    }
+
+    .editorial-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .editorial-table tr:nth-child(even) td {
+      background-color: var(--paper-subtle);
+    }
+
+    /* Case Boxes */
+    .case-box {
+      background: #FFFFFF;
+      border: 1.5px solid var(--mk-navy);
+      border-left: 5px solid var(--mk-yellow);
+      border-radius: var(--radius-sm);
+      padding: 22px 24px;
+      box-shadow: 3px 3px 0 var(--mk-navy);
+      margin-bottom: 20px;
+    }
+
+    .case-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .case-brand {
+      font-family: var(--font-serif-tc);
+      font-size: 1.15rem;
+      font-weight: 900;
       color: var(--mk-navy);
-      border: 1px solid var(--mk-navy);
     }
 
-    .badge-navy {
-      background: var(--mk-navy);
-      color: #FFFFFF;
-      border: 1px solid var(--mk-navy);
-    }
-
-    .badge-red {
-      background: var(--mk-red);
-      color: #FFFFFF;
-      border: 1px solid var(--mk-red);
-    }
-
-    .badge-green {
-      background: #E8F5E9;
-      color: #2E7D32;
-      border: 1px solid #A5D6A7;
-    }
-
-    .section-eyebrow {
+    .case-tag {
       font-family: var(--font-mono);
       font-size: 0.72rem;
-      font-weight: 800;
-      color: var(--mk-red);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      background: var(--mk-navy);
+      color: var(--mk-yellow);
+      padding: 2px 8px;
+      border-radius: 2px;
+      font-weight: 700;
     }
 
-    /* Action Buttons */
-    .btn-action-primary {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      width: 100%;
-      background: var(--mk-yellow);
-      color: var(--mk-navy);
-      font-weight: 800;
-      font-size: 0.92rem;
-      padding: 11px 16px;
-      border: 1.5px solid var(--mk-navy);
-      border-radius: var(--radius-sm);
-      text-decoration: none;
-      box-shadow: 2px 2px 0 var(--mk-navy);
-      cursor: pointer;
-      margin-top: 12px;
-      text-align: center;
-    }
-
-    .btn-subcard-nav {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      background: #FFFFFF;
-      color: var(--mk-navy);
-      font-weight: 800;
-      font-size: 0.84rem;
-      padding: 9px 6px;
-      border: 1.5px solid var(--mk-navy);
-      border-radius: var(--radius-sm);
-      text-decoration: none;
-      box-shadow: 1.5px 1.5px 0 var(--mk-navy);
-      cursor: pointer;
-      line-height: 1.35;
-    }
-
-    /* Subcard */
-    .mobile-subcard {
-      background: var(--paper-bg);
-      border: 1px solid var(--hairline);
-      border-radius: var(--radius-sm);
-      padding: 14px 12px;
-      margin-bottom: 12px;
-    }
-
-    .mobile-subcard:last-child {
-      margin-bottom: 0;
-    }
-
-    /* Sticky Bottom Nav Bar */
-    .mobile-bottom-bar {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 480px;
-      z-index: 1000;
-      background: #FFFFFF;
-      border-top: 2px solid var(--mk-navy);
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      padding-bottom: env(safe-area-inset-bottom);
-      box-shadow: 0 -4px 16px rgba(11, 34, 64, 0.1);
-    }
-
-    .bottom-nav-item {
+    /* Sources List */
+    .sources-list {
+      list-style: none;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 4px;
-      color: var(--ink-secondary);
-      text-decoration: none;
-      font-size: 0.68rem;
-      font-weight: 700;
-      gap: 3px;
+      gap: 12px;
     }
 
-    .bottom-nav-item svg {
-      width: 19px;
-      height: 19px;
+    .source-item {
+      background: #FFFFFF;
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      box-shadow: 1px 1px 3px rgba(11, 34, 64, 0.04);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
     }
 
-    .bottom-nav-item.active {
-      color: var(--mk-navy);
-      background: var(--mk-yellow-light);
-      font-weight: 900;
-    }
-
-    .bottom-nav-item.accent {
-      color: var(--mk-red);
-      font-weight: 800;
-    }
-
-    /* Mobile Footer */
-    .mobile-footer {
+    .source-num {
       background: var(--mk-navy);
-      color: #E2DFD7;
-      padding: 24px 16px calc(24px + env(safe-area-inset-bottom)) 16px;
-      font-size: 0.78rem;
-      text-align: center;
-      border-top: 3px solid var(--mk-yellow);
+      color: var(--mk-yellow);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 2px;
+      flex-shrink: 0;
     }
-  </style>
-  <link rel="canonical" href="https://mystiqueduncan-beep.github.io/-/trend.html">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="zh_TW">
-  <meta property="og:url" content="https://mystiqueduncan-beep.github.io/-/trend.html">
-  <meta property="og:title" content="實體通路趨勢研究 ｜ 黃博詩 ｜ 松本清 區域營運經理 專案（手機專版）">
-  <meta property="og:description" content="美妝實體通路趨勢研究手機專版：台灣美妝保養購買管道調查 (創市際 2026/04/15)、2024藥粧商品結構 (經濟部統計處)、4大核心優勢、4大劣勢挑戰與躍升策略。黃博詩應徵台灣松本清區域營運經理專題。">
-<meta property="og:image:alt" content="黃博詩">
-  <meta name="twitter:card" content="summary">
-  <meta name="robots" content="noindex,follow">
-  <link rel="stylesheet" href="assets/site.css">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/mk-inspired.css">
-  <script src="assets/mk-inspired.js" defer></script>
-  <script src="assets/page-transitions.js" defer></script>
-  <link rel="stylesheet" href="assets/trend-charts.css">
-  <script src="assets/trend-charts.js" defer></script>
-  <link rel="stylesheet" href="assets/retro-editorial.css">
-  <link rel="stylesheet" href="assets/pastel-details.css">
-</head>
-<body class="page-trend page-mobile">
-  <a class="skip-link" href="#main-content">跳至主要內容</a>
 
-<div class="mobile-app-wrapper" id="top">
+    .source-content h3 {
+      font-size: 0.94rem;
+      font-weight: 800;
+      color: var(--mk-navy);
+      margin-bottom: 4px;
+    }
 
-  <!-- Sticky Top Header -->
-  <header class="mobile-top-bar">
-    <a href="mobile.html" class="matsukiyo-logo-badge" title="回到作品集首頁">
-      <span class="logo-jp">個人作品集</span>
-      <span class="logo-en">個人通路研究</span>
-    </a>
-    <a href="trend.html?view=desktop" class="btn-switch-desktop" title="電腦版">電腦版</a>
-  </header>
+    .source-content p {
+      font-size: 0.84rem;
+      color: var(--ink-secondary);
+      margin-bottom: 0;
+      line-height: 1.6;
+    }
 
-  <!-- Status Strip -->
-  <aside class="mobile-status-strip" aria-label="履歷狀態">
-    <div class="status-dot-badge">
-      <span class="status-dot"></span>
-      <span>實體通路趨勢研究專題</span>
-    </div>
-    <span>黃博詩 專案分析</span>
-  </aside>
-  <!-- Main Content -->
-  <main class="mobile-content" id="main-content" tabindex="-1">
+    /* Footer */
+    footer.mag-footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--hairline);
+      padding: 28px 0;
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+    }
 
-    <!-- Hero Header Card -->
-    <section class="mobile-card" style="border-top: 4px solid var(--mk-yellow);">
-      <div class="section-eyebrow">
-        <span>TAIWAN RETAIL STRATEGY RESEARCH</span>
-      </div>
-      <h1 style="font-family: var(--font-serif-tc); font-size: 1.35rem; font-weight: 900; color: var(--mk-navy); line-height: 1.35; margin-bottom: 10px;">
-        實體通路趨勢研究 ✦ 美妝通路未來優勢與營運轉型
-      </h1>
-      <p style="font-size: 0.85rem; color: var(--ink-secondary); line-height: 1.7; margin-bottom: 12px;">
-        結合 <strong>Tomod's 6年（店長3年）</strong>日系藥妝前線門市營運實踐，對照<strong>經濟部統計處</strong>、<strong>創市際</strong>、<strong>91APP</strong> 與 <strong>Kantar</strong> 數據，剖析實體藥妝不可替代的 4 大核心優勢、4 大劣勢挑戰與躍升策略。
-      </p>
-      <div style="background: var(--paper-bg); border: 1px solid var(--hairline); border-left: 3px solid var(--mk-navy); padding: 8px 10px; font-size: 0.76rem; color: var(--mk-navy); margin-bottom: 12px; line-height: 1.5;">
-        <strong>研究整理：</strong>黃博詩
-      </div>
-      <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-        <span class="mobile-badge badge-yellow">經濟部統計處</span>
-        <span class="mobile-badge badge-navy">創市際 2026/04/15</span>
-        <span class="mobile-badge badge-red">91APP ＆ Kantar</span>
-      </div>
-    </section>
-
-    <!-- Executive Summary Card (研究精要) -->
-    <section id="summary" class="mobile-card" style="background: #FFFDF0; border: 2px solid var(--mk-navy);">
-      <h2 class="mobile-card-title" style="margin-bottom: 10px;">
-        <span><span class="ui-code" aria-hidden="true">00/</span> 研究問題與核心發現</span>
-        <span class="mobile-badge badge-red">SUMMARY</span>
-      </h2>
-      <div style="font-size: 0.84rem; color: var(--ink-secondary); line-height: 1.65; margin-bottom: 10px; display: flex; flex-direction: column; gap: 8px;">
-        <div>
-          <strong style="color: var(--mk-navy);">【核心問題】</strong> 電商普及下，實體藥妝門市如何創造差異化優勢？區域營運管理如何透過人員帶訓、端架體驗與庫存管理深化競爭優勢？
-        </div>
-        <div>
-          <strong style="color: var(--mk-navy);">【核心發現】</strong> 個人清潔化粧保養佔藥妝零售高達 47.7%（第一大支柱），仰賴現場試色與膚況確認；OMO 虛實融合客群年消費總金額達純電商之 3.4 倍。
-        </div>
-        <div>
-          <strong style="color: var(--mk-navy);">【營運應用】</strong> 建立試妝台清潔管理標準、尖峰前預排補貨機制與店員成分諮詢帶訓。
-        </div>
-      </div>
-      <div style="font-size: 0.72rem; color: var(--ink-muted); display: flex; gap: 8px; flex-wrap: wrap; border-top: 1px dashed var(--hairline); padding-top: 6px;">
-        <span>▪ <strong>數據事實：</strong>官方統計</span>
-        <span>▪ <strong>個人觀察：</strong>門市前線洞察</span>
-        <span>▪ <strong>營運規劃：</strong>跨店督導對策</span>
-      </div>
-    </section>
-
-    <!-- =======================================================================
-         SECTION 01: MACRO & CHARTS
-         ======================================================================= -->
-    <section id="macro" class="mobile-card">
-      <h2 class="mobile-card-title">
-        <span><span class="ui-code" aria-hidden="true">01-A/</span> 消費者購買管道調查</span>
-        <span class="mobile-badge badge-navy">CHANNELS</span>
-      </h2>
-
-      <div style="font-size: 0.92rem; font-weight: 800; color: var(--mk-navy); margin-bottom: 4px;">
-        台灣美妝保養品消費者購買管道調查（2026/04/15）
-      </div>
-      <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-muted); margin-bottom: 12px;">
-        資料來源：創市際市場研究顧問 (InsightXplorer) 2026/04/15
-      </div>
-
-      <div class="channel-study audited-visual research-spread" role="group" aria-label="購買管道調查圖表">
-  <div class="channel-metrics research-margin">
-    <div class="channel-metric"><span>NO. 01｜藥妝店</span><strong>45.2<span>%</span></strong><span>受訪樣本選擇比例最高</span></div>
-    <div class="channel-metric"><span>NO. 02｜網路</span><strong>42.5<span>%</span></strong><span>與藥妝店相差 <b>2.7 個百分點</b></span></div>
-  </div>
-  <p class="channel-method" id="channel-method">受訪樣本的選擇比例｜複選題，各項獨立計算，加總不等於 100%；非市場占有率，不能推論為全體消費者的絕對偏好。</p>
-  <div class="channel-scale" aria-hidden="true"><span>0%</span><span>50%</span><span>100%</span></div>
-  <ul class="channel-bars" aria-describedby="channel-method">
-    <li class="channel-row" tabindex="0" aria-label="藥妝店（松本清、屈臣氏、康是美等），受訪樣本選擇比例 45.2%">
-      <div class="channel-label"><span><b>藥妝店</b><span class="channel-detail">（松本清、屈臣氏、康是美等）</span></span><strong class="channel-value">45.2%</strong></div>
-      <div class="channel-track" aria-hidden="true"><span class="channel-fill" style="width: 45.2%; background: #FFD600;"></span></div>
-    </li>
-    <li class="channel-row" tabindex="0" aria-label="網路（電商平台、品牌官方旗艦店），受訪樣本選擇比例 42.5%">
-      <div class="channel-label"><span><b>網路</b><span class="channel-detail">（電商平台、品牌官方旗艦店）</span></span><strong class="channel-value">42.5%</strong></div>
-      <div class="channel-track" aria-hidden="true"><span class="channel-fill" style="width: 42.5%; background: #0B2240;"></span></div>
-    </li>
-    <li class="channel-row" tabindex="0" aria-label="生活百貨（寶雅、唐吉訶德等），受訪樣本選擇比例 28.7%">
-      <div class="channel-label"><span><b>生活百貨</b><span class="channel-detail">（寶雅、唐吉訶德等）</span></span><strong class="channel-value">28.7%</strong></div>
-      <div class="channel-track" aria-hidden="true"><span class="channel-fill" style="width: 28.7%; background: #C5161D;"></span></div>
-    </li>
-    <li class="channel-row" tabindex="0" aria-label="百貨專櫃，受訪樣本選擇比例 24.4%">
-      <div class="channel-label"><span><b>百貨專櫃</b><span class="channel-detail"></span></span><strong class="channel-value">24.4%</strong></div>
-      <div class="channel-track" aria-hidden="true"><span class="channel-fill" style="width: 24.4%; background: #5576A0;"></span></div>
-    </li>
-  </ul>
-  <div class="channel-summary" role="group" aria-label="研究摘要">
-    <p><b>01｜首選管道</b>藥妝店是本次調查中選擇比例最高的管道。</p>
-    <p><b>02｜比例差距</b>網路與藥妝店之間相差 2.7 個百分點。</p>
-    <p><b>03｜跨通路選擇</b>多通路採購反映消費者跨通路選擇的行為模式。</p>
-  </div>
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  </style><link rel="stylesheet" href="assets/site.css"><link rel="stylesheet" href="assets/trend-marquee.css"><link rel="stylesheet" href="assets/mk-inspired.css"><link rel="stylesheet" href="assets/retro-editorial.css"><link rel="stylesheet" href="assets/pastel-details.css"><style>
+:root{--navy:var(--mk-navy);--yellow:var(--mk-yellow);--red:var(--mk-red);--paper:var(--paper-bg);--line:var(--hairline);--muted:var(--ink-muted)}
+.trend-main .stats{border:1px solid #dcc3c9;border-radius:24px;background:#fffcfa;overflow:hidden}.stat strong{color:#885365}.stat{border-color:#dcc3c9}.stat small{color:#775c66}.trend-main .strategy,.trend-main .exp,.trend-main .phase,.trend-main .box{box-shadow:none;border-color:#dcc3c9}.trend-main .phase:nth-child(2){background:#f6e5e9}.trend-main .closing{border-radius:30px;background:#f1dce3;color:#654753}.trend-main .closing h2{color:#885365}.trend-main .label{background:#f6e5e9;color:#654753;border-radius:20px}.trend-main .label.hq{background:#e7eee8}.trend-main .filters button{border-color:#cbaab5;border-radius:22px;color:#654753;background:#fffcfa}.trend-main .filters button[aria-pressed=true]{background:#ecd3db}.trend-main .quote{background:#f6e5e9;border-left-color:#cbaab5;border-radius:0 22px 22px 0}.trend-main .flow div{background:#fff9f7}.trend-main .decision div{background:#fffcfa;border-color:#d6aeba;border-radius:14px}.trend-main .bar i{background:#b68a9b}.strategy[hidden]{display:none!important}.trend-main .sources{font-size:13px}.trend-main .feature-card{margin-bottom:0}.masthead-row{gap:18px}.report-title-main{margin-top:20px}.mag-top-ticker .container{padding-block:8px}.trend-subnav-strip{top:0;z-index:20}
+@media(max-width:720px){.masthead-row{flex-wrap:wrap}.mag-header .container{padding:0 20px}.badge-candidate{font-size:11px}.report-title-main{font-size:2.2rem!important}.trend-main .stats,.trend-main .experience,.trend-main .roadmap,.trend-main .strategies,.trend-main .split{grid-template-columns:1fr}.section-editorial-header{align-items:flex-start!important;flex-direction:column}.stat{border-bottom:1px solid #dcc3c9}.trend-main .closing{grid-template-columns:1fr}}
+</style><style>
+/* Visual research edition: exact chart values, progressive motion, no invented scores. */
+.viz-caption{font-weight:850;font-size:1.15rem;color:#654753;margin:10px 0 23px}.viz-caption>span{display:block;font-size:.78rem;font-weight:400;color:#775c66;margin-top:5px}.viz-comparison,.swimlane-panel,.decision-map{margin:32px 0;padding:28px;border:1px solid #dcc3c9;background:#fffcfa;border-radius:26px}.compare-head,.compare-row{display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:18px;padding:16px 20px;align-items:center}.compare-head{font-size:.75rem;color:#885365;background:#f5e7eb;border-radius:14px}.compare-row{border-bottom:1px dashed #dcc3c9;font-size:.85rem}.compare-row:last-child{border:0}.compare-row strong{font-size:.84rem;background:#f6efdf;padding:10px 14px;border-radius:12px;font-weight:650}.barrow{grid-template-columns:145px minmax(50px,1fr) 50px;margin:17px 0;gap:12px}.bar{height:15px;border-radius:10px;overflow:hidden;background:#f0e3e7}.bar i{border-radius:10px;background:linear-gradient(90deg,#d6aeba,#946578)!important;transform-origin:left}.motion-ready .animated-bar{transform:scaleX(0);transition:transform 1s cubic-bezier(.2,.7,.2,1) var(--row-delay,0ms)}.motion-ready .is-visible .animated-bar{transform:scaleX(1)}.stat{position:relative;transition:background .2s}.stat:hover{background:#f6e5e9}.exp-index{display:block;font-size:.67rem;letter-spacing:.13em;color:#885365;margin-bottom:12px}.exp-connector{text-align:center;color:#b68a9b;font-size:25px}.exp-application{border-top:0!important;border-radius:17px;background:#f6e5e9;padding:16px!important}.action-step{position:relative;padding-left:58px!important;border-left:1px dashed #d6aeba;margin:12px 0!important;min-height:62px}.action-step:before{content:attr(data-step);position:absolute;left:8px;top:0;background:#f6e5e9;color:#885365;border-radius:12px;padding:3px 8px;font-size:11px}.action-measure{border:0!important;border-radius:16px;background:#edf1ec;padding:14px!important}.swim-scroll{overflow-x:auto;padding:5px 2px 14px}.swim-grid{display:grid;grid-template-columns:100px repeat(4,minmax(120px,1fr));gap:14px;min-width:720px;align-items:center}.lane-label{font-size:.78rem}.lane-stage{font-size:.77rem;text-align:center;color:#885365;padding:8px}.lane-task{font-size:.78rem;text-align:center;padding:16px 8px;border-radius:12px;position:relative}.lane-task:not(:nth-child(5n)):after{content:'→';position:absolute;right:-13px;color:#ac8190}.rose{background:#f1dce3}.cream{background:#f6efdf}.sage{background:#e7eee8}.timeline-control{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative;margin:32px 0 20px}.timeline-control:before{content:'';position:absolute;top:24px;left:16%;right:16%;height:2px;background:#dcc3c9}.phase-tab{position:relative;background:transparent;border:0;color:#775c66;text-align:center;padding:0 7px 14px;z-index:1}.phase-dot{margin:0 auto 12px;display:grid;place-items:center;width:50px;height:50px;border-radius:50%;border:1px solid #cbaab5;background:#fff9f7;transition:background .25s,color .25s,transform .25s}.phase-tab.active .phase-dot{background:#885365;color:#fff;transform:scale(1.08)}.phase-tab b,.phase-tab small{display:block}.phase-tab b{font-size:1rem}.phase-tab small{font-size:.75rem}.timeline-summary{background:#f6e5e9;padding:12px 20px;border-radius:16px;color:#654753;font-size:.88rem}.phase{transition:border-color .25s,background .25s}.phase.phase-current{border:2px solid #ac8190!important;background:#f6e5e9!important}.metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;margin:20px 0 25px}.metric-tile{position:relative;background:#fffcfa;border:1px solid #dcc3c9;border-radius:22px;padding:23px;overflow:hidden}.metric-tile>span{font-size:.68rem;color:#885365}.metric-tile h3{font-size:1.05rem;margin:12px 0 38px}.metric-tile p{font-size:.8rem;margin:8px 0}.metric-tile small{font-size:.72rem;color:#775c66;border-top:1px dashed #dcc3c9;display:block;padding-top:10px}.metric-symbol{position:absolute;right:22px;top:52px;color:#d6aeba;font:42px/1.2 serif}.formula-details{margin:20px 0;border:1px solid #dcc3c9;border-radius:18px;overflow:hidden;background:#fffcfa}.formula-details summary{cursor:pointer;padding:16px 22px;color:#654753;font-weight:650}.formula-details .table-container{margin:0;border:0;box-shadow:none}.decision-start,.decision-question{width:fit-content;max-width:100%;margin:auto;padding:15px 28px;border-radius:18px;background:#f6e5e9;border:1px solid #cbaab5;font-size:.9rem;text-align:center}.decision-start{background:#885365;color:#fff;border:0}.connector{text-align:center;color:#ac8190;font-size:23px;line-height:1.6}.decision-fork{display:grid;grid-template-columns:1fr 2fr;gap:24px;margin-top:25px;padding-top:18px;border-top:1px solid #d6aeba}.branch-tag{display:block;text-align:center;font-size:.75rem;color:#885365;margin-bottom:13px}.decision-question.secondary{background:#fffcfa;font-size:.8rem;padding:12px 18px;width:100%;margin-bottom:18px}.outcome-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.decision-result{padding:18px 15px;border-radius:15px;font-size:.78rem}.decision-result p{margin-top:7px;font-size:.76rem}.expand{background:#e7eee8}.adjust{background:#f6efdf}.stop{background:#f4e0e5}.motion-ready .viz-reveal{opacity:0;translate:-20px 0;transition:opacity .65s ease,translate .65s ease}.motion-ready .viz-reveal.is-visible{opacity:1;translate:0 0}a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #885365;outline-offset:4px}.motion-toggle{position:fixed;right:18px;bottom:18px;z-index:80;background:#fffcfa;color:#654753;border:1px solid #cbaab5;border-radius:22px;padding:8px 14px;font-size:12px;box-shadow:0 3px 16px #65475315}.motion-off *{animation:none!important;transition:none!important;scroll-behavior:auto!important}.motion-off .viz-reveal,.motion-off .animated-bar{opacity:1!important;translate:none!important;transform:none!important}.motion-off .keycap-marquee__group--duplicate{display:none!important}.motion-off .keycap-marquee__belt{transform:none!important}.motion-off [class*="reveal"]{opacity:1!important;transform:none!important}
+@media(max-width:720px){.viz-comparison,.swimlane-panel,.decision-map{padding:20px 15px}.compare-head{display:none}.compare-row{grid-template-columns:1fr;gap:7px;padding:18px 4px}.compare-row>span:nth-child(2):before{content:'挑戰：';color:#885365}.compare-row strong:before{content:'改善：'}.metric-grid{grid-template-columns:1fr 1fr;gap:11px}.metric-tile{padding:17px}.metric-tile h3{font-size:.94rem}.metric-symbol{right:15px;font-size:32px}.decision-fork{grid-template-columns:1fr}.outcome-grid{grid-template-columns:1fr}.barrow{grid-template-columns:125px minmax(30px,1fr) 45px}.timeline-control{gap:2px}.phase-tab small{font-size:.65rem}.phase-tab b{font-size:.85rem}.motion-toggle{bottom:10px;right:10px}.phase{padding:22px!important}.swim-scroll{scrollbar-width:thin}}
+@media(prefers-reduced-motion:reduce){.viz-reveal{opacity:1!important;translate:none!important;transition:none!important}.animated-bar{transform:none!important;transition:none!important}.phase-dot{transition:none!important}}
+</style></head><body class="page-trend page-mobile"><a class="skip-link" href="#main-content">跳至主要內容</a><div class="mobile-top-bar"><a href="mobile.html">✦ 個人應徵作品集</a><a class="btn-switch-desktop" href="trend.html?view=desktop">電腦版</a></div><aside aria-label="專刊資訊" class="mag-top-ticker">
+<div class="container ticker-inner">
+<div>
+<span class="ticker-pill">SPECIAL RESEARCH REPORT</span>
+<span>BEAUTY RETAIL EVOLUTION &amp; STRATEGIC ROADMAP</span>
 </div>
-
-        <div style="background: var(--paper-bg); border-left: 3px solid var(--mk-navy); padding: 8px 10px; font-size: 0.76rem; color: var(--ink-secondary); font-family: var(--font-mono); margin-bottom: 14px;">
-        ✦ 調查說明：本題為複選題，加總不為 100%；反映當前消費者跨通路採購之多渠道行為模式。
-      </div>
-
-      <!-- 3 Key Insights -->
-      <div class="mobile-subcard" style="border-left: 3px solid var(--mk-yellow);">
-        <strong style="color: var(--mk-navy); font-size: 0.88rem; display: block; margin-bottom: 2px;">
-          ① 本次調查中，藥妝店為選擇比例最高的購買管道 (45.2%)
-        </strong>
-        <p style="font-size: 0.8rem; color: var(--ink-secondary); line-height: 1.6;">
-          在創市際雙週刊第 289 期調查中，受訪者選擇實體藥妝店之比例最高 (45.2%)，其次為線上網路 (42.5%)。受訪對象為台灣受訪者，採複選方式計票（各項比例獨立計算非合計 100%）。數據代表該次調查受訪樣本之回答偏好，不可逕行概括為全體消費者的絕對偏好。
-        </p>
-      </div>
-
-      <div class="mobile-subcard" style="border-left: 3px solid var(--mk-navy);">
-        <strong style="color: var(--mk-navy); font-size: 0.88rem; display: block; margin-bottom: 2px;">
-          ② 多通路競爭與體驗分工
-        </strong>
-        <p style="font-size: 0.8rem; color: var(--ink-secondary); line-height: 1.6;">
-          生活百貨 (28.7%) 與百貨專櫃 (24.4%) 形成多層次競爭。藥妝店應著重「日系特色選品」、「自有品牌」與「商圈精準覆蓋」，鞏固主場優勢。
-        </p>
-      </div>
-    </section>
-
-    <!-- SECTION 01-B: DONUT CHART & CATEGORY BREAKDOWN -->
-    <section class="mobile-card category-study">
-      <h2 class="mobile-card-title">
-        <span><span class="ui-code" aria-hidden="true">01-B/</span> 藥粧零售銷售商品結構</span>
-        <span class="mobile-badge badge-red">STRUCTURE</span>
-      </h2>
-      <div style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--ink-muted); margin-bottom: 14px;">
-        資料來源：中華民國經濟部統計處 2024 年零售業商品銷售結構
-      </div>
-
-      <!-- SVG Donut Chart -->
-      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; margin: 8px 0 16px 0;">
-        <svg class="category-donut" viewBox="0 0 240 240" role="img" aria-labelledby="category-title category-desc"><title id="category-title">2024 年藥粧零售業銷售商品結構</title><desc id="category-desc">個人清潔化粧保養 47.7%、藥品及醫療用品 21.4%、食品 13.7%、家庭器具及用品 7.3%、衣著鞋襪配件及個人用品 7.0%、其他 2.9%。</desc>
-          <circle cx="120" cy="120" r="88" fill="none" stroke="#F0EDE6" stroke-width="32"></circle>
-          <!-- 47.7% -> 263.74 -->
-          <circle cx="120" cy="120" r="88" fill="none" stroke="#FFD600" stroke-width="32" stroke-dasharray="263.74 552.92" stroke-dashoffset="0"></circle>
-          <!-- 21.4% -> 118.32 -->
-          <circle cx="120" cy="120" r="88" fill="none" stroke="#0B2240" stroke-width="32" stroke-dasharray="118.32 552.92" stroke-dashoffset="-263.74"></circle>
-          <!-- 13.7% -> 75.75 -->
-          <circle cx="120" cy="120" r="88" fill="none" stroke="#C5161D" stroke-width="32" stroke-dasharray="75.75 552.92" stroke-dashoffset="-382.06"></circle>
-          <!-- 7.3% -> 40.36 -->
-          <circle cx="120" cy="120" r="88" fill="none" stroke="#16375F" stroke-width="32" stroke-dasharray="40.36 552.92" stroke-dashoffset="-457.81"></circle>
-          <!-- 7.0% -> 38.70 -->
-          <circle cx="120" cy="120" r="88" fill="none" stroke="#107C41" stroke-width="32" stroke-dasharray="38.70 552.92" stroke-dashoffset="-498.17"></circle>
-          <!-- Others: 2.9% -> 16.03 -->
-          <circle cx="120" cy="120" r="88" fill="none" stroke="#CCCCCC" stroke-width="32" stroke-dasharray="16.03 552.92" stroke-dashoffset="-536.87"></circle>
-        </svg>
-        <div style="position: absolute; text-align: center; pointer-events: none;">
-          <span style="font-family: var(--font-display); font-size: 1.8rem; font-weight: 900; color: var(--mk-navy); line-height: 1; display: block;">47.7%</span>
-          <span style="font-size: 0.72rem; font-weight: 800; color: var(--mk-navy);">個人清潔化粧保養</span>
-          <span style="display: block; font-family: var(--font-mono); font-size: 0.62rem; color: var(--mk-red); font-weight: 700;">第 1 大主力品類</span>
-        </div>
-      </div>
-
-      <!-- Category Progress Bars -->
-      <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px;">
-        <!-- Cat 1 -->
-        <div style="background: #FFFDF0; border: 1px solid var(--mk-navy); border-radius: var(--radius-sm); padding: 8px 10px;">
-          <div class="category-label" style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 3px;">
-            <span style="font-size: 0.84rem; font-weight: 800; color: var(--mk-navy);">1. 個人清潔、化粧保養</span>
-            <span style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 900; color: var(--mk-navy);">47.7%</span>
-          </div>
-          <div style="height: 7px; width: 100%; background: #F0EDE6; border-radius: 2px; overflow: hidden;">
-            <div style="width: 47.7%; height: 100%; background: #FFD600;"></div>
-          </div>
-        </div>
-
-        <!-- Cat 2 -->
-        <div style="background: #FFFFFF; border: 1px solid var(--hairline); border-radius: var(--radius-sm); padding: 8px 10px;">
-          <div class="category-label" style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 3px;">
-            <span style="font-size: 0.84rem; font-weight: 700; color: var(--mk-navy);">2. 藥品及醫療用品</span>
-            <span style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 900; color: var(--mk-navy);">21.4%</span>
-          </div>
-          <div style="height: 7px; width: 100%; background: #F0EDE6; border-radius: 2px; overflow: hidden;">
-            <div style="width: 21.4%; height: 100%; background: #0B2240;"></div>
-          </div>
-        </div>
-
-        <!-- Cat 3 -->
-        <div style="background: #FFFFFF; border: 1px solid var(--hairline); border-radius: var(--radius-sm); padding: 8px 10px;">
-          <div class="category-label" style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 3px;">
-            <span style="font-size: 0.84rem; font-weight: 700; color: var(--mk-navy);">3. 食品</span>
-            <span style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 900; color: var(--mk-navy);">13.7%</span>
-          </div>
-          <div style="height: 7px; width: 100%; background: #F0EDE6; border-radius: 2px; overflow: hidden;">
-            <div style="width: 13.7%; height: 100%; background: #C5161D;"></div>
-          </div>
-        </div>
-
-        <!-- Cat 4 -->
-        <div style="background: #FFFFFF; border: 1px solid var(--hairline); border-radius: var(--radius-sm); padding: 8px 10px;">
-          <div class="category-label" style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 3px;">
-            <span style="font-size: 0.84rem; font-weight: 700; color: var(--mk-navy);">4. 家庭器具及用品</span>
-            <span style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 900; color: var(--mk-navy);">7.3%</span>
-          </div>
-          <div style="height: 7px; width: 100%; background: #F0EDE6; border-radius: 2px; overflow: hidden;">
-            <div style="width: 7.3%; height: 100%; background: #16375F;"></div>
-          </div>
-        </div>
-
-        <!-- Cat 5 -->
-        <div style="background: #FFFFFF; border: 1px solid var(--hairline); border-radius: var(--radius-sm); padding: 8px 10px;">
-          <div class="category-label" style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 3px;">
-            <span style="font-size: 0.84rem; font-weight: 700; color: var(--mk-navy);">5. 衣著鞋襪、配件及個人用品</span>
-            <span style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 900; color: var(--mk-navy);">7.0%</span>
-          </div>
-          <div style="height: 7px; width: 100%; background: #F0EDE6; border-radius: 2px; overflow: hidden;">
-            <div style="width: 7.0%; height: 100%; background: #107C41;"></div>
-          </div>
-        </div>
-      </div>
-
-      <div style="background: var(--paper-bg); border-left: 3px solid var(--mk-red); padding: 8px 10px; font-size: 0.74rem; color: var(--ink-secondary); font-family: var(--font-mono);">
-        ★ 註：僅列示前五大類商品結構，非全部分類（其餘未列入項佔 2.9%）。本研究嚴格避免跨年度乘算推估營收總額。
-      </div>
-    </section>
-
-    <!-- SECTION 01-C: OMO MULTIPLIER COMPARISON -->
-    <section class="mobile-card">
-      <h2 class="mobile-card-title">
-        <span><span class="ui-code" aria-hidden="true">01-C/</span> OMO 虛實融合消費價值</span>
-        <span class="mobile-badge badge-yellow">OMO VALUE</span>
-      </h2>
-      <div style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--mk-red); font-weight: 700; margin-bottom: 12px;">
-        91APP 跨品牌零售大數據實證：實體門市為高客單核心支點
-      </div>
-
-      <div style="display: flex; flex-direction: column; gap: 10px;">
-        <div class="mobile-subcard" style="border-left: 3px solid var(--mk-navy);">
-          <div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
-            <span style="font-size: 0.84rem; font-weight: 800; color: var(--mk-navy);">年消費總額（OMO vs 純電商）</span>
-            <span style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 900; color: var(--mk-navy);">3.4 倍</span>
-          </div>
-          <p style="font-size: 0.78rem; color: var(--ink-secondary); margin: 0;">
-            91APP 跨品牌大數據顯示，虛實融合 (OMO) 客群年消費總額為純電商之 3.4 倍。此為特定樣本客群特徵差異，不等於單筆客單價，亦非導入 OMO 必然產生同等增幅。
-          </p>
-        </div>
-
-        <div class="mobile-subcard" style="border-left: 3px solid var(--mk-red);">
-          <div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
-            <span style="font-size: 0.84rem; font-weight: 800; color: var(--mk-navy);">全年購買頻次（OMO vs 純電商）</span>
-            <span style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 900; color: var(--mk-red);">4.9 倍</span>
-          </div>
-          <p style="font-size: 0.78rem; color: var(--ink-secondary); margin: 0;">
-            91APP 大數據顯示，OMO 跨通路客群全年購買頻次為純電商之 4.9 倍（依原始報告定義為購買頻次，非必然等同回購次數）。
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- =======================================================================
-         SECTION 02: 4 CORE STRENGTHS
-         ======================================================================= -->
-    <section id="strengths" class="mobile-card">
-      <h2 class="mobile-card-title">
-        <span><span class="ui-code" aria-hidden="true">02/</span> 實體通路 4 大核心優勢</span>
-        <span class="mobile-badge badge-green">STRENGTHS</span>
-      </h2>
-
-      <!-- Strength 1 -->
-      <div class="mobile-subcard" style="border-left: 4px solid var(--mk-yellow);">
-        <span class="mobile-badge badge-green" style="margin-bottom: 4px; display: inline-block;">優勢 01 ✦ 體驗壁壘</span>
-        <h3 style="font-family: var(--font-serif-tc); font-size: 1.05rem; font-weight: 900; color: var(--mk-navy); margin-bottom: 4px;">
-          五感沉浸與即時滿足感
-        </h3>
-        <p style="font-size: 0.82rem; color: var(--ink-secondary); line-height: 1.6;">
-          現場試用可協助比較色澤與質地，降低選購的不確定性，並享有現場選購帶走的即時滿足感，有助形成實體門市的差異化優勢。
-        </p>
-      </div>
-
-      <!-- Strength 2 -->
-      <div class="mobile-subcard" style="border-left: 4px solid var(--mk-navy);">
-        <span class="mobile-badge badge-navy" style="margin-bottom: 4px; display: inline-block;">優勢 02 ✦ 專業信任</span>
-        <h3 style="font-family: var(--font-serif-tc); font-size: 1.05rem; font-weight: 900; color: var(--mk-navy); margin-bottom: 4px;">
-          有溫度的專業諮詢與信任
-        </h3>
-        <p style="font-size: 0.82rem; color: var(--ink-secondary); line-height: 1.6;">
-          藥師與美容同仁面對面傾聽膚況與保健需求，提供客觀且具安全感的選品建議，建立純演算法無法複製的人際信任。
-        </p>
-      </div>
-
-      <!-- Strength 3 -->
-      <div class="mobile-subcard" style="border-left: 4px solid var(--mk-yellow);">
-        <span class="mobile-badge badge-green" style="margin-bottom: 4px; display: inline-block;">優勢 03 ✦ 商圈策展</span>
-        <h3 style="font-family: var(--font-serif-tc); font-size: 1.05rem; font-weight: 900; color: var(--mk-navy); margin-bottom: 4px;">
-          高回購剛需與端架策展連帶
-        </h3>
-        <p style="font-size: 0.82rem; color: var(--ink-secondary); line-height: 1.6;">
-          洗沐消耗品與日用保健創造高頻來店；藉由結帳動線與主題端架策展，自然帶動美妝與人氣零食的高連帶提袋率。
-        </p>
-      </div>
-
-      <!-- Strength 4 -->
-      <div class="mobile-subcard" style="border-left: 4px solid var(--mk-navy);">
-        <span class="mobile-badge badge-navy" style="margin-bottom: 4px; display: inline-block;">優勢 04 ✦ 履約樞紐</span>
-        <h3 style="font-family: var(--font-serif-tc); font-size: 1.05rem; font-weight: 900; color: var(--mk-navy); margin-bottom: 4px;">
-          OMO 全通路最後一哩樞紐
-        </h3>
-        <p style="font-size: 0.82rem; color: var(--ink-secondary); line-height: 1.6;">
-          門市不僅是銷售場所，更是線上訂購到店取貨、換貨與體驗的新起點，為消費者提供極高便利性與跨通路黏著度。
-        </p>
-      </div>
-    </section>
-
-    <!-- =======================================================================
-         SECTION 03: 4 WEAKNESSES & CHALLENGES
-         ======================================================================= -->
-    <section id="weaknesses" class="mobile-card">
-      <h2 class="mobile-card-title">
-        <span><span class="ui-code" aria-hidden="true">03/</span> 實體通路 4 大劣勢與挑戰</span>
-        <span class="mobile-badge badge-red">CHALLENGES</span>
-      </h2>
-
-      <!-- Weakness 1 -->
-      <div class="mobile-subcard" style="border-left: 4px solid var(--mk-red);">
-        <span class="mobile-badge badge-red" style="margin-bottom: 4px; display: inline-block;">劣勢 01 ✦ 成本壓力</span>
-        <h3 style="font-family: var(--font-serif-tc); font-size: 1.05rem; font-weight: 900; color: var(--mk-navy); margin-bottom: 4px;">
-          剛性營運成本高企與缺工壓力
-        </h3>
-        <p style="font-size: 0.82rem; color: var(--ink-secondary); line-height: 1.6;">
-          精華商圈門市面臨租金與固定人事成本負擔，客流一旦波動即直接衝擊單店營業利益，必須依賴嚴謹排班與高坪效維護。
-        </p>
-      </div>
-
-      <!-- Weakness 2 -->
-      <div class="mobile-subcard" style="border-left: 4px solid var(--mk-navy);">
-        <span class="mobile-badge badge-navy" style="margin-bottom: 4px; display: inline-block;">劣勢 02 ✦ 效期法規</span>
-        <h3 style="font-family: var(--font-serif-tc); font-size: 1.05rem; font-weight: 900; color: var(--mk-navy); margin-bottom: 4px;">
-          化妝品效期與安定性法規限制
-        </h3>
-        <p style="font-size: 0.82rem; color: var(--ink-secondary); line-height: 1.6;">
-          化妝品效期標示與原料安定性測試受嚴格規範，實體庫房空間有限，若進銷存迴轉不靈活容易造成即期折價與報廢損耗。
-        </p>
-      </div>
-
-      <!-- Weakness 3 -->
-      <div class="mobile-subcard" style="border-left: 4px solid var(--mk-red);">
-        <span class="mobile-badge badge-red" style="margin-bottom: 4px; display: inline-block;">劣勢 03 ✦ 價格比價</span>
-        <h3 style="font-family: var(--font-serif-tc); font-size: 1.05rem; font-weight: 900; color: var(--mk-navy); margin-bottom: 4px;">
-          價格透明度與實體「展廳化」
-        </h3>
-        <p style="font-size: 0.82rem; color: var(--ink-secondary); line-height: 1.6;">
-          消費者在門市試色與體驗後，易以手機即時比價並轉往純電商購買，造成實體門市承擔體驗成本卻流失業績。
-        </p>
-      </div>
-
-      <!-- Weakness 4 -->
-      <div class="mobile-subcard" style="border-left: 4px solid var(--mk-navy);">
-        <span class="mobile-badge badge-navy" style="margin-bottom: 4px; display: inline-block;">劣勢 04 ✦ 離店斷層</span>
-        <h3 style="font-family: var(--font-serif-tc); font-size: 1.05rem; font-weight: 900; color: var(--mk-navy); margin-bottom: 4px;">
-          顧客離店後的數據與互動斷層
-        </h3>
-        <p style="font-size: 0.82rem; color: var(--ink-secondary); line-height: 1.6;">
-          未加入會員的顧客在離店後難以持續追蹤其偏好與回購時程，門市服務往往停留在單次交易，缺乏連續性數據經營。
-        </p>
-      </div>
-    </section>
-
-    <!-- =======================================================================
-         SECTION 04: 4 STRATEGIES
-         ======================================================================= -->
-    <section id="strengths-action" class="mobile-card">
-      <h2 class="mobile-card-title">
-        <span><span class="ui-code" aria-hidden="true">04/</span> 實體通路 4 大躍升實戰策略</span>
-        <span class="mobile-badge badge-yellow">STRATEGY</span>
-      </h2>
-
-      <div class="mobile-subcard" style="border-left: 4px solid var(--mk-yellow);">
-        <strong style="color: var(--mk-navy); font-size: 0.88rem; display: block; margin-bottom: 2px;">
-          策略 01 ✦ 體驗策展化
-        </strong>
-        <p style="font-size: 0.82rem; color: var(--ink-secondary); line-height: 1.6;">
-          建立試妝台每日定時清潔與耗材維護 SOP，消除衛生疑慮；結合日系流行話題規劃主題端架策展，提升停留時長與提袋率。
-        </p>
-      </div>
-
-      <div class="mobile-subcard" style="border-left: 4px solid var(--mk-navy);">
-        <strong style="color: var(--mk-navy); font-size: 0.88rem; display: block; margin-bottom: 2px;">
-          策略 02 ✦ 人員賦能化
-        </strong>
-        <p style="font-size: 0.82rem; color: var(--ink-secondary); line-height: 1.6;">
-          善用 4 年新人帶訓經驗，導入步驟式諮詢指引與原廠商品研習，賦能前線店員具備基本成分分析與客觀推薦能力。
-        </p>
-      </div>
-
-      <div class="mobile-subcard" style="border-left: 4px solid var(--mk-yellow);">
-        <strong style="color: var(--mk-navy); font-size: 0.88rem; display: block; margin-bottom: 2px;">
-          策略 03 ✦ 門市精細化
-        </strong>
-        <p style="font-size: 0.82rem; color: var(--ink-secondary); line-height: 1.6;">
-          以商圈客流規律微調尖峰早晚班重疊人力；落實「尖峰前定時查補」與熱銷商品安全庫存機制，避免賣場缺貨。
-        </p>
-      </div>
-
-      <div class="mobile-subcard" style="border-left: 4px solid var(--mk-navy);">
-        <strong style="color: var(--mk-navy); font-size: 0.88rem; display: block; margin-bottom: 2px;">
-          策略 04 ✦ 全通路融合 (OMO)
-        </strong>
-        <p style="font-size: 0.82rem; color: var(--ink-secondary); line-height: 1.6;">
-          結帳櫃台與試妝台設置引導指示，主動協助顧客下載松本清 App 綁定會員，讓單次門市造訪轉化為高頻全通路回購。
-        </p>
-      </div>
-    </section>
-
-    <!-- =======================================================================
-         SECTION 05: WEAKNESSES ACTION
-         ======================================================================= -->
-    <section id="weaknesses-action" class="mobile-card">
-      <h2 class="mobile-card-title">
-        <span><span class="ui-code" aria-hidden="true">05/</span> 劣勢改善對策</span>
-        <span class="mobile-badge badge-red">SOLUTIONS</span>
-      </h2>
-
-      <div class="mobile-subcard">
-        <strong style="color: var(--mk-navy); font-size: 0.86rem; display: block; margin-bottom: 2px;">
-          對策 01：以精準排班與工時調度因應營運成本壓力
-        </strong>
-        <p style="font-size: 0.8rem; color: var(--ink-secondary); line-height: 1.55;">
-          巡店督導時協助分店分析平假日人流離尖峰，彈性調配正職與兼職工時，將人力投注於關鍵顧客服務時段。
-        </p>
-      </div>
-
-      <div class="mobile-subcard">
-        <strong style="color: var(--mk-navy); font-size: 0.86rem; display: block; margin-bottom: 2px;">
-          對策 02：效期台帳追蹤與先進先出嚴格落實
-        </strong>
-        <p style="font-size: 0.8rem; color: var(--ink-secondary); line-height: 1.55;">
-          建立即期品預警查核機制，落實補貨時「先進先出」規範；針對臨期商品及早規劃合規促銷出清，降低報廢耗損。
-        </p>
-      </div>
-
-      <div class="mobile-subcard">
-        <strong style="color: var(--mk-navy); font-size: 0.86rem; display: block; margin-bottom: 2px;">
-          對策 03：以 matsukiyo 自有品牌與獨家選品破除比價
-        </strong>
-        <p style="font-size: 0.8rem; color: var(--ink-secondary); line-height: 1.55;">
-          加強門市對松本清獨家引進日本商品與自有品牌的陳列比重與推薦，以「此處獨有」的商品力瓦解外部電商比價。
-        </p>
-      </div>
-
-      <div class="mobile-subcard">
-        <strong style="color: var(--mk-navy); font-size: 0.86rem; display: block; margin-bottom: 2px;">
-          對策 04：全通路會員觸點經營與服務延續
-        </strong>
-        <p style="font-size: 0.8rem; color: var(--ink-secondary); line-height: 1.55;">
-          前線落實會員服務引導，透過松本清 App 提供到店點數回饋與線上選購門市自取服務，延續顧客關係。
-        </p>
-      </div>
-    </section>
-
-    <!-- =======================================================================
-         SECTION 06: BENCHMARKS
-         ======================================================================= -->
-    <section id="cases" class="mobile-card">
-      <h2 class="mobile-card-title">
-        <span><span class="ui-code" aria-hidden="true">06/</span> 標竿通路案例借鑑</span>
-        <span class="mobile-badge badge-navy">BENCHMARKS</span>
-      </h2>
-
-      <div class="mobile-subcard" style="border-left: 3px solid var(--mk-yellow);">
-        <strong style="color: var(--mk-navy); font-size: 0.88rem; display: block; margin-bottom: 2px;">
-          Olive Young (韓國藥妝龍頭) ｜ 策展化與即時取貨
-        </strong>
-        <p style="font-size: 0.8rem; color: var(--ink-secondary); line-height: 1.6;">
-          標示市場與期間：韓國市場（2018–2024）。以核心市區門市作為前置履約節點，推出 Today Delivery（線上訂購、最近門市極速出貨），扶持小眾新銳美妝品牌，建立差異化品類特色。
-        </p>
-      </div>
-
-      <div class="mobile-subcard" style="border-left: 3px solid var(--mk-red);">
-        <strong style="color: var(--mk-navy); font-size: 0.88rem; display: block; margin-bottom: 2px;">
-          Sephora (歐美美妝巨頭) ｜ 無壓試用與全通路忠誠
-        </strong>
-        <p style="font-size: 0.8rem; color: var(--ink-secondary); line-height: 1.6;">
-          推動 Beauty Insider 會員分級制度，透過店內無壓開放式試妝、即時比色工具與點數跨通路兌換，將線下體驗深度沉澱為長期會員資產。
-        </p>
-      </div>
-
-      <div class="mobile-subcard" style="border-left: 3px solid var(--mk-navy);">
-        <strong style="color: var(--mk-navy); font-size: 0.88rem; display: block; margin-bottom: 2px;">
-          寶雅 / 屈臣氏 (台灣在地巨頭) ｜ 密集商圈與體驗專區
-        </strong>
-        <p style="font-size: 0.8rem; color: var(--ink-secondary); line-height: 1.6;">
-          擴增美妝試妝台與高亮度陳列動線，並積極拓展 App 會員點數生態圈，驗證「實體門市密度＋即時體驗」在台灣市場的關鍵地位。
-        </p>
-      </div>
-    </section>
-
-    <!-- =======================================================================
-         SECTION 07: MATSUKIYO ACTION PLAN
-         ======================================================================= -->
-    <section id="matsukiyo-action" class="mobile-card" style="border-top: 4px solid var(--mk-yellow);">
-      <h2 class="mobile-card-title">
-        <span><span class="ui-code" aria-hidden="true">07/</span> 台灣松本清區域營運規劃</span>
-        <span class="mobile-badge badge-yellow">OPERATION</span>
-      </h2>
-
-      <p style="font-size: 0.84rem; color: var(--ink-secondary); line-height: 1.65; margin-bottom: 12px;">
-        立足於 <strong>Tomod's 6 年藥妝門市經歷（店長 3 年）</strong>與門市新人帶訓實務，若擔任台灣松本清區域營運經理，將落實以下巡店管理機制：
-      </p>
-
-      <div class="mobile-subcard">
-        <strong style="color: var(--mk-navy); font-size: 0.86rem; display: block; margin-bottom: 2px;">
-          1. 巡店營運管理手冊落實
-        </strong>
-        <p style="font-size: 0.8rem; color: var(--ink-secondary); line-height: 1.55;">
-          巡檢試妝台清潔標準、熱銷品陳列排面完整度與先進先出效期標示，維持松本清高質感日系店格。
-        </p>
-      </div>
-
-      <div class="mobile-subcard">
-        <strong style="color: var(--mk-navy); font-size: 0.86rem; display: block; margin-bottom: 2px;">
-          2. 前線店長帶訓與輔導
-        </strong>
-        <p style="font-size: 0.8rem; color: var(--ink-secondary); line-height: 1.55;">
-          協助分店店長落實新進人員步驟式 SOP 帶訓與尖峰前查補管理，培育門市幹部並降低新進同仁離職率。
-        </p>
-      </div>
-
-      <div class="mobile-subcard">
-        <strong style="color: var(--mk-navy); font-size: 0.86rem; display: block; margin-bottom: 2px;">
-          3. 總部方針與前線落實雙向橋樑
-        </strong>
-        <p style="font-size: 0.8rem; color: var(--ink-secondary); line-height: 1.55;">
-          每週將總部行銷檔期清晰清單化宣達，並彙整門市顧客反映之選品與促銷需求，回饋總公司作為商品策略參考。
-        </p>
-      </div>
-    </section>
-
-    <!-- =======================================================================
-         SECTION 08: SOURCES & METHODOLOGY
-         ======================================================================= -->
-    <section id="sources" class="mobile-card">
-      <h2 class="mobile-card-title">
-        <span><span class="ui-code" aria-hidden="true">08/</span> 資料來源與查核說明</span>
-        <span class="mobile-badge badge-navy">SOURCES</span>
-      </h2>
-
-      <div style="font-size: 0.8rem; color: var(--ink-secondary); line-height: 1.6; display: flex; flex-direction: column; gap: 8px;">
-        <div style="border-bottom: 1px dashed var(--hairline); padding-bottom: 6px;">
-          <strong style="color: var(--mk-navy);">1. 中華民國經濟部統計處：</strong><br>
-          《114年批發、零售及餐飲業經營實況調查》－ 2024 年藥粧零售業銷售商品結構（個人清潔、化粧保養 47.7%、藥品及醫療用品 21.4%、食品 13.7%、家庭器具 7.3%、衣著配件 7.0%）。
-        </div>
-
-        <div style="border-bottom: 1px dashed var(--hairline); padding-bottom: 6px;">
-          <strong style="color: var(--mk-navy);">2. 創市際市場研究顧問 (InsightXplorer)：</strong><br>
-          第 289 期美妝保養品購買管道調查（2026/04/15 發布、2026/03/12–03/19 調查，藥妝店 45.2%、網路 42.5%、生活百貨 28.7%、百貨專櫃 24.4%，複選題）。
-        </div>
-
-        <div style="border-bottom: 1px dashed var(--hairline); padding-bottom: 6px;">
-          <strong style="color: var(--mk-navy);">3. 91APP 跨品牌零售大數據：</strong><br>
-          91APP 官方〈AI 驅動零售新體驗〉（2025/08/14）－ 實體融合顧客消費金額達純電商 3.4 倍、購買頻次 4.9 倍。
-        </div>
-
-        <div>
-          <strong style="color: var(--mk-navy);">4. Kantar 凱度消費者指數 (Worldpanel Taiwan)：</strong><br>
-          Kantar 公開資料可支持美妝市場與實體專櫃體驗的討論；但未找到可直接支持「底妝及香氛首次選購高度依賴實體試用」的 Kantar 原始數據，因此不將此歸因列為已證實結論。
-        </div>
-      </div>
-
-      <aside class="audited-source-note source-verification" aria-label="可查證的研究資料來源"><strong>可查證原始資料：</strong><a href="https://www.moea.gov.tw/MNS/POPULACE/news/News.aspx?kind=1&amp;menu_id=40&amp;news_id=123868" target="_blank" rel="noopener noreferrer">經濟部統計處</a>、<a href="https://www.ixresearch.com/reports/%E5%89%B5%E5%B8%82%E9%9A%9B%E9%9B%99%E9%80%B1%E5%88%8A%E7%AC%AC%E4%BA%8C%E5%85%AB%E4%B9%9D%E6%9C%9F-20260415/" target="_blank" rel="noopener noreferrer">創市際第289期（15–64歲網友，N=1,106）</a>、<a href="https://91app.com/blog/ai-omo-retail/" target="_blank" rel="noopener noreferrer">91APP</a>、<a href="https://www.kantarworldpanel.com/tw/news/Counter-Beauty-2025" target="_blank" rel="noopener noreferrer">Kantar</a>。</aside>
-      <div style="background: var(--paper-bg); border-left: 3px solid var(--mk-navy); padding: 8px 10px; font-size: 0.74rem; color: var(--ink-muted); margin-top: 12px; line-height: 1.5;">
-        ✦ 資料限制說明：外部統計受限於調查機構抽樣方法與發布年度，本研究僅作為策略分析參考，不宣稱全部市場資訊已完全驗證。
-      </div>
-
-      <a href="mobile.html" class="btn-action-primary" style="margin-top: 14px;">
-        ← 返回個人應徵作品集首頁
-      </a>
-    </section>
-
-  </main>
-
-  <!-- Mobile Footer -->
-  <footer class="mobile-footer">
-    <div style="margin-bottom: 6px;">
-      <span style="background: var(--mk-yellow); color: var(--mk-navy); padding: 2px 6px; font-weight: 800; border: 1px solid var(--mk-navy);">MK</span>
-      <strong style="color: #FFFFFF; margin-left: 4px;">實體通路趨勢研究 ｜ 黃博詩</strong>
-    </div>
-    <div style="margin-bottom: 6px; color: #D1D5DB;">
-      志願職位：台灣松本清 區域營運經理
-    </div>
-    <div style="margin-bottom: 8px; font-family: var(--font-mono); font-size: 0.72rem;">
-      內容更新日期：2026 年 11 月
-    </div>
-    <div style="font-family: var(--font-mono); font-size: 0.72rem;">© 2026 BO-SHIH HUANG. ALL RIGHTS RESERVED.</div>
-  </footer>
-
-  <!-- Sticky Bottom App Navigation Bar (iPhone Style) -->
-  <nav class="mobile-bottom-bar" aria-label="手機導覽">
-    <a href="mobile.html" class="bottom-nav-item">
-      <svg fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></svg>
-      <span>首頁</span>
-    </a>
-    <a href="#macro" class="bottom-nav-item">
-      <svg fill="currentColor" viewBox="0 0 20 20"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"></svg>
-      <span>管道結構</span>
-    </a>
-    <a href="#strengths" class="bottom-nav-item">
-      <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></svg>
-      <span>4大優勢</span>
-    </a>
-    <a href="#weaknesses" class="bottom-nav-item">
-      <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></svg>
-      <span>4大挑戰</span>
-    </a>
-    <a href="#sources" class="bottom-nav-item accent">
-      <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></svg>
-      <span>資料來源</span>
-    </a>
-  </nav>
-
+<div>
+<span>PERSONAL PORTFOLIO ✦ HUANG BO-SHIH</span>
 </div>
-
-</body>
-</html>
+</div>
+</aside><header class="mag-header">
+<div class="container">
+<div class="masthead-row">
+<a class="matsukiyo-logo-badge" href="mobile.html" title="回到作品集首頁">
+<span class="logo-jp">個人作品集</span>
+<span class="logo-en">
+            個人通路研究<span style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--mk-yellow); letter-spacing: 0.2em;">REPORT</span>
+</span>
+</a>
+<div style="display: flex; gap: 8px; flex-wrap: wrap;">
+<a class="nav-btn-mk" href="mobile.html">
+<svg fill="none" height="15" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="15"><path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            返回作品集首頁
+          </a>
+<a class="nav-btn-mk btn-accent" href="mobile-contact.html"><svg fill="none" height="15" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="15"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round"></path></svg> <span>個人及聯絡資訊</span></a>
+</div>
+</div>
+<!-- Hero Header -->
+<div class="trend-hero">
+<div class="hero-badge-row">
+<span class="badge-report">專題研究 ✦ 區域營運改善提案</span>
+<span class="badge-candidate">研究整理：黃博詩 (HUANG BO-SHIH) ｜ 志願應徵：台灣松本清 區域營運經理</span>
+</div>
+<h1 class="report-title-main"><span class="report-heading-topic">藥粧產業趨勢研究：</span><span class="report-heading-subject">區域營運改善提案</span><br/><span style="font-size:.65em">市場判讀 × 門市改善 × 90 天執行計畫</span></h1>
+<span class="report-title-jp">REGIONAL OPERATIONS ｜ RESEARCH, ACTION &amp; PERFORMANCE</span>
+<div class="report-lead-quote"><strong>區域管理核心：</strong>以既有門市實務為基礎，將產業趨勢轉成商品、人員與服務改善。先建立跨店比較基準，再選店試行，以毛利、服務品質與工作負荷共同檢討，讓有效做法逐步落實到每家店。</div>
+</div>
+</div>
+</header><main class="trend-main container" id="main-content">
+<section id="market"><div class="section-editorial-header"><div class="sec-title-wrap"><span class="sec-number">01</span><h2 class="sec-title-main">市場訊號，如何轉成營運決策？</h2></div><span class="sec-en-badge">MARKET SIGNALS → OPERATIONAL PRIORITIES</span></div><div class="stats"><div class="stat"><b>2025 年產業營業額</b><strong>2,160<span style="font-size:18px"> 億元</span></strong><small>藥品、醫療用品及化粧品零售業</small></div><div class="stat"><b>2026 年 1–7 月年增率</b><strong>+5.4%</strong><small>同期營業額 1,272 億元</small></div><div class="stat"><b>2024 年最大商品類別</b><strong>47.7%</strong><small>個人清潔、化粧保養銷售占比</small></div></div><p class="note">來源：經濟部統計處，2026/09/07。產業統計不等於松本清或個別門市業績；各指標年度不同。</p><div class="split"><div class="box feature-card"><h3 class="feature-card-title">商品結構｜配置資源的起點</h3><div class="barrow" style="--row-delay:0ms"><span>個人清潔、化粧保養</span><div class="bar"><i class="animated-bar" style="width:47.7%"></i></div><b>47.7%</b></div><div class="barrow" style="--row-delay:80ms"><span>藥品及醫療用品</span><div class="bar"><i class="animated-bar" style="width:21.4%"></i></div><b>21.4%</b></div><div class="barrow" style="--row-delay:160ms"><span>食品</span><div class="bar"><i class="animated-bar" style="width:13.7%"></i></div><b>13.7%</b></div><div class="barrow" style="--row-delay:240ms"><span>家庭器具及用品</span><div class="bar"><i class="animated-bar" style="width:7.3%"></i></div><b>7.3%</b></div><div class="barrow" style="--row-delay:320ms"><span>衣著鞋襪等個人用品</span><div class="bar"><i class="animated-bar" style="width:7%"></i></div><b>7.0%</b></div><div class="barrow" style="--row-delay:400ms"><span>其他（差額）</span><div class="bar"><i class="animated-bar" style="width:2.9%"></i></div><b>2.9%</b></div><p class="feature-card-text">統一以 100% 為長條尺度；2024 年銷售結構。</p></div><div class="box feature-card"><h3 class="feature-card-title">區域經理的判讀</h3><p class="feature-card-text"><b>健康需求：</b>先確認責任區客群與實際品類銷售，再安排服務訓練及商品查補，不直接照產業比例分配門市排面。</p><p class="feature-card-text"><b>虛實互補：</b>2025 年美妝藥局專賣業網路銷售占比為 7.5%、網銷額年增 4.9%；應檢視門市服務與取貨流程能否承接跨通路需求。</p><p class="feature-card-text">網銷資料：未來流通研究所，2026/02/04；為其整理口徑，不與消費者複選調查混用。</p></div></div><div class="viz-comparison"><div class="viz-caption">實體優勢 × 經營挑戰<span>以現場觀察確認問題，再選擇對應措施</span></div><div class="compare-head"><b>可發揮的優勢</b><b>需要管理的挑戰</b><b>改善落點</b></div><div class="compare-row"><span>◉ 現場試用與比較</span><span>比價後離店</span><strong>清楚介紹差異與核准優惠</strong></div><div class="compare-row"><span>♡ 面對面諮詢</span><span>服務品質不一致</span><strong>情境帶訓與服務抽查</strong></div><div class="compare-row"><span>▦ 特色商品探索</span><span>排面與庫存有限</span><strong>主力商品查補與商圈陳列</strong></div><div class="compare-row"><span>↗ 即時取得商品</span><span>尖峰人力與缺貨</span><strong>時段排班與尖峰前巡補</strong></div></div><p class="note">上述四項承接原網站的實體通路優勢分析，屬營運判讀與提案。</p></section>
+<section id="experience"><div class="section-editorial-header"><div class="sec-title-wrap"><span class="sec-number">02</span><h2 class="sec-title-main">把既有經驗，轉成跨店管理方法</h2></div><span class="sec-en-badge">EXPERIENCE → MANAGEMENT PRACTICE</span></div><div class="experience"><article class="exp feature-card"><span class="exp-index">EXPERIENCE 01</span><b>Tomod’s 日系藥妝</b><span class="years">6 年／店長 3 年</span><p class="feature-card-text">原網站記載：門市正職至店長，負責排班、商品進銷存、營收與成本檢視，出席總部月會並主持門市週會。</p><div aria-hidden="true" class="exp-connector">↓</div><small class="exp-application"><b>可延伸方法：</b>將巡店缺失、尖峰排班與補貨問題整理成每週行動清單，追蹤責任人與完成期限。</small></article><article class="exp feature-card"><span class="exp-index">EXPERIENCE 02</span><b>築心動物醫院</b><span class="years">4 年</span><p class="feature-card-text">原網站記載：櫃台助理，期間兼任新人帶訓，處理預約、收費、動線與顧客溝通。</p><div aria-hidden="true" class="exp-connector">↓</div><small class="exp-application"><b>可延伸方法：</b>以「觀摩 → 演練 → 陪同操作 → 獨立確認」建立跨店共用的新人帶訓步驟。</small></article><article class="exp feature-card"><span class="exp-index">EXPERIENCE 03</span><b>Levi’s 連鎖服飾</b><span class="years">2 年</span><p class="feature-card-text">原網站記載：門市銷售人員，執行顧客接待、商品陳列、補貨與庫存清點。</p><div aria-hidden="true" class="exp-connector">↓</div><small class="exp-application"><b>可延伸方法：</b>以需求詢問、商品比較與陳列維護為服務帶訓內容，觀察轉換率與顧客回饋。</small></article></div><p class="note">經歷依原作品集整理，並非新增任職或量化成果。原網站的排班查補、步驟化帶訓與總部方針清單化構想，作為本提案的實務基礎。</p></section>
+<section id="strategy"><div class="section-editorial-header"><div class="sec-title-wrap"><span class="sec-number">03</span><h2 class="sec-title-main">六項改善方針，明確分工執行</h2></div><span class="sec-en-badge">PRIORITIES / OWNERS / MEASURES</span></div><p>先由巡店與數據確認問題，再選擇措施。以下不是對特定品牌已存在缺失的判定。</p><div aria-label="依執行權責篩選" class="filters"><button aria-pressed="true" data-filter="all">全部方針</button><button aria-pressed="false" data-filter="local">區域與門市執行</button><button aria-pressed="false" data-filter="hq">總部協作評估</button></div><div class="strategies">
+<article class="strategy feature-card" data-owner="local"><span class="label">優先 01 ／ 區域經理＋店長</span><h3 class="feature-card-title">熱銷缺貨與即期庫存</h3><p class="feature-card-text action-step" data-step="診斷"><strong>確認問題：</strong>區分帳上有貨但未上架、配送延遲及需求預估差異。</p><p class="feature-card-text action-step" data-step="執行"><b>改善做法：</b>建立主力商品查補表，尖峰前巡補；固定檢視效期與滯銷清單，依授權處理調撥或折價。</p><div class="kpi action-measure">追蹤：缺貨率、庫存準確率、報損成本。<br/>保護條件：補貨改善不得造成積貨與報損上升。</div></article>
+<article class="strategy feature-card" data-owner="local"><span class="label">優先 02 ／ 區域經理＋店長</span><h3 class="feature-card-title">尖峰排班與現場服務</h3><p class="feature-card-text action-step" data-step="診斷"><strong>確認問題：</strong>依時段來客、交易量與排隊觀察，找出人力錯配。</p><p class="feature-card-text action-step" data-step="執行"><b>改善做法：</b>調整交接重疊時段，安排機動開台；將補貨與例行作業提前，依公司制度安排工時與休息。</p><div class="kpi action-measure">追蹤：等候時間、人時營業額、服務客訴。<br/>保護條件：不以壓低工時換取服務惡化。</div></article>
+<article class="strategy feature-card" data-owner="local"><span class="label">優先 03 ／ 店長＋帶訓同仁</span><h3 class="feature-card-title">商品諮詢與新人帶訓</h3><p class="feature-card-text action-step" data-step="診斷"><strong>確認問題：</strong>以情境演練了解新人在收銀、商品介紹與客訴轉介的落差。</p><p class="feature-card-text action-step" data-step="執行"><b>改善做法：</b>把原廠資料轉為簡明問答；建立觀摩、演練及操作確認表。用藥與醫療問題轉介適當專業人員。</p><div class="kpi action-measure">追蹤：操作檢核通過率、作業錯誤率、服務滿意度。<br/>保護條件：不把訓練完成直接等同能力達標。</div></article>
+<article class="strategy feature-card" data-owner="local"><span class="label">優先 04 ／ 區域經理＋店長</span><h3 class="feature-card-title">體驗陳列與特色商品</h3><p class="feature-card-text action-step" data-step="診斷"><strong>確認問題：</strong>觀察顧客找貨、試用及比較時遇到的障礙。</p><p class="feature-card-text action-step" data-step="執行"><b>改善做法：</b>在核准陳列規範內，試行需求導向標示、試用品維護與 matsukiyo 特色商品介紹；按店型比較成效。</p><div class="kpi action-measure">追蹤：陳列合格率、品類毛利額、連帶購買率。<br/>保護條件：確認增量，避免只把銷售從其他品類移轉。</div></article>
+<article class="strategy feature-card" data-owner="hq"><span class="label hq">評估 05 ／ 總部行銷＋資訊＋區域</span><h3 class="feature-card-title">會員回購與跨通路承接</h3><p class="feature-card-text action-step" data-step="診斷"><strong>確認問題：</strong>查明現有會員與訂單系統可追蹤的範圍。</p><p class="feature-card-text action-step" data-step="執行"><b>改善做法：</b>先改善既有會員服務說明；再提案評估補貨提醒、掃碼收藏及門市取貨。依顧客同意與總部機制執行。</p><div class="kpi action-measure">追蹤：固定期間會員回購率、取貨準時率、退訂率。<br/>啟動條件：系統、資料使用、訂單歸屬與人力分工獲確認。</div></article>
+<article class="strategy feature-card" data-owner="hq"><span class="label hq">評估 06 ／ 總部營運＋資訊＋採購</span><h3 class="feature-card-title">數位工具與作業成本</h3><p class="feature-card-text action-step" data-step="診斷"><strong>確認問題：</strong>量測換標、盤點與重複輸入的實際工時及錯誤。</p><p class="feature-card-text action-step" data-step="執行"><b>改善做法：</b>先簡化流程；電子標籤、自助結帳或系統整合須提出成本效益與小規模試點方案。</p><div class="kpi action-measure">追蹤：每次作業時間、價標錯誤率、總持有成本。<br/>啟動條件：設備、維護、訓練及系統成本皆納入評估。</div></article>
+</div><div class="quote">區域經理的價值：讓每家店知道「為什麼做、誰來做、何時完成、如何檢討」。</div><div class="swimlane-panel"><div class="viz-caption">跨店執行，誰負責哪一步？<span>區域經理協調推進；跨部門措施依公司授權執行</span></div><div aria-label="分工泳道，可水平捲動" class="swim-scroll" tabindex="0"><div class="swim-grid"><div class="lane-label"></div><b class="lane-stage">01 發現問題</b><b class="lane-stage">02 選擇措施</b><b class="lane-stage">03 試行追蹤</b><b class="lane-stage">04 檢討擴大</b><b class="lane-label">區域經理</b><span class="lane-task rose">巡店與跨店比較</span><span class="lane-task rose">排定優先順序</span><span class="lane-task rose">每週檢視指標</span><span class="lane-task rose">提出推廣建議</span><b class="lane-label">店長／同仁</b><span class="lane-task cream">回報現場問題</span><span class="lane-task cream">確認作業可行性</span><span class="lane-task cream">執行與記錄回饋</span><span class="lane-task cream">修訂帶訓步驟</span><b class="lane-label">主管／總部</b><span class="lane-task sage">提供制度與資料</span><span class="lane-task sage">核定資源與權限</span><span class="lane-task sage">支援跨部門障礙</span><span class="lane-task sage">決定擴大範圍</span></div></div></div></section>
+<section id="roadmap"><div class="section-editorial-header"><div class="sec-title-wrap"><span class="sec-number">04</span><h2 class="sec-title-main">90 天區域營運推進計畫</h2></div><span class="sec-en-badge">DIAGNOSE → PILOT → REVIEW &amp; SCALE</span></div><p class="note">以下天數為提案排程，不是已執行成果；實際依到任安排、檔期及主管核定調整。</p><div aria-label="選擇90天計畫階段" class="timeline-control" role="group"><button aria-pressed="true" class="phase-tab active" data-phase="0" type="button"><span class="phase-dot">01</span><b>1–30 天</b><small>診斷與建立基準</small></button><button aria-pressed="false" class="phase-tab" data-phase="1" type="button"><span class="phase-dot">02</span><b>31–60 天</b><small>選店試行與追蹤</small></button><button aria-pressed="false" class="phase-tab" data-phase="2" type="button"><span class="phase-dot">03</span><b>61–90 天</b><small>檢討與擴大決策</small></button></div><p aria-live="polite" class="timeline-summary">第一階段：先建立可比較的門市基準，確認改善問題。</p><div class="roadmap"><article class="phase feature-card phase-current" data-phase-card="0"><strong>DAY 01–30</strong><h3 class="feature-card-title">建立基準，確認優先問題</h3><ul><li>熟悉營運規範與責任區店型。</li><li>走訪門市，訪談店長及同仁。</li><li>蒐集可比期間營收、工時、缺貨與客訴。</li><li>確認指標定義與資料缺口。</li></ul><div class="deliver"><b>產出：</b>門市現況表、問題清單、試行優先順序。<br/><b>合作：</b>主管、區域店長、相關資料窗口。</div></article><article class="phase feature-card" data-phase-card="1"><strong>DAY 31–60</strong><h3 class="feature-card-title">選店試行，每週追蹤</h3><ul><li>選擇具可比性的試行與參考門市。</li><li>先執行 1–2 項改善措施。</li><li>記錄責任人、完成日與現場回饋。</li><li>註記檔期、天氣與其他干擾因素。</li></ul><div class="deliver"><b>產出：</b>每週追蹤表、帶訓指引、流程修訂紀錄。<br/><b>合作：</b>試行店長、帶訓同仁、區域經理。</div></article><article class="phase feature-card" data-phase-card="2"><strong>DAY 61–90</strong><h3 class="feature-card-title">比較成效，決定擴大範圍</h3><ul><li>比較基準期與試行期表現。</li><li>同步檢視毛利、服務及工作負荷。</li><li>保留有效步驟，修正無效措施。</li><li>提交跨店推廣或總部協作提案。</li></ul><div class="deliver"><b>產出：</b>試行檢討、標準作業版本、下階段計畫。<br/><b>合作：</b>直屬主管、店長及總部窗口。</div></article></div></section>
+<section id="metrics"><div class="section-editorial-header"><div class="sec-title-wrap"><span class="sec-number">05</span><h2 class="sec-title-main">不只看業績，也看改善的代價</h2></div><span class="sec-en-badge">PERFORMANCE &amp; QUALITY SCORECARD</span></div><div class="viz-caption">六項指標，成對判讀<span>尚未取得門市資料；先明確定義觀察方向</span></div><div class="metric-grid"><article class="metric-tile"><span>01／營運成長</span><h3>同店營收</h3><div class="metric-symbol">↗</div><p>搭配毛利額，確認成長品質。</p><small>實際數值：待建立基準</small></article><article class="metric-tile"><span>02／獲利品質</span><h3>毛利額與毛利率</h3><div class="metric-symbol">＋</div><p>辨識促銷增加營收的代價。</p><small>實際數值：待建立基準</small></article><article class="metric-tile"><span>03／商品可得性</span><h3>抽查缺貨率</h3><div class="metric-symbol">▦</div><p>搭配庫存量，避免過度備貨。</p><small>實際數值：待建立基準</small></article><article class="metric-tile"><span>04／庫存風險</span><h3>報損成本率</h3><div class="metric-symbol">◇</div><p>區分即期與其他報損原因。</p><small>實際數值：待建立基準</small></article><article class="metric-tile"><span>05／人力配置</span><h3>人時營業額</h3><div class="metric-symbol">◷</div><p>搭配等候時間與同仁負荷。</p><small>實際數值：待建立基準</small></article><article class="metric-tile"><span>06／顧客延續</span><h3>會員回購率</h3><div class="metric-symbol">↻</div><p>固定會員群與觀察期間。</p><small>實際數值：待建立基準</small></article></div><details class="formula-details"><summary>查看指標計算方式與追蹤分工</summary><div class="table-container"><table class="editorial-table"><thead><tr><th>追蹤指標</th><th>建議計算口徑</th><th>頻率／責任</th><th>判讀重點</th></tr></thead><tbody><tr><td>同店營收成長率</td><td>（本期同店營收－比較期同店營收）÷ 比較期同店營收</td><td>每月／區域經理</td><td>固定店群，注意營業日、檔期與店型差異。</td></tr><tr><td>毛利額與毛利率</td><td>營收－銷貨成本；毛利額 ÷ 營收</td><td>每週觀察、每月檢討／店長與區域</td><td>營收增加時，同步檢視折扣對毛利的影響。</td></tr><tr><td>抽查缺貨率</td><td>抽查中無可售現貨之商品項次 ÷ 全部抽查項次</td><td>每日記錄、每週彙整／門市</td><td>固定商品名單與抽查時段，區分排面空缺與真正無庫存。</td></tr><tr><td>報損成本率</td><td>同期間報損成本 ÷ 淨營收</td><td>每月／店長</td><td>固定成本與營收口徑；另追蹤即期與非即期原因。</td></tr><tr><td>人時營業額</td><td>同期間淨營收 ÷ 實際投入工時</td><td>每週／店長與區域</td><td>搭配等候時間、錯誤率與員工負荷判讀。</td></tr><tr><td>會員回購率</td><td>觀察期內再次購買的基準會員數 ÷ 基準會員總數</td><td>每月／總部資料窗口</td><td>先固定會員群、觀察天數與跨通路辨識規則。</td></tr></tbody></table></div></details><p class="note">基準值與目標值均待取得實際資料後訂定，不預填虛構績效。分母為零時不計算比例，另行說明。</p><div class="decision-map"><div class="viz-caption">試行後，如何決定下一步？<span>先看資料是否足夠，再看成果與執行代價</span></div><div class="decision-start">試行紀錄與門市回饋</div><div aria-hidden="true" class="connector">↓</div><div class="decision-question">資料可比較，且觀察期足夠嗎？</div><div class="decision-fork"><div class="branch"><span class="branch-tag">尚不足夠</span><div class="decision-result adjust"><b>補齊資料／調整試行</b><p>檢查檔期、人流與樣本差異，調整觀察期間。</p></div></div><div class="branch"><span class="branch-tag">足夠，再檢視成效</span><div class="decision-question secondary">改善是否成立，且成本、服務與負荷可接受？</div><div class="outcome-grid"><div class="decision-result expand"><b>是 → 建議擴大</b><p>整理標準作業，分批推廣。</p></div><div class="decision-result adjust"><b>不明確 → 調整</b><p>修正措施，再次觀察。</p></div><div class="decision-result stop"><b>否 → 停止措施</b><p>記錄原因，回復合適流程。</p></div></div></div></div></div></section>
+<div class="closing"><h2>從單店實務，<br/>走向區域協作。</h2><p>以原網站的門市經驗、帶訓能力與溝通構想為基礎，將產業觀察轉成具責任分工的行動。透過巡店、店長週會與成效檢討，讓總部方針落地，也讓現場問題得到回應。</p></div>
+<section class="sources" id="sources"><div class="section-editorial-header"><div class="sec-title-wrap"><span class="sec-number">06</span><h2 class="sec-title-main">資料來源與提案邊界</h2></div><span class="sec-en-badge">EVIDENCE / EXISTING PORTFOLIO / PROPOSED ACTIONS</span></div><details open=""><summary>01　官方統計｜市場規模與商品結構</summary><p><a href="https://mnscdn.moea.gov.tw/mns/populace/news/News.aspx?kind=1&amp;menu_id=40&amp;news_id=123868">經濟部統計處，2026/09/07</a>。2025 年營業額、2026 年 1–7 月表現；商品結構為 2024 年資料（2025 年經營實況調查）。不是單一品牌數據。</p></details><details><summary>02　研究機構｜網路銷售與通路分工</summary><p><a href="https://www.mirai.com.tw/2026-annual-overview-of-taiwans-retail-and-e-commerce-sub-sector-structure/">未來流通研究所，2026/02/04</a>。2025 年美妝藥局專賣零售業網路銷售資料；依原文分類與解讀範圍使用。</p></details><details><summary>03　原網站｜經歷、核心能力與通路研究</summary><p><a href="mobile.html">黃博詩個人應徵作品集</a>與<a href="https://github.com/mystiqueduncan-beep/-/blob/47376e5ca57710ca3de356a886da4981eb6b8491/trend.html">實體通路專題研究</a>，於 2026/11/09 讀取預設分支內容。整合 Tomod’s、築心動物醫院、Levi’s 經歷，以及四大優勢、成本、比價、庫存與會員問題框架。</p><p>原頁另列創市際購買管道複選調查與 91APP 客群比較，屬不同母體與指標，不作為本提案的營收增幅承諾；海外案例僅作原研究延伸閱讀，不直接認定可複製成效。</p></details><details><summary>04　管理提案｜適用範圍與權責</summary><p>六項方針、90 天排程與指標口徑為本次提出的營運方案，不代表已任職區域經理或已完成成果。涉及資訊系統、設備、採購、會員與跨通路績效分配，由總部相關單位評估；實際目標待門市基準資料及主管確認。</p></details></section><footer><span>黃博詩｜個人應徵作品集<br/>區域營運改善提案 · 網頁版</span><a href="#">返回頁首 ↑</a></footer></main><script src="assets/trend-marquee.js" defer></script><script src="assets/mk-inspired.js" defer></script><script src="assets/regional-analysis.js" defer></script><nav class="mobile-bottom-bar" aria-label="手機底部導覽"><a class="bottom-nav-item" href="mobile.html">履歷首頁</a><a class="bottom-nav-item active" href="mobile-trend.html" aria-current="page">藥妝專題研究</a><a class="bottom-nav-item" href="mobile-contact.html">個人及聯絡資訊</a></nav></body></html>
