@@ -79,7 +79,19 @@ with sync_playwright() as p:
         # Center each unit to give short elements full visibility and tall ones
         # at least 80% viewport coverage; the animation must then complete.
         for item in items.all():
-            item.evaluate('(e)=>{e.scrollIntoView({block:"center",behavior:"instant"});dispatchEvent(new Event("scroll"));}')
+            item.evaluate('''(e)=>{
+              e.scrollIntoView({block:"center",behavior:"instant"});
+              const r=e.getBoundingClientRect();
+              const h=document.documentElement.clientHeight||innerHeight;
+              const bottom=h-Math.min(48,Math.max(20,h*0.06));
+              // CSS scroll-padding-top may center a nearly screen-height
+              // block below the usable viewport. Finish the physical scroll.
+              if(r.height<=bottom){
+                if(r.bottom>bottom)scrollBy({top:r.bottom-bottom+3,behavior:"instant"});
+                else if(r.top<0)scrollBy({top:r.top-3,behavior:"instant"});
+              }
+              dispatchEvent(new Event("scroll"));
+            }''')
             try:
                 expect(item).not_to_have_class(re.compile('.*(?:mk-motion-pending|mk-pop-pending).*'))
             except AssertionError:
