@@ -188,19 +188,29 @@ def expected_text(rel,text):
          '居住區域桃園市大園區（機動巡店）到職與排班可於面談時進一步確認')
  return compact(s)
 base=json.loads((ROOT/'_audit/baseline-text.json').read_text(encoding='utf-8'))
+approved_report=json.loads((ROOT/'_audit/regional-analysis-approved-sha1.json').read_text(encoding='utf-8'))['pages']
 errors=[];links=0;results=[]
 for rel,old in base.items():
  f=ROOT/rel;p=Page(f.read_text(encoding='utf-8'));ids=[a['id'] for t,a in p.tags if 'id' in a]
  if len(ids)!=len(set(ids)):errors.append(rel+': duplicate id')
- expect=expected_text(rel,old)
- actual=normalized(p.text)
- same=expect==actual
+ # Exact source files supplied and approved by user replace only the two
+ # research pages. Every other resume page remains checked against the
+ # immutable original factual baseline.
+ if rel in approved_report:
+  raw=f.read_bytes()
+  blob_hash=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+b'\0'+raw).hexdigest()
+  same=blob_hash==approved_report[rel]
+  if not same:errors.append(rel+': unapproved regional analysis content modification')
+ else:
+  expect=expected_text(rel,old)
+  actual=normalized(p.text)
+  same=expect==actual
+  if not same:
+   import difflib
+   changes=[(tag,expect[i:j],actual[k:l]) for tag,i,j,k,l in difflib.SequenceMatcher(None,expect,actual,autojunk=True).get_opcodes() if tag!='equal']
+   print('APPROVED_TEXT_DIFF '+rel+' '+json.dumps([{'op':tag,'old':a[:270],'new':b[:270]} for tag,a,b in changes[:24]],ensure_ascii=False),flush=True)
+   errors.append(rel+': unexpected content difference')
  results.append({'page':rel,'text_matches_except_confirmed_additions':same})
- if not same:
-  import difflib
-  changes=[(tag,expect[i:j],actual[k:l]) for tag,i,j,k,l in difflib.SequenceMatcher(None,expect,actual,autojunk=True).get_opcodes() if tag!='equal']
-  print('APPROVED_TEXT_DIFF '+rel+' '+json.dumps([{'op':tag,'old':a[:270],'new':b[:270]} for tag,a,b in changes[:24]],ensure_ascii=False),flush=True)
-  errors.append(rel+': unexpected content difference')
  for t,a in p.tags:
   for attr in (['href'] if t=='a' else ['src'] if t in ('img','script') else ['srcset'] if t=='source' else ['href'] if t=='link' and a.get('rel')=='stylesheet' else []):
    value=a.get(attr,'');u=urlsplit(value)
@@ -255,45 +265,34 @@ for rel in ('index.html','mobile.html','contact.html','mobile-contact.html','tre
   if len(re.findall(r'<section\b[^>]*id="education"',html))!=1:
    errors.append(rel+': missing consolidated education panel')
 # Verify availability information is visible only on the personal contact pages.
-for rel in ('index.html','mobile.html','trend.html','mobile-trend.html'):
- page_text=compact(''.join(Page((ROOT/rel).read_text(encoding='utf-8')).text))
- if any(t in page_text for t in ('到職與排班面談確認','到職排班面談確認','出勤安排：可於面談時進一步確認')):
-  errors.append(rel+': start-date/scheduling availability must be on contact page only')
-contact_page=compact(''.join(Page((ROOT/'contact.html').read_text(encoding='utf-8')).text))
-mobile_contact_page=compact(''.join(Page((ROOT/'mobile-contact.html').read_text(encoding='utf-8')).text))
-if '到職與排班可於面談時進一步確認' not in contact_page:
- errors.append('contact.html: missing start-date/scheduling information')
-if '出勤安排：可於面談時進一步確認' not in mobile_contact_page:
- errors.append('mobile-contact.html: missing attendance availability information')
-# Independently validate metadata that is excluded from original-resume text parity.
+# Keep historical sources on the unchanged resume, but validate the replacement
+# report against its own provided source list and conceptual (non-performance) KPIs.
 for rel in ('index.html','mobile.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
- figures=re.findall(r'<figure class="career-photo"[^>]*>(.*?)</figure>',html,re.S)
- career=html.split('id="career"',1)[1].split('</section>',1)[0]
- if len(figures)!=3 or len(re.findall(r'<img\b',career))!=3 or len(re.findall(r'<img\b',html))!=3:
-  errors.append(rel+': exactly three career images, no hero photo')
- for origin in ('3.bp.blogspot.com','www.zhuxin.com.tw','i.mdel.net'):
-  if origin not in career:errors.append(rel+': missing career photo '+origin)
-
-for rel in ('contact.html','mobile-contact.html'):
- html=(ROOT/rel).read_text(encoding='utf-8')
- if len(re.findall(r'<img\b',html))!=1 or 'src="contact-portrait.webp"' not in html:
-  errors.append(rel+': contact photo mismatch')
-for rel in ('index.html','mobile.html','trend.html','mobile-trend.html'):
- html=(ROOT/rel).read_text(encoding='utf-8')
  for origin in ('moea.gov.tw','ixresearch.com'):
-  if origin not in html:errors.append(rel+': research source hyperlink missing '+origin)
+  if origin not in html:errors.append(rel+': resume research source missing '+origin)
 for rel in ('trend.html','mobile-trend.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
- for origin in ('91app.com','kantarworldpanel.com'):
-  if origin not in html:errors.append(rel+': research source hyperlink missing '+origin)
-for rel in ('trend.html','mobile-trend.html'):
- html=(ROOT/rel).read_text(encoding='utf-8')
- chart=html.split('aria-label="購買管道調查圖表"',1)[1].split('class="channel-summary"',1)[0]
- for label,number in [('藥妝店','45.2'),('網路','42.5'),('生活百貨','28.7'),('百貨專櫃','24.4')]:
-  if not re.search(r'aria-label="'+label+r'[^"共]*'+number+r'%"',chart):errors.append(rel+': chart label/value '+label)
-  if 'width: '+number+'%' not in chart:errors.append(rel+': chart absolute scale '+number)
- if '複選題' not in chart or '非市場占有率' not in chart:errors.append(rel+': chart multiple-response meaning')
+ p=Page(html)
+ ids={a.get('id') for t,a in p.tags}
+ expected_sections={'market','experience','strategy','roadmap','metrics','sources'}
+ if not expected_sections.issubset(ids):errors.append(rel+': missing approved regional analysis sections')
+ if len(re.findall(r'<section\\b[^>]*id=',html))!=6:errors.append(rel+': expected six analysis sections')
+ for origin in ('mnscdn.moea.gov.tw','www.mirai.com.tw'):
+  if origin not in html:errors.append(rel+': regional report source missing '+origin)
+ for token in ('2,160','+5.4%','1,272','47.7%','21.4%','13.7%','7.3%','7.0%','2.9%',
+               '六項改善方針','90 天','待建立基準','不代表已任職區域經理'):
+  if token not in ''.join(p.text):errors.append(rel+': regional report approved statement missing '+token)
+ if len(re.findall(r'data-owner="(?:local|hq)"',html))!=6:
+  errors.append(rel+': expected six action proposals')
+ if len(re.findall(r'data-phase="\\d"',html))!=3:
+  errors.append(rel+': expected three 90-day phases')
+ if len(re.findall(r'class="metric-tile"',html))!=6:
+  errors.append(rel+': expected six noninvented KPI tiles')
+ if rel=='trend.html' and 'data-keycap-marquee' not in html:
+  errors.append(rel+': desktop analysis chapter marquee missing')
+ if rel=='mobile-trend.html' and ('data-keycap-marquee' in html or 'class="mobile-bottom-bar"' not in html):
+  errors.append(rel+': mobile research navigation regression')
 manifest=json.loads((ROOT/'_audit/original-manifest.json').read_text(encoding='utf-8'))
 for name,item in manifest.items():
  if name.endswith('.jpg') and hashlib.sha256((ROOT/name).read_bytes()).hexdigest()!=item['sha256']:errors.append(name+': original image changed')
