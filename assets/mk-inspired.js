@@ -72,7 +72,7 @@
     el.classList.remove("mk-motion-pending", "mk-pop-pending");
     el.classList.add(el.classList.contains("mk-pop-item") ? "mk-pop-in" : "mk-motion-in");
     pending.delete(el);
-    observer?.unobserve(el);
+    observer?.unobserve?.(el);
     if (!pending.size) detachChecks();
   };
   const checkPending = () => {
