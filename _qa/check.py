@@ -289,8 +289,15 @@ for rel in ('trend.html','mobile-trend.html'):
   errors.append(rel+': expected three 90-day phases')
  if len(re.findall(r'class="metric-tile"',html))!=6:
   errors.append(rel+': expected six noninvented KPI tiles')
- if rel=='trend.html' and 'data-keycap-marquee' not in html:
-  errors.append(rel+': desktop analysis chapter marquee missing')
+ if rel=='trend.html':
+  if 'data-keycap-marquee' not in html:
+   errors.append(rel+': desktop analysis chapter marquee missing')
+  marquee=re.search(r'<nav aria-label="專題導覽"[^>]*>.*?</nav>',html,re.S)
+  labels=dict(re.findall(r'<a href="#([^"]+)">([^<]+)</a>',marquee.group(0))) if marquee else {}
+  expected={'market':'市場判讀','experience':'經驗連結','strategy':'改善方針',
+            'roadmap':'90天計畫','metrics':'成效追蹤','sources':'研究來源'}
+  if labels!=expected:
+   errors.append(rel+': research marquee titles must have no numeric prefixes and retain original anchors')
  if rel=='mobile-trend.html' and ('data-keycap-marquee' in html or 'class="mobile-bottom-bar"' not in html):
   errors.append(rel+': mobile research navigation regression')
 # Verify user-supplied photo remains bit-for-bit unchanged and is used only
