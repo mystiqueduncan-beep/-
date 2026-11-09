@@ -70,9 +70,18 @@ with sync_playwright() as p:
   is_mobile=name.startswith('mobile')
   page=browser.new_page(viewport={'width':820 if not is_mobile else 390,'height':1100})
   page.goto(base+name+'?view='+('mobile' if is_mobile else 'desktop'))
-  switch=page.locator('a[href*="?view="]')
-  expect(switch).to_have_count(1)
-  assert switch.first.text_content().strip()==('電腦版' if is_mobile else '手機版'),name
+  switchbar=page.locator('body > nav.view-mode-switch[aria-label="瀏覽版本切換"]')
+  expect(switchbar).to_have_count(1)
+  switch=switchbar.locator('a.view-mode-switch__option')
+  expect(switch).to_have_count(2)
+  assert [x.strip() for x in switch.all_text_contents()]==['電腦版','手機版'],name
+  current=switchbar.locator('a[aria-current="page"]')
+  expect(current).to_have_count(1)
+  assert current.text_content().strip()==('手機版' if is_mobile else '電腦版'),name
+  other=switchbar.locator('a:not([aria-current="page"])')
+  assert other.get_attribute('href').endswith('?view='+('desktop' if is_mobile else 'mobile')),name
+  assert switchbar.evaluate('(e)=>e.getBoundingClientRect().top<25'),name
+  assert other.evaluate('(e)=>getComputedStyle(e).backgroundColor')=='rgb(152, 87, 115)',name
   destination='mobile-contact.html' if is_mobile else 'contact.html'
   for link in page.locator('a[href="'+destination+'"]').all():
    assert link.text_content().strip()=='個人及聯絡資訊',(name,link.text_content())
@@ -107,7 +116,9 @@ with sync_playwright() as p:
    '(es)=>es.map(e=>getComputedStyle(e).transitionDuration)')),name
   page.close()
  for name in ('contact.html','mobile-contact.html'):
-  page=browser.new_page(viewport={'width':390 if name.startswith('mobile') else 1440,'height':844})
+  # Short viewport keeps the photo below the fold: must stay transparent
+  # until visible, then take 1.5s to fade in once without position changes.
+  page=browser.new_page(viewport={'width':390 if name.startswith('mobile') else 1440,'height':240})
   page.goto(base+name+'?view='+('mobile' if name.startswith('mobile') else 'desktop'))
   photo=page.locator('img[src="contact-portrait-20261109.jpg"]')
   expect(photo).to_have_count(1)
@@ -115,11 +126,35 @@ with sync_playwright() as p:
   assert photo.evaluate('(e)=>e.complete && e.naturalWidth===1086 && e.naturalHeight===1448')
   if name.startswith('mobile'):
    assert photo.evaluate('(e)=>getComputedStyle(e.closest(".photo-frame")).maxHeight==="none"')
+  expect(page.locator('html.portrait-reveal-js')).to_have_count(1)
+  assert photo.evaluate('(e)=>getComputedStyle(e).opacity')=='0',(name,'photo not pending before first viewport entry')
+  # Direct scrolling avoids Playwright waiting for a parent reveal to settle.
+  photo.evaluate('(e)=>scrollTo({top:scrollY+e.getBoundingClientRect().top-80,behavior:"instant"})')
+  page.wait_for_function('() => !!document.querySelector(".contact-portrait-photo.portrait-in-view")')
   appearance=photo.evaluate("""e=>{const s=getComputedStyle(e);return {
    name:s.animationName,duration:s.animationDuration,iterations:s.animationIterationCount,
    fit:s.objectFit,filter:s.filter,transform:s.transform}}""")
   assert appearance=={'name':'contact-portrait-soft-fade','duration':'1.5s','iterations':'1',
                       'fit':'contain','filter':'none','transform':'none'},(name,appearance)
+  # Sample the native CSS Animation at its actual midpoint (0.75 s of 1.5 s).
+  # This checks a rendered intermediate opacity without timing flakiness.
+  midway=photo.evaluate("""e=>{
+    const a=e.getAnimations().find(a=>a.animationName==='contact-portrait-soft-fade');
+    if(!a)return -1;
+    a.pause();
+    a.currentTime=750;
+    return parseFloat(getComputedStyle(e).opacity);
+  }""")
+  assert .03 < midway < .97,(name,'opacity must interpolate between transparent and opaque',midway)
+  finished=photo.evaluate("""e=>{
+    const a=e.getAnimations().find(a=>a.animationName==='contact-portrait-soft-fade');
+    a.finish();
+    return parseFloat(getComputedStyle(e).opacity);
+  }""")
+  assert finished>.99,(name,'photo must end fully opaque',finished)
+  page.evaluate('scrollTo(0,0)')
+  photo.evaluate('(e)=>scrollTo({top:scrollY+e.getBoundingClientRect().top-80,behavior:"instant"})')
+  assert photo.evaluate('(e)=>getComputedStyle(e).animationIterationCount')=='1'
   page.emulate_media(reduced_motion='reduce')
   assert photo.evaluate('(e)=>getComputedStyle(e).animationName')=='none'
   assert photo.evaluate('(e)=>getComputedStyle(e).opacity')=='1'

@@ -1,0 +1,87 @@
+/* Shared top-of-page device view selector — same location on all six pages. */
+body .view-mode-switch {
+  position: relative;
+  z-index: 20;
+  display: block;
+  width: 100%;
+  background: linear-gradient(90deg,#f5e7ec 0%,#ecd3dc 100%);
+  border-bottom: 1px solid #cfa8b6;
+  color: #604352;
+  box-shadow: 0 2px 8px rgb(92 52 69 / 5%);
+}
+body .view-mode-switch__inner {
+  box-sizing: border-box;
+  max-width: 1200px;
+  min-height: 60px;
+  margin: 0 auto;
+  padding: 8px clamp(14px,4vw,32px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(12px,3vw,24px);
+  flex-wrap: wrap;
+}
+body .view-mode-switch__label {
+  font-size: .74rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  white-space: nowrap;
+  color: #765364;
+}
+body .view-mode-switch__options {
+  display: inline-flex;
+  gap: 5px;
+  align-items: stretch;
+  padding: 4px;
+  background: #fff9f8;
+  border: 1px solid #c99eae;
+  border-radius: 16px;
+}
+body .view-mode-switch__option,
+body .view-mode-switch__options a,
+body .view-mode-switch__options .top-switch-link,
+body .view-mode-switch__options .btn-switch-desktop {
+  box-sizing: border-box;
+  min-height: 44px !important;
+  min-width: 92px;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin: 0 !important;
+  padding: 8px 16px !important;
+  border: 1px solid transparent !important;
+  border-radius: 12px !important;
+  text-decoration: none !important;
+  font-family: inherit !important;
+  font-size: .91rem !important;
+  font-weight: 800 !important;
+  line-height: 1.35 !important;
+  letter-spacing: .025em;
+  white-space: nowrap;
+  box-shadow: none !important;
+  transform: none !important;
+}
+body .view-mode-switch__options .is-current {
+  background: #704759 !important;
+  color: #fff !important;
+  cursor: default;
+}
+body .view-mode-switch__options a:not(.is-current) {
+  background: #985773 !important;
+  color: #fff !important;
+}
+body .view-mode-switch__options a:not(.is-current):hover {
+  background: #78425c !important;
+}
+body .view-mode-switch__options a:not(.is-current):focus-visible {
+  outline: 3px solid #36304a !important;
+  outline-offset: 3px !important;
+}
+@media (max-width: 480px) {
+  body .view-mode-switch__inner { min-height: 56px; gap: 8px; justify-content: center; }
+  body .view-mode-switch__label { display: none; }
+  body .view-mode-switch__options { width: min(100%, 320px); }
+  body .view-mode-switch__options a { flex: 1 1 0; min-width: 0; }
+}
+@media print { body .view-mode-switch { display: none !important; } }
