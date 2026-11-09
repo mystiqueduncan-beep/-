@@ -1,5 +1,7 @@
 """Verify that GitHub Pages serves the resume and the exact checked-in site assets.
 
+This temporary PR checks the just-published research-aligned homepage CSS.
+
 On pull requests compare to the current main (PR base), not the unpublished PR.
 On pushes to main compare with the new commit, retrying during Pages deployment.
 """
