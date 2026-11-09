@@ -1056,3 +1056,183 @@ body.page-home.page-mobile .mobile-content .mobile-trend-banner {
     box-shadow: none !important;
   }
 }
+/* 2026-11-10 | Shared embroidery details across desktop and mobile */
+/*
+ * A single editorial vocabulary for all three paired page types:
+ * ink-rose / warm ivory / fine stitched rules / small original floral art.
+ * Decorative pseudo-elements are non-interactive and do not affect document copy.
+ * Reuses this site's existing original SVGs (not a copied character or logo).
+ */
+body.page-home,
+body.page-contact,
+body.page-trend {
+  --embroider-ink: #654753;
+  --embroider-rose: #885365;
+  --embroider-thread: #d5afbc;
+  --embroider-edge: #dfc3cc;
+  --embroider-paper: #fffcfa;
+  --embroider-blush: #f8edf0;
+}
+
+/* Repeat the floral accent on desktop instead of limiting it to the phone's
+   existing botanical illustration. Keep it away from actual name glyphs. */
+body.page-home.page-desktop .cover-heading {
+  position: relative;
+  isolation: isolate;
+}
+body.page-home.page-desktop .cover-heading::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  right: clamp(4px, 2vw, 26px);
+  top: -8px;
+  width: clamp(46px, 5vw, 72px);
+  aspect-ratio: 1;
+  background: url("pastel-flower.svg") center / contain no-repeat;
+  opacity: .65;
+  z-index: -1;
+}
+body.page-home.page-mobile .mobile-cover > .mobile-card-title {
+  position: relative;
+  padding-right: 30px !important;
+}
+body.page-home.page-mobile .mobile-cover > .mobile-card-title::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  pointer-events: none;
+  width: 27px;
+  height: 27px;
+  background: url("pastel-flower.svg") center / contain no-repeat;
+  opacity: .76;
+}
+
+/* Both versions use the same paper quote treatment. The wording is untouched. */
+body.page-home.page-desktop .cover-introduction .hero-professional-intro,
+body.page-home.page-mobile .mobile-cover .mobile-profile-intro,
+body.page-contact .candidate-intro-lead,
+body.page-trend .report-lead-quote {
+  box-sizing: border-box;
+  background: var(--embroider-paper) !important;
+  border: 1px solid var(--embroider-edge) !important;
+  border-left: 4px solid var(--embroider-thread) !important;
+  border-radius: 8px 24px 24px 8px !important;
+  padding: clamp(15px, 2vw, 23px) !important;
+  color: var(--embroider-ink) !important;
+  box-shadow: none !important;
+}
+body.page-home.page-mobile .mobile-cover .mobile-profile-intro {
+  margin-top: 19px !important;
+  margin-bottom: 19px !important;
+  line-height: 1.85 !important;
+}
+/* Avoid forcing a fixed height for long research paragraphs. */
+body.page-trend .report-lead-quote,
+body.page-contact .candidate-intro-lead {
+  height: auto;
+  max-width: 100%;
+}
+
+/* Journal section rules match, rather than desktop solid / mobile dashed. */
+body.page-home.page-desktop .section-editorial-header,
+body.page-home.page-mobile .mobile-card-title,
+body.page-trend .section-editorial-header {
+  border-bottom: 1px dashed var(--embroider-thread) !important;
+}
+body.page-home.page-desktop .section-editorial-header .sec-title-main,
+body.page-home.page-mobile .mobile-card-title,
+body.page-trend .section-editorial-header .sec-title-main {
+  color: var(--embroider-ink) !important;
+}
+body.page-home.page-mobile .mobile-badge,
+body.page-home.page-desktop .applicant-label,
+body.page-trend .hero-badge-row > *,
+body.page-contact .candidate-position-pill {
+  border-radius: 18px !important;
+}
+
+/* Same paper edge and gently rounded corner for all device editions.
+   Layout columns, image ratios, charts, interactions and copy stay unchanged. */
+body.page-home.page-desktop .section-block,
+body.page-home.page-mobile .mobile-content > .mobile-card:not(.mobile-cover),
+body.page-trend .feature-card,
+body.page-contact .candidate-details-col,
+body.page-contact.page-mobile .mobile-content > .mobile-card {
+  border-color: var(--embroider-edge) !important;
+  border-radius: 24px !important;
+}
+body.page-home.page-mobile .pastel-profile-notes,
+body.page-contact .candidate-specs-box {
+  border-color: var(--embroider-edge) !important;
+  border-radius: 22px !important;
+}
+body.page-home.page-desktop .section-block:focus-within,
+body.page-home.page-mobile .mobile-content > .mobile-card:focus-within,
+body.page-trend .feature-card:focus-within {
+  outline-offset: 3px;
+}
+
+/* Original flower: an unobtrusive print mark on the other two page families. */
+body.page-contact .name-title-wrap,
+body.page-trend .trend-hero {
+  position: relative;
+}
+body.page-contact .name-title-wrap::after,
+body.page-trend .trend-hero::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  width: clamp(28px, 4vw, 53px);
+  aspect-ratio: 1;
+  top: 0;
+  right: 0;
+  background: url("pastel-flower.svg") center / contain no-repeat;
+  opacity: .38;
+  z-index: 0;
+}
+body.page-contact .name-title-wrap > *,
+body.page-trend .trend-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Long labels must remain readable when the desktop edition is opened
+   intentionally on an iPhone. No sideways overflow or fixed-size ornaments. */
+@media (max-width: 720px) {
+  body.page-home.page-desktop .cover-heading::after {
+    right: 0;
+    top: 0;
+    width: 36px;
+    opacity: .32;
+  }
+  body.page-home.page-mobile .mobile-cover > .mobile-card-title {
+    padding-right: 28px !important;
+  }
+  body.page-contact .name-title-wrap::after,
+  body.page-trend .trend-hero::after {
+    width: 29px;
+    opacity: .25;
+  }
+  body.page-home.page-desktop .cover-introduction .hero-professional-intro,
+  body.page-home.page-mobile .mobile-cover .mobile-profile-intro,
+  body.page-contact .candidate-intro-lead,
+  body.page-trend .report-lead-quote {
+    padding: 15px !important;
+  }
+}
+@media (max-width: 375px) {
+  body.page-home.page-mobile .mobile-cover > .mobile-card-title::after {
+    width: 21px;
+    height: 21px;
+    opacity: .55;
+  }
+}
+@media print {
+  body.page-home.page-desktop .cover-heading::after,
+  body.page-home.page-mobile .mobile-cover > .mobile-card-title::after,
+  body.page-contact .name-title-wrap::after,
+  body.page-trend .trend-hero::after {
+    display: none !important;
+  }
+}
