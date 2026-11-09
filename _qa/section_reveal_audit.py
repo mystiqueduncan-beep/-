@@ -31,7 +31,8 @@ with sync_playwright() as p:
         # pending pose; verify the final pose, not a mid-transition frame.
         held.wait_for_function(
             '() => [...document.querySelectorAll(".mk-motion-pending,.mk-pop-pending")].every(e => getComputedStyle(e).opacity === "0")',
-            timeout=3500
+            timeout=3500,
+            polling=100  # Held-page RAF is intentionally disabled.
         )
         # Independent coverage contract: page sections, articles, card units and source notes.
         units = held.locator('.mag-header > .container, main section, main article, .key-pillar-card, .hero-action-card, .star-field-box, .stage-meta-box, .candidate-info-box, .candidate-specs-box, .source-verification, main .method-card')
