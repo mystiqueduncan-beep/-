@@ -142,3 +142,141 @@ body.page-home.page-desktop .home-keycap-strip .keycap-marquee__belt {
     max-width: 100% !important;
   }
 }
+
+/* Homepage parity with the research report: full-width cards, readable text,
+   consistent rose/ivory treatment. Keep all original resume content intact. */
+body.page-home.page-desktop #cases .case-stack {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: clamp(18px, 2vw, 24px) !important;
+  width: 100%;
+}
+body.page-home.page-desktop #cases .wide-star-case {
+  display: block !important; /* retro-editorial.css incorrectly grids the header, title and full STAR content */
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  margin: 0 !important;
+  padding: clamp(20px, 2.5vw, 30px) !important;
+  background: #fffcfa !important;
+  border: 1px solid #e2cbd2 !important;
+  border-radius: 24px !important;
+  box-shadow: none !important;
+}
+body.page-home.page-desktop #cases .wide-star-case:nth-child(even) {
+  background: #f8ecf0 !important;
+}
+body.page-home.page-desktop #cases .case-header-row {
+  display: flex !important;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  width: 100%;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed #d9bac5;
+}
+body.page-home.page-desktop #cases .wide-star-case > .card-heading {
+  display: block;
+  width: 100%;
+  margin: 0 0 16px !important;
+  color: #654753 !important;
+  font-size: clamp(1.1rem, 1.55vw, 1.42rem);
+  line-height: 1.55 !important;
+  text-wrap: pretty;
+}
+body.page-home.page-desktop #cases .star-fields-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 14px 16px !important;
+  width: 100%;
+  margin-top: 0 !important;
+  align-items: stretch;
+}
+body.page-home.page-desktop #cases .star-fields-grid > .star-field-box {
+  box-sizing: border-box;
+  grid-column: auto;
+  width: 100%;
+  min-width: 0;
+  padding: 17px 19px !important;
+  background: #fff9f8 !important;
+  border: 1px solid #e6ced6 !important;
+  border-radius: 16px !important;
+}
+body.page-home.page-desktop #cases .star-fields-grid > .star-field-box.full-width {
+  grid-column: 1 / -1 !important;
+  background: #f3e1e8 !important;
+}
+body.page-home.page-desktop #cases .star-field-label {
+  display: block;
+  margin-bottom: 9px;
+  font-size: .8rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+body.page-home.page-desktop #cases .star-field-box .card-body-text {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  line-height: 1.85;
+  overflow-wrap: break-word;
+}
+body.page-home.page-desktop #motivation > .editorial-card,
+body.page-home.page-desktop #cases > .editorial-card,
+body.page-home.page-desktop #proposal > .editorial-card {
+  padding: 20px 24px !important;
+  background: #fffcfa !important;
+  border: 1px solid #e2cbd2 !important;
+  border-left: 4px solid #bd96a5 !important;
+  border-radius: 20px !important;
+}
+body.page-home.page-desktop #competencies .grid-2x2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 18px !important;
+  align-items: stretch;
+}
+body.page-home.page-desktop #competencies .grid-2x2 > .editorial-card {
+  min-width: 0;
+  margin-top: 0 !important;
+  padding: 21px 23px !important;
+  background: #fffcfa !important;
+  border: 1px solid #e2cbd2 !important;
+  border-radius: 22px !important;
+}
+body.page-home.page-desktop #competencies .grid-2x2 > .editorial-card:nth-child(even) {
+  background: #f8ecf0 !important;
+}
+body.page-home.page-desktop #proposal .stage-card {
+  margin-top: 0 !important;
+  padding: 20px 22px !important;
+  background: #fffcfa !important;
+  border: 1px solid #e2cbd2 !important;
+  border-radius: 21px !important;
+}
+body.page-home.page-desktop #research .research-summary-panel {
+  padding: 24px !important;
+  background: #fffcfa !important;
+  border: 1px solid #e2cbd2 !important;
+  border-radius: 24px !important;
+}
+@media (max-width: 900px) {
+  body.page-home.page-desktop #cases .star-fields-grid,
+  body.page-home.page-desktop #competencies .grid-2x2 {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  body.page-home.page-desktop #cases .star-fields-grid > .star-field-box.full-width {
+    grid-column: 1 !important;
+  }
+  body.page-home.page-desktop #cases .wide-star-case {
+    padding: 18px !important;
+  }
+}
+@media print {
+  body.page-home.page-desktop #cases .wide-star-case,
+  body.page-home.page-desktop #competencies .grid-2x2 > .editorial-card,
+  body.page-home.page-desktop #proposal .stage-card {
+    border: 1px solid #ded0d4 !important;
+    box-shadow: none !important;
+  }
+}
