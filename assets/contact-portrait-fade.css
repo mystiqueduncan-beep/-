@@ -1,5 +1,5 @@
-/* Candidate photo: preserve the user's original pixels and existing pastel Polaroid frame.
-   Only a one-time 1.5s opacity fade; no retouching, filters, zoom or motion. */
+/* Personal portrait remains the user's original, unretouched JPEG.
+   Animate only its opacity for 1.5 seconds on first viewport entry. */
 @keyframes contact-portrait-soft-fade {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -10,22 +10,26 @@ body.page-contact .photo-frame img.contact-portrait-photo {
   object-position: center center !important;
   filter: none !important;
   transform: none !important;
-  animation: contact-portrait-soft-fade 1.5s ease-in-out 1 both;
+  opacity: 1 !important; /* no JavaScript and failure fallback */
+  animation: none !important;
 }
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: no-preference) {
+  html.portrait-reveal-js body.page-contact .photo-frame img.contact-portrait-photo {
+    opacity: 0 !important; /* wait until the actual picture is visible */
+    animation: none !important;
+  }
+  html.portrait-reveal-js body.page-contact .photo-frame img.contact-portrait-photo.portrait-in-view {
+    opacity: 1 !important;
+    animation: contact-portrait-soft-fade 1.5s ease-in-out 1 both !important;
+  }
+}
+@media (prefers-reduced-motion: reduce), print {
   body.page-contact .photo-frame img.contact-portrait-photo {
     animation: none !important;
     opacity: 1 !important;
   }
 }
-@media print {
-  body.page-contact .photo-frame img.contact-portrait-photo {
-    animation: none !important;
-    opacity: 1 !important;
-  }
-}
-/* Let the full-height 3:4 portrait and its Polaroid caption stay in the frame
-   on phones. The previous mobile 380px cap cut through the photograph. */
+/* Full 3:4 portrait and caption remain in the mobile Polaroid frame. */
 body.page-contact.page-mobile .photo-frame {
   max-height: none !important;
 }
