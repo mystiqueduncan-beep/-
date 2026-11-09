@@ -325,9 +325,9 @@ else:
    errors.append('new circular profile photo: corrupt base64 image')
 for rel in ('contact.html','mobile-contact.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
- if len(re.findall(r'<img\\b',html))!=1:
+ if len(re.findall(r'<img\b',html))!=1:
   errors.append(rel+': expected exactly one personal portrait image')
- if len(re.findall(r'<img\\b[^>]*src="contact-avatar-20261109.svg"',html))!=1:
+ if len(re.findall(r'<img\b[^>]*src="contact-avatar-20261109.svg"',html))!=1:
   errors.append(rel+': new circular portrait missing')
  if 'contact-portrait-fade.css' not in html:
   errors.append(rel+': portrait fade style missing')
