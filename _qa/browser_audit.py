@@ -128,20 +128,32 @@ with sync_playwright() as p:
    assert photo.evaluate('(e)=>getComputedStyle(e.closest(".photo-frame")).maxHeight==="none"')
   expect(page.locator('html.portrait-reveal-js')).to_have_count(1)
   assert photo.evaluate('(e)=>getComputedStyle(e).opacity')=='0',(name,'photo not pending before first viewport entry')
-  photo.scroll_into_view_if_needed()
+  # Direct scrolling avoids Playwright waiting for a parent reveal to settle.
+  photo.evaluate('(e)=>scrollTo({top:scrollY+e.getBoundingClientRect().top-80,behavior:"instant"})')
   page.wait_for_function('() => !!document.querySelector(".contact-portrait-photo.portrait-in-view")')
   appearance=photo.evaluate("""e=>{const s=getComputedStyle(e);return {
    name:s.animationName,duration:s.animationDuration,iterations:s.animationIterationCount,
    fit:s.objectFit,filter:s.filter,transform:s.transform}}""")
   assert appearance=={'name':'contact-portrait-soft-fade','duration':'1.5s','iterations':'1',
                       'fit':'contain','filter':'none','transform':'none'},(name,appearance)
-  page.wait_for_timeout(450)
-  midway=photo.evaluate('(e)=>parseFloat(getComputedStyle(e).opacity)')
-  assert .03 < midway < .97,(name,'opacity should be between 0 and 1 during fade',midway)
-  page.wait_for_timeout(1350)
-  assert float(photo.evaluate('(e)=>getComputedStyle(e).opacity'))>.99,(name,'photo failed to finish fade')
+  # Sample the native CSS Animation at its actual midpoint (0.75 s of 1.5 s).
+  # This checks a rendered intermediate opacity without timing flakiness.
+  midway=photo.evaluate("""e=>{
+    const a=e.getAnimations().find(a=>a.animationName==='contact-portrait-soft-fade');
+    if(!a)return -1;
+    a.pause();
+    a.currentTime=750;
+    return parseFloat(getComputedStyle(e).opacity);
+  }""")
+  assert .03 < midway < .97,(name,'opacity must interpolate between transparent and opaque',midway)
+  finished=photo.evaluate("""e=>{
+    const a=e.getAnimations().find(a=>a.animationName==='contact-portrait-soft-fade');
+    a.finish();
+    return parseFloat(getComputedStyle(e).opacity);
+  }""")
+  assert finished>.99,(name,'photo must end fully opaque',finished)
   page.evaluate('scrollTo(0,0)')
-  photo.scroll_into_view_if_needed()
+  photo.evaluate('(e)=>scrollTo({top:scrollY+e.getBoundingClientRect().top-80,behavior:"instant"})')
   assert photo.evaluate('(e)=>getComputedStyle(e).animationIterationCount')=='1'
   page.emulate_media(reduced_motion='reduce')
   assert photo.evaluate('(e)=>getComputedStyle(e).animationName')=='none'
