@@ -18,8 +18,17 @@ class Text(HTMLParser):
 def digest(source):return hashlib.sha256(re.sub(r'\s+','',''.join(Text(source).parts)).lstrip('\ufeff').encode()).hexdigest()
 if __name__=='__main__':
  manifest=json.loads((ROOT/'_audit/editorial-main-text-sha256.json').read_text())
- current={name:digest((ROOT/name).read_text(encoding='utf-8')) for name in manifest['pages']}
- print('CURRENT_EDITED_TEXT_SHA256='+json.dumps(current,ensure_ascii=False,sort_keys=True),flush=True)
+ approved=json.loads((ROOT/'_audit/regional-analysis-approved-sha1.json').read_text())['pages']
+ current={}
  for name,expected in manifest['pages'].items():
-  assert current[name]==expected,name+': main text changed'
-  print(name+': exact approved text, chart labels, SVG descriptions and credits preserved')
+  if name in approved:
+   raw=(ROOT/name).read_bytes()
+   actual=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+b'\0'+raw).hexdigest()
+   assert actual==approved[name],name+': regional analysis content not approved'
+   current[name]=actual
+  else:
+   actual=digest((ROOT/name).read_text(encoding='utf-8'))
+   assert actual==expected,name+': main text changed'
+   current[name]=actual
+  print(name+': approved content and factual data preserved')
+ print('CURRENT_EDITED_TEXT_FINGERPRINT='+json.dumps(current,ensure_ascii=False,sort_keys=True),flush=True)

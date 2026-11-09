@@ -96,7 +96,7 @@ with sync_playwright() as p:
         focus.evaluate('(e)=>e.focus({preventScroll:true})')
         assert focus.evaluate('(e)=>!e.closest(".mk-motion-pending,.mk-pop-pending")')
         # Direct and changed hashes expose descendant targets and their ancestors.
-        anchor = 'emailText' if 'contact' in name else ('career' if name in ('index', 'mobile') else 'weaknesses')
+        anchor = 'emailText' if 'contact' in name else ('career' if name in ('index', 'mobile') else 'market')
         page.goto(url + '#' + anchor)
         assert page.locator('#' + anchor).evaluate('(e)=>!e.closest(".mk-motion-pending,.mk-pop-pending")')
         page.goto(url + '#%E0%A4%A')

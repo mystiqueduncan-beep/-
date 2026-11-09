@@ -28,6 +28,7 @@
     "main .research-summary-panel",
     "main .contact-action-panel",
     "main .feature-card",
+    "main .metric-tile",
     "main .case-box",
     "main .content-article-box",
     "main .mobile-subcard",

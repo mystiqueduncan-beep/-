@@ -37,8 +37,8 @@ test("single homepage entry chooses mobile on iPhone and small touch devices", (
   assert.deepEqual(browser("/-/index.html", {coarse:true}).calls, [domain+"/-/mobile.html"]);
 });
 test("research and contact use corresponding mobile pages while preserving anchors", () => {
-  assert.deepEqual(browser("/-/trend.html?source=link#strengths", {ua:iphone}).calls,
-    [domain+"/-/mobile-trend.html?source=link#strengths"]);
+  assert.deepEqual(browser("/-/trend.html?source=link#strategy", {ua:iphone}).calls,
+    [domain+"/-/mobile-trend.html?source=link#strategy"]);
   assert.deepEqual(browser("/-/contact.html", {ua:iphone}).calls, [domain+"/-/mobile-contact.html"]);
 });
 test("mobile URLs return to desktop counterparts on computers without manual override", () => {
@@ -62,8 +62,8 @@ test("manual mobile switch on desktop persists across tabs and pages", () => {
 });
 test("explicit view parameter overrides saved preference and preserves unrelated query", () => {
   const saved = new Map([["portfolioPreferredView","mobile"]]);
-  assert.deepEqual(browser("/-/mobile-trend.html?origin=qr&view=desktop#macro", {ua:iphone,saved}).calls,
-    [domain+"/-/trend.html?origin=qr&view=desktop#macro"]);
+  assert.deepEqual(browser("/-/mobile-trend.html?origin=qr&view=desktop#market", {ua:iphone,saved}).calls,
+    [domain+"/-/trend.html?origin=qr&view=desktop#market"]);
   assert.equal(saved.get("portfolioPreferredView"), "desktop");
 });
 test("auto restores default selection and removes view override from redirect", () => {
