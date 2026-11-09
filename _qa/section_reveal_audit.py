@@ -66,7 +66,7 @@ with sync_playwright() as p:
             # Both personal pages use the exact same optimized, uncropped photo.
             portrait = page.locator('.photo-frame img')
             assert portrait.count() == 1
-            assert portrait.get_attribute('src') == 'contact-portrait.webp'
+            assert portrait.get_attribute('src') == 'contact-portrait.webp?v=20261109'
             assert portrait.get_attribute('width') == '540'
             assert portrait.get_attribute('height') == '720'
             assert portrait.evaluate('(e)=>e.complete && e.naturalWidth===540 && e.naturalHeight===720')
