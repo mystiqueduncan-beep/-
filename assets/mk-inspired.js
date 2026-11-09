@@ -1,5 +1,5 @@
-/* One-time left-to-right section reveals after a content unit fully enters the viewport.
-   Content stays visible if this script fails, JavaScript is disabled, or reduced motion is preferred. */
+/* One-time editorial motion: major chapters slide in, inner cards simply fade in.
+   Contact/hero buttons keep their one-time pop. Reduced-motion/print/no-JS are safe. */
 (() => {
   "use strict";
   const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -37,8 +37,11 @@
   ];
   const targets = [...new Set(document.querySelectorAll(selectors.join(",")))];
   const contactMethods = [...document.querySelectorAll("main .contact-methods-stack > .method-card, main > section .method-card")];
-  // Homepage CTA buttons share the one-time pop-in used by contact methods.
+  // Pop-in is reserved for action controls, not narrative content.
   const heroActions = [...document.querySelectorAll(".hero-cta-group > .mag-btn, .mobile-hero-actions > a, .mobile-hero-actions > button")];
+  // Only top-level editorial chapters should move from the left. Nested card
+  // units and source notes use opacity alone so users can read while scrolling.
+  const chapterSelector = ".mag-header > .container, main > section, main .contact-card-outer";
   const allTargets = [...new Set([...targets, ...contactMethods, ...heroActions])];
   if (!allTargets.length) return;
 
@@ -105,6 +108,9 @@
     const heroIndex = heroActions.indexOf(el);
     const isPopItem = contactMethods.includes(el) || heroIndex !== -1;
     el.classList.add(isPopItem ? "mk-pop-item" : "mk-motion-item");
+    // A fade remains part of the same one-time observer/focus/anchor lifecycle.
+    // This prevents nested elements from sliding repeatedly inside a chapter.
+    if (!isPopItem && !el.matches(chapterSelector)) el.classList.add("mk-fade-item");
     el.classList.add(isPopItem ? "mk-pop-pending" : "mk-motion-pending");
     pending.add(el);
   }
