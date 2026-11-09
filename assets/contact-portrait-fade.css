@@ -24,3 +24,8 @@ body.page-contact .photo-frame img.contact-portrait-photo {
     opacity: 1 !important;
   }
 }
+/* Let the full-height 3:4 portrait and its Polaroid caption stay in the frame
+   on phones. The previous mobile 380px cap cut through the photograph. */
+body.page-contact.page-mobile .photo-frame {
+  max-height: none !important;
+}

@@ -113,6 +113,8 @@ with sync_playwright() as p:
   expect(photo).to_have_count(1)
   photo.evaluate('(e)=>e.decode()')
   assert photo.evaluate('(e)=>e.complete && e.naturalWidth===1086 && e.naturalHeight===1448')
+  if name.startswith('mobile'):
+   assert photo.evaluate('(e)=>getComputedStyle(e.closest(".photo-frame")).maxHeight==="none"')
   appearance=photo.evaluate("""e=>{const s=getComputedStyle(e);return {
    name:s.animationName,duration:s.animationDuration,iterations:s.animationIterationCount,
    fit:s.objectFit,filter:s.filter,transform:s.transform}}""")
