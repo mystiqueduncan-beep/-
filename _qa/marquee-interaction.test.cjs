@@ -310,31 +310,28 @@ test("gracefully handles missing DOM elements or media query API", () => {
   assert.equal(errored, false, "should not throw when nav element is missing");
 });
 
-test("homepage keeps only the six original links and shuttles without a duplicate group", () => {
-  const h = makeHarness({ isHomepage: true, groupWidth: 1100, viewportWidth: 760 });
-  assert.equal(h.getClone(), null, "homepage must not clone the chapter keys");
-  assert.equal(h.nav.classList.contains("is-enhanced"), true);
-  assert.equal(h.nav.classList.contains("is-home-animated"), true);
-  assert.equal(h.belt.style.getProperty("--keycap-home-offset"), "-340px");
-  assert.match(css, /@keyframes home-keycap-shuttle/);
+test("homepage matches research page continuous marquee without extra DOM controls", () => {
+  for (const isHomepage of [true, false]) {
+    const h = makeHarness({ isHomepage });
+    assert.equal(h.nav.classList.contains("is-enhanced"), true);
+    assert.ok(h.getClone(), "the seamless loop requires an accessibility-hidden visual clone");
+    assert.equal(h.getClone().attributes.get("aria-hidden"), "true");
+    assert.equal(h.getClone().links[0].getAttribute("tabindex"), "-1");
+    assert.equal(h.createdElements.length, 0, "no extra buttons are introduced");
+    assert.equal(h.belt.style.getProperty("--keycap-duration"), "48.0s");
+  }
+  assert.match(css, /@keyframes keycap-marquee-scroll/);
+  assert.doesNotMatch(css, /home-keycap-shuttle|is-home-animated/);
+  assert.ok(css.includes("max-width: min(100%, 620px)"));
 });
 
-test("homepage handles reduced motion and fitting widths without a clone", () => {
-  const h = makeHarness({ isHomepage: true, groupWidth: 650, viewportWidth: 760, prefersReducedMotion: true });
+test("homepage reduced motion and hover/touch controls match research page", () => {
+  const h = makeHarness({ isHomepage: true, prefersReducedMotion: true });
   assert.equal(h.getClone(), null);
   assert.equal(h.nav.classList.contains("is-enhanced"), false);
   h.playback.matches = true;
   h.mediaEvents.get("change")();
-  assert.equal(h.getClone(), null);
-  assert.equal(h.nav.classList.contains("is-enhanced"), true);
-  assert.equal(h.nav.classList.contains("is-home-animated"), false);
-  assert.equal(h.belt.style.getProperty("--keycap-home-offset"), "-0px");
-});
-
-test("homepage hover and touch pauses override the shuttle animation", () => {
-  assert.ok(css.includes(".home-keycap-strip .keycap-marquee.is-enhanced.is-home-animated.is-hover-paused"));
-  assert.ok(css.includes(".home-keycap-strip .keycap-marquee.is-enhanced.is-home-animated.is-touch-paused"));
-  const h = makeHarness({ isHomepage: true });
+  assert.ok(h.getClone());
   h.dispatch("pointerover", h.originals[0]);
   assert.equal(h.nav.classList.contains("is-hover-paused"), true);
   h.dispatch("pointerout", h.originals[0]);
@@ -343,4 +340,7 @@ test("homepage hover and touch pauses override the shuttle animation", () => {
   assert.equal(h.nav.classList.contains("is-touch-paused"), true);
   h.dispatch("click", h.originals[0]);
   assert.equal(h.nav.classList.contains("is-touch-paused"), false);
+  h.playback.matches = false;
+  h.mediaEvents.get("change")();
+  assert.equal(h.getClone(), null);
 });
