@@ -33,3 +33,54 @@ body.page-contact .photo-frame img.contact-portrait-photo {
 body.page-contact.page-mobile .photo-frame {
   max-height: none !important;
 }
+
+
+/* The uploaded profile portrait is displayed as a circular, soft-rose editorial
+   medallion. The actual photograph is not face-retouched or warped. All older
+   Polaroid geometry and decorative tape are superseded on both view modes. */
+body.page-contact .photo-frame {
+  box-sizing: border-box !important;
+  display: block !important;
+  width: min(100%, 344px) !important;
+  height: auto !important;
+  aspect-ratio: 1 / 1 !important;
+  padding: 10px !important;
+  margin: 0 auto 20px !important;
+  border: 2px solid #c8a4b1 !important;
+  border-radius: 50% !important;
+  background: #fffaf8 !important;
+  overflow: hidden !important;
+  rotate: none !important;
+  box-shadow: 0 0 0 5px #f4e4e8, 0 0 0 7px #ba94a4,
+              0 12px 28px rgb(101 71 83 / 13%) !important;
+}
+body.page-contact .photo-frame::before,
+body.page-contact .photo-frame::after,
+body.page-contact .photo-frame .photo-watermark-tag {
+  display: none !important;
+}
+body.page-contact .photo-frame img.contact-portrait-photo {
+  box-sizing: border-box !important;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 1 / 1 !important;
+  object-fit: cover !important;
+  object-position: 50% 50% !important;
+  border-radius: 50% !important;
+  clip-path: circle(50% at 50% 50%);
+  filter: none !important;
+}
+@media (max-width: 768px) {
+  body.page-contact.page-mobile .photo-frame {
+    width: min(78vw, 286px) !important;
+    margin: 20px auto 34px !important;
+  }
+}
+@media print {
+  body.page-contact .photo-frame {
+    box-shadow: none !important;
+    border: 2px solid #a17a89 !important;
+    rotate: none !important;
+  }
+}
