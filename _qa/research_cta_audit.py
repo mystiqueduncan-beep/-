@@ -44,7 +44,7 @@ with sync_playwright() as p:
             # Reveals once when scrolled to, then stays revealed.
             link.evaluate('(e)=>e.scrollIntoView({block:"center",behavior:"instant"})')
             expect(link).to_have_class(__import__("re").compile(".*research-pop-in.*"), timeout=5000)
-            assert link.evaluate('(e)=>getComputedStyle(e).opacity') == "1", name
+            expect(link).to_have_css("opacity", "1", timeout=5000)
         page.evaluate("scrollTo({top:0,behavior:'instant'})")
         for link in links.all():
             assert "research-pop-in" in (link.get_attribute("class") or ""), name
