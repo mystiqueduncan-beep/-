@@ -97,6 +97,10 @@ with sync_playwright() as p:
             except AssertionError:
                 print('Reveal position:', name, item.evaluate('(e)=>({cls:e.className,rect:e.getBoundingClientRect().toJSON(),y:scrollY,vh:innerHeight,scrollHeight:document.documentElement.scrollHeight})'))
                 raise
+        # Resolve all finite 1.4s transitions together rather than serially
+        # waiting for each card on six pages.
+        page.wait_for_timeout(1750)
+        for item in items.all():
             expect(item).to_have_css('opacity', '1')
         # Revisit every item from the bottom: no target is concealed or replayed.
         for item in reversed(items.all()):
