@@ -10,16 +10,16 @@ body.page-contact .photo-frame img.contact-portrait-photo {
   object-position: center center !important;
   filter: none !important;
   transform: none !important;
-  opacity: 1 !important; /* no JavaScript and failure fallback */
+  opacity: 1; /* no JavaScript and failure fallback */
   animation: none !important;
 }
 @media (prefers-reduced-motion: no-preference) {
   html.portrait-reveal-js body.page-contact .photo-frame img.contact-portrait-photo {
-    opacity: 0 !important; /* wait until the actual picture is visible */
+    opacity: 0; /* wait until the actual picture is visible */
     animation: none !important;
   }
   html.portrait-reveal-js body.page-contact .photo-frame img.contact-portrait-photo.portrait-in-view {
-    opacity: 1 !important;
+    opacity: 1;
     animation: contact-portrait-soft-fade 1.5s ease-in-out 1 both !important;
   }
 }
