@@ -310,6 +310,16 @@ for rel in ('contact.html','mobile-contact.html'):
 for rel in ('index.html','mobile.html','trend.html','mobile-trend.html'):
  if 'contact-portrait-20261109.jpg' in (ROOT/rel).read_text(encoding='utf-8'):
   errors.append(rel+': private contact portrait should not appear here')
+# Shared top-positioned version switch and contact-only photo reveal.
+for rel in ('index.html','mobile.html','trend.html','mobile-trend.html','contact.html','mobile-contact.html'):
+ html=(ROOT/rel).read_text(encoding='utf-8')
+ for resource in ('assets/view-mode-switch.css','assets/view-mode-switch.js'):
+  if html.count(resource)!=1:errors.append(rel+': missing unique top version selector '+resource)
+ if rel in ('contact.html','mobile-contact.html'):
+  if 'portrait-reveal-js' not in html or html.count('assets/contact-portrait-reveal.js')!=1:
+   errors.append(rel+': visible-entry photo fade initialization missing')
+ else:
+  if 'assets/contact-portrait-reveal.js' in html:errors.append(rel+': photo fade must stay contact-only')
 manifest=json.loads((ROOT/'_audit/original-manifest.json').read_text(encoding='utf-8'))
 for name,item in manifest.items():
  if name.endswith('.jpg') and hashlib.sha256((ROOT/name).read_bytes()).hexdigest()!=item['sha256']:errors.append(name+': original image changed')
