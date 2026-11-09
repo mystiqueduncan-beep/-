@@ -23,7 +23,7 @@ if __name__=='__main__':
  for name,expected in manifest['pages'].items():
   if name in approved:
    raw=(ROOT/name).read_bytes()
-   actual=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+b'\\0'+raw).hexdigest()
+   actual=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+b'\0'+raw).hexdigest()
    assert actual==approved[name],name+': regional analysis content not approved'
    current[name]=actual
   else:
