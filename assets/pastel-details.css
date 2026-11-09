@@ -718,3 +718,330 @@ body.page-home.page-mobile .mobile-bottom-bar .bottom-nav-item:last-child {
   text-align:center;
  }
 }
+
+
+/* ============================================================================
+   Homepage × Research visual alignment, November 2026.
+   Scoped to the two resume home editions. No content, images or motion logic
+   are changed. The reference is the approved pastel research editorial page.
+   ============================================================================ */
+body.page-home {
+  --home-report-ink: #654753;
+  --home-report-muted: #775c66;
+  --home-report-line: #dcc3c9;
+  --home-report-blush: #f4e4e9;
+  --home-report-highlight: #f7eaee;
+  --home-report-card: #fffcfa;
+  --home-report-rose: #885365;
+  background: #fff9f7 !important;
+  color: #533e46;
+}
+
+/* One editorial grid and the same masthead rhythm as the research report. */
+body.page-home.page-desktop .mag-header {
+  background: #f4e4e9 !important;
+  padding-top: clamp(22px, 3vw, 34px) !important;
+  padding-bottom: clamp(28px, 4vw, 46px) !important;
+}
+body.page-home.page-desktop .cover-layout .hero-primary-info {
+  gap: clamp(12px, 2vw, 24px) !important;
+  align-items: start !important;
+}
+body.page-home.page-desktop .cover-heading { padding-top: 0; }
+body.page-home.page-desktop .hero-name-row { margin: 10px 0 12px !important; }
+body.page-home.page-desktop .hero-professional-intro {
+  max-width: 900px;
+  padding: clamp(14px, 2vw, 22px) !important;
+  background: #fff9f7 !important;
+  border: 1px solid var(--home-report-line) !important;
+  border-left: 4px solid #cbaab5 !important;
+  border-radius: 0 20px 20px 0 !important;
+  margin: 0 0 12px !important;
+  line-height: 1.9 !important;
+}
+body.page-home.page-desktop .hero-key-pillars {
+  margin: 12px 0 0 !important;
+  padding-top: 15px !important;
+  gap: clamp(10px, 1.6vw, 18px) !important;
+}
+body.page-home.page-desktop .hero-key-pillars > * {
+  background: #fffcfa !important;
+  border: 1px solid var(--home-report-line) !important;
+  border-radius: 22px !important;
+  padding: clamp(15px, 2vw, 23px) !important;
+  min-width: 0;
+}
+body.page-home.page-desktop .hero-action-card {
+  margin-top: 18px !important;
+  border-radius: 24px !important;
+  border-color: var(--home-report-line) !important;
+}
+body.page-home.page-desktop .mag-main {
+  padding-top: clamp(24px, 3vw, 38px) !important;
+}
+
+/* Resume chapters use the research page's clean, outlined card system. */
+body.page-home.page-desktop .section-block {
+  margin: 0 0 clamp(22px, 3.2vw, 38px) !important;
+  padding: clamp(20px, 2.6vw, 32px) !important;
+  background: #fff9f7 !important;
+  border: 1px solid #e2cbd2 !important;
+  border-radius: 30px !important;
+  min-width: 0;
+}
+body.page-home.page-desktop .section-block:nth-of-type(even) {
+  background: var(--home-report-highlight) !important;
+}
+body.page-home.page-desktop .section-editorial-header {
+  border-bottom: 1px solid var(--home-report-line) !important;
+  margin-bottom: clamp(15px, 2vw, 22px) !important;
+  padding-bottom: 15px !important;
+}
+body.page-home.page-desktop .section-editorial-header .sec-title-main {
+  font-size: clamp(1.4rem, 2.25vw, 1.9rem) !important;
+  line-height: 1.5 !important;
+}
+body.page-home.page-desktop .section-editorial-header .sec-title-sub {
+  color: var(--home-report-muted) !important;
+  letter-spacing: .1em !important;
+}
+
+/* Motivations read as a single research interpretation card. */
+body.page-home.page-desktop #motivation .editorial-card {
+  background: var(--home-report-card) !important;
+  border: 1px solid var(--home-report-line) !important;
+  border-left: 4px solid #cbaab5 !important;
+  border-radius: 22px !important;
+  padding: clamp(18px, 2.2vw, 28px) !important;
+}
+body.page-home.page-desktop #motivation .editorial-columns {
+  column-gap: clamp(20px, 3vw, 36px) !important;
+}
+
+/* Competencies and operating examples share the study's equal-sized panels. */
+body.page-home.page-desktop :is(.grid-2x2, .proposal-stages-grid) {
+  gap: clamp(14px, 2vw, 22px) !important;
+  align-items: stretch !important;
+}
+body.page-home.page-desktop .grid-2x2 > .editorial-card,
+body.page-home.page-desktop .proposal-stages-grid > .stage-card {
+  background: var(--home-report-card) !important;
+  border: 1px solid var(--home-report-line) !important;
+  border-radius: 24px !important;
+  padding: clamp(17px, 2vw, 24px) !important;
+  margin-top: 0 !important;
+  min-width: 0;
+}
+body.page-home.page-desktop .grid-2x2 > .editorial-card:nth-child(even) {
+  background: #f7e9ed !important;
+}
+body.page-home.page-desktop #cases > .editorial-card,
+body.page-home.page-desktop .wide-star-case {
+  background: var(--home-report-card) !important;
+  border: 1px solid var(--home-report-line) !important;
+  border-radius: 24px !important;
+  padding: clamp(17px, 2.2vw, 26px) !important;
+  margin: 0 0 16px !important;
+  min-width: 0;
+}
+body.page-home.page-desktop .wide-star-case:nth-child(even) {
+  background: #f7e9ed !important;
+}
+body.page-home.page-desktop .star-field-box {
+  padding: 0 !important;
+  border-top: 0 !important;
+}
+body.page-home.page-desktop .proposal-stages-grid > .stage-card:nth-child(2) {
+  background: #f7e9ed !important;
+}
+
+/* Work history: remove the old tilted photo frames and their empty margins. */
+body.page-home.page-desktop #career { background: #f4e4e9 !important; }
+body.page-home.page-desktop #career .timeline-stack { gap: 14px !important; }
+body.page-home.page-desktop #career .career-entry-card {
+  background: var(--home-report-card) !important;
+  border: 1px solid var(--home-report-line) !important;
+  border-radius: 24px !important;
+  padding: clamp(16px, 2vw, 24px) !important;
+}
+body.page-home.page-desktop #career .career-title-bar {
+  padding: 0 0 12px !important;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--home-report-line) !important;
+}
+body.page-home #career .career-spread,
+body.page-home #career .career-entry-card:nth-child(n) .career-spread {
+  display: grid !important;
+  grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr) !important;
+  gap: clamp(14px, 2vw, 24px) !important;
+  align-items: start !important;
+  padding: 8px 0 0 !important;
+  margin: 0 !important;
+}
+body.page-home #career .career-photo,
+body.page-home #career .career-entry-card:nth-child(n) .career-photo {
+  position: relative;
+  justify-self: start !important;
+  width: 100% !important;
+  max-width: 360px !important;
+  min-width: 0;
+  margin: 0 !important;
+  padding: 8px !important;
+  rotate: none !important;
+  background: #fff9f7 !important;
+  border: 1px solid var(--home-report-line) !important;
+  border-radius: 17px !important;
+}
+body.page-home #career .career-photo::after { display: none !important; }
+body.page-home #career .career-photo__frame {
+  width: 100% !important;
+  min-height: 0 !important;
+  aspect-ratio: 4 / 3 !important;
+  border-radius: 11px !important;
+  background: #f4e4e9 !important;
+  overflow: hidden;
+}
+body.page-home #career .career-photo__frame img {
+  position: absolute !important;
+  inset: 0 !important;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: auto !important;
+  object-fit: contain !important;
+  object-position: center !important;
+}
+body.page-home #career .career-photo__credit {
+  padding: 8px 2px 0 !important;
+  margin: 0 !important;
+  overflow-wrap: anywhere;
+}
+body.page-home #career :is(.duty-list, .duty-bullet-list) {
+  min-width: 0;
+  width: 100%;
+  margin: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Research summary on the homepage now reads as a part of the same report. */
+body.page-home #research .research-summary-panel,
+body.page-home.page-mobile #research {
+  background: var(--home-report-card) !important;
+  border: 1px solid var(--home-report-line) !important;
+  border-radius: 24px !important;
+}
+body.page-home #research .research-summary-panel {
+  padding: clamp(17px, 2vw, 26px) !important;
+}
+body.page-home .data-bar-track {
+  border-radius: 20px !important;
+  background: #e9dfe2 !important;
+}
+body.page-home .data-bar-fill { border-radius: 20px !important; }
+
+/* Small-screen resume edition: the same panels, fewer nested borders and gaps. */
+body.page-home.page-mobile .mobile-app-wrapper { background: #fff9f7 !important; }
+body.page-home.page-mobile .mobile-content {
+  background: #fff9f7 !important;
+  padding: 17px clamp(13px, 4vw, 22px) 100px !important;
+}
+body.page-home.page-mobile .mobile-cover {
+  margin-top: -17px !important;
+  margin-bottom: 20px !important;
+  padding: clamp(18px, 4vw, 26px) !important;
+  background: #f4e4e9 !important;
+  border-radius: 0 0 26px 26px !important;
+}
+body.page-home.page-mobile .mobile-content > :is(.mobile-card:not(.mobile-cover), #career, .mobile-trend-banner) {
+  background: var(--home-report-card) !important;
+  border: 1px solid var(--home-report-line) !important;
+  border-radius: 24px !important;
+  padding: clamp(15px, 4vw, 22px) !important;
+  margin: 0 0 18px !important;
+  min-width: 0;
+}
+body.page-home.page-mobile .mobile-content > .mobile-cover {
+  background: #f4e4e9 !important;
+}
+body.page-home.page-mobile .mobile-card-title {
+  font-size: clamp(1.04rem, 4vw, 1.23rem) !important;
+  padding-bottom: 12px !important;
+  border-bottom: 1px solid var(--home-report-line) !important;
+  margin-bottom: 14px !important;
+}
+body.page-home.page-mobile .mobile-content #career {
+  background: #f4e4e9 !important;
+}
+body.page-home.page-mobile #career > div:first-child {
+  margin: 0 0 12px !important;
+}
+body.page-home.page-mobile #career .timeline-job-card {
+  background: var(--home-report-card) !important;
+  border: 1px solid var(--home-report-line) !important;
+  border-radius: 20px !important;
+  padding: 15px !important;
+  margin: 0 0 12px !important;
+  min-width: 0;
+}
+body.page-home.page-mobile #career .career-spread {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 13px !important;
+  padding: 6px 0 0 !important;
+}
+body.page-home.page-mobile #career .career-photo {
+  width: min(100%, 360px) !important;
+  max-width: 360px !important;
+  margin-inline: auto !important;
+}
+body.page-home.page-mobile .mobile-content :is(.adv-dim-card, .mobile-case-box, .stage-card-mini) {
+  background: #fff9f7 !important;
+  border: 1px solid #e2cbd2 !important;
+  border-radius: 18px !important;
+  padding: 16px !important;
+  margin: 0 0 12px !important;
+}
+body.page-home.page-mobile .mobile-content .mobile-trend-banner {
+  background: #f6e5e9 !important;
+}
+
+/* Responsive layout is content-first; never squeeze photos beside long bullets. */
+@media (max-width: 900px) {
+  body.page-home.page-desktop #career .career-entry-card:nth-child(n) .career-spread {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 14px !important;
+  }
+  body.page-home.page-desktop #career .career-photo {
+    max-width: min(100%, 380px) !important;
+    justify-self: center !important;
+  }
+}
+@media (max-width: 767px) {
+  body.page-home.page-desktop .section-block {
+    padding: 18px !important;
+    border-radius: 22px !important;
+    margin-bottom: 18px !important;
+  }
+  body.page-home.page-desktop .editorial-columns { columns: 1 !important; }
+  body.page-home.page-desktop .grid-2x2 { grid-template-columns: minmax(0, 1fr) !important; }
+  body.page-home.page-desktop .grid-2x2 > .editorial-card { margin: 0 !important; }
+  body.page-home.page-desktop .wide-star-case { display: block !important; }
+  body.page-home.page-desktop .star-fields-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  body.page-home.page-desktop .proposal-stages-grid { grid-template-columns: minmax(0, 1fr) !important; }
+}
+@media (max-width: 390px) {
+  body.page-home.page-mobile .mobile-content { padding-inline: 12px !important; }
+  body.page-home.page-mobile .mobile-content > :is(.mobile-card:not(.mobile-cover), #career, .mobile-trend-banner) {
+    padding: 14px !important;
+    border-radius: 19px !important;
+  }
+  body.page-home.page-mobile #career .timeline-job-card { padding: 12px !important; }
+}
+@media print {
+  body.page-home .section-block,
+  body.page-home.page-mobile .mobile-content > :is(.mobile-card:not(.mobile-cover), #career, .mobile-trend-banner),
+  body.page-home #career .career-entry-card {
+    background: #fff !important;
+    box-shadow: none !important;
+  }
+}
