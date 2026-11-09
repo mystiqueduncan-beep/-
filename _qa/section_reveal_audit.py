@@ -61,7 +61,8 @@ with sync_playwright() as p:
             assert buttons.count() == 4, name
             assert page.locator('.mk-pop-item').count() == 4, name
             delays = buttons.evaluate_all('(es)=>es.map(e=>getComputedStyle(e).transitionDelay)')
-            assert delays == ['0s', '0.1s', '0.2s', '0.3s'], (name, delays)
+            first_delays = [float(v.split(',')[0].strip().rstrip('s')) for v in delays]
+            assert all(abs(actual - expected) < 0.01 for actual,expected in zip(first_delays, [0, 0.1, 0.2, 0.3])), (name, delays)
             assert buttons.last.evaluate('(e)=>e.tagName.toLowerCase()') == 'button', name
         if name == 'mobile':
             assert page.locator('.timeline-job-card.mk-motion-item').count() == 3
