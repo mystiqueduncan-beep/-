@@ -719,6 +719,12 @@ body.page-home.page-mobile .mobile-bottom-bar .bottom-nav-item:last-child {
  }
 }
 
+/* The new 3:4 portrait must fit inside the mobile stationery frame;
+   remove the former 380px cap to avoid clipping the photo and caption. */
+body.page-contact.page-mobile .photo-frame {
+  max-height: none !important;
+}
+
 /* Personal contact portrait: single 1.5-second opacity-only fade.
    No movement or scaling; other editorial reveals remain unchanged. */
 @keyframes contact-portrait-fade-in {
