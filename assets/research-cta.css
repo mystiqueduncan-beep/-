@@ -99,6 +99,18 @@ a[href="mobile-trend.html"].btn-action-primary,
 a[href="mobile-trend.html"].btn-contact-action {
   width: 100% !important;
 }
+/* The contact-page legacy theme uses more-specific !important colors.
+   Scope this correction only to its dedicated research button. */
+body.page-contact a.btn-contact-action[href="mobile-trend.html"] {
+  background: linear-gradient(116deg, var(--research-rose-1), var(--research-rose-2) 47%, var(--research-rose-3)) padding-box,
+              linear-gradient(var(--research-cream), var(--research-cream)) border-box !important;
+  color: #fffaf8 !important;
+  border: 6px solid transparent !important;
+  border-bottom-width: 17px !important;
+  border-radius: 12px !important;
+  padding: 12px 20px 10px !important;
+  box-shadow: 0 8px 24px rgba(101,71,83,.18), 0 0 0 1px var(--research-mat-line) !important;
+}
 /* The iPhone bottom bar uses the same color/frame vocabulary in a compact slot. */
 .mobile-bottom-bar a[href="mobile-trend.html"] {
   flex: 1 1 0;
