@@ -293,6 +293,23 @@ for rel in ('trend.html','mobile-trend.html'):
   errors.append(rel+': desktop analysis chapter marquee missing')
  if rel=='mobile-trend.html' and ('data-keycap-marquee' in html or 'class="mobile-bottom-bar"' not in html):
   errors.append(rel+': mobile research navigation regression')
+# Verify user-supplied photo remains bit-for-bit unchanged and is used only
+# on the two personal/contact pages; the existing work photos stay untouched.
+portrait_path=ROOT/'contact-portrait-20261109.jpg'
+portrait_sha256='07b12e127431934991eb06749525344e02389b28919bd0465879848897f0ffef'
+if not portrait_path.is_file() or hashlib.sha256(portrait_path.read_bytes()).hexdigest()!=portrait_sha256:
+ errors.append('contact portrait: source photograph differs from original user upload')
+for rel in ('contact.html','mobile-contact.html'):
+ html=(ROOT/rel).read_text(encoding='utf-8')
+ if len(re.findall(r'<img\b',html))!=1:
+  errors.append(rel+': expected exactly one personal portrait image')
+ if len(re.findall(r'<img\b[^>]*src="contact-portrait-20261109.jpg"',html))!=1:
+  errors.append(rel+': missing unedited user-provided portrait')
+ if 'contact-portrait-fade.css' not in html:
+  errors.append(rel+': portrait fade style missing')
+for rel in ('index.html','mobile.html','trend.html','mobile-trend.html'):
+ if 'contact-portrait-20261109.jpg' in (ROOT/rel).read_text(encoding='utf-8'):
+  errors.append(rel+': private contact portrait should not appear here')
 manifest=json.loads((ROOT/'_audit/original-manifest.json').read_text(encoding='utf-8'))
 for name,item in manifest.items():
  if name.endswith('.jpg') and hashlib.sha256((ROOT/name).read_bytes()).hexdigest()!=item['sha256']:errors.append(name+': original image changed')
