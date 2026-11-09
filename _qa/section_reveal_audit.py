@@ -72,6 +72,8 @@ with sync_playwright() as p:
             assert portrait.evaluate('(e)=>e.complete && e.naturalWidth===540 && e.naturalHeight===720')
             # Photo fades only in opacity, once, over the requested 1.5 seconds.
             assert portrait.evaluate('(e)=>{const s=getComputedStyle(e);return s.animationName==="contact-portrait-fade-in" && s.animationDuration==="1.5s" && s.animationIterationCount==="1"}')
+            if name == 'mobile-contact':
+                assert portrait.evaluate('(e)=>getComputedStyle(e.closest(".photo-frame")).maxHeight==="none"')
         if name == 'mobile':
             assert page.locator('.timeline-job-card.mk-motion-item').count() == 3
             assert page.locator('.mobile-case-box.mk-motion-item').count() == 3
