@@ -3,7 +3,7 @@
   "approved_at": "2026-11-09",
   "pages": {
     "trend.html": "b1f659a5cf23f0c1c2c3b0bcce0101b2d71c8df2",
-    "mobile-trend.html": "43c4ec9246ce3f9cc8e1947b9c9fd673025f2352"
+    "mobile-trend.html": "072db63b6e626bef741087a8b8f0532fcf1e56ec"
   },
   "ux_revision": "2026-11-09: Keep the approved regional research report unchanged except user-authorized removal of numeric chapter prefixes in the desktop research marquee; mobile research has no marquee. Integrity checksum refreshed on 2026-11-09 after verifying the only difference from the approved blob is the stylesheet reference assets/desktop-compact.css, without research data or prose changes."
 }
