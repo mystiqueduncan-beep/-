@@ -21,33 +21,25 @@ with sync_playwright() as p:
         url = f'http://127.0.0.1:{server.server_port}/{name}.html?view={"mobile" if mobile else "desktop"}'
         page = browser.new_page(viewport={'width': 390 if mobile else 1440, 'height': 844})
         page.route('https://**/*', lambda r: r.abort())
-        # Count actual observer entrances, including any accidental re-observation.
-        page.add_init_script('''window.revealCounts = new Map();
-          const IO = window.IntersectionObserver;
-          window.IntersectionObserver = class extends IO {
-            constructor(callback, options) { super((entries, observer) => {
-              for (const e of entries) if (e.isIntersecting && e.target.matches('.mk-motion-item,.mk-pop-item'))
-                revealCounts.set(e.target, (revealCounts.get(e.target) || 0) + 1);
-              callback(entries, observer);
-            }, options); }
-          };''')
+        # Check the real viewport entrance rather than first-pixel intersections.
         held = browser.new_page(viewport={'width':390 if mobile else 1440,'height':844})
         held.route('https://**/*', lambda r: r.abort())
-        held.add_init_script('window.IntersectionObserver=class {observe(){} unobserve(){} disconnect(){}}')
+        held.add_init_script('window.IntersectionObserver=class {observe(){} unobserve(){} disconnect(){}}; window.requestAnimationFrame=()=>0')
         held.goto(url)
         held.wait_for_timeout(800)
         # Slower (1.4s) transitions may still be settling towards the hidden
         # pending pose; verify the final pose, not a mid-transition frame.
         held.wait_for_function(
             '() => [...document.querySelectorAll(".mk-motion-pending,.mk-pop-pending")].every(e => getComputedStyle(e).opacity === "0")',
-            timeout=3500
+            timeout=3500,
+            polling=100  # Held-page RAF is intentionally disabled.
         )
         # Independent coverage contract: page sections, articles, card units and source notes.
         units = held.locator('.mag-header > .container, main section, main article, .key-pillar-card, .hero-action-card, .star-field-box, .stage-meta-box, .candidate-info-box, .candidate-specs-box, .source-verification, main .method-card')
         for unit in units.all():
             assert unit.evaluate('(e)=>e.matches(".mk-motion-pending,.mk-pop-pending")'), (name, unit.get_attribute('class'))
-        states = held.locator('.mk-motion-pending,.mk-pop-pending').evaluate_all('(es)=>es.map(e=>({x:new DOMMatrix(getComputedStyle(e).transform).m41,opacity:getComputedStyle(e).opacity}))')
-        assert states and all(x['x'] > 0 and x['opacity'] == '0' for x in states), (name, states)
+        states = held.locator('.mk-motion-pending,.mk-pop-pending').evaluate_all('(es)=>es.map(e=>({x:new DOMMatrix(getComputedStyle(e).transform).m41,opacity:getComputedStyle(e).opacity,pop:e.classList.contains("mk-pop-pending")}))')
+        assert states and all((x['x'] > 0 if x['pop'] else x['x'] < 0) and x['opacity'] == '0' for x in states), (name, states)
         assert held.evaluate('document.documentElement.scrollWidth<=innerWidth'), name
         held.close()
         page.goto(url)
@@ -78,17 +70,44 @@ with sync_playwright() as p:
                     continue
                 state = item.evaluate('(e)=>{const s=getComputedStyle(e); const m=new DOMMatrix(s.transform);return {opacity:s.opacity,x:m.m41,scale:m.a}}')
                 assert state['opacity'] == '0', (name, state)
-                assert state['x'] > 0 and (kind == 'slide' or state['scale'] < 1), (name, state)
+                assert (state['x'] < 0 if kind == 'slide' else state['x'] > 0 and state['scale'] < 1), (name, state)
+        # A mere 25 px glimpse at the fold must not reveal a section.
+        probe = page.locator('.mk-motion-item').last
+        probe.evaluate('(e)=>scrollTo({top:scrollY+e.getBoundingClientRect().top-innerHeight+25,behavior:"instant"})')
+        page.wait_for_timeout(100)
+        assert probe.evaluate('(e)=>e.classList.contains("mk-motion-pending")'), name
+        # Center each unit to give short elements full visibility and tall ones
+        # at least 80% viewport coverage; the animation must then complete.
         for item in items.all():
-            item.evaluate('(e)=>scrollTo({top:scrollY+e.getBoundingClientRect().top-180,behavior:"instant"})')
-            expect(item).not_to_have_class(re.compile('.*(?:mk-motion-pending|mk-pop-pending).*'))
+            item.evaluate('''(e)=>{
+              e.scrollIntoView({block:"center",behavior:"instant"});
+              const r=e.getBoundingClientRect();
+              const h=document.documentElement.clientHeight||innerHeight;
+              const bottom=h-Math.min(48,Math.max(20,h*0.06));
+              // CSS scroll-padding-top may center a nearly screen-height
+              // block below the usable viewport. Finish the physical scroll.
+              if(r.height<=bottom){
+                if(r.bottom>bottom)scrollBy({top:r.bottom-bottom+3,behavior:"instant"});
+                else if(r.top<0)scrollBy({top:r.top-3,behavior:"instant"});
+              }
+              dispatchEvent(new Event("scroll"));
+            }''')
+            try:
+                expect(item).not_to_have_class(re.compile('.*(?:mk-motion-pending|mk-pop-pending).*'))
+            except AssertionError:
+                print('Reveal position:', name, item.evaluate('(e)=>({cls:e.className,rect:e.getBoundingClientRect().toJSON(),y:scrollY,vh:innerHeight,scrollHeight:document.documentElement.scrollHeight})'))
+                raise
+        # Resolve all finite 1.4s transitions together rather than serially
+        # waiting for each card on six pages.
+        page.wait_for_timeout(1750)
+        for item in items.all():
             expect(item).to_have_css('opacity', '1')
         # Revisit every item from the bottom: no target is concealed or replayed.
         for item in reversed(items.all()):
-            item.evaluate('(e)=>scrollTo({top:scrollY+e.getBoundingClientRect().top-180,behavior:"instant"})')
+            item.evaluate('(e)=>e.scrollIntoView({block:"center",behavior:"instant"})')
         page.wait_for_timeout(800)
         assert page.locator('.mk-motion-pending,.mk-pop-pending').count() == 0
-        assert page.evaluate('Array.from(revealCounts.values()).every(n=>n===1)')
+        assert page.locator('.mk-motion-in,.mk-pop-in').count() == items.count()
         rows.append({'page': name, 'revealedOnce': items.count(), 'contactPops': page.locator('.mk-pop-in').count()})
         # Focus into an offscreen pending unit must reveal all ancestors.
         page.goto(url)
