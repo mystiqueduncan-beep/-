@@ -63,6 +63,15 @@ with sync_playwright() as p:
         assert items.count() > 0, name
         if 'contact' in name:
             assert page.locator('.mk-pop-item').count() == 3
+            # Both personal pages use the exact same optimized, uncropped photo.
+            portrait = page.locator('.photo-frame img')
+            assert portrait.count() == 1
+            assert portrait.get_attribute('src') == 'contact-portrait.webp'
+            assert portrait.get_attribute('width') == '540'
+            assert portrait.get_attribute('height') == '720'
+            assert portrait.evaluate('(e)=>e.complete && e.naturalWidth===540 && e.naturalHeight===720')
+            # Photo fades only in opacity, once, over the requested 1.5 seconds.
+            assert portrait.evaluate('(e)=>{const s=getComputedStyle(e);return s.animationName==="contact-portrait-fade-in" && s.animationDuration==="1.5s" && s.animationIterationCount==="1"}')
         if name == 'mobile':
             assert page.locator('.timeline-job-card.mk-motion-item').count() == 3
             assert page.locator('.mobile-case-box.mk-motion-item').count() == 3
@@ -116,6 +125,8 @@ with sync_playwright() as p:
             if mode == 'observe-throws': page.add_init_script('window.IntersectionObserver=class {observe(){throw Error("test")} disconnect(){}}')
             page.goto(url)
             if mode == 'runtime-reduced': page.emulate_media(reduced_motion='reduce')
+            if 'contact' in name and mode in ('reduced', 'runtime-reduced'):
+                assert page.locator('.photo-frame img').evaluate('(e)=>getComputedStyle(e).animationName==="none"')
             expect(page.locator('.mk-motion-pending,.mk-pop-pending')).to_have_count(0)
             for item in page.locator('main > section, main .method-card').all():
                 expect(item).to_have_css('opacity', '1')
