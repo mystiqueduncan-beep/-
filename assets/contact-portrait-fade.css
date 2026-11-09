@@ -1,0 +1,26 @@
+/* Candidate photo: preserve the user's original pixels and existing pastel Polaroid frame.
+   Only a one-time 1.5s opacity fade; no retouching, filters, zoom or motion. */
+@keyframes contact-portrait-soft-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+body.page-contact .photo-frame img.contact-portrait-photo {
+  display: block;
+  object-fit: contain !important;
+  object-position: center center !important;
+  filter: none !important;
+  transform: none !important;
+  animation: contact-portrait-soft-fade 1.5s ease-in-out 1 both;
+}
+@media (prefers-reduced-motion: reduce) {
+  body.page-contact .photo-frame img.contact-portrait-photo {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
+@media print {
+  body.page-contact .photo-frame img.contact-portrait-photo {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
