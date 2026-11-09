@@ -479,17 +479,17 @@ body.page-trend.page-desktop .report-title-main>span[style] {display:block;font-
 @media (prefers-reduced-motion: no-preference) {
   /* Scroll reveal is deliberately slower than small button feedback. */
   .mk-motion-item {
-    transition: opacity 1.35s cubic-bezier(.22, 1, .36, 1),
-                transform 1.4s cubic-bezier(.22, 1, .36, 1) !important;
+    transition: opacity 1.02s cubic-bezier(.22, 1, .36, 1),
+                transform 1.05s cubic-bezier(.22, 1, .36, 1) !important;
   }
   .mk-pop-item {
-    transition: opacity .9s cubic-bezier(.22, 1, .36, 1),
-                transform 1s cubic-bezier(.2, .85, .28, 1.06) !important;
+    transition: opacity .68s cubic-bezier(.22, 1, .36, 1),
+                transform .75s cubic-bezier(.2, .85, .28, 1.06) !important;
   }
-  /* Career photos appear with a pure, one-second opacity fade.
+  /* Career photos appear with a pure, three-quarter-second opacity fade.
      No slide/zoom; the existing observer still triggers each photo only once. */
   #career .career-photo {
-    transition: opacity 1s ease-in-out !important;
+    transition: opacity .75s ease-in-out !important;
     transform: none !important;
   }
   /* A fast focus/anchor reveal is still necessary for keyboard users. */
@@ -498,19 +498,19 @@ body.page-trend.page-desktop .report-title-main>span[style] {display:block;font-
   }
   :is(.mag-btn, .btn-action-primary, .btn-action-secondary, .btn-contact-action,
       .method-action-btns a, .method-action-btns button) {
-    transition-duration: .32s !important;
+    transition-duration: .25s !important;
   }
   body.page-trend .channel-study.is-entering .channel-metric {
-    animation: channel-card 1.5s cubic-bezier(.22, 1, .36, 1) both !important;
+    animation: channel-card 1.15s cubic-bezier(.22, 1, .36, 1) both !important;
   }
   body.page-trend .channel-study.is-entering .channel-metric:nth-child(2) {
-    animation-delay: .12s !important;
+    animation-delay: .09s !important;
   }
   body.page-trend .channel-study.is-entering .channel-fill {
-    animation: channel-bar 1.5s cubic-bezier(.22, 1, .36, 1) both !important;
+    animation: channel-bar 1.15s cubic-bezier(.22, 1, .36, 1) both !important;
   }
   body.page-trend .channel-study.is-entering .channel-value {
-    animation: channel-value 1.5s ease both !important;
+    animation: channel-value 1.15s ease both !important;
   }
   /* The continuous marquee stays continuous; only its movement is eased. */
   .mobile-keycap-marquee.is-mobile-auto .mobile-keycap-belt {

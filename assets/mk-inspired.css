@@ -81,7 +81,7 @@ body {
   box-shadow: 9px 10px 0 rgba(11, 34, 64, .13);
 }
 :is(.hero-photo-frame, .candidate-photo-frame, .photo-frame, .source-photo-image) img {
-  transition: transform .55s cubic-bezier(.2,.7,.2,1), filter .45s ease;
+  transition: transform .42s cubic-bezier(.2,.7,.2,1), filter .35s ease;
 }
 @media (hover: hover) and (pointer: fine) {
   :is(.hero-photo-frame, .candidate-photo-frame, .photo-frame, .source-photo-image):hover img {
@@ -267,7 +267,7 @@ main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
 /* Progressive reveal after the full content unit enters the viewport. The script
    marks content only when IntersectionObserver is available and motion is allowed. */
 .mk-motion-item {
-  transition: opacity .62s ease, transform .66s cubic-bezier(.2,.74,.19,1);
+  transition: opacity .48s ease, transform .50s cubic-bezier(.2,.74,.19,1);
 }
 .mk-motion-pending {
   opacity: 0;
@@ -280,7 +280,7 @@ main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
   transform: none;
 }
 .mk-pop-item {
-  transition: opacity .4s ease, transform .52s cubic-bezier(.18,.82,.25,1.18);
+  transition: opacity .30s ease, transform .40s cubic-bezier(.18,.82,.25,1.18);
 }
 .mk-pop-pending {
   opacity: 0;
@@ -298,8 +298,8 @@ main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
 }
 /* Contact methods pop in with a short stagger, then remain visible. */
 .contact-methods-stack > .method-card:nth-of-type(1) { transition-delay: 0ms; }
-.contact-methods-stack > .method-card:nth-of-type(2) { transition-delay: 70ms; }
-.contact-methods-stack > .method-card:nth-of-type(3) { transition-delay: 140ms; }
+.contact-methods-stack > .method-card:nth-of-type(2) { transition-delay: 50ms; }
+.contact-methods-stack > .method-card:nth-of-type(3) { transition-delay: 100ms; }
 @media (max-width: 680px) {
   .mag-header::after { width: 240px; right: -130px; top: 5%; }
   .section-editorial-header {
