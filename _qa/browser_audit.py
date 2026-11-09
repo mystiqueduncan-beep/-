@@ -120,10 +120,10 @@ with sync_playwright() as p:
   # until visible, then take 1.5s to fade in once without position changes.
   page=browser.new_page(viewport={'width':390 if name.startswith('mobile') else 1440,'height':240})
   page.goto(base+name+'?view='+('mobile' if name.startswith('mobile') else 'desktop'))
-  photo=page.locator('img[src="contact-avatar-20261109.webp"]')
+  photo=page.locator('img[src="assets/portrait-img3147.webp"]')
   expect(photo).to_have_count(1)
   photo.evaluate('(e)=>e.decode()')
-  assert photo.evaluate('(e)=>e.complete && e.naturalWidth===420 && e.naturalHeight===420')
+  assert photo.evaluate('(e)=>e.complete && e.naturalWidth===450 && e.naturalHeight===450')
   assert photo.evaluate('(e)=>getComputedStyle(e.closest(".photo-frame")).borderRadius==="50%"')
   assert photo.evaluate('(e)=>{const b=e.closest(".photo-frame").getBoundingClientRect();return Math.abs(b.width-b.height)<2}')
   if name.startswith('mobile'):
