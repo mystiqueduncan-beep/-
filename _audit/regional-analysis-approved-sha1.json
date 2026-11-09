@@ -2,7 +2,7 @@
   "description": "User-approved replacement of the two research pages with the Library file 區域營運提案_圖表動態版.html. Exact Git blob checksums protect study copy and factual claims; original resume baseline remains immutable.",
   "approved_at": "2026-11-09",
   "pages": {
-    "trend.html": "0ad3aa7fdb06870f5d3f5b051aa66d352b8515b1",
+    "trend.html": "9d74a4d5b100a963fb41a75bd0ea34771f55bc32",
     "mobile-trend.html": "ccf7d52b943d0a579ad25435107897c0b9fb21f5"
   },
   "ux_revision": "2026-11-09: Keep the approved regional research report unchanged except user-authorized removal of numeric chapter prefixes in the desktop research marquee; mobile research has no marquee. Integrity checksum refreshed on 2026-11-09 after verifying the only difference from the approved blob is the stylesheet reference assets/desktop-compact.css, without research data or prose changes."
