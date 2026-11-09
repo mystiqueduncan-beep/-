@@ -109,9 +109,18 @@ with sync_playwright() as p:
  for name in ('contact.html','mobile-contact.html'):
   page=browser.new_page(viewport={'width':390 if name.startswith('mobile') else 1440,'height':844})
   page.goto(base+name+'?view='+('mobile' if name.startswith('mobile') else 'desktop'))
-  photo=page.locator('img[src="contact-portrait.webp"]')
+  photo=page.locator('img[src="contact-portrait-20261109.jpg"]')
   expect(photo).to_have_count(1)
-  assert photo.evaluate('(e)=>e.complete && e.naturalWidth===900 && e.naturalHeight===1197')
+  photo.evaluate('(e)=>e.decode()')
+  assert photo.evaluate('(e)=>e.complete && e.naturalWidth===1086 && e.naturalHeight===1448')
+  appearance=photo.evaluate("""e=>{const s=getComputedStyle(e);return {
+   name:s.animationName,duration:s.animationDuration,iterations:s.animationIterationCount,
+   fit:s.objectFit,filter:s.filter,transform:s.transform}}""")
+  assert appearance=={'name':'contact-portrait-soft-fade','duration':'1.5s','iterations':'1',
+                      'fit':'contain','filter':'none','transform':'none'},(name,appearance)
+  page.emulate_media(reduced_motion='reduce')
+  assert photo.evaluate('(e)=>getComputedStyle(e).animationName')=='none'
+  assert photo.evaluate('(e)=>getComputedStyle(e).opacity')=='1'
   page.close()
  browser.close()
 server.shutdown();(out/'browser.json').write_text(json.dumps(results,ensure_ascii=False,indent=2),encoding='utf-8')
