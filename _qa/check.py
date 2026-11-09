@@ -277,7 +277,7 @@ for rel in ('trend.html','mobile-trend.html'):
  ids={a.get('id') for t,a in p.tags}
  expected_sections={'market','experience','strategy','roadmap','metrics','sources'}
  if not expected_sections.issubset(ids):errors.append(rel+': missing approved regional analysis sections')
- if len(re.findall(r'<section\\b[^>]*id=',html))!=6:errors.append(rel+': expected six analysis sections')
+ if len(re.findall(r'<section\b[^>]*id=',html))!=6:errors.append(rel+': expected six analysis sections')
  for origin in ('mnscdn.moea.gov.tw','www.mirai.com.tw'):
   if origin not in html:errors.append(rel+': regional report source missing '+origin)
  for token in ('2,160','+5.4%','1,272','47.7%','21.4%','13.7%','7.3%','7.0%','2.9%',
@@ -285,7 +285,7 @@ for rel in ('trend.html','mobile-trend.html'):
   if token not in ''.join(p.text):errors.append(rel+': regional report approved statement missing '+token)
  if len(re.findall(r'data-owner="(?:local|hq)"',html))!=6:
   errors.append(rel+': expected six action proposals')
- if len(re.findall(r'data-phase="\\d"',html))!=3:
+ if len(re.findall(r'data-phase="\d"',html))!=3:
   errors.append(rel+': expected three 90-day phases')
  if len(re.findall(r'class="metric-tile"',html))!=6:
   errors.append(rel+': expected six noninvented KPI tiles')
