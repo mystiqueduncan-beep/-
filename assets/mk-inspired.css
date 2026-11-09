@@ -267,11 +267,15 @@ main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
 /* Progressive reveal after the full content unit enters the viewport. The script
    marks content only when IntersectionObserver is available and motion is allowed. */
 .mk-motion-item {
-  transition: opacity .48s ease, transform .50s cubic-bezier(.2,.74,.19,1);
+  transition: opacity .58s ease, transform .62s cubic-bezier(.2,.74,.19,1);
 }
 .mk-motion-pending {
   opacity: 0;
-  transform: translate3d(-30px, 0, 0);
+  transform: translate3d(-18px, 0, 0);
+}
+.mk-motion-pending.mk-fade-item {
+  /* A quiet fade for nested editorial cards: never translate them. */
+  transform: none !important;
 }
 .mk-motion-in,
 .mk-motion-pending:focus-within,
@@ -327,7 +331,7 @@ main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
     font-size: .9rem;
   }
   .mobile-card-title { line-height: 1.45; }
-  .mk-motion-pending { transform: translate3d(-20px, 0, 0); }
+  .mk-motion-pending:not(.mk-fade-item) { transform: translate3d(-14px, 0, 0); }
   .mk-pop-pending { transform: translate3d(20px, 0, 0) scale(.91); }
 }
 @media (prefers-reduced-motion: reduce) {
