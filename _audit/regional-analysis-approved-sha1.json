@@ -2,7 +2,7 @@
   "description": "User-approved replacement of the two research pages with the Library file 區域營運提案_圖表動態版.html. Exact Git blob checksums protect study copy and factual claims; original resume baseline remains immutable.",
   "approved_at": "2026-11-09",
   "pages": {
-    "trend.html": "ba75092ed9040cbe29841a5a0571f746d5503fec",
-    "mobile-trend.html": "bda5d25d75f80217c283bd54da142ecddfd369c6"
+    "trend.html": "40c8f662fef30f7c8a6af56509a19cc2fae0e5d0",
+    "mobile-trend.html": "42775c7ee7d3075f34a04c904ad4712fb0be915e"
   }
 }
