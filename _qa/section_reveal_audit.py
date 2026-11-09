@@ -38,8 +38,12 @@ with sync_playwright() as p:
         units = held.locator('.mag-header > .container, main section, main article, .key-pillar-card, .hero-action-card, .star-field-box, .stage-meta-box, .candidate-info-box, .candidate-specs-box, .source-verification, main .method-card')
         for unit in units.all():
             assert unit.evaluate('(e)=>e.matches(".mk-motion-pending,.mk-pop-pending")'), (name, unit.get_attribute('class'))
-        states = held.locator('.mk-motion-pending,.mk-pop-pending').evaluate_all('(es)=>es.map(e=>({x:new DOMMatrix(getComputedStyle(e).transform).m41,opacity:getComputedStyle(e).opacity,pop:e.classList.contains("mk-pop-pending")}))')
-        assert states and all((x['x'] > 0 if x['pop'] else x['x'] < 0) and x['opacity'] == '0' for x in states), (name, states)
+        states = held.locator('.mk-motion-pending,.mk-pop-pending').evaluate_all('(es)=>es.map(e=>({x:new DOMMatrix(getComputedStyle(e).transform).m41,opacity:getComputedStyle(e).opacity,pop:e.classList.contains("mk-pop-pending"),fade:e.classList.contains("mk-fade-item")}))')
+        assert states and all((x['x'] > 0 if x['pop'] else abs(x['x']) < 0.01 if x['fade'] else x['x'] < 0) and x['opacity'] == '0' for x in states), (name, states)
+        # Both motion types must exist on editorial pages. Each nested element
+        # still participates in the same one-time lifecycle.
+        assert held.locator('.mk-motion-pending:not(.mk-fade-item)').count() >= 1, name
+        assert held.locator('.mk-motion-pending.mk-fade-item').count() >= 1, name
         assert held.evaluate('document.documentElement.scrollWidth<=innerWidth'), name
         held.close()
         page.goto(url)
@@ -69,8 +73,12 @@ with sync_playwright() as p:
         if name == 'mobile':
             assert page.locator('.timeline-job-card.mk-motion-item').count() == 3
             assert page.locator('.mobile-case-box.mk-motion-item').count() == 3
-        # Confirm the pending state has the requested direction/scale.
-        for selector, kind in (('.mk-motion-pending', 'slide'), ('.mk-pop-pending', 'pop')):
+        # Confirm restrained chapter slide, card fade, and action pop geometry.
+        chapter_durations = page.locator('.mk-motion-item:not(.mk-fade-item)').evaluate_all('(es)=>es.map(e=>getComputedStyle(e).transitionDuration)')
+        fade_durations = page.locator('.mk-motion-item.mk-fade-item').evaluate_all('(es)=>es.map(e=>getComputedStyle(e).transitionDuration)')
+        assert chapter_durations and all(abs(float(d.split(",")[0].strip().rstrip("s")) - .58) < .02 for d in chapter_durations), (name, chapter_durations)
+        assert fade_durations and all(abs(float(d.split(",")[0].strip().rstrip("s")) - .42) < .02 for d in fade_durations), (name, fade_durations)
+        for selector, kind in (('.mk-motion-pending:not(.mk-fade-item)', 'slide'), ('.mk-motion-pending.mk-fade-item', 'fade'), ('.mk-pop-pending', 'pop')):
             item = page.locator(selector).last
             if item.count():
                 # Observer callbacks can reveal this target between locator resolution
@@ -81,7 +89,7 @@ with sync_playwright() as p:
                     continue
                 state = item.evaluate('(e)=>{const s=getComputedStyle(e); const m=new DOMMatrix(s.transform);return {opacity:s.opacity,x:m.m41,scale:m.a}}')
                 assert state['opacity'] == '0', (name, state)
-                assert (state['x'] < 0 if kind == 'slide' else state['x'] > 0 and state['scale'] < 1), (name, state)
+                assert (state['x'] < 0 if kind == 'slide' else abs(state['x']) < .01 if kind == 'fade' else state['x'] > 0 and state['scale'] < 1), (name, state)
         # A mere 25 px glimpse at the fold must not reveal a section.
         probe = page.locator('.mk-motion-item').last
         probe.evaluate('(e)=>scrollTo({top:scrollY+e.getBoundingClientRect().top-innerHeight+25,behavior:"instant"})')

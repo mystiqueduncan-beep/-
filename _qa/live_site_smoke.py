@@ -20,6 +20,9 @@ PAGES = (
 ASSETS = (
     "assets/site.css",
     "assets/mk-inspired.css",
+    "assets/mk-inspired.js",
+    "assets/research-cta.css",
+    "assets/research-cta.js",
     "assets/pastel-details.css",
     "assets/page-transitions.js",
     "assets/career-images.css",
@@ -65,7 +68,7 @@ if __name__ == "__main__":
     for attempt in range(1, 13):
         try:
             verify()
-            print("PASS: GitHub Pages served all 6 pages and 7 exact assets.", flush=True)
+            print("PASS: GitHub Pages served all 6 pages and 10 exact assets.", flush=True)
             break
         except (HTTPError, URLError, RuntimeError, OSError, subprocess.CalledProcessError) as exc:
             print(f"Attempt {attempt}/12: {exc}", flush=True)

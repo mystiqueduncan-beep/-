@@ -477,11 +477,16 @@ body.page-trend.page-desktop .report-title-main>span[style] {display:block;font-
   --chart-outline: #cbaab5;
 }
 @media (prefers-reduced-motion: no-preference) {
-  /* Scroll reveal is deliberately slower than small button feedback. */
+  /* Keep chapter movement brief; nested elements fade without a second slide. */
   .mk-motion-item {
-    transition: opacity 1.02s cubic-bezier(.22, 1, .36, 1),
-                transform 1.05s cubic-bezier(.22, 1, .36, 1) !important;
+    transition: opacity .58s cubic-bezier(.22, 1, .36, 1),
+                transform .62s cubic-bezier(.22, 1, .36, 1) !important;
   }
+  .mk-motion-item.mk-fade-item {
+    transition: opacity .42s ease-out !important;
+    transform: none !important;
+  }
+  .mk-motion-pending.mk-fade-item { transform: none !important; }
   .mk-pop-item {
     transition: opacity .68s cubic-bezier(.22, 1, .36, 1),
                 transform .75s cubic-bezier(.2, .85, .28, 1.06) !important;
@@ -499,6 +504,12 @@ body.page-trend.page-desktop .report-title-main>span[style] {display:block;font-
   :is(.mag-btn, .btn-action-primary, .btn-action-secondary, .btn-contact-action,
       .method-action-btns a, .method-action-btns button) {
     transition-duration: .25s !important;
+  }
+  /* Research visualization panels should fade; their bars/values own the
+     informative motion and continue to animate on first entry. */
+  .motion-ready body.page-trend .viz-reveal {
+    translate: none !important;
+    transition: opacity .45s ease-out !important;
   }
   body.page-trend .channel-study.is-entering .channel-metric {
     animation: channel-card 1.15s cubic-bezier(.22, 1, .36, 1) both !important;

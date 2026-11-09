@@ -94,7 +94,7 @@ jobs:
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: git fetch origin "$BASE_SHA" --depth=1
-      - name: Check six live pages and checksum-match seven published assets
+      - name: Check six live pages and checksum-match ten published assets
         env:
           EXPECTED_BASE_SHA: ${{ github.event.pull_request.base.sha || '' }}
         run: python3 _qa/live_site_smoke.py
