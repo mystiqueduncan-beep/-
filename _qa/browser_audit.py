@@ -120,10 +120,12 @@ with sync_playwright() as p:
   # until visible, then take 1.5s to fade in once without position changes.
   page=browser.new_page(viewport={'width':390 if name.startswith('mobile') else 1440,'height':240})
   page.goto(base+name+'?view='+('mobile' if name.startswith('mobile') else 'desktop'))
-  photo=page.locator('img[src="contact-portrait-20261109.jpg"]')
+  photo=page.locator('img[src="contact-avatar-20261109.svg"]')
   expect(photo).to_have_count(1)
   photo.evaluate('(e)=>e.decode()')
-  assert photo.evaluate('(e)=>e.complete && e.naturalWidth===1086 && e.naturalHeight===1448')
+  assert photo.evaluate('(e)=>e.complete && e.naturalWidth===420 && e.naturalHeight===420')
+  assert photo.evaluate('(e)=>getComputedStyle(e.closest(".photo-frame")).borderRadius==="50%"')
+  assert photo.evaluate('(e)=>{const b=e.closest(".photo-frame").getBoundingClientRect();return Math.abs(b.width-b.height)<2}')
   if name.startswith('mobile'):
    assert photo.evaluate('(e)=>getComputedStyle(e.closest(".photo-frame")).maxHeight==="none"')
   expect(page.locator('html.portrait-reveal-js')).to_have_count(1)
@@ -135,7 +137,7 @@ with sync_playwright() as p:
    name:s.animationName,duration:s.animationDuration,iterations:s.animationIterationCount,
    fit:s.objectFit,filter:s.filter,transform:s.transform}}""")
   assert appearance=={'name':'contact-portrait-soft-fade','duration':'1.5s','iterations':'1',
-                      'fit':'contain','filter':'none','transform':'none'},(name,appearance)
+                      'fit':'cover','filter':'none','transform':'none'},(name,appearance)
   # Sample the native CSS Animation at its actual midpoint (0.75 s of 1.5 s).
   # This checks a rendered intermediate opacity without timing flakiness.
   midway=photo.evaluate("""e=>{
