@@ -1057,6 +1057,7 @@ body.page-home.page-mobile .mobile-content .mobile-trend-banner {
   }
 }
 /* 2026-11-10 | Shared embroidery details across desktop and mobile */
+/* CI validation note: preserve paired desktop/mobile embroidery styles; no runtime behavior change. */
 /*
  * A single editorial vocabulary for all three paired page types:
  * ink-rose / warm ivory / fine stitched rules / small original floral art.
