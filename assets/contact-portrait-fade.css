@@ -1,5 +1,5 @@
 /* Personal portrait remains the user's original, unretouched JPEG.
-   Animate only its opacity for 1.5 seconds on first viewport entry. */
+   Animate only its opacity for 1.2 seconds on first viewport entry. */
 @keyframes contact-portrait-soft-fade {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -20,7 +20,7 @@ body.page-contact .photo-frame img.contact-portrait-photo {
   }
   html.portrait-reveal-js body.page-contact .photo-frame img.contact-portrait-photo.portrait-in-view {
     opacity: 1;
-    animation: contact-portrait-soft-fade 1.5s ease-in-out 1 both !important;
+    animation: contact-portrait-soft-fade 1.2s ease-in-out 1 both !important;
   }
 }
 @media (prefers-reduced-motion: reduce), print {

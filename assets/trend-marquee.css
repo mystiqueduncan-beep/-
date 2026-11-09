@@ -18,7 +18,7 @@
 .keycap-marquee__viewport::-webkit-scrollbar { display: none; }
 .keycap-marquee__belt {
   --keycap-gap: 14px;
-  --keycap-duration: 48s;
+  --keycap-duration: 42s;
   display: flex;
   align-items: stretch;
   gap: var(--keycap-gap);
