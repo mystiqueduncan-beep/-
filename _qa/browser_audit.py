@@ -110,7 +110,7 @@ with sync_playwright() as p:
   page.emulate_media(reduced_motion='no-preference')
   states=page.locator('.career-photo').evaluate_all(
    '(es)=>es.map(e=>({p:getComputedStyle(e).transitionProperty,d:getComputedStyle(e).transitionDuration,t:getComputedStyle(e).transform}))')
-  assert all(v['p']=='opacity' and v['d']=='1s' and v['t']=='none' for v in states),(name,states)
+  assert all(v['p']=='opacity' and v['d']=='0.75s' and v['t']=='none' for v in states),(name,states)
   page.emulate_media(reduced_motion='reduce')
   assert all(x=='0s' for x in page.locator('.career-photo').evaluate_all(
    '(es)=>es.map(e=>getComputedStyle(e).transitionDuration)')),name
