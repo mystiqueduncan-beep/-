@@ -342,6 +342,7 @@ main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
 }
 @media print {
   body, .mag-header, .mobile-app-wrapper { background: #FFFFFF !important; }
+  .mobile-hero-actions { display: none !important; }
   .mk-motion-item, .mk-motion-pending, .mk-motion-in,
   .mk-pop-item, .mk-pop-pending, .mk-pop-in {
     opacity: 1 !important;
