@@ -102,7 +102,11 @@
     return box.width > 0 && box.height > 0;
   });
   for (const el of toObserve) {
-    const isPopItem = contactMethods.includes(el) || heroActions.includes(el);
+    const heroIndex = heroActions.indexOf(el);
+    const isPopItem = contactMethods.includes(el) || heroIndex !== -1;
+    // Set an explicit delay for both opacity and scale transitions so later
+    // component transition shorthands cannot erase the four-step sequence.
+    if (heroIndex !== -1) el.style.transitionDelay = `${heroIndex * 100}ms`;
     el.classList.add(isPopItem ? "mk-pop-item" : "mk-motion-item");
     el.classList.add(isPopItem ? "mk-pop-pending" : "mk-motion-pending");
     pending.add(el);
