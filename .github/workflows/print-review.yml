@@ -19,13 +19,15 @@ jobs:
           python - <<'PY'
           import fitz
           from pathlib import Path
+          errors = []
           for path in Path('print-review').glob('*.pdf'):
               doc=fitz.open(path)
               for i,page in enumerate(doc):
                   text=page.get_text()
-                  assert len(text.strip()) > 30, f'Blank page {path} {i+1}'
+                  if len(text.strip()) < 30: errors.append(f'Blank page {path} {i+1}')
                   print(path.name,i+1,len(text),text[:80])
                   page.get_pixmap(matrix=fitz.Matrix(1,1)).save(f'print-review/{path.stem}-{i+1:02}.png')
+          assert not errors, errors
           PY
       - uses: actions/upload-artifact@v4
         if: always()

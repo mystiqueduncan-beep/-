@@ -37,3 +37,31 @@
   thead { display: table-header-group; }
   .contact-main { background: #fff9f7 !important; }
 }
+@media print {
+  /* Override screen-only selectors as well as earlier generic print rules. */
+  body.page-home.page-desktop .mag-header { break-after: auto; padding: 6mm !important; }
+  body.page-home.page-desktop main.mag-main { padding: 4mm 0 0 !important; }
+  body.page-home.page-desktop main.mag-main > .section-block { padding: 4mm !important; margin: 0 !important; }
+  body.page-home.page-desktop #competencies .grid-2x2 { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 4mm !important; }
+  body.page-home.page-desktop #competencies .grid-2x2 > .editorial-card { padding: 4mm !important; margin: 0 !important; }
+  body.page-home.page-desktop #cases .star-fields-grid { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 3mm !important; }
+  body.page-home.page-desktop #cases .star-fields-grid > .star-field-box { padding: 3mm !important; }
+  body.page-home.page-desktop #cases .wide-star-case { padding: 4mm !important; }
+  body.page-home #career .timeline-stack { display: block !important; }
+  body.page-home #career .career-entry-card:nth-child(n) .career-spread { grid-template-columns: 48mm minmax(0, 1fr) !important; gap: 4mm !important; }
+  body.page-home #career .career-entry-card { padding: 4mm !important; margin: 0 0 4mm !important; }
+  body.page-home #career .career-entry-card:last-child { margin-bottom: 0 !important; }
+  body.page-home #career .career-photo__frame { aspect-ratio: 4 / 3 !important; }
+  body.page-home.page-mobile .mobile-card, body.page-home.page-mobile .mobile-trend-banner { break-inside: auto; }
+  body.page-home.page-mobile .mobile-case, body.page-home.page-mobile .star-field-box, body.page-home.page-mobile .stage-card { break-inside: avoid; }
+  body.page-trend .trend-hero { break-inside: avoid; }
+  body.page-trend main > section { padding: 4mm 0 !important; margin: 0 !important; }
+  body.page-trend #market { break-before: page; }
+  body.page-trend .feature-card, body.page-trend .viz-comparison, body.page-trend .swimlane-panel, body.page-trend .decision-map, body.page-trend .split, body.page-trend .stats { break-inside: avoid !important; }
+  body.page-trend .feature-card { padding: 4mm !important; }
+  body.page-trend .swimlane-panel { overflow: visible !important; }
+  body.page-trend .swimlane { min-width: 0 !important; }
+  body.page-trend .filters, body.page-trend .toplinks { display: none !important; }
+  body.page-trend .note { break-before: avoid; }
+  body.page-trend .formula-details { break-before: page; }
+}
