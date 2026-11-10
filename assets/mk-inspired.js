@@ -20,6 +20,9 @@
     "main .pillar-mini-card",
     "main .contact-card-outer",
     "main .section-editorial-header",
+    "main .mobile-card-title",
+    "main #career > div > h2",
+    "main .education-profile > h2",
     "main .editorial-card",
     "main .wide-star-case",
     "main .career-entry-card",
@@ -39,29 +42,25 @@
   const contactMethods = [...document.querySelectorAll("main .contact-methods-stack > .method-card, main > section .method-card")];
   // Pop-in is reserved for action controls, not narrative content.
   const heroActions = [...document.querySelectorAll(".hero-cta-group > .mag-btn, .mobile-hero-actions > a, .mobile-hero-actions > button")];
-  // Only top-level editorial chapters should move from the left. Nested card
-  // units and source notes use opacity alone so users can read while scrolling.
-  const chapterSelector = ".mag-header > .container, main > section, main .contact-card-outer";
+  // Move only headline units: full sections and narrative cards fade in place.
+  // Contact/hero actions retain their one-time pop.
+  const chapterSelector = ".mag-header > .container, main .section-editorial-header, main .mobile-card-title, main #career > div > h2, main .education-profile > h2";
   const allTargets = [...new Set([...targets, ...contactMethods, ...heroActions])];
   if (!allTargets.length) return;
 
-  // A brief glimpse at the bottom of the screen must not trigger the entrance.
-  // Compact blocks wait until their entire height is in the visible viewport.
-  // Sections taller than a screen cannot fit fully; reveal after they cover 80%
-  // of the usable screen height, on both desktop and mobile.
-  const hasFullyEntered = el => {
+  // Reveal as soon as about 15% of a unit is visible; do not wait for an
+  // entire section to enter. A 32px minimum avoids triggering on a tiny peek.
+  // Anything scrolled past is permanently exposed for easy reverse reading.
+  const hasEnteredEnough = el => {
     const rect = el.getBoundingClientRect();
     const viewportHeight = document.documentElement.clientHeight || window.innerHeight;
     const visibleBottom = viewportHeight - Math.min(48, Math.max(20, viewportHeight * 0.06));
-    const usableHeight = visibleBottom;
-    if (!rect.width || !rect.height || usableHeight <= 0) return false;
-    if (rect.height <= usableHeight) {
-      return rect.top >= -1 && rect.bottom <= visibleBottom + 1;
-    }
+    if (!rect.width || !rect.height || visibleBottom <= 0) return false;
+    if (rect.bottom <= 0) return true;
     const visibleHeight = Math.max(0, Math.min(rect.bottom, visibleBottom) - Math.max(rect.top, 0));
-    return visibleHeight >= usableHeight * 0.8;
+    const requiredHeight = Math.min(rect.height, Math.max(32, Math.min(rect.height, visibleBottom) * 0.15));
+    return visibleHeight >= requiredHeight;
   };
-
   const pending = new Set();
   let observer;
   let scheduled = false;
@@ -82,7 +81,7 @@
   };
   const checkPending = () => {
     // Read all positions first; write classes afterwards to avoid layout thrashing.
-    const ready = [...pending].filter(hasFullyEntered);
+    const ready = [...pending].filter(hasEnteredEnough);
     ready.forEach(reveal);
   };
   function scheduleCheck() {
@@ -122,8 +121,8 @@
     return;
   }
 
-  // Scroll checks are essential: intersection alone fires too early, and does
-  // not fire again as a partially visible block becomes fully visible.
+  // Scroll checks allow early one-time reveal even when the observer callback
+  // fires before the 15% entrance threshold is reached.
   if (pending.size) {
     window.addEventListener("scroll", scheduleCheck, { passive: true });
     window.addEventListener("resize", scheduleCheck, { passive: true });
