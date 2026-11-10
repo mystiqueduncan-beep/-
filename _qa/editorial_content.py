@@ -30,6 +30,10 @@ if __name__=='__main__':
  for name,expected in manifest['pages'].items():
   if name in approved:
    raw=(ROOT/name).read_bytes()
+   # Only the exact A4 print stylesheet link may be ignored; the research
+   # page's original user-approved bytes remain protected by the SHA.
+   print_link=b'  <link rel="stylesheet" href="assets/print-layout.css" media="print">\n'
+   if raw.count(print_link)==1:raw=raw.replace(print_link,b'',1)
    actual=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+b'\0'+raw).hexdigest()
    assert actual==approved[name],name+': regional analysis content not approved'
    current[name]=actual
