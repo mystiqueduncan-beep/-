@@ -14,6 +14,7 @@ on:
       - assets/print-layout.css
       - _qa/print_pdf.py
       - _qa/print_layout_audit.py
+      - _qa/check.py
       - .github/workflows/print-pdf-sync.yml
   workflow_dispatch:
 
