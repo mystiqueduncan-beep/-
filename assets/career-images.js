@@ -25,12 +25,12 @@
       if (!('IntersectionObserver' in window) || reduced.matches) { showAll(); return; }
       observer = new IntersectionObserver(entries => {
         try {
-          for (const entry of entries) if (entry.isIntersecting) {
+          for (const entry of entries) if (entry.isIntersecting && entry.intersectionRatio >= 0.15) {
             show(entry.target);
             observer.unobserve(entry.target);
           }
         } catch (_) { showAll(); }
-      }, { threshold: 0.01 });
+      }, { threshold: 0.15 });
       // Read all positions before marking or observing any photo. Alternating
       // dataset/class writes and rectangle reads forces repeated synchronous layout.
       const initialPositions = [];
