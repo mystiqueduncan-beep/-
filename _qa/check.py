@@ -307,8 +307,8 @@ for rel in ('trend.html','mobile-trend.html'):
    errors.append(rel+': research marquee titles must have no numeric prefixes and retain original anchors')
  if rel=='mobile-trend.html' and ('data-keycap-marquee' in html or 'class="mobile-bottom-bar"' not in html):
   errors.append(rel+': mobile research navigation regression')
-# Keep the earlier user's original portrait intact as a provenance backup.
-# The latest explicitly approved IMG_3147 photograph is used only for the circular contact avatar.
+# Preserve the earlier original contact portrait as a provenance backup.
+# The latest user-provided 2026-11-11 photo is cropped without facial retouching for the original circular contact frame.
 portrait_path=ROOT/'contact-portrait-20261109.jpg'
 portrait_sha256='07b12e127431934991eb06749525344e02389b28919bd0465879848897f0ffef'
 if not portrait_path.is_file() or hashlib.sha256(portrait_path.read_bytes()).hexdigest()!=portrait_sha256:
@@ -319,7 +319,7 @@ if not avatar_path.is_file():
 else:
  avatar_data=avatar_path.read_bytes()
  if (not avatar_data.startswith(b'RIFF') or b'WEBP' not in avatar_data[:16]
-     or hashlib.sha256(avatar_data).hexdigest()!='353631761370426a5559e3dd4ca610b73121ca8d9997053c4b9c188a0ed3acdb'):
+     or hashlib.sha256(avatar_data).hexdigest()!='a3528f080c67f0e81e0e0f5b906cc20c8f84640ba8eb6863bf5c87187251882d'):
   errors.append('new profile photo: WebP crop does not match the uploaded photograph')
 for rel in ('contact.html','mobile-contact.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
