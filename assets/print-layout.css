@@ -257,4 +257,60 @@
     display: none !important;
   }
 
+
+  /* A true print spread is much more readable than three tall, single-column
+     photo cards; photographs stay uncropped with object-fit: contain. */
+  body.page-home #career .career-spread {
+    display: grid !important;
+    grid-template-columns: minmax(0, 40%) minmax(0, 1fr) !important;
+    gap: 3mm !important;
+    align-items: start !important;
+  }
+  body.page-home #career .career-entry-card,
+  body.page-home.page-mobile #career .timeline-job-card {
+    padding: 3mm !important;
+    margin-bottom: 3mm !important;
+  }
+  body.page-home #career .career-title-bar {
+    padding-block: 1mm !important;
+    margin-bottom: 2mm !important;
+  }
+  body.page-home #career .career-photo {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+  }
+  body.page-home #career .career-photo__frame {
+    min-height: 0 !important;
+    height: auto !important;
+    aspect-ratio: 3 / 2 !important;
+  }
+  body.page-home #career .career-photo__frame img {
+    object-fit: contain !important;
+  }
+  body.page-home #career .career-photo__credit {
+    padding-top: 1mm !important;
+    font-size: 7.2pt !important;
+    line-height: 1.3 !important;
+  }
+  body.page-home #career .duty-bullet-list {
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding-left: 1.2em !important;
+    font-size: 8.8pt !important;
+    line-height: 1.42 !important;
+  }
+  body.page-home #career .duty-bullet-list li {
+    margin-bottom: 1mm !important;
+    break-inside: avoid-page !important;
+  }
+  body.page-home #research .source-verification {
+    padding: 2mm 3mm !important;
+    margin: 2mm 0 !important;
+    font-size: 8.2pt !important;
+    line-height: 1.4 !important;
+    break-inside: avoid-page !important;
+  }
+
 }
