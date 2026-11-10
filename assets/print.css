@@ -65,3 +65,14 @@
   body.page-trend .note { break-before: avoid; }
   body.page-trend .formula-details { break-before: page; }
 }
+@media print {
+  body.page-home.page-mobile .mobile-content > section + section { break-before: page; }
+  body.page-home.page-mobile :is(.mobile-case-box, .timeline-job-card, .stage-card-mini, .adv-dim-card) { break-inside: avoid !important; }
+  body.page-home.page-mobile :is(.mobile-card-title, .job-title, .job-tenure) { break-after: avoid; }
+  body.page-contact.page-desktop .contact-dossier-grid.interview-spread { display: grid !important; grid-template-columns: 65mm minmax(0, 1fr) !important; gap: 5mm !important; padding: 4mm !important; }
+  body.page-contact.page-desktop .candidate-portrait-col { width: auto !important; margin: 0 !important; }
+  body.page-contact.page-desktop .candidate-details-col { padding: 4mm !important; }
+  body.page-contact .name-title-wrap, body.page-contact .candidate-specs-box, body.page-contact .method-card { break-inside: avoid; }
+  body.page-contact .name-title-wrap { break-after: avoid; }
+  body.page-contact .contact-bottom-links, body.page-contact .mag-header { display: none !important; }
+}
