@@ -15,6 +15,7 @@ on:
       - _qa/print_pdf.py
       - _qa/print_layout_audit.py
       - _qa/check.py
+      - _qa/editorial_content.py
       - .github/workflows/print-pdf-sync.yml
   workflow_dispatch:
 
@@ -45,7 +46,9 @@ jobs:
       - name: Verify all six A4 print versions and downloaded PDF
         run: python3 _qa/print_layout_audit.py
       - name: Check unchanged resume text, links and site resources
-        run: python3 _qa/check.py
+        run: |
+          python3 _qa/check.py
+          python3 _qa/editorial_content.py
       - name: Commit regenerated PDF to this review branch only
         shell: bash
         run: |
