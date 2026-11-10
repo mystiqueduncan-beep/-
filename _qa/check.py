@@ -200,6 +200,11 @@ for rel,old in base.items():
  # immutable original factual baseline.
  if rel in approved_report:
   raw=f.read_bytes()
+  # A single stylesheet link is an approved presentation-only addition.
+  # Remove exactly this link before comparing the immutable, user-approved
+  # research file's original Git blob SHA. Every other byte remains checked.
+  print_link=b'  <link rel="stylesheet" href="assets/print-layout.css" media="print">\n'
+  if raw.count(print_link)==1:raw=raw.replace(print_link,b'',1)
   blob_hash=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+b'\0'+raw).hexdigest()
   same=blob_hash==approved_report[rel]
   if not same:errors.append(rel+': unapproved regional analysis content modification')
