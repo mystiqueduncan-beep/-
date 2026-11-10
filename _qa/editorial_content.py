@@ -17,6 +17,13 @@ class Text(HTMLParser):
   if not self.hidden and not self.newnav:self.parts.append(data)
 def digest(source,name=''):
  parts=''.join(Text(source).parts)
+ if name in ('contact.html','mobile-contact.html'):
+  # The user approved removing only the redundant LINE heading suffix.
+  # Restore it solely for the historical full-page text fingerprint comparison.
+  parts, matches = re.subn(r'LINE(\s*)bobozhihuang',
+                           lambda m:'LINE 帳號 (LINE)'+m.group(1)+'bobozhihuang',
+                           parts)
+  assert matches==1,name+': expected exactly one LINE contact heading'
  if name=='mobile.html':
   # UI-only print CTA added Nov 9; original resume text fingerprint must remain identical.
   label='列印／另存 PDF'
