@@ -237,4 +237,24 @@
     font-size: 8pt !important;
   }
   a { color: #654753 !important; text-decoration-color: #cbaab5; }
+
+  /* Print review: do not leave a case-study or employment heading on the
+     preceding sheet while its explanation / photograph starts on the next. */
+  body.page-home #cases .wide-star-case,
+  body.page-home #career .career-entry-card,
+  body.page-home.page-mobile #career .timeline-job-card {
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+  }
+  body.page-home #career {
+    break-before: page !important;
+    page-break-before: always !important;
+  }
+
+  /* The on-screen research link is an action, not body content. Removing this
+     action-only line from paper avoids a near-empty trailing sheet. */
+  body.page-home #research div[style*="margin-top: 18px"][style*="justify-content: space-between"] {
+    display: none !important;
+  }
+
 }
