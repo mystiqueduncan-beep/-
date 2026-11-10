@@ -313,4 +313,10 @@
     break-inside: avoid-page !important;
   }
 
+  /* A research heading and its first chart must never straddle a sheet. */
+  body.page-home #research {
+    break-before: page !important;
+    page-break-before: always !important;
+  }
+
 }
