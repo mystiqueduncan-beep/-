@@ -28,6 +28,7 @@ jobs:
                   page.get_pixmap(matrix=fitz.Matrix(1,1)).save(f'print-review/{path.stem}-{i+1:02}.png')
           PY
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: print-review
           path: print-review
