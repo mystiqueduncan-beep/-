@@ -6,11 +6,11 @@
   body { margin: 0 !important; padding: 0 !important; }
   *, *::before, *::after { animation: none !important; transition: none !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   body, h1, h2, h3, h4, .candidate-name, .company-title, .stage-title, .card-heading { font-family: var(--font-sans) !important; }
-  .mk-motion-item, .mk-motion-pending, .mk-pop-item, [data-career-reveal], [data-reveal] { opacity: 1 !important; transform: none !important; visibility: visible !important; }
+  .mk-motion-item, .mk-motion-pending, .mk-pop-item, [data-career-reveal], [data-reveal], .viz-reveal, .research-cta-reveal { opacity: 1 !important; transform: none !important; visibility: visible !important; }
   .mag-top-ticker, .mag-subnav-strip, .trend-subnav-strip, .home-keycap-strip, .keycap-marquee, .mobile-top-bar, .mobile-bottom-bar, .view-mode-switch, .hero-cta-group, .mobile-hero-actions, .mag-btn, .nav-btn-mk, .btn-contact-action, .portfolio-back-to-top, .skip-link, .toast-msg { display: none !important; }
   .container, main, .mobile-app-wrapper, .mobile-content { width: 100% !important; max-width: none !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
   .mag-header, .mobile-cover { background: #f4e4e9 !important; padding: 8mm !important; }
-  .mag-header { break-after: page; }
+  body.page-home .mag-header { break-after: page; }
   .masthead-meta-row { margin-bottom: 5mm !important; }
   .candidate-name { font-size: 42pt !important; }
   .cover-layout .hero-primary-info { gap: 5mm !important; grid-template-columns: 1.2fr 1fr !important; }
