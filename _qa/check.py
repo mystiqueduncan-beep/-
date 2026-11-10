@@ -51,10 +51,10 @@ def expected_text(rel,text):
   if s.count(old_label)!=1:raise ValueError('unexpected contact navigation baseline: '+rel)
   s=s.replace(old_label,new_label,1)
  if rel in ('contact.html','mobile-contact.html'):
-  # User-approved LINE actions; the older baseline stays unchanged.
+  # Approved LINE actions, and user's requested icon-only / LINE-only heading on both contact pages.
   needle='複製 Email'
   if s.count(needle)!=1:raise ValueError('unexpected contact baseline')
-  s=s.replace(needle,needle+'LINE 帳號 (LINE)bobozhihuang開啟 LINE複製 LINE ID',1)
+  s=s.replace(needle,needle+'LINEbobozhihuang開啟 LINE複製 LINE ID',1)
  if rel in ('index.html','mobile.html'):
   for credit in ("出處：TOMOD'S 官方商標",'出處：築心動物醫院',"出處：LEVI'S 官方素材"):
    if s.count(credit)!=1:raise ValueError('unexpected original logo credit: '+rel)
