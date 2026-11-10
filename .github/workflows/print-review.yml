@@ -1,0 +1,32 @@
+name: Print layout review
+on:
+  pull_request:
+    paths: ['assets/print.css', '_qa/print_pdf.py', '.github/workflows/print-review.yml']
+permissions:
+  contents: read
+jobs:
+  print:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          pip install playwright pymupdf
+          python -m playwright install --with-deps chromium
+          sudo apt-get install -y fonts-noto-cjk
+      - run: python _qa/print_pdf.py
+      - run: |
+          mkdir -p print-review
+          cp resume.pdf print-review/
+          python - <<'PY'
+          import fitz
+          doc=fitz.open('resume.pdf')
+          for i,page in enumerate(doc):
+              text=page.get_text()
+              assert len(text.strip()) > 30, f'Blank page {i+1}'
+              print(i+1,len(text),text[:80])
+              page.get_pixmap(matrix=fitz.Matrix(1,1)).save(f'print-review/page-{i+1:02}.png')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: print-review
+          path: print-review

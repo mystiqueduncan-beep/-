@@ -9,10 +9,10 @@ server=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(Quiet,d
 threading.Thread(target=server.serve_forever,daemon=True).start()
 with sync_playwright() as p:
  b=p.chromium.launch(executable_path=shutil.which('chromium') or None,args=['--no-sandbox'])
- page=b.new_page();page.route('https://**/*',lambda r:r.abort())
+ page=b.new_page();page.route('https://fonts.googleapis.com/**',lambda r:r.abort())
  page.goto(f'http://127.0.0.1:{server.server_port}/index.html');page.emulate_media(media='print')
  page.evaluate("document.querySelectorAll('img').forEach(i=>i.loading='eager')")
- page.evaluate('document.fonts.ready');page.wait_for_timeout(500)
+ page.evaluate('document.fonts.ready');page.evaluate("Promise.all(Array.from(document.images, i => i.decode().catch(() => {})))")
  page.pdf(path=str(root/'resume.pdf'),print_background=True,prefer_css_page_size=True,tagged=True,outline=True)
  b.close()
 server.shutdown()
