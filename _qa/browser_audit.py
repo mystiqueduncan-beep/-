@@ -106,11 +106,11 @@ with sync_playwright() as p:
   page.goto(base+name+'?view='+('mobile' if name.startswith('mobile') else 'desktop'))
   expect(page.locator('.career-photo img')).to_have_count(3)
   assert page.locator('img').count()==3,name
-  # Verify the current 0.75s photo fade timing and the accessibility fallback.
+  # Verify the 0.32s one-time left entrance and accessibility fallback.
   page.emulate_media(reduced_motion='no-preference')
   states=page.locator('.career-photo').evaluate_all(
-   '(es)=>es.map(e=>({p:getComputedStyle(e).transitionProperty,d:getComputedStyle(e).transitionDuration,t:getComputedStyle(e).transform}))')
-  assert all(v['p']=='opacity' and v['d']=='0.75s' and v['t']=='none' for v in states),(name,states)
+   '(es)=>es.map(e=>{const s=getComputedStyle(e);const m=new DOMMatrix(s.transform);return {p:s.transitionProperty,d:s.transitionDuration,x:m.m41,y:m.m42}})')
+  assert all(v['p']=='opacity, transform' and v['d']=='0.32s, 0.32s' and -16.1 <= v['x'] <= 0.1 and abs(v['y']) < 0.1 for v in states),(name,states)
   page.emulate_media(reduced_motion='reduce')
   assert all(x=='0s' for x in page.locator('.career-photo').evaluate_all(
    '(es)=>es.map(e=>getComputedStyle(e).transitionDuration)')),name
