@@ -1,0 +1,78 @@
+/* Shared A4 edition. Loaded last so older print rules cannot erase the theme. */
+@media print {
+  @page { size: A4; margin: 12mm; }
+  :root { --font-sans: 'Noto Sans TC', 'Noto Sans CJK TC', sans-serif; --font-serif-tc: var(--font-sans); --font-serif: var(--font-sans); }
+  html, body { background: #fff9f7 !important; color: #533e46 !important; font-size: 12px !important; }
+  body { margin: 0 !important; padding: 0 !important; }
+  *, *::before, *::after { animation: none !important; transition: none !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body, h1, h2, h3, h4, .candidate-name, .company-title, .stage-title, .card-heading { font-family: var(--font-sans) !important; }
+  .mk-motion-item, .mk-motion-pending, .mk-pop-item, [data-career-reveal], [data-reveal], .viz-reveal, .research-cta-reveal { opacity: 1 !important; transform: none !important; visibility: visible !important; }
+  .mag-top-ticker, .mag-subnav-strip, .trend-subnav-strip, .home-keycap-strip, .keycap-marquee, .mobile-top-bar, .mobile-bottom-bar, .view-mode-switch, .hero-cta-group, .mobile-hero-actions, .mag-btn, .nav-btn-mk, .btn-contact-action, .portfolio-back-to-top, .skip-link, .toast-msg { display: none !important; }
+  .container, main, .mobile-app-wrapper, .mobile-content { width: 100% !important; max-width: none !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
+  .mag-header, .mobile-cover { background: #f4e4e9 !important; padding: 8mm !important; }
+  body.page-home .mag-header { break-after: page; }
+  .masthead-meta-row { margin-bottom: 5mm !important; }
+  .candidate-name { font-size: 42pt !important; }
+  .cover-layout .hero-primary-info { gap: 5mm !important; grid-template-columns: 1.2fr 1fr !important; }
+  .cover-portrait { padding: 5mm !important; }
+  .cover-portrait img { height: 64mm !important; object-fit: cover; }
+  .hero-key-pillars { gap: 4mm !important; margin-top: 5mm !important; }
+  .hero-action-card { margin-top: 5mm !important; }
+  body.page-home .section-block, body.page-home.page-mobile .mobile-content > .mobile-card:not(.mobile-cover), body.page-home #career .career-entry-card { background: #fffcfa !important; }
+  .section-block, main > section { padding: 5mm !important; margin: 0 0 5mm !important; break-inside: auto !important; }
+  .section-block + .section-block, body.page-trend main > section + section { break-before: page; }
+  .section-editorial-header { break-inside: avoid; break-after: avoid; margin-bottom: 5mm !important; }
+  h1, h2, h3, h4, .career-title-bar, .card-top-tag, .case-header-row { break-after: avoid; }
+  p, li { orphans: 3; widows: 3; }
+  .grid-2x2, .case-stack, .career-timeline, .proposal-stages-grid, .star-fields-grid { display: block !important; }
+  .editorial-card, .wide-star-case, .career-entry-card, .stage-card, .edu-dedicated-card, .metric-tile, .source-item, figure, tr { break-inside: avoid !important; page-break-inside: avoid !important; }
+  body .editorial-card, body .wide-star-case, body .career-entry-card, body .stage-card { border: 1px solid #dfc3cc !important; border-radius: 5mm !important; background: #fffcfa !important; padding: 5mm !important; margin: 0 0 5mm !important; box-shadow: none !important; }
+  .wide-star-case + .wide-star-case { break-before: page; }
+  .career-spread { display: grid !important; grid-template-columns: 52mm minmax(0, 1fr) !important; gap: 5mm !important; }
+  .career-photo { margin: 0 !important; rotate: none !important; }
+  .career-photo img { max-height: 52mm !important; object-fit: contain !important; }
+  .table-container { overflow: visible !important; }
+  table { width: 100% !important; min-width: 0 !important; table-layout: fixed; }
+  th, td { overflow-wrap: anywhere; }
+  thead { display: table-header-group; }
+  .contact-main { background: #fff9f7 !important; }
+}
+@media print {
+  /* Override screen-only selectors as well as earlier generic print rules. */
+  body.page-home.page-desktop .mag-header { break-after: auto; padding: 6mm !important; }
+  body.page-home.page-desktop main.mag-main { padding: 4mm 0 0 !important; }
+  body.page-home.page-desktop main.mag-main > .section-block { padding: 4mm !important; margin: 0 !important; }
+  body.page-home.page-desktop #competencies .grid-2x2 { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 4mm !important; }
+  body.page-home.page-desktop #competencies .grid-2x2 > .editorial-card { padding: 4mm !important; margin: 0 !important; }
+  body.page-home.page-desktop #cases .star-fields-grid { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 3mm !important; }
+  body.page-home.page-desktop #cases .star-fields-grid > .star-field-box { padding: 3mm !important; }
+  body.page-home.page-desktop #cases .wide-star-case { padding: 4mm !important; }
+  body.page-home #career .timeline-stack { display: block !important; }
+  body.page-home #career .career-entry-card:nth-child(n) .career-spread { grid-template-columns: 48mm minmax(0, 1fr) !important; gap: 4mm !important; }
+  body.page-home #career .career-entry-card { padding: 4mm !important; margin: 0 0 4mm !important; }
+  body.page-home #career .career-entry-card:last-child { margin-bottom: 0 !important; }
+  body.page-home #career .career-photo__frame { aspect-ratio: 4 / 3 !important; }
+  body.page-home.page-mobile .mobile-card, body.page-home.page-mobile .mobile-trend-banner { break-inside: auto; }
+  body.page-home.page-mobile .mobile-case, body.page-home.page-mobile .star-field-box, body.page-home.page-mobile .stage-card { break-inside: avoid; }
+  body.page-trend .trend-hero { break-inside: avoid; }
+  body.page-trend main > section { padding: 4mm 0 !important; margin: 0 !important; }
+  body.page-trend #market { break-before: page; }
+  body.page-trend .feature-card, body.page-trend .viz-comparison, body.page-trend .swimlane-panel, body.page-trend .decision-map, body.page-trend .split, body.page-trend .stats { break-inside: avoid !important; }
+  body.page-trend .feature-card { padding: 4mm !important; }
+  body.page-trend .swimlane-panel { overflow: visible !important; }
+  body.page-trend .swimlane { min-width: 0 !important; }
+  body.page-trend .filters, body.page-trend .toplinks { display: none !important; }
+  body.page-trend .note { break-before: avoid; }
+  body.page-trend .formula-details { break-before: page; }
+}
+@media print {
+  body.page-home.page-mobile .mobile-content > section + section { break-before: page; }
+  body.page-home.page-mobile :is(.mobile-case-box, .timeline-job-card, .stage-card-mini, .adv-dim-card) { break-inside: avoid !important; }
+  body.page-home.page-mobile :is(.mobile-card-title, .job-title, .job-tenure) { break-after: avoid; }
+  body.page-contact.page-desktop .contact-dossier-grid.interview-spread { display: grid !important; grid-template-columns: 65mm minmax(0, 1fr) !important; gap: 5mm !important; padding: 4mm !important; }
+  body.page-contact.page-desktop .candidate-portrait-col { width: auto !important; margin: 0 !important; }
+  body.page-contact.page-desktop .candidate-details-col { padding: 4mm !important; }
+  body.page-contact .name-title-wrap, body.page-contact .candidate-specs-box, body.page-contact .method-card { break-inside: avoid; }
+  body.page-contact .name-title-wrap { break-after: avoid; }
+  body.page-contact .contact-bottom-links, body.page-contact .mag-header { display: none !important; }
+}
