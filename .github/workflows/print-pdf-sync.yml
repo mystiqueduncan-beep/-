@@ -1,0 +1,69 @@
+name: Refresh A4 resume PDF for print-layout review
+
+on:
+  push:
+    branches:
+      - fix/a4-print-layout-20261110
+    paths:
+      - index.html
+      - mobile.html
+      - trend.html
+      - mobile-trend.html
+      - contact.html
+      - mobile-contact.html
+      - assets/print-layout.css
+      - _qa/print_pdf.py
+      - _qa/print_layout_audit.py
+      - _qa/check.py
+      - _qa/editorial_content.py
+      - .github/workflows/print-pdf-sync.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: print-pdf-sync-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generate-and-review:
+    if: github.ref == 'refs/heads/fix/a4-print-layout-20261110'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: true
+      - name: Install CJK print fonts and PDF test dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk
+          python3 -m pip install playwright==1.51.0 pypdf==5.8.0
+          python3 -m playwright install --with-deps chromium
+      - name: Render the website's actual A4 download
+        run: python3 _qa/print_pdf.py
+      - name: Verify all six A4 print versions and downloaded PDF
+        run: python3 _qa/print_layout_audit.py
+      - name: Check unchanged resume text, links and site resources
+        run: |
+          python3 _qa/check.py
+          python3 _qa/editorial_content.py
+      - name: Commit regenerated PDF to this review branch only
+        shell: bash
+        run: |
+          if ! git diff --quiet -- resume.pdf; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add resume.pdf
+            git commit -m "Regenerate reviewed A4 resume.pdf from site print layout"
+            git push origin HEAD:fix/a4-print-layout-20261110
+          else
+            echo "The reviewed PDF is already current."
+          fi
+      - name: Preserve printable PDF for inspection
+        uses: actions/upload-artifact@v4
+        with:
+          name: reviewed-a4-resume
+          path: resume.pdf
+          retention-days: 14

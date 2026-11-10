@@ -1,0 +1,322 @@
+/* A4 print system for all six portfolio views.
+ * Screen layouts are deliberately untouched. This stylesheet must be the final CSS link.
+ * Keep brief content together, but allow sections and long career narratives to flow.
+ */
+@media print {
+  @page { size: A4 portrait; margin: 13mm 14mm 15mm; }
+
+  html, body {
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+    scroll-behavior: auto !important;
+  }
+  html { font-size: 10pt !important; }
+  body {
+    background: #fffaf8 !important;
+    color: #473d42 !important;
+    font-family: "Noto Sans CJK TC", "Noto Sans TC", sans-serif !important;
+    font-size: 9.5pt !important;
+    line-height: 1.53 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body, main, section, article, figure, .mobile-app-wrapper {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    text-shadow: none !important;
+  }
+  .mk-motion-item, .mk-motion-pending, .mk-motion-in,
+  .mk-pop-item, .mk-pop-pending, .mk-pop-in,
+  .reveal, [data-career-reveal] {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+
+  /* Actions and fixed navigation are for screen use, never the paper copy. */
+  .skip-link, .mag-top-ticker, .mag-subnav-strip, .trend-subnav-strip,
+  .mobile-top-bar, .mobile-bottom-bar, .mobile-status-strip,
+  .home-keycap-strip, .keycap-marquee, .mobile-keycap-marquee,
+  .hero-cta-group, .mobile-hero-actions, .top-switch-link,
+  .btn-switch-desktop, .btn-switch-mobile, .mag-btn, .nav-btn-mk,
+  .btn-action-primary, .btn-action-secondary, .btn-contact-action,
+  .method-action-btns, .portfolio-back-to-top, .toast-msg,
+  .analysis-switch-bar, .research-cta, .research-cta-wrap {
+    display: none !important;
+  }
+  .container, .mag-main.container, .trend-main.container,
+  .mobile-content, .mobile-app-wrapper, .contact-main > .container,
+  .footer-inner {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .mobile-app-wrapper, .mobile-content, .contact-main, .mag-main,
+  .trend-main {
+    box-shadow: none !important;
+    overflow: visible !important;
+  }
+  .mag-main, .trend-main, .mobile-content { padding-top: 0 !important; padding-bottom: 0 !important; }
+  .mag-header, .mag-hero-section, .mobile-cover, .trend-hero {
+    background: #f4e5e9 !important;
+    color: #654753 !important;
+    box-shadow: none !important;
+  }
+  .mag-header, .mag-hero-section, .trend-hero {
+    padding: 3mm 4mm !important;
+    margin: 0 0 5mm !important;
+    border-radius: 3mm !important;
+  }
+  .mag-hero-grid, .cover-layout {
+    display: block !important;
+    width: 100% !important;
+  }
+  .hero-primary-info, .hero-action-card { width: 100% !important; }
+  .hero-action-card { padding: 3mm 0 0 !important; box-shadow: none !important; }
+  .hero-name-row { break-inside: avoid-page !important; }
+  .candidate-name { font-size: 23pt !important; line-height: 1.25 !important; }
+
+  /* Avoid artificially blank sheets from keep-together rules on entire chapters. */
+  body.page-home .section-block,
+  body.page-trend .trend-main > section[id],
+  body.page-contact .contact-main,
+  body.page-home.page-mobile .mobile-content > .mobile-card {
+    break-before: auto !important;
+    break-after: auto !important;
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+  body.page-home .section-block,
+  body.page-trend .trend-main > section[id] {
+    margin: 0 0 6mm !important;
+    padding: 3mm 4mm 4mm !important;
+    border-radius: 3mm !important;
+  }
+  body.page-home .section-block:nth-of-type(even),
+  body.page-trend .trend-main > section[id]:nth-of-type(even) {
+    background: #f8eef0 !important;
+  }
+  .section-editorial-header, .sec-title-wrap, .mobile-card-title,
+  .case-header-row, .career-company-header, .job-title,
+  .contact-header-badge, .phase-heading, .lane-label {
+    break-inside: avoid-page !important;
+    break-after: avoid-page !important;
+    page-break-after: avoid !important;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    break-after: avoid-page !important;
+    page-break-after: avoid !important;
+    line-height: 1.4 !important;
+  }
+  p, li, blockquote { orphans: 3; widows: 3; }
+  ul, ol { padding-left: 1.4em; }
+  .sec-title-main { font-size: 14pt !important; line-height: 1.4 !important; }
+  .section-editorial-header { padding-bottom: 2mm !important; margin-bottom: 3mm !important; }
+
+  /* Keep small cards, figures, and charts intact; let tall case studies flow. */
+  .editorial-card, .stage-card, .feature-card, .metric-tile, .stat,
+  .source-photo, .source-verification, .timeline-job-card,
+  .edu-dedicated-card, .contact-card-item, .method-card,
+  .mobile-case-box, .adv-dim-card, .case-box,
+  .chart-card, .viz-card, .barrow, .data-bar-row,
+  .lane-stage, .action-step, .metric-row {
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+  }
+  .wide-star-case, .career-entry-card, .contact-card-outer,
+  .research-summary-panel, .contact-action-panel,
+  .trend-main .experience, .trend-main .roadmap {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+  .editorial-card, .wide-star-case, .career-entry-card,
+  .mobile-card, .timeline-job-card, .feature-card, .method-card,
+  .stage-card, .edu-dedicated-card, .contact-card-outer {
+    box-shadow: none !important;
+    border-color: #dcc3c9 !important;
+  }
+  .editorial-card, .wide-star-case, .career-entry-card,
+  .mobile-card, .feature-card, .method-card {
+    background: #fffcfa !important;
+  }
+  .wide-star-case, .career-entry-card, .contact-card-outer {
+    overflow: visible !important;
+  }
+  .editorial-card, .feature-card, .stage-card, .timeline-job-card,
+  .metric-tile, .stat, .method-card {
+    margin-bottom: 3mm !important;
+  }
+
+  /* Print mobile pages at paper width, not as a narrow phone mock-up. */
+  body.page-mobile .mobile-app-wrapper,
+  body.page-mobile .mobile-content,
+  body.page-mobile .trend-main {
+    width: 100% !important;
+    max-width: none !important;
+    background: #fffaf8 !important;
+  }
+  body.page-mobile .mobile-card {
+    margin: 0 0 5mm !important;
+    padding: 3mm 4mm !important;
+    border-radius: 2.5mm !important;
+  }
+  body.page-home.page-mobile .mobile-cover { margin: 0 0 5mm !important; }
+  body.page-home.page-mobile #career {
+    margin-inline: 0 !important;
+    padding: 0 !important;
+  }
+  body.page-home.page-mobile .mobile-content > #career {
+    break-inside: auto !important;
+  }
+  body.page-mobile .mobile-card-title { font-size: 14pt !important; }
+  body.page-mobile .mobile-bottom-bar { display: none !important; }
+
+  /* Narrow paper shouldn't clip a grid or a wide chart. */
+  .grid-2x2, .cards-2x2-grid, .cards-2col-grid,
+  .proposal-stages-grid, .hero-key-pillars,
+  .star-fields-grid, .contact-grid, .metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 3mm !important;
+  }
+  .trend-main .stats, .trend-main .roadmap,
+  .trend-main .experience, .trend-main .metric-grid,
+  .trend-main .strategy, .trend-main .chart-panel,
+  .table-container, .data-table-wrap {
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+  table { width: 100% !important; border-collapse: collapse; }
+  thead { display: table-header-group; }
+  tfoot { display: table-footer-group; }
+  tr { break-inside: avoid-page !important; }
+  td, th { overflow-wrap: anywhere; }
+  svg, canvas { max-width: 100% !important; }
+  img { max-width: 100% !important; }
+  .source-photo, .career-photo, .photo-frame { break-inside: avoid-page !important; }
+  .source-photo img, .career-photo img { object-position: center; }
+  .source-photo-credit { position: static !important; color: #654753 !important; background: transparent !important; }
+  .career-photo { rotate: 0deg !important; transform: none !important; }
+
+  /* Contact spread follows the same magazine typography without overflow. */
+  body.page-contact .contact-main {
+    background: #fffaf8 !important;
+    padding: 0 !important;
+  }
+  body.page-contact .contact-dossier-grid {
+    grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr) !important;
+    gap: 4mm !important;
+  }
+  body.page-contact .candidate-portrait-col,
+  body.page-contact .candidate-details-col { min-width: 0 !important; }
+  body.page-contact .photo-frame { rotate: none !important; max-width: 100% !important; }
+  body.page-contact .method-huge-text,
+  body.page-contact .contact-value { overflow-wrap: anywhere !important; }
+
+  .mag-footer, .mobile-footer {
+    position: static !important;
+    break-inside: avoid-page !important;
+    margin-top: 5mm !important;
+    padding: 2mm 0 !important;
+    background: #fffaf8 !important;
+    color: #654753 !important;
+    border-top: 1px solid #dcc3c9 !important;
+    box-shadow: none !important;
+    font-size: 8pt !important;
+  }
+  a { color: #654753 !important; text-decoration-color: #cbaab5; }
+
+  /* Print review: do not leave a case-study or employment heading on the
+     preceding sheet while its explanation / photograph starts on the next. */
+  body.page-home #cases .wide-star-case,
+  body.page-home #career .career-entry-card,
+  body.page-home.page-mobile #career .timeline-job-card {
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+  }
+  body.page-home #career {
+    break-before: page !important;
+    page-break-before: always !important;
+  }
+
+  /* The on-screen research link is an action, not body content. Removing this
+     action-only line from paper avoids a near-empty trailing sheet. */
+  body.page-home #research div[style*="margin-top: 18px"][style*="justify-content: space-between"] {
+    display: none !important;
+  }
+
+
+  /* A true print spread is much more readable than three tall, single-column
+     photo cards; photographs stay uncropped with object-fit: contain. */
+  body.page-home #career .career-spread {
+    display: grid !important;
+    grid-template-columns: minmax(0, 40%) minmax(0, 1fr) !important;
+    gap: 3mm !important;
+    align-items: start !important;
+  }
+  body.page-home #career .career-entry-card,
+  body.page-home.page-mobile #career .timeline-job-card {
+    padding: 3mm !important;
+    margin-bottom: 3mm !important;
+  }
+  body.page-home #career .career-title-bar {
+    padding-block: 1mm !important;
+    margin-bottom: 2mm !important;
+  }
+  body.page-home #career .career-photo {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+  }
+  body.page-home #career .career-photo__frame {
+    min-height: 0 !important;
+    height: auto !important;
+    aspect-ratio: 3 / 2 !important;
+  }
+  body.page-home #career .career-photo__frame img {
+    object-fit: contain !important;
+  }
+  body.page-home #career .career-photo__credit {
+    padding-top: 1mm !important;
+    font-size: 7.2pt !important;
+    line-height: 1.3 !important;
+  }
+  body.page-home #career .duty-bullet-list {
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding-left: 1.2em !important;
+    font-size: 8.8pt !important;
+    line-height: 1.42 !important;
+  }
+  body.page-home #career .duty-bullet-list li {
+    margin-bottom: 1mm !important;
+    break-inside: avoid-page !important;
+  }
+  body.page-home #research .source-verification {
+    padding: 2mm 3mm !important;
+    margin: 2mm 0 !important;
+    font-size: 8.2pt !important;
+    line-height: 1.4 !important;
+    break-inside: avoid-page !important;
+  }
+
+  /* A research heading and its first chart must never straddle a sheet. */
+  body.page-home #research {
+    break-before: page !important;
+    page-break-before: always !important;
+  }
+
+}
