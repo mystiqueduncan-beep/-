@@ -483,7 +483,7 @@ body.page-trend.page-desktop .report-title-main>span[style] {display:block;font-
                 transform .32s cubic-bezier(.22, 1, .36, 1) !important;
   }
   .mk-motion-pending:not(.mk-fade-item) {
-    transform: translate3d(-16px, 0, 0) !important;
+    transform: translate3d(-16px, 0, 0);
   }
   .mk-motion-item.mk-fade-item {
     transition: opacity .30s ease-out !important;
@@ -500,7 +500,7 @@ body.page-trend.page-desktop .report-title-main>span[style] {display:block;font-
     transition: opacity .32s ease-out, transform .32s ease-out !important;
   }
   #career .career-photo.is-pending {
-    transform: translate3d(-16px, 0, 0) !important;
+    transform: translate3d(-16px, 0, 0);
   }
   #career .career-photo.is-visible {
     transform: none !important;
