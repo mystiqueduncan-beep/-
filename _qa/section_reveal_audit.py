@@ -21,14 +21,13 @@ with sync_playwright() as p:
         url = f'http://127.0.0.1:{server.server_port}/{name}.html?view={"mobile" if mobile else "desktop"}'
         page = browser.new_page(viewport={'width': 390 if mobile else 1440, 'height': 844})
         page.route('https://**/*', lambda r: r.abort())
-        # Check the real viewport entrance rather than first-pixel intersections.
+        # Check an early, roughly 15% entrance rather than first-pixel intersections.
         held = browser.new_page(viewport={'width':390 if mobile else 1440,'height':844})
         held.route('https://**/*', lambda r: r.abort())
         held.add_init_script('window.IntersectionObserver=class {observe(){} unobserve(){} disconnect(){}}; window.requestAnimationFrame=()=>0')
         held.goto(url)
         held.wait_for_timeout(800)
-        # Slower (1.4s) transitions may still be settling towards the hidden
-        # pending pose; verify the final pose, not a mid-transition frame.
+        # Verify the final hidden pending pose, not a mid-transition frame.
         held.wait_for_function(
             '() => [...document.querySelectorAll(".mk-motion-pending,.mk-pop-pending")].every(e => getComputedStyle(e).opacity === "0")',
             timeout=3500,
@@ -76,8 +75,8 @@ with sync_playwright() as p:
         # Confirm restrained chapter slide, card fade, and action pop geometry.
         chapter_durations = page.locator('.mk-motion-item:not(.mk-fade-item)').evaluate_all('(es)=>es.map(e=>getComputedStyle(e).transitionDuration)')
         fade_durations = page.locator('.mk-motion-item.mk-fade-item').evaluate_all('(es)=>es.map(e=>getComputedStyle(e).transitionDuration)')
-        assert chapter_durations and all(abs(float(d.split(",")[0].strip().rstrip("s")) - .58) < .02 for d in chapter_durations), (name, chapter_durations)
-        assert fade_durations and all(abs(float(d.split(",")[0].strip().rstrip("s")) - .42) < .02 for d in fade_durations), (name, fade_durations)
+        assert chapter_durations and all(abs(float(d.split(",")[0].strip().rstrip("s")) - .32) < .02 for d in chapter_durations), (name, chapter_durations)
+        assert fade_durations and all(abs(float(d.split(",")[0].strip().rstrip("s")) - .30) < .02 for d in fade_durations), (name, fade_durations)
         for selector, kind in (('.mk-motion-pending:not(.mk-fade-item)', 'slide'), ('.mk-motion-pending.mk-fade-item', 'fade'), ('.mk-pop-pending', 'pop')):
             item = page.locator(selector).last
             if item.count():
@@ -95,8 +94,7 @@ with sync_playwright() as p:
         probe.evaluate('(e)=>scrollTo({top:scrollY+e.getBoundingClientRect().top-innerHeight+25,behavior:"instant"})')
         page.wait_for_timeout(100)
         assert probe.evaluate('(e)=>e.classList.contains("mk-motion-pending")'), name
-        # Center each unit to give short elements full visibility and tall ones
-        # at least 80% viewport coverage; the animation must then complete.
+        # Center each unit; every visible unit must reveal and remain visible.
         for item in items.all():
             item.evaluate('''(e)=>{
               e.scrollIntoView({block:"center",behavior:"instant"});
