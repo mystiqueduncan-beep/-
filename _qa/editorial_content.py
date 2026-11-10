@@ -29,6 +29,14 @@ def digest(source,name=''):
   label='列印／另存 PDF'
   assert parts.count(label)==1,name+': expected exactly one new print action label'
   parts=parts.replace(label,'',1)
+ # Approved Nov 11: reverse only the explicitly authorized onboarding copy edit
+ # for comparison with the immutable original resume fingerprint.
+ if name in ('index.html','mobile.html'):
+  original = "新人帶訓工作：服務期間兼任新進人員帶訓，指導櫃台預約登記流程、收費規範與常見應變作業。服務期間兼任新進人員帶訓工作，負責規劃新進同仁實務帶訓指引與步驟化操作考核。" if name=='index.html' else "服務期間兼任新進人員帶訓工作，負責規劃新進同仁實務帶訓指引與步驟化操作考核。新人帶訓工作：指導櫃台預約登記流程、收費規範與常見應變作業。"
+  replacement = "新人帶訓工作：兼任新進人員實務帶訓，負責規劃帶訓指引與步驟化操作考核，指導櫃台預約登記流程、收費規範及常見狀況應對作業。"
+  flat=re.sub(r'\s+','',parts).lstrip('\ufeff')
+  assert flat.count(replacement)==1,name+': approved training text not found exactly once'
+  parts=flat.replace(replacement,original,1)
  return hashlib.sha256(re.sub(r'\s+','',parts).lstrip('\ufeff').encode()).hexdigest()
 if __name__=='__main__':
  manifest=json.loads((ROOT/'_audit/editorial-main-text-sha256.json').read_text())
