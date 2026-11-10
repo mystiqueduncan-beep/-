@@ -477,24 +477,32 @@ body.page-trend.page-desktop .report-title-main>span[style] {display:block;font-
   --chart-outline: #cbaab5;
 }
 @media (prefers-reduced-motion: no-preference) {
-  /* Keep chapter movement brief; nested elements fade without a second slide. */
+  /* Short headline entrances; narratives fade without horizontal movement. */
   .mk-motion-item {
-    transition: opacity .58s cubic-bezier(.22, 1, .36, 1),
-                transform .62s cubic-bezier(.22, 1, .36, 1) !important;
+    transition: opacity .32s cubic-bezier(.22, 1, .36, 1),
+                transform .32s cubic-bezier(.22, 1, .36, 1) !important;
+  }
+  .mk-motion-pending:not(.mk-fade-item) {
+    transform: translate3d(-16px, 0, 0) !important;
   }
   .mk-motion-item.mk-fade-item {
-    transition: opacity .42s ease-out !important;
+    transition: opacity .30s ease-out !important;
     transform: none !important;
   }
   .mk-motion-pending.mk-fade-item { transform: none !important; }
+  /* Keep the existing one-time contact/hero pop, but shorten the wait. */
   .mk-pop-item {
-    transition: opacity .68s cubic-bezier(.22, 1, .36, 1),
-                transform .75s cubic-bezier(.2, .85, .28, 1.06) !important;
+    transition: opacity .34s cubic-bezier(.22, 1, .36, 1),
+                transform .35s cubic-bezier(.2, .85, .28, 1.06) !important;
   }
-  /* Career photos appear with a pure, three-quarter-second opacity fade.
-     No slide/zoom; the existing observer still triggers each photo only once. */
+  /* Work photos enter from the left once; do not modify the source images. */
   #career .career-photo {
-    transition: opacity .75s ease-in-out !important;
+    transition: opacity .32s ease-out, transform .32s ease-out !important;
+  }
+  #career .career-photo.is-pending {
+    transform: translate3d(-16px, 0, 0) !important;
+  }
+  #career .career-photo.is-visible {
     transform: none !important;
   }
   /* A fast focus/anchor reveal is still necessary for keyboard users. */
@@ -509,10 +517,15 @@ body.page-trend.page-desktop .report-title-main>span[style] {display:block;font-
      informative motion and continue to animate on first entry. */
   .motion-ready body.page-trend .viz-reveal {
     translate: none !important;
-    transition: opacity .45s ease-out !important;
+    transition: opacity .32s ease-out !important;
+  }
+  /* Data bars retain their own animation; summary cards only fade upward. */
+  @keyframes mk-channel-card-fade-up {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
   }
   body.page-trend .channel-study.is-entering .channel-metric {
-    animation: channel-card 1.15s cubic-bezier(.22, 1, .36, 1) both !important;
+    animation: mk-channel-card-fade-up .35s cubic-bezier(.22, 1, .36, 1) both !important;
   }
   body.page-trend .channel-study.is-entering .channel-metric:nth-child(2) {
     animation-delay: .09s !important;
@@ -521,7 +534,7 @@ body.page-trend.page-desktop .report-title-main>span[style] {display:block;font-
     animation: channel-bar 1.15s cubic-bezier(.22, 1, .36, 1) both !important;
   }
   body.page-trend .channel-study.is-entering .channel-value {
-    animation: channel-value 1.15s ease both !important;
+    animation: channel-value .35s ease both !important;
   }
   /* The continuous marquee stays continuous; only its movement is eased. */
   .mobile-keycap-marquee.is-mobile-auto .mobile-keycap-belt {
