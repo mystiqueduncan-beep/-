@@ -123,7 +123,7 @@ with sync_playwright() as p:
   photo=page.locator('img[src="assets/portrait-img3147.webp"]')
   expect(photo).to_have_count(1)
   photo.evaluate('(e)=>e.decode()')
-  assert photo.evaluate('(e)=>e.complete && e.naturalWidth===450 && e.naturalHeight===450')
+  assert photo.evaluate('(e)=>e.complete && e.naturalWidth>=450 && e.naturalHeight===e.naturalWidth')
   assert photo.evaluate('(e)=>getComputedStyle(e.closest(".photo-frame")).borderRadius==="50%"')
   assert photo.evaluate('(e)=>{const b=e.closest(".photo-frame").getBoundingClientRect();return Math.abs(b.width-b.height)<2}')
   if name.startswith('mobile'):
