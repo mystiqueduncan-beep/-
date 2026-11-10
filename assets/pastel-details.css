@@ -476,7 +476,7 @@ body.page-trend.page-desktop .report-title-main>span[style] {display:block;font-
   --chart-ink: #533e46;
   --chart-outline: #cbaab5;
 }
-@media (prefers-reduced-motion: no-preference) {
+@media screen and (prefers-reduced-motion: no-preference) {
   /* Short headline entrances; narratives fade without horizontal movement. */
   .mk-motion-item {
     transition: opacity .32s cubic-bezier(.22, 1, .36, 1),
