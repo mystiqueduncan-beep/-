@@ -188,6 +188,12 @@ def expected_text(rel,text):
  elif rel=='contact.html':
   s=swap('居住區域桃園市大園區（機動巡店）',
          '居住區域桃園市大園區（機動巡店）到職與排班可於面談時進一步確認')
+ # Approved Nov 11: consolidate duplicated Zhuxin onboarding text only.
+ if rel in ('index.html','mobile.html'):
+  old_training = "新人帶訓工作：服務期間兼任新進人員帶訓，指導櫃台預約登記流程、收費規範與常見應變作業。服務期間兼任新進人員帶訓工作，負責規劃新進同仁實務帶訓指引與步驟化操作考核。" if rel=='index.html' else "服務期間兼任新進人員帶訓工作，負責規劃新進同仁實務帶訓指引與步驟化操作考核。新人帶訓工作：指導櫃台預約登記流程、收費規範與常見應變作業。"
+  updated_training = "新人帶訓工作：兼任新進人員實務帶訓，負責規劃帶訓指引與步驟化操作考核，指導櫃台預約登記流程、收費規範及常見狀況應對作業。"
+  if s.count(compact(old_training))!=1:raise ValueError(rel+': approved training source mismatch')
+  s=s.replace(compact(old_training),compact(updated_training),1)
  return compact(s)
 base=json.loads((ROOT/'_audit/baseline-text.json').read_text(encoding='utf-8'))
 approved_report=json.loads((ROOT/'_audit/regional-analysis-approved-sha1.json').read_text(encoding='utf-8'))['pages']
