@@ -53,6 +53,12 @@ def digest(source,name=''):
    assert flat.count(heading)==1,name+': original career heading changed'
    flat=flat.replace(heading,heading+caption,1)
   assert flat.count(replacement)==1,name+': approved training text not found exactly once'
+  # Only reverse the specifically approved A4 簡歷 button labels, not any facts.
+  if name=='index.html':
+   new_actions="01/PDFDOWNLOAD下載A4簡歷PDF格式・日系粉色雙頁版↗02/PRINTABLEHTML開啟列印版HTML格式・列印或另存PDF↗"
+   old_actions="下載PDF履歷(A4)列印／另存PDF"
+   assert flat.count(new_actions)==1,name+': approved A4 簡歷 buttons missing or duplicated'
+   flat=flat.replace(new_actions,old_actions,1)
   parts=flat.replace(replacement,original,1)
  return hashlib.sha256(re.sub(r'\s+','',parts).lstrip('\ufeff').encode()).hexdigest()
 if __name__=='__main__':
