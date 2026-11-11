@@ -68,7 +68,7 @@ with sync_playwright() as p:
             if not all(abs(actual - expected) < 0.01 for actual,expected in zip(first_delays, [0, 0.1])):
                 print('CTA_DELAY_DEBUG', name, buttons.evaluate_all('''(es)=>es.map((e,i)=>({i,selector:e.matches('.hero-cta-group > .mk-pop-item:nth-child(2)'),style:e.getAttribute('style'),className:e.className,delay:getComputedStyle(e).transitionDelay,sheet:[...document.styleSheets].some(s=>s.href?.includes('mk-inspired.css'))}))'''), flush=True)
             assert all(abs(actual - expected) < 0.01 for actual,expected in zip(first_delays, [0, 0.1])), (name, delays)
-            assert buttons.last.evaluate('(e)=>e.tagName.toLowerCase()') == 'button', name
+            assert buttons.last.evaluate('(e)=>e.tagName.toLowerCase()') == 'a', name
         if name == 'mobile':
             assert page.locator('.timeline-job-card.mk-motion-item').count() == 3
             assert page.locator('.mobile-case-box.mk-motion-item').count() == 3
