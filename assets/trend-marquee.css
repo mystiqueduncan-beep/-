@@ -345,6 +345,7 @@
   user-select: none;
   -webkit-user-select: none;
   scroll-behavior: auto !important;
+  scroll-snap-type: none !important;
   -webkit-mask-image: linear-gradient(90deg,transparent,#000 3.5%,#000 96.5%,transparent);
   mask-image: linear-gradient(90deg,transparent,#000 3.5%,#000 96.5%,transparent);
 }
