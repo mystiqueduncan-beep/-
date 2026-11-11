@@ -334,3 +334,47 @@
     transition: none !important;
   }
 }
+
+
+/* Scrubbable single-set marquee, as approved in the interactive preview.
+   The scrollLeft value, rather than an animated CSS transform, represents
+   position on both desktop mouse and mobile touch input. */
+.keycap-marquee__viewport {
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  scroll-behavior: auto !important;
+  scroll-snap-type: none !important;
+  -webkit-mask-image: linear-gradient(90deg,transparent,#000 3.5%,#000 96.5%,transparent);
+  mask-image: linear-gradient(90deg,transparent,#000 3.5%,#000 96.5%,transparent);
+}
+.keycap-marquee__viewport:active { cursor: grabbing; }
+.keycap-marquee__viewport:focus-visible { outline: 2px solid #a57b8a; outline-offset: -3px; }
+.keycap-marquee__viewport .keycap-marquee__group a { -webkit-user-drag: none; }
+.keycap-marquee.is-enhanced .keycap-marquee__belt {
+  animation: none !important;
+  transform: none !important;
+  will-change: auto;
+}
+.keycap-marquee.is-enhanced .keycap-marquee__belt::before {
+  content: "✦      ·      ♡      ✧";
+  display: flex;
+  flex: 0 0 var(--keycap-start,620px);
+  align-items: center;
+  justify-content: center;
+  white-space: pre;
+  color: #b08a9b;
+  font: 23px/1 Georgia,serif;
+  letter-spacing: .5em;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center,#f1dfe780,transparent 72%);
+}
+.keycap-marquee.is-enhanced.is-keyboard-paused .keycap-marquee__belt {
+  animation: none !important;
+  transform: none !important;
+}
+@media (prefers-reduced-motion: reduce), print {
+  .keycap-marquee__belt::before,
+  .keycap-marquee__belt::after { display: none !important; }
+}

@@ -42,9 +42,13 @@ with sync_playwright() as p:
             assert "♡" in style["after"], (name, style)
             assert "research-soft-glow" in style["animation"], (name, style)
             assert link.locator(".research-meteor").count() == 1, (name, "meteor")
+            assert link.evaluate("""e => {
+                const overlay=e.querySelector(".research-meteor");
+                return overlay.getBoundingClientRect().width >= e.getBoundingClientRect().width*.6;
+            }"""), (name, "full button light beam")
             assert link.locator(".research-meteor").evaluate(
                 '(e)=>getComputedStyle(e,"::before").animationName'
-            ) == "research-meteor-tail", (name, "meteor animation")
+            ) == "research-meteor-sweep", (name, "meteor animation")
             # Reveals once when scrolled to, then stays revealed.
             link.evaluate('(e)=>e.scrollIntoView({block:"center",behavior:"instant"})')
             expect(link).to_have_class(__import__("re").compile(".*research-pop-in.*"), timeout=5000)

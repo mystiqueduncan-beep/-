@@ -27,17 +27,46 @@ with sync_playwright() as p:
    continue
   nav=page.locator('[data-keycap-marquee]');belt=nav.locator('.keycap-marquee__belt');link=nav.locator('a').first
   expect(nav).to_have_class(__import__('re').compile('.*is-enhanced.*'))
-  assert belt.evaluate('e=>getComputedStyle(e).animationName')!='none'
+  assert belt.evaluate('e=>getComputedStyle(e).animationName')=='none'
   assert not page.locator('.keycap-marquee__toggle').count()
-  before=belt.evaluate('e=>getComputedStyle(e).transform');page.evaluate('scrollTo(0,500)');page.wait_for_timeout(150)
-  assert belt.evaluate('e=>getComputedStyle(e).transform')!=before
+  v=nav.locator('.keycap-marquee__viewport')
+  before=v.evaluate('e=>e.scrollLeft')
+  page.wait_for_timeout(320)
+  after=v.evaluate('e=>e.scrollLeft')
+  if after<=before:
+   print("AUTOPLAY_DEBUG",name,page.evaluate("""() => {
+     const n=document.querySelector('[data-keycap-marquee]');
+     const v=n?.querySelector('.keycap-marquee__viewport');
+     const b=n?.querySelector('.keycap-marquee__belt');
+     return {classes:n?.className,hidden:document.hidden,scrollLeft:v?.scrollLeft,maxScroll:v?.scrollWidth-v?.clientWidth,
+       viewportWidth:v?.clientWidth,beltWidth:b?.getBoundingClientRect().width,
+       intro:getComputedStyle(b,'::before').width,animations:b?.getAnimations().map(a=>a.animationName),
+       raf:typeof requestAnimationFrame,visibility:document.visibilityState,debug:window.__marqueeDebug,scrollBehavior:getComputedStyle(v).scrollBehavior};
+   }"""),flush=True)
+  assert after>before, ('autoplay must advance',name,before,after)
   link.dispatch_event('pointerover',{'pointerType':'mouse'})
-  assert belt.evaluate('e=>getComputedStyle(e).animationPlayState')=='paused'
+  assert nav.evaluate("e=>e.classList.contains('is-hover-paused')")
+  paused=v.evaluate('e=>e.scrollLeft')
+  page.wait_for_timeout(150)
+  assert abs(v.evaluate('e=>e.scrollLeft')-paused)<1, ('hover pauses',name)
+  # Drag directly in the active native-scroll area to reveal earlier and later chapters.
+  pos=v.bounding_box()
+  x=pos['x']+pos['width']/2; y=pos['y']+pos['height']/2
+  page.mouse.move(x,y);page.mouse.down()
+  page.mouse.move(x+60,y,steps=4)
+  previous=v.evaluate('e=>e.scrollLeft')
+  page.mouse.move(x-40,y,steps=4)
+  following=v.evaluate('e=>e.scrollLeft')
+  assert following>previous+70, ('drag both directions',name,previous,following)
+  page.mouse.up()
   nav.dispatch_event('pointerleave',{'pointerType':'mouse'})
-  assert belt.evaluate('e=>getComputedStyle(e).animationPlayState')=='running'
-  link.dispatch_event('click');page.wait_for_timeout(200)
-  assert belt.evaluate('e=>getComputedStyle(e).animationPlayState')=='running'
+  resumed=v.evaluate('e=>e.scrollLeft')
+  page.wait_for_timeout(200)
+  assert v.evaluate('e=>e.scrollLeft')>resumed, ('resumes after release',name)
   assert page.locator('meta[name=viewport]').get_attribute('content').find('user-scalable=no')<0
+  # :focus-visible is keyboard-modality-only; actual pointer drag must not
+  # force a focus ring. Re-enter with Tab before checking keyboard outline.
+  page.keyboard.press('Tab')
   link.focus();expect(link).to_be_focused()
   assert link.evaluate('e=>getComputedStyle(e).outlineStyle')!='none'
   page.emulate_media(reduced_motion='reduce')

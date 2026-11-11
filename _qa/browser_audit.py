@@ -43,7 +43,11 @@ with sync_playwright() as p:
     motion_allowed=page.evaluate("""() => matchMedia('(min-width: 769px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)').matches""")
     if motion_allowed:
      assert marquee.evaluate("e=>e.classList.contains('is-enhanced')")
-     assert belt.evaluate("e=>getComputedStyle(e).animationName") != 'none'
+     assert belt.evaluate("e=>getComputedStyle(e).animationName") == 'none'
+     v=marquee.locator(".keycap-marquee__viewport")
+     before=v.evaluate("e=>e.scrollLeft")
+     page.wait_for_timeout(320)
+     assert v.evaluate("e=>e.scrollLeft") > before, ("native autoplay",name)
      first_key = page.locator('.keycap-marquee__group a').first
      first_key.dispatch_event('pointerover', {'pointerType': 'mouse'})
      assert marquee.evaluate("e=>e.classList.contains('is-hover-paused')")

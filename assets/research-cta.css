@@ -190,46 +190,54 @@ body.page-home .home-quick-actions > a.home-project-action {
   /* Retain the Polaroid frame/tape/heart everywhere. */
   isolation: isolate;
 }
+/* Entire button sweeps with the approved gentle diagonal shimmer.
+   The mat tape/heart are separate ::before/::after decorations and unchanged. */
 :is(a[href="trend.html"],a[href="mobile-trend.html"]) .research-meteor {
   position: absolute;
-  z-index: 3;
-  left: 50%;
-  top: 45%;
-  width: 65px;
-  height: 3px;
-  overflow: visible;
+  inset: 0;
+  z-index: 2;
+  border-radius: 6px 6px 3px 3px;
+  overflow: hidden;
   pointer-events: none;
-  transform: rotate(-17deg);
+}
+:is(a[href="trend.html"],a[href="mobile-trend.html"]) > :not(.research-meteor) {
+  position: relative;
+  z-index: 3;
 }
 :is(a[href="trend.html"],a[href="mobile-trend.html"]) .research-meteor::before {
   content: "";
   position: absolute;
-  width: 65px;
-  height: 2px;
-  border-radius: 100px;
-  background: linear-gradient(90deg,transparent,rgba(255,250,252,.22) 42%,rgba(255,252,253,.83));
-  box-shadow: 2px 0 6px rgba(255,247,252,.24);
+  top: -55%;
+  bottom: -55%;
+  left: -74%;
+  width: 75%;
+  border: 0;
+  background: linear-gradient(90deg,transparent 0%,rgba(255,248,254,.06) 11%,rgba(255,252,255,.20) 29%,rgba(255,255,255,.47) 46%,rgba(255,255,255,.68) 50%,rgba(255,250,255,.34) 59%,rgba(255,250,255,.06) 80%,transparent 100%);
+  filter: blur(4px);
+  mix-blend-mode: screen;
   opacity: 0;
-  animation: research-meteor-tail 6s ease-in-out infinite;
+  transform: translate3d(-100%,0,0) skewX(-22deg);
+  animation: research-meteor-sweep 5.2s cubic-bezier(.34,.16,.48,.97) infinite;
 }
 :is(a[href="trend.html"],a[href="mobile-trend.html"]) .research-meteor::after {
-  content: "✧";
+  content: "";
   position: absolute;
-  left: 57px;
-  top: -9px;
-  color: #fffdfd;
-  font: 14px/1 Georgia,serif;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 0%, rgba(255,255,255,.12) 50%, transparent 100%);
   opacity: 0;
-  animation: research-meteor-tail 6s ease-in-out infinite;
+  animation: research-meteor-glow 5.2s ease infinite;
 }
-@keyframes research-meteor-tail {
-  0%, 12%, 38%, 100% { opacity:0; transform:translate3d(-78px,22px,0); }
-  16% { opacity:.7; transform:translate3d(-56px,17px,0); }
-  26% { opacity:.94; transform:translate3d(60px,-17px,0); }
-  33% { opacity:0; transform:translate3d(96px,-27px,0); }
+@keyframes research-meteor-sweep {
+  0%,12% { transform: translate3d(-100%,0,0) skewX(-22deg); opacity:0; }
+  17% { opacity:.65; }
+  28% { opacity:1; }
+  43% { opacity:.72; }
+  49%,100% { transform:translate3d(345%,0,0) skewX(-22deg); opacity:0; }
 }
-.mobile-bottom-bar :is(a[href="trend.html"],a[href="mobile-trend.html"]) .research-meteor {
-  transform:rotate(-17deg) scale(.55);
+@keyframes research-meteor-glow {
+  0%,12%,47%,100% { opacity:0; }
+  24% { opacity:.35; }
+  33% { opacity:.23; }
 }
 @media (prefers-reduced-motion:reduce) {
   :is(a[href="trend.html"],a[href="mobile-trend.html"]) .research-meteor::before,
