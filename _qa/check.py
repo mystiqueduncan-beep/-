@@ -241,6 +241,14 @@ for rel,old in base.items():
    else:
     actual=actual.replace(intro+label,intro,1)
     actual=actual.replace(old_marker,(old_marker+label if rel=='index.html' else label+old_marker),1)
+  # Approved file-button copy change only; retain immutable factual baseline.
+  if rel in ('index.html','mobile.html'):
+   new_actions="01/PDFDOWNLOAD下載A4簡歷PDF格式・日系粉色雙頁版↗02/PRINTABLEHTML開啟列印版HTML格式・列印或另存PDF↗"
+   old_actions="下載PDF履歷(A4)列印／另存PDF" if rel=='index.html' else "下載A4PDF履歷列印／另存PDF"
+   if actual.count(new_actions)!=1:
+    errors.append(rel+': A4 簡歷 action labels missing or duplicated')
+   else:
+    actual=actual.replace(new_actions,old_actions,1)
   same=expect==actual
   if not same:
    import difflib

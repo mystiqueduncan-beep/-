@@ -25,6 +25,11 @@ def digest(source,name=''):
                            parts)
   assert matches==1,name+': expected exactly one LINE contact heading'
  if name=='mobile.html':
+  # Restore only the approved two printable A4 button labels before verifying immutable resume text.
+  parts=re.sub(r'\s+','',parts)
+  new_actions="01/PDFDOWNLOAD下載A4簡歷PDF格式・日系粉色雙頁版↗02/PRINTABLEHTML開啟列印版HTML格式・列印或另存PDF↗"
+  assert parts.count(new_actions)==1,name+': A4 簡歷 buttons missing or duplicated'
+  parts=parts.replace(new_actions,"下載A4PDF履歷列印／另存 PDF",1)
   # UI-only print CTA added Nov 9; original resume text fingerprint must remain identical.
   label='列印／另存 PDF'
   assert parts.count(label)==1,name+': expected exactly one new print action label'
@@ -53,6 +58,12 @@ def digest(source,name=''):
    assert flat.count(heading)==1,name+': original career heading changed'
    flat=flat.replace(heading,heading+caption,1)
   assert flat.count(replacement)==1,name+': approved training text not found exactly once'
+  # Only reverse the specifically approved A4 簡歷 button labels, not any facts.
+  if name=='index.html':
+   new_actions="01/PDFDOWNLOAD下載A4簡歷PDF格式・日系粉色雙頁版↗02/PRINTABLEHTML開啟列印版HTML格式・列印或另存PDF↗"
+   old_actions="下載PDF履歷(A4)列印／另存PDF"
+   assert flat.count(new_actions)==1,name+': approved A4 簡歷 buttons missing or duplicated'
+   flat=flat.replace(new_actions,old_actions,1)
   parts=flat.replace(replacement,original,1)
  return hashlib.sha256(re.sub(r'\s+','',parts).lstrip('\ufeff').encode()).hexdigest()
 if __name__=='__main__':
