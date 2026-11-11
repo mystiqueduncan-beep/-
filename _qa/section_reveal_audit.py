@@ -87,7 +87,7 @@ with sync_playwright() as p:
                 # Observer callbacks can reveal this target between locator resolution
                 # and style sampling. Held-observer coverage above proves the exact
                 # pending pose independently; accept either stable lifecycle state here.
-                item.evaluate("(e)=>Promise.all(e.getAnimations().map(a=>a.finished.catch(()=>{})))")
+                item.evaluate("(e)=>Promise.all(e.getAnimations().filter(a=>a.effect?.getComputedTiming().iterations !== Infinity).map(a=>a.finished.catch(()=>{})))")
                 if not item.count():
                     continue
                 state = item.evaluate('(e)=>{const s=getComputedStyle(e); const m=new DOMMatrix(s.transform);return {opacity:s.opacity,x:m.m41,scale:m.a}}')
