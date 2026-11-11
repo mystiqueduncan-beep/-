@@ -30,7 +30,6 @@ body.page-home .home-quick-actions .home-action-pill {
   font-weight: 800 !important;
   line-height: 1.35 !important;
   white-space: nowrap !important;
-  opacity: 1;
   transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease !important;
 }
 body.page-home .home-quick-actions .home-action-pill svg {
