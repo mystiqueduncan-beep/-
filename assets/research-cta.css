@@ -151,6 +151,12 @@ body.page-contact a.btn-contact-action[href="mobile-trend.html"] {
     transform: translate3d(0, 23px, 0) scale(.85) !important;
     animation-play-state: paused !important;
   }
+  /* Research links inside the home hero also use the site's one-time
+     action-pop treatment. Keep its pending geometry for all reveal modes. */
+  body.page-home :is(a[href="trend.html"],a[href="mobile-trend.html"]).research-pop-wait.mk-pop-pending {
+    transform: translate3d(30px, 0, 0) scale(.88) !important;
+    opacity: 0 !important;
+  }
   :is(a[href="trend.html"], a[href="mobile-trend.html"]).research-pop-in {
     opacity: 1 !important;
     transform: none !important;
