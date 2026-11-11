@@ -26,7 +26,7 @@ def digest(source,name=''):
   assert matches==1,name+': expected exactly one LINE contact heading'
  if name=='mobile.html':
   # Restore only the approved two printable A4 button labels before verifying immutable resume text.
-  parts=re.sub(r'\\s+','',parts)
+  parts=re.sub(r'\s+','',parts)
   new_actions="01/PDFDOWNLOAD下載A4簡歷PDF格式・日系粉色雙頁版↗02/PRINTABLEHTML開啟列印版HTML格式・列印或另存PDF↗"
   assert parts.count(new_actions)==1,name+': A4 簡歷 buttons missing or duplicated'
   parts=parts.replace(new_actions,"下載A4PDF履歷列印／另存 PDF",1)
