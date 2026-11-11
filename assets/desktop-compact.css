@@ -280,3 +280,28 @@ body.page-home.page-desktop #research .research-summary-panel {
     box-shadow: none !important;
   }
 }
+
+/* Single-row, slim marquee after moving the research shortcut into the hero. */
+@media screen {
+  body.page-home.page-desktop .home-keycap-strip {
+    padding: 4px 0 !important;
+  }
+  body.page-home.page-desktop .home-keycap-strip .home-keycap-layout {
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  body.page-home.page-desktop .home-keycap-strip .keycap-marquee {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 4px 0 6px;
+  }
+  body.page-home.page-desktop .home-keycap-strip .keycap-marquee__group {
+    flex-wrap: nowrap;
+  }
+  body.page-trend.page-desktop .trend-subnav-strip .keycap-marquee {
+    padding: 4px 0 6px;
+  }
+}

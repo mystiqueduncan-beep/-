@@ -35,6 +35,15 @@ def digest(source,name=''):
   original = "新人帶訓工作：服務期間兼任新進人員帶訓，指導櫃台預約登記流程、收費規範與常見應變作業。服務期間兼任新進人員帶訓工作，負責規劃新進同仁實務帶訓指引與步驟化操作考核。" if name=='index.html' else "服務期間兼任新進人員帶訓工作，負責規劃新進同仁實務帶訓指引與步驟化操作考核。新人帶訓工作：指導櫃台預約登記流程、收費規範與常見應變作業。"
   replacement = "新人帶訓工作：兼任新進人員實務帶訓，負責規劃帶訓指引與步驟化操作考核，指導櫃台預約登記流程、收費規範及常見狀況應對作業。"
   flat=re.sub(r'\s+','',parts).lstrip('\ufeff')
+  # Approved 2026-11-11: reverse only the navigation label relocation so the
+  # historical text fingerprint still rejects all unrelated copy changes.
+  intro='重視門市營運標準、服務品質與溝通協調，期望投入區域營運管理，讓門市日常作業更加穩定一致。'
+  label='藥妝專題研究'
+  marker='07/通路研究' if name=='index.html' else 'MK個人應徵作品集｜黃博詩'
+  assert flat.count(intro+label)==1,name+': relocated research CTA missing'
+  assert flat.count(marker)==1,name+': original research CTA position not found'
+  flat=flat.replace(intro+label,intro,1)
+  flat=flat.replace(marker,marker+label if name=='index.html' else label+marker,1)
   assert flat.count(replacement)==1,name+': approved training text not found exactly once'
   parts=flat.replace(replacement,original,1)
  return hashlib.sha256(re.sub(r'\s+','',parts).lstrip('\ufeff').encode()).hexdigest()

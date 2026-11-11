@@ -217,6 +217,24 @@ for rel,old in base.items():
  else:
   expect=expected_text(rel,old)
   actual=normalized(p.text)
+  # Approved presentation-only relocation (2026-11-11): the research CTA is
+  # immediately after the introduction, not in the homepage marquee/footer.
+  # Restore only this existing UI label to its former position for comparison
+  # with the immutable resume baseline; all other text must still match.
+  if rel in ('index.html','mobile.html'):
+   intro='重視門市營運標準、服務品質與溝通協調，期望投入區域營運管理，讓門市日常作業更加穩定一致。'
+   label='藥妝專題研究'
+   old_marker='07/通路研究' if rel=='index.html' else 'MK個人應徵作品集｜黃博詩'
+   html=f.read_text(encoding='utf-8')
+   hero_link='trend.html' if rel=='index.html' else 'mobile-trend.html'
+   hero_pattern=r'<p class="(?:hero-professional-intro|mobile-profile-intro)">'+re.escape(intro)+r'</p>\s*<div class="hero-research-shortcut">\s*<a href="'+re.escape(hero_link)+r'"[^>]*>\s*<span>藥妝專題研究</span></a>'
+   if not re.search(hero_pattern,html):
+    errors.append(rel+': research shortcut not immediately after introduction')
+   if actual.count(intro+label)!=1 or actual.count(old_marker)!=1:
+    errors.append(rel+': research CTA text relocation source mismatch')
+   else:
+    actual=actual.replace(intro+label,intro,1)
+    actual=actual.replace(old_marker,(old_marker+label if rel=='index.html' else label+old_marker),1)
   same=expect==actual
   if not same:
    import difflib
