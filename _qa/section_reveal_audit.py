@@ -27,6 +27,10 @@ with sync_playwright() as p:
         held.add_init_script('window.IntersectionObserver=class {observe(){} unobserve(){} disconnect(){}}; window.requestAnimationFrame=()=>0')
         held.goto(url)
         held.wait_for_timeout(800)
+        # Capture exact pending styles for regression diagnostics.
+        print("PENDING_STYLES", name, held.locator(".mk-motion-pending,.mk-pop-pending").evaluate_all(
+            '(els)=>els.filter(e=>getComputedStyle(e).opacity!=="0").map(e=>({tag:e.tagName,class:e.className,opacity:getComputedStyle(e).opacity,html:e.outerHTML.slice(0,230)})).slice(0,12)'
+        ), flush=True)
         # Verify the final hidden pending pose, not a mid-transition frame.
         held.wait_for_function(
             '() => [...document.querySelectorAll(".mk-motion-pending,.mk-pop-pending")].every(e => getComputedStyle(e).opacity === "0")',
