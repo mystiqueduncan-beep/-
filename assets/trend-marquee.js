@@ -202,6 +202,13 @@
       if (lastFrame) autoScroll(timestamp);
       else autoScroll.last = timestamp;
       lastFrame = timestamp;
+      window.__marqueeDebug = {
+        frames: (window.__marqueeDebug?.frames || 0) + 1,
+        timestamp,
+        scrollLeft: viewport.scrollLeft,
+        matches: playback.matches,
+        paused: ["is-hover-paused","is-touch-paused","is-keyboard-paused","is-drag-paused"].filter(c=>nav.classList.contains(c))
+      };
       window.requestAnimationFrame(tick);
     };
     window.requestAnimationFrame(tick);
