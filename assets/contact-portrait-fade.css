@@ -1,4 +1,4 @@
-/* Personal portrait remains the user's original, unretouched JPEG.
+/* Personal portrait is a lossily compressed copy of the uploaded photo; facial details are not retouched.
    Animate only its opacity for 1.5 seconds on first viewport entry. */
 @keyframes contact-portrait-soft-fade {
   from { opacity: 0; }
@@ -66,7 +66,7 @@ body.page-contact .photo-frame img.contact-portrait-photo {
   height: auto !important;
   aspect-ratio: 1 / 1 !important;
   object-fit: cover !important;
-  object-position: 50% 50% !important;
+  object-position: 50% 0% !important; /* Keep the full hairline and crown in the circular crop. */
   border-radius: 50% !important;
   clip-path: circle(50% at 50% 50%);
   filter: none !important;
