@@ -178,6 +178,9 @@
     });
   }
 
+  // Keep subpixel progress between frames: some Safari/Chromium modes
+  // round scrollLeft to whole pixels and would otherwise never advance at 32px/s.
+  let fractionalScroll = null;
   // Browser-driven scroll instead of CSS transform keeps the visible track
   // stationary while paused and makes mouse/touch dragging directly responsive.
   function autoScroll(timestamp) {
@@ -189,12 +192,19 @@
         nav.classList.contains("is-keyboard-paused") ||
         nav.classList.contains("is-touch-paused") ||
         nav.classList.contains("is-drag-paused") ||
-        document.hidden) return;
-    const limit = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
-    viewport.scrollLeft += pixelsPerSecond * elapsed / 1000;
-    if (limit > 0 && viewport.scrollLeft >= limit - 1) {
-      viewport.scrollLeft = 0;
+        document.hidden) {
+      fractionalScroll = viewport.scrollLeft;
+      return;
     }
+    const limit = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+    if (fractionalScroll === null || Math.abs(fractionalScroll - viewport.scrollLeft) > 2) {
+      fractionalScroll = viewport.scrollLeft;
+    }
+    fractionalScroll += pixelsPerSecond * elapsed / 1000;
+    if (limit > 0 && fractionalScroll >= limit - 1) {
+      fractionalScroll = 0;
+    }
+    viewport.scrollLeft = fractionalScroll;
   }
   if (typeof window.requestAnimationFrame === "function" && viewport) {
     let lastFrame = 0;
@@ -202,13 +212,6 @@
       if (lastFrame) autoScroll(timestamp);
       else autoScroll.last = timestamp;
       lastFrame = timestamp;
-      window.__marqueeDebug = {
-        frames: (window.__marqueeDebug?.frames || 0) + 1,
-        timestamp,
-        scrollLeft: viewport.scrollLeft,
-        matches: playback.matches,
-        paused: ["is-hover-paused","is-touch-paused","is-keyboard-paused","is-drag-paused"].filter(c=>nav.classList.contains(c))
-      };
       window.requestAnimationFrame(tick);
     };
     window.requestAnimationFrame(tick);
