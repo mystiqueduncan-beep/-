@@ -41,7 +41,7 @@ with sync_playwright() as p:
      return {classes:n?.className,hidden:document.hidden,scrollLeft:v?.scrollLeft,maxScroll:v?.scrollWidth-v?.clientWidth,
        viewportWidth:v?.clientWidth,beltWidth:b?.getBoundingClientRect().width,
        intro:getComputedStyle(b,'::before').width,animations:b?.getAnimations().map(a=>a.animationName),
-       raf:typeof requestAnimationFrame,visibility:document.visibilityState};
+       raf:typeof requestAnimationFrame,visibility:document.visibilityState,debug:window.__marqueeDebug,scrollBehavior:getComputedStyle(v).scrollBehavior};
    }"""),flush=True)
   assert after>before, ('autoplay must advance',name,before,after)
   link.dispatch_event('pointerover',{'pointerType':'mouse'})
