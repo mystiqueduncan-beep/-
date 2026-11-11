@@ -27,7 +27,7 @@ def digest(source,name=''):
  if name=='mobile.html':
   # Restore only the approved two printable A4 button labels before verifying immutable resume text.
   parts=re.sub(r'\s+','',parts)
-  new_actions="01/PDFDOWNLOAD下載A4簡歷PDF格式・日系粉色雙頁版↗02/PRINTABLEHTML開啟列印版HTML格式・列印或另存PDF↗"
+  new_actions="下載列印"
   assert parts.count(new_actions)==1,name+': A4 簡歷 buttons missing or duplicated'
   parts=parts.replace(new_actions,"下載A4PDF履歷列印／另存 PDF",1)
   # UI-only print CTA added Nov 9; original resume text fingerprint must remain identical.
@@ -45,9 +45,10 @@ def digest(source,name=''):
   intro='重視門市營運標準、服務品質與溝通協調，期望投入區域營運管理，讓門市日常作業更加穩定一致。'
   label='藥妝專題研究'
   marker='07/通路研究' if name=='index.html' else 'MK個人應徵作品集｜黃博詩'
-  assert flat.count(intro+label)==1,name+': relocated research CTA missing'
+  group_label=('查看工作經歷' if name=='index.html' else '查看完整工作經歷')+'個人及聯絡資訊'+label
+  assert flat.count(group_label)==1,name+': relocated research CTA missing from action group'
   assert flat.count(marker)==1,name+': original research CTA position not found'
-  flat=flat.replace(intro+label,intro,1)
+  flat=flat.replace(group_label,group_label.replace(label,'',1),1)
   flat=flat.replace(marker,marker+label if name=='index.html' else label+marker,1)
   # Reconstruct only the approved removed caption when verifying the
   # immutable page text fingerprint. All career facts remain protected.
@@ -60,7 +61,7 @@ def digest(source,name=''):
   assert flat.count(replacement)==1,name+': approved training text not found exactly once'
   # Only reverse the specifically approved A4 簡歷 button labels, not any facts.
   if name=='index.html':
-   new_actions="01/PDFDOWNLOAD下載A4簡歷PDF格式・日系粉色雙頁版↗02/PRINTABLEHTML開啟列印版HTML格式・列印或另存PDF↗"
+   new_actions="下載列印"
    old_actions="下載PDF履歷(A4)列印／另存PDF"
    assert flat.count(new_actions)==1,name+': approved A4 簡歷 buttons missing or duplicated'
    flat=flat.replace(new_actions,old_actions,1)

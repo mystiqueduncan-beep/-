@@ -28,19 +28,28 @@ with sync_playwright() as p:
         assert links.count() == count, (name, links.count())
         for link in links.all():
             assert "藥妝專題研究" in link.inner_text(), name
-            # Polaroid mat, rose gradient, tape, heart, and visible text.
             style = link.evaluate("""e => {
               const c=getComputedStyle(e);
               return {background:c.backgroundImage,border:c.borderBottomWidth,
                 before:getComputedStyle(e,"::before").content,
                 after:getComputedStyle(e,"::after").content,
-                color:c.color,animation:c.animationName};
+                color:c.color,animation:c.animationName,radius:c.borderRadius};
             }""")
-            assert "gradient" in style["background"], (name, style)
-            assert float(style["border"].replace("px","")) >= 8, (name, style)
-            assert style["before"] == '""', (name, style)
-            assert "♡" in style["after"], (name, style)
-            assert "research-soft-glow" in style["animation"], (name, style)
+            if "home-project-action" in (link.get_attribute("class") or ""):
+                # The user moved the homepage research shortcut into the
+                # regular pink pill group; it must NOT retain the Polaroid frame.
+                assert link.locator("xpath=ancestor::*[contains(@class,'home-quick-actions')]").count() == 1, name
+                assert float(style["border"].replace("px","")) <= 2.5, (name, style)
+                assert style["before"] == "none" and style["after"] == "none", (name, style)
+                assert style["background"] == "none" and style["animation"] == "none", (name, style)
+                assert float(style["radius"].split("px")[0]) > 20, (name, style)
+            else:
+                # The remaining dedicated research link retains the scrapbook style.
+                assert "gradient" in style["background"], (name, style)
+                assert float(style["border"].replace("px","")) >= 8, (name, style)
+                assert style["before"] == '""', (name, style)
+                assert "♡" in style["after"], (name, style)
+                assert "research-soft-glow" in style["animation"], (name, style)
             # Reveals once when scrolled to, then stays revealed.
             link.evaluate('(e)=>e.scrollIntoView({block:"center",behavior:"instant"})')
             expect(link).to_have_class(__import__("re").compile(".*research-pop-in.*"), timeout=5000)

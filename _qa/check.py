@@ -233,17 +233,18 @@ for rel,old in base.items():
    old_marker='07/通路研究' if rel=='index.html' else 'MK個人應徵作品集｜黃博詩'
    html=f.read_text(encoding='utf-8')
    hero_link='trend.html' if rel=='index.html' else 'mobile-trend.html'
-   hero_pattern=r'<p class="(?:hero-professional-intro|mobile-profile-intro)">'+re.escape(intro)+r'</p>\s*<div class="hero-research-shortcut">\s*<a href="'+re.escape(hero_link)+r'"[^>]*>\s*<span>藥妝專題研究</span></a>'
+   hero_pattern=r'<div class="(?:hero-cta-group|mobile-hero-actions) home-quick-actions">[\s\S]*?<a class="[^"]*home-project-action" href="'+re.escape(hero_link)+r'">[\s\S]*?<span>藥妝專題研究</span></a>'
    if not re.search(hero_pattern,html):
-    errors.append(rel+': research shortcut not immediately after introduction')
-   if actual.count(intro+label)!=1 or actual.count(old_marker)!=1:
+    errors.append(rel+': research shortcut missing from homepage action group')
+   group_label=('查看工作經歷' if rel=='index.html' else '查看完整工作經歷')+'個人及聯絡資訊'+label
+   if actual.count(group_label)!=1 or actual.count(old_marker)!=1:
     errors.append(rel+': research CTA text relocation source mismatch')
    else:
-    actual=actual.replace(intro+label,intro,1)
+    actual=actual.replace(group_label,group_label.replace(label,'',1),1)
     actual=actual.replace(old_marker,(old_marker+label if rel=='index.html' else label+old_marker),1)
   # Approved file-button copy change only; retain immutable factual baseline.
   if rel in ('index.html','mobile.html'):
-   new_actions="01/PDFDOWNLOAD下載A4簡歷PDF格式・日系粉色雙頁版↗02/PRINTABLEHTML開啟列印版HTML格式・列印或另存PDF↗"
+   new_actions="下載列印"
    old_actions="下載PDF履歷(A4)列印／另存PDF" if rel=='index.html' else "下載A4PDF履歷列印／另存PDF"
    if actual.count(new_actions)!=1:
     errors.append(rel+': A4 簡歷 action labels missing or duplicated')

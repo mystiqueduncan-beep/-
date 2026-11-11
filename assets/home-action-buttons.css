@@ -1,0 +1,114 @@
+/* 2026-11-11: Homepage scrapbook-rose action group.
+   Keeps existing destinations, with the two A4 file controls on one equal row. */
+body.page-home .home-quick-actions {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 10px !important;
+  min-width: 0;
+}
+body.page-home .home-quick-actions .home-action-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-direction: row !important;
+  gap: 10px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 50px !important;
+  padding: 11px 13px !important;
+  box-sizing: border-box;
+  border: 1.5px solid #bd96a5 !important;
+  border-radius: 999px !important;
+  background: #fffcfa !important;
+  color: #654753 !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  text-align: center !important;
+  font-family: inherit !important;
+  font-size: clamp(.90rem, 1vw, 1rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.35 !important;
+  white-space: nowrap !important;
+  opacity: 1;
+  transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease !important;
+}
+body.page-home .home-quick-actions .home-action-pill svg {
+  width: 19px !important;
+  height: 19px !important;
+  flex: 0 0 auto;
+  color: currentColor !important;
+}
+body.page-home .home-quick-actions .home-action-pill--solid,
+body.page-home .home-quick-actions .home-action-pill--project {
+  background: #885365 !important;
+  color: #fffcfa !important;
+  border-color: #885365 !important;
+}
+body.page-home .home-quick-actions .home-action-pill--project {
+  background: #936e7d !important;
+  border-color: #936e7d !important;
+}
+body.page-home .home-quick-actions .home-action-pill--print {
+  border-style: dashed !important;
+}
+body.page-home .home-quick-actions .home-action-pill--file {
+  min-height: 48px !important;
+  padding-inline: 12px !important;
+  font-size: 1rem !important;
+}
+body.page-home .home-quick-actions .home-action-pill--file svg {
+  width: 18px !important;
+  height: 18px !important;
+}
+body.page-home .home-quick-actions .home-file-actions {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+  gap: 10px !important;
+  width: 100%;
+  min-width: 0;
+}
+body.page-home .home-quick-actions .home-file-actions > a { min-width: 0 !important; }
+/* The global research Polaroid only remains on the other dedicated research links.
+   The homepage project entry uses the same compact capsule language as its peers. */
+body.page-home .home-quick-actions > .home-project-action {
+  position: relative !important;
+  min-height: 50px !important;
+  padding: 11px 13px !important;
+  border-width: 1.5px !important;
+  background: #936e7d !important;
+  color: #fffcfa !important;
+  box-shadow: none !important;
+  animation: none !important;
+  filter: none !important;
+}
+body.page-home .home-quick-actions > .home-project-action::before,
+body.page-home .home-quick-actions > .home-project-action::after { content: none !important; }
+@media (hover: hover) and (pointer: fine) {
+  body.page-home .home-quick-actions .home-action-pill:hover {
+    transform: translateY(-2px);
+    border-color: #885365 !important;
+  }
+  body.page-home .home-quick-actions .home-action-pill--outline:hover {
+    background: #f6e6ec !important;
+  }
+  body.page-home .home-quick-actions .home-action-pill--solid:hover {
+    background: #734657 !important;
+  }
+  body.page-home .home-quick-actions .home-action-pill--project:hover {
+    background: #805663 !important;
+  }
+}
+body.page-home .home-quick-actions .home-action-pill:focus-visible {
+  outline: 3px solid #885365 !important;
+  outline-offset: 3px !important;
+}
+@media (max-width: 520px) {
+  body.page-home .home-quick-actions { gap: 9px !important; }
+  body.page-home .home-quick-actions .home-action-pill { min-height: 47px !important; font-size: .93rem !important; }
+  body.page-home .home-quick-actions .home-file-actions { gap: 9px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.page-home .home-quick-actions .home-action-pill { transition: none !important; }
+}
+@media print { body.page-home .home-quick-actions { display: none !important; } }
