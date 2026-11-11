@@ -194,6 +194,12 @@ def expected_text(rel,text):
   updated_training = "新人帶訓工作：兼任新進人員實務帶訓，負責規劃帶訓指引與步驟化操作考核，指導櫃台預約登記流程、收費規範及常見狀況應對作業。"
   if s.count(compact(old_training))!=1:raise ValueError(rel+': approved training source mismatch')
   s=s.replace(compact(old_training),compact(updated_training),1)
+ # Remove only the user-approved redundant career heading caption,
+ # which overlapped the decorative flower on the desktop homepage.
+ if rel=='index.html':
+  caption='工作經歷與主要職責'
+  if s.count(caption)!=1:raise ValueError(rel+': career caption baseline mismatch')
+  s=s.replace(caption,'',1)
  return compact(s)
 base=json.loads((ROOT/'_audit/baseline-text.json').read_text(encoding='utf-8'))
 approved_report=json.loads((ROOT/'_audit/regional-analysis-approved-sha1.json').read_text(encoding='utf-8'))['pages']
