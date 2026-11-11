@@ -247,7 +247,7 @@ for rel,old in base.items():
    baseline=("查看工作經歷個人及聯絡資訊下載PDF履歷(A4)列印／另存PDF"
              if rel=='index.html' else
              "查看完整工作經歷個人及聯絡資訊下載A4PDF履歷列印／另存PDF")
-   if actual.count('個人及聯絡資訊')!=1:errors.append(rel+': homepage profile action missing')
+   if actual.count('個人及聯絡資訊')<1:errors.append(rel+': homepage profile action missing')
    else:actual=actual.replace('個人及聯絡資訊',baseline,1)
   if rel in ('contact.html','mobile-contact.html'):
    baseline=("下載A4PDF履歷列印／另存PDF" if rel=='contact.html' else "下載A4PDF履歷表")

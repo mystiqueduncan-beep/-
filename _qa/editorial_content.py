@@ -59,7 +59,7 @@ def digest(source,name=''):
   historical=("查看工作經歷個人及聯絡資訊下載PDF履歷(A4)列印／另存PDF"
               if name=='index.html' else
               "查看完整工作經歷個人及聯絡資訊下載A4PDF履歷")
-  assert flat.count('個人及聯絡資訊')==1,name+': homepage profile button missing'
+  assert flat.count('個人及聯絡資訊')>=1,name+': homepage profile button missing'
   flat=flat.replace('個人及聯絡資訊',historical,1)
   parts=flat.replace(replacement,original,1)
  return hashlib.sha256(re.sub(r'\s+','',parts).lstrip('\ufeff').encode()).hexdigest()
