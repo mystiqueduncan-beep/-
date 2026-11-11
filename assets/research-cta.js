@@ -8,6 +8,14 @@
     !link.closest('[hidden], [aria-hidden="true"]')
   );
   if (!links.length) return;
+  for (const link of links) {
+    if (!link.querySelector(".research-meteor")) {
+      const meteor = document.createElement("span");
+      meteor.className = "research-meteor";
+      meteor.setAttribute("aria-hidden", "true");
+      link.appendChild(meteor);
+    }
+  }
   const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)");
   if (!("IntersectionObserver" in window) || reduced?.matches) return;
 

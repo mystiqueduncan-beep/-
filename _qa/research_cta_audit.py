@@ -35,21 +35,16 @@ with sync_playwright() as p:
                 after:getComputedStyle(e,"::after").content,
                 color:c.color,animation:c.animationName,radius:c.borderRadius};
             }""")
-            if "home-project-action" in (link.get_attribute("class") or ""):
-                # The user moved the homepage research shortcut into the
-                # regular pink pill group; it must NOT retain the Polaroid frame.
-                assert link.locator("xpath=ancestor::*[contains(@class,'home-quick-actions')]").count() == 1, name
-                assert float(style["border"].replace("px","")) <= 2.5, (name, style)
-                assert style["before"] == "none" and style["after"] == "none", (name, style)
-                assert style["background"] == "none" and style["animation"] == "none", (name, style)
-                assert float(style["radius"].split("px")[0]) > 20, (name, style)
-            else:
-                # The remaining dedicated research link retains the scrapbook style.
-                assert "gradient" in style["background"], (name, style)
-                assert float(style["border"].replace("px","")) >= 8, (name, style)
-                assert style["before"] == '""', (name, style)
-                assert "♡" in style["after"], (name, style)
-                assert "research-soft-glow" in style["animation"], (name, style)
+            # Polaroid frame is the same on all four pages.
+            assert "gradient" in style["background"], (name, style)
+            assert float(style["border"].replace("px","")) >= 8, (name, style)
+            assert style["before"] == '""', (name, style)
+            assert "♡" in style["after"], (name, style)
+            assert "research-soft-glow" in style["animation"], (name, style)
+            assert link.locator(".research-meteor").count() == 1, (name, "meteor")
+            assert link.locator(".research-meteor").evaluate(
+                '(e)=>getComputedStyle(e,"::before").animationName'
+            ) == "research-meteor-tail", (name, "meteor animation")
             # Reveals once when scrolled to, then stays revealed.
             link.evaluate('(e)=>e.scrollIntoView({block:"center",behavior:"instant"})')
             expect(link).to_have_class(__import__("re").compile(".*research-pop-in.*"), timeout=5000)

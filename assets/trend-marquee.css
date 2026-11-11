@@ -78,11 +78,29 @@
   outline-offset: 4px;
 }
 
-/* Visual duplicates stay out of the keyboard and accessibility tree. */
+/* Each chapter button appears once, followed by a graceful interlude of stars. */
 .keycap-marquee.is-enhanced .keycap-marquee__belt {
   animation: keycap-marquee-scroll var(--keycap-duration) linear infinite;
+  animation-delay: var(--keycap-delay, -15s);
   will-change: transform;
 }
+.keycap-marquee.is-enhanced .keycap-marquee__belt::after {
+  content: "✦    ·     ♡     ·     ✧";
+  display: flex;
+  flex: 0 0 var(--keycap-interlude-width, 420px);
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0 48px;
+  white-space: pre;
+  font-family: Georgia, serif;
+  font-size: clamp(17px, 1.7vw, 23px);
+  letter-spacing: .8em;
+  color: #ae8292;
+  background: radial-gradient(ellipse at center, rgba(239,211,221,.52), transparent 70%);
+  pointer-events: none;
+}
+.keycap-marquee.is-keyboard-paused .keycap-marquee__belt::after { display: none !important; }
 /* Only the JavaScript-verified pointer hovering an actual chapter key pauses playback.
    Hovering whitespace, a retained click focus, or another section never freezes the marquee. */
 .keycap-marquee.is-enhanced.is-hover-paused .keycap-marquee__belt {
@@ -96,11 +114,10 @@
   animation: none;
   transform: none;
 }
-.keycap-marquee.is-keyboard-paused .keycap-marquee__group--duplicate { display: none; }
 .keycap-marquee.is-keyboard-paused .keycap-marquee__viewport { scrollbar-width: thin; }
 @keyframes keycap-marquee-scroll {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(calc(-50% - 7px), 0, 0); }
+  from { transform: translate3d(var(--keycap-start, 620px), 0, 0); }
+  to { transform: translate3d(calc(-1 * var(--keycap-end, 1300px)), 0, 0); }
 }
 
 /* Responsive padding and sizes on narrow screens while keeping smooth autoplay. */
@@ -122,10 +139,8 @@
   }
   .keycap-marquee__group li { scroll-snap-align: start; }
   .keycap-marquee.is-enhanced .keycap-marquee__belt { animation: none !important; transform: none !important; }
-  .keycap-marquee__group--duplicate { display: none !important; }
 }
 @media print {
-  .keycap-marquee__group--duplicate { display: none !important; }
   .keycap-marquee.is-enhanced .keycap-marquee__belt { animation: none !important; transform: none !important; }
   .keycap-marquee__viewport { overflow: visible; }
   .keycap-marquee__group { flex-wrap: wrap; width: auto; }
@@ -181,8 +196,7 @@
 }
 .home-keycap-strip .keycap-marquee { display: flex; align-items: center; gap: 14px; width: 100%; min-width: 0; }
 
-/* Keep the homepage strip narrower than one full chapter cycle.
-   The loop's offscreen visual clone does not display repeated buttons side-by-side. */
+/* Keep the homepage strip narrow, with a decorated break instead of duplicate keys. */
 .home-keycap-strip .keycap-marquee__viewport {
   max-width: min(100%, 620px);
 }

@@ -27,6 +27,10 @@ with sync_playwright() as p:
         held.add_init_script('window.IntersectionObserver=class {observe(){} unobserve(){} disconnect(){}}; window.requestAnimationFrame=()=>0')
         held.goto(url)
         held.wait_for_timeout(800)
+        # Capture exact pending styles for regression diagnostics.
+        print("PENDING_STYLES", name, held.locator(".mk-motion-pending,.mk-pop-pending").evaluate_all(
+            '(els)=>els.filter(e=>getComputedStyle(e).opacity!=="0").map(e=>({tag:e.tagName,class:e.className,opacity:getComputedStyle(e).opacity,html:e.outerHTML.slice(0,230)})).slice(0,12)'
+        ), flush=True)
         # Verify the final hidden pending pose, not a mid-transition frame.
         held.wait_for_function(
             '() => [...document.querySelectorAll(".mk-motion-pending,.mk-pop-pending")].every(e => getComputedStyle(e).opacity === "0")',
@@ -61,14 +65,14 @@ with sync_playwright() as p:
         if name in ('index', 'mobile'):
             selector = '.hero-cta-group > .mk-pop-item' if name == 'index' else '.mobile-hero-actions > .mk-pop-item'
             buttons = page.locator(selector)
-            assert buttons.count() == 4, name
-            assert page.locator('.mk-pop-item').count() == 4, name
+            assert buttons.count() == 2, name
+            assert page.locator('.mk-pop-item').count() == 2, name
             delays = buttons.evaluate_all('(es)=>es.map(e=>getComputedStyle(e).transitionDelay)')
             first_delays = [float(v.split(',')[0].strip().rstrip('s')) for v in delays]
-            if not all(abs(actual - expected) < 0.01 for actual,expected in zip(first_delays, [0, 0.1, 0.2, 0.3])):
+            if not all(abs(actual - expected) < 0.01 for actual,expected in zip(first_delays, [0, 0.1])):
                 print('CTA_DELAY_DEBUG', name, buttons.evaluate_all('''(es)=>es.map((e,i)=>({i,selector:e.matches('.hero-cta-group > .mk-pop-item:nth-child(2)'),style:e.getAttribute('style'),className:e.className,delay:getComputedStyle(e).transitionDelay,sheet:[...document.styleSheets].some(s=>s.href?.includes('mk-inspired.css'))}))'''), flush=True)
-            assert all(abs(actual - expected) < 0.01 for actual,expected in zip(first_delays, [0, 0.1, 0.2, 0.3])), (name, delays)
-            assert buttons.last.evaluate('(e)=>e.tagName.toLowerCase()') == 'button', name
+            assert all(abs(actual - expected) < 0.01 for actual,expected in zip(first_delays, [0, 0.1])), (name, delays)
+            assert buttons.last.evaluate('(e)=>e.tagName.toLowerCase()') == 'a', name
         if name == 'mobile':
             assert page.locator('.timeline-job-card.mk-motion-item').count() == 3
             assert page.locator('.mobile-case-box.mk-motion-item').count() == 3
@@ -83,7 +87,7 @@ with sync_playwright() as p:
                 # Observer callbacks can reveal this target between locator resolution
                 # and style sampling. Held-observer coverage above proves the exact
                 # pending pose independently; accept either stable lifecycle state here.
-                item.evaluate("(e)=>Promise.all(e.getAnimations().map(a=>a.finished.catch(()=>{})))")
+                item.evaluate("(e)=>Promise.all(e.getAnimations().filter(a=>a.effect?.getComputedTiming().iterations !== Infinity).map(a=>a.finished.catch(()=>{})))")
                 if not item.count():
                     continue
                 state = item.evaluate('(e)=>{const s=getComputedStyle(e); const m=new DOMMatrix(s.transform);return {opacity:s.opacity,x:m.m41,scale:m.a}}')

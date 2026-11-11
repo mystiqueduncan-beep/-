@@ -155,10 +155,11 @@ function makeHarness(options = {}) {
   };
 }
 
-test("autoplays smoothly on load with duplicate group and no pause/play button", () => {
+test("autoplays one chapter group followed by decorative blank space", () => {
   const h = makeHarness();
   assert.equal(h.nav.classList.contains("is-enhanced"), true, "marquee must be enhanced for autoplay");
-  assert.ok(h.getClone(), "duplicate group must be created for continuous loop");
+  assert.equal(h.getClone(), null, "no duplicate chapter buttons are allowed");
+  assert.ok(h.belt.style.properties.has("--keycap-interlude-width"));
   assert.equal(h.createdElements.length, 0, "no pause or play button should be created by script");
   assert.equal(h.nav.classList.contains("is-hover-paused"), false);
   assert.equal(h.nav.classList.contains("is-touch-paused"), false);
@@ -203,7 +204,7 @@ test("clicking a key resumes even with retained focus and hash navigation", () =
   assert.equal(h.nav.classList.contains("is-hover-paused"), false);
 });
 
-test("duplicated keys are not keyboard navigable and responsive mode restores playback", () => {
+test("single buttons preserve keyboard access and responsive playback", () => {
   const h = makeHarness();
   h.dispatch("pointerover", h.originals[0]);
   h.playback.matches = false;
@@ -242,17 +243,14 @@ test("keyboard focus exposes original links and leaving nav restores motion", ()
   assert.equal(h.nav.classList.contains("is-keyboard-paused"), false);
 });
 
-test("duplicates remain pointer-operable but never acquire pointer focus", () => {
-  const h = makeHarness(); const clone = h.getClone();
-  assert.equal(clone.attributes.has("inert"), false);
-  assert.equal(clone.attributes.get("aria-hidden"), "true");
-  assert.equal(clone.links[0].getAttribute("tabindex"), "-1");
-  let prevented = false;
-  h.events.get("pointerdown")({ target: clone.links[0], preventDefault() { prevented = true; } });
-  assert.equal(prevented, true);
-  h.dispatch("pointerover", clone.links[0]);
-  assert.equal(h.nav.classList.contains("is-hover-paused"), true);
-  h.dispatch("click", clone.links[0]);
+test("empty marquee spacing cannot add duplicate links or keyboard targets", () => {
+  const h = makeHarness();
+  assert.equal(h.getClone(), null);
+  assert.equal(h.originals.length, 2);
+  assert.equal(h.createdElements.length, 0);
+  assert.match(css, /content: "✦.*♡.*✧"/);
+  const other = { closest() { return null; } };
+  h.dispatch("pointerover", other);
   assert.equal(h.nav.classList.contains("is-hover-paused"), false);
 });
 
@@ -277,7 +275,7 @@ test("mobile touch interaction pauses during swipe and resumes after release", a
   assert.equal(h.nav.classList.contains("is-touch-paused"), false);
 });
 
-test("system prefers-reduced-motion cleanly disables autoplay and removes duplicates", () => {
+test("system reduced motion disables single-pass autoplay", () => {
   const h = makeHarness({ prefersReducedMotion: true });
   assert.equal(h.nav.classList.contains("is-enhanced"), false);
   assert.equal(h.getClone(), null);
@@ -285,7 +283,7 @@ test("system prefers-reduced-motion cleanly disables autoplay and removes duplic
   h.playback.matches = true;
   h.mediaEvents.get("change")();
   assert.equal(h.nav.classList.contains("is-enhanced"), true);
-  assert.ok(h.getClone());
+  assert.equal(h.getClone(), null);
 });
 
 test("resize observer dynamically updates marquee animation duration", () => {
@@ -310,18 +308,19 @@ test("gracefully handles missing DOM elements or media query API", () => {
   assert.equal(errored, false, "should not throw when nav element is missing");
 });
 
-test("homepage matches research page continuous marquee without extra DOM controls", () => {
+test("homepage and research page show each chapter once with a decorative interlude", () => {
   for (const isHomepage of [true, false]) {
     const h = makeHarness({ isHomepage });
     assert.equal(h.nav.classList.contains("is-enhanced"), true);
-    assert.ok(h.getClone(), "the seamless loop requires an accessibility-hidden visual clone");
-    assert.equal(h.getClone().attributes.get("aria-hidden"), "true");
-    assert.equal(h.getClone().links[0].getAttribute("tabindex"), "-1");
-    assert.equal(h.createdElements.length, 0, "no extra buttons are introduced");
-    assert.equal(h.belt.style.getProperty("--keycap-duration"), "48.0s");
+    assert.equal(h.getClone(), null, "no repeated chapter buttons");
+    assert.equal(h.createdElements.length, 0, "no extra links or controls");
+    assert.equal(h.belt.style.getProperty("--keycap-start"), "760px");
+    assert.equal(h.belt.style.getProperty("--keycap-interlude-width"), "852px");
+    assert.equal(h.belt.style.getProperty("--keycap-duration"), "72.7s");
+    assert.ok(h.belt.style.getProperty("--keycap-delay").startsWith("-"));
   }
   assert.match(css, /@keyframes keycap-marquee-scroll/);
-  assert.doesNotMatch(css, /home-keycap-shuttle|is-home-animated/);
+  assert.match(css, /\.keycap-marquee\.is-enhanced \.keycap-marquee__belt::after/);
   assert.ok(css.includes("max-width: min(100%, 620px)"));
 });
 
@@ -331,7 +330,7 @@ test("homepage reduced motion and hover/touch controls match research page", () 
   assert.equal(h.nav.classList.contains("is-enhanced"), false);
   h.playback.matches = true;
   h.mediaEvents.get("change")();
-  assert.ok(h.getClone());
+  assert.equal(h.getClone(), null);
   h.dispatch("pointerover", h.originals[0]);
   assert.equal(h.nav.classList.contains("is-hover-paused"), true);
   h.dispatch("pointerout", h.originals[0]);
