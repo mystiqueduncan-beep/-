@@ -314,29 +314,29 @@ for rel in ('trend.html','mobile-trend.html'):
  if rel=='mobile-trend.html' and ('data-keycap-marquee' in html or 'class="mobile-bottom-bar"' not in html):
   errors.append(rel+': mobile research navigation regression')
 # Preserve the earlier original contact portrait as a provenance backup.
-# The user's final selected square formal portrait is resized without any further facial retouching for the original circular contact frame.
+# The newly selected photo (IMG_3263) is resized for the unchanged circular contact frame, without facial retouching.
 portrait_path=ROOT/'contact-portrait-20261109.jpg'
 portrait_sha256='07b12e127431934991eb06749525344e02389b28919bd0465879848897f0ffef'
 if not portrait_path.is_file() or hashlib.sha256(portrait_path.read_bytes()).hexdigest()!=portrait_sha256:
  errors.append('contact portrait: prior original photograph differs from approved source')
-avatar_path=ROOT/'assets/portrait-img3147.webp'
+avatar_path=ROOT/'assets/portrait-img3263.webp'
 if not avatar_path.is_file():
  errors.append('new circular profile image asset missing')
 else:
  avatar_data=avatar_path.read_bytes()
  if (not avatar_data.startswith(b'RIFF') or b'WEBP' not in avatar_data[:16]
-     or hashlib.sha256(avatar_data).hexdigest()!='bddf2d67b956b56d9d8aaa6efb7be049e5a10c9d07b5275136f0ab305e8cff7e'):
-  errors.append('new profile photo: WebP crop does not match the uploaded photograph')
+     or hashlib.sha256(avatar_data).hexdigest()!='b0c4d904fe1cdbe262efac97ef21b1985f048229996a994198c97175f7af8742'):
+  errors.append('new profile photo: WebP does not match the approved IMG_3263 conversion')
 for rel in ('contact.html','mobile-contact.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
  if len(re.findall(r'<img\b',html))!=1:
   errors.append(rel+': expected exactly one personal portrait image')
- if len(re.findall(r'<img\b[^>]*src="assets/portrait-img3147.webp"',html))!=1:
+ if len(re.findall(r'<img\b[^>]*src="assets/portrait-img3263.webp"',html))!=1:
   errors.append(rel+': new circular portrait missing')
  if 'contact-portrait-fade.css' not in html:
   errors.append(rel+': portrait fade style missing')
 for rel in ('index.html','mobile.html','trend.html','mobile-trend.html'):
- if 'assets/portrait-img3147.webp' in (ROOT/rel).read_text(encoding='utf-8'):
+ if 'assets/portrait-img3263.webp' in (ROOT/rel).read_text(encoding='utf-8'):
   errors.append(rel+': new portrait must stay contact-only')
 # Shared top-positioned version switch and contact-only photo reveal.
 for rel in ('index.html','mobile.html','trend.html','mobile-trend.html','contact.html','mobile-contact.html'):
