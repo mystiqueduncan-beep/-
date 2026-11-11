@@ -44,6 +44,14 @@ def digest(source,name=''):
   assert flat.count(marker)==1,name+': original research CTA position not found'
   flat=flat.replace(intro+label,intro,1)
   flat=flat.replace(marker,marker+label if name=='index.html' else label+marker,1)
+  # Reconstruct only the approved removed caption when verifying the
+  # immutable page text fingerprint. All career facts remain protected.
+  if name=='index.html':
+   heading='工作經歷WORKEXPERIENCE'
+   caption='工作經歷與主要職責'
+   assert caption not in flat,name+': career caption unexpectedly present'
+   assert flat.count(heading)==1,name+': original career heading changed'
+   flat=flat.replace(heading,heading+caption,1)
   assert flat.count(replacement)==1,name+': approved training text not found exactly once'
   parts=flat.replace(replacement,original,1)
  return hashlib.sha256(re.sub(r'\s+','',parts).lstrip('\ufeff').encode()).hexdigest()
