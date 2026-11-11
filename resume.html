@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>黃博詩｜A4 個人簡歷</title>
+<style>
+:root{--mk-yellow:#EBC8D2;--mk-yellow-light:#F9EBF0;--mk-navy:#805663;--mk-navy-soft:#A77B89;--mk-red:#B66E84;--paper-bg:#FAF5F6;--paper-card:#FFF;--paper-subtle:#F8EEF1;--ink-primary:#493D43;--ink-secondary:#65565D;--ink-muted:#897B81;--hairline:#E9D9DE}
+*{box-sizing:border-box}html{background:#F0E6E9}body{margin:0;color:var(--ink-primary);font-family:'Noto Sans CJK TC','Noto Sans TC',sans-serif;-webkit-font-smoothing:antialiased}
+.screen-control{max-width:870px;margin:20px auto 16px;padding:0 12px;display:flex;gap:12px;align-items:center;justify-content:space-between;color:var(--mk-navy);font-size:14px;flex-wrap:wrap}.screen-control strong{font-weight:900}.screen-control small{font-size:12px;color:#555}.btn{display:inline-flex;align-items:center;padding:8px 14px;text-decoration:none;border:1px solid #D7B8C1;border-radius:3px;background:var(--mk-yellow);color:var(--mk-navy);box-shadow:2px 2px 0 var(--mk-navy);font-weight:800;font-size:13px;cursor:pointer}.btn.secondary{background:white;margin-left:8px}
+.paper{width:210mm;height:297mm;position:relative;margin:24px auto;padding:11.5mm 12.5mm 14mm;background:#fff;box-shadow:0 18px 50px rgba(128,86,99,.15);overflow:hidden;page-break-after:always;break-after:page}
+.paper:last-of-type{page-break-after:auto;break-after:auto}
+.dossier{position:relative;border:1.3px solid #C9A4B0;background:#fff;box-shadow:1.2mm 1.2mm 0 #E5C5CF;height:270mm;overflow:hidden}
+.barcode-stripe{height:4mm;background:repeating-linear-gradient(90deg,#EBC8D2 0,#EBC8D2 15mm,#F8EEF1 15mm,#F8EEF1 29mm)}
+.dossier-header{padding:4.3mm 7mm;border-bottom:1px solid var(--hairline);background:#FDF9FA;display:flex;align-items:center;justify-content:space-between;gap:7mm}
+.dossier-header .left{font-family:'Noto Sans CJK TC',sans-serif;font-size:8.2pt;font-weight:900;letter-spacing:.08em;color:var(--mk-navy)}
+.dossier-header .right{font-size:7.5pt;font-weight:700;color:var(--mk-navy-soft);text-align:right;line-height:1.45}
+.dossier-body{padding:6mm 7mm 0}
+.dossier-label{color:var(--mk-red);font-size:7.4pt;letter-spacing:.09em;font-weight:900}
+.contact-layout{display:grid;grid-template-columns: 33% 1fr;gap:6mm;align-items:start}
+.spec-panel{padding:4mm 4mm 4.5mm;background:var(--paper-subtle);border:1px solid var(--hairline);margin-top:3mm}
+.spec-heading{font-size:9pt;font-weight:900;color:var(--mk-navy);padding-bottom:2.5mm;margin-bottom:2mm;border-bottom:1px dashed #b8b7b4}
+.spec-item{padding:2.35mm 0;border-bottom:1px dashed #d4d0c8}
+.spec-item:last-child{border-bottom:0}
+.spec-item .k{display:block;font-size:7.2pt;color:var(--ink-muted);font-weight:600;margin-bottom:.6mm}
+.spec-item .v{display:block;color:var(--mk-navy);font-weight:800;font-size:8.5pt;line-height:1.55;overflow-wrap:anywhere}
+.name-label{font-size:8.8pt;color:var(--mk-navy-soft);font-weight:800;letter-spacing:.06em;margin-bottom:1mm}
+.name-heading{font-size:29pt;line-height:1.16;margin:0;color:var(--mk-navy);font-family:'Noto Serif CJK TC',serif;font-weight:900;letter-spacing:.075em}
+.name-english{font-size:8pt;font-weight:800;letter-spacing:.06em;color:var(--ink-secondary);margin:1mm 0 3mm}
+.position-pill{display:inline-block;color:var(--mk-navy);background:var(--mk-yellow-light);border:1px solid var(--mk-yellow);padding:1.5mm 2.5mm;border-radius:3px;font-size:8.1pt;font-weight:800;margin-bottom:3mm}
+.lead{padding:3.5mm 4mm;border-left:3px solid var(--mk-yellow);background:#FFFBFC;font-size:8.65pt;line-height:1.77;color:var(--ink-secondary);margin:0 0 4mm}
+.lead strong{color:var(--mk-navy)}
+.method{border:1px solid #D7B8C1;background:#fff;padding:2.6mm 3.4mm;margin:0 1.3mm 3.4mm 0;box-shadow:0.8mm 0.8mm 0 #E5C5CF;border-radius:3px;break-inside:avoid}
+.method-label{font-size:7.2pt;color:var(--mk-navy-soft);letter-spacing:.06em;font-weight:900;margin-bottom:.3mm}
+.method-value{color:var(--mk-navy);font-size:11.5pt;font-weight:900;line-height:1.45;overflow-wrap:anywhere}
+.method-value.email{font-size:10pt}
+.education-profile{margin:5.8mm 0 0;border:1px solid #D7B8C1;box-shadow:0.8mm 0.8mm 0 #E5C5CF;border-radius:3px;overflow:hidden;break-inside:avoid}
+.edu-head{background:var(--mk-yellow);color:var(--mk-navy);font-family:'Noto Serif CJK TC',serif;font-weight:900;font-size:11pt;padding:2.2mm 4mm}
+.edu-content{padding:3mm 4mm;background:white;display:flex;justify-content:space-between;gap:7mm;align-items:flex-start}
+.edu-content strong{color:var(--mk-navy);font-size:10pt}
+.edu-content .sub{font-size:8.3pt;color:var(--ink-secondary)}
+.edu-content .tag{display:inline-block;background:#F9EBF0;border:1px solid var(--mk-yellow);font-size:7.7pt;font-weight:800;color:var(--mk-navy);padding:.6mm 2mm;white-space:nowrap}
+.edu-note{padding:0 4mm 3mm;background:#fff;color:var(--ink-secondary);font-size:8.15pt;line-height:1.6}
+.page-foot{position:absolute;bottom:5.4mm;left:7mm;right:7mm;border-top:1px solid var(--hairline);display:flex;justify-content:space-between;align-items:center;color:var(--mk-navy-soft);font-weight:800;letter-spacing:.08em;font-size:7.2pt;padding-top:2mm}
+/* second page */
+.work-title{display:flex;justify-content:space-between;align-items:end;gap:5mm;margin-bottom:3mm;padding-bottom:2mm;border-bottom:2px solid #D7AAB8}
+.work-title h2{margin:0;color:var(--mk-navy);font-family:'Noto Serif CJK TC',serif;font-size:19pt;line-height:1.24;letter-spacing:.06em}
+.work-title .eng{color:var(--mk-red);font-size:7.6pt;letter-spacing:.09em;font-weight:900}
+.work-title .note{color:var(--mk-navy-soft);font-size:7.6pt;font-weight:800;text-align:right}
+.job{border:1px solid #D7B8C1;background:#fff;border-radius:3px;margin:0 1mm 4.1mm 0;box-shadow:0.8mm 0.8mm 0 #E5C5CF;break-inside:avoid}
+.job-top{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:3mm;padding:3mm 4mm;border-bottom:1px solid var(--hairline);background:#FDF9FA}
+.job-title{display:flex;align-items:center;gap:2mm;min-width:0;color:var(--mk-navy);font-family:'Noto Serif CJK TC',serif;font-weight:900;font-size:11pt;white-space:nowrap}
+.job-number{background:var(--mk-yellow);color:var(--mk-navy);font-family:'Noto Sans CJK TC',sans-serif;font-size:8pt;padding:1mm 1.9mm;border:1px solid var(--mk-navy);font-weight:900}
+.job-years{color:var(--ink-secondary);font-size:7.5pt;font-weight:700;text-align:right;white-space:nowrap}
+.job-inner{padding:3mm 4.2mm 3.2mm}
+.job-role{display:inline-block;background:var(--mk-yellow-light);border-left:3px solid var(--mk-yellow);color:var(--mk-navy);font-weight:900;font-size:8.4pt;padding:1mm 2mm;margin:0 0 1.4mm}
+.job ul{margin:0;padding-left:5.2mm;font-size:8.7pt;line-height:1.54;color:var(--ink-secondary)}
+.job li{padding:.7mm 0;break-inside:avoid}
+.job li strong{color:var(--mk-navy)}
+.summary-note{background:var(--paper-subtle);border-left:3px solid var(--mk-yellow);padding:2.7mm 3.5mm;color:var(--mk-navy);font-size:8.4pt;line-height:1.58;margin-top:3mm}
+/* The 4 compact competency entries are from the existing homepage and keep the final third of page 1 useful. */
+.skills{margin-top:3.6mm}
+.skills-title{border-bottom:2px solid #D7AAB8;padding-bottom:1mm;margin-bottom:2.4mm;display:flex;align-items:baseline;justify-content:space-between;gap:5mm}
+.skills-title h2{font-family:'Noto Serif CJK TC',serif;font-weight:900;color:var(--mk-navy);font-size:11pt;margin:0}
+.skills-title small{font-size:7pt;color:var(--mk-navy-soft);font-weight:900;letter-spacing:.04em}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:2mm}
+.skill{border:1px solid var(--hairline);background:#FDF9FA;padding:1.6mm 2.5mm;border-top:1mm solid var(--mk-yellow);break-inside:avoid}
+.skill:nth-child(2),.skill:nth-child(4){border-top-color:var(--mk-navy)}
+.skill .k{font-size:7pt;font-weight:900;color:var(--mk-red);line-height:1.35}
+.skill .t{font-family:'Noto Serif CJK TC',serif;color:var(--mk-navy);font-size:8.4pt;font-weight:900;margin:.5mm 0}
+.skill .d{font-size:7.7pt;line-height:1.39;color:var(--ink-secondary)}
+.print-tag{display:inline-block;background:#805663;color:#EBC8D2;font-size:7.6pt;font-weight:900;letter-spacing:.07em;padding:1.1mm 2.5mm}
+@media screen and (max-width:850px){.paper{transform-origin:top center;zoom:.82;margin:15px auto}.screen-control{max-width:680px}}
+@media screen and (max-width:690px){.paper{zoom:.64}.screen-control{max-width:540px}}
+@media screen and (max-width:500px){.paper{zoom:.43}.screen-control{max-width:390px;line-height:1.6}}
+@page {size:A4 portrait;margin:0}
+@media print { html,body{background:white;margin:0;padding:0}.screen-control{display:none!important}.paper{width:210mm;height:297mm;box-shadow:none;margin:0;zoom:1;page-break-after:always;break-after:page} .paper:last-of-type{page-break-after:auto;break-after:auto} .dossier{box-shadow:1.2mm 1.2mm 0 #E5C5CF} *{-webkit-print-color-adjust:exact;print-color-adjust:exact} }
+</style></head><body>
+<div class="screen-control"><div><strong>日系粉色雜誌風・A4 簡歷版型</strong><br><small>日系粉色 A4 雙頁簡歷・無照片</small></div><div><button class="btn" onclick="window.print()">列印／另存 PDF</button><a href="https://mystiqueduncan-beep.github.io/-/contact.html" class="btn secondary" target="_blank" rel="noopener">原網站</a></div></div>
+<section class="paper"><div class="dossier">
+  <div class="barcode-stripe"></div>
+  <div class="dossier-header"><div class="left">PORTFOLIO ✦ 個人應徵作品集</div><div class="right">志願目標：台灣松本清 ｜ 區域營運經理</div></div>
+  <div class="dossier-body">
+    <div class="contact-layout">
+      <aside>
+        <div class="dossier-label">APPLICANT DOSSIER / 2026</div>
+        <div class="spec-panel">
+          <div class="spec-heading">應徵檔案重點速覽</div>
+          <div class="spec-item"><span class="k">志願職位</span><span class="v">區域營運經理</span></div>
+          <div class="spec-item"><span class="k">志願區域</span><span class="v">桃竹苗 ＆ 大台北門市</span></div>
+          <div class="spec-item"><span class="k">核心資歷</span><span class="v">Tomod's 6年（店長3年）</span></div>
+          <div class="spec-item"><span class="k">帶訓實務</span><span class="v">動物醫院任職4年，期間兼任新人帶訓工作</span></div>
+          <div class="spec-item"><span class="k">目前學歷</span><span class="v">萬能科技大學 企業管理系 研讀中</span></div>
+          <div class="spec-item"><span class="k">居住區域</span><span class="v">桃園市大園區（機動巡店）</span></div>
+          <div class="spec-item"><span class="k">到職與排班</span><span class="v">可於面談時進一步確認</span></div>
+        </div>
+      </aside>
+      <section>
+        <div class="name-label">コウ・ハクシ ✦ HUANG BO-SHIH</div>
+        <h1 class="name-heading">黃博詩</h1>
+        <div class="name-english">DISTRICT OPERATIONS MANAGER APPLICANT</div>
+        <div class="position-pill">志願目標：台灣松本清 ｜ 區域營運經理 應徵者</div>
+        <p class="lead">以日系藥妝 <strong>Tomod's 6年門市實務（含店長3年）</strong> 為基石，熟稔門市日常營運、排班調度、商品陳列、門市營運統整與原廠產品研習；出席總公司營運會議掌握方針，主持門市例會布達並協調前線問題。結合<strong>動物醫院任職4年期間兼任新人帶訓工作</strong>與<strong>連鎖零售主動銷售歷練</strong>，兼具門市現場實務與企管分析基礎。</p>
+        <div class="method"><div class="method-label">01 / 行動電話（MOBILE）</div><div class="method-value">0989-591-825</div></div>
+        <div class="method"><div class="method-label">02 / 電子郵件（EMAIL）</div><div class="method-value email">mystiqueduncan@gmail.com</div></div>
+        <div class="method"><div class="method-label">03 / LINE</div><div class="method-value">bobozhihuang</div></div>
+      </section>
+    </div>
+    <div class="education-profile"><div class="edu-head">教育背景 <span style="font-size:7.8pt;font-weight:700;margin-left:2mm;letter-spacing:.09em">EDUCATION BACKGROUND</span></div>
+    <div class="edu-content"><div><strong>萬能科技大學</strong><div class="sub">企業管理系</div></div><div style="text-align:right"><span class="tag">研讀中</span><div class="sub" style="margin-top:1mm">2026.10 入學 ｜ 預計 2030.06 畢業</div></div></div>
+    <div class="edu-note">目前於萬能科技大學企業管理系研讀中，持續補充管理知識，並思考如何與過往門市實務結合。</div></div>
+    <section class="skills"><div class="skills-title"><h2>核心管理能力</h2><small>CORE OPERATIONAL COMPETENCIES ／ 4 大管理面向</small></div>
+      <div class="skills-grid">
+       <div class="skill"><div class="k">面向 01 ✦ 門市營運</div><div class="t">門市標準化營運與日常排班</div><div class="d">熟悉日系藥妝第一線門市日常運作，能以基層與店長雙重視角檢視賣場陳列維護、進銷存盤點與日常出勤排班調度。</div></div>
+       <div class="skill"><div class="k">面向 02 ✦ 人員帶訓</div><div class="t">人員實務帶訓與工作指導</div><div class="d">具備門市新人實務帶訓與兼任培訓工作經驗，能將門市工作流程梳理為步驟指引，耐心引導同仁熟練工作技能。</div></div>
+       <div class="skill"><div class="k">面向 03 ✦ 服務應對</div><div class="t">顧客需求了解與客訴應對</div><div class="d">跨足藥妝、連鎖服飾與醫療前線服務，面對多元顧客保持同理心與耐性，以客觀態度了解需求並妥善處理客訴。</div></div>
+       <div class="skill"><div class="k">面向 04 ✦ 總部政策</div><div class="t">總部方針布達與門市例會協調</div><div class="d">具備總部月會理解力與門市主持例會經驗，能將公司行銷政策轉化為門市執行項目，並雙向反映現場狀況。</div></div>
+      </div>
+    </section>
+  </div>
+  <div class="page-foot"><span>© 2026 BO-SHIH HUANG. ALL RIGHTS RESERVED.</span><span>PROFILE / 01</span></div>
+</div></section>
+<section class="paper"><div class="dossier">
+  <div class="barcode-stripe"></div>
+  <div class="dossier-header"><div class="left">PORTFOLIO ✦ 個人應徵作品集</div><div class="right">HUANG BO-SHIH　/　DISTRICT OPERATIONS MANAGER</div></div>
+  <div class="dossier-body">
+    <div class="work-title"><div><div class="eng">CAREER DOSSIER / 2026</div><h2>工作經歷</h2></div><div class="note">WORK EXPERIENCE<br>實務經驗與工作職責</div></div>
+    <article class="job"><div class="job-top"><div class="job-title"><span class="job-number">01</span>Tomod's 日系藥妝</div><div class="job-years">藥妝經歷 6 年（含門市店長 3 年）</div></div>
+      <div class="job-inner"><div class="job-role">門市正職 → 門市店長</div><ul>
+        <li><strong>店面全盤營運掌握：</strong>由門市基層正職起步，執行商品日系陳列、缺貨查補、POS 收銀及賣場環境整潔維護。</li>
+        <li><strong>門市人員排班與出勤管理：</strong>負責門市同仁日常出勤排班編制、工作調度與日常帶訓指導。</li>
+        <li><strong>營收與成本項目檢視：</strong>統整門市營收記錄、追蹤營業目標達成進度，並控管日常消耗品等營運成本。</li>
+        <li><strong>品牌商品研習參與：</strong>參與上架品牌原廠講師之商品研習，了解產品特色並與同仁交流顧客諮詢要點。</li>
+        <li><strong>總部月會出席與門市週會主持：</strong>出席總部營運會議掌握最新經營方針，每週自主主持門市例會布達事項並協調排解前線問題。</li>
+      </ul></div></article>
+    <article class="job"><div class="job-top"><div class="job-title"><span class="job-number">02</span>築心動物醫院</div><div class="job-years">任職時間：4 年（期間兼任新人帶訓工作）</div></div>
+      <div class="job-inner"><div class="job-role">櫃台助理兼新人帶訓</div><ul>
+        <li><strong>新人帶訓工作：</strong>兼任新進人員實務帶訓，負責規劃帶訓指引與步驟化操作考核，指導櫃台預約登記流程、收費規範及常見狀況應對作業。</li>
+        <li><strong>櫃台服務應對：</strong>負責門診預約掛號、收費結帳、專業諮詢指引與就診動線引導。</li>
+        <li><strong>溝通與耐性維護：</strong>以同理心與耐性傾聽飼主需求，妥處緊張與焦慮情緒，維持前線順暢互動。</li>
+      </ul></div></article>
+    <article class="job"><div class="job-top"><div class="job-title"><span class="job-number">03</span>Levi's 連鎖服飾</div><div class="job-years">任職時間：2 年</div></div>
+      <div class="job-inner"><div class="job-role">門市銷售人員</div><ul>
+        <li><strong>門市主動銷售：</strong>主動接待顧客，透過身型分析與穿搭風格引導，達成個人與門市銷售目標。</li>
+        <li><strong>商品整燙與庫房進銷存：</strong>執行門市視覺陳列、補貨上架、商品整燙與庫存清點。</li>
+        <li><strong>團隊協作配合：</strong>與同仁維持良好默契，共同維護賣場動線與舒適購物氛圍。</li>
+      </ul></div></article>
+    <div class="summary-note"><span class="print-tag">CANDIDATE PORTFOLIO</span><span style="margin-left:3mm">以上工作經歷文字沿用目前網站原文，未新增或更改任職事實。</span></div>
+  </div>
+  <div class="page-foot"><span>© 2026 BO-SHIH HUANG. ALL RIGHTS RESERVED.</span><span>CAREER / 02</span></div>
+</div></section>
+</body></html>

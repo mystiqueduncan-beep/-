@@ -1129,6 +1129,49 @@
         margin-bottom: 14px;
       }
     }
+  
+    /* A4 簡歷檔案按鈕：只作用於下載與列印連結 */
+    .doc-file-btn {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 13px;
+      min-width: 0;
+      width: 100%;
+      padding: 13px 15px;
+      min-height: 82px;
+      text-align: left;
+      border: 1.5px solid #CE9FAD;
+      border-radius: 4px;
+      box-shadow: 3px 3px 0 #E8CBD5;
+      color: #704856;
+      transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+    }
+    .doc-file-btn--pdf { background: #EBC8D2; }
+    .doc-file-btn--html { background: #FFFBFC; }
+    .doc-file-btn__icon {
+      flex: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,.48);
+      border: 1px solid rgba(112,72,86,.3);
+      border-radius: 3px;
+    }
+    .doc-file-btn--html .doc-file-btn__icon { background: #F9EBF0; }
+    .doc-file-btn__copy { display: flex; flex: 1; flex-direction: column; align-items: flex-start; min-width: 0; }
+    .doc-file-btn__eyebrow { font-size: .65rem; font-weight: 900; line-height: 1.4; letter-spacing: .1em; color: #9A6979; }
+    .doc-file-btn__label { font-size: 1.05rem; font-weight: 900; line-height: 1.45; letter-spacing: .04em; color: #704856; }
+    .doc-file-btn__caption { font-size: .73rem; font-weight: 600; line-height: 1.45; color: #815F6C; }
+    .doc-file-btn__arrow { flex: none; font-size: 1.15rem; color: #805663; }
+    .doc-file-btn:is(:hover,:focus-visible) { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 #D9A8B9; }
+    .doc-file-btn--pdf:is(:hover,:focus-visible) { background: #F1D5DF; }
+    .doc-file-btn--html:is(:hover,:focus-visible) { background: #F9EEF2; }
+    .doc-file-btn:focus-visible { outline: 3px solid #AE6B82; outline-offset: 4px; }
+    @media (prefers-reduced-motion: reduce) { .doc-file-btn { transition: none; } }
+
   </style>
   <link rel="canonical" href="https://mystiqueduncan-beep.github.io/-/">
   <meta property="og:type" content="website">
@@ -1226,14 +1269,16 @@
               查看工作經歷
             </a>
 <a class="mag-btn mag-btn-primary" href="contact.html"><svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round"></path></svg> <span>個人及聯絡資訊</span></a>
-<a class="mag-btn mag-btn-primary" download="黃博詩_松本清區域營運經理_履歷表.pdf" href="resume.pdf" style="background: var(--mk-navy); color: var(--mk-yellow); border-color: var(--mk-navy);">
-<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-              下載 PDF 履歷 (A4)
-            </a>
-<button class="mag-btn mag-btn-outline" onclick="window.print()" type="button">
-<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-              列印／另存 PDF
-            </button>
+<a class="mag-btn doc-file-btn doc-file-btn--pdf" href="resume.pdf" download="黃博詩_A4簡歷_日系粉色版.pdf" aria-label="下載 A4 簡歷，PDF 格式，雙頁">
+  <span class="doc-file-btn__icon" aria-hidden="true"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 11v7m0 0-3-3m3 3 3-3"/></svg></span>
+  <span class="doc-file-btn__copy"><span class="doc-file-btn__eyebrow">01 / PDF DOWNLOAD</span><span class="doc-file-btn__label">下載 A4 簡歷</span><span class="doc-file-btn__caption">PDF 格式・日系粉色雙頁版</span></span>
+  <span class="doc-file-btn__arrow" aria-hidden="true">↗</span>
+</a>
+<a class="mag-btn doc-file-btn doc-file-btn--html" href="resume.html" aria-label="開啟列印版，HTML 格式，可列印或另存 PDF">
+  <span class="doc-file-btn__icon" aria-hidden="true"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 15h12v7H6zM18 12h.01"/></svg></span>
+  <span class="doc-file-btn__copy"><span class="doc-file-btn__eyebrow">02 / PRINTABLE HTML</span><span class="doc-file-btn__label">開啟列印版</span><span class="doc-file-btn__caption">HTML 格式・列印或另存 PDF</span></span>
+  <span class="doc-file-btn__arrow" aria-hidden="true">↗</span>
+</a>
 </div>
 </div>
 </div>
