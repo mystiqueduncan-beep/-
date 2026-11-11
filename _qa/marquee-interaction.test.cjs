@@ -82,7 +82,13 @@ function makeHarness(options = {}) {
   const viewport = {
     clientWidth: options.viewportWidth || 760,
     scrollLeft: 0,
+    scrollWidth: options.scrollWidth || 2800,
     events: new Map(),
+    capturedPointer: null,
+    querySelectorAll() { return originals; },
+    setPointerCapture(pointerId) { this.capturedPointer = pointerId; },
+    hasPointerCapture(pointerId) { return this.capturedPointer === pointerId; },
+    releasePointerCapture() { this.capturedPointer = null; },
     addEventListener(name, callback) { this.events.set(name, callback); }
   };
   const createdElements = [];
@@ -100,8 +106,10 @@ function makeHarness(options = {}) {
     querySelectorAll() { return originals.concat(cloned ? cloned.links : []); },
     addEventListener(name, callback) { events.set(name, callback); }
   };
+  let frameCallback = null;
   const window = {
     location: { hash: "" },
+    requestAnimationFrame(callback) { frameCallback = callback; },
     matchMedia() { return playback; },
     addEventListener(name, callback) { windowEvents.set(name, callback); }
   };
@@ -147,6 +155,7 @@ function makeHarness(options = {}) {
     mediaEvents,
     createdElements,
     triggerResize() { if (resizeCallback) resizeCallback(); },
+    advanceFrame(time) { assert.ok(frameCallback); frameCallback(time); },
     dispatch(name, target, relatedTarget = null, pointerType = "mouse") {
       const listener = events.get(name);
       assert.ok(listener, "missing event handler: " + name);
@@ -167,12 +176,13 @@ test("autoplays one chapter group followed by decorative blank space", () => {
   assert.ok(h.belt.style.properties.has("--keycap-duration"), "duration must be computed");
 });
 
-test("only an actual chapter key pauses on desktop hover; blank strip and mouse exit do not", () => {
+test("hovering the whole strip pauses, including decorated empty space", () => {
   const h = makeHarness();
   assert.equal(h.nav.classList.contains("is-enhanced"), true);
   assert.equal(h.nav.classList.contains("is-hover-paused"), false);
   h.dispatch("pointerover", { closest() { return null; } });
-  assert.equal(h.nav.classList.contains("is-hover-paused"), false);
+  assert.equal(h.nav.classList.contains("is-hover-paused"), true);
+  h.dispatch("pointerleave", h.originals[0]);
   h.dispatch("pointerover", h.originals[0]);
   assert.equal(h.nav.classList.contains("is-hover-paused"), true);
   h.dispatch("pointerout", h.originals[0]);
@@ -251,6 +261,8 @@ test("empty marquee spacing cannot add duplicate links or keyboard targets", () 
   assert.match(css, /content: "✦.*♡.*✧"/);
   const other = { closest() { return null; } };
   h.dispatch("pointerover", other);
+  assert.equal(h.nav.classList.contains("is-hover-paused"), true);
+  h.dispatch("pointerleave", other);
   assert.equal(h.nav.classList.contains("is-hover-paused"), false);
 });
 
@@ -342,4 +354,48 @@ test("homepage reduced motion and hover/touch controls match research page", () 
   h.playback.matches = false;
   h.mediaEvents.get("change")();
   assert.equal(h.getClone(), null);
+});
+
+test("automatic native scrolling pauses and can be dragged both ways", () => {
+  const h=makeHarness();
+  const view=h.viewport;
+  const initial=view.scrollLeft;
+  h.advanceFrame(1000);
+  h.advanceFrame(1400);
+  assert.ok(view.scrollLeft>initial, "auto scrolling must move scrollLeft");
+  h.dispatch("pointerover",h.originals[0]);
+  const paused=view.scrollLeft;
+  h.advanceFrame(1900);
+  assert.equal(view.scrollLeft,paused, "pointer hovering pauses scroll");
+  const event=(x)=>({
+    pointerType:"mouse",pointerId:11,button:0,clientX:x,
+    preventDefault(){this.prevented=true;},stopImmediatePropagation(){this.stopped=true;}
+  });
+  view.events.get("pointerdown")(event(220));
+  view.events.get("pointermove")(event(298));
+  const earlier=view.scrollLeft;
+  assert.ok(earlier<paused-70,"rightward drag reveals previous chapters");
+  view.events.get("pointermove")(event(155));
+  const later=view.scrollLeft;
+  assert.ok(later>earlier+130,"leftward drag reveals later chapters");
+  view.events.get("pointerup")(event(155));
+  assert.equal(h.nav.classList.contains("is-drag-paused"),false);
+  h.advanceFrame(2400);
+  assert.equal(view.scrollLeft,later,"hover pause remains after drag");
+  h.dispatch("pointerleave",h.originals[0]);
+  h.advanceFrame(2800);
+  assert.ok(view.scrollLeft>later,"resumes where it stopped, no transform jump");
+  assert.match(css,/touch-action:\s*pan-y/);
+  assert.match(css,/keycap-marquee__belt::before/);
+});
+test("a dragged chapter does not trigger unwanted link navigation", () => {
+  const h=makeHarness(), v=h.viewport;
+  const evt=(x)=>({pointerId:7,pointerType:"mouse",button:0,clientX:x,preventDefault(){this.prevented=true;},stopImmediatePropagation(){this.stopped=true;}});
+  v.events.get("pointerdown")(evt(100));
+  v.events.get("pointermove")(evt(40));
+  v.events.get("pointerup")(evt(40));
+  const click=evt(40);
+  v.events.get("click")(click);
+  assert.equal(click.prevented,true);
+  assert.equal(click.stopped,true);
 });

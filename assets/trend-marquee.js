@@ -23,7 +23,6 @@
   nav.addEventListener("focusout", (event) => {
     if (!nav.contains(event.relatedTarget)) {
       nav.classList.remove("is-keyboard-paused");
-      if (viewport) viewport.scrollLeft = 0;
     }
   });
 
@@ -61,15 +60,6 @@
     }
   });
 
-  if (viewport) {
-    viewport.addEventListener("scroll", () => {
-      if (touchResumeTimer) clearTimeout(touchResumeTimer);
-      touchResumeTimer = setTimeout(() => {
-        setTouchPaused(false);
-      }, 1200);
-    }, { passive: true });
-  }
-
   // A clicked anchor retains focus after hash navigation. That focus must not
   // permanently pause the animation; require an actual new pointer movement.
   let resumeAfterNavigation = false;
@@ -85,14 +75,12 @@
     nav.classList.toggle("is-hover-paused", Boolean(shouldPause) && playback.matches && !resumeAfterNavigation);
   }
 
-  // Only hovering an actual chapter key pauses. Blank space in the strip does not.
+  // Hover pauses over keys AND the decorated interval so the whole strip can be scrubbed.
   nav.addEventListener("pointerover", (event) => {
-    if (mousePointer(event) && chapterLink(event.target)) setHoverPaused(true);
+    if (mousePointer(event)) setHoverPaused(true);
   });
   nav.addEventListener("pointerout", (event) => {
-    if (mousePointer(event) && chapterLink(event.target) && !chapterLink(event.relatedTarget)) {
-      setHoverPaused(false);
-    }
+    if (mousePointer(event) && !nav.contains(event.relatedTarget)) setHoverPaused(false);
   });
   nav.addEventListener("pointerleave", () => {
     resumeAfterNavigation = false;
@@ -101,7 +89,7 @@
   nav.addEventListener("pointermove", (event) => {
     if (!mousePointer(event) || !resumeAfterNavigation) return;
     resumeAfterNavigation = false;
-    setHoverPaused(Boolean(chapterLink(event.target)));
+    setHoverPaused(true);
   });
 
   // Resume immediately on click, including while the page scrolls to an anchor.
@@ -123,6 +111,102 @@
     });
   }
 
+  // Dragging maps 1:1 to native horizontal scroll. No duplicate links, no
+  // transform jump between pause and drag, and no invisible fake buttons.
+  let drag = null;
+  let suppressNextClick = false;
+  let layoutInitialized = false;
+  const pixelsPerSecond = 32;
+  if (viewport) {
+    viewport.querySelectorAll?.("a")?.forEach(link => link.setAttribute("draggable", "false"));
+    viewport.addEventListener("dragstart", event => event.preventDefault());
+    viewport.addEventListener("pointerdown", event => {
+      if (event.pointerType !== "touch" && event.button !== 0) return;
+      if (drag) return;
+      nav.classList.remove("is-keyboard-paused");
+      drag = {
+        pointerId: event.pointerId,
+        x: event.clientX,
+        scrollLeft: viewport.scrollLeft,
+        moved: false
+      };
+      nav.classList.add("is-drag-paused");
+      if (event.pointerType === "touch") setTouchPaused(true);
+    });
+    viewport.addEventListener("pointermove", event => {
+      if (!drag || drag.pointerId !== event.pointerId) return;
+      const distance = event.clientX - drag.x;
+      if (Math.abs(distance) > 6 && !drag.moved) {
+        drag.moved = true;
+        try { viewport.setPointerCapture?.(event.pointerId); } catch (_) {}
+      }
+      if (drag.moved) {
+        viewport.scrollLeft = drag.scrollLeft - distance;
+        event.preventDefault();
+      }
+    });
+    function finishDrag(event) {
+      if (!drag || event.pointerId !== drag.pointerId) return;
+      suppressNextClick = drag.moved;
+      drag = null;
+      nav.classList.remove("is-drag-paused");
+      if (event.pointerType === "touch") {
+        setTouchPaused(true);
+        if (touchResumeTimer) clearTimeout(touchResumeTimer);
+        touchResumeTimer = setTimeout(() => setTouchPaused(false), 1200);
+      }
+      try {
+        if (viewport.hasPointerCapture?.(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
+      } catch (_) {}
+      // A subsequent independent click must never be blocked.
+      if (suppressNextClick) setTimeout(() => { suppressNextClick = false; }, 0);
+    }
+    viewport.addEventListener("pointerup", finishDrag);
+    viewport.addEventListener("pointercancel", finishDrag);
+    viewport.addEventListener("click", event => {
+      if (!suppressNextClick) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      suppressNextClick = false;
+    }, true);
+    viewport.addEventListener("keydown", event => {
+      if (event.target !== viewport) return;
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+      event.preventDefault();
+      nav.classList.add("is-keyboard-paused");
+      viewport.scrollLeft += event.key === "ArrowRight" ? 135 : -135;
+    });
+  }
+
+  // Browser-driven scroll instead of CSS transform keeps the visible track
+  // stationary while paused and makes mouse/touch dragging directly responsive.
+  function autoScroll(timestamp) {
+    if (!viewport || !playback.matches || !nav.classList.contains("is-enhanced")) return;
+    if (!autoScroll.last) { autoScroll.last = timestamp; return; }
+    const elapsed = Math.min(60, Math.max(0, timestamp - autoScroll.last));
+    autoScroll.last = timestamp;
+    if (nav.classList.contains("is-hover-paused") ||
+        nav.classList.contains("is-keyboard-paused") ||
+        nav.classList.contains("is-touch-paused") ||
+        nav.classList.contains("is-drag-paused") ||
+        document.hidden) return;
+    const limit = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+    viewport.scrollLeft += pixelsPerSecond * elapsed / 1000;
+    if (limit > 0 && viewport.scrollLeft >= limit - 1) {
+      viewport.scrollLeft = 0;
+    }
+  }
+  if (typeof window.requestAnimationFrame === "function" && viewport) {
+    let lastFrame = 0;
+    const tick = timestamp => {
+      if (lastFrame) autoScroll(timestamp);
+      else autoScroll.last = timestamp;
+      lastFrame = timestamp;
+      window.requestAnimationFrame(tick);
+    };
+    window.requestAnimationFrame(tick);
+  }
+
   // A single original set of chapter buttons passes once, followed by a
   // decorated empty interval. Start/end are entirely offscreen so the loop
   // never exposes another copy of the same button or visibly jumps.
@@ -133,6 +217,11 @@
     const speed = 32; // pixels/second; calm editorial motion.
     const end = groupWidth + 14 + interludeWidth;
     belt.style.setProperty("--keycap-start", viewportWidth + "px");
+    if (!layoutInitialized && viewport) {
+      // Start with the first original chapter in view rather than an empty screen.
+      viewport.scrollLeft = viewportWidth + 14;
+      layoutInitialized = true;
+    }
     belt.style.setProperty("--keycap-end", end + "px");
     belt.style.setProperty("--keycap-interlude-width", interludeWidth + "px");
     belt.style.setProperty("--keycap-duration", Math.max(40, (viewportWidth + end) / speed).toFixed(1) + "s");
@@ -141,8 +230,8 @@
 
   function syncMode() {
     if (playback.matches) {
-      updateDuration();
       nav.classList.add("is-enhanced");
+      updateDuration();
     } else {
       nav.classList.remove("is-enhanced");
       resumeAfterNavigation = false;
