@@ -236,20 +236,23 @@ for rel,old in base.items():
    hero_pattern=r'<div class="(?:hero-cta-group|mobile-hero-actions) home-quick-actions">[\s\S]*?<a class="[^"]*home-project-action" href="'+re.escape(hero_link)+r'">[\s\S]*?<span>藥妝專題研究</span></a>'
    if not re.search(hero_pattern,html):
     errors.append(rel+': research shortcut missing from homepage action group')
-   group_label=('查看工作經歷' if rel=='index.html' else '查看完整工作經歷')+'個人及聯絡資訊'+label
+   group_label='個人及聯絡資訊'+label
    if actual.count(group_label)!=1 or actual.count(old_marker)!=1:
     errors.append(rel+': research CTA text relocation source mismatch')
    else:
     actual=actual.replace(group_label,group_label.replace(label,'',1),1)
     actual=actual.replace(old_marker,(old_marker+label if rel=='index.html' else label+old_marker),1)
-  # Approved file-button copy change only; retain immutable factual baseline.
+  # Restore the previously approved UI labels only for immutable fact comparison.
   if rel in ('index.html','mobile.html'):
-   new_actions="下載列印"
-   old_actions="下載PDF履歷(A4)列印／另存PDF" if rel=='index.html' else "下載A4PDF履歷列印／另存PDF"
-   if actual.count(new_actions)!=1:
-    errors.append(rel+': A4 簡歷 action labels missing or duplicated')
-   else:
-    actual=actual.replace(new_actions,old_actions,1)
+   baseline=("查看工作經歷個人及聯絡資訊下載PDF履歷(A4)列印／另存PDF"
+             if rel=='index.html' else
+             "查看完整工作經歷個人及聯絡資訊下載A4PDF履歷列印／另存PDF")
+   if actual.count('個人及聯絡資訊')!=1:errors.append(rel+': homepage profile action missing')
+   else:actual=actual.replace('個人及聯絡資訊',baseline,1)
+  if rel in ('contact.html','mobile-contact.html'):
+   baseline=("下載A4PDF履歷列印／另存PDF" if rel=='contact.html' else "下載A4PDF履歷表")
+   if actual.count("下載簡歷列印簡歷")!=1:errors.append(rel+': printable actions missing')
+   else:actual=actual.replace("下載簡歷列印簡歷",baseline,1)
   same=expect==actual
   if not same:
    import difflib

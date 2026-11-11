@@ -10,7 +10,6 @@
 
   // Respect user preference for reduced motion across desktop, tablet and mobile.
   const playback = window.matchMedia("(prefers-reduced-motion: no-preference)");
-  let duplicate = null;
   const viewport = nav.querySelector(".keycap-marquee__viewport");
 
   // Show the original list so every keyboard target remains visible.
@@ -44,8 +43,6 @@
       setTouchPaused(true);
     }
     const link = chapterLink(event.target);
-    // Duplicates accept pointer clicks without becoming hidden focus targets.
-    if (link && link.closest('[aria-hidden="true"]')) event.preventDefault();
   });
   nav.addEventListener("pointerup", (event) => {
     if (event.pointerType === "touch") {
@@ -121,42 +118,32 @@
     nav.querySelectorAll('.keycap-marquee__group a[href^="#"]').forEach((link) => {
       const selected = link.getAttribute("href") === active;
       link.classList.toggle("is-current", selected);
-      if (link.closest('[aria-hidden="true"]')) {
-        link.removeAttribute("aria-current");
-      } else if (selected) {
-        link.setAttribute("aria-current", "location");
-      } else {
-        link.removeAttribute("aria-current");
-      }
+      if (selected) link.setAttribute("aria-current", "location");
+      else link.removeAttribute("aria-current");
     });
   }
 
-  // Shared, one-direction continuous scrolling for homepage and research page.
-  // The second group exists only for a seamless loop: never in keyboard or accessibility navigation.
+  // A single original set of chapter buttons passes once, followed by a
+  // decorated empty interval. Start/end are entirely offscreen so the loop
+  // never exposes another copy of the same button or visibly jumps.
   function updateDuration() {
-    const distance = original.getBoundingClientRect().width + 14;
-    belt.style.setProperty("--keycap-duration", Math.max(48, Math.min(115, distance / 30)).toFixed(1) + "s");
+    const viewportWidth = Math.max(1, viewport?.clientWidth || 620);
+    const groupWidth = original.getBoundingClientRect().width;
+    const interludeWidth = Math.max(390, Math.ceil(viewportWidth * 1.12));
+    const speed = 32; // pixels/second; calm editorial motion.
+    const end = groupWidth + 14 + interludeWidth;
+    belt.style.setProperty("--keycap-start", viewportWidth + "px");
+    belt.style.setProperty("--keycap-end", end + "px");
+    belt.style.setProperty("--keycap-interlude-width", interludeWidth + "px");
+    belt.style.setProperty("--keycap-duration", Math.max(40, (viewportWidth + end) / speed).toFixed(1) + "s");
+    belt.style.setProperty("--keycap-delay", (-viewportWidth / speed).toFixed(2) + "s");
   }
 
   function syncMode() {
     if (playback.matches) {
-      if (!duplicate) {
-        duplicate = original.cloneNode(true);
-        duplicate.classList.add("keycap-marquee__group--duplicate");
-        duplicate.setAttribute("aria-hidden", "true");
-        duplicate.querySelectorAll("a").forEach((link) => {
-          link.setAttribute("tabindex", "-1");
-          link.removeAttribute("aria-current");
-        });
-        belt.appendChild(duplicate);
-      }
       updateDuration();
       nav.classList.add("is-enhanced");
     } else {
-      if (duplicate) {
-        duplicate.remove();
-        duplicate = null;
-      }
       nav.classList.remove("is-enhanced");
       resumeAfterNavigation = false;
       setHoverPaused(false);
@@ -181,5 +168,8 @@
       if (playback.matches) updateDuration();
     }).observe(original);
   }
+  window.addEventListener("resize", () => {
+    if (playback.matches) updateDuration();
+  });
   syncMode();
 })();

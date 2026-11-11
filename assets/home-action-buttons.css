@@ -69,21 +69,6 @@ body.page-home .home-quick-actions .home-file-actions {
   min-width: 0;
 }
 body.page-home .home-quick-actions .home-file-actions > a { min-width: 0 !important; }
-/* The global research Polaroid only remains on the other dedicated research links.
-   The homepage project entry uses the same compact capsule language as its peers. */
-body.page-home .home-quick-actions > .home-project-action {
-  position: relative !important;
-  min-height: 50px !important;
-  padding: 11px 13px !important;
-  border-width: 1.5px !important;
-  background: #936e7d !important;
-  color: #fffcfa !important;
-  box-shadow: none !important;
-  animation: none !important;
-  filter: none !important;
-}
-body.page-home .home-quick-actions > .home-project-action::before,
-body.page-home .home-quick-actions > .home-project-action::after { content: none !important; }
 @media (hover: hover) and (pointer: fine) {
   body.page-home .home-quick-actions .home-action-pill:hover {
     transform: translateY(-2px);

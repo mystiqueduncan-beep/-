@@ -175,3 +175,62 @@ body.page-contact a.btn-contact-action[href="mobile-trend.html"] {
     transition: none !important;
   }
 }
+/* Unified scrapbook project button on every page, including the homepage. */
+body.page-home .home-quick-actions > a.home-project-action {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+:is(a[href="trend.html"],a[href="mobile-trend.html"]) {
+  /* Retain the Polaroid frame/tape/heart everywhere. */
+  isolation: isolate;
+}
+:is(a[href="trend.html"],a[href="mobile-trend.html"]) .research-meteor {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 45%;
+  width: 65px;
+  height: 3px;
+  overflow: visible;
+  pointer-events: none;
+  transform: rotate(-17deg);
+}
+:is(a[href="trend.html"],a[href="mobile-trend.html"]) .research-meteor::before {
+  content: "";
+  position: absolute;
+  width: 65px;
+  height: 2px;
+  border-radius: 100px;
+  background: linear-gradient(90deg,transparent,rgba(255,250,252,.22) 42%,rgba(255,252,253,.83));
+  box-shadow: 2px 0 6px rgba(255,247,252,.24);
+  opacity: 0;
+  animation: research-meteor-tail 6s ease-in-out infinite;
+}
+:is(a[href="trend.html"],a[href="mobile-trend.html"]) .research-meteor::after {
+  content: "✧";
+  position: absolute;
+  left: 57px;
+  top: -9px;
+  color: #fffdfd;
+  font: 14px/1 Georgia,serif;
+  opacity: 0;
+  animation: research-meteor-tail 6s ease-in-out infinite;
+}
+@keyframes research-meteor-tail {
+  0%, 12%, 38%, 100% { opacity:0; transform:translate3d(-78px,22px,0); }
+  16% { opacity:.7; transform:translate3d(-56px,17px,0); }
+  26% { opacity:.94; transform:translate3d(60px,-17px,0); }
+  33% { opacity:0; transform:translate3d(96px,-27px,0); }
+}
+.mobile-bottom-bar :is(a[href="trend.html"],a[href="mobile-trend.html"]) .research-meteor {
+  transform:rotate(-17deg) scale(.55);
+}
+@media (prefers-reduced-motion:reduce) {
+  :is(a[href="trend.html"],a[href="mobile-trend.html"]) .research-meteor::before,
+  :is(a[href="trend.html"],a[href="mobile-trend.html"]) .research-meteor::after {
+    animation:none!important;opacity:0!important;
+  }
+}
+@media print {
+  :is(a[href="trend.html"],a[href="mobile-trend.html"]) .research-meteor {display:none!important}
+}

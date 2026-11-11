@@ -24,16 +24,12 @@ def digest(source,name=''):
                            lambda m:'LINE 帳號 (LINE)'+m.group(1)+'bobozhihuang',
                            parts)
   assert matches==1,name+': expected exactly one LINE contact heading'
- if name=='mobile.html':
-  # Restore only the approved two printable A4 button labels before verifying immutable resume text.
+ if name in ('contact.html','mobile-contact.html'):
+  # Restore only the approved printable action labels for the historical digest.
   parts=re.sub(r'\s+','',parts)
-  new_actions="下載列印"
-  assert parts.count(new_actions)==1,name+': A4 簡歷 buttons missing or duplicated'
-  parts=parts.replace(new_actions,"下載A4PDF履歷列印／另存 PDF",1)
-  # UI-only print CTA added Nov 9; original resume text fingerprint must remain identical.
-  label='列印／另存 PDF'
-  assert parts.count(label)==1,name+': expected exactly one new print action label'
-  parts=parts.replace(label,'',1)
+  old=('下載A4PDF履歷列印／另存PDF' if name=='contact.html' else '下載A4PDF履歷表')
+  assert parts.count('下載簡歷列印簡歷')==1,name+': print/download actions missing'
+  parts=parts.replace('下載簡歷列印簡歷',old,1)
  # Approved Nov 11: reverse only the explicitly authorized onboarding copy edit
  # for comparison with the immutable original resume fingerprint.
  if name in ('index.html','mobile.html'):
@@ -45,7 +41,7 @@ def digest(source,name=''):
   intro='重視門市營運標準、服務品質與溝通協調，期望投入區域營運管理，讓門市日常作業更加穩定一致。'
   label='藥妝專題研究'
   marker='07/通路研究' if name=='index.html' else 'MK個人應徵作品集｜黃博詩'
-  group_label=('查看工作經歷' if name=='index.html' else '查看完整工作經歷')+'個人及聯絡資訊'+label
+  group_label='個人及聯絡資訊'+label
   assert flat.count(group_label)==1,name+': relocated research CTA missing from action group'
   assert flat.count(marker)==1,name+': original research CTA position not found'
   flat=flat.replace(group_label,group_label.replace(label,'',1),1)
@@ -59,12 +55,12 @@ def digest(source,name=''):
    assert flat.count(heading)==1,name+': original career heading changed'
    flat=flat.replace(heading,heading+caption,1)
   assert flat.count(replacement)==1,name+': approved training text not found exactly once'
-  # Only reverse the specifically approved A4 簡歷 button labels, not any facts.
-  if name=='index.html':
-   new_actions="下載列印"
-   old_actions="下載PDF履歷(A4)列印／另存PDF"
-   assert flat.count(new_actions)==1,name+': approved A4 簡歷 buttons missing or duplicated'
-   flat=flat.replace(new_actions,old_actions,1)
+  # Restore removed homepage UI copy only before checking the original resume facts.
+  historical=("查看工作經歷個人及聯絡資訊下載PDF履歷(A4)列印／另存PDF"
+              if name=='index.html' else
+              "查看完整工作經歷個人及聯絡資訊下載A4PDF履歷")
+  assert flat.count('個人及聯絡資訊')==1,name+': homepage profile button missing'
+  flat=flat.replace('個人及聯絡資訊',historical,1)
   parts=flat.replace(replacement,original,1)
  return hashlib.sha256(re.sub(r'\s+','',parts).lstrip('\ufeff').encode()).hexdigest()
 if __name__=='__main__':
