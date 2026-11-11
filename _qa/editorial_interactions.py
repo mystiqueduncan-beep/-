@@ -33,6 +33,16 @@ with sync_playwright() as p:
   before=v.evaluate('e=>e.scrollLeft')
   page.wait_for_timeout(320)
   after=v.evaluate('e=>e.scrollLeft')
+  if after<=before:
+   print("AUTOPLAY_DEBUG",name,page.evaluate("""() => {
+     const n=document.querySelector('[data-keycap-marquee]');
+     const v=n?.querySelector('.keycap-marquee__viewport');
+     const b=n?.querySelector('.keycap-marquee__belt');
+     return {classes:n?.className,hidden:document.hidden,scrollLeft:v?.scrollLeft,maxScroll:v?.scrollWidth-v?.clientWidth,
+       viewportWidth:v?.clientWidth,beltWidth:b?.getBoundingClientRect().width,
+       intro:getComputedStyle(b,'::before').width,animations:b?.getAnimations().map(a=>a.animationName),
+       raf:typeof requestAnimationFrame,visibility:document.visibilityState};
+   }"""),flush=True)
   assert after>before, ('autoplay must advance',name,before,after)
   link.dispatch_event('pointerover',{'pointerType':'mouse'})
   assert nav.evaluate("e=>e.classList.contains('is-hover-paused')")
