@@ -64,6 +64,9 @@ with sync_playwright() as p:
   page.wait_for_timeout(200)
   assert v.evaluate('e=>e.scrollLeft')>resumed, ('resumes after release',name)
   assert page.locator('meta[name=viewport]').get_attribute('content').find('user-scalable=no')<0
+  # :focus-visible is keyboard-modality-only; actual pointer drag must not
+  # force a focus ring. Re-enter with Tab before checking keyboard outline.
+  page.keyboard.press('Tab')
   link.focus();expect(link).to_be_focused()
   assert link.evaluate('e=>getComputedStyle(e).outlineStyle')!='none'
   page.emulate_media(reduced_motion='reduce')
