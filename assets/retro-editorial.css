@@ -194,3 +194,27 @@ main [style*="#FFFDF0"],main [style*="#FFFBE6"] {background:#f6e5e9!important}
 .mag-top-ticker a {border-color:#ac8190!important;border-radius:20px!important}
 .status-dot {background:#885365!important}
 body::before {display:none!important}
+
+/* Chapter-marquee shells: 70% transparent pastel background, opaque keycap buttons.
+   Scope to the moving chapter bars, not utility headers or the fixed mobile bottom bar. */
+@media screen {
+  .mag-subnav-strip,
+  .trend-subnav-strip {
+    background: rgba(255, 249, 247, 0.30) !important;
+    background-color: rgba(255, 249, 247, 0.30) !important;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+  }
+  .hero-research-shortcut {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 8px 0 18px;
+  }
+  .hero-research-shortcut > a {
+    max-width: 100%;
+  }
+}
+@media print {
+  .hero-research-shortcut { display: none !important; }
+}
