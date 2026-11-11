@@ -258,3 +258,12 @@ body.page-home .home-quick-actions > a.home-project-action.mk-pop-in {
     opacity: 1 !important; transform: none !important;
   }
 }
+
+/* The site's original hero pop controls final visibility if two independent
+   reveal observers finish in different orders. Keyboard focus stays visible. */
+@media (prefers-reduced-motion: no-preference) {
+  body.page-home .home-quick-actions > a.home-project-action.mk-pop-pending:not(:focus-within) {
+    opacity: 0 !important;
+    transform: translate3d(30px, 0, 0) scale(.88) !important;
+  }
+}
