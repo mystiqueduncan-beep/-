@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - fix/separate-print-download-pdf-20261112
     paths:
       - resume.html
       - assets/island-stitched-flora.svg
