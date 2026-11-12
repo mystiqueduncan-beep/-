@@ -180,3 +180,29 @@ html.page-trans-fallback body.is-page-exiting {
   }
 }
 
+
+
+/* Contact details belong on the personal/contact pages only.
+ * Screen-only visibility; keep the existing PDF, A4 print result, contact
+ * page contents, resume data, colors and editorial layout unchanged.
+ * Retain the homepage link to each personal/contact page.
+ */
+@media screen {
+  /* Desktop cover ticker: hide the number but keep its mobile-view link. */
+  body.page-home.page-desktop .mag-top-ticker .ticker-inner > div:last-child > span:first-child {
+    display: none !important;
+  }
+
+  /* Mobile cover: hide complete phone/email rows without empty gaps. */
+  body.page-home.page-mobile .specs-table.pastel-profile-notes > .spec-row:has(> .spec-v a[href^="tel:"]),
+  body.page-home.page-mobile .specs-table.pastel-profile-notes > .spec-row:has(> .spec-v a[href^="mailto:"]) {
+    display: none !important;
+  }
+  /* Compatibility for older browsers without :has(), on the unchanged
+     six-row homepage profile table only. */
+  @supports not selector(:has(*)) {
+    body.page-home.page-mobile .specs-table.pastel-profile-notes > .spec-row:nth-last-child(-n + 2) {
+      display: none !important;
+    }
+  }
+}
