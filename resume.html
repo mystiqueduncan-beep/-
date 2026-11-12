@@ -3,7 +3,7 @@
 <style>
 :root{--mk-yellow:#EBC8D2;--mk-yellow-light:#F9EBF0;--mk-navy:#805663;--mk-navy-soft:#A77B89;--mk-red:#B66E84;--paper-bg:#FAF5F6;--paper-card:#FFF;--paper-subtle:#F8EEF1;--ink-primary:#493D43;--ink-secondary:#65565D;--ink-muted:#897B81;--hairline:#E9D9DE}
 *{box-sizing:border-box}html{background:#F0E6E9}body{margin:0;color:var(--ink-primary);font-family:'Noto Sans CJK TC','Noto Sans TC',sans-serif;-webkit-font-smoothing:antialiased}
-.screen-control{max-width:870px;margin:20px auto 16px;padding:0 12px;display:flex;gap:12px;align-items:center;justify-content:space-between;color:var(--mk-navy);font-size:14px;flex-wrap:wrap}.screen-control strong{font-weight:900}.screen-control small{font-size:12px;color:#555}.btn{display:inline-flex;align-items:center;padding:8px 14px;text-decoration:none;border:1px solid #D7B8C1;border-radius:3px;background:var(--mk-yellow);color:var(--mk-navy);box-shadow:2px 2px 0 var(--mk-navy);font-weight:800;font-size:13px;cursor:pointer}.btn.secondary{background:white;margin-left:8px}
+.screen-control{max-width:870px;margin:20px auto 16px;padding:0 12px;display:flex;gap:12px;align-items:center;justify-content:space-between;color:var(--mk-navy);font-size:14px;flex-wrap:wrap}.screen-control{justify-content:flex-end}.screen-control strong{font-weight:900}.screen-control small{font-size:12px;color:#555}.btn{display:inline-flex;align-items:center;padding:8px 14px;text-decoration:none;border:1px solid #D7B8C1;border-radius:3px;background:var(--mk-yellow);color:var(--mk-navy);box-shadow:2px 2px 0 var(--mk-navy);font-weight:800;font-size:13px;cursor:pointer}.btn.secondary{background:white;margin-left:8px}
 .paper{width:210mm;height:297mm;position:relative;margin:24px auto;padding:11.5mm 12.5mm 14mm;background:#fff;box-shadow:0 18px 50px rgba(128,86,99,.15);overflow:hidden;page-break-after:always;break-after:page}
 .paper:last-of-type{page-break-after:auto;break-after:auto}
 .dossier{position:relative;border:1.3px solid #C9A4B0;background:#fff;box-shadow:1.2mm 1.2mm 0 #E5C5CF;height:270mm;overflow:hidden}
@@ -133,10 +133,10 @@ html { background:#f6e6e8; }
   *,*::before,*::after { -webkit-print-color-adjust:exact;print-color-adjust:exact; }
 }
 </style></head><body>
-<div class="screen-control"><div><strong>日系粉色雜誌風・A4 簡歷版型</strong><br><small>日系粉色 A4 雙頁簡歷・無照片</small></div><div><button type="button" class="btn" onclick="window.print()">列印／另存 PDF</button><a href="https://mystiqueduncan-beep.github.io/-/contact.html" class="btn secondary" target="_blank" rel="noopener">原網站</a></div></div>
+<div class="screen-control" aria-label="簡歷操作"><div><button type="button" class="btn" onclick="window.print()">列印／另存 PDF</button><a href="https://mystiqueduncan-beep.github.io/-/contact.html" class="btn secondary">原網站</a></div></div>
 <section class="paper"><div class="dossier">
   <div class="barcode-stripe"></div>
-  <div class="dossier-header"><div class="left">PORTFOLIO ✦ 個人應徵作品集</div><div class="right">志願目標：台灣松本清 ｜ 區域營運經理</div></div>
+  <div class="dossier-header"><div class="left">PERSONAL RÉSUMÉ ✦ 個人簡歷</div><div class="right">志願目標：台灣松本清 ｜ 區域營運經理</div></div>
   <div class="dossier-body">
     <div class="contact-layout">
       <aside>
@@ -179,7 +179,7 @@ html { background:#f6e6e8; }
 </div></section>
 <section class="paper"><div class="dossier">
   <div class="barcode-stripe"></div>
-  <div class="dossier-header"><div class="left">PORTFOLIO ✦ 個人應徵作品集</div><div class="right">HUANG BO-SHIH　/　DISTRICT OPERATIONS MANAGER</div></div>
+  <div class="dossier-header"><div class="left">PERSONAL RÉSUMÉ ✦ 個人簡歷</div><div class="right">HUANG BO-SHIH　/　DISTRICT OPERATIONS MANAGER</div></div>
   <div class="dossier-body">
     <div class="work-title"><div><div class="eng">CAREER DOSSIER / 2026</div><h2>工作經歷</h2></div><div class="note">WORK EXPERIENCE<br>實務經驗與工作職責</div></div>
     <article class="job"><div class="job-top"><div class="job-title"><span class="job-number">01</span>Tomod's 日系藥妝</div><div class="job-years">藥妝經歷 6 年（含門市店長 3 年）</div></div>
@@ -202,7 +202,6 @@ html { background:#f6e6e8; }
         <li><strong>商品整燙與庫房進銷存：</strong>執行門市視覺陳列、補貨上架、商品整燙與庫存清點。</li>
         <li><strong>團隊協作配合：</strong>與同仁維持良好默契，共同維護賣場動線與舒適購物氛圍。</li>
       </ul></div></article>
-    <div class="summary-note"><span class="print-tag">CANDIDATE PORTFOLIO</span><span style="margin-left:3mm">以上工作經歷文字沿用目前網站原文，未新增或更改任職事實。</span></div>
   </div>
   <div class="page-foot"><span>© 2026 BO-SHIH HUANG. ALL RIGHTS RESERVED.</span><span>CAREER / 02</span></div>
 </div></section>
