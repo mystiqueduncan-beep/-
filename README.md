@@ -7,7 +7,7 @@
 - `mobile/`：既有網址轉址，不刪除。
 - `assets/site.css`：共用無障礙、換行、觸控、響應式及列印修正；各頁原有視覺樣式仍保留。
 - `assets/contact.js`：共用剪貼簿操作及明確失敗提示。
-- `resume.html`：現有 A4 雙頁簡歷的列印版；可從個人聯絡頁頂端的粉色虛線卡片開啟。已依需求移除獨立下載 PDF。
+- `resume.html`：原有 A4 雙頁個人簡歷。頁面工具列現在明確分為「列印簡歷」（僅叫出系統列印）與「下載 PDF」（直接下載 `resume.pdf`），不混用兩種操作。
 - `_audit/`：原始資料基準、雜湊、前後測試證據及報告；底線目錄由既有 Jekyll Pages 建置排除。
 - `_qa/`：檢查工具，不屬網站執行依賴。無大型框架或網站建置依賴。
 
@@ -44,7 +44,7 @@ GitHub Pages 專案路徑為 `/-/`。資源採相對路徑；canonical、OG、si
 
 - 視覺設計以奶油白、草莓粉、淺鼠尾草綠及布章縫線質感為主，使用原創的 `assets/island-stitched-flora.svg` 花卉與海島紋樣，不複製任何外部角色或參考圖。
 - 六個頁面的裝飾統一維護於既有的 `assets/pastel-details.css`，避免改動已核准並受雜湊保護的研究頁 HTML。
-- A4 列印版仍由 `assets/print-layout.css` 控制；`resume.html` 是既有獨立雙頁簡歷。列印連結移到電腦／手機聯絡頁的第一張粉色虛線卡片。
-- 依要求刪除舊 `resume.pdf` 與其自動產生 workflow，避免下載檔案被重新建立；既有網頁列印與 `resume.html` 保留。
+- 個人聯絡頁第一張刺繡風卡片連到 `resume.html`；該頁原有兩頁 A4 列印功能保留，另提供同一份版面的真正 PDF 檔供下載。
+- `resume.pdf` 由 `_qa/export_resume_pdf.py` 以同一份 `resume.html` 生成；`.github/workflows/resume-pdf.yml` 在版面或匯出程式修改時核對兩頁 A4，再自動更新 PDF。請勿把原本已移除的首頁長篇 PDF 或下載舊按鈕恢復。
 - 裝飾不得遮住文字、圖表、來源說明與照片，也不得破壞手機手勢、鍵盤焦點、`prefers-reduced-motion` 或 A4 分頁。
 - 柔粉色卡片上的小標籤採用高對比深玫瑰色文字；研究專題入口的漸層發光效果和桌面／手機切換鈕的原有功能色不受全站換色規則覆蓋。
