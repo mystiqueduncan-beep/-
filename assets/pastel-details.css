@@ -1470,7 +1470,7 @@ body.page-trend.page-desktop .portfolio-back-to-top__link:focus-visible {
   body:is(.page-home,.page-contact,.page-trend) :is(
     .mag-btn,.btn-contact-action,.method-action-btns a,
     .home-research-link,.top-switch-link,.portfolio-back-to-top__link
-  ) {
+  ):not([href="trend.html"]):not([href="mobile-trend.html"]):not(.research-cta) {
     border-radius:22px 22px 22px 8px !important;
     border-color:#bb8e9d !important;
     color:#694959 !important;
@@ -1480,7 +1480,7 @@ body.page-trend.page-desktop .portfolio-back-to-top__link:focus-visible {
   body:is(.page-home,.page-contact,.page-trend) :is(
     .mag-btn,.btn-contact-action,.method-action-btns a,
     .home-research-link,.top-switch-link,.portfolio-back-to-top__link
-  ):is(:hover,:focus-visible) {
+  ):not([href="trend.html"]):not([href="mobile-trend.html"]):not(.research-cta):is(:hover,:focus-visible) {
     background:#f4d6df !important;
     color:#5f4150 !important;
   }
