@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 350" fill="none" role="img" aria-labelledby="title desc">
+<title id="title">刺繡風扶桑花與海島小物</title><desc id="desc">原創粉彩扶桑花、雞蛋花、棕櫚葉、貝殼與愛心刺繡裝飾，不包含任何品牌角色。</desc>
+<defs>
+  <filter id="thread" x="-15%" y="-15%" width="130%" height="130%"><feGaussianBlur stdDeviation="0.8"/></filter>
+</defs>
+<!-- sage palm leaves with stitched veins -->
+<g stroke-linecap="round" stroke-linejoin="round">
+  <path d="M45 252Q52 169 94 102" stroke="#a3bb9e" stroke-width="9"/>
+  <path d="M91 107Q28 91 13 48Q57 60 94 107Z" fill="#b9cbb0" stroke="#91ac90" stroke-width="2"/>
+  <path d="M94 107Q112 48 173 40Q151 88 94 107Z" fill="#c5d5bc" stroke="#91ac90" stroke-width="2"/>
+  <path d="M94 107Q129 93 179 117Q128 133 94 107Z" fill="#b2c6aa" stroke="#91ac90" stroke-width="2"/>
+  <path d="M87 119Q43 125 24 155Q65 158 87 119Z" fill="#cad8bc" stroke="#91ac90" stroke-width="2"/>
+  <path d="M94 107L27 63M94 107L155 50M94 107L158 115M87 119L36 147" stroke="#f7f6df" stroke-width="2" stroke-dasharray="3 4"/>
+</g>
+<!-- original hibiscus, visible thread outlines and looped petals -->
+<g transform="translate(153 176)" stroke="#b67c8f" stroke-width="2" stroke-linejoin="round">
+  <path d="M0-16C-53-65-13-105 21-67C39-123 91-78 52-37C112-45 110 16 59 30C85 89 17 108-6 57C-61 90-94 35-49 9C-93-22-50-63 0-16Z" fill="#efb6c7"/>
+  <path d="M0-16C-53-65-13-105 21-67C39-123 91-78 52-37C112-45 110 16 59 30C85 89 17 108-6 57C-61 90-94 35-49 9C-93-22-50-63 0-16Z" stroke="#fff1e8" stroke-width="4" stroke-dasharray="3 6"/>
+  <path d="M4 4L30-56M4 4L70-10M4 4L25 68M4 4L-55 39M4 4L-34-35" stroke="#d78da6" stroke-width="2" stroke-dasharray="2 5"/>
+  <circle cx="4" cy="4" r="14" fill="#f7dd95" stroke="#d7b571" stroke-width="2.5"/>
+  <path d="M4 4q20-16 36-14" stroke="#e7ba58" stroke-width="5"/>
+  <g fill="#ffe5a4" stroke="#cb9b48" stroke-width="1.5"><circle cx="41" cy="-12" r="4"/><circle cx="49" cy="-10" r="3"/><circle cx="45" cy="-20" r="3"/></g>
+</g>
+<!-- flower / felt patch -->
+<g transform="translate(64 292)" stroke="#d4b5a6" stroke-width="2.5">
+  <path d="M0-18C-21-43-39-17-21-1C-43 13-19 41-1 22C16 46 44 16 21 1C42-17 18-41 0-18Z" fill="#fff7df"/>
+  <path d="M0-18C-21-43-39-17-21-1C-43 13-19 41-1 22C16 46 44 16 21 1C42-17 18-41 0-18Z" stroke="#fff" stroke-width="2" stroke-dasharray="3 5"/>
+  <circle cy="1" r="8" fill="#f1d17d" stroke="#dcae58"/>
+</g>
+<!-- embroidered heart and shell -->
+<path d="M256 67C237 48 216 66 223 85C229 101 253 121 253 121C253 121 291 92 290 73C289 51 267 48 256 67Z" fill="#f0cad5" stroke="#af8195" stroke-width="3"/>
+<path d="M256 67C237 48 216 66 223 85C229 101 253 121 253 121C253 121 291 92 290 73C289 51 267 48 256 67Z" stroke="#fff7ef" stroke-width="3" stroke-dasharray="3 6"/>
+<g stroke="#bb8d9d" stroke-width="2.5" stroke-linejoin="round" transform="translate(231 278)">
+ <path d="M-20 20Q-57-25-25-49Q-12-60 0-42Q15-65 30-40Q60-22 21 20Z" fill="#eac4cb"/>
+ <path d="M-20 20Q-57-25-25-49Q-12-60 0-42Q15-65 30-40Q60-22 21 20Z" stroke="#fff6e9" stroke-dasharray="3 6"/>
+ <path d="M0 18V-42M-12 15L-25-44M12 15L30-38" stroke="#f9e9dd" stroke-dasharray="3 5"/>
+</g>
+<path d="M266 158l6 11 12 3-9 8 2 13-11-6-11 6 2-13-9-8 12-3Z" fill="#efd5d9" stroke="#b68e9f" stroke-width="2"/>
+<path d="M18 195l3 6 7 2-5 5 1 7-6-3-6 3 1-7-5-5 7-2Z" fill="#f4dc9e" stroke="#d5b678" stroke-width="2"/>
+</svg>
