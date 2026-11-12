@@ -204,6 +204,8 @@ def expected_text(rel,text):
 base=json.loads((ROOT/'_audit/baseline-text.json').read_text(encoding='utf-8'))
 approved_report=json.loads((ROOT/'_audit/regional-analysis-approved-sha1.json').read_text(encoding='utf-8'))['pages']
 errors=[];links=0;results=[]
+if (ROOT/'resume.pdf').exists():errors.append('Removed downloadable PDF unexpectedly exists')
+if (ROOT/'.github/workflows/print-pdf-sync.yml').exists():errors.append('Removed PDF workflow unexpectedly exists')
 for rel,old in base.items():
  f=ROOT/rel;p=Page(f.read_text(encoding='utf-8'));ids=[a['id'] for t,a in p.tags if 'id' in a]
  if len(ids)!=len(set(ids)):errors.append(rel+': duplicate id')
@@ -256,7 +258,7 @@ for rel,old in base.items():
    if html.count('class="method-card method-card--print"')!=1:
     errors.append(rel+': printable card must appear exactly once')
    if re.search(r'<a\\b[^>]*href="resume\\.pdf"',html) or '下載簡歷' in html:
-    errors.append(rel+': removed PDF download still linked')
+   if 'href="resume.pdf"' in html or '下載簡歷' in html:
    if html.count('href="resume.html"')!=1:
     errors.append(rel+': print action must be unique')
    if html.index('class="method-card method-card--print"')>html.index('id="phoneText"'):
