@@ -96,7 +96,10 @@
   let suppressionTimer = null;
   let layoutInitialized = false;
   const pixelsPerSecond = 32;
-  const threshold = 8;
+  // Content follows the very first horizontal pixel. This tolerance is only
+  // for deciding whether a release is a click, never for delaying movement.
+  const clickTolerance = 4;
+  const verticalTolerance = 6;
 
   if (viewport) {
     viewport.querySelectorAll?.("a")?.forEach(link => link.setAttribute("draggable", "false"));
@@ -133,21 +136,35 @@
       if (!drag || drag.pointerId !== event.pointerId) return;
       if (drag.type !== "touch" && typeof event.buttons === "number" && event.buttons === 0) return;
       if (drag.vertical) return;
-      const distanceX = event.clientX - drag.x;
-      const distanceY = (event.clientY || 0) - drag.y;
-      if (!drag.moved) {
-        // Give vertical swipes back to the browser for page scrolling.
-        if (Math.abs(distanceY) >= threshold && Math.abs(distanceY) > Math.abs(distanceX)) {
-          drag.vertical = true;
-          return;
-        }
-        if (Math.abs(distanceX) < threshold || Math.abs(distanceX) <= Math.abs(distanceY)) return;
+
+      const dx = event.clientX - drag.x;
+      const dy = (event.clientY || 0) - drag.y;
+      const horizontal = Math.abs(dx);
+      const vertical = Math.abs(dy);
+
+      // Do not hijack vertical scrolling on touchscreens. This check does not
+      // postpone horizontal motion: even a 1px horizontal move scrolls.
+      if (drag.type === "touch" && !drag.moved &&
+          vertical >= verticalTolerance && vertical > horizontal) {
+        drag.vertical = true;
+        viewport.scrollLeft = drag.scrollLeft;
+        return;
+      }
+
+      // From the first pixel, track the finger/mouse without any activation
+      // threshold. Click suppression and pointer capture are independent.
+      if (horizontal > 0 && horizontal >= vertical) {
+        viewport.scrollLeft = drag.scrollLeft - dx;
+      }
+      if (!drag.moved && horizontal > clickTolerance &&
+          horizontal >= vertical) {
         drag.moved = true;
         nav.classList.add("is-scrubbing");
+        // Capture after a real gesture, not on pointerdown: true taps must
+        // still dispatch their click to the original chapter anchor.
         try { nav.setPointerCapture?.(event.pointerId); } catch (_) {}
       }
-      viewport.scrollLeft = drag.scrollLeft - distanceX;
-      if (event.cancelable !== false) event.preventDefault();
+      if (drag.moved && event.cancelable !== false) event.preventDefault();
     });
 
     function finishDrag(event) {
