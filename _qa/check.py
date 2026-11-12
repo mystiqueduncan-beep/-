@@ -255,15 +255,19 @@ for rel,old in base.items():
    # This is a *comparison-only* normalization of the intentionally moved UI.
    # The actual HTML must contain the print card and no PDF download link.
    html=f.read_text(encoding='utf-8')
-   if html.count('class="method-card method-card--print"')!=1:
+   if html.count('class="method-card method-card--print personal-resume-link"')!=1:
     errors.append(rel+': printable card must appear exactly once')
    if 'href="resume.pdf"' in html or '下載簡歷' in html:
     errors.append(rel+': removed PDF download still linked')
    if html.count('href="resume.html"')!=1:
-    errors.append(rel+': print action must be unique')
-   if html.index('class="method-card method-card--print"')>html.index('id="phoneText"'):
+    errors.append(rel+': resume action must be unique')
+   if html.count('<a href="resume.html" class="method-card method-card--print personal-resume-link"')!=1:
+    errors.append(rel+': entire resume card must be a single anchor')
+   if 'class="method-action-btns"' in html.split('class="method-card method-card--print personal-resume-link"',1)[1].split('<!-- Method 1: Phone -->',1)[0]:
+    errors.append(rel+': nested print action still exists')
+   if html.index('class="method-card method-card--print personal-resume-link"')>html.index('id="phoneText"'):
     errors.append(rel+': print card must precede phone')
-   new_card='列印簡歷(PRINT)A4履歷列印版列印簡歷'
+   new_card='個人簡歷'
    if actual.count(new_card)!=1:errors.append(rel+': new print card text mismatch')
    else:actual=actual.replace(new_card,'',1)
    # The footer's research link is the stable right-hand neighbor of
