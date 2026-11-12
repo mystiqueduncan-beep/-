@@ -34,9 +34,11 @@ def digest(source,name=''):
   current='列印簡歷(PRINT)A4履歷列印版列印簡歷'
   assert parts.count(current)==1,name+': print card text missing'
   parts=parts.replace(current,'',1)
-  return_label=('返回履歷專刊首頁↗' if name=='contact.html' else '←返回手機履歷專刊首頁')
-  assert parts.count(return_label)==1,name+': return action text missing'
-  parts=parts.replace(return_label,return_label+'下載簡歷列印簡歷',1)
+  # The old footer download/print pair preceded the final research link.
+  footer_marker='藥妝專題研究'
+  last=parts.rfind(footer_marker)
+  assert last>=0,name+': footer research link missing'
+  parts=parts[:last]+'下載簡歷列印簡歷'+parts[last:]
   old=('下載A4PDF履歷列印／另存PDF' if name=='contact.html' else '下載A4PDF履歷表')
   assert parts.count('下載簡歷列印簡歷')==1,name+': normalized print/download actions missing'
   parts=parts.replace('下載簡歷列印簡歷',old,1)
