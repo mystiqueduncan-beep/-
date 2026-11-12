@@ -71,6 +71,67 @@
 @media screen and (max-width:500px){.paper{zoom:.43}.screen-control{max-width:390px;line-height:1.6}}
 @page {size:A4 portrait;margin:0}
 @media print { html,body{background:white;margin:0;padding:0}.screen-control{display:none!important}.paper{width:210mm;height:297mm;box-shadow:none;margin:0;zoom:1;page-break-after:always;break-after:page} .paper:last-of-type{page-break-after:auto;break-after:auto} .dossier{box-shadow:1.2mm 1.2mm 0 #E5C5CF} *{-webkit-print-color-adjust:exact;print-color-adjust:exact} }
+
+/* Soft tropical embroidery edition: same stationery as six web views. */
+:root {
+  --mk-yellow:#f1d3d8;
+  --mk-yellow-light:#fff0ef;
+  --mk-navy:#785365;
+  --mk-navy-soft:#a27488;
+  --mk-red:#aa687e;
+  --paper-bg:#fff9f1;
+  --paper-subtle:#faebed;
+  --ink-primary:#604a53;
+  --ink-secondary:#6f5962;
+  --hairline:#e5c5ce;
+}
+html { background:#f6e6e8; }
+.paper {
+  background-color:#fff9f2;
+  background-image:
+    url("assets/island-stitched-flora.svg"),
+    radial-gradient(ellipse 9px 6px at 20px 16px,rgba(230,163,176,.10) 70%,transparent 80%);
+  background-position:right 3mm bottom 3mm,0 0;
+  background-size:23mm auto,90px 90px;
+  background-repeat:no-repeat,repeat;
+}
+.dossier {
+  border:1.3px solid #deb6c3;
+  background:#fffdf9;
+  box-shadow:1.2mm 1.2mm 0 #f1d8df;
+}
+.barcode-stripe {
+  height:4mm;
+  background:radial-gradient(circle at 50% 0,#fffaf3 3.5mm,transparent 3.8mm) 0 0/12mm 4mm repeat-x,#f0c7d2;
+}
+.dossier-header {
+  background:linear-gradient(105deg,#fff8ee,#f9e8e9);
+  border-bottom:1px dashed #cf9eae;
+}
+.name-heading,.work-title h2,.skills-title h2 { color:#83556c; }
+.dossier-label,.job-role { color:#a3647c; }
+.spec-panel,.lead,.summary-note {
+  background:#fff7f1;
+  border-color:#e8c9d0;
+}
+.position-pill,.edu-head,.job-top { background:#f6dce2; }
+.method,.education-profile,.skill,.job {
+  border-color:#dfbbc6;
+  box-shadow:0.5mm 0.5mm 0 #f5e3e6;
+}
+.method { border-radius:3.5mm; }
+.spec-heading,.skills-title,.work-title,.page-foot {
+  border-color:#d9abb8;
+}
+.page-foot { color:#90687a; }
+.screen-control .btn { background:#f3d8e1;border-color:#ba8999;box-shadow:2px 2px 0 #a57183; }
+@media print {
+  html,body { background:#fff !important; }
+  .paper { background-color:#fff9f2 !important; }
+  .dossier { background-color:#fffdf9 !important; }
+  .barcode-stripe { background-color:#f0c7d2 !important; }
+  *,*::before,*::after { -webkit-print-color-adjust:exact;print-color-adjust:exact; }
+}
 </style></head><body>
 <div class="screen-control"><div><strong>日系粉色雜誌風・A4 簡歷版型</strong><br><small>日系粉色 A4 雙頁簡歷・無照片</small></div><div><button type="button" class="btn" onclick="window.print()">列印／另存 PDF</button><a href="https://mystiqueduncan-beep.github.io/-/contact.html" class="btn secondary" target="_blank" rel="noopener">原網站</a></div></div>
 <section class="paper"><div class="dossier">

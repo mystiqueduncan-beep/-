@@ -1,9 +1,10 @@
-name: Refresh A4 resume PDF for print-layout review
+name: Sync embroidered A4 resume PDF with website print styling
 
 on:
   push:
     branches:
-      - fix/a4-print-layout-20261110
+      - design/embroidered-island-theme-20261112
+      - main
     paths:
       - index.html
       - mobile.html
@@ -12,6 +13,9 @@ on:
       - contact.html
       - mobile-contact.html
       - assets/print-layout.css
+      - assets/pastel-details.css
+      - assets/island-stitched-flora.svg
+      - resume.html
       - _qa/print_pdf.py
       - _qa/print_layout_audit.py
       - _qa/check.py
@@ -28,7 +32,6 @@ concurrency:
 
 jobs:
   generate-and-review:
-    if: github.ref == 'refs/heads/fix/a4-print-layout-20261110'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -49,15 +52,15 @@ jobs:
         run: |
           python3 _qa/check.py
           python3 _qa/editorial_content.py
-      - name: Commit regenerated PDF to this review branch only
+      - name: Commit regenerated PDF to the checked-out branch
         shell: bash
         run: |
           if ! git diff --quiet -- resume.pdf; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add resume.pdf
-            git commit -m "Regenerate reviewed A4 resume.pdf from site print layout"
-            git push origin HEAD:fix/a4-print-layout-20261110
+            git commit -m "Synchronize A4 resume.pdf with floral website print layout"
+            git push origin HEAD:"${GITHUB_REF_NAME}"
           else
             echo "The reviewed PDF is already current."
           fi

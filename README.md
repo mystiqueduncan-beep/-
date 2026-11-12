@@ -38,3 +38,13 @@ HTML 檢查採 recommended，僅停用 `no-inline-style`（保留既有行內設
 GitHub Pages 專案路徑為 `/-/`。資源採相對路徑；canonical、OG、sitemap 使用完整正式網址。專案的 `robots.txt` 不等同網域根目錄 `/robots.txt`，不能控制整個 `github.io` 網域的爬取政策；頁面索引控制以 meta robots 為準。
 
 完整交付報告：[_audit/report.md](_audit/report.md)；截圖與 Lighthouse 原始證據：[_audit/qa-evidence.zip](_audit/qa-evidence.zip)。
+
+
+## 刺繡海島配色與紙本同步
+
+- 視覺設計以奶油白、草莓粉、淺鼠尾草綠及布章縫線質感為主，使用原創的 `assets/island-stitched-flora.svg` 花卉與海島紋樣，不複製任何外部角色或參考圖。
+- 六個頁面的裝飾統一維護於既有的 `assets/pastel-details.css`，避免改動已核准並受雜湊保護的研究頁 HTML。
+- A4 列印版本統一由 `assets/print-layout.css` 控制；`resume.html` 是獨立雙頁簡歷，`resume.pdf` 則由 `index.html` 產生。它們都使用對應的粉彩布藝色系。
+- `.github/workflows/print-pdf-sync.yml` 在會影響列印版的原始檔變動後重新產生 `resume.pdf`，先驗證六個網頁的 A4 列印與既有文字，再提交 PDF。不得直接手工修改 PDF 內的個人資料。
+- 裝飾不得遮住文字、圖表、來源說明與照片，也不得破壞手機手勢、鍵盤焦點、`prefers-reduced-motion` 或 A4 分頁。
+- 柔粉色卡片上的小標籤採用高對比深玫瑰色文字；研究專題入口的漸層發光效果和桌面／手機切換鈕的原有功能色不受全站換色規則覆蓋。
