@@ -87,6 +87,17 @@ with sync_playwright() as p:
   initial=track.evaluate('e=>e.scrollLeft')
   rect=track.bounding_box()
   x=rect['x']+rect['width']*0.63;y=rect['y']+rect['height']*0.5
+  touch_page.evaluate("""() => {
+    window.__gestureTrace = [];
+    const n=document.querySelector('[data-keycap-marquee]');
+    ['pointerdown','pointermove','pointerup','pointercancel','lostpointercapture','touchstart','touchmove','touchend'].forEach(t=>{
+      n.addEventListener(t,e=>window.__gestureTrace.push({
+        type:e.type,x:e.clientX,scroll:n.querySelector('.keycap-marquee__viewport').scrollLeft,
+        cancelable:e.cancelable,defaultPrevented:e.defaultPrevented,
+        target:e.target?.className || e.target?.tagName
+      }),true);
+    });
+  }""")
   devtools=touch_page.context.new_cdp_session(touch_page)
   devtools.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':x,'y':y}]})
   assert strip.evaluate("e=>e.classList.contains('is-touch-paused')"), ('touch pause',name)
@@ -95,6 +106,14 @@ with sync_playwright() as p:
    touch_page.wait_for_timeout(22)
   devtools.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]})
   moved=track.evaluate('e=>e.scrollLeft')
+  if moved<=initial+65:
+   print('TOUCH_DEBUG',name,initial,moved,touch_page.evaluate("""() => {
+     const n=document.querySelector('[data-keycap-marquee]');
+     const v=n.querySelector('.keycap-marquee__viewport');
+     return {trace:window.__gestureTrace,classes:n.className,scrollWidth:v.scrollWidth,
+       clientWidth:v.clientWidth,scrollLeft:v.scrollLeft,navTouch:getComputedStyle(n).touchAction,
+       viewTouch:getComputedStyle(v).touchAction,group:n.querySelector('.keycap-marquee__group').getBoundingClientRect().width};
+   }"""),flush=True)
   assert moved>initial+65, ('finger drag should move track',name,initial,moved)
   touch_page.wait_for_timeout(80)
   assert touch_page.evaluate('location.hash')==start_hash, ('drag must not click link',name)
