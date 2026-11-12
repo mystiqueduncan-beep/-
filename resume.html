@@ -125,6 +125,17 @@ html { background:#f6e6e8; }
 }
 .page-foot { color:#90687a; }
 .screen-control .btn { background:#f3d8e1;border-color:#ba8999;box-shadow:2px 2px 0 #a57183; }
+.screen-control__actions { display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end; gap:9px; }
+.screen-control__actions .btn { margin:0; min-height:40px; padding:9px 16px; border-radius:12px; }
+.screen-control__actions .btn-print { background:#f5dfe7; color:#75475b; }
+.screen-control__actions .btn-download { background:#fffaf7; color:#70475b; border:1.5px dashed #bd8298; }
+.screen-control__actions .btn:is(:hover,:focus-visible) { background:#f1cfdd; color:#5d3c4d; }
+.screen-control__actions .btn:focus-visible { outline:3px solid #83516a; outline-offset:3px; }
+@media screen and (max-width:500px) {
+  .screen-control__actions { justify-content:center; width:100%; gap:7px; }
+  .screen-control__actions .btn { padding:9px 12px; font-size:13px; }
+}
+
 @media print {
   html,body { background:#fff !important; }
   .paper { background-color:#fff9f2 !important; }
@@ -133,7 +144,7 @@ html { background:#f6e6e8; }
   *,*::before,*::after { -webkit-print-color-adjust:exact;print-color-adjust:exact; }
 }
 </style></head><body>
-<div class="screen-control"><div><button type="button" class="btn" onclick="window.print()">列印／另存 PDF</button><a href="https://mystiqueduncan-beep.github.io/-/contact.html" class="btn secondary">原網站</a></div></div>
+<div class="screen-control"><div class="screen-control__actions"><button type="button" class="btn btn-print" onclick="window.print()">列印簡歷</button><a href="resume.pdf" class="btn btn-download" download="黃博詩_個人簡歷.pdf">下載 PDF</a><a href="https://mystiqueduncan-beep.github.io/-/contact.html" class="btn secondary">原網站</a></div></div>
 <section class="paper"><div class="dossier">
   <div class="barcode-stripe"></div>
   <div class="dossier-header"><div class="left">PERSONAL RÉSUMÉ ✦ 個人簡歷</div><div class="right">志願目標：台灣松本清 ｜ 區域營運經理</div></div>

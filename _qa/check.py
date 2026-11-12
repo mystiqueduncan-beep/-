@@ -204,8 +204,15 @@ def expected_text(rel,text):
 base=json.loads((ROOT/'_audit/baseline-text.json').read_text(encoding='utf-8'))
 approved_report=json.loads((ROOT/'_audit/regional-analysis-approved-sha1.json').read_text(encoding='utf-8'))['pages']
 errors=[];links=0;results=[]
-if (ROOT/'resume.pdf').exists():errors.append('Removed downloadable PDF unexpectedly exists')
-if (ROOT/'.github/workflows/print-pdf-sync.yml').exists():errors.append('Removed PDF workflow unexpectedly exists')
+if not (ROOT/'resume.pdf').is_file():errors.append('Download PDF linked but missing')
+if not (ROOT/'_qa/export_resume_pdf.py').is_file():errors.append('PDF export script missing')
+if not (ROOT/'.github/workflows/resume-pdf.yml').is_file():errors.append('PDF synchronization workflow missing')
+if (ROOT/'.github/workflows/print-pdf-sync.yml').exists():errors.append('Obsolete full-portfolio PDF workflow reappeared')
+resume_html=(ROOT/'resume.html').read_text(encoding='utf-8')
+if resume_html.count('onclick="window.print()"')!=1:errors.append('Separate print-only button missing')
+if resume_html.count('href="resume.pdf"')!=1 or resume_html.count('download="黃博詩_個人簡歷.pdf"')!=1:
+ errors.append('Dedicated downloadable PDF action missing')
+if '列印／另存 PDF' in resume_html:errors.append('Combined print/save action still present')
 for rel,old in base.items():
  f=ROOT/rel;p=Page(f.read_text(encoding='utf-8'));ids=[a['id'] for t,a in p.tags if 'id' in a]
  if len(ids)!=len(set(ids)):errors.append(rel+': duplicate id')

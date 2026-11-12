@@ -172,8 +172,8 @@ with sync_playwright() as p:
    page.emulate_media(media='print')
    assert not print_card.is_visible(),('do not print action card',name,width)
    page.close()
- assert not (Path(args.root)/'resume.pdf').exists(), 'deleted PDF has been regenerated'
- print('Print card placed before phone, pink dashed, link and deleted download verified.')
+ assert (Path(args.root)/'resume.pdf').is_file(), 'download button points to a missing PDF'
+ print('Contact print card intact; downloadable PDF is available only on resume page.')
 
  # Restore only the three work-history photos, not the hero portrait.
  for name in ('index.html','mobile.html'):
@@ -247,8 +247,24 @@ with sync_playwright() as p:
   assert page.locator('.paper').count()==2,('resume pages',width)
   assert page.locator('.summary-note').count()==0,('obsolete portfolio note',width)
   assert page.locator('.screen-control strong, .screen-control small').count()==0,('obsolete screen description',width)
-  assert page.locator('.screen-control button').count()==1,('retain print button',width)
+  assert page.locator('.screen-control button.btn-print').count()==1,('print-only button',width)
+  assert page.locator('.screen-control a.btn-download[href="resume.pdf"][download]').count()==1,('real PDF download action',width)
   assert page.locator('.screen-control a[href$="/contact.html"]').count()==1,('retain return link',width)
+  assert page.locator('.screen-control__actions').count()==1,('one coordinated action row',width)
+  # Printing opens only the print dialog; it must never start a file download.
+  page.evaluate('() => { window.__printCalls=0;window.print=()=>window.__printCalls++; }')
+  page.locator('.btn-print').click()
+  assert page.evaluate('window.__printCalls')==1 and page.url.endswith('/resume.html'),('print-only interaction',width)
+  if width==1024:
+   with page.expect_download() as download_info:
+    page.locator('a.btn-download').click()
+   download=download_info.value
+   assert download.suggested_filename=='黃博詩_個人簡歷.pdf',download.suggested_filename
+   pdf_path=out/'resume-download-test.pdf'
+   download.save_as(str(pdf_path))
+   payload=pdf_path.read_bytes()
+   assert payload.startswith(b'%PDF-') and len(payload)>20_000,('download payload must be a real PDF',len(payload))
+   assert page.url.endswith('/resume.html'),('download navigated away from resume',page.url)
   if width==1024:
    page.emulate_media(media='print')
    assert page.locator('.screen-control').evaluate('(e)=>getComputedStyle(e).display')=='none'
