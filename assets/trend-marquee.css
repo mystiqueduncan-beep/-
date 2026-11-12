@@ -18,7 +18,6 @@
 .keycap-marquee__viewport::-webkit-scrollbar { display: none; }
 .keycap-marquee__belt {
   --keycap-gap: 14px;
-  --keycap-duration: 48s;
   display: flex;
   align-items: stretch;
   gap: var(--keycap-gap);
@@ -78,12 +77,7 @@
   outline-offset: 4px;
 }
 
-/* Each chapter button appears once, followed by a graceful interlude of stars. */
-.keycap-marquee.is-enhanced .keycap-marquee__belt {
-  animation: keycap-marquee-scroll var(--keycap-duration) linear infinite;
-  animation-delay: var(--keycap-delay, -15s);
-  will-change: transform;
-}
+/* Single original set of chapter keys, with a decorative interlude; JavaScript owns scrollLeft. */
 .keycap-marquee.is-enhanced .keycap-marquee__belt::after {
   content: "✦    ·     ♡     ·     ✧";
   display: flex;
@@ -101,24 +95,9 @@
   pointer-events: none;
 }
 .keycap-marquee.is-keyboard-paused .keycap-marquee__belt::after { display: none !important; }
-/* Only the JavaScript-verified pointer hovering an actual chapter key pauses playback.
-   Hovering whitespace, a retained click focus, or another section never freezes the marquee. */
-.keycap-marquee.is-enhanced.is-hover-paused .keycap-marquee__belt {
-  animation-play-state: paused;
-}
-.keycap-marquee.is-enhanced.is-touch-paused .keycap-marquee__belt {
-  animation-play-state: paused;
-}
-/* Keyboard focus pauses the marquee so users can navigate links without them scrolling away. */
-.keycap-marquee.is-keyboard-paused .keycap-marquee__belt {
-  animation: none;
-  transform: none;
-}
+/* Keyboard focus keeps keys stationary and makes native scroll discoverable.
+   Hover, pointer capture and touch playback are controlled by one JS state machine. */
 .keycap-marquee.is-keyboard-paused .keycap-marquee__viewport { scrollbar-width: thin; }
-@keyframes keycap-marquee-scroll {
-  from { transform: translate3d(var(--keycap-start, 620px), 0, 0); }
-  to { transform: translate3d(calc(-1 * var(--keycap-end, 1300px)), 0, 0); }
-}
 
 /* Responsive padding and sizes on narrow screens while keeping smooth autoplay. */
 @media (max-width: 768px) {
@@ -349,7 +328,8 @@
   -webkit-mask-image: linear-gradient(90deg,transparent,#000 3.5%,#000 96.5%,transparent);
   mask-image: linear-gradient(90deg,transparent,#000 3.5%,#000 96.5%,transparent);
 }
-.keycap-marquee__viewport:active { cursor: grabbing; }
+.keycap-marquee__viewport:active,
+.keycap-marquee.is-drag-paused .keycap-marquee__viewport { cursor: grabbing; }
 .keycap-marquee__viewport:focus-visible { outline: 2px solid #a57b8a; outline-offset: -3px; }
 .keycap-marquee__viewport .keycap-marquee__group a { -webkit-user-drag: none; }
 .keycap-marquee.is-enhanced .keycap-marquee__belt {
