@@ -331,6 +331,8 @@
 }
 .keycap-marquee__viewport .keycap-marquee__group a {
   -webkit-user-drag: none;
+  /* Long-press opens the drag surface, not iOS Safari's link preview. */
+  -webkit-touch-callout: none;
 }
 /* Scrubbable single-set marquee, as approved in the interactive preview.
    The scrollLeft value, rather than an animated CSS transform, represents
