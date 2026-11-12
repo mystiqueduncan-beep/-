@@ -53,7 +53,11 @@ def main():
             w, h = float(p.mediabox.width), float(p.mediabox.height)
             assert abs(w - 595.28) < 1 and abs(h - 841.89) < 1, (number, w, h)
             data = p.get_contents()
-            assert data and len(data.get_data()) > 150, f"Empty page {number}"
+            stream_length = len(data.get_data()) if data else 0
+            text_length = len(p.extract_text() or "")
+            images = len(p.images)
+            print(f"Page {number}: stream={stream_length}, text={text_length}, images={images}", flush=True)
+            assert text_length > 100, f"Empty or unreadable page {number}"
         assert OUTPUT.stat().st_size > 20_000, "Unexpectedly small PDF"
         print(f"Created approved two-page A4 download: {OUTPUT.stat().st_size} bytes")
     finally:
