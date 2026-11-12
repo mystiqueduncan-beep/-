@@ -1,0 +1,55 @@
+name: Build downloadable personal résumé PDF
+
+on:
+  push:
+    branches:
+      - main
+      - fix/separate-print-download-pdf-20261112
+    paths:
+      - resume.html
+      - assets/island-stitched-flora.svg
+      - _qa/export_resume_pdf.py
+      - .github/workflows/resume-pdf.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: personal-resume-pdf-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-verify-commit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: true
+      - name: Install original CJK fonts and PDF renderer
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk
+          python3 -m pip install playwright==1.51.0 pypdf==5.8.0
+          python3 -m playwright install --with-deps chromium
+      - name: Render and validate two-page A4 PDF
+        run: python3 _qa/export_resume_pdf.py
+      - name: Commit verified downloadable PDF
+        shell: bash
+        run: |
+          if [ -n "$(git status --porcelain -- resume.pdf)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add resume.pdf
+            git commit -m "Update downloadable A4 personal resume PDF"
+            git push origin HEAD:"${GITHUB_REF_NAME}"
+          else
+            echo "Download file is already synchronized."
+          fi
+      - name: Preserve validated PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: personal-resume-a4-download
+          path: resume.pdf
+          retention-days: 14
