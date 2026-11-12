@@ -237,6 +237,29 @@ with sync_playwright() as p:
   assert photo.evaluate('(e)=>getComputedStyle(e).animationName')=='none'
   assert photo.evaluate('(e)=>getComputedStyle(e).opacity')=='1'
   page.close()
+ # The separate printable A4 résumé keeps its two-page structure,
+ # while decorative/editorial notes from the supplied screenshots are removed.
+ for width in (390, 1024, 1440):
+  page=browser.new_page(viewport={'width':width,'height':900})
+  page.goto(base+'resume.html',wait_until='domcontentloaded')
+  headings=page.locator('.dossier-header .left').all_inner_texts()
+  assert headings==['PERSONAL RÉSUMÉ ✦ 個人簡歷']*2,('bilingual resume headings',width,headings)
+  assert page.locator('.paper').count()==2,('resume pages',width)
+  assert page.locator('.summary-note').count()==0,('obsolete portfolio note',width)
+  assert page.locator('.screen-control strong, .screen-control small').count()==0,('obsolete screen description',width)
+  assert page.locator('.screen-control button').count()==1,('retain print button',width)
+  assert page.locator('.screen-control a[href$="/contact.html"]').count()==1,('retain return link',width)
+  if width==1024:
+   page.emulate_media(media='print')
+   assert page.locator('.screen-control').evaluate('(e)=>getComputedStyle(e).display')=='none'
+   assert page.locator('.paper').count()==2
+   for section in page.locator('.paper').all():
+    height=float(section.evaluate('(e)=>getComputedStyle(e).height').removesuffix('px'))
+    assert abs(height-1122.52)<2,('A4 print section height',height)
+   pdf=page.pdf(print_background=True,prefer_css_page_size=True)
+   assert pdf.startswith(b'%PDF-') and len(pdf)>18000,('A4 PDF output',len(pdf))
+  page.close()
+ print('Standalone resume: bilingual title, no template notes, A4 print preserved.')
  browser.close()
 server.shutdown();(out/'browser.json').write_text(json.dumps(results,ensure_ascii=False,indent=2),encoding='utf-8')
 failed=[r for r in results if r['overflow'] or r['brokenImages'] or r['errors'] or r.get('axe',{}).get('violations')]
