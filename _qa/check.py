@@ -250,8 +250,27 @@ for rel,old in base.items():
    if actual.count('個人及聯絡資訊')<1:errors.append(rel+': homepage profile action missing')
    else:actual=actual.replace('個人及聯絡資訊',baseline,1)
   if rel in ('contact.html','mobile-contact.html'):
+   # This is a *comparison-only* normalization of the intentionally moved UI.
+   # The actual HTML must contain the print card and no PDF download link.
+   html=f.read_text(encoding='utf-8')
+   if html.count('class="method-card method-card--print"')!=1:
+    errors.append(rel+': printable card must appear exactly once')
+   if re.search(r'<a\\b[^>]*href="resume\\.pdf"',html) or '下載簡歷' in html:
+    errors.append(rel+': removed PDF download still linked')
+   if html.count('href="resume.html"')!=1:
+    errors.append(rel+': print action must be unique')
+   if html.index('class="method-card method-card--print"')>html.index('id="phoneText"'):
+    errors.append(rel+': print card must precede phone')
+   new_card='列印簡歷(PRINT)A4履歷列印版列印簡歷'
+   if actual.count(new_card)!=1:errors.append(rel+': new print card text mismatch')
+   else:actual=actual.replace(new_card,'',1)
+   return_label=('返回履歷專刊首頁↗' if rel=='contact.html' else '←返回手機履歷專刊首頁')
+   if actual.count(return_label)!=1:
+    errors.append(rel+': return-home action for historical comparison missing')
+   else:
+    actual=actual.replace(return_label,return_label+'下載簡歷列印簡歷',1)
    baseline=("下載A4PDF履歷列印／另存PDF" if rel=='contact.html' else "下載A4PDF履歷表")
-   if actual.count("下載簡歷列印簡歷")!=1:errors.append(rel+': printable actions missing')
+   if actual.count("下載簡歷列印簡歷")!=1:errors.append(rel+': normalized printable actions missing')
    else:actual=actual.replace("下載簡歷列印簡歷",baseline,1)
   same=expect==actual
   if not same:
