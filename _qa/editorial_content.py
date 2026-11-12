@@ -36,7 +36,11 @@ def digest(source,name=''):
   parts=parts.replace(current,'',1)
   # The old footer download/print pair preceded the final research link.
   footer_marker='藥妝專題研究'
-  last=parts.rfind(footer_marker)
+  if name=='mobile-contact.html':
+   return_location=parts.find('返回手機履歷專刊首頁')
+   last=parts.find(footer_marker,return_location) if return_location>=0 else -1
+  else:
+   last=parts.rfind(footer_marker)
   assert last>=0,name+': footer research link missing'
   parts=parts[:last]+'下載簡歷列印簡歷'+parts[last:]
   old=('下載A4PDF履歷列印／另存PDF' if name=='contact.html' else '下載A4PDF履歷表')
