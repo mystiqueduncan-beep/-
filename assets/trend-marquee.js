@@ -26,38 +26,23 @@
     }
   });
 
-  // Touch handling for mobile & tablet: pause during touch swiping and resume after release.
+  // A finger stays in control until release. Never let touch auto-play
+  // while the user is examining a key or dragging the surrounding strip.
   let touchResumeTimer = null;
-  function setTouchPaused(shouldPause) {
-    if (touchResumeTimer) {
+  function setTouchPaused(paused) {
+    if (touchResumeTimer !== null) {
       clearTimeout(touchResumeTimer);
       touchResumeTimer = null;
     }
-    nav.classList.toggle("is-touch-paused", Boolean(shouldPause) && playback.matches);
+    nav.classList.toggle("is-touch-paused", Boolean(paused) && playback.matches);
   }
-
-  nav.addEventListener("pointerdown", (event) => {
-    nav.classList.remove("is-keyboard-paused");
-    if (event.pointerType === "touch") {
-      setTouchPaused(true);
-    }
-  });
-  nav.addEventListener("pointerup", (event) => {
-    if (event.pointerType === "touch") {
-      if (touchResumeTimer) clearTimeout(touchResumeTimer);
-      touchResumeTimer = setTimeout(() => {
-        setTouchPaused(false);
-      }, 180);
-    }
-  });
-  nav.addEventListener("pointercancel", (event) => {
-    if (event.pointerType === "touch") {
-      if (touchResumeTimer) clearTimeout(touchResumeTimer);
-      touchResumeTimer = setTimeout(() => {
-        setTouchPaused(false);
-      }, 180);
-    }
-  });
+  function resumeTouchSoon() {
+    if (touchResumeTimer !== null) clearTimeout(touchResumeTimer);
+    touchResumeTimer = setTimeout(() => {
+      nav.classList.remove("is-touch-paused");
+      touchResumeTimer = null;
+    }, 350);
+  }
 
   // Pointer position, not link focus or hash navigation, owns hover pause.
   // Pointerout can fire when a moving key slides beneath a stationary cursor:
@@ -93,12 +78,6 @@
     if (mousePointer(event)) setHoverPaused(false);
   });
 
-  // Clicking changes only the location, never the pointer's hover state.
-  // The clicked link may retain focus; that must not suppress hover detection.
-  nav.addEventListener("click", event => {
-    if (chapterLink(event.target)) setTouchPaused(false);
-  });
-
   function updateCurrent() {
     const active = window.location.hash || "#summary";
     nav.querySelectorAll('.keycap-marquee__group a[href^="#"]').forEach((link) => {
@@ -109,85 +88,120 @@
     });
   }
 
-  // Dragging maps 1:1 to native horizontal scroll. No duplicate links, no
-  // transform jump between pause and drag, and no invisible fake buttons.
+  // Entire decorated marquee (not merely the buttons/viewport) is a drag
+  // surface. A short, stationary pointer click still follows its real link.
+  // A horizontal gesture may NEVER activate a chapter link.
   let drag = null;
   let suppressNextClick = false;
   let suppressionTimer = null;
   let layoutInitialized = false;
   const pixelsPerSecond = 32;
+  const threshold = 8;
+
   if (viewport) {
     viewport.querySelectorAll?.("a")?.forEach(link => link.setAttribute("draggable", "false"));
-    viewport.addEventListener("dragstart", event => event.preventDefault());
-    viewport.addEventListener("pointerdown", event => {
+    nav.addEventListener("dragstart", event => event.preventDefault());
+    nav.addEventListener("selectstart", event => {
+      if (drag?.moved) event.preventDefault();
+    });
+
+    nav.addEventListener("pointerdown", event => {
       if (event.pointerType !== "touch" && event.button !== 0) return;
       if (drag) return;
-      // An independent pointer gesture must not inherit click suppression.
-      suppressNextClick = false;
-      if (suppressionTimer) clearTimeout(suppressionTimer);
-      nav.classList.remove("is-keyboard-paused");
-      drag = {
-        pointerId: event.pointerId,
-        x: event.clientX,
-        scrollLeft: viewport.scrollLeft,
-        moved: false
-      };
-      nav.classList.add("is-drag-paused");
-      if (event.pointerType === "touch") setTouchPaused(true);
-    });
-    viewport.addEventListener("pointermove", event => {
-      if (!drag || drag.pointerId !== event.pointerId) return;
-      const distance = event.clientX - drag.x;
-      if (Math.abs(distance) > 6 && !drag.moved) {
-        drag.moved = true;
-        try { viewport.setPointerCapture?.(event.pointerId); } catch (_) {}
-      }
-      if (drag.moved) {
-        viewport.scrollLeft = drag.scrollLeft - distance;
-        event.preventDefault();
-      }
-    });
-    function finishDrag(event) {
-      if (!drag || event.pointerId !== drag.pointerId) return;
-      suppressNextClick = drag.moved;
-      drag = null;
-      nav.classList.remove("is-drag-paused");
-      if (event.pointerType === "touch") {
-        setTouchPaused(true);
-        if (touchResumeTimer) clearTimeout(touchResumeTimer);
-        touchResumeTimer = setTimeout(() => setTouchPaused(false), 1200);
-      }
-      try {
-        if (viewport.hasPointerCapture?.(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
-      } catch (_) {}
-      // Keep suppression through the synthetic click after pointerup (which
-      // Safari can dispatch after a task boundary), but not future gestures.
-      if (suppressNextClick) {
-        if (suppressionTimer) clearTimeout(suppressionTimer);
-        suppressionTimer = setTimeout(() => {
-          suppressNextClick = false;
-          suppressionTimer = null;
-        }, 450);
-      }
-    }
-    viewport.addEventListener("pointerup", finishDrag);
-    viewport.addEventListener("pointercancel", finishDrag);
-    viewport.addEventListener("click", event => {
-      if (!suppressNextClick) return;
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      suppressNextClick = false;
-      if (suppressionTimer) {
+      if (suppressionTimer !== null) {
         clearTimeout(suppressionTimer);
         suppressionTimer = null;
       }
-    }, true);
-    window.addEventListener("blur", () => {
-      // Releasing the browser window mid-gesture must never freeze playback.
-      if (!drag) return;
+      suppressNextClick = false;
+      nav.classList.remove("is-keyboard-paused");
+      drag = {
+        pointerId: event.pointerId,
+        type: event.pointerType,
+        x: event.clientX,
+        y: event.clientY || 0,
+        scrollLeft: viewport.scrollLeft,
+        moved: false,
+        vertical: false
+      };
+      // Pause immediately at first contact, including the decorative interval.
+      nav.classList.add("is-drag-paused");
+      if (event.pointerType === "touch") setTouchPaused(true);
+      else if (mousePointer(event)) setHoverPaused(true);
+    });
+
+    nav.addEventListener("pointermove", event => {
+      if (!drag || drag.pointerId !== event.pointerId) return;
+      if (drag.type !== "touch" && typeof event.buttons === "number" && event.buttons === 0) return;
+      if (drag.vertical) return;
+      const distanceX = event.clientX - drag.x;
+      const distanceY = (event.clientY || 0) - drag.y;
+      if (!drag.moved) {
+        // Give vertical swipes back to the browser for page scrolling.
+        if (Math.abs(distanceY) >= threshold && Math.abs(distanceY) > Math.abs(distanceX)) {
+          drag.vertical = true;
+          return;
+        }
+        if (Math.abs(distanceX) < threshold || Math.abs(distanceX) <= Math.abs(distanceY)) return;
+        drag.moved = true;
+        nav.classList.add("is-scrubbing");
+        try { nav.setPointerCapture?.(event.pointerId); } catch (_) {}
+      }
+      viewport.scrollLeft = drag.scrollLeft - distanceX;
+      if (event.cancelable !== false) event.preventDefault();
+    });
+
+    function finishDrag(event) {
+      if (!drag || drag.pointerId !== event.pointerId) return;
+      const wasDragged = drag.moved;
+      const wasTouch = drag.type === "touch";
       drag = null;
       nav.classList.remove("is-drag-paused");
+      nav.classList.remove("is-scrubbing");
+      if (wasTouch) resumeTouchSoon();
+      try {
+        if (nav.hasPointerCapture?.(event.pointerId)) nav.releasePointerCapture(event.pointerId);
+      } catch (_) {}
+      if (wasDragged) {
+        suppressNextClick = true;
+        if (suppressionTimer !== null) clearTimeout(suppressionTimer);
+        // Safari can synthesize click in a later task after pointerup.
+        suppressionTimer = setTimeout(() => {
+          suppressNextClick = false;
+          suppressionTimer = null;
+        }, 650);
+      }
+    }
+    nav.addEventListener("pointerup", finishDrag);
+    nav.addEventListener("pointercancel", finishDrag);
+    // A touch can change its implicit pointer-capture target mid-swipe.
+    // lostpointercapture is NOT a release; never end the gesture on that event.
+    // The window fallback catches releases outside the marquee instead.
+    window.addEventListener("pointerup", finishDrag);
+    window.addEventListener("pointercancel", finishDrag);
+
+    // Capture before a click can reach any button or a delegated page handler.
+    // Keyboard/assistive-tech activations (detail=0) must remain available.
+    nav.addEventListener("click", event => {
+      if (suppressNextClick && event.detail !== 0) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        suppressNextClick = false;
+        if (suppressionTimer !== null) clearTimeout(suppressionTimer);
+        suppressionTimer = null;
+        return;
+      }
+      if (chapterLink(event.target)) setTouchPaused(false);
+    }, true);
+
+    window.addEventListener("blur", () => {
+      if (!drag) return;
+      const wasTouch = drag.type === "touch";
+      drag = null;
+      nav.classList.remove("is-drag-paused");
+      nav.classList.remove("is-scrubbing");
+      if (wasTouch) setTouchPaused(false);
     });
+
     viewport.addEventListener("keydown", event => {
       if (event.target !== viewport) return;
       if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;

@@ -72,6 +72,58 @@ with sync_playwright() as p:
   page.emulate_media(reduced_motion='reduce')
   assert belt.evaluate('e=>getComputedStyle(e).animationName')=='none'
   rows.append({'page':name,'marquee':'pass','hover':'pass'});page.close()
+ # Test actual Chromium touch input on the desktop-layout marquee at phone width.
+ # The site's dedicated mobile edition intentionally has no chapter marquee.
+ for name in ['index','trend']:
+  touch_page=browser.new_page(viewport={'width':390,'height':844},has_touch=True,is_mobile=True)
+  touch_page.route('https://**/*',lambda r:r.abort())
+  touch_page.goto(f'http://127.0.0.1:{server.server_port}/{name}.html?view=desktop')
+  strip=touch_page.locator('[data-keycap-marquee]')
+  expect(strip).to_have_count(1)
+  strip.scroll_into_view_if_needed()
+  track=strip.locator('.keycap-marquee__viewport')
+  link=strip.locator('.keycap-marquee__group a').first
+  start_hash=touch_page.evaluate('location.hash')
+  initial=track.evaluate('e=>e.scrollLeft')
+  rect=track.bounding_box()
+  x=rect['x']+rect['width']*0.63;y=rect['y']+rect['height']*0.5
+  touch_page.evaluate("""() => {
+    window.__gestureTrace = [];
+    const n=document.querySelector('[data-keycap-marquee]');
+    ['pointerdown','pointermove','pointerup','pointercancel','lostpointercapture','touchstart','touchmove','touchend'].forEach(t=>{
+      n.addEventListener(t,e=>window.__gestureTrace.push({
+        type:e.type,x:e.clientX,scroll:n.querySelector('.keycap-marquee__viewport').scrollLeft,
+        cancelable:e.cancelable,defaultPrevented:e.defaultPrevented,
+        target:e.target?.className || e.target?.tagName
+      }),true);
+    });
+  }""")
+  devtools=touch_page.context.new_cdp_session(touch_page)
+  devtools.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':x,'y':y}]})
+  assert strip.evaluate("e=>e.classList.contains('is-touch-paused')"), ('touch pause',name)
+  for i in range(1,6):
+   devtools.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[{'x':x-i*22,'y':y}]})
+   touch_page.wait_for_timeout(22)
+  devtools.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]})
+  moved=track.evaluate('e=>e.scrollLeft')
+  if moved<=initial+65:
+   print('TOUCH_DEBUG',name,initial,moved,touch_page.evaluate("""() => {
+     const n=document.querySelector('[data-keycap-marquee]');
+     const v=n.querySelector('.keycap-marquee__viewport');
+     return {trace:window.__gestureTrace,classes:n.className,scrollWidth:v.scrollWidth,
+       clientWidth:v.clientWidth,scrollLeft:v.scrollLeft,navTouch:getComputedStyle(n).touchAction,
+       viewTouch:getComputedStyle(v).touchAction,group:n.querySelector('.keycap-marquee__group').getBoundingClientRect().width};
+   }"""),flush=True)
+  assert moved>initial+65, ('finger drag should move track',name,initial,moved)
+  touch_page.wait_for_timeout(80)
+  assert touch_page.evaluate('location.hash')==start_hash, ('drag must not click link',name)
+  link.scroll_into_view_if_needed()
+  target=link.get_attribute('href')
+  key=link.bounding_box()
+  touch_page.touchscreen.tap(key['x']+key['width']/2,key['y']+key['height']/2)
+  assert touch_page.evaluate('location.hash')==target, ('tap should navigate',name,target)
+  rows.append({'page':name+'-touch','drag':'pass','tap':'pass'})
+  touch_page.close()
  # Same-tab cross-document navigation uses the existing transition mechanism.
  page=browser.new_page();page.route('https://**/*',lambda r:r.abort());page.goto(f'http://127.0.0.1:{server.server_port}/index.html?view=desktop')
  assert page.locator('a[href="contact.html"]').first.get_attribute('target') in (None,'_self')
