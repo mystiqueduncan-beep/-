@@ -41,14 +41,13 @@
     if (event.pointerType === "touch") {
       setTouchPaused(true);
     }
-    const link = chapterLink(event.target);
   });
   nav.addEventListener("pointerup", (event) => {
     if (event.pointerType === "touch") {
       if (touchResumeTimer) clearTimeout(touchResumeTimer);
       touchResumeTimer = setTimeout(() => {
         setTouchPaused(false);
-      }, 1200);
+      }, 180);
     }
   });
   nav.addEventListener("pointercancel", (event) => {
@@ -56,14 +55,15 @@
       if (touchResumeTimer) clearTimeout(touchResumeTimer);
       touchResumeTimer = setTimeout(() => {
         setTouchPaused(false);
-      }, 1200);
+      }, 180);
     }
   });
 
-  // A clicked anchor retains focus after hash navigation. That focus must not
-  // permanently pause the animation; require an actual new pointer movement.
-  let resumeAfterNavigation = false;
-  const mousePointer = (event) => event.pointerType === "mouse" || event.pointerType === "pen";
+  // Pointer position, not link focus or hash navigation, owns hover pause.
+  // Pointerout can fire when a moving key slides beneath a stationary cursor:
+  // only leaving the entire strip should resume playback.
+  let hovering = false;
+  const mousePointer = event => event.pointerType === "mouse" || event.pointerType === "pen";
 
   function chapterLink(node) {
     if (!node || typeof node.closest !== "function") return null;
@@ -72,33 +72,31 @@
   }
 
   function setHoverPaused(shouldPause) {
-    nav.classList.toggle("is-hover-paused", Boolean(shouldPause) && playback.matches && !resumeAfterNavigation);
+    hovering = Boolean(shouldPause);
+    nav.classList.toggle("is-hover-paused", hovering && playback.matches);
   }
 
-  // Hover pauses over keys AND the decorated interval so the whole strip can be scrubbed.
-  nav.addEventListener("pointerover", (event) => {
+  nav.addEventListener("pointerenter", event => {
     if (mousePointer(event)) setHoverPaused(true);
   });
-  nav.addEventListener("pointerout", (event) => {
-    if (mousePointer(event) && !nav.contains(event.relatedTarget)) setHoverPaused(false);
+  nav.addEventListener("pointerover", event => {
+    if (mousePointer(event)) setHoverPaused(true);
   });
-  nav.addEventListener("pointerleave", () => {
-    resumeAfterNavigation = false;
+  nav.addEventListener("pointerout", event => {
+    if (!mousePointer(event) || nav.contains(event.relatedTarget)) return;
+    // During a key transition the browser may report relatedTarget=null even
+    // though the mouse is still hovering over the surrounding navigation.
+    if (typeof nav.matches === "function" && nav.matches(":hover")) return;
     setHoverPaused(false);
   });
-  nav.addEventListener("pointermove", (event) => {
-    if (!mousePointer(event) || !resumeAfterNavigation) return;
-    resumeAfterNavigation = false;
-    setHoverPaused(true);
+  nav.addEventListener("pointerleave", event => {
+    if (mousePointer(event)) setHoverPaused(false);
   });
 
-  // Resume immediately on click, including while the page scrolls to an anchor.
-  // Do not re-pause beneath a stationary cursor until the user moves it again.
-  nav.addEventListener("click", (event) => {
-    if (!chapterLink(event.target)) return;
-    resumeAfterNavigation = true;
-    setHoverPaused(false);
-    setTouchPaused(false);
+  // Clicking changes only the location, never the pointer's hover state.
+  // The clicked link may retain focus; that must not suppress hover detection.
+  nav.addEventListener("click", event => {
+    if (chapterLink(event.target)) setTouchPaused(false);
   });
 
   function updateCurrent() {
@@ -115,6 +113,7 @@
   // transform jump between pause and drag, and no invisible fake buttons.
   let drag = null;
   let suppressNextClick = false;
+  let suppressionTimer = null;
   let layoutInitialized = false;
   const pixelsPerSecond = 32;
   if (viewport) {
@@ -123,6 +122,9 @@
     viewport.addEventListener("pointerdown", event => {
       if (event.pointerType !== "touch" && event.button !== 0) return;
       if (drag) return;
+      // An independent pointer gesture must not inherit click suppression.
+      suppressNextClick = false;
+      if (suppressionTimer) clearTimeout(suppressionTimer);
       nav.classList.remove("is-keyboard-paused");
       drag = {
         pointerId: event.pointerId,
@@ -158,8 +160,15 @@
       try {
         if (viewport.hasPointerCapture?.(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
       } catch (_) {}
-      // A subsequent independent click must never be blocked.
-      if (suppressNextClick) setTimeout(() => { suppressNextClick = false; }, 0);
+      // Keep suppression through the synthetic click after pointerup (which
+      // Safari can dispatch after a task boundary), but not future gestures.
+      if (suppressNextClick) {
+        if (suppressionTimer) clearTimeout(suppressionTimer);
+        suppressionTimer = setTimeout(() => {
+          suppressNextClick = false;
+          suppressionTimer = null;
+        }, 450);
+      }
     }
     viewport.addEventListener("pointerup", finishDrag);
     viewport.addEventListener("pointercancel", finishDrag);
@@ -168,7 +177,17 @@
       event.preventDefault();
       event.stopImmediatePropagation();
       suppressNextClick = false;
+      if (suppressionTimer) {
+        clearTimeout(suppressionTimer);
+        suppressionTimer = null;
+      }
     }, true);
+    window.addEventListener("blur", () => {
+      // Releasing the browser window mid-gesture must never freeze playback.
+      if (!drag) return;
+      drag = null;
+      nav.classList.remove("is-drag-paused");
+    });
     viewport.addEventListener("keydown", event => {
       if (event.target !== viewport) return;
       if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
@@ -226,11 +245,15 @@
     const interludeWidth = Math.max(390, Math.ceil(viewportWidth * 1.12));
     const speed = 32; // pixels/second; calm editorial motion.
     const end = groupWidth + 14 + interludeWidth;
+    const previousStart = Number.parseFloat(belt.style.getPropertyValue?.("--keycap-start") || 0) || 0;
     belt.style.setProperty("--keycap-start", viewportWidth + "px");
-    if (!layoutInitialized && viewport) {
+    if (viewport && !layoutInitialized) {
       // Start with the first original chapter in view rather than an empty screen.
       viewport.scrollLeft = viewportWidth + 14;
       layoutInitialized = true;
+    } else if (viewport && previousStart && previousStart !== viewportWidth) {
+      // Changing the leading decorative width must not move the current key.
+      viewport.scrollLeft += viewportWidth - previousStart;
     }
     belt.style.setProperty("--keycap-end", end + "px");
     belt.style.setProperty("--keycap-interlude-width", interludeWidth + "px");
@@ -242,21 +265,15 @@
     if (playback.matches) {
       nav.classList.add("is-enhanced");
       updateDuration();
+      nav.classList.toggle("is-hover-paused", hovering);
     } else {
-      nav.classList.remove("is-enhanced");
-      resumeAfterNavigation = false;
-      setHoverPaused(false);
+      nav.classList.remove("is-enhanced", "is-hover-paused");
       setTouchPaused(false);
     }
     updateCurrent();
   }
 
-  window.addEventListener("hashchange", () => {
-    resumeAfterNavigation = true;
-    setHoverPaused(false);
-    setTouchPaused(false);
-    updateCurrent();
-  });
+  window.addEventListener("hashchange", updateCurrent);
   if (typeof playback.addEventListener === "function") {
     playback.addEventListener("change", syncMode);
   } else if (typeof playback.addListener === "function") {
