@@ -172,8 +172,8 @@ with sync_playwright() as p:
    page.emulate_media(media='print')
    assert not print_card.is_visible(),('do not print action card',name,width)
    page.close()
- assert not (Path(args.root)/'resume.pdf').exists(), 'deleted PDF has been regenerated'
- print('Print card placed before phone, pink dashed, link and deleted download verified.')
+ assert (Path(args.root)/'resume.pdf').is_file(), 'download button points to a missing PDF'
+ print('Contact print card intact; downloadable PDF is available only on resume page.')
 
  # Restore only the three work-history photos, not the hero portrait.
  for name in ('index.html','mobile.html'):
