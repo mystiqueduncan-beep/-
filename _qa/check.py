@@ -269,7 +269,11 @@ for rel,old in base.items():
    # The footer's research link is the stable right-hand neighbor of
    # the removed download/print buttons in the historical content fingerprint.
    footer_marker='藥妝專題研究'
-   last=actual.rfind(footer_marker)
+   if rel=='mobile-contact.html':
+    return_location=actual.find('返回手機履歷專刊首頁')
+    last=actual.find(footer_marker,return_location) if return_location>=0 else -1
+   else:
+    last=actual.rfind(footer_marker)
    if last<0:errors.append(rel+': footer research link missing')
    else:actual=actual[:last]+'下載簡歷列印簡歷'+actual[last:]
    baseline=("下載A4PDF履歷列印／另存PDF" if rel=='contact.html' else "下載A4PDF履歷表")
