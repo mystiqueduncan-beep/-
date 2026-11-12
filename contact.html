@@ -867,16 +867,13 @@
             <!-- Contact Methods Stack -->
             <div class="contact-methods-stack">
 
-              <!-- Print-only navigation is presented as a card before contact methods. -->
-              <div class="method-card method-card--print">
-                <div class="method-card-label"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9V3h12v6M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 15h12v6H6zM18 12h1"/></svg>列印簡歷 (PRINT)</div>
-                <div class="method-value-row">
-                  <div class="method-huge-text">A4 履歷列印版</div>
-                  <div class="method-action-btns">
-                    <a href="resume.html" class="nav-btn-mk outline" aria-label="開啟簡歷列印版"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9V3h12v6M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 15h12v6H6zM18 12h1"/></svg>列印簡歷</a>
-                  </div>
-                </div>
-              </div>
+                            <!-- Whole-card personal resume action; same-tab A4 print page. -->
+              <a href="resume.html" class="method-card method-card--print personal-resume-link" aria-label="個人簡歷（開啟 A4 列印版）">
+                <span class="personal-resume-link__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8V3h10v5M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M7 15h10v6H7zM18 12h1"/></svg></span>
+                <span class="personal-resume-link__title">個人簡歷</span>
+                <span class="personal-resume-link__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+                <span class="research-meteor" aria-hidden="true"></span>
+              </a>
 
               <!-- Method 1: Phone -->
               <div class="method-card">
