@@ -206,3 +206,47 @@ html.page-trans-fallback body.is-page-exiting {
     }
   }
 }
+
+/* Printable resume action: a fourth contact-method style card, placed before
+   the phone. Screen only: the actual printed resume layout is not changed. */
+@media screen {
+  body.page-contact .method-card.method-card--print {
+    background: #fff8f7 !important;
+    border: 2px dashed #d496ad !important;
+    border-radius: 23px !important;
+    box-shadow: 0 5px 16px rgba(159, 89, 120, .08) !important;
+  }
+  body.page-contact .method-card--print .method-card-label {
+    color: #89546b !important;
+  }
+  body.page-contact .method-card--print .method-huge-text {
+    color: #704a5e !important;
+    overflow-wrap: anywhere;
+  }
+  body.page-contact .method-card--print .method-action-btns a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 44px;
+    color: #664455 !important;
+    background: #fffaf6 !important;
+    border: 1.5px solid #cb91a6 !important;
+    border-radius: 15px !important;
+    box-shadow: 1px 2px 0 #efd0db !important;
+    font-weight: 800;
+    text-decoration: none;
+  }
+  body.page-contact .method-card--print .method-action-btns a:is(:hover,:focus-visible) {
+    color: #533244 !important;
+    background: #f7dfe7 !important;
+  }
+  body.page-contact .method-card--print .method-action-btns a:focus-visible {
+    outline: 3px solid #8d526a !important;
+    outline-offset: 3px;
+  }
+}
+/* The card contains an action, not resume facts: never print the action itself. */
+@media print {
+  body.page-contact .method-card--print { display: none !important; }
+}

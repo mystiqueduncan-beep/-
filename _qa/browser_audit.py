@@ -133,6 +133,35 @@ with sync_playwright() as p:
     '(e)=>getComputedStyle(e).gridTemplateColumns.trim().split(/\s+/).length')
    assert columns==1,('tablet contact columns',columns)
   page.close()
+ # Print-card relocation and deleted download must work on desktop, tablet,
+ # and mobile widths. The card is a website action, not printed resume content.
+ for name in ('contact.html','mobile-contact.html'):
+  for width in (390,820,1440):
+   page=browser.new_page(viewport={'width':width,'height':844})
+   page.goto(base+name+'?view='+('mobile' if name.startswith('mobile') else 'desktop'))
+   cards=page.locator('.method-card')
+   print_card=page.locator('.method-card--print')
+   expect(print_card).to_have_count(1)
+   assert cards.first.evaluate('(e)=>e.classList.contains("method-card--print")'),(
+    'print card must precede phone',name,width)
+   print_link=print_card.locator('a[href="resume.html"]')
+   expect(print_link).to_have_count(1)
+   assert print_link.inner_text().strip()=='列印簡歷',(name,width)
+   assert print_link.get_attribute('target') in (None,'_self'),(name,width)
+   assert print_card.evaluate('(e)=>getComputedStyle(e).borderTopStyle')=='dashed',(
+    'pink dashed print card border',name,width)
+   assert print_card.evaluate('(e)=>getComputedStyle(e).borderTopColor')=='rgb(212, 150, 173)',(
+    'print border should remain pastel pink',name,width)
+   assert page.locator('a[href="resume.pdf"], a[download]').count()==0,(name,width)
+   assert page.locator('#phoneText').count()==1 and page.locator('#emailText').count()==1
+   print_link.scroll_into_view_if_needed()
+   assert print_link.is_visible(),('print action must be visible',name,width)
+   page.emulate_media(media='print')
+   assert not print_card.is_visible(),('do not print action card',name,width)
+   page.close()
+ assert not (Path(args.root)/'resume.pdf').exists(), 'deleted PDF has been regenerated'
+ print('Print card placed before phone, pink dashed, link and deleted download verified.')
+
  # Restore only the three work-history photos, not the hero portrait.
  for name in ('index.html','mobile.html'):
   page=browser.new_page(viewport={'width':390 if name.startswith('mobile') else 1440,'height':844})

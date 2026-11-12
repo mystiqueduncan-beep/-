@@ -204,6 +204,8 @@ def expected_text(rel,text):
 base=json.loads((ROOT/'_audit/baseline-text.json').read_text(encoding='utf-8'))
 approved_report=json.loads((ROOT/'_audit/regional-analysis-approved-sha1.json').read_text(encoding='utf-8'))['pages']
 errors=[];links=0;results=[]
+if (ROOT/'resume.pdf').exists():errors.append('Removed downloadable PDF unexpectedly exists')
+if (ROOT/'.github/workflows/print-pdf-sync.yml').exists():errors.append('Removed PDF workflow unexpectedly exists')
 for rel,old in base.items():
  f=ROOT/rel;p=Page(f.read_text(encoding='utf-8'));ids=[a['id'] for t,a in p.tags if 'id' in a]
  if len(ids)!=len(set(ids)):errors.append(rel+': duplicate id')
@@ -250,8 +252,32 @@ for rel,old in base.items():
    if actual.count('個人及聯絡資訊')<1:errors.append(rel+': homepage profile action missing')
    else:actual=actual.replace('個人及聯絡資訊',baseline,1)
   if rel in ('contact.html','mobile-contact.html'):
+   # This is a *comparison-only* normalization of the intentionally moved UI.
+   # The actual HTML must contain the print card and no PDF download link.
+   html=f.read_text(encoding='utf-8')
+   if html.count('class="method-card method-card--print"')!=1:
+    errors.append(rel+': printable card must appear exactly once')
+   if 'href="resume.pdf"' in html or '下載簡歷' in html:
+    errors.append(rel+': removed PDF download still linked')
+   if html.count('href="resume.html"')!=1:
+    errors.append(rel+': print action must be unique')
+   if html.index('class="method-card method-card--print"')>html.index('id="phoneText"'):
+    errors.append(rel+': print card must precede phone')
+   new_card='列印簡歷(PRINT)A4履歷列印版列印簡歷'
+   if actual.count(new_card)!=1:errors.append(rel+': new print card text mismatch')
+   else:actual=actual.replace(new_card,'',1)
+   # The footer's research link is the stable right-hand neighbor of
+   # the removed download/print buttons in the historical content fingerprint.
+   footer_marker='藥妝專題研究'
+   if rel=='mobile-contact.html':
+    return_location=actual.find('返回手機履歷專刊首頁')
+    last=actual.find(footer_marker,return_location) if return_location>=0 else -1
+   else:
+    last=actual.rfind(footer_marker)
+   if last<0:errors.append(rel+': footer research link missing')
+   else:actual=actual[:last]+'下載簡歷列印簡歷'+actual[last:]
    baseline=("下載A4PDF履歷列印／另存PDF" if rel=='contact.html' else "下載A4PDF履歷表")
-   if actual.count("下載簡歷列印簡歷")!=1:errors.append(rel+': printable actions missing')
+   if actual.count("下載簡歷列印簡歷")!=1:errors.append(rel+': normalized printable actions missing')
    else:actual=actual.replace("下載簡歷列印簡歷",baseline,1)
   same=expect==actual
   if not same:
