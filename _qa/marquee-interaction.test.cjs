@@ -100,6 +100,10 @@ function makeHarness(options = {}) {
     classList: classes(),
     matches(selector) { return selector === ":hover" ? Boolean(this.hovering) : false; },
     hovering: false,
+    capturedPointer: null,
+    setPointerCapture(id) { this.capturedPointer = id; },
+    hasPointerCapture(id) { return this.capturedPointer === id; },
+    releasePointerCapture() { this.capturedPointer = null; },
     querySelector(selector) {
       if (selector === ".keycap-marquee__viewport") return viewport;
       if (selector === ".keycap-marquee__belt") return belt;
@@ -297,7 +301,7 @@ test("mobile touch interaction pauses during swipe and resumes after release", a
   h.dispatch("pointerdown", h.originals[1], null, "touch");
   assert.equal(h.nav.classList.contains("is-touch-paused"), true);
   h.dispatch("pointerup", h.originals[1], null, "touch");
-  await new Promise(r => setTimeout(r, 240));
+  await new Promise(r => setTimeout(r, 420));
   assert.equal(h.nav.classList.contains("is-touch-paused"), false);
 });
 
@@ -386,14 +390,14 @@ test("automatic native scrolling pauses and can be dragged both ways", () => {
     pointerType:"mouse",pointerId:11,button:0,clientX:x,
     preventDefault(){this.prevented=true;},stopImmediatePropagation(){this.stopped=true;}
   });
-  view.events.get("pointerdown")(event(220));
-  view.events.get("pointermove")(event(298));
+  h.events.get("pointerdown")(event(220));
+  h.events.get("pointermove")(event(298));
   const earlier=view.scrollLeft;
   assert.ok(earlier<paused-70,"rightward drag reveals previous chapters");
-  view.events.get("pointermove")(event(155));
+  h.events.get("pointermove")(event(155));
   const later=view.scrollLeft;
   assert.ok(later>earlier+130,"leftward drag reveals later chapters");
-  view.events.get("pointerup")(event(155));
+  h.events.get("pointerup")(event(155));
   assert.equal(h.nav.classList.contains("is-drag-paused"),false);
   h.advanceFrame(2400);
   assert.equal(view.scrollLeft,later,"hover pause remains after drag");
@@ -406,11 +410,11 @@ test("automatic native scrolling pauses and can be dragged both ways", () => {
 test("a dragged chapter does not trigger unwanted link navigation", () => {
   const h=makeHarness(), v=h.viewport;
   const evt=(x)=>({pointerId:7,pointerType:"mouse",button:0,clientX:x,preventDefault(){this.prevented=true;},stopImmediatePropagation(){this.stopped=true;}});
-  v.events.get("pointerdown")(evt(100));
-  v.events.get("pointermove")(evt(40));
-  v.events.get("pointerup")(evt(40));
+  h.events.get("pointerdown")(evt(100));
+  h.events.get("pointermove")(evt(40));
+  h.events.get("pointerup")(evt(40));
   const click=evt(40);
-  v.events.get("click")(click);
+  h.events.get("click")(click);
   assert.equal(click.prevented,true);
   assert.equal(click.stopped,true);
 });
@@ -423,13 +427,13 @@ test("a new pointer gesture is never blocked by an earlier drag", () => {
     preventDefault() { this.prevented = true; },
     stopImmediatePropagation() { this.stopped = true; }
   });
-  view.events.get("pointerdown")(evt(220));
-  view.events.get("pointermove")(evt(120));
-  view.events.get("pointerup")(evt(120));
+  h.events.get("pointerdown")(evt(220));
+  h.events.get("pointermove")(evt(120));
+  h.events.get("pointerup")(evt(120));
   const next = evt(100);
-  view.events.get("pointerdown")(next);
-  view.events.get("pointerup")(next);
-  view.events.get("click")(next);
+  h.events.get("pointerdown")(next);
+  h.events.get("pointerup")(next);
+  h.events.get("click")(next);
   assert.equal(Boolean(next.prevented), false);
   assert.equal(Boolean(next.stopped), false);
 });
@@ -437,9 +441,80 @@ test("a new pointer gesture is never blocked by an earlier drag", () => {
 test("window blur during a drag clears capture-based pause", () => {
   const h = makeHarness();
   const evt = (x) => ({ pointerId: 3, pointerType: "mouse", button: 0, clientX: x, preventDefault() {} });
-  h.viewport.events.get("pointerdown")(evt(100));
-  h.viewport.events.get("pointermove")(evt(80));
+  h.events.get("pointerdown")(evt(100));
+  h.events.get("pointermove")(evt(80));
   assert.equal(h.nav.classList.contains("is-drag-paused"), true);
   h.windowEvents.get("blur")();
   assert.equal(h.nav.classList.contains("is-drag-paused"), false);
+});
+
+test("mouse contact pauses even on decorative space; a short click does not drag", () => {
+  const h = makeHarness(), view = h.viewport;
+  h.advanceFrame(1000);
+  h.advanceFrame(1300);
+  const started = view.scrollLeft;
+  const event = (name,x) => ({
+    target: name === "click" ? h.originals[0] : { closest() { return null; } },
+    pointerType:"mouse", pointerId:25, button:0, clientX:x, clientY:90,
+    detail:1, preventDefault() { this.prevented=true; },
+    stopImmediatePropagation() { this.stopped=true; }
+  });
+  h.events.get("pointerdown")(event("down",100));
+  assert.equal(h.nav.classList.contains("is-drag-paused"), true);
+  h.advanceFrame(1600);
+  assert.equal(view.scrollLeft, started);
+  h.events.get("pointermove")(event("move",106)); // below 8px threshold
+  assert.equal(view.scrollLeft, started);
+  h.events.get("pointerup")(event("up",106));
+  const click=event("click",106);
+  h.events.get("click")(click);
+  assert.equal(Boolean(click.prevented), false, "a stationary click must remain usable");
+  assert.equal(h.nav.classList.contains("is-drag-paused"), false);
+});
+
+test("touch swiping anywhere drags but suppresses synthetic chapter click", () => {
+  const h=makeHarness(), view=h.viewport, start=view.scrollLeft;
+  const touch=(x,y=50)=>({
+    target:h.originals[0], pointerType:"touch", pointerId:77,button:0,
+    clientX:x,clientY:y,detail:1,
+    preventDefault(){this.prevented=true;},
+    stopImmediatePropagation(){this.stopped=true;}
+  });
+  h.events.get("pointerdown")(touch(180));
+  assert.equal(h.nav.classList.contains("is-touch-paused"),true);
+  h.events.get("pointermove")(touch(120));
+  assert.ok(view.scrollLeft > start+50, "touch must move the entire native scroll strip");
+  assert.equal(h.nav.classList.contains("is-scrubbing"),true);
+  assert.equal(h.nav.capturedPointer,77);
+  h.events.get("pointerup")(touch(120));
+  const synthetic=touch(120);
+  h.events.get("click")(synthetic);
+  assert.equal(synthetic.prevented,true,"dragged chapter must not navigate");
+  assert.equal(synthetic.stopped,true);
+  const fresh=touch(120);
+  h.events.get("pointerdown")(fresh);
+  h.events.get("pointerup")(fresh);
+  const tap=touch(120);
+  h.events.get("click")(tap);
+  assert.equal(Boolean(tap.prevented),false,"next independent tap should navigate");
+});
+
+test("vertical touch swipe is left to the browser and not classified as a drag", () => {
+  const h=makeHarness(), start=h.viewport.scrollLeft;
+  const touch=(x,y)=>({
+    target:h.originals[0],pointerType:"touch",pointerId:99,button:0,
+    clientX:x,clientY:y,detail:1,
+    preventDefault(){this.prevented=true;},
+    stopImmediatePropagation(){this.stopped=true;}
+  });
+  h.events.get("pointerdown")(touch(100,100));
+  const move=touch(104,160);
+  h.events.get("pointermove")(move);
+  assert.equal(Boolean(move.prevented),false);
+  assert.equal(h.viewport.scrollLeft,start);
+  h.events.get("pointerup")(touch(104,160));
+  const click=touch(104,160);
+  h.events.get("click")(click);
+  assert.equal(Boolean(click.prevented),false);
+  assert.equal(h.nav.classList.contains("is-scrubbing"),false);
 });
