@@ -315,6 +315,23 @@
 }
 
 
+/* The ENTIRE strip is a touch/mouse gesture surface, including empty space
+   and decorative stars. Native vertical page scrolling remains possible. */
+.keycap-marquee[data-keycap-marquee] {
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.keycap-marquee[data-keycap-marquee].is-scrubbing,
+.keycap-marquee[data-keycap-marquee].is-scrubbing * {
+  cursor: grabbing !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+.keycap-marquee__viewport .keycap-marquee__group a {
+  -webkit-user-drag: none;
+}
 /* Scrubbable single-set marquee, as approved in the interactive preview.
    The scrollLeft value, rather than an animated CSS transform, represents
    position on both desktop mouse and mobile touch input. */
