@@ -69,6 +69,35 @@ with sync_playwright() as p:
      page.add_script_tag(path=args.axe)
      row['axe']=page.evaluate('''async()=>{const r=await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa','best-practice']}});return {violations:r.violations,incomplete:r.incomplete}}''')
    results.append(row);page.close()
+ # Contact details must be visually exclusive to personal/contact pages.
+ # Use the approved page as the source rather than duplicating any personal
+ # number or address inside the test.
+ contact_source=browser.new_page(viewport={'width':1440,'height':844})
+ contact_source.goto(base+'contact.html?view=desktop')
+ approved=[contact_source.locator('#'+identity).inner_text().strip()
+           for identity in ('phoneText','emailText','lineIdText')]
+ assert all(approved), "source contact page has missing detail"
+ contact_source.close()
+ for name in ('index.html','mobile.html','trend.html','mobile-trend.html',
+              'contact.html','mobile-contact.html'):
+  is_mobile=name.startswith('mobile')
+  page=browser.new_page(viewport={'width':390 if is_mobile else 1440,'height':844})
+  page.goto(base+name+'?view='+('mobile' if is_mobile else 'desktop'))
+  visible_text=page.evaluate('() => document.body.innerText')
+  personal=name in ('contact.html','mobile-contact.html')
+  for value in approved:
+   assert (value in visible_text)==personal, ("contact scope",name,personal)
+  if name=='index.html':
+   assert not page.locator('.mag-top-ticker span').filter(
+       has_text=approved[0]).is_visible(), "desktop top ticker phone still showing"
+  if name=='mobile.html':
+   assert page.locator('.specs-table.pastel-profile-notes .spec-row:visible').count()==4, (
+       "mobile cover contact rows or spacing still showing")
+   assert page.locator('a[href="mobile-contact.html"]').count()>0, (
+       "personal page action was removed")
+  page.close()
+ print("Contact details appear only on contact pages in all six screen views.")
+
  # Explicit tablet and navigation acceptance checks on all six versions.
  for name in ['index.html','contact.html','trend.html','mobile.html','mobile-contact.html','mobile-trend.html']:
   is_mobile=name.startswith('mobile')
