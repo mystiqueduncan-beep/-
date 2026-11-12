@@ -27,11 +27,12 @@ def digest(source,name=''):
  if name in ('contact.html','mobile-contact.html'):
   # For historical fingerprint comparison only, reverse the authorized
   # print-button relocation and download-button deletion. No PDF is recreated.
-  assert source.count('class="method-card method-card--print"')==1,name+': print card missing'
+  assert source.count('class="method-card method-card--print personal-resume-link"')==1,name+': print card missing'
   assert 'href="resume.pdf"' not in source and '下載簡歷' not in source,name+': removed PDF link still present'
-  assert source.index('class="method-card method-card--print"')<source.index('id="phoneText"'),name+': print card position'
+  assert source.index('class="method-card method-card--print personal-resume-link"')<source.index('id="phoneText"'),name+': print card position'
+  assert source.count('<a href="resume.html" class="method-card method-card--print personal-resume-link"')==1,name+': resume action must cover whole card'
   parts=re.sub(r'\s+','',parts)
-  current='列印簡歷(PRINT)A4履歷列印版列印簡歷'
+  current='個人簡歷'
   assert parts.count(current)==1,name+': print card text missing'
   parts=parts.replace(current,'',1)
   # The old footer download/print pair preceded the final research link.
