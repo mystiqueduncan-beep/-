@@ -257,8 +257,8 @@ for rel,old in base.items():
    html=f.read_text(encoding='utf-8')
    if html.count('class="method-card method-card--print"')!=1:
     errors.append(rel+': printable card must appear exactly once')
-   if re.search(r'<a\\b[^>]*href="resume\\.pdf"',html) or '下載簡歷' in html:
    if 'href="resume.pdf"' in html or '下載簡歷' in html:
+    errors.append(rel+': removed PDF download still linked')
    if html.count('href="resume.html"')!=1:
     errors.append(rel+': print action must be unique')
    if html.index('class="method-card method-card--print"')>html.index('id="phoneText"'):
