@@ -25,10 +25,20 @@ def digest(source,name=''):
                            parts)
   assert matches==1,name+': expected exactly one LINE contact heading'
  if name in ('contact.html','mobile-contact.html'):
-  # Restore only the approved printable action labels for the historical digest.
+  # For historical fingerprint comparison only, reverse the authorized
+  # print-button relocation and download-button deletion. No PDF is recreated.
+  assert source.count('class="method-card method-card--print"')==1,name+': print card missing'
+  assert 'href="resume.pdf"' not in source and '下載簡歷' not in source,name+': removed PDF link still present'
+  assert source.index('class="method-card method-card--print"')<source.index('id="phoneText"'),name+': print card position'
   parts=re.sub(r'\s+','',parts)
+  current='列印簡歷(PRINT)A4履歷列印版列印簡歷'
+  assert parts.count(current)==1,name+': print card text missing'
+  parts=parts.replace(current,'',1)
+  return_label=('返回履歷專刊首頁↗' if name=='contact.html' else '←返回手機履歷專刊首頁')
+  assert parts.count(return_label)==1,name+': return action text missing'
+  parts=parts.replace(return_label,return_label+'下載簡歷列印簡歷',1)
   old=('下載A4PDF履歷列印／另存PDF' if name=='contact.html' else '下載A4PDF履歷表')
-  assert parts.count('下載簡歷列印簡歷')==1,name+': print/download actions missing'
+  assert parts.count('下載簡歷列印簡歷')==1,name+': normalized print/download actions missing'
   parts=parts.replace('下載簡歷列印簡歷',old,1)
  # Approved Nov 11: reverse only the explicitly authorized onboarding copy edit
  # for comparison with the immutable original resume fingerprint.
