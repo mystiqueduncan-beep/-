@@ -1,6 +1,7 @@
 """Smoke-test printed A4 pagination without changing portfolio facts."""
 from pathlib import Path
 from functools import partial
+import re
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from tempfile import TemporaryDirectory
 from threading import Thread
@@ -33,8 +34,28 @@ def validate_pdf(pdf_path, label):
     print(f"{label}: {len(reader.pages)} A4 pages, no empty content streams")
 
 
+def verify_first_page_contacts():
+    """Ensure that the download contains the site-approved contacts on page one."""
+    contact_html = (ROOT / "contact.html").read_text(encoding="utf-8")
+    expected = []
+    for element_id in ("phoneText", "emailText", "lineIdText"):
+        match = re.search(r'id="' + element_id + r'"[^>]*>([^<]+)<', contact_html)
+        if not match:
+            raise AssertionError(f"contact.html: missing {element_id}")
+        expected.append(match.group(1).strip())
+    reader = PdfReader(str(ROOT / "resume.pdf"))
+    if len(reader.pages) > 11:
+        raise AssertionError(f"resume.pdf: unexpectedly expanded to {len(reader.pages)} pages")
+    page_one = re.sub(r"\s+", "", reader.pages[0].extract_text() or "")
+    for item in expected:
+        if re.sub(r"\s+", "", item) not in page_one:
+            raise AssertionError(f"resume.pdf page 1: missing contact from contact.html: {item}")
+    print("resume.pdf: all three verified contacts are present on A4 page 1")
+
+
 def main():
     validate_pdf(ROOT / "resume.pdf", "downloadable resume.pdf")
+    verify_first_page_contacts()
 
     server = ThreadingHTTPServer(
         ("127.0.0.1", 0), partial(Quiet, directory=str(ROOT))
