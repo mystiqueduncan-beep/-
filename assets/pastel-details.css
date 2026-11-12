@@ -1526,3 +1526,36 @@ body.page-trend.page-desktop .portfolio-back-to-top__link:focus-visible {
     }
   }
 }
+
+
+/* Accessibility finish: velvet ink on blush felt, WCAG AA legibility.
+   These are text-only palette adjustments: decorative and motion elements
+   remain unchanged, and print is controlled by the dedicated A4 stylesheet. */
+@media screen {
+  body.page-home :is(.tag-yellow.card-top-tag,.stage-badge),
+  body.page-home.page-mobile :is(.brand-logo-badge > span,.mobile-case-tag,.stage-pill),
+  body.page-home.page-mobile .mobile-case-box .star-mini-row,
+  body.page-home.page-mobile .job-tenure,
+  body.page-home.page-mobile .spec-row .spec-v,
+  body.page-contact :is(.spec-entry .v,.spec-entry .v span),
+  body.page-contact.page-mobile .logo-jp {
+    color:#543846 !important;
+    background-color:#fae6e9 !important;
+    opacity:1 !important;
+  }
+  body.page-home .tag-navy.card-top-tag {
+    color:#fffaf7 !important;
+    background:#744658 !important;
+    opacity:1 !important;
+  }
+  body:is(.page-home,.page-contact,.page-trend) :is(.mag-footer,.mobile-footer) span,
+  body.page-home.page-mobile footer > div:first-child > span,
+  body.page-contact.page-mobile footer > div:first-child > span {
+    color:#583d4a !important;
+    opacity:1 !important;
+  }
+  body:is(.page-home,.page-contact,.page-trend) :is(.mag-footer,.mobile-footer) span:first-child {
+    background-color:#ffece9 !important;
+    color:#573a49 !important;
+  }
+}
