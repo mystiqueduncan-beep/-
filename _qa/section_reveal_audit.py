@@ -61,7 +61,9 @@ with sync_playwright() as p:
         items = page.locator('.mk-motion-item,.mk-pop-item')
         assert items.count() > 0, name
         if 'contact' in name:
-            assert page.locator('.mk-pop-item').count() == 3
+            # The print action is now a fourth matching contact-style card.
+            assert page.locator('.mk-pop-item').count() == 4
+            assert page.locator('.method-card--print.mk-pop-item').count() == 1
         if name in ('index', 'mobile'):
             selector = '.hero-cta-group > .mk-pop-item' if name == 'index' else '.mobile-hero-actions > .mk-pop-item'
             buttons = page.locator(selector)
