@@ -241,10 +241,7 @@
   // never exposes another copy of the same button or visibly jumps.
   function updateDuration() {
     const viewportWidth = Math.max(1, viewport?.clientWidth || 620);
-    const groupWidth = original.getBoundingClientRect().width;
     const interludeWidth = Math.max(390, Math.ceil(viewportWidth * 1.12));
-    const speed = 32; // pixels/second; calm editorial motion.
-    const end = groupWidth + 14 + interludeWidth;
     const previousStart = Number.parseFloat(belt.style.getPropertyValue?.("--keycap-start") || 0) || 0;
     belt.style.setProperty("--keycap-start", viewportWidth + "px");
     if (viewport && !layoutInitialized) {
@@ -255,10 +252,7 @@
       // Changing the leading decorative width must not move the current key.
       viewport.scrollLeft += viewportWidth - previousStart;
     }
-    belt.style.setProperty("--keycap-end", end + "px");
     belt.style.setProperty("--keycap-interlude-width", interludeWidth + "px");
-    belt.style.setProperty("--keycap-duration", Math.max(40, (viewportWidth + end) / speed).toFixed(1) + "s");
-    belt.style.setProperty("--keycap-delay", (-viewportWidth / speed).toFixed(2) + "s");
   }
 
   function syncMode() {
@@ -267,7 +261,8 @@
       updateDuration();
       nav.classList.toggle("is-hover-paused", hovering);
     } else {
-      nav.classList.remove("is-enhanced", "is-hover-paused");
+      nav.classList.remove("is-enhanced");
+      nav.classList.remove("is-hover-paused");
       setTouchPaused(false);
     }
     updateCurrent();
