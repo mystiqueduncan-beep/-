@@ -144,9 +144,17 @@ with sync_playwright() as p:
    expect(print_card).to_have_count(1)
    assert cards.first.evaluate('(e)=>e.classList.contains("method-card--print")'),(
     'print card must precede phone',name,width)
-   print_link=print_card.locator('a[href="resume.html"]')
+   print_link=page.locator('a.personal-resume-link[href="resume.html"]')
    expect(print_link).to_have_count(1)
-   assert print_link.inner_text().strip()=='列印簡歷',(name,width)
+   assert print_link.inner_text().strip()=='個人簡歷',(name,width)
+   assert print_card.locator('a,button').count()==0,('no nested buttons',name,width)
+   assert print_link.evaluate('(e)=>getComputedStyle(e).display')=='flex',(
+    'entire resume card must be one click target',name,width)
+   assert 'research-soft-glow' in print_link.evaluate('(e)=>getComputedStyle(e).animationName'),(
+    'research matching soft glow',name,width)
+   assert print_link.locator('.research-meteor').count()==1,('shimmer overlay',name,width)
+   assert print_link.locator('.research-meteor').evaluate('(e)=>getComputedStyle(e,"::before").animationName')=='research-meteor-sweep',(
+    'research matching shimmer',name,width)
    assert print_link.get_attribute('target') in (None,'_self'),(name,width)
    assert print_card.evaluate('(e)=>getComputedStyle(e).borderTopStyle')=='dashed',(
     'pink dashed print card border',name,width)
@@ -156,6 +164,11 @@ with sync_playwright() as p:
    assert page.locator('#phoneText').count()==1 and page.locator('#emailText').count()==1
    print_link.scroll_into_view_if_needed()
    assert print_link.is_visible(),('print action must be visible',name,width)
+   page.emulate_media(reduced_motion='reduce')
+   assert print_link.evaluate('(e)=>getComputedStyle(e).animationName')=='none',(
+    'reduced motion: stop glow',name,width)
+   assert print_link.locator('.research-meteor').evaluate('(e)=>getComputedStyle(e,"::before").animationName')=='none',(
+    'reduced motion: stop shimmer',name,width)
    page.emulate_media(media='print')
    assert not print_card.is_visible(),('do not print action card',name,width)
    page.close()

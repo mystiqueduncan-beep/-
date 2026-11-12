@@ -250,3 +250,167 @@ html.page-trans-fallback body.is-page-exiting {
 @media print {
   body.page-contact .method-card--print { display: none !important; }
 }
+
+
+/* Personal résumé: one accessible whole-card link above the phone.
+   Reuses the research CTA's approved 4.5s soft glow and 5.2s shimmer,
+   with the site's original embroidered tropical motif and pink dashed edge. */
+@media screen {
+  body.page-contact a.method-card--print.personal-resume-link {
+    position: relative !important;
+    isolation: isolate;
+    box-sizing: border-box;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(12px, 3vw, 22px);
+    width: 100%;
+    min-height: 116px;
+    padding: 26px clamp(20px, 5vw, 42px) !important;
+    margin: 0 !important;
+    border: 2px dashed #d496ad !important;
+    border-radius: 24px !important;
+    color: #684454 !important;
+    background:
+      linear-gradient(105deg, rgba(255,251,246,.98) 0%, rgba(255,240,244,.96) 63%, rgba(252,227,236,.88) 100%),
+      url("island-stitched-flora.svg") right 16px center / 105px auto no-repeat !important;
+    box-shadow: 0 8px 24px rgba(101,71,83,.13), 0 0 0 1px #f1d2dd !important;
+    text-decoration: none !important;
+    font-weight: 900;
+    line-height: 1.4;
+    overflow: visible !important;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(212,150,173,.2);
+    animation: research-soft-glow 4.5s ease-in-out 1s infinite;
+    transition: background-color .2s ease, box-shadow .2s ease, transform .2s ease !important;
+  }
+  /* Ribbon tape and heart embroidery are visual only. */
+  body.page-contact a.personal-resume-link::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    width: 72px;
+    height: 16px;
+    background: repeating-linear-gradient(130deg,#dca9bc 0 9px,#f8dfe7 9px 18px);
+    transform: translateX(-50%) rotate(-5deg);
+    border-radius: 2px;
+    opacity: .95;
+    pointer-events: none;
+  }
+  body.page-contact a.personal-resume-link::after {
+    content: "♡";
+    position: absolute;
+    right: 12px;
+    bottom: -14px;
+    font: 21px/1 Georgia,serif;
+    color: #af7993;
+    pointer-events: none;
+  }
+  body.page-contact .personal-resume-link__icon {
+    position: relative;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    flex: 0 0 58px;
+    height: 58px;
+    border: 1.5px dashed #bf879f;
+    border-radius: 50%;
+    background: #f9e3ea;
+    color: #875569;
+    box-shadow: inset 0 0 0 3px #fff8f4;
+    pointer-events: none;
+  }
+  body.page-contact .personal-resume-link__icon svg {
+    display: block;
+    width: 28px;
+    height: 28px;
+  }
+  body.page-contact .personal-resume-link__title {
+    position: relative;
+    z-index: 3;
+    flex: 0 1 auto;
+    font-size: clamp(1.5rem,3vw,2rem);
+    font-weight: 900;
+    letter-spacing: .10em;
+    color: #704658;
+    text-shadow: 0 1px 0 #fffaf7;
+    pointer-events: none;
+  }
+  body.page-contact .personal-resume-link__arrow {
+    position: relative;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    color: #87566c;
+    border-radius: 50%;
+    background: rgba(255,255,255,.7);
+    pointer-events: none;
+  }
+  body.page-contact .personal-resume-link__arrow svg { width: 22px; height: 22px; }
+  body.page-contact a.personal-resume-link:hover {
+    background:
+      linear-gradient(105deg,#fff8f6,#f8dbe7 72%,#f4ccd9),
+      url("island-stitched-flora.svg") right 16px center / 105px auto no-repeat !important;
+    box-shadow: 0 9px 24px rgba(124,75,98,.20), 0 0 0 1px #e3b1c3 !important;
+  }
+  body.page-contact a.personal-resume-link:focus-visible {
+    outline: 3px solid #814b62 !important;
+    outline-offset: 5px !important;
+  }
+  /* Same full-card diagonal meteor shimmer as the research entry. */
+  body.page-contact a.personal-resume-link .research-meteor {
+    position: absolute;
+    inset: 2px;
+    z-index: 2;
+    overflow: hidden;
+    border-radius: 20px;
+    pointer-events: none;
+  }
+  body.page-contact a.personal-resume-link .research-meteor::before {
+    content: "";
+    position: absolute;
+    top: -55%; bottom: -55%; left: -74%;
+    width: 75%;
+    background: linear-gradient(90deg,transparent 0%,rgba(255,248,254,.06) 11%,rgba(255,252,255,.20) 29%,rgba(255,255,255,.47) 46%,rgba(255,255,255,.68) 50%,rgba(255,250,255,.34) 59%,rgba(255,250,255,.06) 80%,transparent 100%);
+    filter: blur(4px);
+    mix-blend-mode: screen;
+    opacity: 0;
+    transform: translate3d(-100%,0,0) skewX(-22deg);
+    animation: research-meteor-sweep 5.2s cubic-bezier(.34,.16,.48,.97) infinite;
+  }
+  body.page-contact a.personal-resume-link .research-meteor::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg,transparent 0%,rgba(255,255,255,.12) 50%,transparent 100%);
+    opacity: 0;
+    animation: research-meteor-glow 5.2s ease infinite;
+  }
+  @media (max-width: 720px) {
+    body.page-contact a.method-card--print.personal-resume-link {
+      min-height: 102px;
+      gap: 12px;
+      padding: 18px 16px !important;
+    }
+    body.page-contact .personal-resume-link__icon { flex-basis: 48px; height: 48px; }
+    body.page-contact .personal-resume-link__icon svg { width: 24px; height: 24px; }
+    body.page-contact .personal-resume-link__title { font-size: clamp(1.35rem,5vw,1.7rem); letter-spacing: .06em; }
+    body.page-contact .personal-resume-link__arrow { width: 30px; height: 30px; flex-basis: 30px; }
+    body.page-contact .personal-resume-link__arrow svg { width: 20px; height: 20px; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.page-contact a.personal-resume-link,
+  body.page-contact a.personal-resume-link .research-meteor::before,
+  body.page-contact a.personal-resume-link .research-meteor::after {
+    animation: none !important;
+    transition: none !important;
+    filter: none !important;
+  }
+  body.page-contact a.personal-resume-link .research-meteor::before,
+  body.page-contact a.personal-resume-link .research-meteor::after { opacity: 0 !important; }
+}
