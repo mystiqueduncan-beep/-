@@ -463,10 +463,12 @@ test("mouse contact pauses even on decorative space; a short click does not drag
   assert.equal(h.nav.classList.contains("is-drag-paused"), true);
   h.advanceFrame(1600);
   assert.equal(view.scrollLeft, started);
-  h.events.get("pointermove")(event("move",106)); // below 8px threshold
-  assert.equal(view.scrollLeft, started);
-  h.events.get("pointerup")(event("up",106));
-  const click=event("click",106);
+  // Even a 2px motion follows immediately, but does not yet suppress a tap.
+  h.events.get("pointermove")(event("move",98));
+  assert.ok(Math.abs(view.scrollLeft - (started + 2)) < 0.1, "no activation delay on initial mouse move");
+  assert.equal(h.nav.classList.contains("is-scrubbing"), false);
+  h.events.get("pointerup")(event("up",98));
+  const click=event("click",98);
   h.events.get("click")(click);
   assert.equal(Boolean(click.prevented), false, "a stationary click must remain usable");
   assert.equal(h.nav.classList.contains("is-drag-paused"), false);
@@ -482,6 +484,9 @@ test("touch swiping anywhere drags but suppresses synthetic chapter click", () =
   });
   h.events.get("pointerdown")(touch(180));
   assert.equal(h.nav.classList.contains("is-touch-paused"),true);
+  h.events.get("pointermove")(touch(178));
+  assert.ok(Math.abs(view.scrollLeft - (start + 2)) < 0.1, "touch must track initial 2px");
+  assert.equal(h.nav.classList.contains("is-scrubbing"),false);
   h.events.get("pointermove")(touch(120));
   assert.ok(view.scrollLeft > start+50, "touch must move the entire native scroll strip");
   assert.equal(h.nav.classList.contains("is-scrubbing"),true);
@@ -534,4 +539,20 @@ test("touch capture handoff never ends the user's horizontal swipe early", () =>
   assert.equal(h.nav.classList.contains("is-drag-paused"),true);
   h.events.get("pointerup")(evt(190));
   assert.equal(h.nav.classList.contains("is-drag-paused"),false);
+});
+
+test("a 5px gesture suppresses click without waiting 8px for movement", () => {
+  const h=makeHarness(), start=h.viewport.scrollLeft;
+  const mouse=x=>({pointerId:15,pointerType:"mouse",button:0,clientX:x,clientY:20,detail:1,
+    preventDefault(){this.prevented=true;},stopImmediatePropagation(){this.stopped=true;}});
+  h.events.get("pointerdown")(mouse(200));
+  h.events.get("pointermove")(mouse(195));
+  assert.ok(Math.abs(h.viewport.scrollLeft-(start+5))<0.1);
+  assert.equal(h.nav.classList.contains("is-scrubbing"),true);
+  h.events.get("pointerup")(mouse(195));
+  const click=mouse(195);
+  h.events.get("click")(click);
+  assert.equal(click.prevented,true);
+  assert.equal(click.stopped,true);
+  assert.match(css,/\-webkit-touch-callout:\s*none/);
 });
