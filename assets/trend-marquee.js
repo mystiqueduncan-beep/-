@@ -173,9 +173,11 @@
     }
     nav.addEventListener("pointerup", finishDrag);
     nav.addEventListener("pointercancel", finishDrag);
-    nav.addEventListener("lostpointercapture", event => {
-      if (drag && drag.pointerId === event.pointerId) finishDrag(event);
-    });
+    // A touch can change its implicit pointer-capture target mid-swipe.
+    // lostpointercapture is NOT a release; never end the gesture on that event.
+    // The window fallback catches releases outside the marquee instead.
+    window.addEventListener("pointerup", finishDrag);
+    window.addEventListener("pointercancel", finishDrag);
 
     // Capture before a click can reach any button or a delegated page handler.
     // Keyboard/assistive-tech activations (detail=0) must remain available.
