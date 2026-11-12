@@ -320,3 +320,80 @@
   }
 
 }
+
+/* Matching A4 companion to the embroidered island screen edition.
+   Print decoration is restrained: no texture behind running copy, and no
+   fixed-page overlays that could interfere with pagination or image credits. */
+@media print {
+  @page { size: A4 portrait; margin: 13mm 14mm 15mm; }
+  body.page-home, body.page-contact, body.page-trend {
+    --paper-bg: #fffaf5;
+    --paper-card: #fffdf9;
+    --ink-primary: #604851;
+    --ink-secondary: #6a535d;
+    --hairline: #e5c5ce;
+    --mk-navy: #775366;
+    --mk-red: #a46c7f;
+    background:#fffaf5 !important;
+    color:#604851 !important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  body:is(.page-home,.page-contact,.page-trend) :is(
+    .mag-header,.mag-hero-section,.mobile-cover,.trend-hero
+  ) {
+    background-color:#f9e8e8 !important;
+    background-image:url("island-stitched-flora.svg"),linear-gradient(125deg,#fff8f0,#f9e5e9) !important;
+    background-position:right 3mm top 2mm,center !important;
+    background-size:17mm auto,cover !important;
+    background-repeat:no-repeat !important;
+    border:1px solid #e5bec8 !important;
+    border-bottom:2px solid #dcaebb !important;
+    border-radius:3mm !important;
+  }
+  body:is(.page-home,.page-contact,.page-trend) :is(
+    .section-editorial-header,.mobile-card-title
+  ) {
+    border-bottom:1px dashed #cfa0ae !important;
+    background:#fff9f5 !important;
+    color:#755366 !important;
+  }
+  body:is(.page-home,.page-trend) .sec-number {
+    color:#945e73 !important;
+    background:#fbe9eb !important;
+    border-color:#e1b6c3 !important;
+  }
+  body:is(.page-home,.page-contact,.page-trend) :is(
+    .editorial-card,.wide-star-case,.career-entry-card,.feature-card,
+    .stage-card,.mobile-card,.timeline-job-card,.method-card,.metric-tile,
+    .research-summary-panel,.contact-action-panel,.candidate-specs-box,
+    .contact-card-outer,.edu-dedicated-card,.contact-card-item,.case-box
+  ) {
+    background-color:#fffaf7 !important;
+    border-color:#e7c5cc !important;
+    box-shadow:none !important;
+    border-radius:2.5mm !important;
+  }
+  body:is(.page-home,.page-trend) :is(.section-block:nth-of-type(even),.trend-main>section[id]:nth-of-type(even)) {
+    background:#f9eeee !important;
+  }
+  body:is(.page-home,.page-contact,.page-trend) :is(
+    .source-verification,.audited-source-note
+  ) {
+    border:1px solid #dfbbc6 !important;
+    border-left:2px solid #bd859a !important;
+    background:#fff9f3 !important;
+  }
+  body:is(.page-home,.page-contact,.page-trend) :is(.mag-footer,.mobile-footer) {
+    border-top:1px dashed #d7b0bd !important;
+    background:#fffaf5 !important;
+    color:#745365 !important;
+  }
+  body.page-trend :is(.data-bar-fill,.bar i) {
+    background:#d3a0b2 !important;
+  }
+  /* Original portrait and job photographs remain fully legible and uncropped. */
+  .career-photo__frame img,.source-photo-image img,.photo-frame img {
+    filter:none !important;
+  }
+}
