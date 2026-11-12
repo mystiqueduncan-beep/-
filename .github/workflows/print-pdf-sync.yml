@@ -13,7 +13,7 @@ on:
       - contact.html
       - mobile-contact.html
       - assets/print-layout.css
-      - assets/island-embroidery-theme.css
+      - assets/pastel-details.css
       - assets/island-stitched-flora.svg
       - resume.html
       - _qa/print_pdf.py
