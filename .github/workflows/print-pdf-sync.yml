@@ -5,6 +5,7 @@ on:
     branches:
       - design/embroidered-island-theme-20261112
       - main
+      - fix/pdf-contact-first-page-20261112
     paths:
       - index.html
       - mobile.html
