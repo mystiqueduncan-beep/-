@@ -46,9 +46,9 @@ def verify_first_page_contacts():
     reader = PdfReader(str(ROOT / "resume.pdf"))
     if len(reader.pages) > 11:
         raise AssertionError(f"resume.pdf: unexpectedly expanded to {len(reader.pages)} pages")
-    page_one = re.sub(r"\\s+", "", reader.pages[0].extract_text() or "")
+    page_one = re.sub(r"\s+", "", reader.pages[0].extract_text() or "")
     for item in expected:
-        if re.sub(r"\\s+", "", item) not in page_one:
+        if re.sub(r"\s+", "", item) not in page_one:
             raise AssertionError(f"resume.pdf page 1: missing contact from contact.html: {item}")
     print("resume.pdf: all three verified contacts are present on A4 page 1")
 
