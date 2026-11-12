@@ -518,3 +518,20 @@ test("vertical touch swipe is left to the browser and not classified as a drag",
   assert.equal(Boolean(click.prevented),false);
   assert.equal(h.nav.classList.contains("is-scrubbing"),false);
 });
+
+test("touch capture handoff never ends the user's horizontal swipe early", () => {
+  const h=makeHarness(), initial=h.viewport.scrollLeft;
+  const evt=x=>({ pointerId:42,pointerType:"touch",button:0,clientX:x,clientY:90,preventDefault(){} });
+  h.events.get("pointerdown")(evt(250));
+  h.events.get("pointermove")(evt(225));
+  const first=h.viewport.scrollLeft;
+  assert.ok(first>initial);
+  // iOS and Chromium can emit lostpointercapture on a former target
+  // while the same finger is still moving; it must not close the gesture.
+  assert.equal(h.events.has("lostpointercapture"),false);
+  h.events.get("pointermove")(evt(190));
+  assert.ok(h.viewport.scrollLeft>=first+30);
+  assert.equal(h.nav.classList.contains("is-drag-paused"),true);
+  h.events.get("pointerup")(evt(190));
+  assert.equal(h.nav.classList.contains("is-drag-paused"),false);
+});
