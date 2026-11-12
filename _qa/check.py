@@ -266,11 +266,12 @@ for rel,old in base.items():
    new_card='列印簡歷(PRINT)A4履歷列印版列印簡歷'
    if actual.count(new_card)!=1:errors.append(rel+': new print card text mismatch')
    else:actual=actual.replace(new_card,'',1)
-   return_label=('返回履歷專刊首頁↗' if rel=='contact.html' else '←返回手機履歷專刊首頁')
-   if actual.count(return_label)!=1:
-    errors.append(rel+': return-home action for historical comparison missing')
-   else:
-    actual=actual.replace(return_label,return_label+'下載簡歷列印簡歷',1)
+   # The footer's research link is the stable right-hand neighbor of
+   # the removed download/print buttons in the historical content fingerprint.
+   footer_marker='藥妝專題研究'
+   last=actual.rfind(footer_marker)
+   if last<0:errors.append(rel+': footer research link missing')
+   else:actual=actual[:last]+'下載簡歷列印簡歷'+actual[last:]
    baseline=("下載A4PDF履歷列印／另存PDF" if rel=='contact.html' else "下載A4PDF履歷表")
    if actual.count("下載簡歷列印簡歷")!=1:errors.append(rel+': normalized printable actions missing')
    else:actual=actual.replace("下載簡歷列印簡歷",baseline,1)
