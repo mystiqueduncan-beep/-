@@ -53,6 +53,10 @@ with sync_playwright() as p:
   pos=v.bounding_box()
   x=pos['x']+pos['width']/2; y=pos['y']+pos['height']/2
   page.mouse.move(x,y);page.mouse.down()
+  base=v.evaluate('e=>e.scrollLeft')
+  page.mouse.move(x-2,y,steps=1)
+  immediate=v.evaluate('e=>e.scrollLeft')
+  assert immediate>=base+1, ('first 2px mouse movement must move strip',name,base,immediate)
   page.mouse.move(x+60,y,steps=4)
   previous=v.evaluate('e=>e.scrollLeft')
   page.mouse.move(x-40,y,steps=4)
@@ -101,6 +105,10 @@ with sync_playwright() as p:
   devtools=touch_page.context.new_cdp_session(touch_page)
   devtools.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':x,'y':y}]})
   assert strip.evaluate("e=>e.classList.contains('is-touch-paused')"), ('touch pause',name)
+  devtools.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[{'x':x-2,'y':y}]})
+  touch_page.wait_for_timeout(24)
+  first=track.evaluate('e=>e.scrollLeft')
+  assert first>=initial+1, ('first 2px touch movement must move strip',name,initial,first)
   for i in range(1,6):
    devtools.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[{'x':x-i*22,'y':y}]})
    touch_page.wait_for_timeout(22)
