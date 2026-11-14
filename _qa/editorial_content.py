@@ -102,6 +102,10 @@ if __name__=='__main__':
    raw=restore_historical_contact_link_labels(
     name,strip_approved_japanese_ui(name,(ROOT/name).read_text(encoding='utf-8'))
    ).encode('utf-8')
+   # Restore only the approved favicon URL change for the original research SHA.
+   fresh_icon=b'assets/favicon-floral-20261114.svg'
+   assert raw.count(fresh_icon)==1,name+': unexpected favicon reference'
+   raw=raw.replace(fresh_icon,b'assets/favicon.svg',1)
    # Only the exact A4 print stylesheet link may be ignored; the research
    # page's original user-approved bytes remain protected by the SHA.
    print_link=b'  <link rel="stylesheet" href="assets/print-layout.css" media="print">\n'
