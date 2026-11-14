@@ -34,7 +34,13 @@ class VisibleText(HTMLParser):
 
 def subset_page(source):
     parser = VisibleText()
-    parser.feed(source)
+    # Japanese editorial sublabels use the page's system-Japanese font stack,
+    # not the Google Fonts Chinese subset. Keep its downloaded glyph set lean.
+    font_source = re.sub(
+        r'<(?:span|p) class="(?:sec-title-jp|mobile-section-jp)" lang="ja">[^<>]*</(?:span|p)>',
+        '', source
+    )
+    parser.feed(font_source)
     parser.parts.extend(re.findall(r'content:\s*[\"\']([^\"\']*)[\"\']', source))
     characters = ''.join(sorted(set(''.join(parser.parts))))
     characters = ''.join(c for c in characters if c.isprintable())
