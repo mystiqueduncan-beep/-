@@ -138,25 +138,47 @@
     return node;
   }
 
-  function createLine(zh, en, ja, row) {
-    row.classList.add("tri-type-line");
+  // One editorial unit: prominent Chinese heading, then a compact linked
+  // English/Japanese line. The two subtitle languages never become
+  // independent flex items that drift to opposite sides of the page.
+  function createSubtitle(en, ja) {
+    const caption = document.createElement("span");
+    caption.className = "tri-subtitle-line";
+    const separator = document.createElement("span");
+    separator.className = "tri-subtitle-divider";
+    separator.textContent = "／";
+    separator.setAttribute("aria-hidden", "true");
+    caption.append(en, separator, ja);
+    return caption;
+  }
+
+  function createHeadingGroup(zh, number) {
+    const group = document.createElement("span");
+    group.className = "tri-heading-primary";
+    if (number) group.append(number);
     zh.classList.add("trilingual-zh");
     if (!zh.lang) zh.lang = "zh-Hant";
+    group.append(zh);
+    return group;
+  }
+
+  function createLine(zh, en, ja, row, number) {
+    row.classList.add("tri-type-line", "tri-editorial-line");
     localized(en, en.textContent, "en", "trilingual-en");
     localized(ja, ja.textContent, "ja", "trilingual-ja");
-    row.append(zh, en, ja);
+    row.append(createHeadingGroup(zh, number), createSubtitle(en, ja));
     return row;
   }
 
   function desktopSections() {
+    const onResearch = document.body.classList.contains("page-trend");
     document.querySelectorAll(".section-editorial-header").forEach((header) => {
       const wrapper = header.querySelector(".sec-title-wrap");
       const zh = wrapper?.querySelector("h2.sec-title-main");
       if (!wrapper || !zh) return;
 
-      const lookup = document.body.classList.contains("page-trend") ? research : desktop;
       const term = normalize(zh.textContent);
-      const translation = lookup.get(term);
+      const translation = (onResearch ? research : desktop).get(term);
       const en = wrapper.querySelector(".sec-title-sub") || header.querySelector(".sec-en-badge");
       const ja = wrapper.querySelector(".sec-title-jp");
       if (!translation || !en || !ja) return;
@@ -164,8 +186,13 @@
       localized(en, translation[0], "en", "trilingual-en");
       localized(ja, translation[1], "ja", "trilingual-ja");
       const line = document.createElement("span");
-      wrapper.insertBefore(line, zh);
-      createLine(zh, en, ja, line);
+      const number = wrapper.querySelector(".sec-number");
+      wrapper.prepend(line);
+      createLine(zh, en, ja, line, number);
+      // The five requested home chapters share exactly the research-page
+      // heading system. The summary chapter uses the same stable component
+      // to avoid introducing a sixth inconsistent layout.
+      header.classList.add("tri-editorial-header");
     });
   }
 
@@ -195,11 +222,11 @@
       const chinese = wrapChineseText(line);
       const translation = chinese && mobile.get(chinese.value);
       if (!translation) return;
-
       localized(en, translation[0], "en", "trilingual-en");
       localized(ja, translation[1], "ja", "trilingual-ja");
-      line.classList.add("tri-type-line");
-      line.insertBefore(en, ja);
+      const number = line.querySelector(".ui-code");
+      line.classList.add("tri-type-line", "tri-editorial-line");
+      line.replaceChildren(createHeadingGroup(chinese.span, number), createSubtitle(en, ja));
     });
 
     const career = document.querySelector("#career > div");
@@ -212,26 +239,28 @@
       if (translation) {
         localized(careerEnglish, translation[0], "en", "trilingual-en");
         localized(careerJa, translation[1], "ja", "trilingual-ja");
-        careerHeading.classList.add("tri-type-line");
-        careerHeading.insertBefore(careerEnglish, careerJa);
+        const number = careerHeading.querySelector(".ui-code");
+        careerHeading.classList.add("tri-type-line", "tri-editorial-line");
+        careerHeading.replaceChildren(
+          createHeadingGroup(chinese.span, number), createSubtitle(careerEnglish, careerJa)
+        );
       }
     }
 
-    const researchJa = document.querySelector("#research .mobile-section-jp, #research-summary .mobile-section-jp");
-    // The actual short research summary is also on the mobile homepage; it
-    // has a stand-alone h3 and a following Japanese caption.
     const summaryTitle = [...document.querySelectorAll("h3")].find((heading) =>
       mobile.has(normalize(heading.textContent))
     );
     if (summaryTitle) {
       const followingJa = summaryTitle.nextElementSibling;
       if (followingJa?.classList.contains("mobile-section-jp")) {
-        const [enText, jaText] = mobile.get(normalize(summaryTitle.textContent));
-        const english = document.createElement("span");
-        localized(english, enText, "en", "trilingual-en");
+        const chinese = normalize(summaryTitle.textContent);
+        const [enText, jaText] = mobile.get(chinese);
+        const en = localized(document.createElement("span"), enText, "en", "trilingual-en");
         localized(followingJa, jaText, "ja", "trilingual-ja");
-        summaryTitle.classList.add("tri-type-line");
-        summaryTitle.append(english, followingJa);
+        const zh = document.createElement("span");
+        zh.textContent = chinese;
+        summaryTitle.classList.add("tri-type-line", "tri-editorial-line");
+        summaryTitle.replaceChildren(createHeadingGroup(zh), createSubtitle(en, followingJa));
       }
     }
   }
@@ -245,9 +274,11 @@
     if (!en || !ja) return;
     localized(en, "EDUCATION", "en", "trilingual-en");
     localized(ja, "学歴", "ja", "trilingual-ja");
-    heading.classList.add("tri-type-line", "tri-education-line");
+    const zh = document.createElement("span");
+    zh.textContent = heading.textContent;
+    heading.classList.add("tri-type-line", "tri-editorial-line", "tri-education-line");
+    heading.replaceChildren(createHeadingGroup(zh), createSubtitle(en, ja));
     labels.remove();
-    heading.append(en, ja);
   }
 
   function researchHero() {
@@ -259,67 +290,89 @@
     const line = document.createElement("div");
     line.className = "tri-hero-line tri-type-line";
     en.parentNode.insertBefore(line, en);
-    line.append(en, ja);
+    line.append(createSubtitle(en, ja));
   }
 
   function animateOnce() {
     const lines = [...document.querySelectorAll(".tri-type-line")];
     if (!lines.length || reducedMotion.matches) return;
 
-    const durations = new Map();
     const pending = new Set(lines);
+    const timers = new Set();
     let observer = null;
 
-    function finish(target) {
-      target.classList.remove("tri-type-pending", "tri-type-active");
-      target.classList.add("tri-type-done");
+    function segment(text) {
+      return window.Intl?.Segmenter
+        ? [...new Intl.Segmenter("ja", { granularity: "grapheme" }).segment(text)].map(x => x.segment)
+        : Array.from(text);
+    }
+    function finish(line) {
+      const caption = line.querySelector(".tri-subtitle-line");
+      caption?.classList.remove("tri-typing");
+      caption?.querySelector(".tri-typed-visual")?.remove();
+      line.classList.remove("tri-type-pending", "tri-type-active");
+      line.classList.add("tri-type-done");
     }
 
-    function activate(target) {
-      if (!pending.has(target)) return;
-      pending.delete(target);
-      observer?.unobserve(target);
-      target.classList.remove("tri-type-pending");
-      target.classList.add("tri-type-active");
-      target.addEventListener("animationend", (event) => {
-        if (event.target === target) finish(target);
-      }, { once: true });
-      // The heading must never stay hidden if an effect is interrupted by
-      // another reveal, a browser visibility change, or a stylesheet override.
-      window.setTimeout(() => finish(target), durations.get(target) + 300);
+    function activate(line) {
+      if (!pending.has(line)) return;
+      pending.delete(line);
+      observer?.unobserve(line);
+      const caption = line.querySelector(".tri-subtitle-line");
+      const en = caption?.querySelector(".trilingual-en");
+      const ja = caption?.querySelector(".trilingual-ja");
+      if (!caption || !en || !ja) { finish(line); return; }
+      const enChars = segment(en.textContent);
+      const jaChars = segment(ja.textContent);
+      const total = enChars.length + jaChars.length + 1;
+      const interval = Math.min(62, Math.max(36, 3000 / total));
+      const visual = document.createElement("span");
+      visual.className = "tri-typed-visual";
+      visual.setAttribute("aria-hidden", "true");
+      const visualEn = document.createElement("span");
+      visualEn.className = "tri-typed-en";
+      const visualDivider = document.createElement("span");
+      visualDivider.className = "tri-typed-divider";
+      const visualJa = document.createElement("span");
+      visualJa.className = "tri-typed-ja";
+      visual.append(visualEn, visualDivider, visualJa);
+      caption.append(visual);
+      caption.classList.add("tri-typing");
+      line.classList.remove("tri-type-pending");
+      line.classList.add("tri-type-active");
+      const started = performance.now();
+
+      const tick = (now) => {
+        if (reducedMotion.matches || document.hidden) { finish(line); return; }
+        const typed = Math.min(total, Math.floor((now - started) / interval));
+        visualEn.textContent = enChars.slice(0, Math.min(typed, enChars.length)).join("");
+        visualDivider.textContent = typed > enChars.length ? "／" : "";
+        visualJa.textContent = jaChars.slice(0, Math.max(0, typed - enChars.length - 1)).join("");
+        if (typed >= total) { finish(line); return; }
+        window.requestAnimationFrame(tick);
+      };
+      window.requestAnimationFrame(tick);
+      const safe = window.setTimeout(() => finish(line), total * interval + 600);
+      timers.add(safe);
     }
 
     function checkVisible() {
       pending.forEach((line) => {
-        const rect = line.getBoundingClientRect();
-        if (rect.height > 0 && rect.top < window.innerHeight * .96 && rect.bottom > 0) {
+        const box = line.getBoundingClientRect();
+        if (box.height > 0 && box.top < window.innerHeight * .95 && box.bottom > 0) {
           activate(line);
         }
       });
     }
-
-    lines.forEach((line) => {
-      const text = normalize(line.textContent);
-      const length = (window.Intl?.Segmenter)
-        ? [...new Intl.Segmenter("ja", { granularity: "grapheme" }).segment(text)].length
-        : [...text].length;
-      const duration = Math.min(2.1, Math.max(1.05, length * .032));
-      durations.set(line, duration * 1000);
-      line.style.setProperty("--tri-steps", String(Math.min(78, Math.max(18, length))));
-      line.style.setProperty("--tri-duration", duration.toFixed(2) + "s");
-      line.classList.add("tri-type-pending");
-    });
-
+    lines.forEach(line => line.classList.add("tri-type-pending"));
     if ("IntersectionObserver" in window) {
-      observer = new IntersectionObserver((entries) => {
+      observer = new IntersectionObserver(entries => {
         entries.forEach(({ target, isIntersecting }) => {
           if (isIntersecting) activate(target);
         });
       }, { rootMargin: "0px 0px -4% 0px", threshold: .08 });
-      lines.forEach((line) => observer.observe(line));
+      lines.forEach(line => observer.observe(line));
     }
-    // Scroll fallback also covers observers stubbed by tests or temporarily
-    // unavailable during page transitions; no perpetual hidden headings.
     window.addEventListener("scroll", checkVisible, { passive: true });
     window.addEventListener("resize", checkVisible, { passive: true });
     window.requestAnimationFrame(checkVisible);
@@ -328,9 +381,29 @@
       if (!event.matches) return;
       observer?.disconnect();
       pending.clear();
+      timers.forEach(clearTimeout);
       lines.forEach(finish);
     });
   }
+
+  // Only captions that truly overflow become keyboard-focusable scroll
+  // regions. Avoid adding unnecessary tab stops on wide screens. This
+  // directly resolves axe "scrollable-region-focusable" for narrow displays.
+  function refreshScrollableCaptions() {
+    document.querySelectorAll(".tri-subtitle-line").forEach((caption) => {
+      const overflowing = caption.scrollWidth > caption.clientWidth + 1;
+      if (overflowing) {
+        caption.tabIndex = 0;
+        caption.setAttribute("role", "group");
+        caption.setAttribute("aria-label", "英文與日文副標題，可左右捲動");
+      } else {
+        caption.removeAttribute("tabindex");
+        caption.removeAttribute("role");
+        caption.removeAttribute("aria-label");
+      }
+    });
+  }
+
 
   function init() {
     if (!document.body?.matches(".page-home,.page-trend,.page-contact")) return;
@@ -343,6 +416,10 @@
       researchHero();
     }
     if (document.body.classList.contains("page-contact")) education();
+    refreshScrollableCaptions();
+    window.requestAnimationFrame(refreshScrollableCaptions);
+    window.addEventListener("resize", refreshScrollableCaptions, { passive: true });
+    document.fonts?.ready?.then(refreshScrollableCaptions);
     animateOnce();
   }
 

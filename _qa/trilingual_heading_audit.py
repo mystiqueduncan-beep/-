@@ -1,8 +1,8 @@
 """Browser audit for six-page trilingual headings and one-time typing effects.
 
 Chinese remains primary. The same inline editorial block contains English
-and Japanese with matching meanings. On narrow screens, wrapping is natural
-within that block, never a detached right-hand badge or subtitle row.
+and Japanese with matching meanings. On narrow screens, the one-line secondary caption stays contained via internal
+scroll; Japanese can never drift across the heading or wrap onto another row.
 """
 import functools
 import http.server
@@ -78,6 +78,20 @@ with sync_playwright() as playwright:
                     jaWithin: !!ja && row.contains(ja),
                     clip: getComputedStyle(row).clipPath,
                     wrapper: row.tagName,
+                    subtitleCount: row.querySelectorAll('.tri-subtitle-line').length,
+                    dividerCount: row.querySelectorAll('.tri-subtitle-divider').length,
+                    divider: row.querySelector('.tri-subtitle-divider')?.textContent,
+                    enAndJaTogether: !!en && !!ja && en.parentElement === ja.parentElement && en.parentElement?.classList.contains('tri-subtitle-line'),
+                    subtitleFlexWrap: (() => {
+                        const c = row.querySelector('.tri-subtitle-line');
+                        return c ? getComputedStyle(c).flexWrap : '';
+                    })(),
+                    subtitleWhiteSpace: (() => {
+                        const c = row.querySelector('.tri-subtitle-line');
+                        return c ? getComputedStyle(c).whiteSpace : '';
+                    })(),
+                    enY: en?.getBoundingClientRect().top,
+                    jaY: ja?.getBoundingClientRect().top,
                 };
             })"""
         )
@@ -88,10 +102,78 @@ with sync_playwright() as playwright:
             entry = matches[0]
             assert entry["enLang"] == "en" and entry["jaLang"] == "ja", (name, "language tags", entry)
             assert entry["clip"] == "none", (name, "reduced motion not visible", entry)
+            assert entry["subtitleCount"] == 1 and entry["dividerCount"] == 1 and entry["divider"] == "／", (name, "one subtitle and separator required", entry)
+            assert entry["enAndJaTogether"], (name, "subtitle languages must stay adjacent", entry)
+            assert entry["subtitleFlexWrap"] == "nowrap" and entry["subtitleWhiteSpace"] == "nowrap", (name, "subtitle must not wrap", entry)
+            assert abs(entry["enY"] - entry["jaY"]) <= 2, (name, "subtitle languages must share the same line", entry)
+
+        # Explicit layout contract: use the same research-page heading component
+        # across homepage, research and contact (desktop and mobile). English
+        # and Japanese must be direct siblings in ONE caption, not separated
+        # by justify-content:space-between or independent heading rows.
+        layout = page.locator(".tri-type-line").evaluate_all(
+            """(lines) => lines.map(row => {
+              const caption = row.querySelector('.tri-subtitle-line');
+              const primary = row.querySelector('.tri-heading-primary');
+              const en = caption?.querySelector(':scope > .trilingual-en');
+              const separator = caption?.querySelector(':scope > .tri-subtitle-divider');
+              const ja = caption?.querySelector(':scope > .trilingual-ja');
+              const box = (e) => {
+                if (!e) return null;
+                const r=e.getBoundingClientRect();
+                return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width};
+              };
+              return {
+                editorial:row.classList.contains('tri-editorial-line'),
+                order:!!caption && [...caption.children].slice(0,3).map(e=>e.className),
+                textOrder: !!caption && caption.children[0]===en && caption.children[1]===separator && caption.children[2]===ja,
+                separator:separator?.textContent,
+                en:box(en), ja:box(ja), primary:box(primary), caption:box(caption),
+                captionDisplay:caption&&getComputedStyle(caption).display,
+                row:box(row),
+              };
+            })"""
+        )
+        assert all(item["caption"] and item["en"] and item["ja"] and item["textOrder"] and item["separator"]=="／" for item in layout), (name,"detached subtitle",layout)
+        for item in layout:
+            if item["editorial"]:
+                assert item["primary"], (name,"missing Chinese primary",item)
+                assert item["primary"]["top"] <= item["caption"]["top"]+2, (name,"wrong heading order",item)
+                assert abs(item["caption"]["left"]-item["primary"]["left"]) <= 24, (name,"subtitle not aligned with title",item)
+                assert item["caption"]["top"]-item["primary"]["top"] <= 115, (name,"subtitle moved too far from title",item)
+            assert item["captionDisplay"] in ("inline-flex","flex"), (name,"caption lost inline editorial style",item)
+            assert item["caption"]["width"] <= item["row"]["width"] + 2, (name,"caption extends outside heading",item)
+            if abs(item["en"]["top"]-item["ja"]["top"]) < 8:
+                assert item["ja"]["left"] <= item["en"]["right"] + 38, (name,"English and Japanese drift apart",item)
+        assert sum(item["editorial"] for item in layout) >= (6 if name in ("index","trend","mobile-trend") else 7 if name=="mobile" else 1), (name, "unified headings not found",layout)
         overflow = page.evaluate("() => document.documentElement.scrollWidth - innerWidth")
         assert overflow <= 1, (name, "viewport horizontal overflow", overflow)
         print(json.dumps({"page":name,"width":width,"headlines":len(actual),"overflow_px":overflow,"reduced_motion":"pass"}, ensure_ascii=False),flush=True)
         context.close()
+
+    # Explicitly compare the five major desktop home chapters with the
+    # research page's shared editorial component; never let the Japanese
+    # caption float to the far right or into a second line.
+    page = browser.new_page(viewport={"width": 1440, "height": 900}, reduced_motion="reduce")
+    page.route("https://**/*", lambda route: route.abort())
+    page.goto(f"http://127.0.0.1:{server.server_port}/index.html?view=desktop", wait_until="domcontentloaded")
+    page.wait_for_function("() => document.querySelectorAll('.tri-editorial-header .tri-editorial-line').length === 6")
+    for section_id in ("motivation", "competencies", "cases", "career", "proposal"):
+        section = page.locator(f"#{section_id} .tri-editorial-line")
+        if section.count() != 1:
+            raise AssertionError(f"home section {section_id}: missing shared editorial title")
+        info = section.evaluate("""row => {
+            const caption = row.querySelector('.tri-subtitle-line');
+            const a = caption?.querySelector('.trilingual-en')?.getBoundingClientRect();
+            const b = caption?.querySelector('.trilingual-ja')?.getBoundingClientRect();
+            const c = caption?.getBoundingClientRect();
+            return { captionLeft: c?.left, enLeft: a?.left, jaLeft: b?.left,
+                     oneRow: !!a && !!b && Math.abs(a.top-b.top)<2,
+                     sameContainer: !!caption && caption.contains(row.querySelector('.trilingual-en')) && caption.contains(row.querySelector('.trilingual-ja')) };
+        }""")
+        assert info["sameContainer"] and info["oneRow"], (section_id, info)
+        assert info["enLeft"] >= info["captionLeft"] and info["jaLeft"] > info["enLeft"], (section_id, info)
+    page.close()
 
     # Confirm each headline has a pending/active/done one-shot lifecycle. This
     # visual typing does not delete text nodes or affect accessible names.
