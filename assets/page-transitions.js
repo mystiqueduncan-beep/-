@@ -405,36 +405,6 @@
   }
 
 
-  // Single-line subtitles are intentionally scrollable at narrow widths.
-  // Give that region keyboard access only when it actually overflows.
-  function syncCaptionFocus() {
-    document.querySelectorAll(".tri-subtitle-line").forEach((caption) => {
-      const overflow = caption.scrollWidth > caption.clientWidth + 2;
-      if (overflow) {
-        caption.setAttribute("tabindex", "0");
-        caption.setAttribute("role", "region");
-        caption.setAttribute("aria-label", "英文與日文副標題，可左右捲動以閱讀完整文字");
-      } else {
-        caption.removeAttribute("tabindex");
-        caption.removeAttribute("role");
-        caption.removeAttribute("aria-label");
-      }
-    });
-  }
-
-  function watchCaptionWidths() {
-    const subtitles = [...document.querySelectorAll(".tri-subtitle-line")];
-    if (!subtitles.length) return;
-    const update = () => window.requestAnimationFrame(syncCaptionFocus);
-    update();
-    window.addEventListener("resize", update, { passive: true });
-    document.fonts?.ready.then(syncCaptionFocus).catch(() => {});
-    if ("ResizeObserver" in window) {
-      const observer = new ResizeObserver(update);
-      subtitles.forEach((caption) => observer.observe(caption));
-    }
-  }
-
   function init() {
     if (!document.body?.matches(".page-home,.page-trend,.page-contact")) return;
     if (document.body.classList.contains("page-home")) {
@@ -451,7 +421,6 @@
     window.addEventListener("resize", refreshScrollableCaptions, { passive: true });
     document.fonts?.ready?.then(refreshScrollableCaptions);
     animateOnce();
-    watchCaptionWidths();
   }
 
   if (document.readyState === "loading") {
