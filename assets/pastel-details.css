@@ -2007,3 +2007,13 @@ body.page-trend.page-desktop .portfolio-back-to-top__link:focus-visible {
     }
   }
 }
+
+
+/* Accessible focus cue for long, single-line editorial subtitles. */
+@media screen {
+  body:is(.page-home,.page-trend,.page-contact) .tri-subtitle-line:focus-visible {
+    outline: 2px solid #865466 !important;
+    outline-offset: 3px !important;
+    border-radius: 3px !important;
+  }
+}
