@@ -76,7 +76,7 @@ def strip_approved_japanese_ui(rel, html):
         return html
 
     if rel == "mobile.html":
-        for jp in SECTION_JP[rel][:5]:
+        for jp in (SECTION_JP[rel][0], SECTION_JP[rel][1], SECTION_JP[rel][2], SECTION_JP[rel][3], SECTION_JP[rel][5]):
             remove_once('<span class="mobile-section-jp" lang="ja">' + jp + '</span>')
         remove_once('\n<span class="mobile-section-jp" lang="ja">職務経歴</span>')
         remove_once('\n<p class="mobile-section-jp" lang="ja">'
