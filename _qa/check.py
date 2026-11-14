@@ -40,6 +40,10 @@ def expected_text(rel,text):
   s=''.join(text)
  if rel=='index.html':
   s=s.replace('新分頁開啟 ✦', '原分頁開啟 ✦', 1)
+  # User-approved removal of the redundant research-footer hint only.
+  research_hint='原分頁開啟 ✦ 包含 4 大優勢、4 大挑戰、案例分析與完整資料來源列表'
+  if s.count(research_hint)!=1:raise ValueError('unexpected research hint baseline')
+  s=s.replace(research_hint,'',1)
  # User-approved contact navigation labels; retain icons and version switches.
  contact_labels={
   'index.html': [('聯絡我 (電話 / 信箱)', '聯絡資訊')],
