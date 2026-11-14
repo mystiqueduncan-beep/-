@@ -264,40 +264,71 @@
 
   function animateOnce() {
     const lines = [...document.querySelectorAll(".tri-type-line")];
-    if (!lines.length || reducedMotion.matches || !("IntersectionObserver" in window)) return;
+    if (!lines.length || reducedMotion.matches) return;
 
-    const observer = new IntersectionObserver((entries, observerInstance) => {
-      entries.forEach(({ target, isIntersecting }) => {
-        if (!isIntersecting) return;
-        observerInstance.unobserve(target);
-        target.classList.remove("tri-type-pending");
-        target.classList.add("tri-type-active");
-        target.addEventListener("animationend", (event) => {
-          if (event.target !== target) return;
-          target.classList.remove("tri-type-active");
-          target.classList.add("tri-type-done");
-        }, { once: true });
+    const durations = new Map();
+    const pending = new Set(lines);
+    let observer = null;
+
+    function finish(target) {
+      target.classList.remove("tri-type-pending", "tri-type-active");
+      target.classList.add("tri-type-done");
+    }
+
+    function activate(target) {
+      if (!pending.has(target)) return;
+      pending.delete(target);
+      observer?.unobserve(target);
+      target.classList.remove("tri-type-pending");
+      target.classList.add("tri-type-active");
+      target.addEventListener("animationend", (event) => {
+        if (event.target === target) finish(target);
+      }, { once: true });
+      // The heading must never stay hidden if an effect is interrupted by
+      // another reveal, a browser visibility change, or a stylesheet override.
+      window.setTimeout(() => finish(target), durations.get(target) + 300);
+    }
+
+    function checkVisible() {
+      pending.forEach((line) => {
+        const rect = line.getBoundingClientRect();
+        if (rect.height > 0 && rect.top < window.innerHeight * .96 && rect.bottom > 0) {
+          activate(line);
+        }
       });
-    }, { rootMargin: "0px 0px -4% 0px", threshold: 0.08 });
+    }
 
     lines.forEach((line) => {
       const text = normalize(line.textContent);
       const length = (window.Intl?.Segmenter)
         ? [...new Intl.Segmenter("ja", { granularity: "grapheme" }).segment(text)].length
         : [...text].length;
+      const duration = Math.min(2.1, Math.max(1.05, length * .032));
+      durations.set(line, duration * 1000);
       line.style.setProperty("--tri-steps", String(Math.min(78, Math.max(18, length))));
-      line.style.setProperty("--tri-duration", (Math.min(2.1, Math.max(1.05, length * 0.032))).toFixed(2) + "s");
+      line.style.setProperty("--tri-duration", duration.toFixed(2) + "s");
       line.classList.add("tri-type-pending");
-      observer.observe(line);
     });
+
+    if ("IntersectionObserver" in window) {
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach(({ target, isIntersecting }) => {
+          if (isIntersecting) activate(target);
+        });
+      }, { rootMargin: "0px 0px -4% 0px", threshold: .08 });
+      lines.forEach((line) => observer.observe(line));
+    }
+    // Scroll fallback also covers observers stubbed by tests or temporarily
+    // unavailable during page transitions; no perpetual hidden headings.
+    window.addEventListener("scroll", checkVisible, { passive: true });
+    window.addEventListener("resize", checkVisible, { passive: true });
+    window.requestAnimationFrame(checkVisible);
 
     reducedMotion.addEventListener?.("change", (event) => {
       if (!event.matches) return;
-      observer.disconnect();
-      lines.forEach((line) => {
-        line.classList.remove("tri-type-pending", "tri-type-active");
-        line.classList.add("tri-type-done");
-      });
+      observer?.disconnect();
+      pending.clear();
+      lines.forEach(finish);
     });
   }
 
