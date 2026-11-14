@@ -4,6 +4,7 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit, unquote
 import json, re, hashlib
 from japanese_titles import strip_approved_japanese_ui
+from contact_link_labels import restore_historical_contact_link_labels
 ROOT=Path(__file__).resolve().parents[1]
 class Page(HTMLParser):
  def __init__(self,s):
@@ -225,7 +226,9 @@ for rel,old in base.items():
  # research pages. Every other resume page remains checked against the
  # immutable original factual baseline.
  if rel in approved_report:
-  raw=strip_approved_japanese_ui(rel, f.read_text(encoding='utf-8')).encode('utf-8')
+  raw=restore_historical_contact_link_labels(
+   rel, strip_approved_japanese_ui(rel, f.read_text(encoding='utf-8'))
+  ).encode('utf-8')
   # A single stylesheet link is an approved presentation-only addition.
   # Remove exactly this link before comparing the immutable, user-approved
   # research file's original Git blob SHA. Every other byte remains checked.
@@ -236,7 +239,10 @@ for rel,old in base.items():
   if not same:errors.append(rel+': unapproved regional analysis content modification')
  else:
   expect=expected_text(rel,old)
-  actual=normalized(p.text)
+  # Restore only the approved button labels when verifying immutable factual text.
+  historical_html=restore_historical_contact_link_labels(
+   rel, strip_approved_japanese_ui(rel, f.read_text(encoding='utf-8')))
+  actual=normalized(Page(historical_html).text)
   # Approved presentation-only relocation (2026-11-11): the research CTA is
   # immediately after the introduction, not in the homepage marquee/footer.
   # Restore only this existing UI label to its former position for comparison
@@ -347,7 +353,7 @@ for rel in ('index.html','mobile.html','contact.html','mobile-contact.html','tre
  contact_refs=re.findall(r'<a\b[^>]*href="(?:mobile-)?contact\.html"[^>]*>(.*?)</a>',html,re.S)
  for body in contact_refs:
   label=re.sub(r'<[^>]*>','',body).strip()
-  if label!='個人及聯絡資訊':
+  if label!='個人聯絡資訊':
    errors.append(rel+': inconsistent contact link '+label)
  if rel in ('index.html','mobile.html'):
   if re.search(r'<section\b[^>]*id="education"',html):

@@ -117,7 +117,7 @@ with sync_playwright() as p:
   assert other.evaluate('(e)=>getComputedStyle(e).backgroundColor')=='rgb(152, 87, 115)',name
   destination='mobile-contact.html' if is_mobile else 'contact.html'
   for link in page.locator('a[href="'+destination+'"]').all():
-   assert link.text_content().strip()=='個人及聯絡資訊',(name,link.text_content())
+   assert link.text_content().strip()=='個人聯絡資訊',(name,link.text_content())
   if name in ('index.html','mobile.html'):
    assert page.locator('#education').count()==0,name
    assert page.locator('#career .career-photo img').count()==3,name
