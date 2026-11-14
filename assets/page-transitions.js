@@ -386,6 +386,24 @@
     });
   }
 
+  // Only captions that truly overflow become keyboard-focusable scroll
+  // regions. Avoid adding unnecessary tab stops on wide screens. This
+  // directly resolves axe "scrollable-region-focusable" for narrow displays.
+  function refreshScrollableCaptions() {
+    document.querySelectorAll(".tri-subtitle-line").forEach((caption) => {
+      const overflowing = caption.scrollWidth > caption.clientWidth + 1;
+      if (overflowing) {
+        caption.tabIndex = 0;
+        caption.setAttribute("role", "group");
+        caption.setAttribute("aria-label", "英文與日文副標題，可左右捲動");
+      } else {
+        caption.removeAttribute("tabindex");
+        caption.removeAttribute("role");
+        caption.removeAttribute("aria-label");
+      }
+    });
+  }
+
   function init() {
     if (!document.body?.matches(".page-home,.page-trend,.page-contact")) return;
     if (document.body.classList.contains("page-home")) {
@@ -397,6 +415,10 @@
       researchHero();
     }
     if (document.body.classList.contains("page-contact")) education();
+    refreshScrollableCaptions();
+    window.requestAnimationFrame(refreshScrollableCaptions);
+    window.addEventListener("resize", refreshScrollableCaptions, { passive: true });
+    document.fonts?.ready?.then(refreshScrollableCaptions);
     animateOnce();
   }
 
