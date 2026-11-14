@@ -1909,3 +1909,101 @@ body.page-trend.page-desktop .portfolio-back-to-top__link:focus-visible {
     }
   }
 }
+
+
+/* FINAL shared heading contract: one fixed Chinese title row and ONE
+   unbroken EN / JA subtitle row, matching the research-page editorial grid.
+   Responsive overflow stays inside the subtitle; never on the whole page. */
+@media screen {
+  body:is(.page-home,.page-trend,.page-contact) .tri-editorial-line {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: clamp(3px,.35vw,7px) !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-subtitle-line {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: baseline !important;
+    justify-content: flex-start !important;
+    align-content: flex-start !important;
+    width: max-content !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    white-space: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    text-align: left !important;
+    scrollbar-width: thin;
+    scrollbar-color: #c99aac transparent;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-subtitle-line > :is(.trilingual-en,.trilingual-ja,.tri-subtitle-divider) {
+    display: inline-block !important;
+    flex: 0 0 auto !important;
+    max-width: none !important;
+    white-space: nowrap !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+    position: static !important;
+    line-height: 1.65 !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-typed-visual {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    width: max-content !important;
+    max-width: none !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-typed-visual > * {
+    flex: 0 0 auto !important;
+    max-width: none !important;
+    white-space: nowrap !important;
+    overflow-wrap: normal !important;
+  }
+  body:is(.page-home,.page-trend) .tri-editorial-header {
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+  }
+  body:is(.page-home,.page-trend) .tri-editorial-header .sec-title-wrap {
+    min-width: 0 !important;
+    padding-right: 0 !important;
+  }
+  body:is(.page-home,.page-trend) .tri-heading-primary .sec-number {
+    display: inline-flex !important;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    flex: 0 0 42px;
+    width: 42px !important;
+    height: 42px !important;
+    padding: 0 !important;
+    border: 1px solid #d9adbb !important;
+    border-radius: 50% !important;
+    background: #f6e5e9 !important;
+    color: #865466 !important;
+    font: 800 .92rem/1 var(--font-sans,"Noto Sans TC",sans-serif) !important;
+  }
+  body.page-home.page-desktop .tri-heading-primary .sec-title-main {
+    font-family: var(--font-sans,"Noto Sans TC",sans-serif) !important;
+    font-size: clamp(1.45rem,2.2vw,2.1rem) !important;
+    line-height: 1.5 !important;
+    color: #785367 !important;
+  }
+  body:is(.page-home,.page-trend) .tri-editorial-header > span:not(.sec-title-wrap) {
+    display: none !important;
+  }
+  @media (max-width: 720px) {
+    body:is(.page-home,.page-trend) .tri-heading-primary .sec-number {
+      display: none !important;
+    }
+    body:is(.page-home,.page-trend,.page-contact) .tri-subtitle-line {
+      border-radius: 0;
+      padding-bottom: 1px;
+    }
+  }
+}
