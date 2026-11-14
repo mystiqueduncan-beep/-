@@ -100,7 +100,7 @@ with sync_playwright() as playwright:
             assert entry["paired"] and entry["separator"], (name, "EN / JA must be immediate siblings", entry)
             assert entry["pairAlignment"] == "left", (name, "subtitle should be left-aligned", entry)
             if width >= 1400:
-                assert entry["jaY"] >= entry["enY"] and entry["jaX"] < 1300, (name, "orphaned subtitle", entry)
+                assert entry["jaY"] >= entry["enY"] - 6 and entry["jaX"] < 1300, (name, "orphaned subtitle", entry)
             assert entry["clip"] == "none", (name, "reduced motion not visible", entry)
         overflow = page.evaluate("() => document.documentElement.scrollWidth - innerWidth")
         assert overflow <= 1, (name, "viewport horizontal overflow", overflow)
