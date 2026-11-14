@@ -88,6 +88,46 @@ with sync_playwright() as playwright:
             entry = matches[0]
             assert entry["enLang"] == "en" and entry["jaLang"] == "ja", (name, "language tags", entry)
             assert entry["clip"] == "none", (name, "reduced motion not visible", entry)
+
+        # Explicit layout contract: use the same research-page heading component
+        # across homepage, research and contact (desktop and mobile). English
+        # and Japanese must be direct siblings in ONE caption, not separated
+        # by justify-content:space-between or independent heading rows.
+        layout = page.locator(".tri-type-line").evaluate_all(
+            """(lines) => lines.map(row => {
+              const caption = row.querySelector('.tri-subtitle-line');
+              const primary = row.querySelector('.tri-heading-primary');
+              const en = caption?.querySelector(':scope > .trilingual-en');
+              const separator = caption?.querySelector(':scope > .tri-subtitle-divider');
+              const ja = caption?.querySelector(':scope > .trilingual-ja');
+              const box = (e) => {
+                if (!e) return null;
+                const r=e.getBoundingClientRect();
+                return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width};
+              };
+              return {
+                editorial:row.classList.contains('tri-editorial-line'),
+                order:!!caption && [...caption.children].slice(0,3).map(e=>e.className),
+                textOrder: !!caption && caption.children[0]===en && caption.children[1]===separator && caption.children[2]===ja,
+                separator:separator?.textContent,
+                en:box(en), ja:box(ja), primary:box(primary), caption:box(caption),
+                captionDisplay:caption&&getComputedStyle(caption).display,
+                row:box(row),
+              };
+            })"""
+        )
+        assert all(item["caption"] and item["en"] and item["ja"] and item["textOrder"] and item["separator"]=="／" for item in layout), (name,"detached subtitle",layout)
+        for item in layout:
+            if item["editorial"]:
+                assert item["primary"], (name,"missing Chinese primary",item)
+                assert item["primary"]["top"] <= item["caption"]["top"]+2, (name,"wrong heading order",item)
+                assert abs(item["caption"]["left"]-item["primary"]["left"]) <= 24, (name,"subtitle not aligned with title",item)
+                assert item["caption"]["top"]-item["primary"]["top"] <= 115, (name,"subtitle moved too far from title",item)
+            assert item["captionDisplay"] in ("inline-flex","flex"), (name,"caption lost inline editorial style",item)
+            assert item["caption"]["width"] <= item["row"]["width"] + 2, (name,"caption extends outside heading",item)
+            if abs(item["en"]["top"]-item["ja"]["top"]) < 8:
+                assert item["ja"]["left"] <= item["en"]["right"] + 38, (name,"English and Japanese drift apart",item)
+        assert sum(item["editorial"] for item in layout) >= (6 if name in ("index","trend","mobile-trend") else 7 if name=="mobile" else 1), (name, "unified headings not found",layout)
         overflow = page.evaluate("() => document.documentElement.scrollWidth - innerWidth")
         assert overflow <= 1, (name, "viewport horizontal overflow", overflow)
         print(json.dumps({"page":name,"width":width,"headlines":len(actual),"overflow_px":overflow,"reduced_motion":"pass"}, ensure_ascii=False),flush=True)
