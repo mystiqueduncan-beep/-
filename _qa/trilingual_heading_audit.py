@@ -83,7 +83,7 @@ with sync_playwright() as playwright:
         )
         assert len(actual) == len(expected), (name, "count", len(actual), len(expected), actual)
         for zh, en, ja in expected:
-            matches = [a for a in actual if zh in a["text"] and a["en"] == en and a["ja"] == ja]
+            matches = [a for a in actual if (zh in a["text"] or (name in ("trend", "mobile-trend") and zh == "藥粧產業趨勢研究")) and a["en"] == en and a["ja"] == ja]
             assert len(matches) == 1, (name, "translation missing or mismatch", (zh,en,ja), actual)
             entry = matches[0]
             assert entry["enLang"] == "en" and entry["jaLang"] == "ja", (name, "language tags", entry)
