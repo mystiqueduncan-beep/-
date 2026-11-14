@@ -53,6 +53,16 @@ def digest(source,name=''):
   original = "新人帶訓工作：服務期間兼任新進人員帶訓，指導櫃台預約登記流程、收費規範與常見應變作業。服務期間兼任新進人員帶訓工作，負責規劃新進同仁實務帶訓指引與步驟化操作考核。" if name=='index.html' else "服務期間兼任新進人員帶訓工作，負責規劃新進同仁實務帶訓指引與步驟化操作考核。新人帶訓工作：指導櫃台預約登記流程、收費規範與常見應變作業。"
   replacement = "新人帶訓工作：兼任新進人員實務帶訓，負責規劃帶訓指引與步驟化操作考核，指導櫃台預約登記流程、收費規範及常見狀況應對作業。"
   flat=re.sub(r'\s+','',parts).lstrip('\ufeff')
+  if name=='index.html':
+   # Restore only the explicitly removed footer hint for historical checksum verification.
+   # This safeguards every other word on the page against unintended edits.
+   removed_hint='原分頁開啟✦包含4大優勢、4大挑戰、案例分析與完整資料來源列表'
+   assert removed_hint not in flat,name+': deleted research-footer hint still visible'
+   footer_label='藥妝專題研究'
+   footer_at=flat.rfind(footer_label)
+   assert footer_at>=0,name+': expected final research-footer action'
+   insert_at=footer_at+len(footer_label)
+   flat=flat[:insert_at]+removed_hint+flat[insert_at:]
   # Approved 2026-11-11: reverse only the navigation label relocation so the
   # historical text fingerprint still rejects all unrelated copy changes.
   intro='重視門市營運標準、服務品質與溝通協調，期望投入區域營運管理，讓門市日常作業更加穩定一致。'
