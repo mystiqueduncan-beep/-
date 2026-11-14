@@ -743,6 +743,15 @@
   <link rel="stylesheet" href="assets/research-cta.css">
   <script src="assets/research-cta.js" defer></script>
   <link rel="stylesheet" href="assets/print-layout.css" media="print">
+<style id="japanese-section-heading-style">
+/* Bilingual sublabels under existing Chinese headings. */
+.section-locale-line {
+  display:flex; flex-wrap:wrap; gap: .35em .55em; align-items:baseline;
+  margin: 3px 0 12px; font-size:.76rem; font-weight:700; line-height:1.5;
+  letter-spacing:.045em; color:var(--mk-navy-soft);
+}
+.section-locale-line [lang="ja"] { font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans TC",sans-serif; }
+</style>
 </head>
 <body class="page-contact page-desktop">
   <a class="skip-link" href="#main-content">跳至主要內容</a>
@@ -945,6 +954,7 @@
         <!-- Consolidated education profile: relocated from homepage. -->
         <section class="education-profile" id="education" aria-labelledby="education-title">
   <h2 id="education-title">教育背景</h2>
+<p class="section-locale-line"><span lang="en">EDUCATION</span><span aria-hidden="true">／</span><span lang="ja">学歴</span></p>
   <div class="education-profile__grid">
     <div class="education-profile__school"><strong>萬能科技大學</strong><span>企業管理系</span></div>
     <div class="education-profile__meta"><span class="education-profile__badge">研讀中</span><span>2026.10 入學 ｜ 預計 2030.06 畢業</span></div>
