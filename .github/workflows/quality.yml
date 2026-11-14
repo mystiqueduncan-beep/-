@@ -52,6 +52,8 @@ jobs:
         run: python3 _qa/research_cta_audit.py
       - name: Editorial mouse, touch and same-tab transitions
         run: python3 _qa/editorial_interactions.py
+      - name: Verify six-page trilingual wording, inline headings and one-time typing
+        run: python3 _qa/trilingual_heading_audit.py
       - name: Responsive layouts, keyboard controls and axe
         run: python3 _qa/browser_audit.py --out /tmp/browser-audit --axe node_modules/axe-core/axe.min.js
 

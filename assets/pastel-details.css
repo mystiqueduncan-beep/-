@@ -1559,3 +1559,166 @@ body.page-trend.page-desktop .portfolio-back-to-top__link:focus-visible {
     color:#573a49 !important;
   }
 }
+
+
+
+/* 2026-11-14: editorial trilingual headlines. All six pages use this shared
+   design; no factual portfolio text, report figures or A4 print layout changes. */
+@media screen {
+  body:is(.page-home,.page-trend,.page-contact) .section-editorial-header {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+    gap: 5px 12px !important;
+  }
+  body:is(.page-home,.page-trend) .section-editorial-header .sec-title-wrap {
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-type-line {
+    display: inline-flex !important;
+    align-items: baseline !important;
+    justify-content: flex-start !important;
+    flex-wrap: wrap !important;
+    gap: 3px clamp(5px, 0.8vw, 12px) !important;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0 !important;
+    position: relative;
+    padding: 1px 0 3px;
+    white-space: normal !important;
+    text-align: left;
+    line-height: 1.45 !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-type-line .trilingual-zh {
+    font-weight: 900 !important;
+    letter-spacing: .018em !important;
+    color: var(--mk-navy,#3a3444) !important;
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-type-line .trilingual-en,
+  body:is(.page-home,.page-trend,.page-contact) .tri-type-line .trilingual-ja {
+    display: inline !important;
+    flex: 0 1 auto;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: none !important;
+    box-shadow: none !important;
+    vertical-align: baseline;
+    line-height: 1.45 !important;
+    overflow-wrap: anywhere;
+    text-transform: none;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-type-line .trilingual-en {
+    font-family: var(--font-mono,"Arial",sans-serif) !important;
+    font-weight: 750 !important;
+    font-size: clamp(.62rem,.85vw,.74rem) !important;
+    letter-spacing: .045em !important;
+    color: #7a5866 !important;
+    text-transform: uppercase;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-type-line .trilingual-ja {
+    font-family: "Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif !important;
+    font-weight: 650 !important;
+    font-size: clamp(.70rem,.90vw,.80rem) !important;
+    letter-spacing: .015em !important;
+    color: #70515f !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-type-line .trilingual-en::before {
+    content: "｜" !important;
+    font-family: "Noto Sans TC",sans-serif;
+    color: #bd8a9a;
+    margin-right: .32em;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-type-line .trilingual-ja::before {
+    content: "／" !important;
+    color: #bd8a9a !important;
+    margin-right: .32em !important;
+  }
+  body.page-home.page-mobile h2.mobile-card-title {
+    display: block !important;
+  }
+  body.page-home.page-mobile h2.mobile-card-title > .tri-type-line {
+    display: inline-flex !important;
+    width: 100%;
+  }
+  body.page-home.page-mobile .tri-type-line .trilingual-zh,
+  body.page-home.page-mobile h3.tri-type-line .trilingual-zh {
+    font-size: clamp(1.05rem,3.5vw,1.25rem) !important;
+  }
+  body.page-home.page-mobile .tri-type-line .mobile-badge.trilingual-en {
+    border-radius: 0 !important;
+    background: none !important;
+  }
+  body.page-home.page-mobile .tri-type-line .ui-code {
+    align-self: baseline;
+    flex: 0 0 auto;
+  }
+  body.page-home.page-mobile #career > div:first-child {
+    flex-wrap: wrap;
+  }
+  body.page-home.page-mobile #career h2.tri-type-line {
+    margin: 0;
+  }
+  body.page-contact #education-title.tri-education-line {
+    font-size: clamp(1.15rem,2.2vw,1.45rem);
+  }
+  body.page-contact #education-title.tri-education-line .trilingual-zh {
+    font-size: inherit !important;
+  }
+  body.page-trend .tri-hero-line {
+    width: 100%;
+    margin-top: 2px !important;
+    margin-bottom: 18px !important;
+    font-size: .78rem;
+  }
+  body.page-trend .tri-hero-line .trilingual-en,
+  body.page-trend .tri-hero-line .trilingual-ja {
+    margin: 0 !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-type-pending {
+    clip-path: inset(0 100% 0 0);
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-type-active {
+    animation: editorial-type-reveal var(--tri-duration,1.4s) steps(var(--tri-steps,34),end) both;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-type-done {
+    clip-path: none !important;
+    animation: none !important;
+  }
+  @keyframes editorial-type-reveal {
+    from { clip-path: inset(0 100% 0 0); }
+    to { clip-path: inset(0 0 0 0); }
+  }
+  @media (min-width: 1160px) {
+    body:is(.page-home,.page-trend) .section-editorial-header .tri-type-line {
+      flex-wrap: nowrap !important;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: thin;
+    }
+  }
+  @media (max-width: 720px) {
+    body:is(.page-home,.page-trend,.page-contact) .tri-type-line {
+      gap: 3px 7px !important;
+    }
+    body:is(.page-home,.page-trend,.page-contact) .tri-type-line .trilingual-en {
+      font-size: .63rem !important;
+    }
+    body:is(.page-home,.page-trend,.page-contact) .tri-type-line .trilingual-ja {
+      font-size: .72rem !important;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    body:is(.page-home,.page-trend,.page-contact) :is(.tri-type-pending,.tri-type-active) {
+      animation: none !important;
+      clip-path: none !important;
+    }
+  }
+}
