@@ -138,13 +138,26 @@
     return node;
   }
 
+  // English and Japanese are a single adjacent subtitle unit, never competing
+  // flex items at opposite ends of the section header.
+  function groupPair(en, ja) {
+    const pair = document.createElement("span");
+    pair.className = "tri-subtitle-pair";
+    const slash = document.createElement("span");
+    slash.className = "tri-subtitle-separator";
+    slash.textContent = "/";
+    slash.setAttribute("aria-hidden", "true");
+    pair.append(en, slash, ja);
+    return pair;
+  }
+
   function createLine(zh, en, ja, row) {
     row.classList.add("tri-type-line");
     zh.classList.add("trilingual-zh");
     if (!zh.lang) zh.lang = "zh-Hant";
     localized(en, en.textContent, "en", "trilingual-en");
     localized(ja, ja.textContent, "ja", "trilingual-ja");
-    row.append(zh, en, ja);
+    row.append(zh, groupPair(en, ja));
     return row;
   }
 
@@ -199,7 +212,7 @@
       localized(en, translation[0], "en", "trilingual-en");
       localized(ja, translation[1], "ja", "trilingual-ja");
       line.classList.add("tri-type-line");
-      line.insertBefore(en, ja);
+      line.append(groupPair(en, ja));
     });
 
     const career = document.querySelector("#career > div");
@@ -213,7 +226,7 @@
         localized(careerEnglish, translation[0], "en", "trilingual-en");
         localized(careerJa, translation[1], "ja", "trilingual-ja");
         careerHeading.classList.add("tri-type-line");
-        careerHeading.insertBefore(careerEnglish, careerJa);
+        careerHeading.append(groupPair(careerEnglish, careerJa));
       }
     }
 
@@ -231,7 +244,7 @@
         localized(english, enText, "en", "trilingual-en");
         localized(followingJa, jaText, "ja", "trilingual-ja");
         summaryTitle.classList.add("tri-type-line");
-        summaryTitle.append(english, followingJa);
+        summaryTitle.append(groupPair(english, followingJa));
       }
     }
   }
@@ -247,7 +260,7 @@
     localized(ja, "学歴", "ja", "trilingual-ja");
     heading.classList.add("tri-type-line", "tri-education-line");
     labels.remove();
-    heading.append(en, ja);
+    heading.append(groupPair(en, ja));
   }
 
   function researchHero() {
@@ -259,76 +272,135 @@
     const line = document.createElement("div");
     line.className = "tri-hero-line tri-type-line";
     en.parentNode.insertBefore(line, en);
-    line.append(en, ja);
+    line.append(groupPair(en, ja));
   }
 
+  // Actual typewriter: one Unicode grapheme every 200ms (about five per
+  // second). Only the subordinate EN/JP labels type; the Chinese main title
+  // always stays visible. Hidden full-size text keeps the layout stationary.
   function animateOnce() {
     const lines = [...document.querySelectorAll(".tri-type-line")];
-    if (!lines.length || reducedMotion.matches) return;
+    if (!lines.length || reducedMotion.matches || !window.requestAnimationFrame) return;
 
-    const durations = new Map();
-    const pending = new Set(lines);
+    const GRAPHEME_MS = 200;
+    const split = (text) => window.Intl?.Segmenter
+      ? [...new Intl.Segmenter("ja", { granularity: "grapheme" }).segment(text)].map(part => part.segment)
+      : Array.from(text);
+
+    const prepared = new Map();
+    const started = new Set();
     let observer = null;
 
-    function finish(target) {
-      target.classList.remove("tri-type-pending", "tri-type-active");
-      target.classList.add("tri-type-done");
+    function restore(part) {
+      if (part.node.textContent !== part.full) part.node.textContent = part.full;
+      part.node.classList.remove("tri-part-typing");
     }
 
-    function activate(target) {
-      if (!pending.has(target)) return;
-      pending.delete(target);
-      observer?.unobserve(target);
-      target.classList.remove("tri-type-pending");
-      target.classList.add("tri-type-active");
-      target.addEventListener("animationend", (event) => {
-        if (event.target === target) finish(target);
-      }, { once: true });
-      // The heading must never stay hidden if an effect is interrupted by
-      // another reveal, a browser visibility change, or a stylesheet override.
-      window.setTimeout(() => finish(target), durations.get(target) + 300);
+    function finish(line) {
+      const state = prepared.get(line);
+      if (!state || state.done) return;
+      state.done = true;
+      for (const part of state.parts) restore(part);
+      state.slash.style.visibility = "";
+      line.classList.remove("tri-type-pending", "tri-type-active");
+      line.classList.add("tri-type-done");
+    }
+
+    function preparePart(node) {
+      const full = node.textContent;
+      const phantom = document.createElement("span");
+      phantom.textContent = full;
+      phantom.className = "tri-type-phantom";
+      phantom.setAttribute("aria-hidden", "true");
+
+      const screenreader = document.createElement("span");
+      screenreader.textContent = full;
+      screenreader.className = "tri-type-screenreader";
+
+      const visible = document.createElement("span");
+      visible.className = "tri-type-visible";
+      visible.setAttribute("aria-hidden", "true");
+      node.replaceChildren(phantom, screenreader, visible);
+      node.classList.add("tri-part-typing");
+      return { node, full, visible, letters: split(full) };
+    }
+
+    function start(line) {
+      if (started.has(line)) return;
+      started.add(line);
+      observer?.unobserve(line);
+      const state = prepared.get(line);
+      if (!state || state.done) return;
+
+      const [english, japanese] = state.parts;
+      const endEnglish = english.letters.length;
+      const total = endEnglish + japanese.letters.length;
+      const begun = performance.now();
+      line.classList.remove("tri-type-pending");
+      line.classList.add("tri-type-active");
+
+      const tick = (now) => {
+        if (state.done) return;
+        // Reveal one visible grapheme per 200ms, English then Japanese.
+        const n = Math.min(total, Math.floor((now - begun) / GRAPHEME_MS) + 1);
+        const left = Math.min(n, endEnglish);
+        english.visible.textContent = english.letters.slice(0, left).join("");
+        if (n > endEnglish) {
+          state.slash.style.visibility = "";
+          japanese.visible.textContent = japanese.letters.slice(0, n - endEnglish).join("");
+        }
+        if (n >= total) finish(line);
+        else window.requestAnimationFrame(tick);
+      };
+      window.requestAnimationFrame(tick);
+      // Fail open on a suspended or interrupted animation (e.g. background
+      // tab) rather than leaving invisible labels in the published site.
+      window.setTimeout(() => finish(line), total * GRAPHEME_MS + 2000);
     }
 
     function checkVisible() {
-      pending.forEach((line) => {
+      for (const line of lines) {
+        if (started.has(line)) continue;
         const rect = line.getBoundingClientRect();
-        if (rect.height > 0 && rect.top < window.innerHeight * .96 && rect.bottom > 0) {
-          activate(line);
-        }
-      });
+        if (rect.height && rect.top < window.innerHeight * .93 && rect.bottom > 0) start(line);
+      }
     }
 
-    lines.forEach((line) => {
-      const text = normalize(line.textContent);
-      const length = (window.Intl?.Segmenter)
-        ? [...new Intl.Segmenter("ja", { granularity: "grapheme" }).segment(text)].length
-        : [...text].length;
-      const duration = Math.min(2.1, Math.max(1.05, length * .032));
-      durations.set(line, duration * 1000);
-      line.style.setProperty("--tri-steps", String(Math.min(78, Math.max(18, length))));
-      line.style.setProperty("--tri-duration", duration.toFixed(2) + "s");
+    for (const line of lines) {
+      const pair = line.querySelector(".tri-subtitle-pair");
+      const en = pair?.querySelector(".trilingual-en");
+      const ja = pair?.querySelector(".trilingual-ja");
+      const slash = pair?.querySelector(".tri-subtitle-separator");
+      if (!pair || !en || !ja || !slash) continue;
+      const parts = [preparePart(en), preparePart(ja)];
+      slash.style.visibility = "hidden";
+      prepared.set(line, { parts, slash, done: false });
       line.classList.add("tri-type-pending");
-    });
+    }
 
     if ("IntersectionObserver" in window) {
       observer = new IntersectionObserver((entries) => {
-        entries.forEach(({ target, isIntersecting }) => {
-          if (isIntersecting) activate(target);
-        });
-      }, { rootMargin: "0px 0px -4% 0px", threshold: .08 });
-      lines.forEach((line) => observer.observe(line));
+        for (const entry of entries) if (entry.isIntersecting) start(entry.target);
+      }, { rootMargin: "0px 0px -7% 0px", threshold: .08 });
+      for (const line of prepared.keys()) observer.observe(line);
     }
-    // Scroll fallback also covers observers stubbed by tests or temporarily
-    // unavailable during page transitions; no perpetual hidden headings.
+
+    // Keep scrolling and resizing fully functional, including in browsers
+    // where IntersectionObserver has been replaced by another page script.
     window.addEventListener("scroll", checkVisible, { passive: true });
     window.addEventListener("resize", checkVisible, { passive: true });
     window.requestAnimationFrame(checkVisible);
 
-    reducedMotion.addEventListener?.("change", (event) => {
-      if (!event.matches) return;
+    const finishAll = () => {
       observer?.disconnect();
-      pending.clear();
-      lines.forEach(finish);
+      for (const line of prepared.keys()) finish(line);
+    };
+    window.addEventListener("beforeprint", finishAll);
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) finishAll();
+    });
+    reducedMotion.addEventListener?.("change", (event) => {
+      if (event.matches) finishAll();
     });
   }
 
