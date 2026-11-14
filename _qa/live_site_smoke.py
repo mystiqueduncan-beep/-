@@ -16,6 +16,8 @@ SITE = "https://mystiqueduncan-beep.github.io/-/"
 PAGES = (
     "index.html", "mobile.html", "contact.html",
     "mobile-contact.html", "trend.html", "mobile-trend.html",
+    "resume.html", "mobile/index.html", "mobile/contact.html",
+    "mobile/trend.html",
 )
 ASSETS = (
     "assets/site.css",
@@ -54,7 +56,11 @@ def verify():
         content = remote_file(page)
         if b"<html" not in content.lower() or b"</html>" not in content.lower():
             raise RuntimeError(f"{page}: invalid HTML response")
-        print(f"OK {page}: HTTP 200, HTML present", flush=True)
+        # PR checks compare the already-published base; the new versioned icon
+        # can only be required after main is merged and Pages deploys it.
+        if not BASE_SHA and b"favicon-floral-20261114.svg" not in content:
+            raise RuntimeError(f"{page}: still references old cached favicon URL")
+        print(f"OK {page}: HTTP 200, HTML and favicon reference verified", flush=True)
     for path in ASSETS:
         actual = remote_file(path)
         expected = expected_file(path)
@@ -63,12 +69,20 @@ def verify():
                                + ("PR base" if BASE_SHA else "latest main"))
         print(f"OK {path}: published bytes match "
               + ("PR base" if BASE_SHA else "latest main"), flush=True)
+    if not BASE_SHA:
+        # Unlike ordinary stylesheet caching, favicon databases may retain
+        # outdated bitmaps at a reused URL. Check the new filename and bytes.
+        path = "assets/favicon-floral-20261114.svg"
+        actual = remote_file(path)
+        if hashlib.sha256(actual).digest() != hashlib.sha256(expected_file(path)).digest():
+            raise RuntimeError("Published pink flower favicon differs from main")
+        print(f"OK {path}: published flower bytes match latest main", flush=True)
 
 if __name__ == "__main__":
     for attempt in range(1, 13):
         try:
             verify()
-            print("PASS: GitHub Pages served all 6 pages and 10 exact assets.", flush=True)
+            print("PASS: GitHub Pages served all 10 pages and verified favicon assets.", flush=True)
             break
         except (HTTPError, URLError, RuntimeError, OSError, subprocess.CalledProcessError) as exc:
             print(f"Attempt {attempt}/12: {exc}", flush=True)
