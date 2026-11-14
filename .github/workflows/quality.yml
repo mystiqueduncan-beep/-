@@ -16,6 +16,7 @@ jobs:
         run: |
           python3 _qa/check.py
           python3 _qa/editorial_content.py
+          python3 _qa/favicon_consistency.py
       - name: Mobile font character coverage
         run: python3 _qa/mobile_font_subset.py --check
       - name: JavaScript syntax
