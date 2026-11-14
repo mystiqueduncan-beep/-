@@ -78,6 +78,16 @@ with sync_playwright() as playwright:
                     jaWithin: !!ja && row.contains(ja),
                     clip: getComputedStyle(row).clipPath,
                     wrapper: row.tagName,
+                    paired: !!en?.parentElement?.classList.contains('tri-subtitle-pair')
+                         && en.parentElement === ja?.parentElement,
+                    separator: en?.nextElementSibling?.classList.contains('tri-subtitle-separator')
+                         && en.nextElementSibling.textContent === '/'
+                         && en.nextElementSibling.nextElementSibling === ja,
+                    pairAlignment: en?.parentElement ? getComputedStyle(en.parentElement).textAlign : null,
+                    enX: en?.getBoundingClientRect().x || 0,
+                    jaX: ja?.getBoundingClientRect().x || 0,
+                    enY: en?.getBoundingClientRect().y || 0,
+                    jaY: ja?.getBoundingClientRect().y || 0,
                 };
             })"""
         )
@@ -87,6 +97,10 @@ with sync_playwright() as playwright:
             assert len(matches) == 1, (name, "translation missing or mismatch", (zh,en,ja), actual)
             entry = matches[0]
             assert entry["enLang"] == "en" and entry["jaLang"] == "ja", (name, "language tags", entry)
+            assert entry["paired"] and entry["separator"], (name, "EN / JA must be immediate siblings", entry)
+            assert entry["pairAlignment"] == "left", (name, "subtitle should be left-aligned", entry)
+            if width >= 1400:
+                assert entry["jaY"] >= entry["enY"] - 6 and entry["jaX"] < 1300, (name, "orphaned subtitle", entry)
             assert entry["clip"] == "none", (name, "reduced motion not visible", entry)
         overflow = page.evaluate("() => document.documentElement.scrollWidth - innerWidth")
         assert overflow <= 1, (name, "viewport horizontal overflow", overflow)
@@ -101,8 +115,17 @@ with sync_playwright() as playwright:
     first = page.locator("#motivation .tri-type-line")
     first.wait_for()
     first.scroll_into_view_if_needed()
-    page.wait_for_function("() => document.querySelector('#motivation .tri-type-line')?.classList.contains('tri-type-done')", timeout=6000)
+    page.wait_for_function("() => document.querySelector('#motivation .tri-part-typing .tri-type-visible')?.textContent.length > 0", timeout=5000)
+    # Actual typed graphemes must appear progressively rather than via a clipped
+    # screenshot-wide reveal. Five characters/second means 200 ms per grapheme.
+    early = first.locator(".trilingual-en .tri-type-visible").text_content()
+    assert 1 <= len(early) < len("MOTIVATION FOR APPLYING"), ("not progressive text", early)
+    page.wait_for_timeout(500)
+    later = first.locator(".trilingual-en .tri-type-visible").text_content()
+    assert len(later) > len(early), ("not typing at five graphemes per second", early, later)
+    page.wait_for_function("() => document.querySelector('#motivation .tri-type-line')?.classList.contains('tri-type-done')", timeout=14000)
     assert first.get_attribute("class").count("tri-type-done") == 1, "typing must finish once"
+    assert first.locator(".tri-subtitle-pair").count() == 1, "subtitle grouping lost"
     page.evaluate("scrollTo(0,document.body.scrollHeight)")
     page.evaluate("scrollTo(0,0)")
     assert first.evaluate("(e) => e.classList.contains('tri-type-done') && !e.classList.contains('tri-type-pending')"), "typing must not replay"
