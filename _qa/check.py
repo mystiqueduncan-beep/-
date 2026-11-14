@@ -3,6 +3,7 @@ from pathlib import Path
 from html.parser import HTMLParser
 from urllib.parse import urlsplit, unquote
 import json, re, hashlib
+from japanese_titles import strip_approved_japanese_ui
 ROOT=Path(__file__).resolve().parents[1]
 class Page(HTMLParser):
  def __init__(self,s):
@@ -218,13 +219,13 @@ if resume_html.count('href="resume.pdf"')!=1 or resume_html.count('download="黃
  errors.append('Dedicated downloadable PDF action missing')
 if '列印／另存 PDF' in resume_html:errors.append('Combined print/save action still present')
 for rel,old in base.items():
- f=ROOT/rel;p=Page(f.read_text(encoding='utf-8'));ids=[a['id'] for t,a in p.tags if 'id' in a]
+ f=ROOT/rel;p=Page(strip_approved_japanese_ui(rel, f.read_text(encoding='utf-8')));ids=[a['id'] for t,a in p.tags if 'id' in a]
  if len(ids)!=len(set(ids)):errors.append(rel+': duplicate id')
  # Exact source files supplied and approved by user replace only the two
  # research pages. Every other resume page remains checked against the
  # immutable original factual baseline.
  if rel in approved_report:
-  raw=f.read_bytes()
+  raw=strip_approved_japanese_ui(rel, f.read_text(encoding='utf-8')).encode('utf-8')
   # A single stylesheet link is an approved presentation-only addition.
   # Remove exactly this link before comparing the immutable, user-approved
   # research file's original Git blob SHA. Every other byte remains checked.

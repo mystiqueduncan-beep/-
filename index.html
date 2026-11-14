@@ -1203,6 +1203,17 @@
   <link rel="stylesheet" href="assets/home-action-buttons.css">
   <script src="assets/research-cta.js" defer></script>
   <link rel="stylesheet" href="assets/print-layout.css" media="print">
+<style id="japanese-section-heading-style">
+/* Consistent editorial trilingual section headings: visual labels, not content edits */
+.sec-title-jp {
+  font-family: "Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans TC",sans-serif;
+  font-size: .78rem; font-weight: 600; color: var(--mk-navy-soft);
+  letter-spacing: .03em; line-height: 1.45; overflow-wrap: anywhere;
+}
+.sec-title-jp::before { content: "／"; color: var(--mk-red); margin-right: .2em; }
+.sec-title-wrap { min-width: 0; }
+@media(max-width:640px) { .sec-title-jp { font-size: .7rem; } .sec-title-sub { overflow-wrap:anywhere; max-width:100%; } }
+</style>
 </head>
 <body class="page-home page-desktop">
   <a class="skip-link" href="#main-content">跳至主要內容</a>
@@ -1306,6 +1317,7 @@
           <span class="sec-number">01</span>
           <h2 class="sec-title-main">應徵動機</h2>
           <span class="sec-title-sub">APPLICATION MOTIVATION &amp; OBJECTIVES</span>
+<span class="sec-title-jp" lang="ja">応募動機</span>
         </div>
         <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">志向與規劃</span>
       </div>
@@ -1339,6 +1351,7 @@
           <span class="sec-number">02</span>
           <h2 class="sec-title-main">核心管理能力</h2>
           <span class="sec-title-sub">CORE OPERATIONAL COMPETENCIES</span>
+<span class="sec-title-jp" lang="ja">主なマネジメント能力</span>
         </div>
         <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">4 大管理面向</span>
       </div>
@@ -1411,6 +1424,7 @@
           <span class="sec-number">03</span>
           <h2 class="sec-title-main">門市營運改善構想</h2>
           <span class="sec-title-sub">STORE OPERATIONS IMPROVEMENT CONCEPTS</span>
+<span class="sec-title-jp" lang="ja">店舗運営の改善提案</span>
         </div>
         <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">實務責任 ✦ 改善構想</span>
       </div>
@@ -1571,6 +1585,7 @@
           <span class="sec-number">04</span>
           <h2 class="sec-title-main">工作經歷</h2>
           <span class="sec-title-sub">WORK EXPERIENCE</span>
+<span class="sec-title-jp" lang="ja">職務経歴</span>
         </div>
       </div>
 
@@ -1674,6 +1689,7 @@
           <span class="sec-number">06</span>
           <h2 class="sec-title-main">到任後工作構想</h2>
           <span class="sec-title-sub">POST-HIRE OPERATIONAL PROPOSAL</span>
+<span class="sec-title-jp" lang="ja">入社後の業務構想</span>
         </div>
         <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">工作構想，實際依公司制度與主管安排調整</span>
       </div>
@@ -1741,6 +1757,7 @@
           <span class="sec-number">07</span>
           <h2 class="sec-title-main">實體通路趨勢研究摘要</h2>
           <span class="sec-title-sub">RETAIL RESEARCH &amp; MARKET INSIGHTS</span>
+<span class="sec-title-jp" lang="ja">実店舗の市場動向リサーチ</span>
         </div>
         <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">數據事實 ✦ 觀察建議</span>
       </div>

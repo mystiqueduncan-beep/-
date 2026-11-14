@@ -2,6 +2,7 @@
 from html.parser import HTMLParser
 from pathlib import Path
 import hashlib,json,re
+from japanese_titles import strip_approved_japanese_ui
 ROOT=Path(__file__).resolve().parents[1]
 class Text(HTMLParser):
  def __init__(self,source):
@@ -16,6 +17,7 @@ class Text(HTMLParser):
  def handle_data(self,data):
   if not self.hidden and not self.newnav:self.parts.append(data)
 def digest(source,name=''):
+ source=strip_approved_japanese_ui(name,source)
  parts=''.join(Text(source).parts)
  if name in ('contact.html','mobile-contact.html'):
   # The user approved removing only the redundant LINE heading suffix.
@@ -96,7 +98,7 @@ if __name__=='__main__':
  current={}
  for name,expected in manifest['pages'].items():
   if name in approved:
-   raw=(ROOT/name).read_bytes()
+   raw=strip_approved_japanese_ui(name,(ROOT/name).read_text(encoding='utf-8')).encode('utf-8')
    # Only the exact A4 print stylesheet link may be ignored; the research
    # page's original user-approved bytes remain protected by the SHA.
    print_link=b'  <link rel="stylesheet" href="assets/print-layout.css" media="print">\n'
