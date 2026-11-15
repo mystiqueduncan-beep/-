@@ -58,8 +58,12 @@ def verify():
             raise RuntimeError(f"{page}: invalid HTML response")
         # PR checks compare the already-published base; the new versioned icon
         # can only be required after main is merged and Pages deploys it.
-        if not BASE_SHA and b"favicon-floral-20261114.svg" not in content:
-            raise RuntimeError(f"{page}: still references old cached favicon URL")
+        if not BASE_SHA:
+            expected_icon = b'href="../favicon.ico"' if page.startswith("mobile/") else b'href="favicon.ico"'
+            if expected_icon not in content:
+                raise RuntimeError(f"{page}: does not declare the new 16/32 flower ICO")
+            if b'favicon-floral-20261114.svg' in content:
+                raise RuntimeError(f"{page}: still points at the older SVG icon URL")
         print(f"OK {page}: HTTP 200, HTML and favicon reference verified", flush=True)
     for path in ASSETS:
         actual = remote_file(path)
@@ -70,13 +74,13 @@ def verify():
         print(f"OK {path}: published bytes match "
               + ("PR base" if BASE_SHA else "latest main"), flush=True)
     if not BASE_SHA:
-        # Unlike ordinary stylesheet caching, favicon databases may retain
-        # outdated bitmaps at a reused URL. Check the new filename and bytes.
-        path = "assets/favicon-floral-20261114.svg"
-        actual = remote_file(path)
-        if hashlib.sha256(actual).digest() != hashlib.sha256(expected_file(path)).digest():
-            raise RuntimeError("Published pink flower favicon differs from main")
-        print(f"OK {path}: published flower bytes match latest main", flush=True)
+        # Compare the new ICO bytes as served by the public site, not merely
+        # the repository file. All ten HTML pages must reference it.
+        for path in ("favicon.ico", "assets/favicon-floral-20261114.svg"):
+            actual = remote_file(path)
+            if hashlib.sha256(actual).digest() != hashlib.sha256(expected_file(path)).digest():
+                raise RuntimeError(path + ": published flower differs from latest main")
+            print(f"OK {path}: deployed flower exactly matches main", flush=True)
 
 if __name__ == "__main__":
     for attempt in range(1, 13):
