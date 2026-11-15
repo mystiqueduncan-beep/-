@@ -324,8 +324,11 @@
       if (!caption || !en || !ja) { finish(line); return; }
       const enChars = segment(en.textContent);
       const jaChars = segment(ja.textContent);
-      const total = enChars.length + jaChars.length + 1;
-      const interval = Math.min(62, Math.max(36, 3000 / total));
+      // Shared timing for desktop and mobile: brisk English, readable Japanese.
+      const enDelay = 30;
+      const jaDelay = 50;
+      const dividerDelay = 30;
+      const totalDuration = enChars.length * enDelay + dividerDelay + jaChars.length * jaDelay;
       const visual = document.createElement("span");
       visual.className = "tri-typed-visual";
       visual.setAttribute("aria-hidden", "true");
@@ -344,15 +347,17 @@
 
       const tick = (now) => {
         if (reducedMotion.matches || document.hidden) { finish(line); return; }
-        const typed = Math.min(total, Math.floor((now - started) / interval));
-        visualEn.textContent = enChars.slice(0, Math.min(typed, enChars.length)).join("");
-        visualDivider.textContent = typed > enChars.length ? "／" : "";
-        visualJa.textContent = jaChars.slice(0, Math.max(0, typed - enChars.length - 1)).join("");
-        if (typed >= total) { finish(line); return; }
+        const elapsed = now - started;
+        const enDuration = enChars.length * enDelay;
+        const jaElapsed = elapsed - enDuration - dividerDelay;
+        visualEn.textContent = enChars.slice(0, Math.min(enChars.length, Math.floor(elapsed / enDelay))).join("");
+        visualDivider.textContent = elapsed >= enDuration ? "／" : "";
+        visualJa.textContent = jaChars.slice(0, Math.max(0, Math.floor(jaElapsed / jaDelay))).join("");
+        if (elapsed >= totalDuration) { finish(line); return; }
         window.requestAnimationFrame(tick);
       };
       window.requestAnimationFrame(tick);
-      const safe = window.setTimeout(() => finish(line), total * interval + 600);
+      const safe = window.setTimeout(() => finish(line), totalDuration + 600);
       timers.add(safe);
     }
 
