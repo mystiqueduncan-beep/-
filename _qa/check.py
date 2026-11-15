@@ -229,11 +229,12 @@ for rel,old in base.items():
   raw=restore_historical_contact_link_labels(
    rel, strip_approved_japanese_ui(rel, f.read_text(encoding='utf-8'))
   ).encode('utf-8')
-  # Restore precisely this user-approved favicon URL update only when comparing
-  # the byte-for-byte immutable research-content baseline.
-  fresh_icon=b'assets/favicon-floral-20261114.svg'
-  if raw.count(fresh_icon)!=1:errors.append(rel+': versioned floral icon missing')
-  else:raw=raw.replace(fresh_icon,b'assets/favicon.svg',1)
+  # Only for immutable approved-content comparison, reverse the single
+  # authorized ICO link change. Any other research byte still fails the SHA.
+  ico_link=b'<link rel="icon" href="favicon.ico" type="image/x-icon">'
+  original_link=b'<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">'
+  if raw.count(ico_link)!=1:errors.append(rel+': pink-flower ICO link missing')
+  else:raw=raw.replace(ico_link,original_link,1)
   # A single stylesheet link is an approved presentation-only addition.
   # Remove exactly this link before comparing the immutable, user-approved
   # research file's original Git blob SHA. Every other byte remains checked.
