@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 BEFORE_PATH = ROOT / "_audit/roadmap-original-20261116.html"
 AFTER_PATH = ROOT / "_audit/roadmap-interactive-20261116.html"
 BEFORE_SHA1 = "233289310bc999bf004daf611794907f654a0e0f"
-AFTER_SHA1 = "099acb3959f9aaea9d3ce47e5471ccdb8d80aecd"
+AFTER_SHA1 = "10b90127b582104a6d13d36aff3b0da891546944"
 
 
 def git_blob_hash(content):
