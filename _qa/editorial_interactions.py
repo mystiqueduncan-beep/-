@@ -26,8 +26,8 @@ with sync_playwright() as p:
     expect(nav_mobile.locator('a.nav-btn-mk .bilingual-nav-jp')).to_have_count(6)
     expect(page.locator('.bilingual-current')).to_have_count(0)
     assert nav_mobile.locator('.keycap-marquee__group').locator('a').count() == 6
-    assert nav_mobile.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e,'::before').content") in ('""', "none")
-    assert nav_mobile.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e,'::after').content") in ('""', "none")
+    assert '♡' in nav_mobile.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e,'::before').content")
+    assert '♡' in nav_mobile.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e,'::after').content")
     expect(nav_mobile).to_have_class(__import__('re').compile('.*is-enhanced.*'))
     first=nav_mobile.locator('a.nav-btn-mk').first
     first.scroll_into_view_if_needed()
@@ -44,8 +44,8 @@ with sync_playwright() as p:
     expect(nav_mobile.locator('a.nav-btn-mk .bilingual-nav-jp')).to_have_count(6)
     expect(page.locator('.bilingual-current')).to_have_count(0)
     expect(nav_mobile).to_have_class(__import__('re').compile('.*is-enhanced.*'))
-    assert nav_mobile.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e,'::before').content") in ('""','none')
-    assert nav_mobile.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e,'::after').content") in ('""','none')
+    assert '♡' in nav_mobile.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e,'::before').content")
+    assert '♡' in nav_mobile.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e,'::after').content")
     rows.append({'page':name,'marquee':'bilingual research pass','bottomNavigation':'pass'})
    expect(page.locator('.mobile-bottom-bar')).to_have_count(1)
    assert page.locator('meta[name=viewport]').get_attribute('content').find('user-scalable=no') < 0
