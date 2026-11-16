@@ -45,7 +45,10 @@
   // Move only headline units: full sections and narrative cards fade in place.
   // Contact/hero actions retain their one-time pop.
   const chapterSelector = ".mag-header > .container, main .section-editorial-header, main .mobile-card-title, main #career > div > h2, main .education-profile > h2";
-  const allTargets = [...new Set([...targets, ...contactMethods, ...heroActions])];
+  // Phase cards use the dedicated interactive roadmap animation. Do not attach
+  // one-time scroll reveal to panels that can be intentionally hidden.
+  const allTargets = [...new Set([...targets, ...contactMethods, ...heroActions])]
+    .filter(el => !el.matches("#roadmap [data-phase-card]"));
   if (!allTargets.length) return;
 
   // Reveal as soon as about 15% of a unit is visible; do not wait for an

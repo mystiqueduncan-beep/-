@@ -11,13 +11,57 @@
  "第一階段：先建立可比較的門市基準，確認改善問題。",
  "第二階段：聚焦 1–2 項措施，選店試行並記錄每週回饋。",
  "第三階段：比較成果與執行代價，決定擴大、調整或停止。"];
- const phases=[...document.querySelectorAll("[data-phase]")];
- phases.forEach(b=>b.addEventListener("click",()=>{
-  phases.forEach(x=>{x.classList.toggle("active",x===b);x.setAttribute("aria-pressed",String(x===b));});
-  document.querySelectorAll("[data-phase-card]").forEach(x=>x.classList.toggle("phase-current",x.dataset.phaseCard===b.dataset.phase));
-  const summary=document.querySelector(".timeline-summary");
-  if(summary)summary.textContent=summaries[Number(b.dataset.phase)]||summaries[0];
- }));
+ const roadmap=document.querySelector("#roadmap");
+ if(roadmap){
+  const phases=[...roadmap.querySelectorAll("[data-phase]")];
+  const panels=[...roadmap.querySelectorAll("[data-phase-card]")];
+  const summary=roadmap.querySelector(".timeline-summary");
+  const prev=roadmap.querySelector("[data-phase-prev]");
+  const next=roadmap.querySelector("[data-phase-next]");
+  const count=roadmap.querySelector("[data-phase-count]");
+  if(phases.length===3&&panels.length===3&&summary&&prev&&next&&count){
+   let selected=0;
+   const selectPhase=(index,focusTab=false)=>{
+    if(index<0||index>=phases.length)return;
+    selected=index;
+    phases.forEach((tab,i)=>{
+     const active=i===selected;
+     tab.classList.toggle("active",active);
+     tab.setAttribute("aria-pressed",String(active));
+    });
+    panels.forEach((panel,i)=>{
+     const active=i===selected;
+     panel.hidden=!active;
+     panel.classList.toggle("phase-current",active);
+    });
+    summary.textContent=summaries[selected];
+    count.textContent=String(selected+1).padStart(2,"0")+" / 03";
+    prev.disabled=selected===0;
+    next.disabled=selected===phases.length-1;
+    roadmap.style.setProperty("--roadmap-progress",selected===0?"0%":selected===1?"34%":"68%");
+    if(focusTab)phases[selected].focus();
+   };
+   phases.forEach((tab,i)=>{
+    tab.addEventListener("click",()=>selectPhase(i));
+    tab.addEventListener("keydown",event=>{
+     let target;
+     if(event.key==="ArrowRight")target=Math.min(i+1,phases.length-1);
+     else if(event.key==="ArrowLeft")target=Math.max(i-1,0);
+     else if(event.key==="Home")target=0;
+     else if(event.key==="End")target=phases.length-1;
+     else return;
+     event.preventDefault();
+     selectPhase(target,true);
+    });
+   });
+   prev.addEventListener("click",()=>selectPhase(selected-1,true));
+   next.addEventListener("click",()=>selectPhase(selected+1,true));
+   // Until JS is initialized, all three original cards remain visible.
+   // Hidden inactive cards are removed from reading and focus order.
+   selectPhase(0);
+   roadmap.classList.add("roadmap-ready");
+  }
+ }
  const reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)");
  if(!("IntersectionObserver" in window)||(reduced&&reduced.matches))return;
  // The shared site observer already manages mk-motion-item cards; never

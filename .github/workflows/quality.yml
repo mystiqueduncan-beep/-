@@ -54,6 +54,8 @@ jobs:
         run: python3 _qa/editorial_interactions.py
       - name: Verify six-page trilingual wording, inline headings and one-time typing
         run: python3 _qa/trilingual_heading_audit.py
+      - name: Interactive 90-day roadmap on desktop and mobile
+        run: python3 _qa/roadmap_interactions.py
       - name: Responsive layouts, keyboard controls and axe
         run: python3 _qa/browser_audit.py --out /tmp/browser-audit --axe node_modules/axe-core/axe.min.js
 

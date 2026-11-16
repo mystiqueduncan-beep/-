@@ -4,6 +4,7 @@ from pathlib import Path
 import hashlib,json,re
 from japanese_titles import strip_approved_japanese_ui
 from contact_link_labels import restore_historical_contact_link_labels
+from roadmap_approval import restore_approved_roadmap
 from footer_badge_labels import restore_historical_footer_badge
 ROOT=Path(__file__).resolve().parents[1]
 class Text(HTMLParser):
@@ -120,6 +121,7 @@ if __name__=='__main__':
     new_tab=href+b' target="_blank" rel="noopener noreferrer"'
     assert raw.count(new_tab)==1,name+': approved source new-tab link missing'
     raw=raw.replace(new_tab,href,1)
+   raw=restore_approved_roadmap(name,raw)
    # Verify the user's 2026-11-16 removal of only the redundant closing card.
    # Reconstruct that exact card ONLY for the immutable approved-content SHA.
    closing = "<div class=\"closing\"><h2>從單店實務，<br>走向區域協作。</h2><p>以既有作品集的門市經驗、帶訓能力與溝通構想為基礎，將產業觀察轉成具責任分工的行動。透過巡店、店長週會與成效檢討，讓總部方針落地，也讓現場問題得到回應。</p></div>\n".encode('utf-8')
