@@ -2126,3 +2126,84 @@ body.page-trend.page-desktop .portfolio-back-to-top__link:focus-visible {
   }
   .portfolio-chart .portfolio-chart-replay { align-self: flex-start; }
 }
+
+
+
+/* Match the three contact methods, including the longer e-mail address:
+   the value stays on its own row and every action has one shared grid.
+   The original labels, destinations, click handlers and button fills remain. */
+@media screen {
+  body.page-contact.page-desktop .contact-methods-stack .method-card:not(.method-card--print) .method-value-row {
+    display: grid !important;
+    grid-template-columns: minmax(0,1fr) !important;
+    align-items: start !important;
+    justify-items: stretch !important;
+    gap: 12px !important;
+  }
+  body.page-contact .contact-methods-stack .method-card:not(.method-card--print) .method-huge-text {
+    min-width: 0 !important;
+    width: 100%;
+    overflow-wrap: anywhere;
+  }
+  body.page-contact .contact-methods-stack .method-card:not(.method-card--print) .method-action-btns {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+    align-items: stretch !important;
+    justify-items: stretch !important;
+    gap: 10px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+  body.page-contact .contact-methods-stack .method-card:not(.method-card--print) .method-action-btns :is(a,button) {
+    display: inline-flex !important;
+    flex: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+    font-family: var(--font-sans,"Noto Sans TC",sans-serif) !important;
+    font-size: .88rem !important;
+    font-weight: 750 !important;
+    letter-spacing: .01em !important;
+    line-height: 1.45 !important;
+    padding: 10px 12px !important;
+    min-height: 48px !important;
+  }
+  body.page-contact .contact-methods-stack .method-action-btns svg {
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
+  }
+  body.page-contact .contact-methods-stack .method-card:not(.method-card--print) .method-action-btns :is(a,button):focus-visible {
+    outline: 3px solid #80546a !important;
+    outline-offset: 3px !important;
+  }
+  body.page-contact.page-mobile .contact-methods-stack .method-card:not(.method-card--print) .method-action-btns {
+    grid-template-columns: minmax(0,1fr) !important;
+  }
+}
+/* The three "可延伸方法" cards gently enter from ABOVE, once, after scroll. */
+@media screen and (prefers-reduced-motion: no-preference) {
+  body.page-trend #experience .exp .exp-application.exp-method-pending {
+    opacity: 0;
+    transform: translate3d(0,-18px,0);
+    transition:
+      transform .76s cubic-bezier(.22,1,.36,1) var(--exp-method-delay,0ms),
+      opacity .66s ease-out var(--exp-method-delay,0ms);
+  }
+  body.page-trend #experience .exp .exp-application.exp-method-pending.exp-method-in {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+}
+@media (prefers-reduced-motion: reduce), print {
+  body.page-trend #experience .exp .exp-application {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

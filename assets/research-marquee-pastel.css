@@ -97,3 +97,48 @@
 @media print {
   body.page-trend .trend-bilingual-nav {display:none!important;}
 }
+
+
+
+/* Research keycaps use the same scroll-synced stronger rose selection and
+   translucent page-level chrome as the portfolio homepage. */
+@media screen {
+  body.page-trend .trend-bilingual-nav {
+    background: rgba(255,249,247,.72) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(115%);
+    backdrop-filter: blur(14px) saturate(115%);
+  }
+  body.page-trend.page-mobile .trend-bilingual-nav {
+    background: rgba(255,249,247,.78) !important;
+  }
+  body.page-trend .trend-bilingual-nav .keycap-marquee__group a:is(.is-current,[aria-current="location"]) {
+    background: #dfadc1 !important;
+    color: #4f3042 !important;
+    border-color: #ac7189 !important;
+    box-shadow: 0 3px 0 #c58b9f !important;
+  }
+  body.page-trend .trend-bilingual-nav .keycap-marquee__group a:is(.is-current,[aria-current="location"]) .bilingual-nav-jp {
+    color: #4f3042 !important;
+  }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  body.page-trend .trend-bilingual-nav .keycap-marquee.is-enhanced .keycap-marquee__belt::before,
+  body.page-trend .trend-bilingual-nav .keycap-marquee.is-enhanced .keycap-marquee__belt::after {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    background: transparent !important;
+    color: #ad8295 !important;
+    opacity: .72;
+    font: 20px/1 Georgia, serif !important;
+    letter-spacing: .55em !important;
+    white-space: pre !important;
+    pointer-events: none;
+  }
+  body.page-trend .trend-bilingual-nav .keycap-marquee.is-enhanced .keycap-marquee__belt::before {
+    content: "✧   ♡   ·   ✦" !important;
+  }
+  body.page-trend .trend-bilingual-nav .keycap-marquee.is-enhanced .keycap-marquee__belt::after {
+    content: "✦   ·   ♡   ✧" !important;
+  }
+}

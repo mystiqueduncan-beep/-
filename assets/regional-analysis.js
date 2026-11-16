@@ -88,3 +88,40 @@
   }
  });
 })();
+
+
+/* Research experience: the "可延伸方法" panels descend gently once after
+   entering view. The source text stays in the HTML and is always readable
+   without JS, IntersectionObserver, or under reduced-motion/print. */
+(() => {
+  "use strict";
+  const methods = [...document.querySelectorAll("#experience .exp .exp-application")];
+  if (!methods.length || !("IntersectionObserver" in window)) return;
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (reduced.matches) return;
+
+  let observer;
+  try {
+    observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("exp-method-in");
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: .22, rootMargin: "0px 0px -4% 0px" });
+
+    methods.forEach((method, index) => {
+      method.style.setProperty("--exp-method-delay", index * 100 + "ms");
+      method.classList.add("exp-method-pending");
+      observer.observe(method);
+    });
+    if (typeof reduced.addEventListener === "function") reduced.addEventListener("change", event => {
+      if (!event.matches) return;
+      observer.disconnect();
+      methods.forEach(method => method.classList.add("exp-method-in"));
+    });
+  } catch (_) {
+    observer?.disconnect();
+    methods.forEach(method => method.classList.remove("exp-method-pending"));
+  }
+})();
