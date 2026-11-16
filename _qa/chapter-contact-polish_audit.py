@@ -44,6 +44,24 @@ with sync_playwright() as p:
         assert background == "rgba(0, 0, 0, 0)", (name, background)
         decoration = belt.evaluate('(el)=>getComputedStyle(el,"::after").content')
         assert "♡" in decoration and "✦" in decoration, (name, decoration)
+        # Both ornaments sit about 20px from the nearest chapter key, not
+        # centered hundreds of pixels away in the native-scroll run-out.
+        ornament_layout = belt.evaluate("""(el) => {
+          const first = getComputedStyle(el, "::before");
+          const last = getComputedStyle(el, "::after");
+          return {
+            firstAlign: first.justifyContent,
+            firstGap: first.paddingRight,
+            lastAlign: last.justifyContent,
+            lastGap: last.paddingLeft,
+            letterSpacing: first.letterSpacing
+          };
+        }""")
+        assert ornament_layout["firstAlign"] == "flex-end", (name, ornament_layout)
+        assert ornament_layout["lastAlign"] == "flex-start", (name, ornament_layout)
+        assert ornament_layout["firstGap"] == "20px", (name, ornament_layout)
+        assert ornament_layout["lastGap"] == "20px", (name, ornament_layout)
+        assert ornament_layout["letterSpacing"] == "6px", (name, ornament_layout)
 
         section = page.locator("#" + target)
         section.evaluate('(el)=>{el.scrollIntoView({block:"start",behavior:"instant"});dispatchEvent(new Event("scroll"));}')
