@@ -1,0 +1,96 @@
+{
+  "index.html": [
+    {
+      "new": "  <link rel=\"stylesheet\" href=\"assets/bilingual-pastel-chapters.css\">\n  <script src=\"assets/bilingual-chapters.js\" defer></script>\n",
+      "old": "",
+      "label": "shared assets"
+    },
+    {
+      "new": "<nav class=\"mag-subnav-strip home-keycap-strip bilingual-chapter-nav\" data-bilingual-nav aria-label=\"履歷章節\">\n    <div class=\"container subnav-items home-keycap-layout\">\n<div class=\"bilingual-current\" aria-hidden=\"true\">\n <span class=\"bilingual-current-number\" data-bilingual-number>01</span>\n <span class=\"bilingual-current-copy\"><span class=\"bilingual-current-main\" data-bilingual-title>應徵動機</span>\n <span class=\"bilingual-current-sub\"><span class=\"bilingual-current-en\" data-bilingual-en>APPLICATION MOTIVATION</span><span class=\"bilingual-current-jp\" lang=\"ja\" data-bilingual-jp>応募動機</span></span></span>\n </div>\n      <div class=\"keycap-marquee\" data-keycap-marquee>\n        <div class=\"keycap-marquee__viewport\" tabindex=\"0\" aria-label=\"履歷章節導覽，可左右捲動\">\n          <div class=\"keycap-marquee__belt\">\n            <ul class=\"keycap-marquee__group\">\n<li><a href=\"#motivation\" class=\"nav-btn-mk\" data-chapter=\"motivation\" data-number=\"01\" data-cn=\"應徵動機\" data-jp=\"応募動機\" data-en=\"APPLICATION MOTIVATION\"><span class=\"bilingual-nav-cn\">應徵動機</span><span class=\"bilingual-nav-jp\" lang=\"ja\">応募動機</span></a></li>\n<li><a href=\"#competencies\" class=\"nav-btn-mk\" data-chapter=\"competencies\" data-number=\"02\" data-cn=\"核心管理能力\" data-jp=\"主なマネジメント能力\" data-en=\"CORE OPERATIONAL COMPETENCIES\"><span class=\"bilingual-nav-cn\">核心管理能力</span><span class=\"bilingual-nav-jp\" lang=\"ja\">主なマネジメント能力</span></a></li>\n<li><a href=\"#cases\" class=\"nav-btn-mk\" data-chapter=\"cases\" data-number=\"03\" data-cn=\"門市營運改善構想\" data-jp=\"店舗運営の改善提案\" data-en=\"STORE OPERATIONS IMPROVEMENT\"><span class=\"bilingual-nav-cn\">門市營運改善構想</span><span class=\"bilingual-nav-jp\" lang=\"ja\">店舗運営の改善提案</span></a></li>\n<li><a href=\"#career\" class=\"nav-btn-mk\" data-chapter=\"career\" data-number=\"04\" data-cn=\"工作經歷\" data-jp=\"職務経歴\" data-en=\"WORK EXPERIENCE\"><span class=\"bilingual-nav-cn\">工作經歷</span><span class=\"bilingual-nav-jp\" lang=\"ja\">職務経歴</span></a></li>\n<li><a href=\"#proposal\" class=\"nav-btn-mk\" data-chapter=\"proposal\" data-number=\"05\" data-cn=\"到任後工作構想\" data-jp=\"入社後の業務構想\" data-en=\"POST-HIRE OPERATIONS PLAN\"><span class=\"bilingual-nav-cn\">到任後工作構想</span><span class=\"bilingual-nav-jp\" lang=\"ja\">入社後の業務構想</span></a></li>\n<li><a href=\"#research\" class=\"nav-btn-mk\" data-chapter=\"research\" data-number=\"06\" data-cn=\"實體通路趨勢研究摘要\" data-jp=\"実店舗の市場動向リサーチ\" data-en=\"RETAIL RESEARCH\"><span class=\"bilingual-nav-cn\">實體通路趨勢研究摘要</span><span class=\"bilingual-nav-jp\" lang=\"ja\">実店舗の市場動向リサーチ</span></a></li>\n        \n        \n        \n        \n        \n        \n\n      </ul>\n          </div>\n        </div>\n      </div>\n    </div>\n  </nav>",
+      "old": "<nav class=\"mag-subnav-strip home-keycap-strip\" aria-label=\"履歷章節\">\n    <div class=\"container subnav-items home-keycap-layout\">\n      <div class=\"keycap-marquee\" data-keycap-marquee>\n        <div class=\"keycap-marquee__viewport\" tabindex=\"0\" aria-label=\"履歷章節導覽，可左右捲動\">\n          <div class=\"keycap-marquee__belt\">\n            <ul class=\"keycap-marquee__group\">\n        <li><a href=\"#motivation\" class=\"nav-btn-mk\"><span class=\"num\">01/</span> 應徵動機</a></li>\n        <li><a href=\"#competencies\" class=\"nav-btn-mk\"><span class=\"num\">02/</span> 核心能力</a></li>\n        <li><a href=\"#cases\" class=\"nav-btn-mk\"><span class=\"num\">03/</span> 營運改善構想</a></li>\n        <li><a href=\"#career\" class=\"nav-btn-mk\"><span class=\"num\">04/</span> 工作經歷</a></li>\n        <li><a href=\"#proposal\" class=\"nav-btn-mk\"><span class=\"num\">06/</span> 工作構想</a></li>\n        <li><a href=\"#research\" class=\"nav-btn-mk\"><span class=\"num\">07/</span> 通路研究</a></li>\n\n      </ul>\n          </div>\n        </div>\n      </div>\n    </div>\n  </nav>",
+      "label": "desktop marquee"
+    },
+    {
+      "new": "<div class=\"sec-title-wrap\">\n<span class=\"sec-number\">01</span>\n  <div class=\"bilingual-heading-text\"><h2 class=\"sec-title-main\">應徵動機</h2>\n  <div class=\"bilingual-heading-sub\"><span class=\"sec-title-sub\">APPLICATION MOTIVATION</span><span class=\"sec-title-jp\" lang=\"ja\">応募動機</span></div></div>\n</div>",
+      "old": "<div class=\"sec-title-wrap\">\n          <span class=\"sec-number\">01</span>\n          <h2 class=\"sec-title-main\">應徵動機</h2>\n          <span class=\"sec-title-sub\">APPLICATION MOTIVATION &amp; OBJECTIVES</span>\n<span class=\"sec-title-jp\" lang=\"ja\">応募動機</span>\n        </div>",
+      "label": "desktop motivation heading"
+    },
+    {
+      "new": "<div class=\"sec-title-wrap\">\n<span class=\"sec-number\">02</span>\n  <div class=\"bilingual-heading-text\"><h2 class=\"sec-title-main\">核心管理能力</h2>\n  <div class=\"bilingual-heading-sub\"><span class=\"sec-title-sub\">CORE OPERATIONAL COMPETENCIES</span><span class=\"sec-title-jp\" lang=\"ja\">主なマネジメント能力</span></div></div>\n</div>",
+      "old": "<div class=\"sec-title-wrap\">\n          <span class=\"sec-number\">02</span>\n          <h2 class=\"sec-title-main\">核心管理能力</h2>\n          <span class=\"sec-title-sub\">CORE OPERATIONAL COMPETENCIES</span>\n<span class=\"sec-title-jp\" lang=\"ja\">主なマネジメント能力</span>\n        </div>",
+      "label": "desktop competencies heading"
+    },
+    {
+      "new": "<div class=\"sec-title-wrap\">\n<span class=\"sec-number\">03</span>\n  <div class=\"bilingual-heading-text\"><h2 class=\"sec-title-main\">門市營運改善構想</h2>\n  <div class=\"bilingual-heading-sub\"><span class=\"sec-title-sub\">STORE OPERATIONS IMPROVEMENT</span><span class=\"sec-title-jp\" lang=\"ja\">店舗運営の改善提案</span></div></div>\n</div>",
+      "old": "<div class=\"sec-title-wrap\">\n          <span class=\"sec-number\">03</span>\n          <h2 class=\"sec-title-main\">門市營運改善構想</h2>\n          <span class=\"sec-title-sub\">STORE OPERATIONS IMPROVEMENT CONCEPTS</span>\n<span class=\"sec-title-jp\" lang=\"ja\">店舗運営の改善提案</span>\n        </div>",
+      "label": "desktop cases heading"
+    },
+    {
+      "new": "<div class=\"sec-title-wrap\">\n<span class=\"sec-number\">04</span>\n  <div class=\"bilingual-heading-text\"><h2 class=\"sec-title-main\">工作經歷</h2>\n  <div class=\"bilingual-heading-sub\"><span class=\"sec-title-sub\">WORK EXPERIENCE</span><span class=\"sec-title-jp\" lang=\"ja\">職務経歴</span></div></div>\n</div>",
+      "old": "<div class=\"sec-title-wrap\">\n          <span class=\"sec-number\">04</span>\n          <h2 class=\"sec-title-main\">工作經歷</h2>\n          <span class=\"sec-title-sub\">WORK EXPERIENCE</span>\n<span class=\"sec-title-jp\" lang=\"ja\">職務経歴</span>\n        </div>",
+      "label": "desktop career heading"
+    },
+    {
+      "new": "<div class=\"sec-title-wrap\">\n<span class=\"sec-number\">05</span>\n  <div class=\"bilingual-heading-text\"><h2 class=\"sec-title-main\">到任後工作構想</h2>\n  <div class=\"bilingual-heading-sub\"><span class=\"sec-title-sub\">POST-HIRE OPERATIONS PLAN</span><span class=\"sec-title-jp\" lang=\"ja\">入社後の業務構想</span></div></div>\n</div>",
+      "old": "<div class=\"sec-title-wrap\">\n          <span class=\"sec-number\">06</span>\n          <h2 class=\"sec-title-main\">到任後工作構想</h2>\n          <span class=\"sec-title-sub\">POST-HIRE OPERATIONAL PROPOSAL</span>\n<span class=\"sec-title-jp\" lang=\"ja\">入社後の業務構想</span>\n        </div>",
+      "label": "desktop proposal heading"
+    },
+    {
+      "new": "<div class=\"sec-title-wrap\">\n<span class=\"sec-number\">06</span>\n  <div class=\"bilingual-heading-text\"><h2 class=\"sec-title-main\">實體通路趨勢研究摘要</h2>\n  <div class=\"bilingual-heading-sub\"><span class=\"sec-title-sub\">RETAIL RESEARCH</span><span class=\"sec-title-jp\" lang=\"ja\">実店舗の市場動向リサーチ</span></div></div>\n</div>",
+      "old": "<div class=\"sec-title-wrap\">\n          <span class=\"sec-number\">07</span>\n          <h2 class=\"sec-title-main\">實體通路趨勢研究摘要</h2>\n          <span class=\"sec-title-sub\">RETAIL RESEARCH &amp; MARKET INSIGHTS</span>\n<span class=\"sec-title-jp\" lang=\"ja\">実店舗の市場動向リサーチ</span>\n        </div>",
+      "label": "desktop research heading"
+    }
+  ],
+  "mobile.html": [
+    {
+      "new": "  <link rel=\"stylesheet\" href=\"assets/bilingual-pastel-chapters.css\">\n  <script src=\"assets/bilingual-chapters.js\" defer></script>\n",
+      "old": "",
+      "label": "shared assets"
+    },
+    {
+      "new": "<link rel=\"stylesheet\" href=\"assets/trend-marquee.css\">\n<script src=\"assets/trend-marquee.js\" defer></script>\n",
+      "old": "",
+      "label": "mobile marquee assets"
+    },
+    {
+      "new": "\n<nav class=\"bilingual-mobile-strip bilingual-chapter-nav\" data-bilingual-nav aria-label=\"履歷章節跑馬燈\">\n<div class=\"bilingual-current\" aria-hidden=\"true\">\n <span class=\"bilingual-current-number\" data-bilingual-number>01</span>\n <span class=\"bilingual-current-copy\"><span class=\"bilingual-current-main\" data-bilingual-title>應徵動機</span>\n <span class=\"bilingual-current-sub\"><span class=\"bilingual-current-en\" data-bilingual-en>APPLICATION MOTIVATION</span><span class=\"bilingual-current-jp\" lang=\"ja\" data-bilingual-jp>応募動機</span></span></span>\n </div>\n<div class=\"keycap-marquee\" data-keycap-marquee>\n<div class=\"keycap-marquee__viewport\" tabindex=\"0\" aria-label=\"履歷章節導覽，可左右捲動\">\n<div class=\"keycap-marquee__belt\"><ul class=\"keycap-marquee__group\"><li><a href=\"#motivation\" class=\"nav-btn-mk\" data-chapter=\"motivation\" data-number=\"01\" data-cn=\"應徵動機\" data-jp=\"応募動機\" data-en=\"APPLICATION MOTIVATION\"><span class=\"bilingual-nav-cn\">應徵動機</span><span class=\"bilingual-nav-jp\" lang=\"ja\">応募動機</span></a></li>\n<li><a href=\"#competencies\" class=\"nav-btn-mk\" data-chapter=\"competencies\" data-number=\"02\" data-cn=\"核心管理能力\" data-jp=\"主なマネジメント能力\" data-en=\"CORE OPERATIONAL COMPETENCIES\"><span class=\"bilingual-nav-cn\">核心管理能力</span><span class=\"bilingual-nav-jp\" lang=\"ja\">主なマネジメント能力</span></a></li>\n<li><a href=\"#cases\" class=\"nav-btn-mk\" data-chapter=\"cases\" data-number=\"03\" data-cn=\"門市營運改善構想\" data-jp=\"店舗運営の改善提案\" data-en=\"STORE OPERATIONS IMPROVEMENT\"><span class=\"bilingual-nav-cn\">門市營運改善構想</span><span class=\"bilingual-nav-jp\" lang=\"ja\">店舗運営の改善提案</span></a></li>\n<li><a href=\"#career\" class=\"nav-btn-mk\" data-chapter=\"career\" data-number=\"04\" data-cn=\"工作經歷\" data-jp=\"職務経歴\" data-en=\"WORK EXPERIENCE\"><span class=\"bilingual-nav-cn\">工作經歷</span><span class=\"bilingual-nav-jp\" lang=\"ja\">職務経歴</span></a></li>\n<li><a href=\"#proposal\" class=\"nav-btn-mk\" data-chapter=\"proposal\" data-number=\"05\" data-cn=\"到任後工作構想\" data-jp=\"入社後の業務構想\" data-en=\"POST-HIRE OPERATIONS PLAN\"><span class=\"bilingual-nav-cn\">到任後工作構想</span><span class=\"bilingual-nav-jp\" lang=\"ja\">入社後の業務構想</span></a></li>\n<li><a href=\"#research\" class=\"nav-btn-mk\" data-chapter=\"research\" data-number=\"06\" data-cn=\"實體通路趨勢研究摘要\" data-jp=\"実店舗の市場動向リサーチ\" data-en=\"RETAIL RESEARCH\"><span class=\"bilingual-nav-cn\">實體通路趨勢研究摘要</span><span class=\"bilingual-nav-jp\" lang=\"ja\">実店舗の市場動向リサーチ</span></a></li></ul></div>\n</div></div>\n</nav>",
+      "old": "",
+      "label": "mobile marquee"
+    },
+    {
+      "new": "<h2 class=\"mobile-card-title\">\n<span> 應徵者專訪特輯<span class=\"mobile-section-jp\" lang=\"ja\">応募者プロフィール</span></span>\n<span class=\"mobile-badge badge-yellow\">PROFILE</span>\n</h2>",
+      "old": "<h2 class=\"mobile-card-title\">\n<span><span class=\"ui-code\" aria-hidden=\"true\">01/</span> 應徵者專訪特輯<span class=\"mobile-section-jp\" lang=\"ja\">応募者プロフィール</span></span>\n<span class=\"mobile-badge badge-yellow\">PROFILE</span>\n</h2>",
+      "label": "profile heading"
+    },
+    {
+      "new": "<h2 class=\"mobile-card-title bilingual-mobile-heading\"><span class=\"bilingual-mobile-title\"><span class=\"bilingual-mobile-cn\">應徵動機</span><span class=\"bilingual-mobile-sub\"><span class=\"bilingual-mobile-en\">APPLICATION MOTIVATION</span><span class=\"bilingual-mobile-jp\" lang=\"ja\">応募動機</span></span></span></h2>",
+      "old": "<h2 class=\"mobile-card-title\">\n        <span><span class=\"ui-code\" aria-hidden=\"true\">02/</span> 應徵動機與志向<span class=\"mobile-section-jp\" lang=\"ja\">志望動機と今後の目標</span></span>\n        <span class=\"mobile-badge badge-navy\">MOTIVATION</span>\n      </h2>",
+      "label": "mobile motivation heading"
+    },
+    {
+      "new": "<h2 class=\"mobile-card-title bilingual-mobile-heading\"><span class=\"bilingual-mobile-title\"><span class=\"bilingual-mobile-cn\">核心管理能力</span><span class=\"bilingual-mobile-sub\"><span class=\"bilingual-mobile-en\">CORE OPERATIONAL COMPETENCIES</span><span class=\"bilingual-mobile-jp\" lang=\"ja\">主なマネジメント能力</span></span></span></h2>",
+      "old": "<h2 class=\"mobile-card-title\">\n        <span><span class=\"ui-code\" aria-hidden=\"true\">03/</span> 四大核心管理能力<span class=\"mobile-section-jp\" lang=\"ja\">四つの主要なマネジメント能力</span></span>\n        <span class=\"mobile-badge badge-red\">COMPETENCIES</span>\n      </h2>",
+      "label": "mobile competencies heading"
+    },
+    {
+      "new": "<h2 class=\"mobile-card-title bilingual-mobile-heading\"><span class=\"bilingual-mobile-title\"><span class=\"bilingual-mobile-cn\">門市營運改善構想</span><span class=\"bilingual-mobile-sub\"><span class=\"bilingual-mobile-en\">STORE OPERATIONS IMPROVEMENT</span><span class=\"bilingual-mobile-jp\" lang=\"ja\">店舗運営の改善提案</span></span></span></h2>",
+      "old": "<h2 class=\"mobile-card-title\">\n        <span><span class=\"ui-code\" aria-hidden=\"true\">04/</span> 門市營運實務與改善構想<span class=\"mobile-section-jp\" lang=\"ja\">店舗運営の実務と改善提案</span></span>\n        <span class=\"mobile-badge badge-yellow\">CONCEPTS</span>\n      </h2>",
+      "label": "mobile cases heading"
+    },
+    {
+      "new": "<h2 class=\"mobile-card-title bilingual-mobile-heading\"><span class=\"bilingual-mobile-title\"><span class=\"bilingual-mobile-cn\">到任後工作構想</span><span class=\"bilingual-mobile-sub\"><span class=\"bilingual-mobile-en\">POST-HIRE OPERATIONS PLAN</span><span class=\"bilingual-mobile-jp\" lang=\"ja\">入社後の業務構想</span></span></span></h2>",
+      "old": "<h2 class=\"mobile-card-title\">\n        <span><span class=\"ui-code\" aria-hidden=\"true\">07/</span> 到任後工作構想<span class=\"mobile-section-jp\" lang=\"ja\">入社後の業務構想</span></span>\n        <span class=\"mobile-badge badge-yellow\">PROPOSAL</span>\n      </h2>",
+      "label": "mobile proposal heading"
+    },
+    {
+      "new": "\n      <h2 class=\"mobile-card-title bilingual-mobile-heading\"><span class=\"bilingual-mobile-title\"><span class=\"bilingual-mobile-cn\">工作經歷</span><span class=\"bilingual-mobile-sub\"><span class=\"bilingual-mobile-en\">WORK EXPERIENCE</span><span class=\"bilingual-mobile-jp\" lang=\"ja\">職務経歴</span></span></span></h2>\n\n      ",
+      "old": "\n      <div style=\"margin: 10px 0 12px 4px; display: flex; justify-content: space-between; align-items: baseline;\">\n        <h2 style=\"font-family: var(--font-serif); font-size: 1.35rem; font-weight: 900; color: var(--mk-navy);\">\n          <span class=\"ui-code\" aria-hidden=\"true\">05/</span> 工作經歷\n<span class=\"mobile-section-jp\" lang=\"ja\">職務経歴</span>\n        </h2>\n        <span style=\"font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-muted);\">CAREER TIMELINE</span>\n      </div>\n\n      ",
+      "label": "mobile career"
+    },
+    {
+      "new": "\n<h2 class=\"mobile-card-title bilingual-mobile-heading\"><span class=\"bilingual-mobile-title\"><span class=\"bilingual-mobile-cn\">實體通路趨勢研究摘要</span><span class=\"bilingual-mobile-sub\"><span class=\"bilingual-mobile-en\">RETAIL RESEARCH</span><span class=\"bilingual-mobile-jp\" lang=\"ja\">実店舗の市場動向リサーチ</span></span></span></h2>\n",
+      "old": "\n      <div style=\"display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;\">\n        <span style=\"font-family: var(--font-mono); font-size: 0.72rem; color: var(--mk-navy); font-weight: 800;\">\n          08/ 專案研究報告精華\n        </span>\n        <span class=\"mobile-badge badge-yellow\">RESEARCH</span>\n      </div>\n\n      ",
+      "label": "mobile research"
+    }
+  ]
+}
