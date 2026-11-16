@@ -27,6 +27,18 @@ with sync_playwright() as p:
         page = browser.new_page(viewport={"width":390 if mobile else 1440, "height":844})
         page.route("https://**/*", lambda route: route.abort())
         page.goto(f'{base}{name}.html?view={"mobile" if mobile else "desktop"}')
+        # Removed presentation-only labels stay absent in the homepage DOM.
+        if name == "index":
+            assert page.locator(".target-role-badge, .hero-position-highlight").count() == 0
+            assert page.locator(".mag-footer .footer-inner > div").count() == 1
+            assert "Matsumoto Kiyoshi" not in page.locator("body").inner_text()
+            assert "志願應徵職位：" not in page.locator("body").inner_text()
+        # Both charts still exist and animate automatically, but neither
+        # desktop nor mobile page may create a replay button.
+        chart_bars = page.locator("#market .animated-bar" if "trend" in name else "#research .data-bar-fill")
+        assert chart_bars.count() > 0, (name, "chart data should remain")
+        assert page.locator(".portfolio-chart").count() >= 1, (name, "chart enhancement missing")
+        assert page.locator(".portfolio-chart-replay").count() == 0, (name, "replay button was removed")
         nav = page.locator("[data-keycap-marquee]")
         assert nav.count() == 1, name
         page.wait_for_function(
