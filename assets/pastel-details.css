@@ -2052,7 +2052,7 @@ body.page-trend.page-desktop .portfolio-back-to-top__link:focus-visible {
     transition: background-color .24s ease, border-color .24s ease, box-shadow .24s ease;
   }
   .portfolio-disclosure-toggle:hover { background: #f7e2e9; border-color: #bd869c; }
-  .portfolio-disclosure-toggle:focus-visible, .portfolio-chart-replay:focus-visible {
+  .portfolio-disclosure-toggle:focus-visible {
     outline: 3px solid #775477; outline-offset: 3px;
   }
   .portfolio-toggle-chevron { display: inline-block; font-size: 1.25rem; line-height: 1; transform: rotate(0); transition: transform .4s ease; }
@@ -2077,13 +2077,6 @@ body.page-trend.page-desktop .portfolio-back-to-top__link:focus-visible {
   }
   .portfolio-chart .data-bar-track,
   .portfolio-chart .bar { border-radius: 999px !important; overflow: hidden; background: #f0e4e9 !important; }
-  .portfolio-chart-replay {
-    display: inline-flex; align-items: center; margin-top: 12px; padding: 7px 12px;
-    background: #fff9f9; border: 1px solid #d9bbc6; border-radius: 999px;
-    color: #785369; cursor: pointer; font-family: inherit; font-size: .76rem; font-weight: 600; line-height: 1.3;
-  }
-  .portfolio-chart-replay:hover { background: #f9edf0; }
-  .portfolio-chart-replay[hidden] { display: none !important; }
   body.page-trend .phase {
     transition: opacity .4s ease, border-color .4s ease, background-color .4s ease, transform .4s ease;
   }
@@ -2104,7 +2097,6 @@ body.page-trend.page-desktop .portfolio-back-to-top__link:focus-visible {
 @media (max-width: 640px) {
   .portfolio-disclosure-toggle { width: 100%; justify-content: center; margin: 10px 0 7px; }
   .portfolio-career-copy { width: 100%; }
-  .portfolio-chart-replay { min-height: 44px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .portfolio-disclosure-panel, .portfolio-toggle-chevron, .portfolio-chart .portfolio-bar { transition: none !important; }
@@ -2113,7 +2105,7 @@ body.page-trend.page-desktop .portfolio-back-to-top__link:focus-visible {
 @media print {
   .portfolio-disclosure-panel { display: block !important; opacity: 1 !important; grid-template-rows: 1fr !important; }
   .portfolio-panel-inner { overflow: visible !important; }
-  .portfolio-disclosure-toggle, .portfolio-chart-replay { display: none !important; }
+  .portfolio-disclosure-toggle { display: none !important; }
   .portfolio-chart .portfolio-bar { transform: scaleX(1) !important; transition: none !important; }
 }
 
@@ -2124,7 +2116,6 @@ body.page-trend.page-desktop .portfolio-back-to-top__link:focus-visible {
     background: transparent !important;
     box-shadow: none !important;
   }
-  .portfolio-chart .portfolio-chart-replay { align-self: flex-start; }
 }
 
 
@@ -2205,5 +2196,14 @@ body.page-trend.page-desktop .portfolio-back-to-top__link:focus-visible {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+  }
+}
+
+/* The homepage footer no longer repeats the applicant/target branding.
+   Center the remaining update, return-to-top and copyright line. */
+@media screen {
+  body.page-home.page-desktop .mag-footer .footer-inner {
+    justify-content: center;
+    text-align: center;
   }
 }
