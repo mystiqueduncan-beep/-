@@ -176,3 +176,19 @@
   .bilingual-mobile-strip{display:none!important}
   .bilingual-current{display:none!important}
 }
+
+/* WCAG AA: ink on the pastel selected keycap and chapter number chips.
+   Pink backgrounds, outlines, spacing and bilingual typography stay unchanged. */
+@media screen {
+  body.page-home .bilingual-current-number,
+  body.page-home.page-desktop .section-editorial-header .sec-number,
+  body.page-home.page-desktop .tri-heading-primary .sec-number {
+    color:#573447!important;
+  }
+  body.page-home .bilingual-chapter-nav .keycap-marquee__group a .bilingual-nav-jp {
+    color:#573447!important;
+  }
+  body.page-home .bilingual-chapter-nav .keycap-marquee__group a:is(:hover,:focus-visible,.is-current,[aria-current="location"]) .bilingual-nav-jp {
+    color:#573447!important;
+  }
+}
