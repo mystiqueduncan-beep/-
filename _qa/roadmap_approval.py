@@ -29,5 +29,10 @@ def restore_approved_roadmap(rel, raw):
     original_cards, new_cards = cards(before), cards(after)
     assert len(original_cards) == len(new_cards) == 3
     assert original_cards == new_cards, "approved roadmap card facts were modified"
+    # Japanese UI is separately checked then stripped before the historical hash.
+    jp = '<span class="sec-title-jp" lang="ja">90日間のエリア運営推進計画</span>'.encode("utf-8")
+    assert before.count(jp) == after.count(jp) == 1
+    before = before.replace(jp, b"", 1)
+    after = after.replace(jp, b"", 1)
     assert raw.count(after) == 1, rel + ": unexpected roadmap interaction or content edit"
     return raw.replace(after, before, 1)
