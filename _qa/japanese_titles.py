@@ -6,6 +6,7 @@ comparing against the immutable historical fingerprints. Unknown additions,
 modified Chinese/English text, missing labels and changed data still fail CI.
 """
 import re
+from bilingual_ui_approved import restore_bilingual_home_ui
 
 SECTION_JP = {
     "index.html": [
@@ -41,6 +42,8 @@ def strip_approved_japanese_ui(rel, html):
     ):
         return html
 
+    # Normalize only the explicit bilingual UI patch after exact fragment checks.
+    html = restore_bilingual_home_ui(rel, html)
     blocks = STYLE_BLOCK.findall(html)
     assert len(blocks) == 1, rel + ": expected exactly one approved label stylesheet"
     style = blocks[0]
