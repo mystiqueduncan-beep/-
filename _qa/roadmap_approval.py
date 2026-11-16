@@ -15,7 +15,7 @@ AFTER_SHA1 = "099acb3959f9aaea9d3ce47e5471ccdb8d80aecd"
 
 
 def git_blob_hash(content):
-    return hashlib.sha1(b"blob " + str(len(content)).encode("ascii") + b"\\0" + content).hexdigest()
+    return hashlib.sha1(b"blob " + str(len(content)).encode("ascii") + b"\0" + content).hexdigest()
 
 
 def restore_approved_roadmap(rel, raw):
