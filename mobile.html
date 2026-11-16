@@ -823,6 +823,15 @@
 .mobile-card-title .mobile-badge { flex-shrink:0; }
 </style>
   <link rel="stylesheet" href="assets/bilingual-pastel-chapters.css">
+
+<style id="unified-copyright-footer-style">
+/* Unified copyright across desktop and mobile; respect fixed mobile navigation. */
+.site-copyright-footer{box-sizing:border-box;width:100%;max-width:100%;margin:0;background:#f7e5e9;border-top:1px dashed #d7a8b9;color:#684858;text-align:center;padding:22px 16px 26px;font-family:var(--font-mono,ui-monospace,SFMono-Regular,Menlo,monospace);}
+.site-copyright-footer .site-copyright-text{display:block;max-width:100%;margin:0 auto;font-size:clamp(10px,2.7vw,14px);font-weight:500;line-height:1.8;letter-spacing:0.015em;overflow-wrap:anywhere;}
+@media(min-width:768px){.site-copyright-footer{padding:28px 24px 32px}.site-copyright-footer .site-copyright-text{font-size:14px;}}
+@media(max-width:767px){.site-copyright-footer{padding:20px 10px calc(100px + env(safe-area-inset-bottom,0px));}}
+@media print{.site-copyright-footer{padding:14px 0;background:transparent;border-top:1px solid #bbb;break-inside:avoid}.site-copyright-footer .site-copyright-text{font-size:10pt}}
+</style>
 </head>
 <body class="page-home page-mobile">
   <a class="skip-link" href="#main-content">跳至主要內容</a>
@@ -1265,19 +1274,7 @@
   </main>
 
   <!-- Mobile Footer -->
-  <footer class="mobile-footer">
-    <div style="margin-bottom: 6px;">
-      <span style="background: var(--mk-yellow); color: var(--mk-navy); padding: 2px 6px; font-weight: 800; border: 1px solid var(--mk-navy);">JHP</span>
-      <strong style="color: var(--mk-navy); margin-left: 4px;">個人應徵作品集 ｜ 黃博詩</strong>
-    </div>
-    <div style="margin-bottom: 6px; color: var(--ink-secondary);">
-      志願職位：台灣松本清 區域營運經理
-    </div>
-    <div style="margin-bottom: 8px;">
-      內容更新日期：2026 年 11 月
-    </div>
-    <div>© 2026 BO-SHIH HUANG. ALL RIGHTS RESERVED.</div>
-  </footer>
+  <footer class="site-copyright-footer" aria-label="版權聲明"><small class="site-copyright-text">© 2026 BO-SHIH HUANG. ALL RIGHTS RESERVED.</small></footer>
 
   <!-- Sticky Bottom App Navigation Bar (iPhone Style) -->
   <nav class="mobile-bottom-bar" aria-label="手機導覽">
