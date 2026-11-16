@@ -22,15 +22,19 @@ with sync_playwright() as p:
     expect(page.locator('[data-bilingual-nav]')).to_have_count(1)
     nav_mobile=page.locator('[data-keycap-marquee]')
     expect(nav_mobile).to_have_count(1)
-    expect(nav_mobile.locator('a[data-chapter]')).to_have_count(6)
-    expect(nav_mobile.locator('a[data-chapter] .bilingual-nav-jp')).to_have_count(6)
-    assert page.locator('[data-bilingual-title]').inner_text() == '應徵動機'
+    expect(nav_mobile.locator('a.nav-btn-mk')).to_have_count(6)
+    expect(nav_mobile.locator('a.nav-btn-mk .bilingual-nav-jp')).to_have_count(6)
+    expect(page.locator('.bilingual-current')).to_have_count(0)
+    assert nav_mobile.locator('.keycap-marquee__group').locator('a').count() == 6
+    assert nav_mobile.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e,'::before').content") in ('""', "none")
+    assert nav_mobile.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e,'::after').content") in ('""', "none")
     expect(nav_mobile).to_have_class(__import__('re').compile('.*is-enhanced.*'))
-    first=nav_mobile.locator('a[data-chapter]').first
+    first=nav_mobile.locator('a.nav-btn-mk').first
     first.scroll_into_view_if_needed()
     first.click()
     assert page.evaluate('location.hash') == '#motivation'
     assert first.get_attribute('aria-current') == 'location'
+    assert page.locator('[data-bilingual-title]').count() == 0
     rows.append({'page':name,'marquee':'bilingual pass','bottomNavigation':'pass'})
    else:
     expect(page.locator('[data-keycap-marquee]')).to_have_count(0)
@@ -41,8 +45,8 @@ with sync_playwright() as p:
    continue
   nav=page.locator('[data-keycap-marquee]');belt=nav.locator('.keycap-marquee__belt');link=nav.locator('a').first
   if name == 'index':
-   expect(nav.locator('a[data-chapter]')).to_have_count(6)
-   expect(nav.locator('a[data-chapter] .bilingual-nav-jp')).to_have_count(6)
+   expect(nav.locator('a.nav-btn-mk')).to_have_count(6)
+   expect(nav.locator('a.nav-btn-mk .bilingual-nav-jp')).to_have_count(6)
   expect(nav).to_have_class(__import__('re').compile('.*is-enhanced.*'))
   assert belt.evaluate('e=>getComputedStyle(e).animationName')=='none'
   assert not page.locator('.keycap-marquee__toggle').count()
