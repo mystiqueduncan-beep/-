@@ -240,6 +240,14 @@ for rel,old in base.items():
   # research file's original Git blob SHA. Every other byte remains checked.
   print_link=b'  <link rel="stylesheet" href="assets/print-layout.css" media="print">\n'
   if raw.count(print_link)==1:raw=raw.replace(print_link,b'',1)
+  # Only the two explicitly approved external citations may open in a new tab.
+  for href in (
+   b'href="https://mnscdn.moea.gov.tw/mns/populace/news/News.aspx?kind=1&amp;menu_id=40&amp;news_id=123868"',
+   b'href="https://www.mirai.com.tw/2026-annual-overview-of-taiwans-retail-and-e-commerce-sub-sector-structure/"',
+  ):
+   new_tab=href+b' target="_blank" rel="noopener noreferrer"'
+   if raw.count(new_tab)!=1:errors.append(rel+': approved source new-tab link missing')
+   else:raw=raw.replace(new_tab,href,1)
   blob_hash=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+b'\0'+raw).hexdigest()
   same=blob_hash==approved_report[rel]
   if not same:errors.append(rel+': unapproved regional analysis content modification')
