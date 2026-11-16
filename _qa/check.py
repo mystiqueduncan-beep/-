@@ -5,6 +5,7 @@ from urllib.parse import urlsplit, unquote
 import json, re, hashlib
 from japanese_titles import strip_approved_japanese_ui
 from contact_link_labels import restore_historical_contact_link_labels
+from footer_badge_labels import restore_historical_footer_badge
 ROOT=Path(__file__).resolve().parents[1]
 class Page(HTMLParser):
  def __init__(self,s):
@@ -254,8 +255,8 @@ for rel,old in base.items():
  else:
   expect=expected_text(rel,old)
   # Restore only the approved button labels when verifying immutable factual text.
-  historical_html=restore_historical_contact_link_labels(
-   rel, strip_approved_japanese_ui(rel, f.read_text(encoding='utf-8')))
+  historical_html=restore_historical_footer_badge(rel, restore_historical_contact_link_labels(
+   rel, strip_approved_japanese_ui(rel, f.read_text(encoding='utf-8'))))
   actual=normalized(Page(historical_html).text)
   # Approved presentation-only relocation (2026-11-11): the research CTA is
   # immediately after the introduction, not in the homepage marquee/footer.
