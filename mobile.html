@@ -794,6 +794,8 @@
   <meta name="twitter:card" content="summary">
   <meta name="robots" content="noindex,follow">
   <link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/trend-marquee.css">
+<script src="assets/trend-marquee.js" defer></script>
   <link rel="stylesheet" href="assets/mk-inspired.css">
   <script src="assets/mk-inspired.js" defer></script>
   <script src="assets/page-transitions.js" defer></script>
@@ -820,6 +822,8 @@
 .mobile-card-title { gap:8px; }
 .mobile-card-title .mobile-badge { flex-shrink:0; }
 </style>
+  <link rel="stylesheet" href="assets/bilingual-pastel-chapters.css">
+  <script src="assets/bilingual-chapters.js" defer></script>
 </head>
 <body class="page-home page-mobile">
   <a class="skip-link" href="#main-content">跳至主要內容</a>
@@ -834,6 +838,22 @@
 
     <a href="index.html?view=desktop" class="btn-switch-desktop" title="電腦版">電腦版</a>
   </header>
+<nav class="bilingual-mobile-strip bilingual-chapter-nav" data-bilingual-nav aria-label="履歷章節跑馬燈">
+<div class="bilingual-current" aria-hidden="true">
+ <span class="bilingual-current-number" data-bilingual-number>01</span>
+ <span class="bilingual-current-copy"><span class="bilingual-current-main" data-bilingual-title>應徵動機</span>
+ <span class="bilingual-current-sub"><span class="bilingual-current-en" data-bilingual-en>APPLICATION MOTIVATION</span><span class="bilingual-current-jp" lang="ja" data-bilingual-jp>応募動機</span></span></span>
+ </div>
+<div class="keycap-marquee" data-keycap-marquee>
+<div class="keycap-marquee__viewport" tabindex="0" aria-label="履歷章節導覽，可左右捲動">
+<div class="keycap-marquee__belt"><ul class="keycap-marquee__group"><li><a href="#motivation" class="nav-btn-mk" data-chapter="motivation" data-number="01" data-cn="應徵動機" data-jp="応募動機" data-en="APPLICATION MOTIVATION"><span class="bilingual-nav-cn">應徵動機</span><span class="bilingual-nav-jp" lang="ja">応募動機</span></a></li>
+<li><a href="#competencies" class="nav-btn-mk" data-chapter="competencies" data-number="02" data-cn="核心管理能力" data-jp="主なマネジメント能力" data-en="CORE OPERATIONAL COMPETENCIES"><span class="bilingual-nav-cn">核心管理能力</span><span class="bilingual-nav-jp" lang="ja">主なマネジメント能力</span></a></li>
+<li><a href="#cases" class="nav-btn-mk" data-chapter="cases" data-number="03" data-cn="門市營運改善構想" data-jp="店舗運営の改善提案" data-en="STORE OPERATIONS IMPROVEMENT"><span class="bilingual-nav-cn">門市營運改善構想</span><span class="bilingual-nav-jp" lang="ja">店舗運営の改善提案</span></a></li>
+<li><a href="#career" class="nav-btn-mk" data-chapter="career" data-number="04" data-cn="工作經歷" data-jp="職務経歴" data-en="WORK EXPERIENCE"><span class="bilingual-nav-cn">工作經歷</span><span class="bilingual-nav-jp" lang="ja">職務経歴</span></a></li>
+<li><a href="#proposal" class="nav-btn-mk" data-chapter="proposal" data-number="05" data-cn="到任後工作構想" data-jp="入社後の業務構想" data-en="POST-HIRE OPERATIONS PLAN"><span class="bilingual-nav-cn">到任後工作構想</span><span class="bilingual-nav-jp" lang="ja">入社後の業務構想</span></a></li>
+<li><a href="#research" class="nav-btn-mk" data-chapter="research" data-number="06" data-cn="實體通路趨勢研究摘要" data-jp="実店舗の市場動向リサーチ" data-en="RETAIL RESEARCH"><span class="bilingual-nav-cn">實體通路趨勢研究摘要</span><span class="bilingual-nav-jp" lang="ja">実店舗の市場動向リサーチ</span></a></li></ul></div>
+</div></div>
+</nav>
 
   <!-- Content Container -->
   <main class="mobile-content" id="main-content" tabindex="-1">
@@ -843,7 +863,7 @@
          ======================================================================= -->
     <section class="mobile-card mobile-cover" id="profile">
 <h2 class="mobile-card-title">
-<span><span class="ui-code" aria-hidden="true">01/</span> 應徵者專訪特輯<span class="mobile-section-jp" lang="ja">応募者プロフィール</span></span>
+<span> 應徵者專訪特輯<span class="mobile-section-jp" lang="ja">応募者プロフィール</span></span>
 <span class="mobile-badge badge-yellow">PROFILE</span>
 </h2>
 <div class="candidate-head-grid pastel-mobile-scene">
@@ -898,10 +918,7 @@
          2. 應徵動機 (Motivation)
          ======================================================================= -->
     <section id="motivation" class="mobile-card" style="border-left: 5px solid var(--mk-navy);">
-      <h2 class="mobile-card-title">
-        <span><span class="ui-code" aria-hidden="true">02/</span> 應徵動機與志向<span class="mobile-section-jp" lang="ja">志望動機と今後の目標</span></span>
-        <span class="mobile-badge badge-navy">MOTIVATION</span>
-      </h2>
+      <h2 class="mobile-card-title bilingual-mobile-heading"><span class="bilingual-mobile-title"><span class="bilingual-mobile-cn">應徵動機</span><span class="bilingual-mobile-sub"><span class="bilingual-mobile-en">APPLICATION MOTIVATION</span><span class="bilingual-mobile-jp" lang="ja">応募動機</span></span></span></h2>
 
       <div style="font-size: 0.85rem; color: var(--ink-secondary); line-height: 1.65; display: flex; flex-direction: column; gap: 10px;">
         <div>
@@ -926,10 +943,7 @@
          ======================================================================= -->
     <section id="competencies" class="mobile-card">
       <div id="advantages" style="position: relative; top: -60px; visibility: hidden;"></div>
-      <h2 class="mobile-card-title">
-        <span><span class="ui-code" aria-hidden="true">03/</span> 四大核心管理能力<span class="mobile-section-jp" lang="ja">四つの主要なマネジメント能力</span></span>
-        <span class="mobile-badge badge-red">COMPETENCIES</span>
-      </h2>
+      <h2 class="mobile-card-title bilingual-mobile-heading"><span class="bilingual-mobile-title"><span class="bilingual-mobile-cn">核心管理能力</span><span class="bilingual-mobile-sub"><span class="bilingual-mobile-en">CORE OPERATIONAL COMPETENCIES</span><span class="bilingual-mobile-jp" lang="ja">主なマネジメント能力</span></span></span></h2>
 
       <!-- Comp 1 -->
       <div class="adv-dim-card">
@@ -1000,10 +1014,7 @@
          4. 實務案例 (Practice Cases - STAR 格式)
          ======================================================================= -->
     <section id="cases" class="mobile-card">
-      <h2 class="mobile-card-title">
-        <span><span class="ui-code" aria-hidden="true">04/</span> 門市營運實務與改善構想<span class="mobile-section-jp" lang="ja">店舗運営の実務と改善提案</span></span>
-        <span class="mobile-badge badge-yellow">CONCEPTS</span>
-      </h2>
+      <h2 class="mobile-card-title bilingual-mobile-heading"><span class="bilingual-mobile-title"><span class="bilingual-mobile-cn">門市營運改善構想</span><span class="bilingual-mobile-sub"><span class="bilingual-mobile-en">STORE OPERATIONS IMPROVEMENT</span><span class="bilingual-mobile-jp" lang="ja">店舗運営の改善提案</span></span></span></h2>
 
       <!-- Case 1 -->
       <div class="mobile-case-box">
@@ -1043,13 +1054,7 @@
          5. 工作經歷 (Career Timeline)
          ======================================================================= -->
     <section id="career">
-      <div style="margin: 10px 0 12px 4px; display: flex; justify-content: space-between; align-items: baseline;">
-        <h2 style="font-family: var(--font-serif); font-size: 1.35rem; font-weight: 900; color: var(--mk-navy);">
-          <span class="ui-code" aria-hidden="true">05/</span> 工作經歷
-<span class="mobile-section-jp" lang="ja">職務経歴</span>
-        </h2>
-        <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-muted);">CAREER TIMELINE</span>
-      </div>
+      <h2 class="mobile-card-title bilingual-mobile-heading"><span class="bilingual-mobile-title"><span class="bilingual-mobile-cn">工作經歷</span><span class="bilingual-mobile-sub"><span class="bilingual-mobile-en">WORK EXPERIENCE</span><span class="bilingual-mobile-jp" lang="ja">職務経歴</span></span></span></h2>
 
       <!-- Job 1: Tomod's -->
       <article class="timeline-job-card featured">
@@ -1145,10 +1150,7 @@
          7. 到任後工作構想 (Post-Hire Proposal)
          ======================================================================= -->
     <section id="proposal" class="mobile-card" style="border-top: 4px solid var(--mk-navy);">
-      <h2 class="mobile-card-title">
-        <span><span class="ui-code" aria-hidden="true">07/</span> 到任後工作構想<span class="mobile-section-jp" lang="ja">入社後の業務構想</span></span>
-        <span class="mobile-badge badge-yellow">PROPOSAL</span>
-      </h2>
+      <h2 class="mobile-card-title bilingual-mobile-heading"><span class="bilingual-mobile-title"><span class="bilingual-mobile-cn">到任後工作構想</span><span class="bilingual-mobile-sub"><span class="bilingual-mobile-en">POST-HIRE OPERATIONS PLAN</span><span class="bilingual-mobile-jp" lang="ja">入社後の業務構想</span></span></span></h2>
 
       <p style="font-size: 0.82rem; color: var(--ink-secondary); line-height: 1.6; margin-bottom: 12px;">
         若有幸加入台灣松本清擔任區域營運經理，初步擬定之三階段工作構想。所有規劃均需立足於公司既有制度與主管工作指派，涉及跨部門權責事項將全力配合總部評估與執行。
@@ -1195,14 +1197,8 @@
          8. 通路研究精華 (Trend Research Highlights)
          ======================================================================= -->
     <section id="research" class="mobile-trend-banner">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--mk-navy); font-weight: 800;">
-          08/ 專案研究報告精華
-        </span>
-        <span class="mobile-badge badge-yellow">RESEARCH</span>
-      </div>
-
-      <h3 style="font-family: var(--font-serif); font-size: 1.15rem; font-weight: 900; color: var(--mk-navy); line-height: 1.35; margin-bottom: 8px;">
+<h2 class="mobile-card-title bilingual-mobile-heading"><span class="bilingual-mobile-title"><span class="bilingual-mobile-cn">實體通路趨勢研究摘要</span><span class="bilingual-mobile-sub"><span class="bilingual-mobile-en">RETAIL RESEARCH</span><span class="bilingual-mobile-jp" lang="ja">実店舗の市場動向リサーチ</span></span></span></h2>
+<h3 style="font-family: var(--font-serif); font-size: 1.15rem; font-weight: 900; color: var(--mk-navy); line-height: 1.35; margin-bottom: 8px;">
         美妝實體通路未來優勢、挑戰與轉型策略
       </h3>
 <p class="mobile-section-jp" lang="ja">実店舗の将来性・課題と変革戦略</p>
