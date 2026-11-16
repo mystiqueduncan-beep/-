@@ -22,12 +22,12 @@ server = http.server.ThreadingHTTPServer(
 threading.Thread(target=server.serve_forever, daemon=True).start()
 
 HOME = [
-    ("應徵動機", "MOTIVATION FOR APPLYING", "志望動機"),
-    ("核心管理能力", "CORE MANAGEMENT COMPETENCIES", "主なマネジメント能力"),
-    ("門市營運改善構想", "STORE OPERATIONS IMPROVEMENT PROPOSALS", "店舗運営の改善案"),
+    ("應徵動機", "APPLICATION MOTIVATION", "応募動機"),
+    ("核心管理能力", "CORE OPERATIONAL COMPETENCIES", "主なマネジメント能力"),
+    ("門市營運改善構想", "STORE OPERATIONS IMPROVEMENT", "店舗運営の改善提案"),
     ("工作經歷", "WORK EXPERIENCE", "職務経歴"),
-    ("到任後工作構想", "POST-HIRE OPERATIONS PLAN", "入社後の業務計画"),
-    ("實體通路趨勢研究摘要", "PHYSICAL RETAIL TRENDS: RESEARCH SUMMARY", "実店舗の市場動向調査概要"),
+    ("到任後工作構想", "POST-HIRE OPERATIONS PLAN", "入社後の業務構想"),
+    ("實體通路趨勢研究摘要", "RETAIL RESEARCH", "実店舗の市場動向リサーチ"),
 ]
 RESEARCH = [
     ("市場訊號，如何轉成營運決策？", "FROM MARKET SIGNALS TO OPERATIONAL DECISIONS", "市場動向を運営判断につなげる"),
@@ -39,12 +39,12 @@ RESEARCH = [
 ]
 MOBILE = [
     ("應徵者專訪特輯", "APPLICANT FEATURE", "応募者紹介特集"),
-    ("應徵動機與志向", "MOTIVATION & CAREER GOALS", "志望動機と今後の目標"),
-    ("四大核心管理能力", "FOUR CORE MANAGEMENT COMPETENCIES", "四つの主要なマネジメント能力"),
-    ("門市營運實務與改善構想", "STORE OPERATIONS & IMPROVEMENT PROPOSALS", "店舗運営の実務と改善提案"),
+    ("應徵動機", "APPLICATION MOTIVATION", "応募動機"),
+    ("核心管理能力", "CORE OPERATIONAL COMPETENCIES", "主なマネジメント能力"),
+    ("門市營運改善構想", "STORE OPERATIONS IMPROVEMENT", "店舗運営の改善提案"),
     ("工作經歷", "WORK EXPERIENCE", "職務経歴"),
-    ("到任後工作構想", "POST-HIRE OPERATIONS PLAN", "入社後の業務計画"),
-    ("美妝實體通路未來優勢、挑戰與轉型策略", "BEAUTY RETAIL: OPPORTUNITIES, CHALLENGES & TRANSFORMATION", "実店舗型美容小売の強み・課題と変革戦略"),
+    ("到任後工作構想", "POST-HIRE OPERATIONS PLAN", "入社後の業務構想"),
+    ("實體通路趨勢研究摘要", "RETAIL RESEARCH", "実店舗の市場動向リサーチ"),
 ]
 EXPECT = {
     "index": HOME,
