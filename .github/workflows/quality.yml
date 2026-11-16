@@ -58,6 +58,15 @@ jobs:
         run: python3 _qa/roadmap_interactions.py
       - name: Responsive layouts, keyboard controls and axe
         run: python3 _qa/browser_audit.py --out /tmp/browser-audit --axe node_modules/axe-core/axe.min.js
+      - name: Verify sticky homepage marquee and capture desktop/mobile screenshots
+        run: python3 _qa/sticky_nav_preview.py --out /tmp/sticky-nav-preview
+      - name: Upload desktop/mobile navigation screenshots for PR review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sticky-marquee-review
+          path: /tmp/sticky-nav-preview/*.png
+          if-no-files-found: warn
 
   release-audit:
     runs-on: ubuntu-24.04

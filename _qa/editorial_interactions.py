@@ -19,18 +19,22 @@ with sync_playwright() as p:
   # The dedicated mobile research page intentionally remains without one.
   if mobile:
    if name == 'mobile':
-    expect(page.locator('[data-bilingual-nav]')).to_have_count(1)
+    expect(page.locator('.bilingual-mobile-strip.bilingual-chapter-nav')).to_have_count(1)
     nav_mobile=page.locator('[data-keycap-marquee]')
     expect(nav_mobile).to_have_count(1)
-    expect(nav_mobile.locator('a[data-chapter]')).to_have_count(6)
-    expect(nav_mobile.locator('a[data-chapter] .bilingual-nav-jp')).to_have_count(6)
-    assert page.locator('[data-bilingual-title]').inner_text() == '應徵動機'
+    expect(nav_mobile.locator('a.nav-btn-mk')).to_have_count(6)
+    expect(nav_mobile.locator('a.nav-btn-mk .bilingual-nav-jp')).to_have_count(6)
+    expect(page.locator('.bilingual-current')).to_have_count(0)
+    assert nav_mobile.locator('.keycap-marquee__group').locator('a').count() == 6
+    assert nav_mobile.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e,'::before').content") in ('""', "none")
+    assert nav_mobile.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e,'::after').content") in ('""', "none")
     expect(nav_mobile).to_have_class(__import__('re').compile('.*is-enhanced.*'))
-    first=nav_mobile.locator('a[data-chapter]').first
+    first=nav_mobile.locator('a.nav-btn-mk').first
     first.scroll_into_view_if_needed()
     first.click()
     assert page.evaluate('location.hash') == '#motivation'
     assert first.get_attribute('aria-current') == 'location'
+    assert page.locator('[data-bilingual-title]').count() == 0
     rows.append({'page':name,'marquee':'bilingual pass','bottomNavigation':'pass'})
    else:
     expect(page.locator('[data-keycap-marquee]')).to_have_count(0)
@@ -41,8 +45,8 @@ with sync_playwright() as p:
    continue
   nav=page.locator('[data-keycap-marquee]');belt=nav.locator('.keycap-marquee__belt');link=nav.locator('a').first
   if name == 'index':
-   expect(nav.locator('a[data-chapter]')).to_have_count(6)
-   expect(nav.locator('a[data-chapter] .bilingual-nav-jp')).to_have_count(6)
+   expect(nav.locator('a.nav-btn-mk')).to_have_count(6)
+   expect(nav.locator('a.nav-btn-mk .bilingual-nav-jp')).to_have_count(6)
   expect(nav).to_have_class(__import__('re').compile('.*is-enhanced.*'))
   assert belt.evaluate('e=>getComputedStyle(e).animationName')=='none'
   assert not page.locator('.keycap-marquee__toggle').count()
@@ -80,10 +84,16 @@ with sync_playwright() as p:
   following=v.evaluate('e=>e.scrollLeft')
   assert following>previous+70, ('drag both directions',name,previous,following)
   page.mouse.up()
-  nav.dispatch_event('pointerleave',{'pointerType':'mouse'})
+  # Actually move the pointer outside the sticky full-width strip.
+  # A synthetic leave event while the cursor is still over the strip can
+  # correctly re-pause on the next real pointerover and produces a false failure.
+  page.mouse.move(1,1)
+  assert not nav.evaluate("e=>e.classList.contains('is-hover-paused')"), ('pointer must leave nav',name)
   resumed=v.evaluate('e=>e.scrollLeft')
-  page.wait_for_timeout(200)
-  assert v.evaluate('e=>e.scrollLeft')>resumed, ('resumes after release',name)
+  page.wait_for_timeout(230)
+  next_scroll=v.evaluate('e=>e.scrollLeft')
+  limit=v.evaluate('e=>e.scrollWidth-e.clientWidth')
+  assert next_scroll>resumed or (resumed>=limit-12 and next_scroll<25), ('resumes after actual pointer exit',name,resumed,next_scroll,limit)
   assert page.locator('meta[name=viewport]').get_attribute('content').find('user-scalable=no')<0
   # :focus-visible is keyboard-modality-only; actual pointer drag must not
   # force a focus ring. Re-enter with Tab before checking keyboard outline.
