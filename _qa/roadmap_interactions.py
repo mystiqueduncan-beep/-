@@ -32,7 +32,8 @@ def expect_stage(page, stage):
 
 def test_page(browser, base, file, width):
     page = browser.new_page(viewport={"width": width, "height": 900})
-    page.goto(base + "/" + file, wait_until="load")
+    view = "mobile" if file.startswith("mobile-") else "desktop"
+    page.goto(base + "/" + file + "?view=" + view, wait_until="load")
     page.locator("#roadmap.roadmap-ready").wait_for()
     expect_stage(page, 0)
     page.locator("#roadmap [data-phase='1']").click()
