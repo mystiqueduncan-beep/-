@@ -78,13 +78,48 @@
     if (mousePointer(event)) setHoverPaused(false);
   });
 
+  // The highlighted key follows the section being read, not only the URL hash.
+  // The same original six links power both desktop and mobile marquees.
+  const chapterTargets = [];
+  if (typeof document.getElementById === "function") {
+    nav.querySelectorAll('.keycap-marquee__group a[href^="#"]').forEach(link => {
+      const hash = link.getAttribute("href");
+      const section = document.getElementById(hash.slice(1));
+      if (section) chapterTargets.push({ hash, section });
+    });
+  }
+
+  function activeChapterHash() {
+    if (!chapterTargets.length) return window.location.hash || null;
+    const sticky = nav.closest(".mag-subnav-strip,.bilingual-mobile-strip,.trend-subnav-strip");
+    const stickyBottom = sticky ? sticky.getBoundingClientRect().bottom : 0;
+    // A new chapter becomes current when its heading reaches the reading line,
+    // below the sticky header, rather than after its whole section is scrolled.
+    const readingLine = Math.max(stickyBottom + 20, Math.min(window.innerHeight * .32, 330));
+    let active = chapterTargets[0].hash;
+    for (const entry of chapterTargets) {
+      if (entry.section.getBoundingClientRect().top <= readingLine) active = entry.hash;
+      else break;
+    }
+    return active;
+  }
+
   function updateCurrent() {
-    const active = window.location.hash || "#summary";
-    nav.querySelectorAll('.keycap-marquee__group a[href^="#"]').forEach((link) => {
+    const active = activeChapterHash();
+    nav.querySelectorAll('.keycap-marquee__group a[href^="#"]').forEach(link => {
       const selected = link.getAttribute("href") === active;
       link.classList.toggle("is-current", selected);
       if (selected) link.setAttribute("aria-current", "location");
       else link.removeAttribute("aria-current");
+    });
+  }
+
+  let currentRaf = 0;
+  function scheduleCurrent() {
+    if (currentRaf) return;
+    currentRaf = window.requestAnimationFrame(() => {
+      currentRaf = 0;
+      updateCurrent();
     });
   }
 
@@ -299,7 +334,9 @@
     updateCurrent();
   }
 
-  window.addEventListener("hashchange", updateCurrent);
+  window.addEventListener("hashchange", () => { updateCurrent(); scheduleCurrent(); });
+  window.addEventListener("scroll", scheduleCurrent, { passive: true });
+  window.addEventListener("resize", scheduleCurrent);
   if (typeof playback.addEventListener === "function") {
     playback.addEventListener("change", syncMode);
   } else if (typeof playback.addListener === "function") {

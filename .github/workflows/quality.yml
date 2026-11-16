@@ -23,6 +23,7 @@ jobs:
         run: |
           node --check assets/contact.js
           node --check assets/trend-marquee.js
+          node --check assets/regional-analysis.js
           node --check assets/mk-inspired.js
           node --check assets/research-cta.js
           node --check assets/view-router.js
@@ -58,6 +59,8 @@ jobs:
         run: python3 _qa/roadmap_interactions.py
       - name: Responsive layouts, keyboard controls and axe
         run: python3 _qa/browser_audit.py --out /tmp/browser-audit --axe node_modules/axe-core/axe.min.js
+      - name: Chapter highlights, experience slide and contact-action layout
+        run: python3 _qa/chapter-contact-polish_audit.py
       - name: Verify sticky homepage marquee and capture desktop/mobile screenshots
         run: python3 _qa/sticky_nav_preview.py --out /tmp/sticky-nav-preview
       - name: Verify research marquee matches home on desktop and mobile
