@@ -84,10 +84,16 @@ with sync_playwright() as p:
   following=v.evaluate('e=>e.scrollLeft')
   assert following>previous+70, ('drag both directions',name,previous,following)
   page.mouse.up()
-  nav.dispatch_event('pointerleave',{'pointerType':'mouse'})
+  # Actually move the pointer outside the sticky full-width strip.
+  # A synthetic leave event while the cursor is still over the strip can
+  # correctly re-pause on the next real pointerover and produces a false failure.
+  page.mouse.move(1,1)
+  assert not nav.evaluate("e=>e.classList.contains('is-hover-paused')"), ('pointer must leave nav',name)
   resumed=v.evaluate('e=>e.scrollLeft')
-  page.wait_for_timeout(200)
-  assert v.evaluate('e=>e.scrollLeft')>resumed, ('resumes after release',name)
+  page.wait_for_timeout(230)
+  next_scroll=v.evaluate('e=>e.scrollLeft')
+  limit=v.evaluate('e=>e.scrollWidth-e.clientWidth')
+  assert next_scroll>resumed or (resumed>=limit-12 and next_scroll<25), ('resumes after actual pointer exit',name,resumed,next_scroll,limit)
   assert page.locator('meta[name=viewport]').get_attribute('content').find('user-scalable=no')<0
   # :focus-visible is keyboard-modality-only; actual pointer drag must not
   # force a focus ring. Re-enter with Tab before checking keyboard outline.
