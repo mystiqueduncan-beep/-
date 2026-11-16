@@ -25,7 +25,7 @@ def restore_approved_roadmap(rel, raw):
     after = AFTER_PATH.read_bytes()
     assert git_blob_hash(before) == BEFORE_SHA1, "original roadmap audit source changed"
     assert git_blob_hash(after) == AFTER_SHA1, "approved interactive roadmap audit source changed"
-    cards = lambda html: re.findall(rb'<article\\b[^>]*>(.*?)</article>', html, re.S)
+    cards = lambda html: re.findall(rb'<article\b[^>]*>(.*?)</article>', html, re.S)
     original_cards, new_cards = cards(before), cards(after)
     assert len(original_cards) == len(new_cards) == 3
     assert original_cards == new_cards, "approved roadmap card facts were modified"
