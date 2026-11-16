@@ -1,0 +1,99 @@
+/* Research pages: match the already-approved homepage keycap marquee.
+   Only the chapter buttons ride the animated track; do not style report body. */
+@media screen {
+  body.page-trend .trend-bilingual-nav {
+    position:sticky!important;top:0!important;z-index:95!important;
+    border-bottom:1px solid #ddbac7!important;
+    background:rgba(255,249,247,.94)!important;
+    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+    box-shadow:none!important;
+  }
+  body.page-trend .trend-bilingual-nav > .container {
+    width:100%!important;max-width:1480px!important;min-width:0!important;
+    padding:6px 22px!important;
+  }
+  body.page-trend .trend-bilingual-nav .keycap-marquee {
+    display:flex;align-items:center;width:100%;min-width:0;gap:0;
+    padding:3px 0 5px!important;
+  }
+  body.page-trend .trend-bilingual-nav .keycap-marquee__viewport {
+    width:100%;max-width:100%;min-width:0;
+  }
+  body.page-trend .trend-bilingual-nav .keycap-marquee__belt {
+    --keycap-gap:9px;
+  }
+  body.page-trend .trend-bilingual-nav .keycap-marquee__group {
+    align-items:stretch!important;gap:9px!important;
+    padding:3px 3px 6px!important;
+  }
+  body.page-trend .trend-bilingual-nav .keycap-marquee__group li {
+    align-items:stretch;
+  }
+  body.page-trend .trend-bilingual-nav .keycap-marquee__group a {
+    display:flex!important;flex-direction:column!important;
+    align-items:center!important;justify-content:center!important;
+    gap:2px!important;text-align:center!important;
+    min-height:57px!important;padding:7px 15px!important;
+    border:1px solid #c79cad!important;border-radius:25px!important;
+    background:#fffcfa!important;color:#654753!important;
+    box-shadow:0 2px 0 #e8cbd5!important;
+    text-decoration:none!important;white-space:nowrap!important;
+    line-height:1.35!important;
+    transition:background-color .16s ease,border-color .16s ease,box-shadow .16s ease!important;
+  }
+  body.page-trend .trend-bilingual-nav .bilingual-nav-cn {
+    display:block;font-family:var(--font-sans,'Noto Sans TC',sans-serif);
+    font-size:.86rem;font-weight:800;letter-spacing:.018em;
+  }
+  body.page-trend .trend-bilingual-nav .bilingual-nav-jp {
+    display:block;font-family:'Noto Sans JP','Yu Gothic','Noto Sans TC',sans-serif;
+    font-size:.68rem;font-weight:600;letter-spacing:0;color:#573447!important;
+  }
+  body.page-trend .trend-bilingual-nav .keycap-marquee__group a:is(:hover,:focus-visible,.is-current,[aria-current="location"]) {
+    background:#f5d6df!important;border-color:#be8fa3!important;
+    box-shadow:0 2px 0 #d2a7b8!important;
+  }
+  body.page-trend .trend-bilingual-nav .keycap-marquee__group a:focus-visible {
+    outline:3px solid #a56e82!important;outline-offset:3px!important;
+  }
+  /* Preserve the native-scroll engine's run-in/out space. No ornament
+     text, star, heart, heading, or other component enters the moving track. */
+  body.page-trend .trend-bilingual-nav .keycap-marquee.is-enhanced .keycap-marquee__belt::before,
+  body.page-trend .trend-bilingual-nav .keycap-marquee.is-enhanced .keycap-marquee__belt::after {
+    content:""!important;background:none!important;color:transparent!important;
+  }
+  body.page-trend.page-desktop section[id] {scroll-margin-top:120px!important;}
+  body.page-trend.page-mobile .mobile-top-bar {
+    position:sticky!important;top:0!important;z-index:100!important;
+    height:53px!important;min-height:53px!important;padding:8px 18px!important;
+  }
+  body.page-trend.page-mobile .trend-bilingual-nav {
+    position:sticky!important;top:53px!important;z-index:98!important;
+  }
+  body.page-trend.page-mobile .trend-bilingual-nav > .container {
+    padding:6px 12px!important;
+  }
+  body.page-trend.page-mobile .trend-bilingual-nav .keycap-marquee {
+    padding:0!important;min-width:0;
+  }
+  body.page-trend.page-mobile .trend-bilingual-nav .keycap-marquee__group a {
+    min-height:49px!important;padding:5px 12px!important;border-radius:21px!important;
+  }
+  body.page-trend.page-mobile .trend-bilingual-nav .bilingual-nav-cn {
+    font-size:.78rem!important;
+  }
+  body.page-trend.page-mobile .trend-bilingual-nav .bilingual-nav-jp {
+    font-size:.62rem!important;
+  }
+  body.page-trend.page-mobile section[id] {
+    scroll-margin-top:132px!important;
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  body.page-trend .trend-bilingual-nav .keycap-marquee__group a {
+    transition:none!important;
+  }
+}
+@media print {
+  body.page-trend .trend-bilingual-nav {display:none!important;}
+}
