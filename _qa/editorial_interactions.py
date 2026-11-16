@@ -15,14 +15,28 @@ with sync_playwright() as p:
   page.route('https://**/*',lambda r:r.abort())
   url=f'http://127.0.0.1:{server.server_port}/{name}.html?view='+('mobile' if mobile else 'desktop')
   page.goto(url)
-  # Both mobile chapter marquees were explicitly removed. Confirm they remain
-  # absent while preserving the persistent bottom navigation and research link.
+  # The approved mobile homepage again offers a bilingual chapter marquee.
+  # The dedicated mobile research page intentionally remains without one.
   if mobile:
-   expect(page.locator('[data-keycap-marquee]')).to_have_count(0)
-   expect(page.locator('.mobile-chapter-strip')).to_have_count(0)
+   if name == 'mobile':
+    expect(page.locator('[data-bilingual-nav]')).to_have_count(1)
+    nav_mobile=page.locator('[data-keycap-marquee]')
+    expect(nav_mobile).to_have_count(1)
+    expect(nav_mobile.locator('a[data-chapter]')).to_have_count(6)
+    expect(nav_mobile.locator('a[data-chapter] .bilingual-nav-jp')).to_have_count(6)
+    assert page.locator('[data-bilingual-title]').inner_text() == '應徵動機'
+    expect(nav_mobile).to_have_class(__import__('re').compile('.*is-enhanced.*'))
+    first=nav_mobile.locator('a[data-chapter]').first
+    first.scroll_into_view_if_needed()
+    first.click()
+    assert page.evaluate('location.hash') == '#motivation'
+    assert first.get_attribute('aria-current') == 'location'
+    rows.append({'page':name,'marquee':'bilingual pass','bottomNavigation':'pass'})
+   else:
+    expect(page.locator('[data-keycap-marquee]')).to_have_count(0)
+    rows.append({'page':name,'marquee':'removed','bottomNavigation':'pass'})
    expect(page.locator('.mobile-bottom-bar')).to_have_count(1)
    assert page.locator('meta[name=viewport]').get_attribute('content').find('user-scalable=no') < 0
-   rows.append({'page':name,'marquee':'removed','bottomNavigation':'pass'})
    page.close()
    continue
   nav=page.locator('[data-keycap-marquee]');belt=nav.locator('.keycap-marquee__belt');link=nav.locator('a').first
