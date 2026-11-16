@@ -16,7 +16,7 @@ with sync_playwright() as p:
   url=f'http://127.0.0.1:{server.server_port}/{name}.html?view='+('mobile' if mobile else 'desktop')
   page.goto(url)
   # The approved mobile homepage again offers a bilingual chapter marquee.
-  # The dedicated mobile research page intentionally remains without one.
+  # The research mobile edition now shares the same bilingual chapter navigation.
   if mobile:
    if name == 'mobile':
     expect(page.locator('.bilingual-mobile-strip.bilingual-chapter-nav')).to_have_count(1)
@@ -37,14 +37,22 @@ with sync_playwright() as p:
     assert page.locator('[data-bilingual-title]').count() == 0
     rows.append({'page':name,'marquee':'bilingual pass','bottomNavigation':'pass'})
    else:
-    expect(page.locator('[data-keycap-marquee]')).to_have_count(0)
-    rows.append({'page':name,'marquee':'removed','bottomNavigation':'pass'})
+    expect(page.locator('.trend-subnav-strip.trend-bilingual-nav')).to_have_count(1)
+    nav_mobile=page.locator('[data-keycap-marquee]')
+    expect(nav_mobile).to_have_count(1)
+    expect(nav_mobile.locator('a.nav-btn-mk')).to_have_count(6)
+    expect(nav_mobile.locator('a.nav-btn-mk .bilingual-nav-jp')).to_have_count(6)
+    expect(page.locator('.bilingual-current')).to_have_count(0)
+    expect(nav_mobile).to_have_class(__import__('re').compile('.*is-enhanced.*'))
+    assert nav_mobile.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e,'::before').content") in ('""','none')
+    assert nav_mobile.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e,'::after').content") in ('""','none')
+    rows.append({'page':name,'marquee':'bilingual research pass','bottomNavigation':'pass'})
    expect(page.locator('.mobile-bottom-bar')).to_have_count(1)
    assert page.locator('meta[name=viewport]').get_attribute('content').find('user-scalable=no') < 0
    page.close()
    continue
   nav=page.locator('[data-keycap-marquee]');belt=nav.locator('.keycap-marquee__belt');link=nav.locator('a').first
-  if name == 'index':
+  if name in ('index','trend'):
    expect(nav.locator('a.nav-btn-mk')).to_have_count(6)
    expect(nav.locator('a.nav-btn-mk .bilingual-nav-jp')).to_have_count(6)
   expect(nav).to_have_class(__import__('re').compile('.*is-enhanced.*'))
@@ -104,7 +112,7 @@ with sync_playwright() as p:
   assert belt.evaluate('e=>getComputedStyle(e).animationName')=='none'
   rows.append({'page':name,'marquee':'pass','hover':'pass'});page.close()
  # Test actual Chromium touch input on the desktop-layout marquee at phone width.
- # The site's dedicated mobile edition intentionally has no chapter marquee.
+ # Both dedicated mobile pages now include bilingual chapter marquees.
  for name in ['index','trend']:
   touch_page=browser.new_page(viewport={'width':390,'height':844},has_touch=True,is_mobile=True)
   touch_page.route('https://**/*',lambda r:r.abort())
