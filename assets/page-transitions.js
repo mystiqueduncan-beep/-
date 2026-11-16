@@ -101,12 +101,12 @@
   "use strict";
 
   const desktop = new Map([
-    ["應徵動機", ["MOTIVATION FOR APPLYING", "志望動機"]],
-    ["核心管理能力", ["CORE MANAGEMENT COMPETENCIES", "主なマネジメント能力"]],
-    ["門市營運改善構想", ["STORE OPERATIONS IMPROVEMENT PROPOSALS", "店舗運営の改善案"]],
+    ["應徵動機", ["APPLICATION MOTIVATION", "応募動機"]],
+    ["核心管理能力", ["CORE OPERATIONAL COMPETENCIES", "主なマネジメント能力"]],
+    ["門市營運改善構想", ["STORE OPERATIONS IMPROVEMENT", "店舗運営の改善提案"]],
     ["工作經歷", ["WORK EXPERIENCE", "職務経歴"]],
-    ["到任後工作構想", ["POST-HIRE OPERATIONS PLAN", "入社後の業務計画"]],
-    ["實體通路趨勢研究摘要", ["PHYSICAL RETAIL TRENDS: RESEARCH SUMMARY", "実店舗の市場動向調査概要"]],
+    ["到任後工作構想", ["POST-HIRE OPERATIONS PLAN", "入社後の業務構想"]],
+    ["實體通路趨勢研究摘要", ["RETAIL RESEARCH", "実店舗の市場動向リサーチ"]],
   ]);
 
   const research = new Map([
@@ -189,6 +189,9 @@
       const number = wrapper.querySelector(".sec-number");
       wrapper.prepend(line);
       createLine(zh, en, ja, line, number);
+      // The approved bilingual homepage uses a presentational wrapper.
+      // The nodes have moved into the shared editorial line; remove empty wrappers.
+      wrapper.querySelector(".bilingual-heading-text")?.remove();
       // The five requested home chapters share exactly the research-page
       // heading system. The summary chapter uses the same stable component
       // to avoid introducing a sixth inconsistent layout.
@@ -213,7 +216,19 @@
   }
 
   function mobileSections() {
-    document.querySelectorAll("h2.mobile-card-title").forEach((heading) => {
+    // The approved homepage's six identical bilingual chapter headings.
+    // Reuse the existing one-time editorial typing lifecycle and semantic H2s.
+    document.querySelectorAll("h2.bilingual-mobile-heading").forEach((heading) => {
+      const chinese = heading.querySelector(".bilingual-mobile-cn");
+      const en = heading.querySelector(".bilingual-mobile-en");
+      const ja = heading.querySelector(".bilingual-mobile-jp");
+      if (!chinese || !en || !ja) return;
+      const row = document.createElement("span");
+      row.className = "bilingual-mobile-title";
+      const line = createLine(chinese, en, ja, row);
+      heading.replaceChildren(line);
+    });
+    document.querySelectorAll("h2.mobile-card-title:not(.bilingual-mobile-heading)").forEach((heading) => {
       const line = heading.querySelector(":scope > span:first-child");
       const ja = line?.querySelector(".mobile-section-jp");
       const en = heading.querySelector(":scope > .mobile-badge");
@@ -247,9 +262,11 @@
       }
     }
 
-    const summaryTitle = [...document.querySelectorAll("h3")].find((heading) =>
-      mobile.has(normalize(heading.textContent))
-    );
+    const summaryTitle = document.querySelector("#research h2.bilingual-mobile-heading")
+      ? null
+      : [...document.querySelectorAll("h3")].find((heading) =>
+          mobile.has(normalize(heading.textContent))
+        );
     if (summaryTitle) {
       const followingJa = summaryTitle.nextElementSibling;
       if (followingJa?.classList.contains("mobile-section-jp")) {

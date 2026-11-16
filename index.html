@@ -1214,6 +1214,8 @@
 .sec-title-wrap { min-width: 0; }
 @media(max-width:640px) { .sec-title-jp { font-size: .7rem; } .sec-title-sub { overflow-wrap:anywhere; max-width:100%; } }
 </style>
+  <link rel="stylesheet" href="assets/bilingual-pastel-chapters.css">
+  <script src="assets/bilingual-chapters.js" defer></script>
 </head>
 <body class="page-home page-desktop">
   <a class="skip-link" href="#main-content">跳至主要內容</a>
@@ -1285,18 +1287,23 @@
   </header>
 
   <!-- Sticky Sub-Navigation Bar: accessible keycap marquee -->
-  <nav class="mag-subnav-strip home-keycap-strip" aria-label="履歷章節">
+  <nav class="mag-subnav-strip home-keycap-strip bilingual-chapter-nav" data-bilingual-nav aria-label="履歷章節">
     <div class="container subnav-items home-keycap-layout">
+<div class="bilingual-current" aria-hidden="true">
+ <span class="bilingual-current-number" data-bilingual-number>01</span>
+ <span class="bilingual-current-copy"><span class="bilingual-current-main" data-bilingual-title>應徵動機</span>
+ <span class="bilingual-current-sub"><span class="bilingual-current-en" data-bilingual-en>APPLICATION MOTIVATION</span><span class="bilingual-current-jp" lang="ja" data-bilingual-jp>応募動機</span></span></span>
+ </div>
       <div class="keycap-marquee" data-keycap-marquee>
         <div class="keycap-marquee__viewport" tabindex="0" aria-label="履歷章節導覽，可左右捲動">
           <div class="keycap-marquee__belt">
             <ul class="keycap-marquee__group">
-        <li><a href="#motivation" class="nav-btn-mk"><span class="num">01/</span> 應徵動機</a></li>
-        <li><a href="#competencies" class="nav-btn-mk"><span class="num">02/</span> 核心能力</a></li>
-        <li><a href="#cases" class="nav-btn-mk"><span class="num">03/</span> 營運改善構想</a></li>
-        <li><a href="#career" class="nav-btn-mk"><span class="num">04/</span> 工作經歷</a></li>
-        <li><a href="#proposal" class="nav-btn-mk"><span class="num">06/</span> 工作構想</a></li>
-        <li><a href="#research" class="nav-btn-mk"><span class="num">07/</span> 通路研究</a></li>
+<li><a href="#motivation" class="nav-btn-mk" data-chapter="motivation" data-number="01" data-cn="應徵動機" data-jp="応募動機" data-en="APPLICATION MOTIVATION"><span class="bilingual-nav-cn">應徵動機</span><span class="bilingual-nav-jp" lang="ja">応募動機</span></a></li>
+<li><a href="#competencies" class="nav-btn-mk" data-chapter="competencies" data-number="02" data-cn="核心管理能力" data-jp="主なマネジメント能力" data-en="CORE OPERATIONAL COMPETENCIES"><span class="bilingual-nav-cn">核心管理能力</span><span class="bilingual-nav-jp" lang="ja">主なマネジメント能力</span></a></li>
+<li><a href="#cases" class="nav-btn-mk" data-chapter="cases" data-number="03" data-cn="門市營運改善構想" data-jp="店舗運営の改善提案" data-en="STORE OPERATIONS IMPROVEMENT"><span class="bilingual-nav-cn">門市營運改善構想</span><span class="bilingual-nav-jp" lang="ja">店舗運営の改善提案</span></a></li>
+<li><a href="#career" class="nav-btn-mk" data-chapter="career" data-number="04" data-cn="工作經歷" data-jp="職務経歴" data-en="WORK EXPERIENCE"><span class="bilingual-nav-cn">工作經歷</span><span class="bilingual-nav-jp" lang="ja">職務経歴</span></a></li>
+<li><a href="#proposal" class="nav-btn-mk" data-chapter="proposal" data-number="05" data-cn="到任後工作構想" data-jp="入社後の業務構想" data-en="POST-HIRE OPERATIONS PLAN"><span class="bilingual-nav-cn">到任後工作構想</span><span class="bilingual-nav-jp" lang="ja">入社後の業務構想</span></a></li>
+<li><a href="#research" class="nav-btn-mk" data-chapter="research" data-number="06" data-cn="實體通路趨勢研究摘要" data-jp="実店舗の市場動向リサーチ" data-en="RETAIL RESEARCH"><span class="bilingual-nav-cn">實體通路趨勢研究摘要</span><span class="bilingual-nav-jp" lang="ja">実店舗の市場動向リサーチ</span></a></li>
 
       </ul>
           </div>
@@ -1314,11 +1321,10 @@
     <section id="motivation" class="section-block">
       <div class="section-editorial-header">
         <div class="sec-title-wrap">
-          <span class="sec-number">01</span>
-          <h2 class="sec-title-main">應徵動機</h2>
-          <span class="sec-title-sub">APPLICATION MOTIVATION &amp; OBJECTIVES</span>
-<span class="sec-title-jp" lang="ja">応募動機</span>
-        </div>
+<span class="sec-number">01</span>
+  <div class="bilingual-heading-text"><h2 class="sec-title-main">應徵動機</h2>
+  <div class="bilingual-heading-sub"><span class="sec-title-sub">APPLICATION MOTIVATION</span><span class="sec-title-jp" lang="ja">応募動機</span></div></div>
+</div>
         <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">志向與規劃</span>
       </div>
 
@@ -1348,11 +1354,10 @@
       <div id="advantages" style="position: relative; top: -80px; visibility: hidden;"></div>
       <div class="section-editorial-header">
         <div class="sec-title-wrap">
-          <span class="sec-number">02</span>
-          <h2 class="sec-title-main">核心管理能力</h2>
-          <span class="sec-title-sub">CORE OPERATIONAL COMPETENCIES</span>
-<span class="sec-title-jp" lang="ja">主なマネジメント能力</span>
-        </div>
+<span class="sec-number">02</span>
+  <div class="bilingual-heading-text"><h2 class="sec-title-main">核心管理能力</h2>
+  <div class="bilingual-heading-sub"><span class="sec-title-sub">CORE OPERATIONAL COMPETENCIES</span><span class="sec-title-jp" lang="ja">主なマネジメント能力</span></div></div>
+</div>
         <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">4 大管理面向</span>
       </div>
 
@@ -1421,11 +1426,10 @@
     <section id="cases" class="section-block">
       <div class="section-editorial-header">
         <div class="sec-title-wrap">
-          <span class="sec-number">03</span>
-          <h2 class="sec-title-main">門市營運改善構想</h2>
-          <span class="sec-title-sub">STORE OPERATIONS IMPROVEMENT CONCEPTS</span>
-<span class="sec-title-jp" lang="ja">店舗運営の改善提案</span>
-        </div>
+<span class="sec-number">03</span>
+  <div class="bilingual-heading-text"><h2 class="sec-title-main">門市營運改善構想</h2>
+  <div class="bilingual-heading-sub"><span class="sec-title-sub">STORE OPERATIONS IMPROVEMENT</span><span class="sec-title-jp" lang="ja">店舗運営の改善提案</span></div></div>
+</div>
         <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">實務責任 ✦ 改善構想</span>
       </div>
 
@@ -1582,11 +1586,10 @@
     <section id="career" class="section-block">
       <div class="section-editorial-header">
         <div class="sec-title-wrap">
-          <span class="sec-number">04</span>
-          <h2 class="sec-title-main">工作經歷</h2>
-          <span class="sec-title-sub">WORK EXPERIENCE</span>
-<span class="sec-title-jp" lang="ja">職務経歴</span>
-        </div>
+<span class="sec-number">04</span>
+  <div class="bilingual-heading-text"><h2 class="sec-title-main">工作經歷</h2>
+  <div class="bilingual-heading-sub"><span class="sec-title-sub">WORK EXPERIENCE</span><span class="sec-title-jp" lang="ja">職務経歴</span></div></div>
+</div>
       </div>
 
       <div class="timeline-stack">
@@ -1686,11 +1689,10 @@
     <section id="proposal" class="section-block">
       <div class="section-editorial-header">
         <div class="sec-title-wrap">
-          <span class="sec-number">06</span>
-          <h2 class="sec-title-main">到任後工作構想</h2>
-          <span class="sec-title-sub">POST-HIRE OPERATIONAL PROPOSAL</span>
-<span class="sec-title-jp" lang="ja">入社後の業務構想</span>
-        </div>
+<span class="sec-number">05</span>
+  <div class="bilingual-heading-text"><h2 class="sec-title-main">到任後工作構想</h2>
+  <div class="bilingual-heading-sub"><span class="sec-title-sub">POST-HIRE OPERATIONS PLAN</span><span class="sec-title-jp" lang="ja">入社後の業務構想</span></div></div>
+</div>
         <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">工作構想，實際依公司制度與主管安排調整</span>
       </div>
 
@@ -1754,11 +1756,10 @@
     <section id="research" class="section-block">
       <div class="section-editorial-header">
         <div class="sec-title-wrap">
-          <span class="sec-number">07</span>
-          <h2 class="sec-title-main">實體通路趨勢研究摘要</h2>
-          <span class="sec-title-sub">RETAIL RESEARCH &amp; MARKET INSIGHTS</span>
-<span class="sec-title-jp" lang="ja">実店舗の市場動向リサーチ</span>
-        </div>
+<span class="sec-number">06</span>
+  <div class="bilingual-heading-text"><h2 class="sec-title-main">實體通路趨勢研究摘要</h2>
+  <div class="bilingual-heading-sub"><span class="sec-title-sub">RETAIL RESEARCH</span><span class="sec-title-jp" lang="ja">実店舗の市場動向リサーチ</span></div></div>
+</div>
         <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">數據事實 ✦ 觀察建議</span>
       </div>
 

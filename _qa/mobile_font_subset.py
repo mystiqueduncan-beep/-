@@ -37,7 +37,7 @@ def subset_page(source):
     # Japanese editorial sublabels use the page's system-Japanese font stack,
     # not the Google Fonts Chinese subset. Keep its downloaded glyph set lean.
     font_source = re.sub(
-        r'<(?:span|p) class="(?:sec-title-jp|mobile-section-jp)" lang="ja">[^<>]*</(?:span|p)>',
+        r'<(?P<tag>span|p)\b[^>]*class="(?:sec-title-jp|mobile-section-jp|bilingual-nav-jp|bilingual-current-jp|bilingual-mobile-jp)"[^>]*lang="ja"[^>]*>[^<>]*</(?P=tag)>',
         '', source
     )
     parser.feed(font_source)
