@@ -40,6 +40,9 @@ with sync_playwright() as p:
    page.close()
    continue
   nav=page.locator('[data-keycap-marquee]');belt=nav.locator('.keycap-marquee__belt');link=nav.locator('a').first
+  if name == 'index':
+   expect(nav.locator('a[data-chapter]')).to_have_count(6)
+   expect(nav.locator('a[data-chapter] .bilingual-nav-jp')).to_have_count(6)
   expect(nav).to_have_class(__import__('re').compile('.*is-enhanced.*'))
   assert belt.evaluate('e=>getComputedStyle(e).animationName')=='none'
   assert not page.locator('.keycap-marquee__toggle').count()
