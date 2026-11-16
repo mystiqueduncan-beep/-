@@ -40,6 +40,11 @@ with sync_playwright() as p:
         # Independent coverage contract: page sections, articles, card units and source notes.
         units = held.locator('.mag-header > .container, main section, main article, .key-pillar-card, .hero-action-card, .star-field-box, .stage-meta-box, .candidate-info-box, .candidate-specs-box, .source-verification, main .method-card')
         for unit in units.all():
+            if unit.get_attribute("data-phase-card") is not None:
+                # Selectable roadmap panels use their own switch animation,
+                # never a scroll-pending state that would trap hidden panels.
+                assert not unit.evaluate('(e)=>e.matches(".mk-motion-pending,.mk-pop-pending")'), name
+                continue
             assert unit.evaluate('(e)=>e.matches(".mk-motion-pending,.mk-pop-pending")'), (name, unit.get_attribute('class'))
         states = held.locator('.mk-motion-pending,.mk-pop-pending').evaluate_all('(es)=>es.map(e=>({x:new DOMMatrix(getComputedStyle(e).transform).m41,opacity:getComputedStyle(e).opacity,pop:e.classList.contains("mk-pop-pending"),fade:e.classList.contains("mk-fade-item")}))')
         assert states and all((x['x'] > 0 if x['pop'] else abs(x['x']) < 0.01 if x['fade'] else x['x'] < 0) and x['opacity'] == '0' for x in states), (name, states)
