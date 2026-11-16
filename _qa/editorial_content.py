@@ -111,6 +111,14 @@ if __name__=='__main__':
    # page's original user-approved bytes remain protected by the SHA.
    print_link=b'  <link rel="stylesheet" href="assets/print-layout.css" media="print">\n'
    if raw.count(print_link)==1:raw=raw.replace(print_link,b'',1)
+   # Normalize only the exact two approved source-link target changes.
+   for href in (
+    b'href="https://mnscdn.moea.gov.tw/mns/populace/news/News.aspx?kind=1&amp;menu_id=40&amp;news_id=123868"',
+    b'href="https://www.mirai.com.tw/2026-annual-overview-of-taiwans-retail-and-e-commerce-sub-sector-structure/"',
+   ):
+    new_tab=href+b' target="_blank" rel="noopener noreferrer"'
+    assert raw.count(new_tab)==1,name+': approved source new-tab link missing'
+    raw=raw.replace(new_tab,href,1)
    actual=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+b'\0'+raw).hexdigest()
    assert actual==approved[name],name+': regional analysis content not approved'
    current[name]=actual
