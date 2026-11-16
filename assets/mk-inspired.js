@@ -146,13 +146,6 @@
         // Preserve the original width/percentage written in the HTML.
       });
 
-      const replay = document.createElement("button");
-      replay.type = "button";
-      replay.className = "portfolio-chart-replay";
-      replay.textContent = "↻ 重播圖表動畫";
-      replay.setAttribute("aria-label", "重新播放商品結構圖表動畫");
-      host.append(replay);
-
       function play() {
         if (reduce.matches) return;
         host.classList.remove("portfolio-chart-active");
@@ -162,12 +155,8 @@
           window.requestAnimationFrame(() => host.classList.add("portfolio-chart-active"));
         });
       }
-      if (reduce.matches) {
-        replay.hidden = true;
-        continue;
-      }
+      if (reduce.matches) continue;
       host.classList.add("portfolio-chart-ready");
-      replay.addEventListener("click", play);
       const isVisibleEnough = () => {
         const box = host.getBoundingClientRect();
         const h = window.innerHeight || document.documentElement.clientHeight;
@@ -196,12 +185,10 @@
       $$(".portfolio-chart").forEach(host => {
         if (event.matches) {
           host.classList.remove("portfolio-chart-ready", "portfolio-chart-active");
-          const replay = $(".portfolio-chart-replay", host);
-          if (replay) replay.hidden = true;
+
         } else {
           host.classList.add("portfolio-chart-ready", "portfolio-chart-active");
-          const replay = $(".portfolio-chart-replay", host);
-          if (replay) replay.hidden = false;
+
         }
       });
     });
