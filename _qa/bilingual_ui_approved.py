@@ -11,10 +11,12 @@ _MAPPINGS = json.loads((Path(__file__).with_name("bilingual_ui_approved.json")).
 def restore_bilingual_home_ui(rel, html):
     if rel not in _MAPPINGS or "assets/bilingual-pastel-chapters.css" not in html:
         return html
-    for asset in ("assets/bilingual-pastel-chapters.css", "assets/bilingual-chapters.js"):
+    for asset in ("assets/bilingual-pastel-chapters.css",):
         assert (_ROOT / asset).is_file(), rel + ": missing approved bilingual asset " + asset
-    assert html.count('data-bilingual-nav') == 1, rel + ": bilingual navigation must appear once"
-    assert html.count('data-chapter=') == 6, rel + ": exactly six linked bilingual chapters required"
+    assert html.count("bilingual-chapter-nav") == 1, rel + ": chapter marquee must appear once"
+    assert html.count('class="bilingual-nav-jp"') == 6, rel + ": exactly six Japanese button subtitles required"
+    for removed in ("bilingual-current", "data-bilingual-title", "data-bilingual-nav", "data-chapter=", "assets/bilingual-chapters.js"):
+        assert removed not in html, rel + ": stale current-chapter tracker " + removed
     for item in _MAPPINGS[rel]:
         new_fragment = item["new"]
         assert html.count(new_fragment) == 1, rel + ": approved UI fragment missing/duplicated: " + item["label"]
