@@ -92,6 +92,11 @@
   body.page-home.page-desktop .section-editorial-header .bilingual-heading-sub .sec-title-jp::before {
     content:'／'!important;margin-right:8px!important;color:#be91a2!important;
   }
+  /* overflow-x:hidden creates a scroll container and prevents mobile sticky.
+     clip retains horizontal clipping without stealing the page scrollport. */
+  body.page-home.page-mobile .mobile-app-wrapper {
+    overflow-x:clip!important;
+  }
   body.page-home.page-mobile .bilingual-mobile-strip {
     position:sticky!important;top:53px!important;z-index:98!important;padding:6px 12px 6px;
     background:rgba(255,249,247,.93);border-bottom:1px solid #dfbdc9;
