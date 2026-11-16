@@ -2020,13 +2020,13 @@ body.page-trend.page-desktop .portfolio-back-to-top__link:focus-visible {
 
 
 /* Unified editorial interactions — mobile and desktop.
-   The sticky strip is translucent; its moving track is transparent and buttons stay opaque. */
+   The positioning strip and moving track are transparent; buttons stay opaque. */
 @media screen {
-  body:is(.page-home,.page-trend,.page-contact) :is(.mag-subnav-strip,.trend-subnav-strip,.bilingual-mobile-strip) {
-    background-color: rgba(255,249,247,.72) !important;
-    background-image: none !important;
-    -webkit-backdrop-filter: blur(14px) saturate(118%);
-    backdrop-filter: blur(14px) saturate(118%);
+  body:is(.page-home,.page-trend) :is(.mag-subnav-strip,.trend-subnav-strip,.bilingual-mobile-strip) {
+    background: transparent !important;
+    border: 0 !important;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
   body:is(.page-home,.page-trend,.page-contact) :is(.keycap-marquee,.keycap-marquee__viewport,.keycap-marquee__belt,.keycap-marquee__group,.mobile-keycap-marquee,.mobile-keycap-belt,.mobile-keycap-nav) {
     background: transparent !important;
@@ -2110,7 +2110,7 @@ body.page-trend.page-desktop .portfolio-back-to-top__link:focus-visible {
 }
 
 /* A marquee's decorative spacer may carry its own gradient; leave the symbols,
-   but let the page's translucent sticky layer supply the only background. */
+   but let the compact marquee frame supply the only background. */
 @media screen {
   body:is(.page-home,.page-trend,.page-contact) .keycap-marquee__belt::before {
     background: transparent !important;

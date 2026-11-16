@@ -3,9 +3,9 @@
 @media screen {
   body.page-trend .trend-bilingual-nav {
     position:sticky!important;top:0!important;z-index:95!important;
-    border-bottom:1px solid #ddbac7!important;
-    background:rgba(255,249,247,.94)!important;
-    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+    border:0!important;
+    background:transparent!important;
+    -webkit-backdrop-filter:none;backdrop-filter:none;
     box-shadow:none!important;
   }
   body.page-trend .trend-bilingual-nav > .container {
@@ -13,8 +13,9 @@
     padding:6px 22px!important;
   }
   body.page-trend .trend-bilingual-nav .keycap-marquee {
-    display:flex;align-items:center;width:100%;min-width:0;gap:0;
-    padding:3px 0 5px!important;
+    display:flex;align-items:center;min-width:0;gap:0;
+    width:min(100%,var(--keycap-content-width,1120px),1120px);margin-inline:auto;
+    padding:3px 10px 5px!important;
   }
   body.page-trend .trend-bilingual-nav .keycap-marquee__viewport {
     width:100%;max-width:100%;min-width:0;
@@ -74,7 +75,7 @@
     padding:6px 12px!important;
   }
   body.page-trend.page-mobile .trend-bilingual-nav .keycap-marquee {
-    padding:0!important;min-width:0;
+    width:100%;padding:0 6px!important;min-width:0;
   }
   body.page-trend.page-mobile .trend-bilingual-nav .keycap-marquee__group a {
     min-height:49px!important;padding:5px 12px!important;border-radius:21px!important;
@@ -103,14 +104,6 @@
 /* Research keycaps use the same scroll-synced stronger rose selection and
    translucent page-level chrome as the portfolio homepage. */
 @media screen {
-  body.page-trend .trend-bilingual-nav {
-    background: rgba(255,249,247,.72) !important;
-    -webkit-backdrop-filter: blur(14px) saturate(115%);
-    backdrop-filter: blur(14px) saturate(115%);
-  }
-  body.page-trend.page-mobile .trend-bilingual-nav {
-    background: rgba(255,249,247,.78) !important;
-  }
   body.page-trend .trend-bilingual-nav .keycap-marquee__group a:is(.is-current,[aria-current="location"]) {
     background: #dfadc1 !important;
     color: #4f3042 !important;

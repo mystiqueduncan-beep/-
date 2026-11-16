@@ -305,7 +305,14 @@
   // A single original set of chapter buttons passes once, followed by a
   // decorated empty interval. Start/end are entirely offscreen so the loop
   // never exposes another copy of the same button or visibly jumps.
+  function updateFrameWidth() {
+    // Size the frame from real chapter keys, excluding the belt's run-in/out.
+    // Its CSS cap differs by page; selection never changes key dimensions.
+    nav.style.setProperty("--keycap-content-width", Math.ceil(original.getBoundingClientRect().width + 24) + "px");
+  }
+
   function updateDuration() {
+    updateFrameWidth();
     const viewportWidth = Math.max(1, viewport?.clientWidth || 620);
     const interludeWidth = Math.max(390, Math.ceil(viewportWidth * 1.12));
     const previousStart = Number.parseFloat(belt.style.getPropertyValue?.("--keycap-start") || 0) || 0;
@@ -321,15 +328,25 @@
     belt.style.setProperty("--keycap-interlude-width", interludeWidth + "px");
   }
 
+  function updateLayout() {
+    if (playback.matches && nav.classList.contains("is-enhanced")) updateDuration();
+    else updateFrameWidth();
+  }
+
   function syncMode() {
     if (playback.matches) {
       nav.classList.add("is-enhanced");
+      layoutInitialized = false;
+      fractionalScroll = null;
       updateDuration();
       nav.classList.toggle("is-hover-paused", hovering);
     } else {
       nav.classList.remove("is-enhanced");
       nav.classList.remove("is-hover-paused");
       setTouchPaused(false);
+      layoutInitialized = false;
+      fractionalScroll = null;
+      updateFrameWidth();
     }
     updateCurrent();
   }
@@ -343,12 +360,10 @@
     playback.addListener(syncMode);
   }
   if (typeof ResizeObserver !== "undefined") {
-    new ResizeObserver(() => {
-      if (playback.matches) updateDuration();
-    }).observe(original);
+    const resizeObserver = new ResizeObserver(updateLayout);
+    resizeObserver.observe(original);
+    if (viewport) resizeObserver.observe(viewport);
   }
-  window.addEventListener("resize", () => {
-    if (playback.matches) updateDuration();
-  });
+  window.addEventListener("resize", updateLayout);
   syncMode();
 })();
