@@ -226,13 +226,15 @@ def interactions(page, row, width, mobile):
     verify(scroll_value(viewport) > loop_start + 2, "loop cannot remain stuck on blank run-in")
     result["loop"] = "passed"
 
-    # Paused resize: measure position relative to the viewport, so centering
-    # changes do not count as movement of the currently visible chapter.
+    # Keyboard pause survives native pointer hover re-evaluation on resize.
+    # Measure relative to the viewport, excluding the banner's centering shift.
     box = nav.bounding_box()
     page.mouse.move(box["x"] + box["width"] / 2, box["y"] + box["height"] / 2)
     verify(nav.evaluate("e=>e.classList.contains('is-hover-paused')"),
            "resize measurement starts with real hover pause", box)
-    viewport.evaluate("e=>e.scrollLeft=parseFloat(e.querySelector('.keycap-marquee__belt').style.getPropertyValue('--keycap-start'))+30")
+    viewport.focus()
+    page.keyboard.press("ArrowRight")
+    viewport.evaluate("e=>e.scrollLeft=parseFloat(e.querySelector('.keycap-marquee__belt').style.getPropertyValue('--keycap-start'))+5")
     relative = group.evaluate("e=>e.getBoundingClientRect().x-e.closest('.keycap-marquee__viewport').getBoundingClientRect().x")
     page.set_viewport_size({"width": width + 47, "height": 844})
     page.wait_for_timeout(150)
@@ -242,6 +244,7 @@ def interactions(page, row, width, mobile):
     verify(abs(relative_after - relative) <= 2, "resize preserves visible chapter position", (relative, relative_after))
     page.set_viewport_size({"width": width, "height": 844})
     page.wait_for_timeout(100)
+    page.evaluate("() => document.activeElement?.blur()")
     leave_banner(page)
     result["resize"] = "passed"
 
@@ -297,6 +300,18 @@ def interactions(page, row, width, mobile):
     verify(reduced_scroll_range <= 1 or scroll_value(viewport) > before,
            "manual keyboard scrolling works whenever reduced-motion content overflows")
     result["reduced_motion"] = "passed"
+    page.evaluate("() => document.activeElement?.blur()")
+    leave_banner(page)
+    page.emulate_media(reduced_motion="no-preference")
+    page.wait_for_function("() => document.querySelector('[data-keycap-marquee]').classList.contains('is-enhanced')")
+    restored = page.evaluate(MEASURE)
+    verify(any(link["rect"]["right"] > restored["viewport"]["x"] + 20 and
+               link["rect"]["x"] < restored["viewport"]["right"] - 20 for link in restored["links"]),
+           "restoring normal motion immediately shows original chapters", restored)
+    before = scroll_value(viewport)
+    page.wait_for_timeout(220)
+    verify(scroll_value(viewport) > before + 2, "autoplay resumes after motion preference restoration")
+    result["motion_preference_restoration"] = "passed"
     return result
 
 

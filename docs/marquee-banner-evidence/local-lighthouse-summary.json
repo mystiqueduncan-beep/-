@@ -1,0 +1,217 @@
+{
+  "before": {
+    "lighthouse": {
+      "index.html": {
+        "runs": [
+          {
+            "performance": 72,
+            "accessibility": 100,
+            "best-practices": 96,
+            "seo": 100
+          },
+          {
+            "performance": 92,
+            "accessibility": 100,
+            "best-practices": 96,
+            "seo": 100
+          },
+          {
+            "performance": 70,
+            "accessibility": 100,
+            "best-practices": 96,
+            "seo": 100
+          }
+        ],
+        "median": {
+          "performance": 72,
+          "accessibility": 100,
+          "best-practices": 96,
+          "seo": 100
+        }
+      },
+      "mobile.html": {
+        "runs": [
+          {
+            "performance": 59,
+            "accessibility": 100,
+            "best-practices": 96,
+            "seo": 69
+          },
+          {
+            "performance": 52,
+            "accessibility": 100,
+            "best-practices": 96,
+            "seo": 69
+          },
+          {
+            "performance": 80,
+            "accessibility": 100,
+            "best-practices": 96,
+            "seo": 69
+          }
+        ],
+        "median": {
+          "performance": 59,
+          "accessibility": 100,
+          "best-practices": 96,
+          "seo": 69
+        }
+      }
+    },
+    "runtimeErrors": [],
+    "onlineRows": [
+      {
+        "file": "index.html",
+        "overflow": false,
+        "errors": [],
+        "images": 3,
+        "unloaded": 3
+      },
+      {
+        "file": "mobile.html",
+        "overflow": false,
+        "errors": [],
+        "images": 3,
+        "unloaded": 3
+      },
+      {
+        "file": "trend.html",
+        "overflow": false,
+        "errors": [],
+        "images": 0,
+        "unloaded": 0
+      },
+      {
+        "file": "mobile-trend.html",
+        "overflow": false,
+        "errors": [],
+        "images": 0,
+        "unloaded": 0
+      },
+      {
+        "file": "contact.html",
+        "overflow": false,
+        "errors": [],
+        "images": 1,
+        "unloaded": 0
+      },
+      {
+        "file": "mobile-contact.html",
+        "overflow": false,
+        "errors": [],
+        "images": 1,
+        "unloaded": 0
+      }
+    ]
+  },
+  "after": {
+    "lighthouse": {
+      "index.html": {
+        "runs": [
+          {
+            "performance": 99,
+            "accessibility": 100,
+            "best-practices": 96,
+            "seo": 100
+          },
+          {
+            "performance": 99,
+            "accessibility": 100,
+            "best-practices": 96,
+            "seo": 100
+          },
+          {
+            "performance": 99,
+            "accessibility": 100,
+            "best-practices": 96,
+            "seo": 100
+          }
+        ],
+        "median": {
+          "performance": 99,
+          "accessibility": 100,
+          "best-practices": 96,
+          "seo": 100
+        }
+      },
+      "mobile.html": {
+        "runs": [
+          {
+            "performance": 86,
+            "accessibility": 100,
+            "best-practices": 96,
+            "seo": 69
+          },
+          {
+            "performance": 67,
+            "accessibility": 100,
+            "best-practices": 96,
+            "seo": 69
+          },
+          {
+            "performance": 60,
+            "accessibility": 100,
+            "best-practices": 96,
+            "seo": 69
+          }
+        ],
+        "median": {
+          "performance": 67,
+          "accessibility": 100,
+          "best-practices": 96,
+          "seo": 69
+        }
+      }
+    },
+    "runtimeErrors": [],
+    "onlineRows": [
+      {
+        "file": "index.html",
+        "overflow": false,
+        "errors": [],
+        "images": 3,
+        "unloaded": 3
+      },
+      {
+        "file": "mobile.html",
+        "overflow": false,
+        "errors": [],
+        "images": 3,
+        "unloaded": 3
+      },
+      {
+        "file": "trend.html",
+        "overflow": false,
+        "errors": [],
+        "images": 0,
+        "unloaded": 0
+      },
+      {
+        "file": "mobile-trend.html",
+        "overflow": false,
+        "errors": [],
+        "images": 0,
+        "unloaded": 0
+      },
+      {
+        "file": "contact.html",
+        "overflow": false,
+        "errors": [],
+        "images": 1,
+        "unloaded": 0
+      },
+      {
+        "file": "mobile-contact.html",
+        "overflow": false,
+        "errors": [],
+        "images": 1,
+        "unloaded": 0
+      }
+    ]
+  },
+  "limits": [
+    "Local Chromium did not trust the configured environment proxy CA: remote image navigation returned ERR_CERT_AUTHORITY_INVALID. urllib/curl using the configured system CA can fetch remote images. No TLS checks were disabled and no home trust store was modified.",
+    "Before Lighthouse overlapped other browser suites, whereas after was mostly isolated; performance scores are noisy and do not establish a performance improvement.",
+    "trilingual_heading_audit.py failed in both baseline and modified tree because mobile EN/JP subtitle top boxes differed by 3px, beyond its existing 2px tolerance. No unrelated style/test was modified."
+  ]
+}

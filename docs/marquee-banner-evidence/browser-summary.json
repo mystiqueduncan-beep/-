@@ -1,0 +1,170 @@
+{
+  "responsive_cases": 60,
+  "failed": 0,
+  "axe": [
+    {
+      "page": "index.html",
+      "width": 390,
+      "violations": 0,
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 53
+        }
+      ]
+    },
+    {
+      "page": "index.html",
+      "width": 1440,
+      "violations": 0,
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 55
+        }
+      ]
+    },
+    {
+      "page": "contact.html",
+      "width": 390,
+      "violations": 0,
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 8
+        }
+      ]
+    },
+    {
+      "page": "contact.html",
+      "width": 1440,
+      "violations": 0,
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 9
+        }
+      ]
+    },
+    {
+      "page": "trend.html",
+      "width": 390,
+      "violations": 0,
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 2
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 99
+        }
+      ]
+    },
+    {
+      "page": "trend.html",
+      "width": 1440,
+      "violations": 0,
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 2
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 99
+        }
+      ]
+    },
+    {
+      "page": "mobile.html",
+      "width": 390,
+      "violations": 0,
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 31
+        }
+      ]
+    },
+    {
+      "page": "mobile.html",
+      "width": 1440,
+      "violations": 0,
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 31
+        }
+      ]
+    },
+    {
+      "page": "mobile-contact.html",
+      "width": 390,
+      "violations": 0,
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 4
+        }
+      ]
+    },
+    {
+      "page": "mobile-contact.html",
+      "width": 1440,
+      "violations": 0,
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 6
+        }
+      ]
+    },
+    {
+      "page": "mobile-trend.html",
+      "width": 390,
+      "violations": 0,
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 2
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 133
+        }
+      ]
+    },
+    {
+      "page": "mobile-trend.html",
+      "width": 1440,
+      "violations": 0,
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 2
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 131
+        }
+      ]
+    }
+  ]
+}
