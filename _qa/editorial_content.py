@@ -113,6 +113,10 @@ if __name__=='__main__':
    # page's original user-approved bytes remain protected by the SHA.
    print_link=b'  <link rel="stylesheet" href="assets/print-layout.css" media="print">\n'
    if raw.count(print_link)==1:raw=raw.replace(print_link,b'',1)
+   # Verify the exact new market-summary link before comparing approved content.
+   market_source_link='<a href="https://mnscdn.moea.gov.tw/mns/populace/news/News.aspx?kind=1&amp;menu_id=40&amp;news_id=123868" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:2px">經濟部統計處，2026/09/07</a>'.encode('utf-8')
+   assert raw.count(market_source_link)==1,name+': market summary source link missing or changed'
+   raw=raw.replace(market_source_link,'經濟部統計處，2026/09/07'.encode('utf-8'),1)
    # Normalize only the exact two approved source-link target changes.
    for href in (
     b'href="https://mnscdn.moea.gov.tw/mns/populace/news/News.aspx?kind=1&amp;menu_id=40&amp;news_id=123868"',
