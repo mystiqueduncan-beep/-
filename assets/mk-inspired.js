@@ -175,3 +175,218 @@
     });
   }
 })();
+
+
+/* Portfolio interaction enhancements: shared across desktop and mobile.
+ * No portfolio facts or chart values are recreated here; original DOM content is moved intact.
+ */
+(() => {
+  "use strict";
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+  let seq = 0;
+
+  function disclosure(card, body, anchor, label) {
+    if (!card || card.dataset.portfolioDisclosure || !anchor || !body.length) return;
+    const nodes = body.filter(node => node && node.parentNode);
+    if (!nodes.length || nodes.some(node => node.parentNode !== nodes[0].parentNode)) return;
+    const parent = nodes[0].parentNode;
+    const panel = document.createElement("div");
+    panel.className = "portfolio-disclosure-panel";
+    panel.id = "portfolio-detail-" + (++seq);
+    panel.setAttribute("aria-hidden", "true");
+    panel.setAttribute("inert", "");
+    const inner = document.createElement("div");
+    inner.className = "portfolio-panel-inner";
+    panel.append(inner);
+    parent.insertBefore(panel, nodes[0]);
+    nodes.forEach(node => inner.append(node));
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "portfolio-disclosure-toggle";
+    button.setAttribute("aria-expanded", "false");
+    button.setAttribute("aria-controls", panel.id);
+    button.setAttribute("aria-label", "展開「" + label + "」的詳細內容");
+    button.innerHTML = '<span class="portfolio-toggle-text">展開詳細內容</span><span class="portfolio-toggle-chevron" aria-hidden="true">⌄</span>';
+    anchor.insertAdjacentElement("afterend", button);
+    card.dataset.portfolioDisclosure = "true";
+    card.classList.add("portfolio-disclosure-card");
+
+    function setOpen(open) {
+      card.classList.toggle("portfolio-is-open", open);
+      button.setAttribute("aria-expanded", String(open));
+      button.setAttribute("aria-label", (open ? "收合" : "展開") + "「" + label + "」的詳細內容");
+      $(".portfolio-toggle-text", button).textContent = open ? "收合詳細內容" : "展開詳細內容";
+      panel.setAttribute("aria-hidden", String(!open));
+      if (open) panel.removeAttribute("inert");
+      else panel.setAttribute("inert", "");
+    }
+    button.addEventListener("click", () => setOpen(!card.classList.contains("portfolio-is-open")));
+    card.portfolioSetOpen = setOpen;
+  }
+
+  function initDisclosures() {
+    // Introductory summaries and credentials remain visible; only details are collapsed.
+    $$("#competencies .editorial-card").forEach(card =>
+      disclosure(card, [$(".task-bullet-list", card)], $(".card-body-text", card),
+        $(".card-heading", card)?.textContent.trim() || "核心管理能力"));
+    $$("#competencies .adv-dim-card").forEach(card =>
+      disclosure(card, [$(".adv-task-list", card)], $(".adv-dim-desc", card),
+        $(".adv-dim-title", card)?.textContent.trim() || "核心管理能力"));
+
+    $$("#cases .wide-star-case").forEach(card =>
+      disclosure(card, [$(".star-fields-grid", card)], $(".card-heading", card),
+        $(".card-heading", card)?.textContent.trim() || "營運改善構想"));
+    $$("#cases .mobile-case-box").forEach(card => {
+      const heading = $(".mobile-case-title", card);
+      if (heading) disclosure(card, [...card.children].slice([...card.children].indexOf(heading) + 1),
+        heading, heading.textContent.trim());
+    });
+
+    $$("#career .career-entry-card").forEach(card => {
+      const spread = $(".career-spread", card);
+      const list = $(".duty-bullet-list", spread || card);
+      if (!spread || !list || !list.firstElementChild) return;
+      // Original first duty becomes the always-visible synopsis, not duplicated.
+      const copy = document.createElement("div");
+      copy.className = "portfolio-career-copy";
+      spread.insertBefore(copy, list);
+      copy.append(list);
+      const preview = document.createElement("ul");
+      preview.className = "duty-bullet-list portfolio-career-preview";
+      preview.append(list.firstElementChild);
+      copy.insertBefore(preview, list);
+      disclosure(card, [list], preview, $(".company-title", card)?.textContent.trim() || "工作經歷");
+    });
+    $$("#career .timeline-job-card").forEach(card => {
+      const spread = $(".career-spread", card);
+      const list = $(".duty-list", spread || card);
+      if (!spread || !list) return;
+      const preview = [...spread.children].find(node => node.tagName === "P");
+      if (!preview) return;
+      const copy = document.createElement("div");
+      copy.className = "portfolio-career-copy";
+      spread.insertBefore(copy, preview);
+      copy.append(preview, list);
+      disclosure(card, [list], preview, $(".job-title", card)?.textContent.trim() || "工作經歷");
+    });
+
+    $$("#proposal .stage-card").forEach(card => {
+      const title = $(".stage-title", card);
+      disclosure(card, [$(".stage-content", card), $(".stage-meta-box", card)],
+        title, title?.textContent.trim() || "到任工作構想");
+    });
+    $$("#proposal .stage-card-mini").forEach(card => {
+      const title = $("h3", card);
+      disclosure(card, [...card.children].filter(el => title && el.compareDocumentPosition(title) & Node.DOCUMENT_POSITION_PRECEDING),
+        title, title?.textContent.trim() || "到任工作構想");
+    });
+
+    $$("#strategy .strategy.feature-card").forEach(card => {
+      const title = $(".feature-card-title", card);
+      if (!title) return;
+      const after = [...card.children].slice([...card.children].indexOf(title) + 1);
+      disclosure(card, after, title, title.textContent.trim());
+    });
+
+    // Deep links and print should never leave a requested detail inaccessible.
+    const openHash = () => {
+      const hash = decodeURIComponent(location.hash.slice(1));
+      if (!hash) return;
+      const target = document.getElementById(hash);
+      target?.closest(".portfolio-disclosure-card")?.portfolioSetOpen?.(true);
+    };
+    window.addEventListener("hashchange", openHash);
+    openHash();
+  }
+
+  function initBarCharts() {
+    const groups = [];
+    const homeBars = $$("#research .data-bar-fill");
+    if (homeBars.length) {
+      const parent = homeBars[0].closest(".data-bars-container") || homeBars[0].parentElement?.parentElement?.parentElement;
+      groups.push({ host: parent, bars: homeBars });
+    }
+    const trendBars = $$("#market .animated-bar");
+    if (trendBars.length) {
+      const parent = trendBars[0].closest(".feature-card") || trendBars[0].parentElement;
+      groups.push({ host: parent, bars: trendBars });
+    }
+    for (const group of groups) {
+      const { host, bars } = group;
+      if (!host || host.dataset.portfolioChart) continue;
+      host.dataset.portfolioChart = "true";
+      host.classList.add("portfolio-chart");
+      bars.forEach((bar, index) => {
+        bar.classList.add("portfolio-bar");
+        bar.style.setProperty("--portfolio-bar-delay", index * 250 + "ms");
+        // Preserve the original width/percentage written in the HTML.
+      });
+
+      const replay = document.createElement("button");
+      replay.type = "button";
+      replay.className = "portfolio-chart-replay";
+      replay.textContent = "↻ 重播圖表動畫";
+      replay.setAttribute("aria-label", "重新播放商品結構圖表動畫");
+      host.append(replay);
+
+      function play() {
+        if (reduce.matches) return;
+        host.classList.remove("portfolio-chart-active");
+        // Flush the prepared zero pose before restarting the fill transition.
+        void host.offsetWidth;
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => host.classList.add("portfolio-chart-active"));
+        });
+      }
+      if (reduce.matches) {
+        replay.hidden = true;
+        continue;
+      }
+      host.classList.add("portfolio-chart-ready");
+      replay.addEventListener("click", play);
+      const isVisibleEnough = () => {
+        const box = host.getBoundingClientRect();
+        const h = window.innerHeight || document.documentElement.clientHeight;
+        const visible = Math.max(0, Math.min(box.bottom, h - 28) - Math.max(0, box.top));
+        return visible >= Math.min(box.height * .4, h * .36) && visible >= Math.min(50, box.height);
+      };
+      let played = false;
+      let observer = null;
+      const onPosition = () => {
+        if (played || !isVisibleEnough()) return;
+        played = true;
+        observer?.disconnect();
+        window.removeEventListener("scroll", onPosition);
+        window.removeEventListener("resize", onPosition);
+        play();
+      };
+      if ("IntersectionObserver" in window) {
+        observer = new IntersectionObserver(onPosition, { threshold: [0, .1, .25, .4] });
+        observer.observe(host);
+      }
+      window.addEventListener("scroll", onPosition, { passive: true });
+      window.addEventListener("resize", onPosition);
+      window.requestAnimationFrame(onPosition);
+    }
+    reduce.addEventListener?.("change", event => {
+      $$(".portfolio-chart").forEach(host => {
+        if (event.matches) {
+          host.classList.remove("portfolio-chart-ready", "portfolio-chart-active");
+          const replay = $(".portfolio-chart-replay", host);
+          if (replay) replay.hidden = true;
+        } else {
+          host.classList.add("portfolio-chart-ready", "portfolio-chart-active");
+          const replay = $(".portfolio-chart-replay", host);
+          if (replay) replay.hidden = false;
+        }
+      });
+    });
+  }
+
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", () => { initDisclosures(); initBarCharts(); }, { once: true });
+  else { initDisclosures(); initBarCharts(); }
+})();
