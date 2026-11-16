@@ -2133,19 +2133,19 @@ body.page-trend.page-desktop .portfolio-back-to-top__link:focus-visible {
    the value stays on its own row and every action has one shared grid.
    The original labels, destinations, click handlers and button fills remain. */
 @media screen {
-  body.page-contact.page-desktop .contact-methods-stack .method-card:not(.method-card--print) .method-value-row {
+  body.page-contact.page-desktop .method-card:not(.method-card--print) .method-value-row {
     display: grid !important;
     grid-template-columns: minmax(0,1fr) !important;
     align-items: start !important;
     justify-items: stretch !important;
     gap: 12px !important;
   }
-  body.page-contact .contact-methods-stack .method-card:not(.method-card--print) .method-huge-text {
+  body.page-contact .method-card:not(.method-card--print) .method-huge-text {
     min-width: 0 !important;
     width: 100%;
     overflow-wrap: anywhere;
   }
-  body.page-contact .contact-methods-stack .method-card:not(.method-card--print) .method-action-btns {
+  body.page-contact .method-card:not(.method-card--print) .method-action-btns {
     display: grid !important;
     grid-template-columns: repeat(2, minmax(0,1fr)) !important;
     align-items: stretch !important;
@@ -2154,7 +2154,7 @@ body.page-trend.page-desktop .portfolio-back-to-top__link:focus-visible {
     width: 100% !important;
     min-width: 0 !important;
   }
-  body.page-contact .contact-methods-stack .method-card:not(.method-card--print) .method-action-btns :is(a,button) {
+  body.page-contact .method-card:not(.method-card--print) .method-action-btns :is(a,button) {
     display: inline-flex !important;
     flex: none !important;
     align-items: center !important;
@@ -2173,16 +2173,16 @@ body.page-trend.page-desktop .portfolio-back-to-top__link:focus-visible {
     padding: 10px 12px !important;
     min-height: 48px !important;
   }
-  body.page-contact .contact-methods-stack .method-action-btns svg {
+  body.page-contact .method-card:not(.method-card--print) .method-action-btns svg {
     flex: 0 0 auto;
     width: 16px;
     height: 16px;
   }
-  body.page-contact .contact-methods-stack .method-card:not(.method-card--print) .method-action-btns :is(a,button):focus-visible {
+  body.page-contact .method-card:not(.method-card--print) .method-action-btns :is(a,button):focus-visible {
     outline: 3px solid #80546a !important;
     outline-offset: 3px !important;
   }
-  body.page-contact.page-mobile .contact-methods-stack .method-card:not(.method-card--print) .method-action-btns {
+  body.page-contact.page-mobile .method-card:not(.method-card--print) .method-action-btns {
     grid-template-columns: minmax(0,1fr) !important;
   }
 }

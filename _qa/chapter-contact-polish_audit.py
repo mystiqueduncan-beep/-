@@ -76,7 +76,7 @@ with sync_playwright() as p:
         page = browser.new_page(viewport={"width":390 if mobile else 1440, "height":844})
         page.route("https://**/*", lambda route: route.abort())
         page.goto(f'{base}{name}.html?view={"mobile" if mobile else "desktop"}')
-        cards = page.locator(".contact-methods-stack div.method-card")
+        cards = page.locator("div.method-card")
         assert cards.count() == 3, name
         first_x = None
         for card in cards.all():
