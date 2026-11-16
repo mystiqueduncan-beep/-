@@ -363,7 +363,7 @@ main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
 /* 90-day regional roadmap: one readable stage, original editorial palette. */
 #roadmap .roadmap-hint {
   margin: 15px 0 -12px;
-  color: #8b6777;
+  color: #654753;
   font-size: .78rem;
 }
 #roadmap .timeline-control::after {
@@ -475,7 +475,7 @@ main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
   cursor: not-allowed;
 }
 #roadmap .roadmap-step-count {
-  color: #936b7a;
+  color: #654753;
   font: 700 .76rem/1.2 ui-monospace, Consolas, monospace;
   white-space: nowrap;
   letter-spacing: .08em;
