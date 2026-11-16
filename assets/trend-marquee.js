@@ -80,12 +80,14 @@
 
   // The highlighted key follows the section being read, not only the URL hash.
   // The same original six links power both desktop and mobile marquees.
-  const chapterTargets = [...original.querySelectorAll('a[href^="#"]')]
-    .map(link => {
+  const chapterTargets = [];
+  if (typeof document.getElementById === "function") {
+    nav.querySelectorAll('.keycap-marquee__group a[href^="#"]').forEach(link => {
       const hash = link.getAttribute("href");
-      return { hash, section: document.getElementById(hash.slice(1)) };
-    })
-    .filter(entry => entry.section);
+      const section = document.getElementById(hash.slice(1));
+      if (section) chapterTargets.push({ hash, section });
+    });
+  }
 
   function activeChapterHash() {
     if (!chapterTargets.length) return window.location.hash || null;
@@ -104,7 +106,7 @@
 
   function updateCurrent() {
     const active = activeChapterHash();
-    original.querySelectorAll('a[href^="#"]').forEach(link => {
+    nav.querySelectorAll('.keycap-marquee__group a[href^="#"]').forEach(link => {
       const selected = link.getAttribute("href") === active;
       link.classList.toggle("is-current", selected);
       if (selected) link.setAttribute("aria-current", "location");
@@ -332,7 +334,7 @@
     updateCurrent();
   }
 
-  window.addEventListener("hashchange", scheduleCurrent);
+  window.addEventListener("hashchange", () => { updateCurrent(); scheduleCurrent(); });
   window.addEventListener("scroll", scheduleCurrent, { passive: true });
   window.addEventListener("resize", scheduleCurrent);
   if (typeof playback.addEventListener === "function") {
