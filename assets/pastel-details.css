@@ -2116,3 +2116,13 @@ body.page-trend.page-desktop .portfolio-back-to-top__link:focus-visible {
   .portfolio-disclosure-toggle, .portfolio-chart-replay { display: none !important; }
   .portfolio-chart .portfolio-bar { transform: scaleX(1) !important; transition: none !important; }
 }
+
+/* A marquee's decorative spacer may carry its own gradient; leave the symbols,
+   but let the page's translucent sticky layer supply the only background. */
+@media screen {
+  body:is(.page-home,.page-trend,.page-contact) .keycap-marquee__belt::before {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  .portfolio-chart .portfolio-chart-replay { align-self: flex-start; }
+}
