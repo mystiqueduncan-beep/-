@@ -80,6 +80,9 @@ with sync_playwright() as p:
         assert cards.count() == 3, name
         first_x = None
         for card in cards.all():
+            # Reveal the one-time card animation before measuring its final box.
+            card.scroll_into_view_if_needed()
+            page.wait_for_timeout(1050)
             actions = card.locator(".method-action-btns")
             buttons = actions.locator("a, button")
             assert buttons.count() == 2, (name, "each method needs two actions")
@@ -91,7 +94,7 @@ with sync_playwright() as p:
             assert cols == (1 if mobile else 2), (name, cols)
             r0, r1 = [button.bounding_box() for button in buttons.all()]
             assert abs(r0["x"]-r1["x"]) < 2 if mobile else abs(r0["y"]-r1["y"]) < 2, name
-            assert r0["height"] >= 47 and r1["height"] >= 47, name
+            assert r0["height"] >= 47 and r1["height"] >= 47, (name, "button final heights", r0, r1)
             assert all(button.evaluate(
                 '(el)=>getComputedStyle(el).textAlign') == "center"
                 for button in buttons.all()
