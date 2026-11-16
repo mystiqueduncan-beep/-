@@ -94,6 +94,7 @@ function makeHarness(options = {}) {
   };
   const createdElements = [];
   const nav = {
+    style: { properties: new Map(), setProperty(name, value) { this.properties.set(name, value); } },
     closest(selector) { return selector === ".home-keycap-strip" && options.isHomepage ? this : null; },
     appendChild(node) { createdElements.push(node); },
     contains(node) { return originals.includes(node); },
@@ -183,6 +184,8 @@ test("autoplays one chapter group followed by decorative blank space", () => {
   assert.equal(h.nav.classList.contains("is-touch-paused"), false);
   assert.equal(h.nav.classList.contains("is-keyboard-paused"), false);
   assert.ok(h.belt.style.properties.has("--keycap-start"), "decorative width must be measured");
+  assert.equal(h.nav.style.properties.get("--keycap-content-width"), "724px",
+    "frame width must use the original group, excluding decorative belt space");
 });
 
 test("hovering the whole strip pauses, including decorated empty space", () => {
@@ -314,6 +317,19 @@ test("system reduced motion disables single-pass autoplay", () => {
   h.mediaEvents.get("change")();
   assert.equal(h.nav.classList.contains("is-enhanced"), true);
   assert.equal(h.getClone(), null);
+});
+
+test("returning from reduced motion starts with a visible chapter after resize", () => {
+  const h = makeHarness();
+  h.playback.matches = false;
+  h.mediaEvents.get("change")();
+  h.viewport.scrollLeft = 0;
+  h.viewport.clientWidth = 430;
+  h.triggerResize();
+  h.playback.matches = true;
+  h.mediaEvents.get("change")();
+  assert.equal(h.viewport.scrollLeft, 444);
+  assert.equal(h.belt.style.properties.get("--keycap-start"), "430px");
 });
 
 test("resize observer preserves the visible keycap instead of jumping", () => {

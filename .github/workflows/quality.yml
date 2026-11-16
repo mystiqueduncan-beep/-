@@ -65,6 +65,15 @@ jobs:
         run: python3 _qa/sticky_nav_preview.py --out /tmp/sticky-nav-preview
       - name: Verify research marquee matches home on desktop and mobile
         run: python3 _qa/research_marquee_preview.py --out /tmp/research-marquee-preview
+      - name: Compact marquee banners at six viewport sizes and real input interactions
+        run: python3 _qa/marquee_banner_audit.py --out /tmp/marquee-banner-audit
+      - name: Upload compact marquee banner acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: compact-marquee-banner-review
+          path: /tmp/marquee-banner-audit
+          if-no-files-found: warn
       - name: Upload research marquee desktop and mobile screenshots for review
         if: always()
         uses: actions/upload-artifact@v4

@@ -377,3 +377,18 @@
   .keycap-marquee__belt::before,
   .keycap-marquee__belt::after { display: none !important; }
 }
+
+/* Paint only the compact gesture surface, never the full-width sticky shell.
+   Explicit specificity wins over the shared transparent-track reset. */
+@media screen {
+  body:is(.page-home,.page-trend) [data-keycap-marquee].keycap-marquee {
+    box-sizing: border-box;
+    max-width: 100%;
+    background: rgba(255,249,247,.70) !important;
+    border: 1px solid rgba(221,186,199,.55);
+    border-radius: 24px;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: none;
+  }
+}

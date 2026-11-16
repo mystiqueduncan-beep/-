@@ -48,8 +48,9 @@ with sync_playwright() as p:
             ".trend-bilingual-nav" if "trend" in name else ".home-keycap-strip"
         )
         color = nav_strip.evaluate("(el)=>getComputedStyle(el).backgroundColor")
-        assert color.startswith("rgba(255, 249, 247, "), (name, color)
-        assert (".78" if mobile else ".72") in color, (name, color)
+        assert color == "rgba(0, 0, 0, 0)", (name, "sticky shell", color)
+        color = nav.evaluate("(el)=>getComputedStyle(el).backgroundColor")
+        assert color == "rgba(255, 249, 247, 0.7)", (name, "compact frame", color)
 
         belt = nav.locator(".keycap-marquee__belt")
         background = belt.evaluate("(el)=>getComputedStyle(el).backgroundColor")

@@ -9,8 +9,8 @@
   }
   body.page-home.page-desktop .home-keycap-strip {
     position:sticky!important;top:0!important;z-index:95!important;
-    background:rgba(255,249,247,.84)!important;border-bottom:1px solid #ddbac7!important;
-    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+    background:transparent!important;border:0!important;
+    -webkit-backdrop-filter:none;backdrop-filter:none;
   }
   body.page-home.page-desktop .home-keycap-strip .home-keycap-layout {
     max-width:1480px;display:flex!important;align-items:center!important;
@@ -18,7 +18,8 @@
     padding:6px 22px!important;
   }
   body.page-home.page-desktop .home-keycap-strip .keycap-marquee {
-    min-width:0!important;width:100%!important;padding:3px 0 5px!important;
+    flex:0 1 auto!important;min-width:0!important;width:min(100%,var(--keycap-content-width,980px),980px)!important;
+    margin-inline:auto;padding:3px 10px 5px!important;
   }
   body.page-home .bilingual-chapter-nav .keycap-marquee__group {
     align-items:stretch!important; gap:9px!important; padding:3px 3px 6px!important;
@@ -99,10 +100,10 @@
   }
   body.page-home.page-mobile .bilingual-mobile-strip {
     position:sticky!important;top:53px!important;z-index:98!important;padding:6px 12px 6px;
-    background:rgba(255,249,247,.93);border-bottom:1px solid #dfbdc9;
-    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    background:transparent!important;border:0!important;
+    -webkit-backdrop-filter:none;backdrop-filter:none;
   }
-  body.page-home.page-mobile .bilingual-mobile-strip .keycap-marquee{padding:0!important;min-width:0}
+  body.page-home.page-mobile .bilingual-mobile-strip .keycap-marquee{width:100%;padding:0 6px!important;min-width:0}
   body.page-home.page-mobile .bilingual-mobile-strip .keycap-marquee__viewport{min-width:0}
   body.page-home.page-mobile .bilingual-mobile-strip .keycap-marquee__group a{
     min-height:49px!important;padding:5px 12px!important;border-radius:21px!important;
@@ -175,16 +176,6 @@
 /* Section-following active keycaps and restrained decoration on the
    genuinely empty run-in/run-out of the scrolling chapter marquee. */
 @media screen {
-  body.page-home.page-desktop .home-keycap-strip {
-    background: rgba(255,249,247,.72) !important;
-    -webkit-backdrop-filter: blur(14px) saturate(115%);
-    backdrop-filter: blur(14px) saturate(115%);
-  }
-  body.page-home.page-mobile .bilingual-mobile-strip {
-    background: rgba(255,249,247,.78) !important;
-    -webkit-backdrop-filter: blur(14px) saturate(115%);
-    backdrop-filter: blur(14px) saturate(115%);
-  }
   body.page-home .bilingual-chapter-nav .keycap-marquee__group a:is(.is-current,[aria-current="location"]) {
     background: #dfadc1 !important;
     color: #4f3042 !important;

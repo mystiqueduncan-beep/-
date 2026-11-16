@@ -10,6 +10,9 @@
 
   // Respect user preference for reduced motion across desktop, tablet and mobile.
   const playback = window.matchMedia("(prefers-reduced-motion: no-preference)");
+  // Cache between change events; frame/layout reads must not consume a
+  // pending media change before its listener synchronizes the scroll geometry.
+  let playbackAllowed = playback.matches;
   const viewport = nav.querySelector(".keycap-marquee__viewport");
 
   // Show the original list so every keyboard target remains visible.
@@ -34,7 +37,7 @@
       clearTimeout(touchResumeTimer);
       touchResumeTimer = null;
     }
-    nav.classList.toggle("is-touch-paused", Boolean(paused) && playback.matches);
+    nav.classList.toggle("is-touch-paused", Boolean(paused) && playbackAllowed);
   }
   function resumeTouchSoon() {
     if (touchResumeTimer !== null) clearTimeout(touchResumeTimer);
@@ -58,7 +61,7 @@
 
   function setHoverPaused(shouldPause) {
     hovering = Boolean(shouldPause);
-    nav.classList.toggle("is-hover-paused", hovering && playback.matches);
+    nav.classList.toggle("is-hover-paused", hovering && playbackAllowed);
   }
 
   nav.addEventListener("pointerenter", event => {
@@ -269,7 +272,7 @@
   // Browser-driven scroll instead of CSS transform keeps the visible track
   // stationary while paused and makes mouse/touch dragging directly responsive.
   function autoScroll(timestamp) {
-    if (!viewport || !playback.matches || !nav.classList.contains("is-enhanced")) return;
+    if (!viewport || !playbackAllowed || !nav.classList.contains("is-enhanced")) return;
     if (!autoScroll.last) { autoScroll.last = timestamp; return; }
     const elapsed = Math.min(60, Math.max(0, timestamp - autoScroll.last));
     autoScroll.last = timestamp;
@@ -305,7 +308,14 @@
   // A single original set of chapter buttons passes once, followed by a
   // decorated empty interval. Start/end are entirely offscreen so the loop
   // never exposes another copy of the same button or visibly jumps.
+  function updateFrameWidth() {
+    // Size the frame from real chapter keys, excluding the belt's run-in/out.
+    // Its CSS cap differs by page; selection never changes key dimensions.
+    nav.style.setProperty("--keycap-content-width", Math.ceil(original.getBoundingClientRect().width + 24) + "px");
+  }
+
   function updateDuration() {
+    updateFrameWidth();
     const viewportWidth = Math.max(1, viewport?.clientWidth || 620);
     const interludeWidth = Math.max(390, Math.ceil(viewportWidth * 1.12));
     const previousStart = Number.parseFloat(belt.style.getPropertyValue?.("--keycap-start") || 0) || 0;
@@ -321,15 +331,25 @@
     belt.style.setProperty("--keycap-interlude-width", interludeWidth + "px");
   }
 
+  function updateLayout() {
+    if (playbackAllowed && nav.classList.contains("is-enhanced")) updateDuration();
+    else updateFrameWidth();
+  }
+
   function syncMode() {
-    if (playback.matches) {
+    if (playbackAllowed) {
       nav.classList.add("is-enhanced");
+      layoutInitialized = false;
+      fractionalScroll = null;
       updateDuration();
       nav.classList.toggle("is-hover-paused", hovering);
     } else {
       nav.classList.remove("is-enhanced");
       nav.classList.remove("is-hover-paused");
       setTouchPaused(false);
+      layoutInitialized = false;
+      fractionalScroll = null;
+      updateFrameWidth();
     }
     updateCurrent();
   }
@@ -337,18 +357,20 @@
   window.addEventListener("hashchange", () => { updateCurrent(); scheduleCurrent(); });
   window.addEventListener("scroll", scheduleCurrent, { passive: true });
   window.addEventListener("resize", scheduleCurrent);
+  function syncPlayback() {
+    playbackAllowed = playback.matches;
+    syncMode();
+  }
   if (typeof playback.addEventListener === "function") {
-    playback.addEventListener("change", syncMode);
+    playback.addEventListener("change", syncPlayback);
   } else if (typeof playback.addListener === "function") {
-    playback.addListener(syncMode);
+    playback.addListener(syncPlayback);
   }
   if (typeof ResizeObserver !== "undefined") {
-    new ResizeObserver(() => {
-      if (playback.matches) updateDuration();
-    }).observe(original);
+    const resizeObserver = new ResizeObserver(updateLayout);
+    resizeObserver.observe(original);
+    if (viewport) resizeObserver.observe(viewport);
   }
-  window.addEventListener("resize", () => {
-    if (playback.matches) updateDuration();
-  });
+  window.addEventListener("resize", updateLayout);
   syncMode();
 })();
