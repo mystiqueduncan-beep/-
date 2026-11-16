@@ -19,7 +19,7 @@ with sync_playwright() as p:
   # The dedicated mobile research page intentionally remains without one.
   if mobile:
    if name == 'mobile':
-    expect(page.locator('[data-bilingual-nav]')).to_have_count(1)
+    expect(page.locator('.bilingual-mobile-strip.bilingual-chapter-nav')).to_have_count(1)
     nav_mobile=page.locator('[data-keycap-marquee]')
     expect(nav_mobile).to_have_count(1)
     expect(nav_mobile.locator('a.nav-btn-mk')).to_have_count(6)
