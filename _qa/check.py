@@ -5,6 +5,7 @@ from urllib.parse import urlsplit, unquote
 import json, re, hashlib
 from japanese_titles import strip_approved_japanese_ui
 from contact_link_labels import restore_historical_contact_link_labels
+from roadmap_approval import restore_approved_roadmap
 from footer_badge_labels import restore_historical_footer_badge
 ROOT=Path(__file__).resolve().parents[1]
 class Page(HTMLParser):
@@ -249,6 +250,7 @@ for rel,old in base.items():
    new_tab=href+b' target="_blank" rel="noopener noreferrer"'
    if raw.count(new_tab)!=1:errors.append(rel+': approved source new-tab link missing')
    else:raw=raw.replace(new_tab,href,1)
+  raw=restore_approved_roadmap(rel,raw)
   blob_hash=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+b'\0'+raw).hexdigest()
   same=blob_hash==approved_report[rel]
   if not same:errors.append(rel+': unapproved regional analysis content modification')
