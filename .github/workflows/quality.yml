@@ -60,6 +60,15 @@ jobs:
         run: python3 _qa/browser_audit.py --out /tmp/browser-audit --axe node_modules/axe-core/axe.min.js
       - name: Verify sticky homepage marquee and capture desktop/mobile screenshots
         run: python3 _qa/sticky_nav_preview.py --out /tmp/sticky-nav-preview
+      - name: Verify research marquee matches home on desktop and mobile
+        run: python3 _qa/research_marquee_preview.py --out /tmp/research-marquee-preview
+      - name: Upload research marquee desktop and mobile screenshots for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: research-bilingual-marquee-review
+          path: /tmp/research-marquee-preview/*.png
+          if-no-files-found: warn
       - name: Upload desktop/mobile navigation screenshots for PR review
         if: always()
         uses: actions/upload-artifact@v4
