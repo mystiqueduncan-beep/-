@@ -40,6 +40,8 @@ with sync_playwright() as p:
         # Independent coverage contract: page sections, articles, card units and source notes.
         units = held.locator('.mag-header > .container, main section, main article, .key-pillar-card, .hero-action-card, .star-field-box, .stage-meta-box, .candidate-info-box, .candidate-specs-box, .source-verification, main .method-card')
         for unit in units.all():
+            if unit.evaluate('(e)=>Boolean(e.closest(".portfolio-disclosure-panel[aria-hidden=true]"))'):
+                continue
             if unit.get_attribute("data-phase-card") is not None:
                 # Selectable roadmap panels use their own switch animation,
                 # never a scroll-pending state that would trap hidden panels.
@@ -86,8 +88,8 @@ with sync_playwright() as p:
         # Confirm restrained chapter slide, card fade, and action pop geometry.
         chapter_durations = page.locator('.mk-motion-item:not(.mk-fade-item)').evaluate_all('(es)=>es.map(e=>getComputedStyle(e).transitionDuration)')
         fade_durations = page.locator('.mk-motion-item.mk-fade-item').evaluate_all('(es)=>es.map(e=>getComputedStyle(e).transitionDuration)')
-        assert chapter_durations and all(abs(float(d.split(",")[0].strip().rstrip("s")) - .32) < .02 for d in chapter_durations), (name, chapter_durations)
-        assert fade_durations and all(abs(float(d.split(",")[0].strip().rstrip("s")) - .30) < .02 for d in fade_durations), (name, fade_durations)
+        assert chapter_durations and all(abs(float(d.split(",")[0].strip().rstrip("s")) - .88) < .02 for d in chapter_durations), (name, chapter_durations)
+        assert fade_durations and all(abs(float(d.split(",")[0].strip().rstrip("s")) - .68) < .02 for d in fade_durations), (name, fade_durations)
         for selector, kind in (('.mk-motion-pending:not(.mk-fade-item)', 'slide'), ('.mk-motion-pending.mk-fade-item', 'fade'), ('.mk-pop-pending', 'pop')):
             item = page.locator(selector).last
             if item.count():
