@@ -242,6 +242,11 @@ for rel,old in base.items():
   # research file's original Git blob SHA. Every other byte remains checked.
   print_link=b'  <link rel="stylesheet" href="assets/print-layout.css" media="print">\n'
   if raw.count(print_link)==1:raw=raw.replace(print_link,b'',1)
+  # Normalize only this exact authorized new market-summary citation link.
+  # All other bytes remain protected by the approved regional analysis SHA.
+  market_source_link=b'<a href="https://mnscdn.moea.gov.tw/mns/populace/news/News.aspx?kind=1&amp;menu_id=40&amp;news_id=123868" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:2px">經濟部統計處，2026/09/07</a>'
+  if raw.count(market_source_link)!=1:errors.append(rel+': market summary source link missing or changed')
+  else:raw=raw.replace(market_source_link,b'經濟部統計處，2026/09/07',1)
   # Only the two explicitly approved external citations may open in a new tab.
   for href in (
    b'href="https://mnscdn.moea.gov.tw/mns/populace/news/News.aspx?kind=1&amp;menu_id=40&amp;news_id=123868"',
