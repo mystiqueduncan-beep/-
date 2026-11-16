@@ -157,6 +157,10 @@
   }
   body.page-home.page-mobile .bilingual-mobile-jp::before{content:'／';margin-right:6px;color:#bd8b9e}
   body.page-home.page-mobile .bilingual-mobile-heading .mobile-badge{display:none!important}
+  /* Keep mixed Latin/Japanese subtitle glyph boxes on one visual baseline. */
+  body.page-home.page-mobile .bilingual-mobile-heading .tri-subtitle-line > .trilingual-ja {
+    position:relative!important;top:3px!important;
+  }
 }
 @media screen and (min-width:821px) and (max-width:1040px){
   body.page-home.page-desktop .home-keycap-strip .home-keycap-layout{
