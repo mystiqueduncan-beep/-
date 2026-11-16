@@ -4,6 +4,7 @@ from pathlib import Path
 import hashlib,json,re
 from japanese_titles import strip_approved_japanese_ui
 from contact_link_labels import restore_historical_contact_link_labels
+from footer_badge_labels import restore_historical_footer_badge
 ROOT=Path(__file__).resolve().parents[1]
 class Text(HTMLParser):
  def __init__(self,source):
@@ -18,7 +19,7 @@ class Text(HTMLParser):
  def handle_data(self,data):
   if not self.hidden and not self.newnav:self.parts.append(data)
 def digest(source,name=''):
- source=restore_historical_contact_link_labels(name,strip_approved_japanese_ui(name,source))
+ source=restore_historical_footer_badge(name,restore_historical_contact_link_labels(name,strip_approved_japanese_ui(name,source)))
  parts=''.join(Text(source).parts)
  if name in ('contact.html','mobile-contact.html'):
   # The user approved removing only the redundant LINE heading suffix.
