@@ -131,14 +131,23 @@
     color: #ad8295 !important;
     opacity: .72;
     font: 20px/1 Georgia, serif !important;
-    letter-spacing: .55em !important;
+    letter-spacing: .30em !important;
     white-space: pre !important;
     pointer-events: none;
   }
+  /* Anchor the ornaments to the nearest chapter key instead of the
+     middle of the long scroll run-out. Preserve run-out dimensions so
+     autoplay, pause and touch dragging keep exactly their old behavior. */
   body.page-trend .trend-bilingual-nav .keycap-marquee.is-enhanced .keycap-marquee__belt::before {
-    content: "✧   ♡   ·   ✦" !important;
+    content: "✧  ♡  ·  ✦" !important;
+    justify-content: flex-end !important;
+    box-sizing: border-box;
+    padding-right: 20px !important;
   }
   body.page-trend .trend-bilingual-nav .keycap-marquee.is-enhanced .keycap-marquee__belt::after {
-    content: "✦   ·   ♡   ✧" !important;
+    content: "✦  ·  ♡  ✧" !important;
+    justify-content: flex-start !important;
+    box-sizing: border-box;
+    padding-left: 20px !important;
   }
 }
