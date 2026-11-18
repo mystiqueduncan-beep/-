@@ -2280,3 +2280,31 @@ body.page-trend.page-desktop .portfolio-back-to-top__link:focus-visible {
     font-size: 9pt;
   }
 }
+
+/* Unified source citation: the same understated rose-brown underlined
+   text in every portfolio view. Publication dates are semantic text. */
+body a.portfolio-source-link,
+body a.portfolio-source-link:visited {
+  display: inline !important;
+  color: #775c66 !important;
+  font: inherit !important;
+  font-weight: 500 !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 1px !important;
+  text-underline-offset: 2px !important;
+  text-decoration-skip-ink: auto;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  overflow-wrap: anywhere;
+}
+body a.portfolio-source-link:hover { color: #885365 !important; }
+body a.portfolio-source-link:focus-visible {
+  outline: 2px solid #885365 !important;
+  outline-offset: 3px !important;
+}
+@media print {
+  body a.portfolio-source-link { color: #333 !important; }
+}
