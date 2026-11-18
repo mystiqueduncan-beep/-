@@ -352,100 +352,187 @@
   function animateOnce() {
     const lines = [...document.querySelectorAll(".tri-type-line")];
     if (!lines.length || reducedMotion.matches) return;
+    const states = new Map();
+    let observer = null, scheduled = false;
 
-    const pending = new Set(lines);
-    const timers = new Set();
-    let observer = null;
-
+    // Keep the complete original text in the DOM throughout the effect.
+    // Reserve every character's space so narrow/mobile headings never reflow.
     function segment(text) {
       return window.Intl?.Segmenter
-        ? [...new Intl.Segmenter("ja", { granularity: "grapheme" }).segment(text)].map(x => x.segment)
+        ? [...new Intl.Segmenter("zh-Hant", { granularity: "grapheme" }).segment(text)].map(x => x.segment)
         : Array.from(text);
     }
-    function finish(line) {
-      const caption = line.querySelector(".tri-subtitle-line");
-      caption?.classList.remove("tri-typing");
-      caption?.querySelector(".tri-typed-visual")?.remove();
-      line.classList.remove("tri-type-pending", "tri-type-active");
-      line.classList.add("tri-type-done");
+    function primaryOf(line) {
+      const chapter = line.querySelector(".tri-heading-primary .trilingual-zh");
+      if (chapter) return chapter;
+      if (line.classList.contains("tri-hero-line")) {
+        const preceding = line.previousElementSibling;
+        if (preceding?.matches("h1")) return preceding;
+        return line.closest(".trend-hero,.hero-name-row,.name-title-wrap,.candidate-info-box")?.querySelector("h1") || null;
+      }
+      return null;
     }
-
-    function activate(line) {
-      if (!pending.has(line)) return;
-      pending.delete(line);
-      observer?.unobserve(line);
-      const caption = line.querySelector(".tri-subtitle-line");
-      const en = caption?.querySelector(".trilingual-en");
-      const ja = caption?.querySelector(".trilingual-ja");
-      if (!caption || !en || !ja) { finish(line); return; }
-      const enChars = segment(en.textContent);
-      const jaChars = segment(ja.textContent);
-      // Shared timing for desktop and mobile: brisk English, readable Japanese.
-      const enDelay = 30;
-      const jaDelay = 50;
-      const dividerDelay = 30;
-      const totalDuration = enChars.length * enDelay + dividerDelay + jaChars.length * jaDelay;
-      const visual = document.createElement("span");
-      visual.className = "tri-typed-visual";
-      visual.setAttribute("aria-hidden", "true");
-      const visualEn = document.createElement("span");
-      visualEn.className = "tri-typed-en";
-      const visualDivider = document.createElement("span");
-      visualDivider.className = "tri-typed-divider";
-      const visualJa = document.createElement("span");
-      visualJa.className = "tri-typed-ja";
-      visual.append(visualEn, visualDivider, visualJa);
-      caption.append(visual);
-      caption.classList.add("tri-typing");
+    function preparePrimary(state) {
+      const root = state.primary;
+      if (!root) return;
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      while (walker.nextNode()) if (walker.currentNode.textContent.trim()) nodes.push(walker.currentNode);
+      for (const node of nodes) {
+        const fragment = document.createDocumentFragment();
+        const chars = segment(node.textContent).map(character => {
+          const glyph = document.createElement("span");
+          glyph.className = "tri-primary-char";
+          glyph.textContent = character;
+          fragment.append(glyph);
+          return glyph;
+        });
+        if (!chars.length) continue;
+        state.records.push({ node, chars });
+        state.glyphs.push(...chars);
+        node.replaceWith(fragment);
+      }
+      root.classList.add("tri-primary-typing");
+    }
+    function finish(state) {
+      if (state.done) return;
+      state.done = true;
+      observer?.unobserve(state.line);
+      if (state.timer !== null) window.clearTimeout(state.timer);
+      state.primary?.classList.remove("tri-primary-typing");
+      for (const { node, chars } of state.records) {
+        if (chars[0]?.parentNode) {
+          chars[0].replaceWith(node);
+          chars.slice(1).forEach(glyph => glyph.remove());
+        }
+      }
+      state.caption?.classList.remove("tri-typing");
+      state.caption?.querySelector(".tri-typed-visual")?.remove();
+      state.line.classList.remove("tri-type-pending", "tri-type-active");
+      state.line.classList.add("tri-type-done");
+      if ([...states.values()].every(item => item.done)) {
+        observer?.disconnect();
+        window.removeEventListener("scroll", schedule);
+        window.removeEventListener("resize", schedule);
+        document.removeEventListener("transitionend", schedule, true);
+      }
+    }
+    function activate(state) {
+      if (state.started || state.done) return;
+      state.started = true;
+      observer?.unobserve(state.line);
+      const { line, caption, en, ja, glyphs } = state;
+      const zhDelay = 90, enDelay = 30, jaDelay = 50, gap = 80, dividerDelay = 30;
+      const zhDuration = glyphs.length * zhDelay;
+      const subtitleStart = zhDuration + (glyphs.length ? gap : 0);
+      const enChars = segment(en?.textContent || "");
+      const jaChars = segment(ja?.textContent || "");
+      const enDuration = enChars.length * enDelay;
+      const totalDuration = subtitleStart + enDuration + dividerDelay + jaChars.length * jaDelay;
+      let visualEn, visualDivider, visualJa;
+      if (caption && en && ja) {
+        const visual = document.createElement("span");
+        visual.className = "tri-typed-visual";
+        visual.setAttribute("aria-hidden", "true");
+        visualEn = document.createElement("span");
+        visualEn.className = "tri-typed-en";
+        visualDivider = document.createElement("span");
+        visualDivider.className = "tri-typed-divider";
+        visualJa = document.createElement("span");
+        visualJa.className = "tri-typed-ja";
+        visual.append(visualEn, visualDivider, visualJa);
+        caption.append(visual);
+        caption.classList.add("tri-typing");
+      }
       line.classList.remove("tri-type-pending");
       line.classList.add("tri-type-active");
-      const started = performance.now();
-
-      const tick = (now) => {
-        if (reducedMotion.matches || document.hidden || !caption.classList.contains("tri-typing")) { finish(line); return; }
-        const elapsed = now - started;
-        const enDuration = enChars.length * enDelay;
-        const jaElapsed = elapsed - enDuration - dividerDelay;
-        visualEn.textContent = enChars.slice(0, Math.min(enChars.length, Math.floor(elapsed / enDelay))).join("");
-        visualDivider.textContent = elapsed >= enDuration ? "／" : "";
-        visualJa.textContent = jaChars.slice(0, Math.max(0, Math.floor(jaElapsed / jaDelay))).join("");
-        if (elapsed >= totalDuration) { finish(line); return; }
+      const startedAt = performance.now();
+      let visibleCount = 0;
+      const tick = now => {
+        if (state.done) return;
+        if (reducedMotion.matches || document.hidden) { finish(state); return; }
+        const elapsed = Math.max(0, now - startedAt);
+        const count = Math.min(glyphs.length, Math.floor(elapsed / zhDelay));
+        while (visibleCount < count) glyphs[visibleCount++].classList.add("is-typed");
+        const subElapsed = Math.max(0, elapsed - subtitleStart);
+        if (visualEn) {
+          visualEn.textContent = enChars.slice(0, Math.floor(subElapsed / enDelay)).join("");
+          visualDivider.textContent = elapsed >= subtitleStart + enDuration ? "／" : "";
+          visualJa.textContent = jaChars.slice(0, Math.max(0, Math.floor((subElapsed - enDuration - dividerDelay) / jaDelay))).join("");
+        }
+        if (elapsed >= totalDuration) { finish(state); return; }
         window.requestAnimationFrame(tick);
       };
+      state.timer = window.setTimeout(() => finish(state), totalDuration + 900);
       window.requestAnimationFrame(tick);
-      const safe = window.setTimeout(() => finish(line), totalDuration + 600);
-      timers.add(safe);
     }
-
     function checkVisible() {
-      pending.forEach((line) => {
-        const box = line.getBoundingClientRect();
-        if (box.height > 0 && box.top < window.innerHeight * .95 && box.bottom > 0) {
-          activate(line);
-        }
+      const height = window.innerHeight || document.documentElement.clientHeight;
+      let top = 0;
+      document.querySelectorAll(".mag-subnav-strip,.bilingual-mobile-strip,.trend-subnav-strip,.mobile-top-bar").forEach(nav => {
+        const style = window.getComputedStyle(nav);
+        const rect = nav.getBoundingClientRect();
+        const offset = Number.parseFloat(style.top);
+        // A nav still in its normal document position cannot obscure the hero.
+        if (["sticky","fixed"].includes(style.position) && Number.isFinite(offset) && rect.top <= offset + 2 && rect.bottom > 0) top = Math.max(top, rect.bottom);
       });
+      for (const state of states.values()) {
+        if (state.started || state.done) continue;
+        const target = state.primary || state.line;
+        const box = target.getBoundingClientRect();
+        if (!box.width || !box.height) continue;
+        if (target.closest(".mk-motion-pending,.mk-pop-pending")) continue;
+        const visible = Math.min(box.bottom, height - 12) - Math.max(box.top, top);
+        if (visible >= Math.min(24, box.height * .55)) activate(state);
+      }
     }
-    lines.forEach(line => line.classList.add("tri-type-pending"));
-    if ("IntersectionObserver" in window) {
-      observer = new IntersectionObserver(entries => {
-        entries.forEach(({ target, isIntersecting }) => {
-          if (isIntersecting) activate(target);
-        });
-      }, { rootMargin: "0px 0px -4% 0px", threshold: .08 });
-      lines.forEach(line => observer.observe(line));
+    function schedule() {
+      if (scheduled) return;
+      scheduled = true;
+      window.requestAnimationFrame(() => { scheduled = false; checkVisible(); });
     }
-    window.addEventListener("scroll", checkVisible, { passive: true });
-    window.addEventListener("resize", checkVisible, { passive: true });
-    window.requestAnimationFrame(checkVisible);
-
-    const finishAll = () => {
-      observer?.disconnect();
-      pending.clear();
-      timers.forEach(clearTimeout);
-      lines.forEach(finish);
-    };
-    window.addEventListener("beforeprint", finishAll);
-    reducedMotion.addEventListener?.("change", event => { if (event.matches) finishAll(); });
+    const finishAll = () => { observer?.disconnect(); states.forEach(finish); };
+    try {
+      lines.forEach(line => {
+        const caption = line.querySelector(".tri-subtitle-line");
+        const state = {
+          line, primary: primaryOf(line), caption,
+          en: caption?.querySelector(".trilingual-en"),
+          ja: caption?.querySelector(".trilingual-ja"),
+          records: [], glyphs: [], timer: null, done: false, started: false
+        };
+        states.set(line, state);
+        preparePrimary(state);
+        line.classList.add("tri-type-pending");
+      });
+      if ("IntersectionObserver" in window) {
+        try {
+          observer = new IntersectionObserver(schedule, { threshold: [0,.08,.35,.6] });
+          lines.forEach(line => observer.observe(line));
+          states.forEach(state => { if (state.primary) observer.observe(state.primary); });
+        } catch (_) { observer?.disconnect(); observer = null; }
+      }
+      // The common slide-in controller may remove its pending class after
+      // this observer's first callback; transitionend catches that reveal.
+      window.addEventListener("scroll", schedule, { passive: true });
+      window.addEventListener("resize", schedule, { passive: true });
+      document.addEventListener("transitionend", schedule, true);
+      document.addEventListener("focusin", event => {
+        const line = event.target.closest?.(".tri-type-line");
+        if (line && states.has(line)) finish(states.get(line));
+      });
+      window.addEventListener("beforeprint", finishAll);
+      window.addEventListener("pagehide", finishAll, { once: true });
+      const motionChanged = event => { if (event.matches) finishAll(); };
+      if (reducedMotion.addEventListener) reducedMotion.addEventListener("change", motionChanged);
+      else reducedMotion.addListener?.(motionChanged);
+      // When returning from a hidden tab do not leave a partially typed title.
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) states.forEach(state => { if (state.started) finish(state); });
+        else schedule();
+      });
+      schedule();
+    } catch (_) { finishAll(); }
   }
 
   // Only captions that truly overflow become keyboard-focusable scroll
