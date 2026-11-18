@@ -40,9 +40,31 @@ def restore_removed_home_display_only(rel, html):
 
 
 def restore_historical_footer_badge(rel, html):
+    html = restore_approved_footer_layout(rel, html)
     html = restore_removed_home_display_only(rel, html)
     if rel not in FOOTER_PAGES:
         return html
     restored, count = BADGE.subn(r'\g<1>MK\g<2>', html)
     assert count == 1, rel + ": expected exactly one approved JHP footer badge"
     return restored
+
+
+# Approved 2026-11-18: exact footer-only copy/layout simplification.
+# Require the whole approved new fragment, including any existing action.
+# Reverse ONLY that fragment for immutable historical comparisons.
+FOOTER_LAYOUT = {
+    "index.html": ("<footer class=\"mag-footer\">\n    <div class=\"container footer-inner\">\n      <div>\n        <span style=\"margin-right: 14px;\">內容更新日期：2026 年 11 月</span>\n        <a href=\"#top\" class=\"portfolio-back-to-top__link\" style=\"margin-right: 14px;\">↑ 回頂端</a>\n        <span>© 2026 BO-SHIH HUANG</span>\n      </div>\n    </div>\n  </footer>", "<footer class=\"mag-footer portfolio-footer-v2\" aria-label=\"版權\">\n    <div class=\"container footer-inner portfolio-footer-v2__inner\">\n      <div class=\"portfolio-footer-v2__actions\"><a href=\"#top\" class=\"portfolio-back-to-top__link\" style=\"margin-right: 14px;\">↑ 回頂端</a></div>\n      <p class=\"portfolio-footer-v2__copyright\" lang=\"en\">© 2026 BO-SHIH HUANG. ALL RIGHTS RESERVED.</p>\n    </div>\n  </footer>"),
+    "mobile.html": ("<footer class=\"mobile-footer\">\n    <div style=\"margin-bottom: 6px;\">\n      <span style=\"background: var(--mk-yellow); color: var(--mk-navy); padding: 2px 6px; font-weight: 800; border: 1px solid var(--mk-navy);\">JHP</span>\n      <strong style=\"color: var(--mk-navy); margin-left: 4px;\">個人應徵作品集 ｜ 黃博詩</strong>\n    </div>\n    <div style=\"margin-bottom: 6px; color: var(--ink-secondary);\">\n      志願職位：台灣松本清 區域營運經理\n    </div>\n    <div style=\"margin-bottom: 8px;\">\n      內容更新日期：2026 年 11 月\n    </div>\n    <div>© 2026 BO-SHIH HUANG. ALL RIGHTS RESERVED.</div>\n  </footer>", "<footer class=\"mobile-footer portfolio-footer-v2\" aria-label=\"版權\">\n    <div class=\"container footer-inner portfolio-footer-v2__inner\">\n      <p class=\"portfolio-footer-v2__copyright\" lang=\"en\">© 2026 BO-SHIH HUANG. ALL RIGHTS RESERVED.</p>\n    </div>\n  </footer>"),
+    "contact.html": ("<footer class=\"mag-footer\">\n    <div class=\"container footer-inner\">\n      <div>\n        <strong style=\"color: var(--mk-navy);\">台灣松本清 區域營運經理 應徵專刊</strong> ｜ 黃博詩 (HUANG BO-SHIH)\n      </div>\n      <div>\n        <span>黃博詩 應徵台灣松本清 區域營運經理</span>\n      </div>\n      <div>\n        <span>© 2026 BO-SHIH HUANG. ALL RIGHTS RESERVED.</span>\n      </div>\n    </div>\n  </footer>", "<footer class=\"mag-footer portfolio-footer-v2\" aria-label=\"版權\">\n    <div class=\"container footer-inner portfolio-footer-v2__inner\">\n      <p class=\"portfolio-footer-v2__copyright\" lang=\"en\">© 2026 BO-SHIH HUANG. ALL RIGHTS RESERVED.</p>\n    </div>\n  </footer>"),
+    "mobile-contact.html": ("<footer class=\"mobile-footer\">\n    <div style=\"margin-bottom: 8px;\">\n      <span style=\"background: var(--mk-yellow); color: var(--mk-navy); padding: 2px 6px; font-weight: 900; border: 1px solid var(--mk-navy);\">JHP</span>\n      <strong style=\"color: var(--mk-navy); margin-left: 4px;\">個人應徵作品集 ｜ 黃博詩</strong>\n    </div>\n    <div style=\"margin-bottom: 10px;\">\n      志願目標：台灣松本清 區域營運經理\n    </div>\n    <div>© 2026 BO-SHIH HUANG. ALL RIGHTS RESERVED.</div>\n  </footer>", "<footer class=\"mobile-footer portfolio-footer-v2\" aria-label=\"版權\">\n    <div class=\"container footer-inner portfolio-footer-v2__inner\">\n      <p class=\"portfolio-footer-v2__copyright\" lang=\"en\">© 2026 BO-SHIH HUANG. ALL RIGHTS RESERVED.</p>\n    </div>\n  </footer>"),
+    "trend.html": ("", "\n<footer class=\"mag-footer portfolio-footer-v2\" aria-label=\"版權\">\n    <div class=\"container footer-inner portfolio-footer-v2__inner\">\n      <p class=\"portfolio-footer-v2__copyright\" lang=\"en\">© 2026 BO-SHIH HUANG. ALL RIGHTS RESERVED.</p>\n    </div>\n  </footer>"),
+    "mobile-trend.html": ("", "\n<footer class=\"mobile-footer portfolio-footer-v2\" aria-label=\"版權\">\n    <div class=\"container footer-inner portfolio-footer-v2__inner\">\n      <p class=\"portfolio-footer-v2__copyright\" lang=\"en\">© 2026 BO-SHIH HUANG. ALL RIGHTS RESERVED.</p>\n    </div>\n  </footer>"),
+}
+
+def restore_approved_footer_layout(rel, html):
+    if rel not in FOOTER_LAYOUT:
+        return html
+    previous, approved = FOOTER_LAYOUT[rel]
+    assert html.count(approved) == 1, rel + ": approved footer must appear exactly once"
+    assert html.count('portfolio-footer-v2__copyright') == 1, rel + ": duplicate copyright"
+    return html.replace(approved, previous, 1)

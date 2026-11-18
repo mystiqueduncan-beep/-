@@ -2207,3 +2207,76 @@ body.page-trend.page-desktop .portfolio-back-to-top__link:focus-visible {
     text-align: center;
   }
 }
+
+/* Footer edition: restrained rose stationery; never change navigation or CTA visibility. */
+@media screen {
+  body:is(.page-home,.page-contact,.page-trend) footer.portfolio-footer-v2 {
+    box-sizing: border-box;
+    background: #f8e6e8 !important;
+    border-top: 2px dashed #dcb4bf !important;
+    color: #654753 !important;
+    padding: clamp(18px,3vw,28px) clamp(12px,4vw,28px) !important;
+    text-align: center;
+    width: 100%;
+  }
+  body:is(.page-home,.page-contact,.page-trend) .portfolio-footer-v2 .portfolio-footer-v2__inner {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+  }
+  .portfolio-footer-v2 .portfolio-footer-v2__copyright {
+    background: transparent !important;
+    color: #654753 !important;
+    opacity: 1;
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    text-align: center;
+    font: 400 clamp(.6875rem,2.8vw,.875rem)/1.65 var(--font-mono,"Space Mono",ui-monospace,monospace);
+    letter-spacing: .015em;
+    overflow-wrap: anywhere;
+  }
+  .portfolio-footer-v2 .portfolio-footer-v2__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  body.page-home.page-desktop .portfolio-footer-v2 .portfolio-back-to-top__link {
+    margin: 0 !important;
+  }
+  body.page-trend.page-mobile footer.portfolio-footer-v2 {
+    margin-bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+  }
+  body.page-contact.page-desktop .contact-bottom-links {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  body.page-contact.page-desktop .contact-bottom-links > a,
+  body.page-contact.page-mobile main a.btn-contact-action:is([href="mobile.html"],[href="mobile-trend.html"]) {
+    box-sizing: border-box;
+    min-height: 44px;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+}
+@media screen and (max-width: 480px) {
+  .portfolio-footer-v2 .portfolio-footer-v2__copyright {
+    font-size: clamp(.625rem,2.75vw,.75rem);
+  }
+}
+@media print {
+  .portfolio-footer-v2__copyright {
+    margin: 0;
+    text-align: center;
+    font-size: 9pt;
+  }
+}
