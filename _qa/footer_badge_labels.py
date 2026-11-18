@@ -64,6 +64,7 @@ FOOTER_LAYOUT = {
 
 def restore_approved_footer_layout(rel, html):
     html = restore_approved_top_strips(rel, html)
+    html = restore_approved_research_candidate_badge(rel, html)
     if rel not in FOOTER_LAYOUT:
         return html
     previous, approved = FOOTER_LAYOUT[rel]
@@ -109,4 +110,21 @@ def restore_approved_top_strips(rel, html):
     historical, approved = TOP_STRIP_REMOVALS[rel]
     assert historical not in html, rel + ": removed top strip text is still present"
     assert html.count(approved) == 1, rel + ": top strip restoration anchor changed"
+    return html.replace(approved, historical, 1)
+
+
+# Approved 2026-11-18: remove the duplicate author/target position display badge.
+# Only restore this exact removed fragment in historical content audits.
+RESEARCH_CANDIDATE_BADGE = {
+    "trend.html": ("<span class=\"badge-report\">專題研究 ✦ 區域營運改善提案</span>\n<span class=\"badge-candidate\">研究整理：黃博詩 (HUANG BO-SHIH) ｜ 志願應徵：台灣松本清 區域營運經理</span>", "<span class=\"badge-report\">專題研究 ✦ 區域營運改善提案</span>"),
+    "mobile-trend.html": ("<span class=\"badge-report\">專題研究 ✦ 區域營運改善提案</span>\n<span class=\"badge-candidate\">研究整理：黃博詩 (HUANG BO-SHIH) ｜ 志願應徵：台灣松本清 區域營運經理</span>", "<span class=\"badge-report\">專題研究 ✦ 區域營運改善提案</span>"),
+}
+
+def restore_approved_research_candidate_badge(rel, html):
+    if rel not in RESEARCH_CANDIDATE_BADGE:
+        return html
+    historical, approved = RESEARCH_CANDIDATE_BADGE[rel]
+    assert historical not in html, rel + ": removed candidate badge still present"
+    assert '<span class="badge-candidate">' not in html, rel + ": duplicate candidate badge still present"
+    assert html.count(approved) == 1, rel + ": report badge must remain exactly once"
     return html.replace(approved, historical, 1)
