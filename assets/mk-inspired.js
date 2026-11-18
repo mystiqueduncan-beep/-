@@ -115,7 +115,7 @@
     // Research uses the same disclosure controls as the homepage. Keep the
     // introductory description, charts and source citations visible; reveal
     // the proposed actions using the shared accessible control.
-    $("#competition .cards-2x2-grid > .feature-card, #consumer .cards-2x2-grid > .feature-card, #location .cards-2x2-grid > .feature-card, #digital .cards-2x2-grid > .feature-card, #people .cards-2x2-grid > .feature-card").forEach(card => {
+    $$("#competition .cards-2x2-grid > .feature-card, #consumer .cards-2x2-grid > .feature-card, #location .cards-2x2-grid > .feature-card, #digital .cards-2x2-grid > .feature-card, #people .cards-2x2-grid > .feature-card").forEach(card => {
       const title = $(".feature-card-title", card);
       const synopsis = $(".feature-card-text", card);
       const data = $(".feature-card-data", card);
@@ -144,7 +144,7 @@
       groups.push({ host: parent, bars: homeBars });
     }
     for (const section of ["#market", "#consumer"]) {
-      const trendBars = $(section + " .animated-bar");
+      const trendBars = $$(section + " .animated-bar");
       if (trendBars.length) {
         const parent = trendBars[0].closest(".feature-card") || trendBars[0].parentElement;
         groups.push({ host: parent, bars: trendBars });
