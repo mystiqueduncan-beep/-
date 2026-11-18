@@ -6,7 +6,7 @@ import json, re, hashlib
 from japanese_titles import strip_approved_japanese_ui
 from contact_link_labels import restore_historical_contact_link_labels
 from roadmap_approval import restore_approved_roadmap
-from footer_badge_labels import restore_historical_footer_badge
+from footer_badge_labels import restore_historical_footer_badge, restore_approved_footer_layout
 ROOT=Path(__file__).resolve().parents[1]
 class Page(HTMLParser):
  def __init__(self,s):
@@ -229,7 +229,7 @@ for rel,old in base.items():
  # immutable original factual baseline.
  if rel in approved_report:
   raw=restore_historical_contact_link_labels(
-   rel, strip_approved_japanese_ui(rel, f.read_text(encoding='utf-8'))
+   rel, strip_approved_japanese_ui(rel, restore_approved_footer_layout(rel, f.read_text(encoding='utf-8')))
   ).encode('utf-8')
   # Only for immutable approved-content comparison, reverse the single
   # authorized ICO link change. Any other research byte still fails the SHA.
