@@ -2308,3 +2308,144 @@ body a.portfolio-source-link:focus-visible {
 @media print {
   body a.portfolio-source-link { color: #333 !important; }
 }
+
+/* Unified editorial chapter heading — approved screenshot, November 18.
+   Two rows: numbered Chinese title, then the English/Japanese subtitle.
+   Keep semantic headings and the existing one-time typing/reveal lifecycle.
+   At narrow widths the same design wraps rather than concealing the number. */
+@media screen {
+  body:is(.page-home,.page-trend,.page-contact) :is(.section-editorial-header.tri-editorial-header, h2.mobile-card-title.tri-editorial-header, h2.tri-education-line) {
+    box-sizing: border-box;
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 0 0 13px !important;
+    margin: 0 0 18px !important;
+    text-align: left !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-bottom: 1px dashed #dfb7c4 !important;
+    border-radius: 0 0 0 12px !important;
+    box-shadow: none !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-editorial-line {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    text-align: left !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-editorial-line .tri-heading-primary {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: clamp(10px,1.5vw,16px) !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    color: #785367 !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-editorial-line .tri-heading-primary .sec-number {
+    box-sizing: border-box;
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    align-self: center !important;
+    flex: 0 0 clamp(34px,4.4vw,52px) !important;
+    width: clamp(34px,4.4vw,52px) !important;
+    height: clamp(34px,4.4vw,52px) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 1px solid #e1b9c6 !important;
+    border-radius: 50% !important;
+    background: #f6e5e9 !important;
+    box-shadow: inset 0 0 0 3px #fffcfa !important;
+    color: #573447 !important;
+    font: 800 clamp(.81rem,1.3vw,1.08rem)/1 var(--font-sans,"Noto Sans TC",sans-serif) !important;
+    letter-spacing: 0 !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-editorial-line .tri-heading-primary .trilingual-zh,
+  body.page-home.page-desktop .tri-editorial-header .tri-heading-primary .sec-title-main,
+  body.page-trend .tri-editorial-header .tri-heading-primary .sec-title-main,
+  body.page-home.page-mobile h2.mobile-card-title .tri-editorial-line .trilingual-zh {
+    display: block !important;
+    flex: 0 1 auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: var(--font-sans,"Noto Sans TC",sans-serif) !important;
+    font-size: clamp(1.35rem,3.2vw,2.45rem) !important;
+    font-weight: 900 !important;
+    line-height: 1.38 !important;
+    letter-spacing: .025em !important;
+    color: #785367 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) :is(.tri-editorial-line,.tri-hero-line) .tri-subtitle-line {
+    position: relative !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: baseline !important;
+    justify-content: flex-start !important;
+    gap: 4px 8px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow: visible !important;
+    white-space: normal !important;
+    padding: 0 0 2px !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) :is(.tri-editorial-line,.tri-hero-line) .tri-subtitle-line > :is(.trilingual-en,.trilingual-ja,.tri-subtitle-divider),
+  body:is(.page-home,.page-trend,.page-contact) :is(.tri-editorial-line,.tri-hero-line) .tri-typed-visual > * {
+    display: inline !important;
+    flex: 0 1 auto !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    position: static !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    line-height: 1.6 !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) :is(.tri-editorial-line,.tri-hero-line) :is(.trilingual-en,.tri-typed-en) {
+    font-family: var(--font-mono,"Space Mono",monospace) !important;
+    color: #805b6b !important;
+    font-size: clamp(.66rem,1.25vw,.9rem) !important;
+    letter-spacing: .105em !important;
+    font-weight: 750 !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) :is(.tri-editorial-line,.tri-hero-line) :is(.trilingual-ja,.tri-typed-ja) {
+    color: #735064 !important;
+    font-size: clamp(.72rem,1.3vw,.95rem) !important;
+    letter-spacing: .015em !important;
+    font-weight: 650 !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) :is(.tri-editorial-line,.tri-hero-line) .tri-typed-visual {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    gap: 4px 8px !important;
+    white-space: normal !important;
+  }
+  /* Preserve subtitle typing: the complete semantic text reserves its space. */
+  body:is(.page-home,.page-trend,.page-contact) .tri-subtitle-line.tri-typing
+    > :is(.trilingual-en,.trilingual-ja,.tri-subtitle-divider) {opacity: 0 !important;}
+  body.page-trend .tri-hero-line {padding-bottom: 12px !important; border-bottom: 1px dashed #dfb7c4;}
+}
+@media screen and (max-width: 480px) {
+  body:is(.page-home,.page-trend,.page-contact) .tri-editorial-line .tri-heading-primary .sec-number {
+    display: inline-flex !important;
+    flex-basis: 34px !important;
+    width: 34px !important;
+    height: 34px !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-editorial-line .tri-heading-primary {gap: 9px !important;}
+}
