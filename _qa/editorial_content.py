@@ -5,7 +5,7 @@ import hashlib,json,re
 from japanese_titles import strip_approved_japanese_ui
 from contact_link_labels import restore_historical_contact_link_labels
 from roadmap_approval import restore_approved_roadmap
-from footer_badge_labels import restore_historical_footer_badge
+from footer_badge_labels import restore_historical_footer_badge, restore_approved_footer_layout
 ROOT=Path(__file__).resolve().parents[1]
 class Text(HTMLParser):
  def __init__(self,source):
@@ -102,7 +102,7 @@ if __name__=='__main__':
  for name,expected in manifest['pages'].items():
   if name in approved:
    raw=restore_historical_contact_link_labels(
-    name,strip_approved_japanese_ui(name,(ROOT/name).read_text(encoding='utf-8'))
+    name,strip_approved_japanese_ui(name,restore_approved_footer_layout(name,(ROOT/name).read_text(encoding='utf-8')))
    ).encode('utf-8')
    # Reconstruct only the old icon tag when verifying the approved research SHA.
    ico_link=b'<link rel="icon" href="favicon.ico" type="image/x-icon">'
