@@ -2323,7 +2323,7 @@ body a.portfolio-source-link:focus-visible {
   body:is(.page-home,.page-trend,.page-contact) .tri-editorial-line {
     gap: 8px !important;
   }
-  body:is(.page-home,.page-trend,.page-contact) .tri-heading-primary {
+  body:is(.page-home,.page-trend,.page-contact):is(.page-desktop,.page-mobile) .tri-heading-primary {
     display: flex !important;
     flex-wrap: nowrap !important;
     align-items: center !important;
@@ -2332,7 +2332,7 @@ body a.portfolio-source-link:focus-visible {
     min-width: 0 !important;
     max-width: 100% !important;
   }
-  body:is(.page-home,.page-trend,.page-contact) .tri-heading-primary .sec-number {
+  body:is(.page-home,.page-trend,.page-contact):is(.page-desktop,.page-mobile) .tri-heading-primary .sec-number {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -2348,7 +2348,7 @@ body a.portfolio-source-link:focus-visible {
     padding: 0 !important;
     margin: 0 !important;
   }
-  body:is(.page-home,.page-trend,.page-contact) .tri-heading-primary :is(.sec-title-main,.trilingual-zh) {
+  body:is(.page-home,.page-trend,.page-contact):is(.page-desktop,.page-mobile) .tri-heading-primary :is(.sec-title-main,.trilingual-zh) {
     flex: 1 1 auto !important;
     min-width: 0 !important;
     max-width: 100% !important;
@@ -2394,16 +2394,16 @@ body a.portfolio-source-link:focus-visible {
   }
 }
 @media screen and (max-width: 720px) {
-  body:is(.page-home,.page-trend,.page-contact) .tri-heading-primary {
+  body:is(.page-home,.page-trend,.page-contact):is(.page-desktop,.page-mobile) .tri-heading-primary {
     gap: 9px !important;
   }
-  body:is(.page-home,.page-trend,.page-contact) .tri-heading-primary .sec-number {
+  body:is(.page-home,.page-trend,.page-contact):is(.page-desktop,.page-mobile) .tri-heading-primary .sec-number {
     width: 36px !important;
     height: 36px !important;
     flex: 0 0 36px !important;
     font-size: .83rem !important;
   }
-  body:is(.page-home,.page-trend,.page-contact) .tri-heading-primary :is(.sec-title-main,.trilingual-zh) {
+  body:is(.page-home,.page-trend,.page-contact):is(.page-desktop,.page-mobile) .tri-heading-primary :is(.sec-title-main,.trilingual-zh) {
     font-size: clamp(1.12rem,4.8vw,1.62rem) !important;
   }
   body:is(.page-home,.page-trend,.page-contact) .tri-subtitle-line,
