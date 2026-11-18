@@ -2441,3 +2441,37 @@ body a.portfolio-source-link:focus-visible {
   .tri-subtitle-line > :is(.trilingual-en,.trilingual-ja,.tri-subtitle-divider) { opacity: 1 !important; }
   .tri-typed-visual { display: none !important; }
 }
+
+/* Full editorial typewriter: the Chinese headline is typed first, using
+   invisible yet space-preserving glyphs. Then the existing English/Japanese
+   subtitle types. The chapter number and all non-heading content stay intact. */
+@media screen and (prefers-reduced-motion: no-preference) {
+  body:is(.page-home,.page-trend,.page-contact) .tri-primary-typing .tri-primary-char {
+    display: inline !important;
+    font: inherit !important;
+    letter-spacing: inherit !important;
+    line-height: inherit !important;
+    color: inherit !important;
+    text-decoration: inherit;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    background: none !important;
+    box-shadow: none !important;
+    opacity: 0 !important;
+    transition: none !important;
+    animation: none !important;
+    position: static !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-primary-typing .tri-primary-char.is-typed {
+    opacity: 1 !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-type-pending .tri-subtitle-line
+    > :is(.trilingual-en,.trilingual-ja,.tri-subtitle-divider) { opacity: 0 !important; }
+}
+@media print, (prefers-reduced-motion: reduce) {
+  .tri-primary-char,
+  .tri-type-pending .tri-subtitle-line > :is(.trilingual-en,.trilingual-ja,.tri-subtitle-divider) {
+    opacity: 1 !important;
+  }
+}
