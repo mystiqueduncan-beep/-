@@ -392,3 +392,96 @@
     box-shadow: none;
   }
 }
+
+/* Unified chapter chrome: use the actual primary section border-box, not
+   the number or combined length of the moving chapter keys.  Only the
+   background fades; the buttons, current-state color and focus stay opaque.
+   Shared by both homepage/research views; print and reduced motion stay safe. */
+@media screen {
+  body:is(.page-home,.page-trend):is(.page-desktop,.page-mobile)
+    nav:is(.home-keycap-strip,.bilingual-mobile-strip,.trend-bilingual-nav) {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding-inline: 0 !important;
+  }
+  body:is(.page-home,.page-trend):is(.page-desktop,.page-mobile)
+    nav:is(.home-keycap-strip,.trend-bilingual-nav) > .container {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    padding-inline: 0 !important;
+    margin-inline: auto !important;
+  }
+  body:is(.page-home,.page-trend):is(.page-desktop,.page-mobile)
+    nav:is(.home-keycap-strip,.bilingual-mobile-strip,.trend-bilingual-nav)
+    [data-keycap-marquee].keycap-marquee {
+    box-sizing: border-box !important;
+    flex: 0 0 auto !important;
+    width: var(--portfolio-chapter-width, calc(100% - 36px)) !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin-inline: auto !important;
+    padding: 3px 10px 5px !important;
+    border: 1px solid rgba(221,186,199,.55) !important;
+    border-radius: 24px !important;
+    background: rgba(255,249,247,.96) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    transition: background-color .22s ease;
+  }
+  body:is(.page-home,.page-trend):is(.page-desktop,.page-mobile)
+    nav:is(.home-keycap-strip,.bilingual-mobile-strip,.trend-bilingual-nav)
+    [data-keycap-marquee].keycap-marquee.is-reading-section {
+    background: rgba(255,249,247,.20) !important;
+  }
+  body:is(.page-home,.page-trend):is(.page-desktop,.page-mobile)
+    nav:is(.home-keycap-strip,.bilingual-mobile-strip,.trend-bilingual-nav)
+    [data-keycap-marquee] .keycap-marquee__viewport {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    background: transparent !important;
+  }
+  body:is(.page-home,.page-trend):is(.page-desktop,.page-mobile)
+    nav:is(.home-keycap-strip,.bilingual-mobile-strip,.trend-bilingual-nav)
+    [data-keycap-marquee] .keycap-marquee__group a {
+    min-height: 57px !important;
+    padding: 7px 15px !important;
+    border-radius: 25px !important;
+  }
+  body:is(.page-home,.page-trend):is(.page-desktop,.page-mobile)
+    nav:is(.home-keycap-strip,.bilingual-mobile-strip,.trend-bilingual-nav)
+    [data-keycap-marquee] .bilingual-nav-cn {font-size: .86rem !important;}
+  body:is(.page-home,.page-trend):is(.page-desktop,.page-mobile)
+    nav:is(.home-keycap-strip,.bilingual-mobile-strip,.trend-bilingual-nav)
+    [data-keycap-marquee] .bilingual-nav-jp {font-size: .68rem !important;}
+}
+@media screen and (max-width: 768px) {
+  body:is(.page-home,.page-trend):is(.page-desktop,.page-mobile)
+    nav:is(.home-keycap-strip,.bilingual-mobile-strip,.trend-bilingual-nav)
+    [data-keycap-marquee].keycap-marquee {padding: 0 6px !important;}
+  body:is(.page-home,.page-trend):is(.page-desktop,.page-mobile)
+    nav:is(.home-keycap-strip,.bilingual-mobile-strip,.trend-bilingual-nav)
+    [data-keycap-marquee] .keycap-marquee__group a {
+    min-height: 49px !important;
+    padding: 5px 12px !important;
+    border-radius: 21px !important;
+  }
+  body:is(.page-home,.page-trend):is(.page-desktop,.page-mobile)
+    nav:is(.home-keycap-strip,.bilingual-mobile-strip,.trend-bilingual-nav)
+    [data-keycap-marquee] .bilingual-nav-cn {font-size: .78rem !important;}
+  body:is(.page-home,.page-trend):is(.page-desktop,.page-mobile)
+    nav:is(.home-keycap-strip,.bilingual-mobile-strip,.trend-bilingual-nav)
+    [data-keycap-marquee] .bilingual-nav-jp {font-size: .62rem !important;}
+}
+@media (prefers-reduced-motion: reduce) {
+  body:is(.page-home,.page-trend):is(.page-desktop,.page-mobile)
+    nav:is(.home-keycap-strip,.bilingual-mobile-strip,.trend-bilingual-nav)
+    [data-keycap-marquee].keycap-marquee {transition: none !important;}
+}
