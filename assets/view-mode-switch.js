@@ -47,5 +47,11 @@
   // The research page formerly placed its version switch after its hero.
   const nowEmpty = oldParent && oldParent.textContent.trim() === "";
   if (nowEmpty && oldParent.classList.contains("analysis-switch-bar")) oldParent.remove();
-  if (nowEmpty && oldParent.parentElement?.classList.contains("ticker-inner")) oldParent.remove();
+  if (nowEmpty && oldParent.parentElement?.classList.contains("ticker-inner")) {
+    const ticker = oldParent.closest(".mag-top-ticker");
+    oldParent.remove();
+    // The only remaining content was the original device-switch link.
+    // Once moved to the shared selector, remove the empty decorative strip.
+    if (ticker && ticker.textContent.trim() === "" && !ticker.querySelector("a,button,input,select,textarea")) ticker.remove();
+  }
 })();
