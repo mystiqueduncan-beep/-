@@ -63,6 +63,7 @@ FOOTER_LAYOUT = {
 }
 
 def restore_approved_footer_layout(rel, html):
+    html = restore_approved_top_strips(rel, html)
     if rel not in FOOTER_LAYOUT:
         return html
     previous, approved = FOOTER_LAYOUT[rel]
@@ -90,3 +91,22 @@ def restore_approved_contact_header(rel, html):
         assert html.count(new) == 1, rel + ": contact header restoration anchor changed"
         html = html.replace(new, old, 1)
     return html
+
+
+# Approved removal of redundant top display text. Restore only these exact
+# fragments for comparison to historical approved source; no rendered changes.
+TOP_STRIP_REMOVALS = {
+    "index.html": ("<aside class=\"mag-top-ticker\" aria-label=\"專刊資訊\">\n    <div class=\"container ticker-inner\">\n      <div>\n        <span class=\"ticker-pill\">個人應徵作品集</span>\n        <span>黃博詩 ｜ 志願應徵：台灣松本清 區域營運經理 ｜ 桃竹苗 ＆ 大台北門市</span>\n      </div>\n      <div style=\"display: flex; align-items: center; gap: 12px;\">\n        <span style=\"font-weight: 700;\">TEL: 0989-591-825</span>\n        <a href=\"mobile.html?view=mobile\" class=\"top-switch-link\" title=\"手機版\">手機版</a>\n      </div>\n    </div>\n  </aside>", "<aside class=\"mag-top-ticker\" aria-label=\"專刊資訊\">\n    <div class=\"container ticker-inner\">\n      <div>\n        <a href=\"mobile.html?view=mobile\" class=\"top-switch-link\" title=\"手機版\">手機版</a>\n      </div>\n    </div>\n  </aside>"),
+    "contact.html": ("<aside class=\"mag-top-ticker\" aria-label=\"專刊資訊\">\n    <div class=\"container ticker-inner\">\n      <div>\n        <span class=\"ticker-pill\">個人應徵作品集</span>\n        <span>黃博詩 個人應徵作品集 ｜ 個人及聯絡資訊</span>\n      </div>\n      <div>\n        <a href=\"mobile-contact.html?view=mobile\" style=\"color: var(--mk-yellow); text-decoration: none; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; padding: 1px 6px; border: 1px solid var(--mk-yellow); border-radius: 2px;\">手機版</a>\n      </div>\n    </div>\n  </aside>", "<aside class=\"mag-top-ticker\" aria-label=\"專刊資訊\">\n    <div class=\"container ticker-inner\">\n      <div>\n        <a href=\"mobile-contact.html?view=mobile\" style=\"color: var(--mk-yellow); text-decoration: none; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; padding: 1px 6px; border: 1px solid var(--mk-yellow); border-radius: 2px;\">手機版</a>\n      </div>\n    </div>\n  </aside>"),
+    "trend.html": ("<aside aria-label=\"專刊資訊\" class=\"mag-top-ticker\">\n<div class=\"container ticker-inner\">\n<div>\n<span class=\"ticker-pill\">SPECIAL RESEARCH REPORT</span>\n<span>BEAUTY RETAIL EVOLUTION &amp; STRATEGIC ROADMAP</span>\n</div>\n<div>\n<span>PERSONAL PORTFOLIO ✦ HUANG BO-SHIH</span>\n</div>\n</div>\n</aside><header class=\"mag-header\">", "<header class=\"mag-header\">"),
+    "mobile-trend.html": ("<aside aria-label=\"專刊資訊\" class=\"mag-top-ticker\">\n<div class=\"container ticker-inner\">\n<div>\n<span class=\"ticker-pill\">SPECIAL RESEARCH REPORT</span>\n<span>BEAUTY RETAIL EVOLUTION &amp; STRATEGIC ROADMAP</span>\n</div>\n<div>\n<span>PERSONAL PORTFOLIO ✦ HUANG BO-SHIH</span>\n</div>\n</div>\n</aside><header class=\"mag-header\">", "<header class=\"mag-header\">"),
+    "mobile-contact.html": ("<aside class=\"mobile-status-strip\" aria-label=\"履歷狀態\">\n    <div class=\"status-dot-badge\">\n      <span class=\"status-dot\"></span>\n      <span>出勤安排：可於面談時進一步確認</span>\n    </div>\n    <span>聯絡檔案</span>\n  </aside>", "<aside class=\"mobile-status-strip\" aria-label=\"履歷狀態\">\n    <div class=\"status-dot-badge\">\n      <span class=\"status-dot\"></span>\n      <span>出勤安排：可於面談時進一步確認</span>\n    </div>\n  </aside>"),
+}
+
+def restore_approved_top_strips(rel, html):
+    if rel not in TOP_STRIP_REMOVALS:
+        return html
+    historical, approved = TOP_STRIP_REMOVALS[rel]
+    assert historical not in html, rel + ": removed top strip text is still present"
+    assert html.count(approved) == 1, rel + ": top strip restoration anchor changed"
+    return html.replace(approved, historical, 1)
