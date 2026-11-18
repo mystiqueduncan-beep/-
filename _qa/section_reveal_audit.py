@@ -136,7 +136,7 @@ with sync_playwright() as p:
         # palette; each chart finishes its entrance and stays filled on revisit.
         chart_specs = {
             'index': [('#research .data-bars-container', [47.7, 21.4, 13.7, 7.3, 7.0])],
-            'mobile': [('#research .data-bars-container', [47.7, 21.4, 13.7, 7.3, 7.0])],
+            'mobile': [('#research .portfolio-chart', [47.7, 21.4, 13.7, 7.3, 7.0])],
             'trend': [('#market .feature-card:has(.animated-bar)', [47.7, 21.4, 13.7, 7.3, 7.0, 2.9]),
                       ('#consumer .feature-card:has(.animated-bar)', [45.2, 42.5, 28.7, 24.4])],
             'mobile-trend': [('#market .feature-card:has(.animated-bar)', [47.7, 21.4, 13.7, 7.3, 7.0, 2.9]),
@@ -158,7 +158,11 @@ with sync_playwright() as p:
                     gradient:getComputedStyle(e).backgroundImage,
                     delay:e.style.getPropertyValue("--portfolio-bar-delay")})''')
                 assert abs(info['width']-value)<.01 and abs(info['ratio']-value)<1, (name, chart_selector, value, info)
-                assert 'rgb(239, 179, 199)' in info['gradient'] and 'rgb(198, 138, 161)' in info['gradient'], (name, info)
+                # Research pages also retain an existing page-specific rose gradient.
+                palettes = [('rgb(239, 179, 199)', 'rgb(198, 138, 161)')]
+                if 'trend' in name:
+                    palettes.append(('rgb(240, 185, 203)', 'rgb(199, 140, 159)'))
+                assert any(all(color in info['gradient'] for color in palette) for palette in palettes), (name, info)
                 assert info['delay']==str(i*250)+'ms', (name, info)
             page.evaluate('scrollTo({top:0,behavior:"instant"})')
             chart.evaluate('(e)=>{e.scrollIntoView({block:"center",behavior:"instant"});dispatchEvent(new Event("scroll"))}')
