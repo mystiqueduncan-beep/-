@@ -111,6 +111,11 @@
 
   const research = new Map([
     ["市場訊號，如何轉成營運決策？", ["FROM MARKET SIGNALS TO OPERATIONAL DECISIONS", "市場動向を運営判断につなげる"]],
+    ["品牌競爭與市場定位", ["COMPETITIVE STRATEGY", "ブランド競争と市場ポジショニング"]],
+    ["消費者行為與購物心理", ["CONSUMER BEHAVIOR", "消費者行動と購買心理"]],
+    ["商圈研究與展店策略", ["TRADE AREA & STORE NETWORK", "商圏分析と出店戦略"]],
+    ["零售數位轉型與虛實整合", ["DIGITAL RETAIL & OMNICHANNEL", "小売のデジタル化とオムニチャネル"]],
+    ["組織行為與人才管理", ["ORGANIZATIONAL BEHAVIOR", "組織行動と人材育成"]],
     ["把既有經驗，轉成跨店管理方法", ["APPLYING EXPERIENCE TO MULTI-STORE MANAGEMENT", "現場経験を複数店舗の管理に生かす"]],
     ["六項改善方針，明確分工執行", ["SIX IMPROVEMENT PRIORITIES & CLEAR RESPONSIBILITIES", "六つの改善方針と明確な役割分担"]],
     ["90 天區域營運推進計畫", ["90-DAY REGIONAL OPERATIONS ROADMAP", "90日間のエリア運営推進計画"]],
@@ -152,6 +157,20 @@
     return caption;
   }
 
+  const homeChapterNumbers = new Map([
+    ["motivation","01"],["competencies","02"],["cases","03"],
+    ["career","04"],["proposal","05"],["research","06"]
+  ]);
+
+  function makeChapterNumber(value) {
+    if (!value) return null;
+    const number = document.createElement("span");
+    number.className = "sec-number";
+    number.textContent = value;
+    number.setAttribute("aria-hidden", "true");
+    return number;
+  }
+
   function createHeadingGroup(zh, number) {
     const group = document.createElement("span");
     group.className = "tri-heading-primary";
@@ -181,10 +200,12 @@
       const translation = (onResearch ? research : desktop).get(term);
       const en = wrapper.querySelector(".sec-title-sub") || header.querySelector(".sec-en-badge");
       const ja = wrapper.querySelector(".sec-title-jp");
-      if (!translation || !en || !ja) return;
+      if (!en || !ja) return;
+      const labels = translation || [normalize(en.textContent), normalize(ja.textContent)];
+      if (!labels[0] || !labels[1]) return;
 
-      localized(en, translation[0], "en", "trilingual-en");
-      localized(ja, translation[1], "ja", "trilingual-ja");
+      localized(en, labels[0], "en", "trilingual-en");
+      localized(ja, labels[1], "ja", "trilingual-ja");
       const line = document.createElement("span");
       const number = wrapper.querySelector(".sec-number");
       wrapper.prepend(line);
@@ -225,7 +246,10 @@
       if (!chinese || !en || !ja) return;
       const row = document.createElement("span");
       row.className = "bilingual-mobile-title";
-      const line = createLine(chinese, en, ja, row);
+      const id = heading.closest("section[id], #career, #research")?.id;
+      const number = makeChapterNumber(homeChapterNumbers.get(id));
+      const line = createLine(chinese, en, ja, row, number);
+      heading.classList.add("tri-editorial-header");
       heading.replaceChildren(line);
     });
     document.querySelectorAll("h2.mobile-card-title:not(.bilingual-mobile-heading)").forEach((heading) => {
@@ -294,7 +318,7 @@
     const zh = document.createElement("span");
     zh.textContent = heading.textContent;
     heading.classList.add("tri-type-line", "tri-editorial-line", "tri-education-line");
-    heading.replaceChildren(createHeadingGroup(zh), createSubtitle(en, ja));
+    heading.replaceChildren(createHeadingGroup(zh, makeChapterNumber("01")), createSubtitle(en, ja));
     labels.remove();
   }
 
