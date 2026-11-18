@@ -110,6 +110,11 @@
   ]);
 
   const research = new Map([
+    ["品牌競爭與市場定位", ["COMPETITIVE STRATEGY & MARKET POSITIONING", "ブランド競争と市場ポジショニング"]],
+    ["消費者行為與購物心理", ["CONSUMER BEHAVIOR & SHOPPING PSYCHOLOGY", "消費者行動と購買心理"]],
+    ["商圈研究與展店策略", ["TRADE AREA & STORE NETWORK", "商圏分析と出店戦略"]],
+    ["零售數位轉型與虛實整合", ["DIGITAL RETAIL & OMNICHANNEL", "小売のデジタル化とオムニチャネル"]],
+    ["組織行為與人才管理", ["ORGANIZATIONAL BEHAVIOR & TALENT MANAGEMENT", "組織行動と人材育成"]],
     ["市場訊號，如何轉成營運決策？", ["FROM MARKET SIGNALS TO OPERATIONAL DECISIONS", "市場動向を運営判断につなげる"]],
     ["把既有經驗，轉成跨店管理方法", ["APPLYING EXPERIENCE TO MULTI-STORE MANAGEMENT", "現場経験を複数店舗の管理に生かす"]],
     ["六項改善方針，明確分工執行", ["SIX IMPROVEMENT PRIORITIES & CLEAR RESPONSIBILITIES", "六つの改善方針と明確な役割分担"]],
@@ -181,10 +186,12 @@
       const translation = (onResearch ? research : desktop).get(term);
       const en = wrapper.querySelector(".sec-title-sub") || header.querySelector(".sec-en-badge");
       const ja = wrapper.querySelector(".sec-title-jp");
-      if (!translation || !en || !ja) return;
-
-      localized(en, translation[0], "en", "trilingual-en");
-      localized(ja, translation[1], "ja", "trilingual-ja");
+      if (!en || !ja) return;
+      // New research chapters with existing source translations use the same renderer.
+      const locales = translation || [normalize(en.textContent), normalize(ja.textContent)];
+      if (!locales[0] || !locales[1]) return;
+      localized(en, locales[0], "en", "trilingual-en");
+      localized(ja, locales[1], "ja", "trilingual-ja");
       const line = document.createElement("span");
       const number = wrapper.querySelector(".sec-number");
       wrapper.prepend(line);
@@ -215,7 +222,16 @@
     return { value, span };
   }
 
+  function chapterNumber(value) {
+    const number = document.createElement("span");
+    number.className = "sec-number";
+    number.textContent = value;
+    number.setAttribute("aria-hidden", "true");
+    return number;
+  }
+
   function mobileSections() {
+    const numbers = { motivation:"01", competencies:"02", cases:"03", career:"04", proposal:"05", research:"06" };
     // The approved homepage's six identical bilingual chapter headings.
     // Reuse the existing one-time editorial typing lifecycle and semantic H2s.
     document.querySelectorAll("h2.bilingual-mobile-heading").forEach((heading) => {
@@ -225,7 +241,11 @@
       if (!chinese || !en || !ja) return;
       const row = document.createElement("span");
       row.className = "bilingual-mobile-title";
-      const line = createLine(chinese, en, ja, row);
+      const sectionId = heading.closest("section[id]")?.id;
+      const number = numbers[sectionId] ? chapterNumber(numbers[sectionId]) : null;
+      chinese.classList.add("sec-title-main");
+      const line = createLine(chinese, en, ja, row, number);
+      heading.classList.add("tri-editorial-header");
       heading.replaceChildren(line);
     });
     document.querySelectorAll("h2.mobile-card-title:not(.bilingual-mobile-heading)").forEach((heading) => {
@@ -294,8 +314,27 @@
     const zh = document.createElement("span");
     zh.textContent = heading.textContent;
     heading.classList.add("tri-type-line", "tri-editorial-line", "tri-education-line");
-    heading.replaceChildren(createHeadingGroup(zh), createSubtitle(en, ja));
+    zh.classList.add("sec-title-main");
+    heading.replaceChildren(createHeadingGroup(zh, chapterNumber("01")), createSubtitle(en, ja));
     labels.remove();
+  }
+
+  function nameHero() {
+    const heading = document.querySelector("h1.candidate-name, h1.candidate-name-huge, #profile .candidate-info-box h1");
+    if (!heading) return;
+    const scope = heading.parentElement;
+    const label = scope?.querySelector(".candidate-en-name, .candidate-furigana, .en-name");
+    if (!label || label.querySelector(".tri-subtitle-line")) return;
+    const original = normalize(label.textContent);
+    const match = original.match(/^(HUANG BO-SHIH)\s*\(([^)]+)\)$|^([^✦]+)\s*✦\s*(HUANG BO-SHIH)$/i);
+    if (!match) return;
+    const en = localized(document.createElement("span"), match[1] || match[4], "en", "trilingual-en");
+    const ja = localized(document.createElement("span"), (match[2] || match[3]).trim(), "ja", "trilingual-ja");
+    const row = document.createElement("span");
+    row.className = "tri-type-line tri-hero-line tri-name-locale";
+    row.append(createSubtitle(en, ja));
+    label.replaceWith(row);
+    heading.insertAdjacentElement("afterend", row);
   }
 
   function researchHero() {
@@ -363,7 +402,7 @@
       const started = performance.now();
 
       const tick = (now) => {
-        if (reducedMotion.matches || document.hidden) { finish(line); return; }
+        if (reducedMotion.matches || document.hidden || !caption.classList.contains("tri-typing")) { finish(line); return; }
         const elapsed = now - started;
         const enDuration = enChars.length * enDelay;
         const jaElapsed = elapsed - enDuration - dividerDelay;
@@ -399,13 +438,14 @@
     window.addEventListener("resize", checkVisible, { passive: true });
     window.requestAnimationFrame(checkVisible);
 
-    reducedMotion.addEventListener?.("change", (event) => {
-      if (!event.matches) return;
+    const finishAll = () => {
       observer?.disconnect();
       pending.clear();
       timers.forEach(clearTimeout);
       lines.forEach(finish);
-    });
+    };
+    window.addEventListener("beforeprint", finishAll);
+    reducedMotion.addEventListener?.("change", event => { if (event.matches) finishAll(); });
   }
 
   // Only captions that truly overflow become keyboard-focusable scroll
@@ -438,6 +478,7 @@
       researchHero();
     }
     if (document.body.classList.contains("page-contact")) education();
+    if (document.body.matches(".page-home,.page-contact")) nameHero();
     refreshScrollableCaptions();
     window.requestAnimationFrame(refreshScrollableCaptions);
     window.addEventListener("resize", refreshScrollableCaptions, { passive: true });
