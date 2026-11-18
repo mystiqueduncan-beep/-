@@ -66,32 +66,18 @@
         heading, heading.textContent.trim());
     });
 
-    $$("#career .career-entry-card").forEach(card => {
+    // Career duties are always visible; keep the two-column copy wrapper
+    // without creating a disclosure or moving the first duty into a preview.
+    $$("#career .career-entry-card, #career .timeline-job-card").forEach(card => {
       const spread = $(".career-spread", card);
-      const list = $(".duty-bullet-list", spread || card);
-      if (!spread || !list || !list.firstElementChild) return;
-      // Original first duty becomes the always-visible synopsis, not duplicated.
-      const copy = document.createElement("div");
-      copy.className = "portfolio-career-copy";
-      spread.insertBefore(copy, list);
-      copy.append(list);
-      const preview = document.createElement("ul");
-      preview.className = "duty-bullet-list portfolio-career-preview";
-      preview.append(list.firstElementChild);
-      copy.insertBefore(preview, list);
-      disclosure(card, [list], preview, $(".company-title", card)?.textContent.trim() || "工作經歷");
-    });
-    $$("#career .timeline-job-card").forEach(card => {
-      const spread = $(".career-spread", card);
-      const list = $(".duty-list", spread || card);
-      if (!spread || !list) return;
+      const list = $(".duty-bullet-list, .duty-list", spread || card);
+      if (!spread || !list || $(".portfolio-career-copy", spread)) return;
       const preview = [...spread.children].find(node => node.tagName === "P");
-      if (!preview) return;
       const copy = document.createElement("div");
       copy.className = "portfolio-career-copy";
-      spread.insertBefore(copy, preview);
-      copy.append(preview, list);
-      disclosure(card, [list], preview, $(".job-title", card)?.textContent.trim() || "工作經歷");
+      spread.insertBefore(copy, preview || list);
+      if (preview) copy.append(preview);
+      copy.append(list);
     });
 
     $$("#proposal .stage-card").forEach(card => {
