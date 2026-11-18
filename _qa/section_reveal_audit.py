@@ -132,6 +132,40 @@ with sync_playwright() as p:
         page.wait_for_timeout(1750)
         for item in items.all():
             expect(item).to_have_css('opacity', '1')
+        # Chart regression: preserve the original percentages and shared rose
+        # palette; each chart finishes its entrance and stays filled on revisit.
+        chart_specs = {
+            'index': [('#research .data-bars-container', [47.7, 21.4, 13.7, 7.3, 7.0])],
+            'mobile': [('#research .data-bars-container', [47.7, 21.4, 13.7, 7.3, 7.0])],
+            'trend': [('#market .feature-card:has(.animated-bar)', [47.7, 21.4, 13.7, 7.3, 7.0, 2.9]),
+                      ('#consumer .feature-card:has(.animated-bar)', [45.2, 42.5, 28.7, 24.4])],
+            'mobile-trend': [('#market .feature-card:has(.animated-bar)', [47.7, 21.4, 13.7, 7.3, 7.0, 2.9]),
+                             ('#consumer .feature-card:has(.animated-bar)', [45.2, 42.5, 28.7, 24.4])],
+        }
+        for chart_selector, values in chart_specs.get(name, []):
+            chart = page.locator(chart_selector)
+            expect(chart).to_have_count(1)
+            expect(chart).to_have_class(re.compile(r'.*\bportfolio-chart\b.*'))
+            bars = chart.locator('.portfolio-bar')
+            expect(bars).to_have_count(len(values))
+            chart.evaluate('(e)=>{e.scrollIntoView({block:"center",behavior:"instant"});dispatchEvent(new Event("scroll"))}')
+            expect(chart).to_have_class(re.compile(r'.*\bportfolio-chart-active\b.*'))
+            for i, value in enumerate(values):
+                bar = bars.nth(i)
+                expect(bar).to_have_css('transform', 'matrix(1, 0, 0, 1, 0, 0)', timeout=6500)
+                info = bar.evaluate('''e=>({width:parseFloat(e.style.width),
+                    ratio:100*e.getBoundingClientRect().width/e.parentElement.getBoundingClientRect().width,
+                    gradient:getComputedStyle(e).backgroundImage,
+                    delay:e.style.getPropertyValue("--portfolio-bar-delay")})''')
+                assert abs(info['width']-value)<.01 and abs(info['ratio']-value)<1, (name, chart_selector, value, info)
+                assert 'rgb(239, 179, 199)' in info['gradient'] and 'rgb(198, 138, 161)' in info['gradient'], (name, info)
+                assert info['delay']==str(i*250)+'ms', (name, info)
+            page.evaluate('scrollTo({top:0,behavior:"instant"})')
+            chart.evaluate('(e)=>{e.scrollIntoView({block:"center",behavior:"instant"});dispatchEvent(new Event("scroll"))}')
+            expect(chart).to_have_class(re.compile(r'.*\bportfolio-chart-active\b.*'))
+            for bar in bars.all():
+                expect(bar).to_have_css('transform', 'matrix(1, 0, 0, 1, 0, 0)')
+            print('CHART_REGRESSION_PASS', name, chart_selector, values, flush=True)
         # Revisit every item from the bottom: no target is concealed or replayed.
         for item in reversed(items.all()):
             item.evaluate('(e)=>e.scrollIntoView({block:"center",behavior:"instant"})')
