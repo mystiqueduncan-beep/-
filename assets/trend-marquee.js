@@ -107,7 +107,19 @@
     return active;
   }
 
+  // The frame fades only when the sticky bar overlaps the chapter content.
+  // Reading ends when the final chapter passes above the sticky bar.
+  function updateReadingBackground() {
+    if (!chapterTargets.length) return;
+    const frame = nav.getBoundingClientRect();
+    const first = chapterTargets[0].section.getBoundingClientRect();
+    const last = chapterTargets[chapterTargets.length - 1].section.getBoundingClientRect();
+    nav.classList.toggle("is-reading-section",
+      first.top <= frame.bottom + 1 && last.bottom > frame.top);
+  }
+
   function updateCurrent() {
+    updateReadingBackground();
     const active = activeChapterHash();
     nav.querySelectorAll('.keycap-marquee__group a[href^="#"]').forEach(link => {
       const selected = link.getAttribute("href") === active;
@@ -309,9 +321,16 @@
   // decorated empty interval. Start/end are entirely offscreen so the loop
   // never exposes another copy of the same button or visibly jumps.
   function updateFrameWidth() {
-    // Size the frame from real chapter keys, excluding the belt's run-in/out.
-    // Its CSS cap differs by page; selection never changes key dimensions.
-    nav.style.setProperty("--keycap-content-width", Math.ceil(original.getBoundingClientRect().width + 24) + "px");
+    // Match the primary chapter's actual outer width, independent of key count.
+    const chapter = chapterTargets[0]?.section;
+    const width = chapter?.getBoundingClientRect().width;
+    if (Number.isFinite(width) && width > 0) {
+      const value = Math.floor(width * 100) / 100 + "px";
+      nav.style.setProperty("--portfolio-chapter-width", value);
+      nav.style.setProperty("--keycap-content-width", value);
+    } else {
+      nav.style.setProperty("--keycap-content-width", Math.ceil(original.getBoundingClientRect().width + 24) + "px");
+    }
   }
 
   function updateDuration() {
@@ -370,6 +389,7 @@
     const resizeObserver = new ResizeObserver(updateLayout);
     resizeObserver.observe(original);
     if (viewport) resizeObserver.observe(viewport);
+    if (chapterTargets[0]?.section) resizeObserver.observe(chapterTargets[0].section);
   }
   window.addEventListener("resize", updateLayout);
   syncMode();
