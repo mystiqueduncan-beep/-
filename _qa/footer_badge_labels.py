@@ -41,6 +41,7 @@ def restore_removed_home_display_only(rel, html):
 
 def restore_historical_footer_badge(rel, html):
     html = restore_approved_footer_layout(rel, html)
+    html = restore_approved_contact_header(rel, html)
     html = restore_removed_home_display_only(rel, html)
     if rel not in FOOTER_PAGES:
         return html
@@ -68,3 +69,24 @@ def restore_approved_footer_layout(rel, html):
     assert html.count(approved) == 1, rel + ": approved footer must appear exactly once"
     assert html.count('portfolio-footer-v2__copyright') == 1, rel + ": duplicate copyright"
     return html.replace(approved, previous, 1)
+
+
+# Approved contact-page cleanup: reverse only the exact removed display-only
+# strings when comparing historical source text. Never modify the live pages.
+CONTACT_HEADER_REMOVALS = {
+    "contact.html": [
+        ("      <div>\n        <span>黃博詩 應徵台灣松本清 區域營運經理</span>\n      </div>\n      <div>\n        <span>CONTACT: 0989-591-825</span>\n      </div>\n      <div>\n        <a href=\"mobile-contact.html?view=mobile\"", "      <div>\n        <a href=\"mobile-contact.html?view=mobile\""),
+        ("<div class=\"contact-header-badge\">\n          <span>PORTFOLIO ✦ 個人應徵作品集</span>\n          <span style=\"color: var(--mk-navy-soft); font-weight: 700;\">志願目標：台灣松本清 ｜ 區域營運經理 (DISTRICT OPERATIONS MANAGER)</span>\n        </div>", "<div class=\"contact-header-badge\">\n          <span>PORTFOLIO ✦ 個人應徵作品集</span>\n        </div>"),
+        ("<h1 class=\"candidate-name-huge\">黃博詩</h1>\n              <span class=\"candidate-en-badge\">DISTRICT OPERATIONS MANAGER APPLICANT</span>\n              <div>\n                <span class=\"candidate-position-pill\">\n                  <svg width=\"15\" height=\"15\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path fill-rule=\"evenodd\" d=\"M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z\" clip-rule=\"evenodd\"></path></svg>\n                  志願目標：台灣松本清 ｜ 區域營運經理 應徵者\n                </span>\n              </div>\n            </div>", "<h1 class=\"candidate-name-huge\">黃博詩</h1>\n            </div>"),
+    ],
+    "mobile-contact.html": [
+        ("<h1 class=\"candidate-name-huge\">黃博詩</h1>\n        <span class=\"candidate-en-badge\">DISTRICT OPERATIONS MANAGER</span>\n        <div>\n          <span class=\"candidate-position-pill\">\n            <svg width=\"14\" height=\"14\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path fill-rule=\"evenodd\" d=\"M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z\" clip-rule=\"evenodd\"></path></svg>\n            台灣松本清 ｜ 區域營運經理 應徵者\n          </span>\n        </div>\n      </div>", "<h1 class=\"candidate-name-huge\">黃博詩</h1>\n      </div>"),
+    ],
+}
+
+def restore_approved_contact_header(rel, html):
+    for old, new in reversed(CONTACT_HEADER_REMOVALS.get(rel, [])):
+        assert old not in html, rel + ": removed header copy unexpectedly visible"
+        assert html.count(new) == 1, rel + ": contact header restoration anchor changed"
+        html = html.replace(new, old, 1)
+    return html
