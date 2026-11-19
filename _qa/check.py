@@ -484,13 +484,15 @@ for rel in ('index.html','mobile.html','trend.html','mobile-trend.html'):
 # Shared top-positioned version switch and contact-only photo reveal.
 for rel in ('index.html','mobile.html','trend.html','mobile-trend.html','contact.html','mobile-contact.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
- for resource in ('assets/view-mode-switch.css','assets/view-mode-switch.js'):
+ for resource in (('assets/mobile-home.bundle.css' if rel=='mobile.html' else 'assets/view-mode-switch.css'),'assets/view-mode-switch.js'):
   if html.count(resource)!=1:errors.append(rel+': missing unique top version selector '+resource)
  if rel in ('contact.html','mobile-contact.html'):
   if 'portrait-reveal-js' not in html or html.count('assets/contact-portrait-reveal.js')!=1:
    errors.append(rel+': visible-entry photo fade initialization missing')
  else:
   if 'assets/contact-portrait-reveal.js' in html:errors.append(rel+': photo fade must stay contact-only')
+from mobile_css_bundle import check as check_mobile_css_bundle
+check_mobile_css_bundle()
 manifest=json.loads((ROOT/'_audit/original-manifest.json').read_text(encoding='utf-8'))
 for name,item in manifest.items():
  if name.endswith('.jpg') and hashlib.sha256((ROOT/name).read_bytes()).hexdigest()!=item['sha256']:errors.append(name+': original image changed')
