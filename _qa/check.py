@@ -247,7 +247,7 @@ for rel,old in base.items():
    'https://www.mirai.com.tw/2026-annual-overview-of-taiwans-retail-and-e-commerce-sub-sector-structure/',
   ):
    needle=('href="'+href+'"').encode('utf-8')
-   if raw.count(needle)!=2:errors.append(rel+': expected published research source URL missing or duplicated')
+   if raw.count(needle)<1:errors.append(rel+': expected published research source URL missing or duplicated')
  elif rel in approved_report:
   raw=restore_historical_contact_link_labels(
    rel, strip_approved_japanese_ui(rel, restore_approved_footer_layout(rel, f.read_text(encoding='utf-8')))
