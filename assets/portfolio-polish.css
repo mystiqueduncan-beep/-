@@ -75,3 +75,53 @@
     outline-offset: 3px;
   }
 }
+
+/* Phase 2: use the existing rose editorial family for research annotations,
+   allow grid children to shrink on narrow screens, and refine only the
+   research-specific reveal (not marquee, headings, or career animation). */
+@media screen {
+  body.page-trend .feature-card-title {
+    color: var(--editorial-heading-ink) !important;
+  }
+  body.page-trend .feature-card-text,
+  body.page-trend .feature-card-data {
+    color: var(--editorial-reading-ink) !important;
+  }
+  body.page-trend .feature-card-data {
+    line-height: 1.75;
+    overflow-wrap: break-word;
+  }
+  body.page-trend .viz-caption {
+    color: var(--editorial-heading-ink);
+  }
+  body.page-trend .viz-caption > span {
+    color: var(--editorial-source-ink);
+    line-height: 1.65;
+  }
+  body.page-trend .cards-2x2-grid > *,
+  body.page-home.page-mobile .mobile-card,
+  body.page-trend .feature-card {
+    min-width: 0;
+  }
+  body.page-trend .feature-card-data,
+  body.page-trend .research-inline-source {
+    font-variant-numeric: tabular-nums;
+  }
+  @media (max-width: 720px) {
+    body.page-trend .cards-2x2-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+    }
+    body.page-trend .feature-card-text {
+      font-size: .94rem;
+    }
+    body.page-trend .feature-card-data {
+      font-size: .875rem;
+    }
+  }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  body.page-trend .viz-reveal {
+    transition-timing-function: ease-out, cubic-bezier(.22,1,.36,1);
+  }
+}
