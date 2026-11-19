@@ -238,7 +238,7 @@
   body.page-home.page-desktop .grid-2x2 > .editorial-card {
     border:1px solid #e8d3da!important;border-top:4px solid #bd8799!important;
     border-radius:18px!important;background:#fffdf9!important;
-    box-shadow:none!important;transition:transform .2s ease,box-shadow .2s ease!important;
+    box-shadow:none!important;
   }
   body.page-home.page-desktop .grid-2x2 > .editorial-card:hover {
     transform:translateY(-2px);box-shadow:0 9px 20px rgba(101,71,83,.07)!important;
