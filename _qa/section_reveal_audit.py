@@ -214,11 +214,11 @@ with sync_playwright() as p:
                 assert all(abs(a-b)<.01 for a,b in zip(legend_values,values)), (name,chart_selector,legend_values)
                 assert abs(sum(shares)-100)<.01, (name,shares)
             else:
-                rows=chart.locator('.inline-research-viz__rows > li')
-                expect(rows).to_have_count(len(values))
-                labels=rows.locator('b').all_text_contents()
+                chart_rows=chart.locator('.inline-research-viz__rows > li')
+                expect(chart_rows).to_have_count(len(values))
+                labels=chart_rows.locator('b').all_text_contents()
                 actual=[float(v.rstrip("%")) for v in labels]
-                scales=rows.locator('.inline-research-viz__track > i').evaluate_all('(els)=>els.map(e=>parseFloat(e.style.getPropertyValue("--value")))')
+                scales=chart_rows.locator('.inline-research-viz__track > i').evaluate_all('(els)=>els.map(e=>parseFloat(e.style.getPropertyValue("--value")))')
                 assert all(abs(a-b)<.01 for a,b in zip(actual,values)), (name,chart_selector,actual)
                 assert all(abs(a-b/50*100)<.15 for a,b in zip(scales,values)), (name,chart_selector,scales)
             print('INLINE_CHART_REGRESSION_PASS',name,chart_selector,values,flush=True)
