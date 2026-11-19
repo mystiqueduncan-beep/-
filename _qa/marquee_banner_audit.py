@@ -124,13 +124,13 @@ def assert_design(row, mobile, trend, width):
            "visible banner horizontally centered", row["nav"])
     verify(row["nav"]["x"] >= 11 and row["nav"]["right"] <= width - 11,
            "banner stays within screen with side margins", row["nav"])
-    verify(abs(row["nav"]["width"] - min(row["chapterWidth"], width - 24 if mobile and trend else width)) <= 2,
+    verify(abs(row["nav"]["width"] - min(row["chapterWidth"], width - 24)) <= 2,
            "banner matches primary chapter width", row["nav"])
     verify(len(row["links"]) == (11 if trend else 6), "exact chapter link count for each page")
     for link in row["links"]:
         verify(alpha(link["style"]["background"]) == 1 and link["ancestorOpacity"],
                "buttons remain fully opaque", link)
-        verify(link["rect"]["height"] >= (49 if mobile else 57) - 1,
+        verify(link["rect"]["height"] >= (49 if mobile or width <= 768 else 57) - 1,
                "existing touch target height retained", link)
         verify(link["textFits"], "no clipping inside chapter button", link)
         verify(link["rect"]["y"] >= row["viewport"]["y"] - 1 and

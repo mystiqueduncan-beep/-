@@ -422,7 +422,7 @@
     box-sizing: border-box !important;
     flex: 0 0 auto !important;
     width: var(--portfolio-chapter-width, calc(100% - 36px)) !important;
-    max-width: 100% !important;
+    max-width: min(100%, calc(100vw - 24px)) !important;
     min-width: 0 !important;
     margin-inline: auto !important;
     padding: 3px 10px 5px !important;
@@ -486,9 +486,3 @@
     [data-keycap-marquee].keycap-marquee {transition: none !important;}
 }
 
-/* Keep the shared frame aligned to the chapter unless it reaches the screen edge. */
-@media screen {
-  body.page-trend.page-mobile nav.trend-bilingual-nav [data-keycap-marquee].keycap-marquee {
-    max-width: calc(100vw - 24px) !important;
-  }
-}
