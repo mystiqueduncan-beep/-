@@ -172,11 +172,11 @@ with sync_playwright() as p:
         for chart_selector, values in chart_specs.get(name, []):
             chart = page.locator(chart_selector)
             expect(chart).to_have_count(1)
-            expect(chart).to_have_class(re.compile(r'.*\bportfolio-chart\\b.*'))
+            expect(chart).to_have_class(re.compile(r'.*portfolio-chart.*'))
             bars = chart.locator('.portfolio-bar')
             expect(bars).to_have_count(len(values))
             chart.evaluate('(e)=>{e.scrollIntoView({block:"center",behavior:"instant"});dispatchEvent(new Event("scroll"))}')
-            expect(chart).to_have_class(re.compile(r'.*\bportfolio-chart-active\\b.*'))
+            expect(chart).to_have_class(re.compile(r'.*portfolio-chart-active.*'))
             for i, value in enumerate(values):
                 bar = bars.nth(i)
                 expect(bar).to_have_css('transform', 'matrix(1, 0, 0, 1, 0, 0)', timeout=6500)
@@ -190,7 +190,7 @@ with sync_playwright() as p:
                 assert info['delay']==str(i*250)+'ms', (name, info)
             page.evaluate('scrollTo({top:0,behavior:"instant"})')
             chart.evaluate('(e)=>{e.scrollIntoView({block:"center",behavior:"instant"});dispatchEvent(new Event("scroll"))}')
-            expect(chart).to_have_class(re.compile(r'.*\bportfolio-chart-active\\b.*'))
+            expect(chart).to_have_class(re.compile(r'.*portfolio-chart-active.*'))
             for bar in bars.all():
                 expect(bar).to_have_css('transform', 'matrix(1, 0, 0, 1, 0, 0)')
             print('CHART_REGRESSION_PASS', name, chart_selector, values, flush=True)
