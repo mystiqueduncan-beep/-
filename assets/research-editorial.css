@@ -10,7 +10,7 @@
     --research-ink:#49363e;
     --research-line:#d9c4cc;
   }
-  body.page-trend .trend-hero { 
+  body.page-trend .trend-hero {
     padding-block:clamp(28px,5vw,64px)!important;
   }
   body.page-trend .research-edition {
