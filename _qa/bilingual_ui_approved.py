@@ -19,6 +19,16 @@ def restore_bilingual_home_ui(rel, html):
         assert removed not in html, rel + ": stale current-chapter tracker " + removed
     for item in _MAPPINGS[rel]:
         new_fragment = item["new"]
+        if rel == "mobile.html" and item["label"] == "mobile marquee assets":
+            # The mobile homepage now loads the exact same ordered CSS via
+            # its generated bundle. Validate the real bundle before reversing
+            # only the historical marquee script fragment for text comparison.
+            from mobile_css_bundle import check, NAMES
+            check()
+            assert "trend-marquee.css" in NAMES
+            css_link = '<link rel="stylesheet" href="assets/trend-marquee.css">\n'
+            assert new_fragment.startswith(css_link)
+            new_fragment = new_fragment[len(css_link):]
         assert html.count(new_fragment) == 1, rel + ": approved UI fragment missing/duplicated: " + item["label"]
         html = html.replace(new_fragment, item["old"], 1)
     assert "bilingual-chapter-nav" not in html, rel + ": unexpected bilingual markup outside reviewed fragments"
