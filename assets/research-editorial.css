@@ -1,0 +1,186 @@
+/* Research magazine / first implementation. Research only, screen only.
+   Existing data, anchors, navigation and interaction scripts remain authoritative. */
+@media screen {
+  body.page-trend {
+    --research-paper:#f7f5f0;
+    --research-panel:#fffcfa;
+    --research-blush:#ead9de;
+    --research-rose:#97717f;
+    --research-heading:#57313f;
+    --research-ink:#49363e;
+    --research-line:#d9c4cc;
+  }
+  body.page-trend .trend-hero {
+    padding-block:clamp(28px,5vw,64px)!important;
+  }
+  body.page-trend .research-edition {
+    display:flex;align-items:center;gap:12px;
+    color:#795466;font-size:.72rem;letter-spacing:.14em;
+    font-weight:700;margin:0 0 18px;line-height:1.5;
+  }
+  body.page-trend .research-edition::after {
+    content:"";height:1px;max-width:160px;flex:1;background:var(--research-line);
+  }
+  body.page-trend .trend-hero .report-lead-quote {
+    max-width:74ch;line-height:1.85!important;
+    color:var(--research-ink)!important;
+  }
+  body.page-trend .trend-main .research-part {
+    display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;
+    gap:clamp(12px,2vw,24px);padding:16px clamp(16px,3vw,32px);
+    margin:0 0 clamp(20px,3vw,32px);border-block:1px solid var(--research-line);
+    background:var(--research-paper);color:var(--research-heading);
+  }
+  body.page-trend .trend-main .research-part--inside {margin-top:clamp(28px,5vw,56px);}
+  body.page-trend .research-part .research-part-no {
+    font-family:Georgia,serif;font-size:clamp(2rem,4vw,3.25rem);
+    line-height:1;color:#795466;font-variant-numeric:tabular-nums;
+  }
+  body.page-trend .research-part-copy {min-width:0;display:grid;gap:4px;}
+  body.page-trend .research-part-label {font-size:.72rem;letter-spacing:.09em;font-weight:700;color:#795466;}
+  body.page-trend .research-part-title {font-size:clamp(1.1rem,2.4vw,1.55rem);font-weight:700;line-height:1.4;overflow-wrap:anywhere;}
+  body.page-trend .trend-main #market .stats {
+    display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:0;background:var(--research-panel)!important;
+    border:1px solid var(--research-line)!important;border-radius:18px!important;
+    box-shadow:none!important;
+  }
+  body.page-trend .trend-main #market .stats .stat {
+    min-width:0;text-align:left!important;padding:clamp(16px,3vw,30px)!important;
+    border:0!important;border-inline-end:1px solid var(--research-line)!important;
+    background:transparent!important;box-shadow:none!important;
+  }
+  body.page-trend .trend-main #market .stats .stat:last-child {border-inline-end:0!important;}
+  body.page-trend .trend-main #market .stats .stat strong {
+    display:block;color:var(--research-heading)!important;
+    font-size:clamp(1.8rem,3.4vw,3.2rem)!important;
+    line-height:1.15!important;letter-spacing:-.035em;
+    font-variant-numeric:tabular-nums;margin-block:10px;
+  }
+  body.page-trend .trend-main #market .stats :is(b,small) {
+    color:var(--research-ink)!important;line-height:1.55;overflow-wrap:anywhere;
+  }
+  body.page-trend .trend-main #market .stats + .note {
+    line-height:1.65;color:#795466!important;margin-block:12px 0;
+  }
+  body.page-trend .trend-main :is(.viz-comparison,.swimlane-panel,.decision-map) {
+    border-radius:18px!important;border-color:var(--research-line)!important;
+    background:var(--research-panel)!important;box-shadow:none!important;
+  }
+  body.page-trend .trend-main :is(.viz-comparison,.swimlane-panel,.decision-map) .viz-caption {
+    border-bottom:1px solid var(--research-line);padding-bottom:12px;margin-bottom:14px;
+  }
+  body.page-trend .trend-main #market .barrow {font-variant-numeric:tabular-nums;}
+  body.page-trend .trend-main #market .bar {background:var(--research-blush)!important;}
+  body.page-trend .trend-main #market .bar i {background:linear-gradient(90deg,#f0b9cb,#c78c9f)!important;}
+  body.page-trend .trend-main #sources details {
+    border-color:var(--research-line)!important;
+    background:var(--research-panel)!important;
+  }
+  @media(max-width:720px) {
+    body.page-trend .trend-main .research-part {padding:14px;gap:14px;}
+    body.page-trend .trend-main #market .stats {grid-template-columns:minmax(0,1fr);}
+    body.page-trend .trend-main #market .stats .stat {
+      border-inline-end:0!important;border-bottom:1px solid var(--research-line)!important;
+    }
+    body.page-trend .trend-main #market .stats .stat:last-child {border-bottom:0!important;}
+    body.page-trend .trend-main #market .stats .stat strong {font-size:2.15rem!important;}
+  }
+  /* Use existing one-time observers; no second observer or rewritten numbers. */
+  @media(prefers-reduced-motion:no-preference) {
+    body.page-trend .mag-header > .container.mk-motion-in .research-edition {
+      animation:research-editorial-enter .65s cubic-bezier(.22,1,.36,1) both;
+    }
+    body.page-trend .trend-main #market .stats.is-visible .stat strong {
+      animation:research-editorial-enter .68s cubic-bezier(.22,1,.36,1) both;
+    }
+    body.page-trend .trend-main #market .stats.is-visible .stat:nth-child(2) strong {animation-delay:80ms;}
+    body.page-trend .trend-main #market .stats.is-visible .stat:nth-child(3) strong {animation-delay:160ms;}
+    @keyframes research-editorial-enter {
+      from {opacity:0;transform:translateX(-12px);}
+      to {opacity:1;transform:none;}
+    }
+  }
+}
+@media print {
+  .research-edition,.research-part {display:none!important;}
+}
+
+/* Phase 2: distinguish information types rather than repeating one card style. */
+@media screen {
+ body.page-trend .trend-hero .report-title-main {max-width:22ch;line-height:1.32!important;text-wrap:balance;}
+ body.page-trend .trend-hero .report-heading-topic,body.page-trend .trend-hero .report-heading-subject {display:block;}
+ body.page-trend .trend-main :is(#competition,#consumer,#location,#digital,#people) .quote {
+   border-inline-start:4px solid #97717f!important;background:#f3e8eb!important;
+   color:#49363e!important;padding:clamp(16px,3vw,26px)!important;line-height:1.85;
+ }
+ body.page-trend #competition > .cards-2x2-grid {gap:clamp(12px,2vw,24px)!important;}
+ body.page-trend #competition > .cards-2x2-grid > .feature-card {
+   border:1px solid #d9c4cc!important;border-top:4px solid #97717f!important;
+   background:#fffcfa!important;padding:clamp(16px,2.5vw,28px)!important;
+   display:flex;flex-direction:column;min-width:0;
+ }
+ body.page-trend #competition > .cards-2x2-grid > .feature-card .feature-card-data {margin-top:auto;}
+ body.page-trend #competition .viz-comparison > .cards-2x2-grid {gap:8px!important;}
+ body.page-trend #competition .viz-comparison > .cards-2x2-grid > .feature-card {
+   border-radius:10px!important;border:1px solid #d9c4cc!important;
+   background:#f6ebee!important;min-width:0;
+ }
+ body.page-trend #competition .viz-comparison > .cards-2x2-grid > .feature-card:nth-child(2),
+ body.page-trend #competition .viz-comparison > .cards-2x2-grid > .feature-card:nth-child(4) {background:#f7f5f0!important;}
+ body.page-trend #consumer .barrow {font-variant-numeric:tabular-nums;}
+ body.page-trend #consumer .bar {background:#ead9de!important;}
+ body.page-trend #consumer .bar i {background:linear-gradient(90deg,#f0b9cb,#c78c9f)!important;}
+ body.page-trend #consumer .viz-comparison .compare-row {
+   border-inline-start:3px solid #c49ba8;padding-inline-start:12px!important;
+   margin-block:8px;background:#fffcfa!important;
+ }
+ body.page-trend #consumer .viz-comparison .compare-row > span:first-child {
+   color:#57313f!important;font-weight:700;letter-spacing:.02em;
+ }
+ body.page-trend #strategy .strategies .strategy {border-top:3px solid #c49ba8!important;}
+ body.page-trend #strategy .strategies .strategy[data-owner="hq"] {border-top-color:#778778!important;}
+ body.page-trend #roadmap .timeline-control .phase-tab {
+   min-width:0;border:1px solid #d9c4cc!important;border-radius:14px!important;
+   background:#fffcfa!important;color:#57313f!important;
+ }
+ body.page-trend #roadmap .timeline-control .phase-tab.active {
+   background:#ead9de!important;border-color:#795466!important;
+ }
+ body.page-trend #roadmap .phase-current {border-top:4px solid #97717f!important;}
+ body.page-trend #metrics .metric-grid {
+   gap:12px!important;grid-template-columns:repeat(3,minmax(0,1fr));
+ }
+ body.page-trend #metrics .metric-grid .metric-tile {
+   background:#fffcfa!important;border:1px solid #d9c4cc!important;
+   border-radius:14px!important;padding:clamp(14px,2vw,24px)!important;min-width:0;
+ }
+ body.page-trend #metrics .metric-tile h3 {color:#57313f!important;line-height:1.45;}
+ body.page-trend #metrics .metric-tile .metric-symbol {color:#795466!important;}
+ body.page-trend #metrics .metric-tile small {color:#795466!important;overflow-wrap:anywhere;}
+ body.page-trend #metrics .decision-map :is(.decision-start,.decision-question) {
+   background:#ead9de!important;border-color:#c49ba8!important;color:#57313f!important;
+ }
+ body.page-trend #metrics .decision-map .decision-result {border-radius:10px!important;}
+ body.page-trend #sources summary:focus-visible,
+ body.page-trend #roadmap button:focus-visible {outline:2px solid #57313f!important;outline-offset:3px;}
+ @media(max-width:720px) {
+   body.page-trend #metrics .metric-grid {grid-template-columns:repeat(2,minmax(0,1fr));}
+   body.page-trend #competition > .cards-2x2-grid {grid-template-columns:minmax(0,1fr)!important;}
+   body.page-trend #competition .viz-comparison > .cards-2x2-grid {grid-template-columns:minmax(0,1fr)!important;}
+ }
+ @media(max-width:360px) {body.page-trend #metrics .metric-grid {grid-template-columns:minmax(0,1fr);}}
+}
+
+/* Keep the canonical number in layout and in the accessibility tree. */
+@media screen and (prefers-reduced-motion:no-preference) {
+ body.page-trend #market .stats .stat strong.research-counting {position:relative;color:transparent!important;}
+ body.page-trend #market .stats .stat strong.research-counting > :not(.research-count-copy) {color:transparent!important;}
+ body.page-trend #market .stats .research-count-copy {position:absolute;inset:0;color:#57313f!important;font:inherit;letter-spacing:inherit;}
+}
+@media print {
+ .research-count-copy {display:none!important;}
+}
+@media screen and (prefers-reduced-motion:reduce) {
+ .research-count-copy {display:none!important;}
+}
