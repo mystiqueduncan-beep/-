@@ -34,5 +34,10 @@ def restore_approved_roadmap(rel, raw):
     assert before.count(jp) == after.count(jp) == 1
     before = before.replace(jp, b"", 1)
     after = after.replace(jp, b"", 1)
-    assert raw.count(after) == 1, rel + ": unexpected roadmap interaction or content edit"
-    return raw.replace(after, before, 1)
+    # Allow only the exact display ordinal of the existing eleven-chapter report.
+    old_number = b'<span class="sec-number">04</span>'
+    new_number = b'<span class="sec-number">09</span>'
+    assert after.count(old_number) == 1
+    current = after.replace(old_number, new_number, 1)
+    assert raw.count(current) == 1, rel + ": unexpected roadmap interaction or content edit"
+    return raw.replace(current, before, 1)

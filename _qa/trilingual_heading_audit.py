@@ -30,6 +30,11 @@ HOME = [
     ("實體通路趨勢研究摘要", "RETAIL RESEARCH", "実店舗の市場動向リサーチ"),
 ]
 RESEARCH = [
+    ("品牌競爭與市場定位", "COMPETITIVE STRATEGY & MARKET POSITIONING", "ブランド競争と市場ポジショニング"),
+    ("消費者行為與購物心理", "CONSUMER BEHAVIOR & SHOPPING PSYCHOLOGY", "消費者行動と購買心理"),
+    ("商圈研究與展店策略", "TRADE AREA & STORE NETWORK", "商圏分析と出店戦略"),
+    ("零售數位轉型與虛實整合", "DIGITAL RETAIL & OMNICHANNEL", "小売のデジタル化とオムニチャネル"),
+    ("組織行為與人才管理", "ORGANIZATIONAL BEHAVIOR & TALENT MANAGEMENT", "組織行動と人材育成"),
     ("市場訊號，如何轉成營運決策？", "FROM MARKET SIGNALS TO OPERATIONAL DECISIONS", "市場動向を運営判断につなげる"),
     ("把既有經驗，轉成跨店管理方法", "APPLYING EXPERIENCE TO MULTI-STORE MANAGEMENT", "現場経験を複数店舗の管理に生かす"),
     ("六項改善方針，明確分工執行", "SIX IMPROVEMENT PRIORITIES & CLEAR RESPONSIBILITIES", "六つの改善方針と明確な役割分担"),
@@ -46,13 +51,14 @@ MOBILE = [
     ("到任後工作構想", "POST-HIRE OPERATIONS PLAN", "入社後の業務構想"),
     ("實體通路趨勢研究摘要", "RETAIL RESEARCH", "実店舗の市場動向リサーチ"),
 ]
+NAME = [("HUANG BO-SHIH", "HUANG BO-SHIH", "コウ・ハクシ")]
 EXPECT = {
-    "index": HOME,
-    "mobile": MOBILE,
+    "index": HOME + NAME,
+    "mobile": MOBILE + NAME,
     "trend": RESEARCH + [("藥粧產業趨勢研究", "DRUGSTORE INDUSTRY TRENDS & REGIONAL OPERATIONS PROPOSAL", "ドラッグストア業界の動向調査とエリア運営改善提案")],
     "mobile-trend": RESEARCH + [("藥粧產業趨勢研究", "DRUGSTORE INDUSTRY TRENDS & REGIONAL OPERATIONS PROPOSAL", "ドラッグストア業界の動向調査とエリア運営改善提案")],
-    "contact": [("教育背景", "EDUCATION", "学歴")],
-    "mobile-contact": [("教育背景", "EDUCATION", "学歴")],
+    "contact": [("教育背景", "EDUCATION", "学歴")] + NAME,
+    "mobile-contact": [("教育背景", "EDUCATION", "学歴")] + NAME,
 }
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch(executable_path=os.environ.get("CHROME_PATH"), args=["--no-sandbox"])
@@ -145,7 +151,7 @@ with sync_playwright() as playwright:
             assert item["caption"]["width"] <= item["row"]["width"] + 2, (name,"caption extends outside heading",item)
             if abs(item["en"]["top"]-item["ja"]["top"]) < 8:
                 assert item["ja"]["left"] <= item["en"]["right"] + 38, (name,"English and Japanese drift apart",item)
-        assert sum(item["editorial"] for item in layout) >= (6 if name in ("index","trend","mobile-trend") else 7 if name=="mobile" else 1), (name, "unified headings not found",layout)
+        assert sum(item["editorial"] for item in layout) >= (11 if name in ("trend","mobile-trend") else 6 if name=="index" else 7 if name=="mobile" else 1), (name, "unified headings not found",layout)
         overflow = page.evaluate("() => document.documentElement.scrollWidth - innerWidth")
         assert overflow <= 1, (name, "viewport horizontal overflow", overflow)
         print(json.dumps({"page":name,"width":width,"headlines":len(actual),"overflow_px":overflow,"reduced_motion":"pass"}, ensure_ascii=False),flush=True)
