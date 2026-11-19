@@ -227,7 +227,21 @@ for rel,old in base.items():
  # Exact source files supplied and approved by user replace only the two
  # research pages. Every other resume page remains checked against the
  # immutable original factual baseline.
- if rel in approved_report:
+ # The expanded eleven-chapter research is already published on main.
+ # Pin exact Git blobs from main ec5bdddbe536094cc20f4b42e3356a944f68c09e.
+ # Keep the older six-chapter fingerprint for historical verification.
+ if rel in ('trend.html','mobile-trend.html'):
+  expanded={'trend.html':'9645da84706e7536b8c76529c84b33c169b3b4f9','mobile-trend.html':'40a8e620b0c84a68a4245cf25e120607bfde1c09'}
+  raw=f.read_bytes()
+  same=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+b'\0'+raw).hexdigest()==expanded[rel]
+  if not same:errors.append(rel+': expanded research differs from pinned published main; review required')
+  for href,label in (
+   ('https://mnscdn.moea.gov.tw/mns/populace/news/News.aspx?kind=1&amp;menu_id=40&amp;news_id=123868','經濟部統計處，2026/09/07'),
+   ('https://www.mirai.com.tw/2026-annual-overview-of-taiwans-retail-and-e-commerce-sub-sector-structure/','未來流通研究所，2026/02/04'),
+  ):
+   link=('<a href="'+href+'" target="_blank" rel="noopener noreferrer" class="portfolio-source-link">'+label+'</a>').encode('utf-8')
+   if raw.count(link)!=2:errors.append(rel+': pinned citation labels or link attributes changed')
+ elif rel in approved_report:
   raw=restore_historical_contact_link_labels(
    rel, strip_approved_japanese_ui(rel, restore_approved_footer_layout(rel, f.read_text(encoding='utf-8')))
   ).encode('utf-8')

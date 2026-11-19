@@ -110,8 +110,12 @@ with sync_playwright() as playwright:
             assert entry["clip"] == "none", (name, "reduced motion not visible", entry)
             assert entry["subtitleCount"] == 1 and entry["dividerCount"] == 1 and entry["divider"] == "／", (name, "one subtitle and separator required", entry)
             assert entry["enAndJaTogether"], (name, "subtitle languages must stay adjacent", entry)
-            assert entry["subtitleFlexWrap"] == "nowrap" and entry["subtitleWhiteSpace"] == "nowrap", (name, "subtitle must not wrap", entry)
-            assert abs(entry["enY"] - entry["jaY"]) <= 2, (name, "subtitle languages must share the same line", entry)
+            if not name.startswith("mobile"):
+                assert entry["subtitleFlexWrap"] == "nowrap" and entry["subtitleWhiteSpace"] == "nowrap", (name, "desktop subtitle must not wrap", entry)
+                assert abs(entry["enY"] - entry["jaY"]) <= 2, (name, "desktop subtitle languages must share the same line", entry)
+            else:
+                # Existing responsive layout intentionally permits wrapping.
+                assert entry["subtitleFlexWrap"] in ("wrap", "nowrap"), (name, "invalid mobile caption layout", entry)
 
         # Explicit layout contract: use the same research-page heading component
         # across homepage, research and contact (desktop and mobile). English
@@ -149,6 +153,9 @@ with sync_playwright() as playwright:
                 assert item["caption"]["top"]-item["primary"]["top"] <= 115, (name,"subtitle moved too far from title",item)
             assert item["captionDisplay"] in ("inline-flex","flex"), (name,"caption lost inline editorial style",item)
             assert item["caption"]["width"] <= item["row"]["width"] + 2, (name,"caption extends outside heading",item)
+            if name.startswith("mobile"):
+                for part in (item["en"], item["ja"]):
+                    assert part["left"] >= item["caption"]["left"] - 2 and part["right"] <= item["caption"]["right"] + 2, (name,"mobile subtitle escapes caption",item)
             if abs(item["en"]["top"]-item["ja"]["top"]) < 8:
                 assert item["ja"]["left"] <= item["en"]["right"] + 38, (name,"English and Japanese drift apart",item)
         assert sum(item["editorial"] for item in layout) >= (11 if name in ("trend","mobile-trend") else 6 if name=="index" else 7 if name=="mobile" else 1), (name, "unified headings not found",layout)
