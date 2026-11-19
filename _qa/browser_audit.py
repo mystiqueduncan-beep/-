@@ -68,7 +68,9 @@ with sync_playwright() as p:
      v=marquee.locator(".keycap-marquee__viewport")
      before=v.evaluate("e=>e.scrollLeft")
      page.wait_for_timeout(320)
-     assert v.evaluate("e=>e.scrollLeft") > before, ("native autoplay",name)
+     after=v.evaluate("e=>e.scrollLeft")
+     locked=marquee.evaluate("e=>e.classList.contains('is-chapter-paused')")
+     assert (abs(after-before)<=1 if locked else after>before), ("chapter pause / native autoplay",name)
      first_key = page.locator('.keycap-marquee__group a').first
      first_key.dispatch_event('pointerover', {'pointerType': 'mouse'})
      assert marquee.evaluate("e=>e.classList.contains('is-hover-paused')")

@@ -26,6 +26,7 @@
   nav.addEventListener("focusout", (event) => {
     if (!nav.contains(event.relatedTarget)) {
       nav.classList.remove("is-keyboard-paused");
+      scheduleCurrent();
     }
   });
 
@@ -88,12 +89,14 @@
     nav.querySelectorAll('.keycap-marquee__group a[href^="#"]').forEach(link => {
       const hash = link.getAttribute("href");
       const section = document.getElementById(hash.slice(1));
-      if (section) chapterTargets.push({ hash, section });
+      if (section) chapterTargets.push({ hash, section, link });
     });
   }
 
-  function activeChapterHash() {
-    if (!chapterTargets.length) return window.location.hash || null;
+  let lockedChapter = null;
+  let positionedChapter = null;
+  function activeChapterState() {
+    if (!chapterTargets.length) return { active: window.location.hash || null, reading: false };
     const sticky = nav.closest(".mag-subnav-strip,.bilingual-mobile-strip,.trend-subnav-strip");
     const stickyBottom = sticky ? sticky.getBoundingClientRect().bottom : 0;
     // A new chapter becomes current when its heading reaches the reading line,
@@ -104,7 +107,11 @@
       if (entry.section.getBoundingClientRect().top <= readingLine) active = entry.hash;
       else break;
     }
-    return active;
+    const first = chapterTargets[0].section.getBoundingClientRect();
+    const last = chapterTargets[chapterTargets.length - 1].section.getBoundingClientRect();
+    const reading = stickyBottom >= 0 && stickyBottom < window.innerHeight &&
+      first.top <= readingLine && last.bottom > readingLine;
+    return { active, reading };
   }
 
   // The frame fades only when the sticky bar overlaps the chapter content.
@@ -120,8 +127,15 @@
 
   function updateCurrent() {
     // Read chapter geometry before writing any visual or accessibility state.
-    const active = activeChapterHash();
+    const { active, reading } = activeChapterState();
     updateReadingBackground();
+    const nextLock = reading ? active : null;
+    if (nextLock !== lockedChapter) {
+      lockedChapter = nextLock;
+      positionedChapter = null;
+    }
+    nav.classList.toggle("is-chapter-paused", Boolean(lockedChapter));
+    if (!lockedChapter) belt.style.removeProperty?.("padding-inline-end");
     nav.querySelectorAll('.keycap-marquee__group a[href^="#"]').forEach(link => {
       const selected = link.getAttribute("href") === active;
       link.classList.toggle("is-current", selected);
@@ -129,6 +143,27 @@
       if (selected && current !== "location") link.setAttribute("aria-current", "location");
       else if (!selected && current !== null) link.removeAttribute("aria-current");
     });
+    alignLockedChapter();
+  }
+
+  // Align once on each chapter entry. A manual drag remains exactly where
+  // the reader left it until entering a different chapter. Never fight input.
+  function alignLockedChapter() {
+    if (!viewport || !lockedChapter || lockedChapter === positionedChapter || drag) return;
+    const link = chapterTargets.find(entry => entry.hash === lockedChapter)?.link;
+    if (!link) return;
+    if (nav.classList.contains("is-keyboard-paused") && document.activeElement &&
+        document.activeElement !== link && nav.contains(document.activeElement)) return;
+    // Reduced motion suppresses the decorative trailing interval. Reserve
+    // sufficient blank scroll range so the final key can also align fully.
+    if (!playbackAllowed || nav.classList.contains("is-keyboard-paused")) {
+      belt.style.setProperty("padding-inline-end", viewport.clientWidth + "px");
+    }
+    const inset = Math.max(14, Math.ceil(viewport.clientWidth * .035) + 4);
+    const left = link.getBoundingClientRect().left - viewport.getBoundingClientRect().left;
+    viewport.scrollLeft = Math.max(0, viewport.scrollLeft + left - inset);
+    positionedChapter = lockedChapter;
+    fractionalScroll = viewport.scrollLeft;
   }
 
   let currentRaf = 0;
@@ -227,6 +262,7 @@
       nav.classList.remove("is-drag-paused");
       nav.classList.remove("is-scrubbing");
       if (wasTouch) resumeTouchSoon();
+      scheduleCurrent();
       try {
         if (nav.hasPointerCapture?.(event.pointerId)) nav.releasePointerCapture(event.pointerId);
       } catch (_) {}
@@ -269,6 +305,7 @@
       nav.classList.remove("is-drag-paused");
       nav.classList.remove("is-scrubbing");
       if (wasTouch) setTouchPaused(false);
+      scheduleCurrent();
     });
 
     viewport.addEventListener("keydown", event => {
@@ -290,7 +327,8 @@
     if (!autoScroll.last) { autoScroll.last = timestamp; return; }
     const elapsed = Math.min(60, Math.max(0, timestamp - autoScroll.last));
     autoScroll.last = timestamp;
-    if (nav.classList.contains("is-hover-paused") ||
+    if (nav.classList.contains("is-chapter-paused") ||
+        nav.classList.contains("is-hover-paused") ||
         nav.classList.contains("is-keyboard-paused") ||
         nav.classList.contains("is-touch-paused") ||
         nav.classList.contains("is-drag-paused") ||
@@ -358,6 +396,8 @@
   }
 
   function syncMode() {
+    positionedChapter = null;
+    belt.style.removeProperty?.("padding-inline-end");
     if (playbackAllowed) {
       nav.classList.add("is-enhanced");
       layoutInitialized = false;
