@@ -72,8 +72,7 @@
   }
   body.page-trend .trend-main #market .barrow {font-variant-numeric:tabular-nums;}
   body.page-trend .trend-main #market .bar {background:var(--research-blush)!important;}
-  body.page-trend .trend-main #market .bar i {background:#97717f!important;}
-  body.page-trend .trend-main #market .barrow:first-of-type .bar i {background:#795466!important;}
+  body.page-trend .trend-main #market .bar i {background:linear-gradient(90deg,#f0b9cb,#c78c9f)!important;}
   body.page-trend .trend-main #sources details {
     border-color:var(--research-line)!important;
     background:var(--research-panel)!important;
@@ -131,8 +130,7 @@
  body.page-trend #competition .viz-comparison > .cards-2x2-grid > .feature-card:nth-child(4) {background:#f7f5f0!important;}
  body.page-trend #consumer .barrow {font-variant-numeric:tabular-nums;}
  body.page-trend #consumer .bar {background:#ead9de!important;}
- body.page-trend #consumer .bar i {background:#97717f!important;}
- body.page-trend #consumer .barrow:first-of-type .bar i {background:#795466!important;}
+ body.page-trend #consumer .bar i {background:linear-gradient(90deg,#f0b9cb,#c78c9f)!important;}
  body.page-trend #consumer .viz-comparison .compare-row {
    border-inline-start:3px solid #c49ba8;padding-inline-start:12px!important;
    margin-block:8px;background:#fffcfa!important;
