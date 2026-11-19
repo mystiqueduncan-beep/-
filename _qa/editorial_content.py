@@ -122,7 +122,7 @@ if __name__=='__main__':
    assert raw.count(versioned)==1, name+': versioned marquee script missing or duplicated'
    for label in (b'TRADE AREA &amp; STORE NETWORK',b'DIGITAL RETAIL &amp; OMNICHANNEL'):
     assert raw.count(b'>'+label+b'</span>')==1, 'encoded heading missing or changed'
-   actual=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+b'\\0'+raw).hexdigest()
+   actual=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+bytes([0])+raw).hexdigest()
    assert actual==expanded[name],name+': expanded research source differs from approved publication'
    current[name]=actual
   elif name in approved:
