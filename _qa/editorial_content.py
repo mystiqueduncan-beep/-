@@ -114,20 +114,16 @@ if __name__=='__main__':
  current={}
  for name,expected in manifest['pages'].items():
   if name in ('trend.html','mobile-trend.html'):
-   # Same published main baseline used by check.py; no blanket text exemption.
-   expanded={'trend.html':'9645da84706e7536b8c76529c84b33c169b3b4f9','mobile-trend.html':'40a8e620b0c84a68a4245cf25e120607bfde1c09'}
-   raw=restore_portfolio_polish(name,(ROOT/name).read_text(encoding='utf-8')).encode('utf-8')
-   # Keep the immutable research fingerprint; reverse only the approved script version.
+   # Pin the exact user-approved inline-chart publication. This preserves a byte-level guard
+   # over the expanded research pages while allowing no general text exemption.
+   expanded={'trend.html':'7f2ca318bf0c06b5e71fc778365cd56c26cd5bef','mobile-trend.html':'57bda7acb7a4e2c81f1622ecce4cff16c5d7ddbc'}
+   raw=(ROOT/name).read_bytes()
    versioned=b'src="assets/trend-marquee.js?v=20261119-chapter-lock"'
    assert raw.count(versioned)==1, name+': versioned marquee script missing or duplicated'
-   raw=raw.replace(versioned,b'src="assets/trend-marquee.js"',1)
-   # Permit only the two exact HTML entity corrections; preserve the published text hash.
    for label in (b'TRADE AREA &amp; STORE NETWORK',b'DIGITAL RETAIL &amp; OMNICHANNEL'):
-    normalized=b'>'+label+b'</span>'
-    assert raw.count(normalized)==1, 'encoded heading missing or changed'
-    raw=raw.replace(normalized,normalized.replace(b'&amp;',b'&'),1)
-   actual=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+b'\0'+raw).hexdigest()
-   assert actual==expanded[name],name+': expanded research differs from published baseline'
+    assert raw.count(b'>'+label+b'</span>')==1, 'encoded heading missing or changed'
+   actual=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+b'\\0'+raw).hexdigest()
+   assert actual==expanded[name],name+': expanded research source differs from approved publication'
    current[name]=actual
   elif name in approved:
    raw=restore_historical_contact_link_labels(
