@@ -127,7 +127,9 @@
 
     // Deep links and print should never leave a requested detail inaccessible.
     const openHash = () => {
-      const hash = decodeURIComponent(location.hash.slice(1));
+      let hash;
+      try { hash = decodeURIComponent(location.hash.slice(1)); }
+      catch (_) { return; }
       if (!hash) return;
       const target = document.getElementById(hash);
       target?.closest(".portfolio-disclosure-card")?.portfolioSetOpen?.(true);

@@ -174,5 +174,29 @@ with sync_playwright() as p:
  assert len(browser.contexts[-1].pages)==1
  assert page.evaluate('getComputedStyle(document.body).opacity')=='1'
  page.go_back();page.wait_for_timeout(800);assert page.locator('h1').inner_text()=='黃博詩'
+ # A malformed percent escape in a shared link must not abort page
+ # initialization or subsequent valid chapter navigation.
+ for name in ['index','mobile','trend','mobile-trend']:
+  mobile=name.startswith('mobile')
+  page=browser.new_page(viewport={'width':390 if mobile else 1440,'height':844},
+                        reduced_motion='reduce')
+  page.route('https://**/*',lambda r:r.abort())
+  errors=[]
+  page.on('pageerror',lambda e:errors.append(str(e)))
+  url=f'http://127.0.0.1:{server.server_port}/{name}.html?view='+('mobile' if mobile else 'desktop')
+  page.goto(url+'#%E0%A4%A',wait_until='load')
+  expect(page.locator('.portfolio-chart').first).to_be_attached()
+  toggle=page.locator('.portfolio-disclosure-toggle').first
+  expect(toggle).to_have_attribute('aria-expanded','false')
+  toggle.click()
+  expect(toggle).to_have_attribute('aria-expanded','true')
+  page.evaluate("location.hash = '%ZZ'")
+  page.wait_for_timeout(80)
+  page.evaluate("location.hash = document.querySelector('[data-keycap-marquee] a').hash")
+  page.wait_for_timeout(80)
+  assert not errors, ('malformed hash must not raise page errors',name,errors)
+  assert page.evaluate("document.getElementById(decodeURIComponent(location.hash.slice(1))) !== null")
+  rows.append({'page':name,'malformedHash':'pass'})
+  page.close()
  browser.close()
 server.shutdown();print(json.dumps(rows,ensure_ascii=False,indent=2));print('Same-tab transition and history passed.')
