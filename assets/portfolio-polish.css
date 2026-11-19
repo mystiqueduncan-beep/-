@@ -125,3 +125,247 @@
     transition-timing-function: ease-out, cubic-bezier(.22,1,.36,1);
   }
 }
+
+/* 2026-11-20 unified Japanese editorial portfolio composition.
+   Screen only: preserve all existing copy, facts, navigation, and print rules. */
+@media screen {
+  body:is(.page-home,.page-contact,.page-trend) {
+    --portfolio-paper:#fffaf4;
+    --portfolio-card:#fffdf9;
+    --portfolio-rose:#936275;
+    --portfolio-rose-soft:#f4e4e9;
+    --portfolio-rose-line:#dfc2cc;
+    --portfolio-ink:#493d43;
+    background:var(--portfolio-paper);
+    color:var(--portfolio-ink);
+  }
+  /* Homepage cover: a magazine opening with a clear name, role, and actions. */
+  body.page-home.page-desktop .mag-header {
+    padding:clamp(24px,4vw,48px) 0 clamp(30px,5vw,58px)!important;
+    background:
+      radial-gradient(circle at 92% 16%,rgba(255,255,255,.58) 0 6px,transparent 7px) 0 0/42px 42px,
+      linear-gradient(125deg,#f5e6ea 0%,#f1dfe4 55%,#f7ece8 100%)!important;
+    border:0!important;
+  }
+  body.page-home.page-desktop .mag-header > .container {
+    max-width:1180px;
+  }
+  body.page-home.page-desktop .mag-hero-grid.cover-layout {
+    display:grid!important;
+    grid-template-columns:minmax(0,1.18fr) minmax(290px,.82fr)!important;
+    gap:clamp(24px,5vw,62px)!important;
+    align-items:center!important;
+  }
+  body.page-home.page-desktop .cover-layout .hero-primary-info {
+    display:block!important;
+    width:100%;max-width:none!important;margin:0!important;
+  }
+  body.page-home.page-desktop .cover-story {display:block!important;}
+  body.page-home.page-desktop .cover-heading {display:grid;gap:10px;}
+  body.page-home.page-desktop .portfolio-cover-title.applicant-label {
+    color:#785365!important;letter-spacing:.1em!important;
+  }
+  body.page-home.page-desktop .candidate-name {
+    color:#85576a!important;
+    font-size:clamp(3.4rem,6vw,6rem)!important;
+    line-height:1.18!important;letter-spacing:.07em!important;
+    text-shadow:2px 3px 0 rgba(255,255,255,.8)!important;
+  }
+  body.page-home.page-desktop .candidate-en-name {
+    color:#795e69!important;font-size:.78rem;letter-spacing:.12em;
+  }
+  body.page-home.page-desktop .hero-professional-intro {
+    max-width:52ch!important;margin:20px 0 0!important;padding:16px 18px!important;
+    border-left:3px solid #c48da0!important;border-radius:0 14px 14px 0!important;
+    background:rgba(255,253,249,.64)!important;
+    color:#604d55!important;font-size:1rem!important;line-height:1.9!important;
+  }
+  body.page-home.page-desktop .hero-action-card {
+    display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+    gap:16px!important;margin:0!important;padding:clamp(20px,3vw,30px)!important;
+    border:1px solid #dec1ca!important;border-radius:26px!important;
+    background:rgba(255,253,249,.88)!important;
+    box-shadow:0 14px 36px rgba(101,71,83,.09)!important;
+  }
+  body.page-home.page-desktop .hero-photo-row {
+    min-width:0;padding:18px 20px;border-radius:18px;
+    background:linear-gradient(135deg,#fff8ee,#f7e8eb);
+    border:1px dashed #cda6b2;
+  }
+  body.page-home.page-desktop .hero-dossier-mini {width:100%;min-width:0;}
+  body.page-home.page-desktop .portfolio-target-role {
+    gap:7px!important;padding:0!important;
+  }
+  body.page-home.page-desktop .portfolio-target-role::before {
+    content:"APPLICANT / CAREER PROFILE";
+    color:#936275;font:700 .68rem/1.5 var(--font-mono,monospace);
+    letter-spacing:.12em;
+  }
+  body.page-home.page-desktop .portfolio-target-role > strong {
+    font-size:clamp(1.25rem,2vw,1.65rem)!important;color:#704657!important;
+  }
+  body.page-home.page-desktop .home-quick-actions {gap:10px!important;}
+  body.page-home.page-desktop .home-quick-actions a {
+    min-height:50px;border-radius:999px!important;
+    box-shadow:none!important;transition:transform .18s ease,background-color .18s ease!important;
+  }
+  body.page-home.page-desktop .home-quick-actions a:hover {transform:translateY(-2px)!important;}
+  body.page-home.page-desktop .home-project-action {
+    background:#fffaf7!important;color:#704657!important;
+    border:1.5px solid #bd96a5!important;
+  }
+  body.page-home.page-desktop .mag-main.container {
+    max-width:1160px;padding-top:clamp(24px,4vw,48px);
+  }
+  body.page-home.page-desktop .section-block {
+    margin-bottom:clamp(22px,3vw,36px)!important;
+    padding:clamp(20px,3vw,34px)!important;
+    border:1px solid #ead7dc!important;border-radius:24px!important;
+    background:#fffdf9!important;
+    box-shadow:0 8px 24px rgba(101,71,83,.045)!important;
+  }
+  body.page-home.page-desktop .section-block:nth-of-type(even) {
+    background:#fbf2f2!important;
+  }
+  body.page-home.page-desktop .section-editorial-header {
+    margin-bottom:20px;
+  }
+  body.page-home.page-desktop .sec-number {
+    background:#f4e4e9!important;color:#805366!important;
+    border:1px solid #dfc2cc;border-radius:50%;
+  }
+  body.page-home.page-desktop .grid-2x2 {gap:14px!important;}
+  body.page-home.page-desktop .grid-2x2 > .editorial-card {
+    border:1px solid #e8d3da!important;border-top:4px solid #bd8799!important;
+    border-radius:18px!important;background:#fffdf9!important;
+    box-shadow:none!important;transition:transform .2s ease,box-shadow .2s ease!important;
+  }
+  body.page-home.page-desktop .grid-2x2 > .editorial-card:hover {
+    transform:translateY(-2px);box-shadow:0 9px 20px rgba(101,71,83,.07)!important;
+  }
+  /* Mobile cover keeps the same editorial hierarchy in a one-column flow. */
+  body.page-home.page-mobile .mobile-app-wrapper {background:#fffaf4!important;}
+  body.page-home.page-mobile .mobile-top-bar {
+    background:linear-gradient(110deg,#f5e6ea,#f3e4e5)!important;
+    border-bottom:1px solid #e3c9d0!important;
+  }
+  body.page-home.page-mobile .mobile-content {padding-top:18px!important;}
+  body.page-home.page-mobile .mobile-cover {
+    border:1px solid #e3c9d0!important;border-radius:24px!important;
+    background:linear-gradient(145deg,#fffdf9 0%,#fbf0ef 100%)!important;
+    box-shadow:0 8px 24px rgba(101,71,83,.06)!important;
+  }
+  body.page-home.page-mobile .mobile-cover .candidate-info-box h1 {
+    color:#85576a!important;font-size:clamp(2.5rem,11vw,3.6rem)!important;
+    line-height:1.2!important;letter-spacing:.07em!important;
+  }
+  body.page-home.page-mobile .mobile-profile-intro {
+    border-left:3px solid #c48da0!important;padding:12px 14px!important;
+    background:#fffaf7!important;border-radius:0 12px 12px 0!important;
+    line-height:1.8!important;
+  }
+  body.page-home.page-mobile .pastel-profile-notes {
+    border:1px solid #e3c9d0!important;background:#fffdf9!important;
+    border-radius:18px!important;box-shadow:none!important;
+  }
+  body.page-home.page-mobile .mobile-hero-actions a {
+    min-height:48px;border-radius:999px!important;
+    box-shadow:none!important;
+  }
+  body.page-home.page-mobile .mobile-content > .mobile-card:not(.mobile-cover) {
+    border:1px solid #ead7dc!important;border-radius:22px!important;
+    background:#fffdf9!important;box-shadow:0 6px 18px rgba(101,71,83,.045)!important;
+  }
+  /* Personal profile: portrait print, compact dossier, and clear contact actions. */
+  body.page-contact .contact-main {
+    background:linear-gradient(180deg,#f7e9ec 0,#fffaf4 360px)!important;
+    padding-block:clamp(26px,4vw,58px)!important;
+  }
+  body.page-contact .contact-header-badge {
+    padding-bottom:16px!important;
+  }
+  body.page-contact .contact-header-badge > span:first-child {
+    border-radius:999px!important;background:#fffdf9!important;
+    color:#785365!important;border-color:#dfc2cc!important;
+    letter-spacing:.05em;
+  }
+  body.page-contact.page-desktop .interview-spread {
+    grid-template-columns:minmax(250px,.78fr) minmax(0,1.22fr)!important;
+    gap:clamp(22px,4vw,54px)!important;align-items:start!important;
+  }
+  body.page-contact .photo-frame {
+    display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+    width:min(100%,360px)!important;height:auto!important;aspect-ratio:auto!important;
+    padding:10px 10px 30px!important;margin:0 auto 18px!important;
+    border:1px solid #d9b8c3!important;border-radius:15px!important;
+    background:#fffdf9!important;overflow:hidden!important;
+    box-shadow:0 12px 28px rgba(101,71,83,.10)!important;
+  }
+  body.page-contact .photo-frame img.contact-portrait-photo {
+    width:100%!important;height:auto!important;aspect-ratio:4/5!important;
+    object-fit:cover!important;object-position:center top!important;
+    border-radius:9px!important;clip-path:none!important;
+  }
+  body.page-contact .candidate-specs-box {
+    border:1px solid #e1c8d0!important;border-radius:18px!important;
+    background:#fffdf9!important;padding:clamp(16px,2.6vw,24px)!important;
+    box-shadow:none!important;
+  }
+  body.page-contact .specs-box-title {
+    color:#785365!important;border-bottom:1px dashed #dfc2cc;
+    padding-bottom:12px;margin-bottom:8px;
+  }
+  body.page-contact .spec-entry {border-bottom:1px dashed #ead9de;padding:10px 0;}
+  body.page-contact .spec-entry:last-child {border-bottom:0;}
+  body.page-contact .candidate-details-col {
+    border:1px solid #e1c8d0!important;border-radius:24px!important;
+    background:#fffdf9!important;padding:clamp(20px,3vw,34px)!important;
+    box-shadow:0 8px 24px rgba(101,71,83,.05)!important;
+  }
+  body.page-contact .candidate-name-huge {
+    color:#85576a!important;letter-spacing:.07em!important;
+  }
+  body.page-contact .candidate-intro-lead {
+    border-left:3px solid #c48da0!important;padding:14px 16px!important;
+    border-radius:0 14px 14px 0!important;background:#fbf2f2!important;
+    color:#604d55!important;line-height:1.9!important;
+  }
+  body.page-contact .method-card:not(.method-card--print) {
+    background:#fffdf9!important;border:1px solid #e1c8d0!important;
+    border-radius:16px!important;box-shadow:none!important;
+  }
+  body.page-contact .personal-resume-link {
+    min-height:66px!important;border:1px solid #e4ca86!important;
+    border-radius:16px!important;background:#fff4d6!important;
+    color:#684f46!important;box-shadow:none!important;
+  }
+  body.page-contact .personal-resume-link:hover {
+    background:#ffefc4!important;transform:translateY(-2px)!important;
+  }
+  body.page-contact.page-mobile .interview-spread {
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:20px!important;
+  }
+  body.page-contact.page-mobile .photo-frame {width:min(78vw,310px)!important;}
+  body.page-contact.page-mobile .candidate-details-col {padding:20px!important;}
+  @media(max-width:760px) {
+    body.page-home.page-desktop .mag-hero-grid.cover-layout {
+      grid-template-columns:minmax(0,1fr)!important;gap:22px!important;
+    }
+    body.page-home.page-desktop .hero-action-card {max-width:620px;margin-inline:auto!important;}
+    body.page-home.page-desktop .hero-professional-intro {max-width:none!important;}
+    body.page-contact.page-desktop .interview-spread {
+      grid-template-columns:minmax(0,1fr)!important;
+    }
+  }
+}
+@media screen and (prefers-reduced-motion:reduce) {
+  body.page-home .home-quick-actions a,
+  body.page-home .grid-2x2 > .editorial-card,
+  body.page-contact .personal-resume-link {
+    transition:none!important;
+  }
+  body.page-home .home-quick-actions a:hover,
+  body.page-home .grid-2x2 > .editorial-card:hover,
+  body.page-contact .personal-resume-link:hover {transform:none!important;}
+}
