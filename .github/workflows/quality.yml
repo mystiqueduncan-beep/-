@@ -19,6 +19,8 @@ jobs:
           python3 _qa/favicon_consistency.py
       - name: Mobile font character coverage
         run: python3 _qa/mobile_font_subset.py --check
+      - name: Verify external resource and new-tab safety
+        run: python3 _qa/resource_security.py
       - name: JavaScript syntax
         run: |
           node --check assets/contact.js

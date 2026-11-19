@@ -12,6 +12,27 @@ threading.Thread(target=server.serve_forever,daemon=True).start();base=f'http://
 results=[]
 with sync_playwright() as p:
  browser=p.chromium.launch(executable_path=os.environ.get('CHROME_PATH'),args=['--no-sandbox'])
+ # Verify parsed CSSOM rules and declaration order against the nine originals.
+ from mobile_css_bundle import NAMES
+ css_page=browser.new_page()
+ css_page.route('https://**/*',lambda r:r.abort())
+ css_page.goto(base+'mobile.html?view=mobile')
+ equivalent=css_page.evaluate("""async (names) => {
+   async function rules(name) {
+     const response=await fetch(new URL('assets/'+name,location.href));
+     if (!response.ok) throw new Error('Cannot load '+name);
+     const sheet=new CSSStyleSheet();
+     sheet.replaceSync(await response.text());
+     return [...sheet.cssRules].map(rule=>rule.cssText);
+   }
+   const originals=(await Promise.all(names.map(rules))).flat();
+   const bundle=await rules('mobile-home.bundle.css');
+   const mismatch=originals.findIndex((rule,index)=>rule!==bundle[index]);
+   return {originalCount:originals.length,bundleCount:bundle.length,mismatch};
+ }""",NAMES)
+ assert equivalent['originalCount']==equivalent['bundleCount'] and equivalent['mismatch']==-1,('CSS rule parity',equivalent)
+ print('Mobile CSS rule parity:',equivalent,flush=True)
+ css_page.close()
  for name in ['index.html','contact.html','trend.html','mobile.html','mobile-contact.html','mobile-trend.html']:
   for width in [320,375,390,428,768,820,900,1024,1440,1920]:
    page=browser.new_page(viewport={'width':width,'height':(1024 if width==768 else 768 if width==1024 else 844)});errors=[]
@@ -280,5 +301,7 @@ with sync_playwright() as p:
 server.shutdown();(out/'browser.json').write_text(json.dumps(results,ensure_ascii=False,indent=2),encoding='utf-8')
 failed=[r for r in results if r['overflow'] or r['brokenImages'] or r['errors'] or r.get('axe',{}).get('violations')]
 print(json.dumps([{'file':r['file'],'width':r['width'],'overflow':r['overflow'],'brokenImages':r['brokenImages'],'errors':r['errors'],'externalImagesNotChecked':r.get('externalImagesNotChecked',[]),'violations':[{'id':v['id'],'nodes':[n['target'] for n in v['nodes']]} for v in r.get('axe',{}).get('violations',[])]} for r in failed], ensure_ascii=False))
+pending=[{'file':r['file'],'width':r['width'],'rules':[{'id':v['id'],'targets':[n['target'] for n in v['nodes']]} for v in r.get('axe',{}).get('incomplete',[])]} for r in results if r.get('axe',{}).get('incomplete')]
+print('AXE_MANUAL_REVIEW='+json.dumps(pending,ensure_ascii=False),flush=True)
 print(f'{len(results)} viewport cases; {len(failed)} failed. Review axe incomplete items manually.')
 raise SystemExit(bool(failed))
