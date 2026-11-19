@@ -116,6 +116,11 @@ if __name__=='__main__':
    # Same published main baseline used by check.py; no blanket text exemption.
    expanded={'trend.html':'9645da84706e7536b8c76529c84b33c169b3b4f9','mobile-trend.html':'40a8e620b0c84a68a4245cf25e120607bfde1c09'}
    raw=(ROOT/name).read_bytes()
+   # Permit only the two exact HTML entity corrections; preserve the published text hash.
+   for label in (b'TRADE AREA &amp; STORE NETWORK',b'DIGITAL RETAIL &amp; OMNICHANNEL'):
+    normalized=b'>'+label+b'</span>'
+    assert raw.count(normalized)==1, 'encoded heading missing or changed'
+    raw=raw.replace(normalized,normalized.replace(b'&amp;',b'&'),1)
    actual=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+b'\0'+raw).hexdigest()
    assert actual==expanded[name],name+': expanded research differs from published baseline'
    current[name]=actual

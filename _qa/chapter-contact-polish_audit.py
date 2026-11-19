@@ -50,7 +50,9 @@ with sync_playwright() as p:
         color = nav_strip.evaluate("(el)=>getComputedStyle(el).backgroundColor")
         assert color == "rgba(0, 0, 0, 0)", (name, "sticky shell", color)
         color = nav.evaluate("(el)=>getComputedStyle(el).backgroundColor")
-        assert color == "rgba(255, 249, 247, 0.7)", (name, "compact frame", color)
+        # Current shared chrome: .96 at the top, .20 while reading.
+        page.wait_for_function("""() => {const n=document.querySelector('[data-keycap-marquee]');return getComputedStyle(n).backgroundColor === (n.classList.contains('is-reading-section') ? 'rgba(255, 249, 247, 0.2)' : 'rgba(255, 249, 247, 0.96)')}""")
+        color = nav.evaluate("(el)=>getComputedStyle(el).backgroundColor")
 
         belt = nav.locator(".keycap-marquee__belt")
         background = belt.evaluate("(el)=>getComputedStyle(el).backgroundColor")
