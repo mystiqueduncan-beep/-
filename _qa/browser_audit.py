@@ -53,6 +53,9 @@ with sync_playwright() as p:
    page.wait_for_timeout(150)
    row=page.evaluate('''()=>({overflow:document.documentElement.scrollWidth>innerWidth,externalImagesNotChecked:[...document.images].filter(i=>new URL(i.src).origin!==location.origin).map(i=>i.src),brokenImages:[...document.images].filter(i=>new URL(i.src).origin===location.origin&&(!i.complete||!i.naturalWidth)).map(i=>i.currentSrc)})''')
    row.update(file=name,width=width,errors=errors)
+   # Named, focusable scroll regions are real semantic regions, not generic divs.
+   for region in page.locator('.keycap-marquee__viewport,.swim-scroll').all():
+    assert region.get_attribute('role')=='region' and region.get_attribute('tabindex')=='0' and region.get_attribute('aria-label'), ('scroll region semantics',name,width)
    if name in ('index.html','trend.html') and width == 1440:
     # The pause toggle was intentionally removed. Verify the marquee itself.
     marquee=page.locator('[data-keycap-marquee]')

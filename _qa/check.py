@@ -223,8 +223,15 @@ if resume_html.count('href="resume.pdf"')!=1 or resume_html.count('download="黃
  errors.append('Dedicated downloadable PDF action missing')
 if '列印／另存 PDF' in resume_html:errors.append('Combined print/save action still present')
 for rel,old in base.items():
- f=ROOT/rel;p=Page(strip_approved_japanese_ui(rel, f.read_text(encoding='utf-8')));ids=[a['id'] for t,a in p.tags if 'id' in a]
+ f=ROOT/rel
+ # Validate links/metadata/IDs against the actual published markup, never the
+ # historical reconstruction used only for factual-content fingerprints.
+ p=Page(f.read_text(encoding='utf-8'));ids=[a['id'] for t,a in p.tags if 'id' in a]
  if len(ids)!=len(set(ids)):errors.append(rel+': duplicate id')
+ for t,a in p.tags:
+  if set(a.get('class','').split()) & {'keycap-marquee__viewport','swim-scroll'}:
+   if a.get('role')!='region' or not a.get('aria-label','').strip() or a.get('tabindex')!='0':
+    errors.append(rel+': unnamed or non-keyboard-accessible scroll region')
  # Exact source files supplied and approved by user replace only the two
  # research pages. Every other resume page remains checked against the
  # immutable original factual baseline.
