@@ -43,7 +43,7 @@ RESEARCH = [
     ("資料來源與提案邊界", "SOURCES & PROPOSAL SCOPE", "情報源と提案の適用範囲"),
 ]
 MOBILE = [
-    ("應徵者專訪特輯", "APPLICANT FEATURE", "応募者紹介特集"),
+    ("個人作品集", "PERSONAL PORTFOLIO", "個人ポートフォリオ"),
     ("應徵動機", "APPLICATION MOTIVATION", "応募動機"),
     ("核心管理能力", "CORE OPERATIONAL COMPETENCIES", "主なマネジメント能力"),
     ("門市營運改善構想", "STORE OPERATIONS IMPROVEMENT", "店舗運営の改善提案"),
@@ -55,8 +55,8 @@ NAME = [("HUANG BO-SHIH", "HUANG BO-SHIH", "コウ・ハクシ")]
 EXPECT = {
     "index": HOME + NAME,
     "mobile": MOBILE + NAME,
-    "trend": RESEARCH + [("藥粧產業趨勢研究", "DRUGSTORE INDUSTRY TRENDS & REGIONAL OPERATIONS PROPOSAL", "ドラッグストア業界の動向調査とエリア運営改善提案")],
-    "mobile-trend": RESEARCH + [("藥粧產業趨勢研究", "DRUGSTORE INDUSTRY TRENDS & REGIONAL OPERATIONS PROPOSAL", "ドラッグストア業界の動向調査とエリア運営改善提案")],
+    "trend": RESEARCH + [("藥妝產業趨勢研究", "DRUGSTORE INDUSTRY TRENDS & REGIONAL OPERATIONS PROPOSAL", "ドラッグストア業界の動向調査とエリア運営改善提案")],
+    "mobile-trend": RESEARCH + [("藥妝產業趨勢研究", "DRUGSTORE INDUSTRY TRENDS & REGIONAL OPERATIONS PROPOSAL", "ドラッグストア業界の動向調査とエリア運営改善提案")],
     "contact": [("教育背景", "EDUCATION", "学歴")] + NAME,
     "mobile-contact": [("教育背景", "EDUCATION", "学歴")] + NAME,
 }
@@ -103,7 +103,7 @@ with sync_playwright() as playwright:
         )
         assert len(actual) == len(expected), (name, "count", len(actual), len(expected), actual)
         for zh, en, ja in expected:
-            matches = [a for a in actual if (zh in a["text"] or (name in ("trend", "mobile-trend") and zh == "藥粧產業趨勢研究")) and a["en"] == en and a["ja"] == ja]
+            matches = [a for a in actual if (zh in a["text"] or (name in ("trend", "mobile-trend") and zh == "藥妝產業趨勢研究")) and a["en"] == en and a["ja"] == ja]
             assert len(matches) == 1, (name, "translation missing or mismatch", (zh,en,ja), actual)
             entry = matches[0]
             assert entry["enLang"] == "en" and entry["jaLang"] == "ja", (name, "language tags", entry)

@@ -6,6 +6,7 @@ comparing against the immutable historical fingerprints. Unknown additions,
 modified Chinese/English text, missing labels and changed data still fail CI.
 """
 import re
+from portfolio_polish_approved import restore_portfolio_polish
 from bilingual_ui_approved import restore_bilingual_home_ui
 from research_marquee_approved import restore_research_marquee_ui
 
@@ -43,6 +44,7 @@ def strip_approved_japanese_ui(rel, html):
     ):
         return html
 
+    html = restore_portfolio_polish(rel, html)
     # Only the explicitly approved marquee cache-busting URL is reversible
     # for historical text and research-source identity checks.
     if rel in ("index.html", "mobile.html", "trend.html", "mobile-trend.html"):
