@@ -235,9 +235,9 @@ for rel,old in base.items():
   raw=f.read_bytes()
   # Permit only the two exact HTML entity corrections; preserve the published text hash.
   for label in (b'TRADE AREA &amp; STORE NETWORK',b'DIGITAL RETAIL &amp; OMNICHANNEL'):
-   normalized=b'>'+label+b'</span>'
-   assert raw.count(normalized)==1, 'encoded heading missing or changed'
-   raw=raw.replace(normalized,normalized.replace(b'&amp;',b'&'),1)
+   encoded_heading=b'>'+label+b'</span>'
+   assert raw.count(encoded_heading)==1, 'encoded heading missing or changed'
+   raw=raw.replace(encoded_heading,encoded_heading.replace(b'&amp;',b'&'),1)
   same=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+b'\0'+raw).hexdigest()==expanded[rel]
   if not same:errors.append(rel+': expanded research differs from pinned published main; review required')
   for href,label in (
