@@ -145,6 +145,14 @@
     {
       "old": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261119-editorial\">",
       "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261119-editorial\"><link rel=\"stylesheet\" href=\"assets/research-editorial.css?v=20261119-magazine\">"
+    },
+    {
+      "old": "href=\"assets/research-editorial.css?v=20261119-magazine\"",
+      "now": "href=\"assets/research-editorial.css?v=20261119-magazine-v2\""
+    },
+    {
+      "old": "src=\"assets/regional-analysis.js\"",
+      "now": "src=\"assets/regional-analysis.js?v=20261119-magazine-v2\""
     }
   ],
   "mobile-trend.html": [
@@ -239,6 +247,14 @@
     {
       "old": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261119-editorial\">",
       "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261119-editorial\"><link rel=\"stylesheet\" href=\"assets/research-editorial.css?v=20261119-magazine\">"
+    },
+    {
+      "old": "href=\"assets/research-editorial.css?v=20261119-magazine\"",
+      "now": "href=\"assets/research-editorial.css?v=20261119-magazine-v2\""
+    },
+    {
+      "old": "src=\"assets/regional-analysis.js\"",
+      "now": "src=\"assets/regional-analysis.js?v=20261119-magazine-v2\""
     }
   ],
   "contact.html": [
