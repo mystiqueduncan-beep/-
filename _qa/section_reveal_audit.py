@@ -82,6 +82,35 @@ with sync_playwright() as p:
                 print('CTA_DELAY_DEBUG', name, buttons.evaluate_all('''(es)=>es.map((e,i)=>({i,selector:e.matches('.hero-cta-group > .mk-pop-item:nth-child(2)'),style:e.getAttribute('style'),className:e.className,delay:getComputedStyle(e).transitionDelay,sheet:[...document.styleSheets].some(s=>s.href?.includes('mk-inspired.css'))}))'''), flush=True)
             assert all(abs(actual - expected) < 0.01 for actual,expected in zip(first_delays, [0, 0.1])), (name, delays)
             assert buttons.last.evaluate('(e)=>e.tagName.toLowerCase()') == 'a', name
+        if name in ('index', 'mobile'):
+            # Work history is never a disclosure: exact list content matches
+            # no-JS markup, and each existing row uses the one-time fade.
+            cards = page.locator('#career .career-entry-card, #career .timeline-job-card')
+            assert cards.count() == 3
+            expect(page.locator('#career .portfolio-disclosure-toggle, #career .portfolio-disclosure-panel')).to_have_count(0)
+            duties = page.locator('#career .duty-bullet-list > li, #career .duty-list > li')
+            assert duties.count() > 3
+            assert duties.evaluate_all('(rows)=>rows.every(r=>r.matches(".mk-motion-item.mk-fade-item") && !r.closest("[inert], [aria-hidden=true]"))')
+            plain = browser.new_page(java_script_enabled=False, viewport={'width':390 if mobile else 1440,'height':844})
+            plain.route('https://**/*', lambda route: route.abort())
+            plain.goto(url)
+            original = plain.locator('#career .duty-bullet-list > li, #career .duty-list > li').all_text_contents()
+            assert duties.all_text_contents() == original, ('career wording/order',name)
+            plain.close()
+            # Later rows reveal when scrolled into view, stay revealed, and
+            # remain accessible without the user clicking any toggle.
+            row = duties.last
+            expect(row).to_have_class(re.compile('.*mk-motion-pending.*'))
+            row.evaluate('(e)=>e.scrollIntoView({block:"center",behavior:"instant"})')
+            expect(row).to_have_class(re.compile('.*mk-motion-in.*'))
+            expect(row).to_have_css('opacity','1',timeout=3500)
+            assert row.evaluate('e=>!e.closest("[inert],[aria-hidden=true]")')
+            page.evaluate('scrollTo({top:0,behavior:"instant"})')
+            expect(row).to_have_class(re.compile('.*mk-motion-in.*'))
+            # Reload for the existing independent pending/reveal checks below.
+            page.goto(url)
+            page.wait_for_timeout(800)
+            items = page.locator('.mk-motion-item,.mk-pop-item')
         if name == 'mobile':
             assert page.locator('.timeline-job-card.mk-motion-item').count() == 3
             assert page.locator('.mobile-case-box.mk-motion-item').count() == 3
