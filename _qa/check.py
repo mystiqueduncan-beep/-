@@ -232,19 +232,16 @@ for rel,old in base.items():
  # Pin exact Git blobs from main ec5bdddbe536094cc20f4b42e3356a944f68c09e.
  # Keep the older six-chapter fingerprint for historical verification.
  if rel in ('trend.html','mobile-trend.html'):
-  expanded={'trend.html':'9645da84706e7536b8c76529c84b33c169b3b4f9','mobile-trend.html':'40a8e620b0c84a68a4245cf25e120607bfde1c09'}
-  raw=restore_portfolio_polish(rel, f.read_text(encoding='utf-8')).encode('utf-8')
-  # Reverse only the exact authorized versioned marquee script URL.
+  expanded={'trend.html':'7f2ca318bf0c06b5e71fc778365cd56c26cd5bef','mobile-trend.html':'57bda7acb7a4e2c81f1622ecce4cff16c5d7ddbc'}
+  raw=f.read_bytes()
+  # The user-approved inline-chart publication is pinned byte-for-byte.
   versioned=b'src="assets/trend-marquee.js?v=20261119-chapter-lock"'
   assert raw.count(versioned)==1, rel+': versioned chapter-lock script missing or duplicated'
-  raw=raw.replace(versioned,b'src="assets/trend-marquee.js"',1)
-  # Permit only the two exact HTML entity corrections; preserve the published text hash.
   for label in (b'TRADE AREA &amp; STORE NETWORK',b'DIGITAL RETAIL &amp; OMNICHANNEL'):
    encoded_heading=b'>'+label+b'</span>'
    assert raw.count(encoded_heading)==1, 'encoded heading missing or changed'
-   raw=raw.replace(encoded_heading,encoded_heading.replace(b'&amp;',b'&'),1)
-  same=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+b'\0'+raw).hexdigest()==expanded[rel]
-  if not same:errors.append(rel+': expanded research differs from pinned published main; review required')
+  same=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+b'\\0'+raw).hexdigest()==expanded[rel]
+  if not same:errors.append(rel+': inline-chart research differs from approved publication; review required')
   for href,label in (
    ('https://mnscdn.moea.gov.tw/mns/populace/news/News.aspx?kind=1&amp;menu_id=40&amp;news_id=123868','經濟部統計處，2026/09/07'),
    ('https://www.mirai.com.tw/2026-annual-overview-of-taiwans-retail-and-e-commerce-sub-sector-structure/','未來流通研究所，2026/02/04'),
