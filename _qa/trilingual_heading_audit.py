@@ -195,8 +195,11 @@ with sync_playwright() as playwright:
     page.goto(f"http://127.0.0.1:{server.server_port}/index.html?view=desktop", wait_until="domcontentloaded")
     first = page.locator("#motivation .tri-type-line")
     first.wait_for()
-    first.scroll_into_view_if_needed()
-    page.wait_for_function("() => document.querySelector('#motivation .tri-type-line')?.classList.contains('tri-type-done')", timeout=6000)
+    # Center the heading below the sticky navigation, rather than merely
+    # intersecting the viewport where the header can obscure it.
+    first.evaluate("(e) => e.scrollIntoView({block:'center',behavior:'instant'})")
+    page.wait_for_function("() => { const e=document.querySelector('#motivation .tri-type-line'); return e?.classList.contains('tri-type-active') || e?.classList.contains('tri-type-done'); }", timeout=10000)
+    page.wait_for_function("() => document.querySelector('#motivation .tri-type-line')?.classList.contains('tri-type-done')", timeout=12000)
     assert first.get_attribute("class").count("tri-type-done") == 1, "typing must finish once"
     page.evaluate("scrollTo(0,document.body.scrollHeight)")
     page.evaluate("scrollTo(0,0)")
