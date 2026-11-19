@@ -401,9 +401,9 @@ for rel in ('trend.html','mobile-trend.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
  p=Page(html)
  ids={a.get('id') for t,a in p.tags}
- expected_sections={'market','experience','strategy','roadmap','metrics','sources'}
+ expected_sections={'market','competition','consumer','location','digital','people','experience','strategy','roadmap','metrics','sources'}
  if not expected_sections.issubset(ids):errors.append(rel+': missing approved regional analysis sections')
- if len(re.findall(r'<section\b[^>]*id=',html))!=6:errors.append(rel+': expected six analysis sections')
+ if len(re.findall(r'<section\b[^>]*id=',html))!=11:errors.append(rel+': expected eleven analysis sections')
  for origin in ('mnscdn.moea.gov.tw','www.mirai.com.tw'):
   if origin not in html:errors.append(rel+': regional report source missing '+origin)
  for token in ('2,160','+5.4%','1,272','47.7%','21.4%','13.7%','7.3%','7.0%','2.9%',
@@ -423,6 +423,11 @@ for rel in ('trend.html','mobile-trend.html'):
  else:
   links=re.findall(r'<a href="#([^"]+)" class="nav-btn-mk"><span class="bilingual-nav-cn">([^<]+)</span><span class="bilingual-nav-jp" lang="ja">([^<]+)</span></a>',nav.group(0))
   expected=[('market','市場判讀','市場動向を運営判断につなげる'),
+            ('competition','品牌競爭','ブランド競争'),
+            ('consumer','消費心理','消費者心理'),
+            ('location','商圈研究','商圏分析'),
+            ('digital','數位轉型','デジタル化'),
+            ('people','人才管理','人材育成'),
             ('experience','經驗連結','現場経験を複数店舗の管理へ'),
             ('strategy','改善方針','六つの改善方針と担当体制'),
             ('roadmap','90天計畫','90日間のエリア運営推進計画'),

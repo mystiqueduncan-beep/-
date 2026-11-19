@@ -130,7 +130,7 @@ def assert_design(row, mobile, trend, width):
     else:
         verify(row["nav"]["width"] <= (1120 if trend else 980) + 1,
                "page-specific desktop maximum", row["nav"])
-    verify(len(row["links"]) == 6, "exactly six original chapter links")
+    verify(len(row["links"]) == (11 if trend else 6), "exact chapter link count for each page")
     for link in row["links"]:
         verify(alpha(link["style"]["background"]) == 1 and link["ancestorOpacity"],
                "buttons remain fully opaque", link)

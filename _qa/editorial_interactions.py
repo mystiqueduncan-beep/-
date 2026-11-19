@@ -40,8 +40,8 @@ with sync_playwright() as p:
     expect(page.locator('.trend-subnav-strip.trend-bilingual-nav')).to_have_count(1)
     nav_mobile=page.locator('[data-keycap-marquee]')
     expect(nav_mobile).to_have_count(1)
-    expect(nav_mobile.locator('a.nav-btn-mk')).to_have_count(6)
-    expect(nav_mobile.locator('a.nav-btn-mk .bilingual-nav-jp')).to_have_count(6)
+    expect(nav_mobile.locator('a.nav-btn-mk')).to_have_count(11)
+    expect(nav_mobile.locator('a.nav-btn-mk .bilingual-nav-jp')).to_have_count(11)
     expect(page.locator('.bilingual-current')).to_have_count(0)
     expect(nav_mobile).to_have_class(__import__('re').compile('.*is-enhanced.*'))
     assert '♡' in nav_mobile.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e,'::before').content")
@@ -53,8 +53,8 @@ with sync_playwright() as p:
    continue
   nav=page.locator('[data-keycap-marquee]');belt=nav.locator('.keycap-marquee__belt');link=nav.locator('a').first
   if name in ('index','trend'):
-   expect(nav.locator('a.nav-btn-mk')).to_have_count(6)
-   expect(nav.locator('a.nav-btn-mk .bilingual-nav-jp')).to_have_count(6)
+   expect(nav.locator('a.nav-btn-mk')).to_have_count(11 if name == 'trend' else 6)
+   expect(nav.locator('a.nav-btn-mk .bilingual-nav-jp')).to_have_count(11 if name == 'trend' else 6)
   expect(nav).to_have_class(__import__('re').compile('.*is-enhanced.*'))
   assert belt.evaluate('e=>getComputedStyle(e).animationName')=='none'
   assert not page.locator('.keycap-marquee__toggle').count()
