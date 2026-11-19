@@ -78,6 +78,8 @@ MEASURE = """() => {
    scrollLeft:viewport.scrollLeft,clientWidth:viewport.clientWidth,
    scrollWidth:viewport.scrollWidth,overflow:document.documentElement.scrollWidth-innerWidth,
    current:[...group.querySelectorAll('[aria-current="location"]')].map(a=>a.getAttribute('href')),
+   chapterWidth:document.querySelector(group.querySelector('a').getAttribute('href')).getBoundingClientRect().width,
+   reading:nav.classList.contains('is-reading-section'),
    scrollY,enhanced:nav.classList.contains('is-enhanced')};
 }"""
 
@@ -103,14 +105,14 @@ def leave_banner(page):
 
 def assert_design(row, mobile, trend, width):
     verify(row["overflow"] <= 1, "page horizontal overflow", row["overflow"])
-    verify(row["navStyle"]["background"] == "rgba(255, 249, 247, 0.7)",
+    verify(row["navStyle"]["background"] == ("rgba(255, 249, 247, 0.2)" if row["reading"] else "rgba(255, 249, 247, 0.96)"),
            "visible banner cream background / alpha", row["navStyle"])
     verify(alpha(row["stickyStyle"]["background"]) == 0,
            "outer sticky must be transparent", row["stickyStyle"])
     verify(row["stickyStyle"]["blur"] == "none", "outer sticky must not blur the whole row")
     verify(row["stickyStyle"]["position"] == "sticky", "sticky positioning retained")
-    verify(any(f"blur({n}px)" in row["navStyle"]["blur"] for n in range(10, 15)),
-           "visible banner has restrained blur", row["navStyle"])
+    verify(row["navStyle"]["blur"] == "none",
+           "visible banner has no blur under current design", row["navStyle"])
     verify(22 <= float(row["navStyle"]["borderRadius"].split()[0].rstrip("px")) <= 28,
            "banner corner radius", row["navStyle"])
     for name in ("viewportStyle", "beltStyle", "groupStyle"):
@@ -122,19 +124,13 @@ def assert_design(row, mobile, trend, width):
            "visible banner horizontally centered", row["nav"])
     verify(row["nav"]["x"] >= 11 and row["nav"]["right"] <= width - 11,
            "banner stays within screen with side margins", row["nav"])
-    if mobile:
-        mobile_container_width = (row["containers"][0]["rect"]["width"]
-                                  if row["containers"] else row["sticky"]["width"])
-        verify(abs(row["nav"]["width"] - (mobile_container_width - 24)) <= 2,
-               "mobile 12px margins relative to existing app wrapper", row)
-    else:
-        verify(row["nav"]["width"] <= (1120 if trend else 980) + 1,
-               "page-specific desktop maximum", row["nav"])
-    verify(len(row["links"]) == 6, "exactly six original chapter links")
+    verify(abs(row["nav"]["width"] - min(row["chapterWidth"], width - 24)) <= 2,
+           "banner matches primary chapter width", row["nav"])
+    verify(len(row["links"]) == (11 if trend else 6), "exact chapter link count for each page")
     for link in row["links"]:
         verify(alpha(link["style"]["background"]) == 1 and link["ancestorOpacity"],
                "buttons remain fully opaque", link)
-        verify(link["rect"]["height"] >= (49 if mobile else 57) - 1,
+        verify(link["rect"]["height"] >= (49 if mobile or width <= 768 else 57) - 1,
                "existing touch target height retained", link)
         verify(link["textFits"], "no clipping inside chapter button", link)
         verify(link["rect"]["y"] >= row["viewport"]["y"] - 1 and
@@ -274,6 +270,7 @@ def interactions(page, row, width, mobile):
            "active chapter follows scroll")
     verify(selected.evaluate("e=>getComputedStyle(e).backgroundColor") == "rgb(223, 173, 193)",
            "active chapter retains stronger rose color")
+    page.wait_for_function("""() => {const n=document.querySelector("[data-keycap-marquee]");return n.classList.contains("is-reading-section") && getComputedStyle(n).backgroundColor==="rgba(255, 249, 247, 0.2)"}""")
     after_scroll = page.evaluate(MEASURE)
     verify(abs(after_scroll["nav"]["width"] - row["nav"]["width"]) <= 1,
            "chapter changes cannot resize banner")

@@ -227,7 +227,26 @@ for rel,old in base.items():
  # Exact source files supplied and approved by user replace only the two
  # research pages. Every other resume page remains checked against the
  # immutable original factual baseline.
- if rel in approved_report:
+ # The expanded eleven-chapter research is already published on main.
+ # Pin exact Git blobs from main ec5bdddbe536094cc20f4b42e3356a944f68c09e.
+ # Keep the older six-chapter fingerprint for historical verification.
+ if rel in ('trend.html','mobile-trend.html'):
+  expanded={'trend.html':'9645da84706e7536b8c76529c84b33c169b3b4f9','mobile-trend.html':'40a8e620b0c84a68a4245cf25e120607bfde1c09'}
+  raw=f.read_bytes()
+  # Permit only the two exact HTML entity corrections; preserve the published text hash.
+  for label in (b'TRADE AREA &amp; STORE NETWORK',b'DIGITAL RETAIL &amp; OMNICHANNEL'):
+   encoded_heading=b'>'+label+b'</span>'
+   assert raw.count(encoded_heading)==1, 'encoded heading missing or changed'
+   raw=raw.replace(encoded_heading,encoded_heading.replace(b'&amp;',b'&'),1)
+  same=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+b'\0'+raw).hexdigest()==expanded[rel]
+  if not same:errors.append(rel+': expanded research differs from pinned published main; review required')
+  for href,label in (
+   ('https://mnscdn.moea.gov.tw/mns/populace/news/News.aspx?kind=1&amp;menu_id=40&amp;news_id=123868','經濟部統計處，2026/09/07'),
+   ('https://www.mirai.com.tw/2026-annual-overview-of-taiwans-retail-and-e-commerce-sub-sector-structure/','未來流通研究所，2026/02/04'),
+  ):
+   link=('<a href="'+href+'" target="_blank" rel="noopener noreferrer" class="portfolio-source-link">'+label+'</a>').encode('utf-8')
+   if raw.count(link)!=2:errors.append(rel+': pinned citation labels or link attributes changed')
+ elif rel in approved_report:
   raw=restore_historical_contact_link_labels(
    rel, strip_approved_japanese_ui(rel, restore_approved_footer_layout(rel, f.read_text(encoding='utf-8')))
   ).encode('utf-8')
@@ -401,9 +420,9 @@ for rel in ('trend.html','mobile-trend.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
  p=Page(html)
  ids={a.get('id') for t,a in p.tags}
- expected_sections={'market','experience','strategy','roadmap','metrics','sources'}
+ expected_sections={'market','competition','consumer','location','digital','people','experience','strategy','roadmap','metrics','sources'}
  if not expected_sections.issubset(ids):errors.append(rel+': missing approved regional analysis sections')
- if len(re.findall(r'<section\b[^>]*id=',html))!=6:errors.append(rel+': expected six analysis sections')
+ if len(re.findall(r'<section\b[^>]*id=',html))!=11:errors.append(rel+': expected eleven analysis sections')
  for origin in ('mnscdn.moea.gov.tw','www.mirai.com.tw'):
   if origin not in html:errors.append(rel+': regional report source missing '+origin)
  for token in ('2,160','+5.4%','1,272','47.7%','21.4%','13.7%','7.3%','7.0%','2.9%',
@@ -423,6 +442,11 @@ for rel in ('trend.html','mobile-trend.html'):
  else:
   links=re.findall(r'<a href="#([^"]+)" class="nav-btn-mk"><span class="bilingual-nav-cn">([^<]+)</span><span class="bilingual-nav-jp" lang="ja">([^<]+)</span></a>',nav.group(0))
   expected=[('market','市場判讀','市場動向を運営判断につなげる'),
+            ('competition','品牌競爭','ブランド競争'),
+            ('consumer','消費心理','消費者心理'),
+            ('location','商圈研究','商圏分析'),
+            ('digital','數位轉型','デジタル化'),
+            ('people','人才管理','人材育成'),
             ('experience','經驗連結','現場経験を複数店舗の管理へ'),
             ('strategy','改善方針','六つの改善方針と担当体制'),
             ('roadmap','90天計畫','90日間のエリア運営推進計画'),
@@ -460,13 +484,15 @@ for rel in ('index.html','mobile.html','trend.html','mobile-trend.html'):
 # Shared top-positioned version switch and contact-only photo reveal.
 for rel in ('index.html','mobile.html','trend.html','mobile-trend.html','contact.html','mobile-contact.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
- for resource in ('assets/view-mode-switch.css','assets/view-mode-switch.js'):
+ for resource in (('assets/mobile-home.bundle.css' if rel=='mobile.html' else 'assets/view-mode-switch.css'),'assets/view-mode-switch.js'):
   if html.count(resource)!=1:errors.append(rel+': missing unique top version selector '+resource)
  if rel in ('contact.html','mobile-contact.html'):
   if 'portrait-reveal-js' not in html or html.count('assets/contact-portrait-reveal.js')!=1:
    errors.append(rel+': visible-entry photo fade initialization missing')
  else:
   if 'assets/contact-portrait-reveal.js' in html:errors.append(rel+': photo fade must stay contact-only')
+from mobile_css_bundle import check as check_mobile_css_bundle
+check_mobile_css_bundle()
 manifest=json.loads((ROOT/'_audit/original-manifest.json').read_text(encoding='utf-8'))
 for name,item in manifest.items():
  if name.endswith('.jpg') and hashlib.sha256((ROOT/name).read_bytes()).hexdigest()!=item['sha256']:errors.append(name+': original image changed')

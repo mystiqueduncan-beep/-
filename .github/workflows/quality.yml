@@ -19,6 +19,8 @@ jobs:
           python3 _qa/favicon_consistency.py
       - name: Mobile font character coverage
         run: python3 _qa/mobile_font_subset.py --check
+      - name: Verify external resource and new-tab safety
+        run: python3 _qa/resource_security.py
       - name: JavaScript syntax
         run: |
           node --check assets/contact.js
@@ -69,21 +71,21 @@ jobs:
         run: python3 _qa/marquee_banner_audit.py --out /tmp/marquee-banner-audit
       - name: Upload compact marquee banner acceptance evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: compact-marquee-banner-review
           path: /tmp/marquee-banner-audit
           if-no-files-found: warn
       - name: Upload research marquee desktop and mobile screenshots for review
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: research-bilingual-marquee-review
           path: /tmp/research-marquee-preview/*.png
           if-no-files-found: warn
       - name: Upload desktop/mobile navigation screenshots for PR review
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: sticky-marquee-review
           path: /tmp/sticky-nav-preview/*.png
@@ -114,7 +116,7 @@ jobs:
         run: python3 _qa/release_audit.py --out /tmp/release-audit/after
       - name: Preserve audit evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: release-audit
           path: /tmp/release-audit

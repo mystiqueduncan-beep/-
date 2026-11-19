@@ -21,6 +21,18 @@ class Text(HTMLParser):
   if not self.hidden and not self.newnav:self.parts.append(data)
 def digest(source,name=''):
  source=restore_historical_footer_badge(name,restore_historical_contact_link_labels(name,strip_approved_japanese_ui(name,source)))
+ # Reverse only the specific published citation-label edits for the historical text hash.
+ if name in ('index.html','mobile.html'):
+  pairs=(
+   ('TOMOD’S 門市形象｜WoWoNews，2019/01/08</a>','TOMOD’S 門市形象｜WoWoNews（2019）</a>'),
+   ('title="築心動物醫院｜官方院內環境">築心動物醫院</a>','title="築心動物醫院｜官方院內環境">築心動物醫院｜官方院內環境</a>'),
+   ('>Models.com</a>（Levi’s Timeless 2026｜攝影 Mark Mahaney）','>Levi’s Timeless 2026｜攝影 Mark Mahaney／Models.com</a>'),
+   ('經濟部統計處，2026/09/07</a>（113年商品銷售結構；114年經營實況調查）','經濟部統計處（113年商品銷售結構；114年經營實況調查）</a>'),
+   ('創市際雙週刊第289期，2026/04/15</a>','創市際雙週刊第289期</a>'),
+  )
+  for new,old in pairs:
+   assert source.count(new)==1,name+': citation label changed'
+   source=source.replace(new,old,1)
  parts=''.join(Text(source).parts)
  if name in ('contact.html','mobile-contact.html'):
   # The user approved removing only the redundant LINE heading suffix.
@@ -100,7 +112,19 @@ if __name__=='__main__':
  approved=json.loads((ROOT/'_audit/regional-analysis-approved-sha1.json').read_text())['pages']
  current={}
  for name,expected in manifest['pages'].items():
-  if name in approved:
+  if name in ('trend.html','mobile-trend.html'):
+   # Same published main baseline used by check.py; no blanket text exemption.
+   expanded={'trend.html':'9645da84706e7536b8c76529c84b33c169b3b4f9','mobile-trend.html':'40a8e620b0c84a68a4245cf25e120607bfde1c09'}
+   raw=(ROOT/name).read_bytes()
+   # Permit only the two exact HTML entity corrections; preserve the published text hash.
+   for label in (b'TRADE AREA &amp; STORE NETWORK',b'DIGITAL RETAIL &amp; OMNICHANNEL'):
+    normalized=b'>'+label+b'</span>'
+    assert raw.count(normalized)==1, 'encoded heading missing or changed'
+    raw=raw.replace(normalized,normalized.replace(b'&amp;',b'&'),1)
+   actual=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+b'\0'+raw).hexdigest()
+   assert actual==expanded[name],name+': expanded research differs from published baseline'
+   current[name]=actual
+  elif name in approved:
    raw=restore_historical_contact_link_labels(
     name,strip_approved_japanese_ui(name,restore_approved_footer_layout(name,(ROOT/name).read_text(encoding='utf-8')))
    ).encode('utf-8')

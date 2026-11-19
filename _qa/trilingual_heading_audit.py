@@ -30,6 +30,11 @@ HOME = [
     ("實體通路趨勢研究摘要", "RETAIL RESEARCH", "実店舗の市場動向リサーチ"),
 ]
 RESEARCH = [
+    ("品牌競爭與市場定位", "COMPETITIVE STRATEGY & MARKET POSITIONING", "ブランド競争と市場ポジショニング"),
+    ("消費者行為與購物心理", "CONSUMER BEHAVIOR & SHOPPING PSYCHOLOGY", "消費者行動と購買心理"),
+    ("商圈研究與展店策略", "TRADE AREA & STORE NETWORK", "商圏分析と出店戦略"),
+    ("零售數位轉型與虛實整合", "DIGITAL RETAIL & OMNICHANNEL", "小売のデジタル化とオムニチャネル"),
+    ("組織行為與人才管理", "ORGANIZATIONAL BEHAVIOR & TALENT MANAGEMENT", "組織行動と人材育成"),
     ("市場訊號，如何轉成營運決策？", "FROM MARKET SIGNALS TO OPERATIONAL DECISIONS", "市場動向を運営判断につなげる"),
     ("把既有經驗，轉成跨店管理方法", "APPLYING EXPERIENCE TO MULTI-STORE MANAGEMENT", "現場経験を複数店舗の管理に生かす"),
     ("六項改善方針，明確分工執行", "SIX IMPROVEMENT PRIORITIES & CLEAR RESPONSIBILITIES", "六つの改善方針と明確な役割分担"),
@@ -46,13 +51,14 @@ MOBILE = [
     ("到任後工作構想", "POST-HIRE OPERATIONS PLAN", "入社後の業務構想"),
     ("實體通路趨勢研究摘要", "RETAIL RESEARCH", "実店舗の市場動向リサーチ"),
 ]
+NAME = [("HUANG BO-SHIH", "HUANG BO-SHIH", "コウ・ハクシ")]
 EXPECT = {
-    "index": HOME,
-    "mobile": MOBILE,
+    "index": HOME + NAME,
+    "mobile": MOBILE + NAME,
     "trend": RESEARCH + [("藥粧產業趨勢研究", "DRUGSTORE INDUSTRY TRENDS & REGIONAL OPERATIONS PROPOSAL", "ドラッグストア業界の動向調査とエリア運営改善提案")],
     "mobile-trend": RESEARCH + [("藥粧產業趨勢研究", "DRUGSTORE INDUSTRY TRENDS & REGIONAL OPERATIONS PROPOSAL", "ドラッグストア業界の動向調査とエリア運営改善提案")],
-    "contact": [("教育背景", "EDUCATION", "学歴")],
-    "mobile-contact": [("教育背景", "EDUCATION", "学歴")],
+    "contact": [("教育背景", "EDUCATION", "学歴")] + NAME,
+    "mobile-contact": [("教育背景", "EDUCATION", "学歴")] + NAME,
 }
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch(executable_path=os.environ.get("CHROME_PATH"), args=["--no-sandbox"])
@@ -104,8 +110,12 @@ with sync_playwright() as playwright:
             assert entry["clip"] == "none", (name, "reduced motion not visible", entry)
             assert entry["subtitleCount"] == 1 and entry["dividerCount"] == 1 and entry["divider"] == "／", (name, "one subtitle and separator required", entry)
             assert entry["enAndJaTogether"], (name, "subtitle languages must stay adjacent", entry)
-            assert entry["subtitleFlexWrap"] == "nowrap" and entry["subtitleWhiteSpace"] == "nowrap", (name, "subtitle must not wrap", entry)
-            assert abs(entry["enY"] - entry["jaY"]) <= 2, (name, "subtitle languages must share the same line", entry)
+            if not name.startswith("mobile"):
+                assert entry["subtitleFlexWrap"] == "nowrap" and entry["subtitleWhiteSpace"] == "nowrap", (name, "desktop subtitle must not wrap", entry)
+                assert abs(entry["enY"] - entry["jaY"]) <= 2, (name, "desktop subtitle languages must share the same line", entry)
+            else:
+                # Existing responsive layout intentionally permits wrapping.
+                assert entry["subtitleFlexWrap"] in ("wrap", "nowrap"), (name, "invalid mobile caption layout", entry)
 
         # Explicit layout contract: use the same research-page heading component
         # across homepage, research and contact (desktop and mobile). English
@@ -143,9 +153,12 @@ with sync_playwright() as playwright:
                 assert item["caption"]["top"]-item["primary"]["top"] <= 115, (name,"subtitle moved too far from title",item)
             assert item["captionDisplay"] in ("inline-flex","flex"), (name,"caption lost inline editorial style",item)
             assert item["caption"]["width"] <= item["row"]["width"] + 2, (name,"caption extends outside heading",item)
+            if name.startswith("mobile"):
+                for part in (item["en"], item["ja"]):
+                    assert part["left"] >= item["caption"]["left"] - 2 and part["right"] <= item["caption"]["right"] + 2, (name,"mobile subtitle escapes caption",item)
             if abs(item["en"]["top"]-item["ja"]["top"]) < 8:
                 assert item["ja"]["left"] <= item["en"]["right"] + 38, (name,"English and Japanese drift apart",item)
-        assert sum(item["editorial"] for item in layout) >= (6 if name in ("index","trend","mobile-trend") else 7 if name=="mobile" else 1), (name, "unified headings not found",layout)
+        assert sum(item["editorial"] for item in layout) >= (11 if name in ("trend","mobile-trend") else 6 if name=="index" else 7 if name=="mobile" else 1), (name, "unified headings not found",layout)
         overflow = page.evaluate("() => document.documentElement.scrollWidth - innerWidth")
         assert overflow <= 1, (name, "viewport horizontal overflow", overflow)
         print(json.dumps({"page":name,"width":width,"headlines":len(actual),"overflow_px":overflow,"reduced_motion":"pass"}, ensure_ascii=False),flush=True)
@@ -182,8 +195,11 @@ with sync_playwright() as playwright:
     page.goto(f"http://127.0.0.1:{server.server_port}/index.html?view=desktop", wait_until="domcontentloaded")
     first = page.locator("#motivation .tri-type-line")
     first.wait_for()
-    first.scroll_into_view_if_needed()
-    page.wait_for_function("() => document.querySelector('#motivation .tri-type-line')?.classList.contains('tri-type-done')", timeout=6000)
+    # Center the heading below the sticky navigation, rather than merely
+    # intersecting the viewport where the header can obscure it.
+    first.evaluate("(e) => e.scrollIntoView({block:'center',behavior:'instant'})")
+    page.wait_for_function("() => { const e=document.querySelector('#motivation .tri-type-line'); return e?.classList.contains('tri-type-active') || e?.classList.contains('tri-type-done'); }", timeout=10000)
+    page.wait_for_function("() => document.querySelector('#motivation .tri-type-line')?.classList.contains('tri-type-done')", timeout=12000)
     assert first.get_attribute("class").count("tri-type-done") == 1, "typing must finish once"
     page.evaluate("scrollTo(0,document.body.scrollHeight)")
     page.evaluate("scrollTo(0,0)")

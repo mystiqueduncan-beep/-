@@ -16,8 +16,8 @@ def restore_research_marquee_ui(rel, html):
     assert (ROOT/"assets/research-marquee-pastel.css").is_file(), "Research marquee stylesheet missing"
     for tag in (p["nav_after"],p["css_link"]):
         assert html.count(tag)==1,rel+": research UI nav/CSS unexpected or duplicated"
-    assert html.count("class=\"bilingual-nav-cn\"")==6,rel+": exactly six Chinese keys expected"
-    assert html.count("class=\"bilingual-nav-jp\" lang=\"ja\"")==6,rel+": exactly six Japanese keys expected"
+    assert html.count("class=\"bilingual-nav-cn\"")==11,rel+": exactly eleven Chinese keys expected"
+    assert html.count("class=\"bilingual-nav-jp\" lang=\"ja\"")==11,rel+": exactly eleven Japanese keys expected"
     assert "bilingual-current" not in html,rel+": current-section header must not exist"
     html=html.replace(p["nav_after"],p["nav_before"],1)
     html=html.replace(p["css_link"],"",1)

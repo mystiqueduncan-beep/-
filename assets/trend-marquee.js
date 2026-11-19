@@ -119,13 +119,15 @@
   }
 
   function updateCurrent() {
-    updateReadingBackground();
+    // Read chapter geometry before writing any visual or accessibility state.
     const active = activeChapterHash();
+    updateReadingBackground();
     nav.querySelectorAll('.keycap-marquee__group a[href^="#"]').forEach(link => {
       const selected = link.getAttribute("href") === active;
       link.classList.toggle("is-current", selected);
-      if (selected) link.setAttribute("aria-current", "location");
-      else link.removeAttribute("aria-current");
+      const current = link.getAttribute("aria-current");
+      if (selected && current !== "location") link.setAttribute("aria-current", "location");
+      else if (!selected && current !== null) link.removeAttribute("aria-current");
     });
   }
 

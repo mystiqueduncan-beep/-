@@ -21,8 +21,8 @@ with sync_playwright() as browserapi:
   page.goto(f"http://127.0.0.1:{server.server_port}/{name}.html?view="+("mobile" if mobile else "desktop"),wait_until="domcontentloaded")
   nav=page.locator("nav.trend-bilingual-nav")
   expect(nav).to_have_count(1)
-  expect(nav.locator("a.nav-btn-mk")).to_have_count(6)
-  expect(nav.locator(".bilingual-nav-jp")).to_have_count(6)
+  expect(nav.locator("a.nav-btn-mk")).to_have_count(11)
+  expect(nav.locator(".bilingual-nav-jp")).to_have_count(11)
   expect(page.locator(".bilingual-current")).to_have_count(0)
   track=nav.locator(".keycap-marquee__belt")
   for pseudo in ("::before","::after"):

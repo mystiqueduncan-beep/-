@@ -47,6 +47,28 @@ for name,view in [('index.html','desktop'),('mobile.html','mobile')]:
   subprocess.run(cmd,env=env,check=True)
   data=json.loads(report.read_text(encoding='utf-8'))
   summary={'page':name,'run':attempt+1,'lighthouseVersion':data.get('lighthouseVersion'),'environment':data.get('environment'),'configSettings':data.get('configSettings'),'scores':{k:v['score'] for k,v in data['categories'].items()},'runtimeError':data.get('runtimeError'),'findings':[{'id':k,'title':v['title'],'score':v.get('score'),'displayValue':v.get('displayValue')} for k,v in data['audits'].items() if v.get('score') is not None and v['score']<1]}
+  # Report numeric lab measurements even for perfect-scoring audits, and
+  # identify the largest content element and expensive render blockers.
+  audits=data.get('audits',{})
+  summary['metrics']={key:audits.get(key,{}).get('numericValue') for key in (
+   'first-contentful-paint','largest-contentful-paint','speed-index',
+   'total-blocking-time','cumulative-layout-shift','interactive',
+   'total-byte-weight','mainthread-work-breakdown')}
+  def detail_items(audit_id):
+   details=audits.get(audit_id,{}).get('details') or {}
+   return details.get('items') or []
+  def lcp_nodes(items):
+   for item in items:
+    if not isinstance(item,dict): continue
+    node=item.get('node')
+    if isinstance(node,dict) and node.get('selector'):
+     yield node['selector']
+    nested=item.get('items')
+    if isinstance(nested,list): yield from lcp_nodes(nested)
+  summary['lcpSelectors']=list(dict.fromkeys(lcp_nodes(detail_items('largest-contentful-paint-element'))))
+  summary['blockingResources']=[{'url':str(item.get('url','')).split('?')[0],
+   'wastedMs':item.get('wastedMs'),'totalBytes':item.get('totalBytes')}
+   for item in detail_items('render-blocking-resources') if isinstance(item,dict)][:15]
   summaries.append(summary)
 print('LIGHTHOUSE_SUMMARY='+json.dumps(summaries),flush=True)
 (out/'lighthouse-summary.json').write_text(json.dumps(summaries,indent=2),encoding='utf-8')

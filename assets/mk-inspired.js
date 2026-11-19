@@ -66,32 +66,19 @@
         heading, heading.textContent.trim());
     });
 
-    $$("#career .career-entry-card").forEach(card => {
+    // Career details stay in the original reading order and document flow.
+    // Keep the existing photo/text layout, but never collapse work experience.
+    $$("#career .career-entry-card, #career .timeline-job-card").forEach(card => {
       const spread = $(".career-spread", card);
-      const list = $(".duty-bullet-list", spread || card);
-      if (!spread || !list || !list.firstElementChild) return;
-      // Original first duty becomes the always-visible synopsis, not duplicated.
+      if (!spread || $(".portfolio-career-copy", spread)) return;
+      const list = $(".duty-bullet-list, .duty-list", spread);
+      if (!list || list.parentElement !== spread) return;
+      const intro = [...spread.children].find(node => node.tagName === "P");
       const copy = document.createElement("div");
       copy.className = "portfolio-career-copy";
-      spread.insertBefore(copy, list);
+      spread.insertBefore(copy, intro || list);
+      if (intro) copy.append(intro);
       copy.append(list);
-      const preview = document.createElement("ul");
-      preview.className = "duty-bullet-list portfolio-career-preview";
-      preview.append(list.firstElementChild);
-      copy.insertBefore(preview, list);
-      disclosure(card, [list], preview, $(".company-title", card)?.textContent.trim() || "工作經歷");
-    });
-    $$("#career .timeline-job-card").forEach(card => {
-      const spread = $(".career-spread", card);
-      const list = $(".duty-list", spread || card);
-      if (!spread || !list) return;
-      const preview = [...spread.children].find(node => node.tagName === "P");
-      if (!preview) return;
-      const copy = document.createElement("div");
-      copy.className = "portfolio-career-copy";
-      spread.insertBefore(copy, preview);
-      copy.append(preview, list);
-      disclosure(card, [list], preview, $(".job-title", card)?.textContent.trim() || "工作經歷");
     });
 
     $$("#proposal .stage-card").forEach(card => {
@@ -127,7 +114,9 @@
 
     // Deep links and print should never leave a requested detail inaccessible.
     const openHash = () => {
-      const hash = decodeURIComponent(location.hash.slice(1));
+      let hash;
+      try { hash = decodeURIComponent(location.hash.slice(1)); }
+      catch (_) { return; }
       if (!hash) return;
       const target = document.getElementById(hash);
       target?.closest(".portfolio-disclosure-card")?.portfolioSetOpen?.(true);
@@ -242,6 +231,8 @@
     "main .editorial-card",
     "main .wide-star-case",
     "main .career-entry-card",
+    "main #career .duty-bullet-list > li",
+    "main #career .duty-list > li",
     "main .edu-dedicated-card",
     "main .stage-card",
     "main .research-summary-panel",
@@ -292,6 +283,12 @@
     window.removeEventListener("pageshow", scheduleCheck);
   };
   const reveal = el => {
+    // Stagger only career duty rows already entering the viewport together.
+    // Keep their full space reserved; never delay access to focused/printed content.
+    if (el.matches("#career .duty-bullet-list > li, #career .duty-list > li")) {
+      const row = [...el.parentElement.children].indexOf(el);
+      el.style.setProperty("transition-delay", Math.min(row * 80, 240) + "ms", "important");
+    }
     el.classList.remove("mk-motion-pending", "mk-pop-pending");
     el.classList.add(el.classList.contains("mk-pop-item") ? "mk-pop-in" : "mk-motion-in");
     pending.delete(el);
