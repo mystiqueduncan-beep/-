@@ -233,9 +233,10 @@ with sync_playwright() as p:
   expect(photo).to_have_count(1)
   photo.evaluate('(e)=>e.decode()')
   assert photo.evaluate('(e)=>e.complete && e.naturalWidth===512 && e.naturalHeight===640')
-  assert photo.evaluate('(e)=>getComputedStyle(e.closest(".photo-frame")).borderRadius==="50%"')
+  assert photo.evaluate('(e)=>getComputedStyle(e.closest(".photo-frame")).borderRadius==="15px"')
   assert photo.evaluate('(e)=>getComputedStyle(e).objectPosition==="50% 0%"'),(name,'portrait crop must preserve full hairline')
-  assert photo.evaluate('(e)=>{const b=e.closest(".photo-frame").getBoundingClientRect();return Math.abs(b.width-b.height)<2}')
+  assert photo.evaluate('(e)=>{const r=e.getBoundingClientRect();return Math.abs(r.width/r.height-.8)<.02}'),(name,'portrait crop must remain 4:5')
+  assert photo.evaluate('(e)=>{const b=e.closest(".photo-frame").getBoundingClientRect();return b.width/b.height>=.70 && b.width/b.height<=.85}'),(name,'editorial portrait frame proportions')
   if name.startswith('mobile'):
    assert photo.evaluate('(e)=>getComputedStyle(e.closest(".photo-frame")).maxHeight==="none"')
   expect(page.locator('html.portrait-reveal-js')).to_have_count(1)
