@@ -230,7 +230,7 @@ for rel,old in base.items():
  if len(ids)!=len(set(ids)):errors.append(rel+': duplicate id')
  for t,a in p.tags:
   if set(a.get('class','').split()) & {'keycap-marquee__viewport','swim-scroll'}:
-   if a.get('role')!='region' or not a.get('aria-label','').strip() or a.get('tabindex')!='0':
+   if t!='section' or not a.get('aria-label','').strip() or a.get('tabindex')!='0':
     errors.append(rel+': unnamed or non-keyboard-accessible scroll region')
  # Exact source files supplied and approved by user replace only the two
  # research pages. Every other resume page remains checked against the
