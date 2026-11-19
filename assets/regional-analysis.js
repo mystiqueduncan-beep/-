@@ -125,3 +125,75 @@
     methods.forEach(method => method.classList.remove("exp-method-pending"));
   }
 })();
+
+/* One-shot KPI count-up: the canonical HTML remains intact and readable
+   to assistive technology. Only an aria-hidden visual copy is animated. */
+(() => {
+  "use strict";
+  if (!document.body.classList.contains("page-trend") ||
+      !("IntersectionObserver" in window) || !window.matchMedia) return;
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (reduced.matches) return;
+  const items = [...document.querySelectorAll("#market .stats .stat strong")];
+  const active = new Map();
+  let observer;
+  const finish = (el) => {
+    const state = active.get(el);
+    if (!state) return;
+    cancelAnimationFrame(state.frame);
+    state.copy.remove();
+    el.classList.remove("research-counting");
+    active.delete(el);
+  };
+  const stop = () => {
+    if (observer) observer.disconnect();
+    [...active.keys()].forEach(finish);
+  };
+  const start = (el) => {
+    if (reduced.matches || document.hidden) return;
+    const original = el.firstChild;
+    if (!original || original.nodeType !== 3) return;
+    const match = original.nodeValue.match(/^([+]?)([0-9,]+(?:\.[0-9]+)?)(%?)$/);
+    if (!match) return;
+    const [, prefix, digits, suffix] = match;
+    const target = Number(digits.replace(/,/g, ""));
+    const decimals = (digits.split(".")[1] || "").length;
+    if (!Number.isFinite(target)) return;
+    const formatter = new Intl.NumberFormat("en-US", {
+      useGrouping: digits.includes(","), minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals
+    });
+    const copy = document.createElement("span");
+    copy.className = "research-count-copy";
+    copy.setAttribute("aria-hidden", "true");
+    copy.textContent = prefix + formatter.format(0) + suffix;
+    [...el.children].forEach(child => copy.appendChild(child.cloneNode(true)));
+    const number = copy.firstChild;
+    const state = {copy, frame:0};
+    el.appendChild(copy);
+    el.classList.add("research-counting");
+    active.set(el, state);
+    let begin;
+    const tick = (now) => {
+      if (!active.has(el)) return;
+      if (reduced.matches || document.hidden) {finish(el);return;}
+      if (begin === undefined) begin = now;
+      const fraction = Math.min(1,(now-begin)/850);
+      if (fraction >= 1) {finish(el);return;}
+      number.nodeValue = prefix + formatter.format(target*(1-Math.pow(1-fraction,3))) + suffix;
+      state.frame = requestAnimationFrame(tick);
+    };
+    state.frame = requestAnimationFrame(tick);
+  };
+  try {
+    observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      observer.unobserve(entry.target);
+      start(entry.target);
+    }), {threshold:.25});
+    items.forEach(el => observer.observe(el));
+    if (typeof reduced.addEventListener === "function") reduced.addEventListener("change", e => {if(e.matches) stop();});
+    window.addEventListener("beforeprint",stop);
+    document.addEventListener("visibilitychange",()=>{if(document.hidden) [...active.keys()].forEach(finish);});
+  } catch (_) {stop();}
+})();
