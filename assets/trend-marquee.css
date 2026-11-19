@@ -485,3 +485,10 @@
     nav:is(.home-keycap-strip,.bilingual-mobile-strip,.trend-bilingual-nav)
     [data-keycap-marquee].keycap-marquee {transition: none !important;}
 }
+
+/* Keep the shared frame aligned to the chapter unless it reaches the screen edge. */
+@media screen {
+  body.page-trend.page-mobile nav.trend-bilingual-nav [data-keycap-marquee].keycap-marquee {
+    max-width: calc(100vw - 24px) !important;
+  }
+}
