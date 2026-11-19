@@ -42,3 +42,36 @@
   @media (max-width:360px) {body .mobile-bottom-bar a.portfolio-home-pill--compact{padding-inline:5px!important;gap:3px!important;}}
 }
 @media (prefers-reduced-motion:reduce) {body a.portfolio-home-pill {transition:none!important;}}
+
+/* Editorial refinement phase 1: screen-only reading rhythm and research citations.
+   Deliberately leaves navigation, career animation, chart geometry and print untouched. */
+@media screen {
+  body.page-home, body.page-trend {
+    --editorial-reading-ink: #49363e;
+    --editorial-heading-ink: #57313f;
+    --editorial-source-ink: #795466;
+  }
+  body.page-home .editorial-card .card-body-text,
+  body.page-trend .feature-card .feature-card-text {
+    line-height: 1.8;
+    overflow-wrap: break-word;
+  }
+  body.page-trend .viz-caption,
+  body.page-trend .research-inline-source,
+  body.page-home .audited-source-note {
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+  }
+  body.page-trend .research-inline-source a,
+  body.page-trend .viz-caption a,
+  body.page-home .audited-source-note a {
+    text-decoration-thickness: .07em;
+    text-underline-offset: .18em;
+  }
+  body.page-trend .research-inline-source a:focus-visible,
+  body.page-trend .viz-caption a:focus-visible,
+  body.page-home .audited-source-note a:focus-visible {
+    outline: 2px solid var(--editorial-heading-ink);
+    outline-offset: 3px;
+  }
+}
