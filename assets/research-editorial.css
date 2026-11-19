@@ -173,3 +173,16 @@
  }
  @media(max-width:360px) {body.page-trend #metrics .metric-grid {grid-template-columns:minmax(0,1fr);}}
 }
+
+/* Keep the canonical number in layout and in the accessibility tree. */
+@media screen and (prefers-reduced-motion:no-preference) {
+ body.page-trend #market .stats .stat strong.research-counting {position:relative;color:transparent!important;}
+ body.page-trend #market .stats .stat strong.research-counting > :not(.research-count-copy) {color:transparent!important;}
+ body.page-trend #market .stats .research-count-copy {position:absolute;inset:0;color:#57313f!important;font:inherit;letter-spacing:inherit;}
+}
+@media print {
+ .research-count-copy {display:none!important;}
+}
+@media screen and (prefers-reduced-motion:reduce) {
+ .research-count-copy {display:none!important;}
+}
