@@ -106,3 +106,70 @@
 @media print {
   .research-edition,.research-part {display:none!important;}
 }
+
+/* Phase 2: distinguish information types rather than repeating one card style. */
+@media screen {
+ body.page-trend .trend-hero .report-title-main {max-width:22ch;line-height:1.32!important;text-wrap:balance;}
+ body.page-trend .trend-hero .report-heading-topic,body.page-trend .trend-hero .report-heading-subject {display:block;}
+ body.page-trend .trend-main :is(#competition,#consumer,#location,#digital,#people) .quote {
+   border-inline-start:4px solid #97717f!important;background:#f3e8eb!important;
+   color:#49363e!important;padding:clamp(16px,3vw,26px)!important;line-height:1.85;
+ }
+ body.page-trend #competition > .cards-2x2-grid {gap:clamp(12px,2vw,24px)!important;}
+ body.page-trend #competition > .cards-2x2-grid > .feature-card {
+   border:1px solid #d9c4cc!important;border-top:4px solid #97717f!important;
+   background:#fffcfa!important;padding:clamp(16px,2.5vw,28px)!important;
+   display:flex;flex-direction:column;min-width:0;
+ }
+ body.page-trend #competition > .cards-2x2-grid > .feature-card .feature-card-data {margin-top:auto;}
+ body.page-trend #competition .viz-comparison > .cards-2x2-grid {gap:8px!important;}
+ body.page-trend #competition .viz-comparison > .cards-2x2-grid > .feature-card {
+   border-radius:10px!important;border:1px solid #d9c4cc!important;
+   background:#f6ebee!important;min-width:0;
+ }
+ body.page-trend #competition .viz-comparison > .cards-2x2-grid > .feature-card:nth-child(2),
+ body.page-trend #competition .viz-comparison > .cards-2x2-grid > .feature-card:nth-child(4) {background:#f7f5f0!important;}
+ body.page-trend #consumer .barrow {font-variant-numeric:tabular-nums;}
+ body.page-trend #consumer .bar {background:#ead9de!important;}
+ body.page-trend #consumer .bar i {background:#97717f!important;}
+ body.page-trend #consumer .barrow:first-of-type .bar i {background:#795466!important;}
+ body.page-trend #consumer .viz-comparison .compare-row {
+   border-inline-start:3px solid #c49ba8;padding-inline-start:12px!important;
+   margin-block:8px;background:#fffcfa!important;
+ }
+ body.page-trend #consumer .viz-comparison .compare-row > span:first-child {
+   color:#57313f!important;font-weight:700;letter-spacing:.02em;
+ }
+ body.page-trend #strategy .strategies .strategy {border-top:3px solid #c49ba8!important;}
+ body.page-trend #strategy .strategies .strategy[data-owner="hq"] {border-top-color:#778778!important;}
+ body.page-trend #roadmap .timeline-control .phase-tab {
+   min-width:0;border:1px solid #d9c4cc!important;border-radius:14px!important;
+   background:#fffcfa!important;color:#57313f!important;
+ }
+ body.page-trend #roadmap .timeline-control .phase-tab.active {
+   background:#ead9de!important;border-color:#795466!important;
+ }
+ body.page-trend #roadmap .phase-current {border-top:4px solid #97717f!important;}
+ body.page-trend #metrics .metric-grid {
+   gap:12px!important;grid-template-columns:repeat(3,minmax(0,1fr));
+ }
+ body.page-trend #metrics .metric-grid .metric-tile {
+   background:#fffcfa!important;border:1px solid #d9c4cc!important;
+   border-radius:14px!important;padding:clamp(14px,2vw,24px)!important;min-width:0;
+ }
+ body.page-trend #metrics .metric-tile h3 {color:#57313f!important;line-height:1.45;}
+ body.page-trend #metrics .metric-tile .metric-symbol {color:#795466!important;}
+ body.page-trend #metrics .metric-tile small {color:#795466!important;overflow-wrap:anywhere;}
+ body.page-trend #metrics .decision-map :is(.decision-start,.decision-question) {
+   background:#ead9de!important;border-color:#c49ba8!important;color:#57313f!important;
+ }
+ body.page-trend #metrics .decision-map .decision-result {border-radius:10px!important;}
+ body.page-trend #sources summary:focus-visible,
+ body.page-trend #roadmap button:focus-visible {outline:2px solid #57313f!important;outline-offset:3px;}
+ @media(max-width:720px) {
+   body.page-trend #metrics .metric-grid {grid-template-columns:repeat(2,minmax(0,1fr));}
+   body.page-trend #competition > .cards-2x2-grid {grid-template-columns:minmax(0,1fr)!important;}
+   body.page-trend #competition .viz-comparison > .cards-2x2-grid {grid-template-columns:minmax(0,1fr)!important;}
+ }
+ @media(max-width:360px) {body.page-trend #metrics .metric-grid {grid-template-columns:minmax(0,1fr);}}
+}
