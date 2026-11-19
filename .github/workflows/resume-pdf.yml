@@ -9,18 +9,54 @@ on:
       - assets/island-stitched-flora.svg
       - _qa/export_resume_pdf.py
       - .github/workflows/resume-pdf.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - resume.html
+      - assets/island-stitched-flora.svg
+      - _qa/export_resume_pdf.py
+      - .github/workflows/resume-pdf.yml
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: personal-resume-pdf-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  # Test PDF changes without granting write access to pull requests.
+  validate-renderer:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install original CJK fonts and PDF renderer
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk
+          python3 -m pip install playwright==1.51.0 pypdf==5.8.0
+          python3 -m playwright install --with-deps chromium
+      - name: Render and validate two-page A4 PDF without publishing
+        run: python3 _qa/export_resume_pdf.py
+      - name: Preserve validated PDF for review
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: personal-resume-a4-validation
+          path: resume.pdf
+          retention-days: 14
+
   build-verify-commit:
-    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+    # Playwright 1.51 supports Ubuntu 24.04, not the newer ubuntu-latest runner.
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
