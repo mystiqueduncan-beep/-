@@ -187,7 +187,8 @@ with sync_playwright() as p:
   page.on('pageerror',lambda e:errors.append(str(e)))
   url=f'http://127.0.0.1:{server.server_port}/{name}.html?view='+('mobile' if mobile else 'desktop')
   page.goto(url+'#%E0%A4%A',wait_until='load')
-  expect(page.locator('.portfolio-chart').first).to_be_attached()
+  chart_selector='.inline-research-viz' if 'trend' in name else '.portfolio-chart'
+  expect(page.locator(chart_selector).first).to_be_attached()
   toggle=page.locator('.portfolio-disclosure-toggle').first
   expect(toggle).to_have_attribute('aria-expanded','false')
   toggle.click()
