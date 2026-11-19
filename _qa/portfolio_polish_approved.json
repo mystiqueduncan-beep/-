@@ -51,6 +51,14 @@
     {
       "old": "</head>",
       "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261119-cover\">\n</head>"
+    },
+    {
+      "old": "<script src=\"assets/page-transitions.js?v=20261118-heading2\" defer>",
+      "now": "<script src=\"assets/page-transitions.js?v=20261119-cover\" defer>"
+    },
+    {
+      "old": "<a href=\"mobile.html\" class=\"brand-logo-badge\" title=\"個人應徵作品集\">\n      <span>✦ 個人應徵作品集</span>\n    </a>",
+      "now": "<div class=\"brand-logo-badge\">\n      <span>✦ 個人作品集</span>\n    </div>"
     }
   ],
   "trend.html": [
