@@ -168,19 +168,15 @@ with sync_playwright() as p:
         chart_specs = {
             'index': [('#research .data-bars-container', [47.7, 21.4, 13.7, 7.3, 7.0])],
             'mobile': [('#research .portfolio-chart', [47.7, 21.4, 13.7, 7.3, 7.0])],
-            'trend': [('#market .feature-card:has(.animated-bar)', [47.7, 21.4, 13.7, 7.3, 7.0, 2.9]),
-                      ('#consumer .feature-card:has(.animated-bar)', [45.2, 42.5, 28.7, 24.4])],
-            'mobile-trend': [('#market .feature-card:has(.animated-bar)', [47.7, 21.4, 13.7, 7.3, 7.0, 2.9]),
-                             ('#consumer .feature-card:has(.animated-bar)', [45.2, 42.5, 28.7, 24.4])],
         }
         for chart_selector, values in chart_specs.get(name, []):
             chart = page.locator(chart_selector)
             expect(chart).to_have_count(1)
-            expect(chart).to_have_class(re.compile(r'.*\bportfolio-chart\b.*'))
+            expect(chart).to_have_class(re.compile(r'.*\\bportfolio-chart\\b.*'))
             bars = chart.locator('.portfolio-bar')
             expect(bars).to_have_count(len(values))
             chart.evaluate('(e)=>{e.scrollIntoView({block:"center",behavior:"instant"});dispatchEvent(new Event("scroll"))}')
-            expect(chart).to_have_class(re.compile(r'.*\bportfolio-chart-active\b.*'))
+            expect(chart).to_have_class(re.compile(r'.*\\bportfolio-chart-active\\b.*'))
             for i, value in enumerate(values):
                 bar = bars.nth(i)
                 expect(bar).to_have_css('transform', 'matrix(1, 0, 0, 1, 0, 0)', timeout=6500)
@@ -189,18 +185,43 @@ with sync_playwright() as p:
                     gradient:getComputedStyle(e).backgroundImage,
                     delay:e.style.getPropertyValue("--portfolio-bar-delay")})''')
                 assert abs(info['width']-value)<.01 and abs(info['ratio']-value)<1, (name, chart_selector, value, info)
-                # Research pages also retain an existing page-specific rose gradient.
                 palettes = [('rgb(239, 179, 199)', 'rgb(198, 138, 161)')]
-                if 'trend' in name:
-                    palettes.append(('rgb(240, 185, 203)', 'rgb(199, 140, 159)'))
                 assert any(all(color in info['gradient'] for color in palette) for palette in palettes), (name, info)
                 assert info['delay']==str(i*250)+'ms', (name, info)
             page.evaluate('scrollTo({top:0,behavior:"instant"})')
             chart.evaluate('(e)=>{e.scrollIntoView({block:"center",behavior:"instant"});dispatchEvent(new Event("scroll"))}')
-            expect(chart).to_have_class(re.compile(r'.*\bportfolio-chart-active\b.*'))
+            expect(chart).to_have_class(re.compile(r'.*\\bportfolio-chart-active\\b.*'))
             for bar in bars.all():
                 expect(bar).to_have_css('transform', 'matrix(1, 0, 0, 1, 0, 0)')
             print('CHART_REGRESSION_PASS', name, chart_selector, values, flush=True)
+        inline_chart_specs = {
+            'trend': [('.inline-research-viz--mix', [47.7, 21.4, 13.7, 7.3, 7.0, 2.9]),
+                      ('.inline-research-viz--channels', [45.2, 42.5, 28.7, 24.4])],
+            'mobile-trend': [('.inline-research-viz--mix', [47.7, 21.4, 13.7, 7.3, 7.0, 2.9]),
+                             ('.inline-research-viz--channels', [45.2, 42.5, 28.7, 24.4])],
+        }
+        for chart_selector, values in inline_chart_specs.get(name, []):
+            chart=page.locator(chart_selector)
+            expect(chart).to_have_count(1)
+            chart.evaluate('(e)=>e.scrollIntoView({block:"center",behavior:"instant"})')
+            if chart_selector.endswith('--mix'):
+                segments=chart.locator('.inline-research-viz__stack > span')
+                expect(segments).to_have_count(len(values))
+                shares=segments.evaluate_all('(els)=>els.map(e=>parseFloat(e.style.getPropertyValue("--share")))')
+                legend=chart.locator('.inline-research-viz__legend b').all_text_contents()
+                legend_values=[float(v.rstrip("%")) for v in legend]
+                assert all(abs(a-b)<.01 for a,b in zip(shares,values)), (name,chart_selector,shares)
+                assert all(abs(a-b)<.01 for a,b in zip(legend_values,values)), (name,chart_selector,legend_values)
+                assert abs(sum(shares)-100)<.01, (name,shares)
+            else:
+                rows=chart.locator('.inline-research-viz__rows > li')
+                expect(rows).to_have_count(len(values))
+                labels=rows.locator('b').all_text_contents()
+                actual=[float(v.rstrip("%")) for v in labels]
+                scales=rows.locator('.inline-research-viz__track > i').evaluate_all('(els)=>els.map(e=>parseFloat(e.style.getPropertyValue("--value")))')
+                assert all(abs(a-b)<.01 for a,b in zip(actual,values)), (name,chart_selector,actual)
+                assert all(abs(a-b/50*100)<.15 for a,b in zip(scales,values)), (name,chart_selector,scales)
+            print('INLINE_CHART_REGRESSION_PASS',name,chart_selector,values,flush=True)
         # Revisit every item from the bottom: no target is concealed or replayed.
         for item in reversed(items.all()):
             item.evaluate('(e)=>e.scrollIntoView({block:"center",behavior:"instant"})')
