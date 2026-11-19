@@ -3,6 +3,7 @@ from pathlib import Path
 from html.parser import HTMLParser
 from urllib.parse import urlsplit, unquote
 import json, re, hashlib
+from portfolio_polish_approved import restore_portfolio_polish
 from japanese_titles import strip_approved_japanese_ui
 from contact_link_labels import restore_historical_contact_link_labels
 from roadmap_approval import restore_approved_roadmap
@@ -232,7 +233,7 @@ for rel,old in base.items():
  # Keep the older six-chapter fingerprint for historical verification.
  if rel in ('trend.html','mobile-trend.html'):
   expanded={'trend.html':'9645da84706e7536b8c76529c84b33c169b3b4f9','mobile-trend.html':'40a8e620b0c84a68a4245cf25e120607bfde1c09'}
-  raw=f.read_bytes()
+  raw=restore_portfolio_polish(rel, f.read_text(encoding='utf-8')).encode('utf-8')
   # Reverse only the exact authorized versioned marquee script URL.
   versioned=b'src="assets/trend-marquee.js?v=20261119-chapter-lock"'
   assert raw.count(versioned)==1, rel+': versioned chapter-lock script missing or duplicated'

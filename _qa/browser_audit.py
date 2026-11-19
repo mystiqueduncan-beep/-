@@ -124,8 +124,9 @@ with sync_playwright() as p:
    assert not page.locator('.mag-top-ticker span').filter(
        has_text=approved[0]).is_visible(), "desktop top ticker phone still showing"
   if name=='mobile.html':
-   assert page.locator('.specs-table.pastel-profile-notes .spec-row:visible').count()==4, (
-       "mobile cover contact rows or spacing still showing")
+   assert page.locator('.specs-table.pastel-profile-notes .spec-row:visible').count()==1, (
+       "only the retained preferred region row may be visible")
+   assert page.locator(".specs-table .portfolio-target-role").is_visible()
    assert page.locator('a[href="mobile-contact.html"]').count()>0, (
        "personal page action was removed")
   page.close()

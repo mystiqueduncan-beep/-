@@ -124,7 +124,7 @@
   ]);
 
   const mobile = new Map([
-    ["應徵者專訪特輯", ["APPLICANT FEATURE", "応募者紹介特集"]],
+    ["個人作品集", ["PERSONAL PORTFOLIO", "個人ポートフォリオ"]],
     ["應徵動機與志向", ["MOTIVATION & CAREER GOALS", "志望動機と今後の目標"]],
     ["四大核心管理能力", ["FOUR CORE MANAGEMENT COMPETENCIES", "四つの主要なマネジメント能力"]],
     ["門市營運實務與改善構想", ["STORE OPERATIONS & IMPROVEMENT PROPOSALS", "店舗運営の実務と改善提案"]],
