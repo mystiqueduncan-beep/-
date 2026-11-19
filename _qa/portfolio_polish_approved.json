@@ -19,7 +19,7 @@
     },
     {
       "old": "</head>",
-      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v2\">\n</head>"
+      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v3\">\n</head>"
     }
   ],
   "mobile.html": [
@@ -50,7 +50,7 @@
     },
     {
       "old": "</head>",
-      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v2\">\n</head>"
+      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v3\">\n</head>"
     },
     {
       "old": "<script src=\"assets/page-transitions.js?v=20261118-heading2\" defer>",
@@ -92,7 +92,7 @@
     },
     {
       "old": "</head>",
-      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v2\">\n</head>"
+      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v3\">\n</head>"
     },
     {
       "old": "<p class=\"note research-inline-source\">資料來源：<a href=\"https://www.matsumotokiyoshi-tw.com/wmaaa\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"portfolio-source-link\" aria-label=\"台灣松本清｜獨家品牌\" title=\"台灣松本清｜獨家品牌\">台灣松本清</a>；<a href=\"https://www.matsumotokiyoshi-tw.com/matsukiyo-membership\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"portfolio-source-link\" aria-label=\"台灣松本清｜會員權益\" title=\"台灣松本清｜會員權益\">台灣松本清</a>；<a href=\"https://www.matsumotokiyoshi-tw.com/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"portfolio-source-link\" aria-label=\"台灣松本清｜官方網站\" title=\"台灣松本清｜官方網站\">台灣松本清</a>。</p>",
@@ -143,8 +143,8 @@
       "now": "<section class=\"sources\" id=\"sources\"><div class=\"research-part\"><span class=\"research-part-no\" aria-hidden=\"true\">06</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">PART 06 / EVIDENCE &amp; LIMITS</span><span class=\"research-part-title\">研究結論與資料來源</span></div></div>"
     },
     {
-      "old": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v2\">",
-      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v2\"><link rel=\"stylesheet\" href=\"assets/research-editorial.css?v=20261119-magazine\">"
+      "old": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v3\">",
+      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v3\"><link rel=\"stylesheet\" href=\"assets/research-editorial.css?v=20261119-magazine\">"
     },
     {
       "old": "href=\"assets/research-editorial.css?v=20261119-magazine\"",
@@ -194,7 +194,7 @@
     },
     {
       "old": "</head>",
-      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v2\">\n</head>"
+      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v3\">\n</head>"
     },
     {
       "old": "<p class=\"note research-inline-source\">資料來源：<a href=\"https://www.matsumotokiyoshi-tw.com/wmaaa\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"portfolio-source-link\" aria-label=\"台灣松本清｜獨家品牌\" title=\"台灣松本清｜獨家品牌\">台灣松本清</a>；<a href=\"https://www.matsumotokiyoshi-tw.com/matsukiyo-membership\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"portfolio-source-link\" aria-label=\"台灣松本清｜會員權益\" title=\"台灣松本清｜會員權益\">台灣松本清</a>；<a href=\"https://www.matsumotokiyoshi-tw.com/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"portfolio-source-link\" aria-label=\"台灣松本清｜官方網站\" title=\"台灣松本清｜官方網站\">台灣松本清</a>。</p>",
@@ -245,8 +245,8 @@
       "now": "<section class=\"sources\" id=\"sources\"><div class=\"research-part\"><span class=\"research-part-no\" aria-hidden=\"true\">06</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">PART 06 / EVIDENCE &amp; LIMITS</span><span class=\"research-part-title\">研究結論與資料來源</span></div></div>"
     },
     {
-      "old": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v2\">",
-      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v2\"><link rel=\"stylesheet\" href=\"assets/research-editorial.css?v=20261119-magazine\">"
+      "old": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v3\">",
+      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v3\"><link rel=\"stylesheet\" href=\"assets/research-editorial.css?v=20261119-magazine\">"
     },
     {
       "old": "href=\"assets/research-editorial.css?v=20261119-magazine\"",
@@ -272,7 +272,7 @@
     },
     {
       "old": "</head>",
-      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v2\">\n</head>"
+      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v3\">\n</head>"
     }
   ],
   "mobile-contact.html": [
@@ -290,7 +290,7 @@
     },
     {
       "old": "</head>",
-      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v2\">\n</head>"
+      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v3\">\n</head>"
     }
   ]
 }
