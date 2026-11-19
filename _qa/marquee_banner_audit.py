@@ -163,7 +163,9 @@ def interactions(page, row, width, mobile):
     result = {}
     start = scroll_value(viewport)
     page.wait_for_timeout(220)
-    verify(scroll_value(viewport) > start + 2, "autoplay advances")
+    locked = nav.evaluate("e=>e.classList.contains('is-chapter-paused')")
+    verify(abs(scroll_value(viewport)-start)<=1 if locked else scroll_value(viewport)>start+2,
+           "reading pauses; pre-chapter autoplay advances")
     box = nav.bounding_box()
     page.mouse.move(box["x"] + box["width"] / 2, box["y"] + box["height"] / 2)
     page.wait_for_timeout(60)
@@ -172,7 +174,8 @@ def interactions(page, row, width, mobile):
     verify(abs(scroll_value(viewport) - paused) <= 1, "real pointer hover pauses")
     leave_banner(page)
     page.wait_for_timeout(220)
-    verify(scroll_value(viewport) > paused + 2, "pointer leave resumes")
+    verify(abs(scroll_value(viewport)-paused)<=1 if locked else scroll_value(viewport)>paused+2,
+           "pointer leave resumes only outside a chapter")
     result["autoplay_hover"] = "passed"
 
     page.mouse.move(box["x"] + box["width"] * .7, box["y"] + box["height"] / 2)
@@ -212,8 +215,10 @@ def interactions(page, row, width, mobile):
     leave_banner(page)
     result["chapter_click"] = "passed"
 
-    # Test the loop at its native scroll boundary without changing its geometry.
+    # Exit the reading area before testing the free-running loop.
+    page.evaluate("scrollTo({top:0,behavior:'instant'})")
     leave_banner(page)
+    page.wait_for_function("!document.querySelector('[data-keycap-marquee]').classList.contains('is-chapter-paused')")
     viewport.evaluate("e=>e.scrollLeft=e.scrollWidth-e.clientWidth-2")
     page.wait_for_timeout(220)
     verify(scroll_value(viewport) < 24, "native-scroll loop wraps and continues")
@@ -222,6 +227,9 @@ def interactions(page, row, width, mobile):
     verify(scroll_value(viewport) > loop_start + 2, "loop cannot remain stuck on blank run-in")
     result["loop"] = "passed"
 
+    # Return to the first chapter for visible mouse/keyboard interaction.
+    page.locator(first_link.get_attribute("href")).evaluate("e=>e.scrollIntoView({behavior:'instant',block:'start'})")
+    page.wait_for_timeout(220)
     # Keyboard pause survives native pointer hover re-evaluation on resize.
     # Measure relative to the viewport, excluding the banner's centering shift.
     box = nav.bounding_box()
@@ -262,6 +270,8 @@ def interactions(page, row, width, mobile):
     verify(page.evaluate("location.hash") == href, "keyboard activation follows original chapter link")
     result["keyboard"] = "passed"
 
+    page.evaluate("document.activeElement?.blur()")
+    leave_banner(page)
     target = "experience" if "trend" in page.url else "competencies"
     page.locator("#" + target).evaluate("e=>e.scrollIntoView({behavior:'instant',block:'start'})")
     page.wait_for_timeout(220)
@@ -279,6 +289,30 @@ def interactions(page, row, width, mobile):
     section_top = page.locator("#" + target).bounding_box()["y"]
     verify(section_top >= after_scroll["sticky"]["bottom"] - 5, "chapter heading is not obscured")
     result["scroll_highlight_sticky"] = "passed"
+
+    # Each new section aligns its active key to the visible leading edge;
+    # horizontal input must remain available and must not snap back mid-section.
+    def assert_lock(href):
+        page.wait_for_function("""href=>{const n=document.querySelector('[data-keycap-marquee]');const v=n.querySelector('.keycap-marquee__viewport');const a=n.querySelector('a[aria-current=location]');return n.classList.contains('is-chapter-paused') && a?.getAttribute('href')===href && Math.abs(a.getBoundingClientRect().left-v.getBoundingClientRect().left-Math.max(14,Math.ceil(v.clientWidth*.035)+4))<=3}""",arg=href)
+        position=scroll_value(viewport)
+        page.wait_for_timeout(250)
+        verify(abs(scroll_value(viewport)-position)<=1,"chapter lock holds after pointer leaves",href)
+    assert_lock("#"+target)
+    box = nav.bounding_box()
+    x,y=box["x"]+box["width"]*.65,box["y"]+box["height"]/2
+    page.mouse.move(x,y);page.mouse.down();page.mouse.move(x-70,y,steps=7);page.mouse.up()
+    manual=scroll_value(viewport)
+    verify(manual>=after_scroll["scrollLeft"]+55,"locked strip still drags right")
+    leave_banner(page)
+    page.evaluate("scrollBy({top:10,behavior:'instant'})")
+    page.wait_for_timeout(400)
+    verify(abs(scroll_value(viewport)-manual)<=1,"manual position survives scrolling within chapter")
+    next_href=group.locator("a").last.get_attribute("href")
+    page.locator(next_href).evaluate("e=>e.scrollIntoView({behavior:'instant',block:'start'})")
+    assert_lock(next_href)
+    page.locator("#"+target).evaluate("e=>e.scrollIntoView({behavior:'instant',block:'start'})")
+    assert_lock("#"+target)
+    result["chapter_lock"] = "passed"
 
     page.emulate_media(reduced_motion="reduce")
     page.wait_for_function("() => !document.querySelector('[data-keycap-marquee]').classList.contains('is-enhanced')")
@@ -307,7 +341,12 @@ def interactions(page, row, width, mobile):
            "restoring normal motion immediately shows original chapters", restored)
     before = scroll_value(viewport)
     page.wait_for_timeout(220)
-    verify(scroll_value(viewport) > before + 2, "autoplay resumes after motion preference restoration")
+    verify(abs(scroll_value(viewport)-before)<=1, "restoring motion keeps the current chapter locked")
+    page.evaluate("scrollTo({top:0,behavior:'instant'})")
+    page.wait_for_function("!document.querySelector('[data-keycap-marquee]').classList.contains('is-chapter-paused')")
+    before=scroll_value(viewport)
+    page.wait_for_timeout(220)
+    verify(scroll_value(viewport)>before+2,"autoplay resumes outside reading area")
     result["motion_preference_restoration"] = "passed"
     return result
 

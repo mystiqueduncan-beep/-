@@ -62,7 +62,8 @@ with sync_playwright() as p:
   before=v.evaluate('e=>e.scrollLeft')
   page.wait_for_timeout(320)
   after=v.evaluate('e=>e.scrollLeft')
-  if after<=before:
+  locked=nav.evaluate("e=>e.classList.contains('is-chapter-paused')")
+  if not locked and after<=before:
    print("AUTOPLAY_DEBUG",name,page.evaluate("""() => {
      const n=document.querySelector('[data-keycap-marquee]');
      const v=n?.querySelector('.keycap-marquee__viewport');
@@ -72,7 +73,7 @@ with sync_playwright() as p:
        intro:getComputedStyle(b,'::before').width,animations:b?.getAnimations().map(a=>a.animationName),
        raf:typeof requestAnimationFrame,visibility:document.visibilityState,debug:window.__marqueeDebug,scrollBehavior:getComputedStyle(v).scrollBehavior};
    }"""),flush=True)
-  assert after>before, ('autoplay must advance',name,before,after)
+  assert (abs(after-before)<=1 if locked else after>before), ('reading pauses; outside autoplays',name,before,after)
   link.dispatch_event('pointerover',{'pointerType':'mouse'})
   assert nav.evaluate("e=>e.classList.contains('is-hover-paused')")
   paused=v.evaluate('e=>e.scrollLeft')
@@ -101,7 +102,8 @@ with sync_playwright() as p:
   page.wait_for_timeout(230)
   next_scroll=v.evaluate('e=>e.scrollLeft')
   limit=v.evaluate('e=>e.scrollWidth-e.clientWidth')
-  assert next_scroll>resumed or (resumed>=limit-12 and next_scroll<25), ('resumes after actual pointer exit',name,resumed,next_scroll,limit)
+  locked=nav.evaluate("e=>e.classList.contains('is-chapter-paused')")
+  assert (abs(next_scroll-resumed)<=1 if locked else next_scroll>resumed or (resumed>=limit-12 and next_scroll<25)), ('chapter pause or resume after pointer exit',name,resumed,next_scroll,limit)
   assert page.locator('meta[name=viewport]').get_attribute('content').find('user-scalable=no')<0
   # :focus-visible is keyboard-modality-only; actual pointer drag must not
   # force a focus ring. Re-enter with Tab before checking keyboard outline.

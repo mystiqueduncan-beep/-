@@ -114,10 +114,12 @@ function makeHarness(options = {}) {
     querySelectorAll() { return originals.concat(cloned ? cloned.links : []); },
     addEventListener(name, callback) { events.set(name, callback); }
   };
-  let frameCallback = null;
+  // Browser RAF queues all callbacks for a frame, including the chapter update.
+  let frameCallbacks = [];
+  let frameId = 0;
   const window = {
     location: { hash: "" },
-    requestAnimationFrame(callback) { frameCallback = callback; },
+    requestAnimationFrame(callback) { frameCallbacks.push(callback); return ++frameId; },
     matchMedia() { return playback; },
     addEventListener(name, callback) { windowEvents.set(name, callback); }
   };
@@ -163,7 +165,12 @@ function makeHarness(options = {}) {
     mediaEvents,
     createdElements,
     triggerResize() { if (resizeCallback) resizeCallback(); },
-    advanceFrame(time) { assert.ok(frameCallback); frameCallback(time); },
+    advanceFrame(time) {
+      const callbacks = frameCallbacks;
+      assert.ok(callbacks.length);
+      frameCallbacks = [];
+      callbacks.forEach(callback => callback(time));
+    },
     dispatch(name, target, relatedTarget = null, pointerType = "mouse") {
       const listener = events.get(name);
       assert.ok(listener, "missing event handler: " + name);

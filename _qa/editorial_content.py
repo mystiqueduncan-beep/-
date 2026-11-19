@@ -116,6 +116,10 @@ if __name__=='__main__':
    # Same published main baseline used by check.py; no blanket text exemption.
    expanded={'trend.html':'9645da84706e7536b8c76529c84b33c169b3b4f9','mobile-trend.html':'40a8e620b0c84a68a4245cf25e120607bfde1c09'}
    raw=(ROOT/name).read_bytes()
+   # Keep the immutable research fingerprint; reverse only the approved script version.
+   versioned=b'src="assets/trend-marquee.js?v=20261119-chapter-lock"'
+   assert raw.count(versioned)==1, name+': versioned marquee script missing or duplicated'
+   raw=raw.replace(versioned,b'src="assets/trend-marquee.js"',1)
    # Permit only the two exact HTML entity corrections; preserve the published text hash.
    for label in (b'TRADE AREA &amp; STORE NETWORK',b'DIGITAL RETAIL &amp; OMNICHANNEL'):
     normalized=b'>'+label+b'</span>'

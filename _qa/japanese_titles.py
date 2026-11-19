@@ -43,6 +43,15 @@ def strip_approved_japanese_ui(rel, html):
     ):
         return html
 
+    # Only the explicitly approved marquee cache-busting URL is reversible
+    # for historical text and research-source identity checks.
+    if rel in ("index.html", "mobile.html", "trend.html", "mobile-trend.html"):
+        versioned = 'src="assets/trend-marquee.js?v=20261119-chapter-lock"'
+        # Historical local test fixtures may still contain the original script.
+        if versioned in html:
+            assert html.count(versioned) == 1, rel + ": duplicate marquee script"
+            html = html.replace(versioned, 'src="assets/trend-marquee.js"', 1)
+
     # Normalize only the explicit bilingual UI patch after exact fragment checks.
     html = restore_bilingual_home_ui(rel, html)
     html = restore_research_marquee_ui(rel, html)
