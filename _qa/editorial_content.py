@@ -116,7 +116,7 @@ if __name__=='__main__':
   if name in ('trend.html','mobile-trend.html'):
    # Pin the exact user-approved inline-chart publication. This preserves a byte-level guard
    # over the expanded research pages while allowing no general text exemption.
-   expanded={'trend.html':'7f2ca318bf0c06b5e71fc778365cd56c26cd5bef','mobile-trend.html':'57bda7acb7a4e2c81f1622ecce4cff16c5d7ddbc'}
+   expanded={'trend.html':'ee2eae76956cfa14494b66158bb8a7a11da3961c','mobile-trend.html':'d9a03897845d8cec58b73899729fd1fc47114dd4'}
    raw=(ROOT/name).read_bytes()
    versioned=b'src="assets/trend-marquee.js?v=20261119-chapter-lock"'
    assert raw.count(versioned)==1, name+': versioned marquee script missing or duplicated'

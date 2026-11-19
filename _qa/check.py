@@ -232,7 +232,7 @@ for rel,old in base.items():
  # Pin exact Git blobs from main ec5bdddbe536094cc20f4b42e3356a944f68c09e.
  # Keep the older six-chapter fingerprint for historical verification.
  if rel in ('trend.html','mobile-trend.html'):
-  expanded={'trend.html':'7f2ca318bf0c06b5e71fc778365cd56c26cd5bef','mobile-trend.html':'57bda7acb7a4e2c81f1622ecce4cff16c5d7ddbc'}
+  expanded={'trend.html':'ee2eae76956cfa14494b66158bb8a7a11da3961c','mobile-trend.html':'d9a03897845d8cec58b73899729fd1fc47114dd4'}
   raw=f.read_bytes()
   # The user-approved inline-chart publication is pinned byte-for-byte.
   versioned=b'src="assets/trend-marquee.js?v=20261119-chapter-lock"'
