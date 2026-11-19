@@ -4168,6 +4168,19 @@ body a.portfolio-source-link:focus-visible {
   }
 }
 
+/* Career readability: dark rose-charcoal copy on the existing pastel paper.
+   Preserve layout, wording, scroll reveal and the existing print treatment. */
+@media screen {
+  body.page-home #career .career-spread :is(.duty-bullet-list,.duty-list) > li,
+  body.page-home #career .career-spread > p,
+  body.page-home #career .career-spread .portfolio-career-copy > p {
+    color: #49363e !important;
+  }
+  body.page-home #career .career-spread :is(.duty-bullet-list,.duty-list) > li strong {
+    color: #57313f !important;
+  }
+}
+
 /* Source: view-mode-switch.css */
 /* Shared top-of-page device view selector — same location on all six pages. */
 body .view-mode-switch {

@@ -90,6 +90,8 @@ with sync_playwright() as p:
             expect(page.locator('#career .portfolio-disclosure-toggle, #career .portfolio-disclosure-panel')).to_have_count(0)
             duties = page.locator('#career .duty-bullet-list > li, #career .duty-list > li')
             assert duties.count() > 3
+            assert duties.evaluate_all('(rows)=>rows.every(r=>getComputedStyle(r).color==="rgb(73, 54, 62)")'), ('career body color',name)
+            assert duties.locator('strong').evaluate_all('(labels)=>labels.length>0 && labels.every(e=>getComputedStyle(e).color==="rgb(87, 49, 63)")'), ('career label color',name)
             assert duties.evaluate_all('(rows)=>rows.every(r=>r.matches(".mk-motion-item.mk-fade-item") && !r.closest("[inert], [aria-hidden=true]"))')
             plain = browser.new_page(java_script_enabled=False, viewport={'width':390 if mobile else 1440,'height':844})
             plain.route('https://**/*', lambda route: route.abort())
