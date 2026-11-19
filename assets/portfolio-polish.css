@@ -42,3 +42,86 @@
   @media (max-width:360px) {body .mobile-bottom-bar a.portfolio-home-pill--compact{padding-inline:5px!important;gap:3px!important;}}
 }
 @media (prefers-reduced-motion:reduce) {body a.portfolio-home-pill {transition:none!important;}}
+
+/* Editorial refinement phase 1: screen-only reading rhythm and research citations.
+   Deliberately leaves navigation, career animation, chart geometry and print untouched. */
+@media screen {
+  body.page-home, body.page-trend {
+    --editorial-reading-ink: #49363e;
+    --editorial-heading-ink: #57313f;
+    --editorial-source-ink: #795466;
+  }
+  body.page-home .editorial-card .card-body-text,
+  body.page-trend .feature-card .feature-card-text {
+    line-height: 1.8;
+    overflow-wrap: break-word;
+  }
+  body.page-trend .viz-caption,
+  body.page-trend .research-inline-source,
+  body.page-home .audited-source-note {
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+  }
+  body.page-trend .research-inline-source a,
+  body.page-trend .viz-caption a,
+  body.page-home .audited-source-note a {
+    text-decoration-thickness: .07em;
+    text-underline-offset: .18em;
+  }
+  body.page-trend .research-inline-source a:focus-visible,
+  body.page-trend .viz-caption a:focus-visible,
+  body.page-home .audited-source-note a:focus-visible {
+    outline: 2px solid var(--editorial-heading-ink);
+    outline-offset: 3px;
+  }
+}
+
+/* Phase 2: use the existing rose editorial family for research annotations,
+   allow grid children to shrink on narrow screens, and refine only the
+   research-specific reveal (not marquee, headings, or career animation). */
+@media screen {
+  body.page-trend .feature-card-title {
+    color: var(--editorial-heading-ink) !important;
+  }
+  body.page-trend .feature-card-text,
+  body.page-trend .feature-card-data {
+    color: var(--editorial-reading-ink) !important;
+  }
+  body.page-trend .feature-card-data {
+    line-height: 1.75;
+    overflow-wrap: break-word;
+  }
+  body.page-trend .viz-caption {
+    color: var(--editorial-heading-ink);
+  }
+  body.page-trend .viz-caption > span {
+    color: var(--editorial-source-ink);
+    line-height: 1.65;
+  }
+  body.page-trend .cards-2x2-grid > *,
+  body.page-home.page-mobile .mobile-card,
+  body.page-trend .feature-card {
+    min-width: 0;
+  }
+  body.page-trend .feature-card-data,
+  body.page-trend .research-inline-source {
+    font-variant-numeric: tabular-nums;
+  }
+  @media (max-width: 720px) {
+    body.page-trend .cards-2x2-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+    }
+    body.page-trend .feature-card-text {
+      font-size: .94rem;
+    }
+    body.page-trend .feature-card-data {
+      font-size: .875rem;
+    }
+  }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  body.page-trend .viz-reveal {
+    transition-timing-function: ease-out, cubic-bezier(.22,1,.36,1);
+  }
+}

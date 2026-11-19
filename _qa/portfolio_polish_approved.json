@@ -19,7 +19,7 @@
     },
     {
       "old": "</head>",
-      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261119-cover\">\n</head>"
+      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261119-editorial\">\n</head>"
     }
   ],
   "mobile.html": [
@@ -50,7 +50,7 @@
     },
     {
       "old": "</head>",
-      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261119-cover\">\n</head>"
+      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261119-editorial\">\n</head>"
     },
     {
       "old": "<script src=\"assets/page-transitions.js?v=20261118-heading2\" defer>",
@@ -92,7 +92,7 @@
     },
     {
       "old": "</head>",
-      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261119-cover\">\n</head>"
+      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261119-editorial\">\n</head>"
     },
     {
       "old": "<p class=\"note research-inline-source\">資料來源：<a href=\"https://www.matsumotokiyoshi-tw.com/wmaaa\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"portfolio-source-link\" aria-label=\"台灣松本清｜獨家品牌\" title=\"台灣松本清｜獨家品牌\">台灣松本清</a>；<a href=\"https://www.matsumotokiyoshi-tw.com/matsukiyo-membership\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"portfolio-source-link\" aria-label=\"台灣松本清｜會員權益\" title=\"台灣松本清｜會員權益\">台灣松本清</a>；<a href=\"https://www.matsumotokiyoshi-tw.com/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"portfolio-source-link\" aria-label=\"台灣松本清｜官方網站\" title=\"台灣松本清｜官方網站\">台灣松本清</a>。</p>",
@@ -158,7 +158,7 @@
     },
     {
       "old": "</head>",
-      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261119-cover\">\n</head>"
+      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261119-editorial\">\n</head>"
     },
     {
       "old": "<p class=\"note research-inline-source\">資料來源：<a href=\"https://www.matsumotokiyoshi-tw.com/wmaaa\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"portfolio-source-link\" aria-label=\"台灣松本清｜獨家品牌\" title=\"台灣松本清｜獨家品牌\">台灣松本清</a>；<a href=\"https://www.matsumotokiyoshi-tw.com/matsukiyo-membership\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"portfolio-source-link\" aria-label=\"台灣松本清｜會員權益\" title=\"台灣松本清｜會員權益\">台灣松本清</a>；<a href=\"https://www.matsumotokiyoshi-tw.com/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"portfolio-source-link\" aria-label=\"台灣松本清｜官方網站\" title=\"台灣松本清｜官方網站\">台灣松本清</a>。</p>",
@@ -200,7 +200,7 @@
     },
     {
       "old": "</head>",
-      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261119-cover\">\n</head>"
+      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261119-editorial\">\n</head>"
     }
   ],
   "mobile-contact.html": [
@@ -218,7 +218,7 @@
     },
     {
       "old": "</head>",
-      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261119-cover\">\n</head>"
+      "now": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261119-editorial\">\n</head>"
     }
   ]
 }
