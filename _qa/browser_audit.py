@@ -47,7 +47,10 @@ with sync_playwright() as p:
     elif img.is_visible():
      img.scroll_into_view_if_needed()
     page.wait_for_timeout(100)
-   page.wait_for_timeout(200);page.evaluate('scrollTo(0,0)')
+   page.wait_for_timeout(200);page.evaluate("scrollTo({top:0,behavior:'instant'})")
+   page.wait_for_function("scrollY===0")
+   page.mouse.move(1,1)
+   page.wait_for_timeout(150)
    row=page.evaluate('''()=>({overflow:document.documentElement.scrollWidth>innerWidth,externalImagesNotChecked:[...document.images].filter(i=>new URL(i.src).origin!==location.origin).map(i=>i.src),brokenImages:[...document.images].filter(i=>new URL(i.src).origin===location.origin&&(!i.complete||!i.naturalWidth)).map(i=>i.currentSrc)})''')
    row.update(file=name,width=width,errors=errors)
    if name in ('index.html','trend.html') and width == 1440:
@@ -66,11 +69,18 @@ with sync_playwright() as p:
      assert marquee.evaluate("e=>e.classList.contains('is-enhanced')")
      assert belt.evaluate("e=>getComputedStyle(e).animationName") == 'none'
      v=marquee.locator(".keycap-marquee__viewport")
+     # Sample only once vertical scrolling and chapter detection have settled.
+     # Start away from the wrap boundary, and measure the lock before/after.
+     locked=marquee.evaluate("e=>e.classList.contains('is-chapter-paused')")
+     if not locked:
+      v.evaluate("e=>e.scrollLeft=Math.min(e.scrollWidth-e.clientWidth-60,Math.max(0,parseFloat(e.querySelector('.keycap-marquee__belt').style.getPropertyValue('--keycap-start'))+14))")
+      page.wait_for_timeout(50)
      before=v.evaluate("e=>e.scrollLeft")
      page.wait_for_timeout(320)
      after=v.evaluate("e=>e.scrollLeft")
-     locked=marquee.evaluate("e=>e.classList.contains('is-chapter-paused')")
-     assert (abs(after-before)<=1 if locked else after>before), ("chapter pause / native autoplay",name)
+     state=marquee.evaluate("e=>({locked:e.classList.contains('is-chapter-paused'),classes:e.className,y:scrollY})")
+     assert state['locked']==locked, ('chapter state must settle before measurement',name,state)
+     assert (abs(after-before)<=1 if locked else after>before), ("chapter pause / native autoplay",name,before,after,state)
      first_key = page.locator('.keycap-marquee__group a').first
      first_key.dispatch_event('pointerover', {'pointerType': 'mouse'})
      assert marquee.evaluate("e=>e.classList.contains('is-hover-paused')")

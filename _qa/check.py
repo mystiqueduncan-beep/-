@@ -233,6 +233,10 @@ for rel,old in base.items():
  if rel in ('trend.html','mobile-trend.html'):
   expanded={'trend.html':'9645da84706e7536b8c76529c84b33c169b3b4f9','mobile-trend.html':'40a8e620b0c84a68a4245cf25e120607bfde1c09'}
   raw=f.read_bytes()
+  # Reverse only the exact authorized versioned marquee script URL.
+  versioned=b'src="assets/trend-marquee.js?v=20261119-chapter-lock"'
+  assert raw.count(versioned)==1, rel+': versioned chapter-lock script missing or duplicated'
+  raw=raw.replace(versioned,b'src="assets/trend-marquee.js"',1)
   # Permit only the two exact HTML entity corrections; preserve the published text hash.
   for label in (b'TRADE AREA &amp; STORE NETWORK',b'DIGITAL RETAIL &amp; OMNICHANNEL'):
    encoded_heading=b'>'+label+b'</span>'
