@@ -211,7 +211,7 @@
   }
   body.page-home.page-desktop .home-quick-actions a:hover {transform:translateY(-2px)!important;}
   body.page-home.page-desktop .home-project-action {
-    background:#fffaf7!important;color:#704657!important;
+    background:linear-gradient(135deg,#fffaf7 0%,#f4e4e9 100%)!important;color:#704657!important;
     border:1.5px solid #bd96a5!important;
   }
   body.page-home.page-desktop .mag-main.container {
