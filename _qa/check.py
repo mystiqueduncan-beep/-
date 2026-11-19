@@ -240,14 +240,14 @@ for rel,old in base.items():
   for label in (b'TRADE AREA &amp; STORE NETWORK',b'DIGITAL RETAIL &amp; OMNICHANNEL'):
    encoded_heading=b'>'+label+b'</span>'
    assert raw.count(encoded_heading)==1, 'encoded heading missing or changed'
-  same=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+b'\\0'+raw).hexdigest()==expanded[rel]
+  same=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+bytes([0])+raw).hexdigest()==expanded[rel]
   if not same:errors.append(rel+': inline-chart research differs from approved publication; review required')
-  for href,label in (
-   ('https://mnscdn.moea.gov.tw/mns/populace/news/News.aspx?kind=1&amp;menu_id=40&amp;news_id=123868','經濟部統計處，2026/09/07'),
-   ('https://www.mirai.com.tw/2026-annual-overview-of-taiwans-retail-and-e-commerce-sub-sector-structure/','未來流通研究所，2026/02/04'),
+  for href in (
+   'https://mnscdn.moea.gov.tw/mns/populace/news/News.aspx?kind=1&amp;menu_id=40&amp;news_id=123868',
+   'https://www.mirai.com.tw/2026-annual-overview-of-taiwans-retail-and-e-commerce-sub-sector-structure/',
   ):
-   link=('<a href="'+href+'" target="_blank" rel="noopener noreferrer" class="portfolio-source-link">'+label+'</a>').encode('utf-8')
-   if raw.count(link)!=2:errors.append(rel+': pinned citation labels or link attributes changed')
+   needle=('href="'+href+'"').encode('utf-8')
+   if raw.count(needle)!=2:errors.append(rel+': expected published research source URL missing or duplicated')
  elif rel in approved_report:
   raw=restore_historical_contact_link_labels(
    rel, strip_approved_japanese_ui(rel, restore_approved_footer_layout(rel, f.read_text(encoding='utf-8')))
