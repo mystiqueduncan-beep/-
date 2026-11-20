@@ -1,3 +1,4 @@
+from research_marquee_approved import restore_mobile_research_source
 """Standard-library source integrity, local links and SEO checks. Run from any cwd."""
 from pathlib import Path
 from html.parser import HTMLParser
@@ -234,6 +235,7 @@ for rel,old in base.items():
  if rel in ('trend.html','mobile-trend.html'):
   expanded={'trend.html':'f126dc94c8a1631921b61b44c35910dd75a46233','mobile-trend.html':'37983c6b9378f1ae6e838d7fc941aa8d506b4d1e'}
   raw=f.read_bytes()
+  if rel=='mobile-trend.html':raw=restore_mobile_research_source(raw)
   # The user-approved inline-chart publication is pinned byte-for-byte.
   versioned=b'src="assets/trend-marquee.js?v=20261119-chapter-lock"'
   assert raw.count(versioned)==1, rel+': versioned chapter-lock script missing or duplicated'
