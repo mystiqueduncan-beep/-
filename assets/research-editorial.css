@@ -270,3 +270,148 @@
     transition:transform 1.12s cubic-bezier(.22,1,.36,1) var(--progress-delay,0ms);
   }
 }
+
+
+/* Unified research title hierarchy / 2026-11-20.
+   Exactly ONE large Chinese heading per research section. Keep the five
+   existing PART labels as quiet chapter eyebrows, the eleven semantic H2
+   headings and their EN/JA translations, and the standalone Part 03 title.
+   No research wording, anchors, charts or print layout is changed. */
+@media screen {
+  body.page-trend .trend-main .research-part {
+    display:flex !important;
+    align-items:flex-start !important;
+    justify-content:flex-start !important;
+    gap:0 !important;
+    padding:clamp(17px,2.4vw,27px) 0 0 !important;
+    margin:clamp(16px,2.5vw,30px) 0 8px !important;
+    background:transparent !important;
+    border:0 !important;
+    border-top:1px solid #dfc5ce !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+  }
+  body.page-trend .trend-main .research-part-copy {
+    min-width:0;
+    display:block !important;
+    width:100%;
+  }
+  body.page-trend .trend-main .research-part .research-part-no,
+  body.page-trend .trend-main .research-part:not(.research-part--inside) .research-part-title {
+    display:none !important;
+  }
+  body.page-trend .trend-main .research-part .research-part-label {
+    display:block !important;
+    color:#926b7a !important;
+    font:750 clamp(.69rem,.82vw,.78rem)/1.6 var(--font-mono,monospace) !important;
+    letter-spacing:.12em !important;
+    text-align:left !important;
+    margin:0 !important;
+    padding:0 !important;
+    white-space:normal !important;
+  }
+  /* Part 03 (industry trends) does not have a separate H2. It must keep
+     its own visible Chinese heading; all other Parts lead to an H2 below. */
+  body.page-trend .trend-main .research-part--inside {
+    margin-top:clamp(32px,4.4vw,52px) !important;
+    margin-bottom:clamp(14px,2vw,24px) !important;
+  }
+  body.page-trend .trend-main .research-part--inside .research-part-title {
+    display:block !important;
+    color:#785367 !important;
+    font-family:var(--font-sans,"Noto Sans TC",sans-serif) !important;
+    font-size:clamp(1.48rem,2.6vw,2.1rem) !important;
+    line-height:1.38 !important;
+    letter-spacing:.02em !important;
+    font-weight:850 !important;
+    margin:7px 0 0 !important;
+  }
+  body.page-trend .trend-main .section-editorial-header {
+    display:block !important;
+    width:100% !important;
+    min-width:0 !important;
+    padding:0 0 clamp(14px,2.2vw,23px) !important;
+    margin:0 0 clamp(18px,2.5vw,30px) !important;
+    background:transparent !important;
+    background-image:none !important;
+    border:0 !important;
+    border-bottom:1px solid #ead6dc !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+    text-align:left !important;
+  }
+  body.page-trend .trend-main .section-editorial-header .sec-title-wrap {
+    display:block !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    padding:0 !important;
+  }
+  /* The six PART labels, not a second 01–11 number badge, carry the
+     large chapter hierarchy. This removes the conflicting 04 + 02 pair. */
+  body.page-trend .trend-main .section-editorial-header .sec-number,
+  body.page-trend .trend-main .section-editorial-header .tri-heading-primary .sec-number {
+    display:none !important;
+  }
+  body.page-trend .trend-main .section-editorial-header .tri-heading-primary {
+    display:block !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    margin:0 !important;
+  }
+  body.page-trend .trend-main .section-editorial-header
+    .tri-heading-primary :is(.sec-title-main,.trilingual-zh) {
+    display:block !important;
+    width:100% !important;
+    font-family:var(--font-sans,"Noto Sans TC",sans-serif) !important;
+    font-size:clamp(1.48rem,2.65vw,2.1rem) !important;
+    font-weight:850 !important;
+    line-height:1.36 !important;
+    color:#785367 !important;
+    letter-spacing:.02em !important;
+    text-wrap:balance;
+  }
+  body.page-trend .trend-main .section-editorial-header .tri-editorial-line {
+    display:flex !important;
+    flex-direction:column !important;
+    gap:clamp(6px,.8vw,10px) !important;
+    width:100% !important;
+    min-width:0 !important;
+  }
+  body.page-trend .trend-main .section-editorial-header .tri-subtitle-line {
+    display:flex !important;
+    flex-wrap:wrap !important;
+    align-items:baseline !important;
+    gap:0 .36em !important;
+    width:100% !important;
+    max-width:100% !important;
+    white-space:normal !important;
+    overflow:visible !important;
+    min-height:0 !important;
+  }
+  body.page-trend .trend-main .section-editorial-header .tri-subtitle-line
+    > :is(.trilingual-en,.trilingual-ja,.tri-subtitle-divider) {
+    white-space:normal !important;
+    overflow-wrap:anywhere !important;
+    max-width:100% !important;
+    flex:0 1 auto !important;
+    font-size:clamp(.69rem,.9vw,.84rem) !important;
+    letter-spacing:.035em !important;
+    line-height:1.65 !important;
+  }
+  @media(max-width:720px) {
+    body.page-trend .trend-main .research-part {
+      margin-top:22px !important;
+      padding-top:15px !important;
+    }
+    body.page-trend .trend-main .research-part--inside {
+      margin-top:28px !important;
+    }
+    body.page-trend .trend-main .section-editorial-header
+      .tri-heading-primary :is(.sec-title-main,.trilingual-zh),
+    body.page-trend .trend-main .research-part--inside .research-part-title {
+      font-size:clamp(1.28rem,5.2vw,1.7rem) !important;
+    }
+  }
+}
