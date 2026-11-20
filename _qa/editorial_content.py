@@ -122,7 +122,13 @@ if __name__=='__main__':
    assert raw.count(versioned)==1, name+': versioned marquee script missing or duplicated'
    for label in (b'TRADE AREA &amp; STORE NETWORK',b'DIGITAL RETAIL &amp; OMNICHANNEL'):
     assert raw.count(b'>'+label+b'</span>')==1, 'encoded heading missing or changed'
-   actual=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+bytes([0])+raw).hexdigest()
+   # Restore only the approved Part 03 title for the strict research byte audit.
+   # All citations, charts and other contents still have to match exactly.
+   short_title='<span class="research-part-title">產業趨勢</span>'.encode('utf-8')
+   original_title='<span class="research-part-title">產業趨勢與數據視覺化</span>'.encode('utf-8')
+   assert raw.count(short_title)==1,name+': approved Part 03 heading missing or repeated'
+   pinned_raw=raw.replace(short_title,original_title,1)
+   actual=hashlib.sha1(b'blob '+str(len(pinned_raw)).encode('ascii')+bytes([0])+pinned_raw).hexdigest()
    assert actual==expanded[name],name+': expanded research source differs from approved publication'
    current[name]=actual
   elif name in approved:
