@@ -54,6 +54,35 @@ with sync_playwright() as p:
         assert visible, ('narrative visible', name)
         assert page.locator('.tri-type-pending,.tri-type-active').evaluate_all(
             '''els=>els.every(e=>getComputedStyle(e).clipPath==='none')'''), ('instant multilingual headings',name)
+        if name in ('trend','mobile-trend'):
+            # PART 01 is the report hero. PARTS 02–06 become thin dividers;
+            # section headings remain the single prominent Chinese headings.
+            parts = page.locator('.trend-main .research-part')
+            expect(parts).to_have_count(5)
+            labels = parts.locator('.research-part-label').all_text_contents()
+            assert labels == [
+                'PART 02 / EXECUTIVE SUMMARY',
+                'PART 03 / INDUSTRY TRENDS',
+                'PART 04 / MARKET ANALYSIS',
+                'PART 05 / REGIONAL STRATEGY',
+                'PART 06 / EVIDENCE & LIMITS'
+            ], (name, labels)
+            assert page.locator('.trend-main .research-part .research-part-no').evaluate_all(
+                '''els=>els.every(e=>getComputedStyle(e).display==='none')'''), name
+            assert page.locator('.trend-main .research-part:not(.research-part--inside) .research-part-title').evaluate_all(
+                '''els=>els.every(e=>getComputedStyle(e).display==='none')'''), name
+            part_three = page.locator('.trend-main .research-part--inside .research-part-title')
+            expect(part_three).to_have_count(1)
+            expect(part_three).to_be_visible()
+            assert part_three.inner_text() == '產業趨勢', name
+            headings = page.locator('.trend-main .section-editorial-header h2.sec-title-main')
+            expect(headings).to_have_count(11)
+            assert headings.locator('.tri-heading-primary').count() == 0
+            assert page.locator('.trend-main .section-editorial-header .sec-number').evaluate_all(
+                '''els=>els.every(e=>getComputedStyle(e).display==='none')'''), name
+            assert page.locator('.trend-main .section-editorial-header .tri-subtitle-line').count() == 11, name
+            assert page.evaluate('document.documentElement.scrollWidth<=innerWidth'), name
+            print('RESEARCH_HEADING_HIERARCHY_PASS',name,labels,flush=True)
         if 'contact' in name:
             assert page.locator('.mk-pop-item').count() == 4, name
             assert page.locator('.method-card--print.mk-pop-item').count() == 1, name
