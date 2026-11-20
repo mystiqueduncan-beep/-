@@ -53,45 +53,37 @@ with sync_playwright() as p:
    page.wait_for_timeout(150)
    row=page.evaluate('''()=>({overflow:document.documentElement.scrollWidth>innerWidth,externalImagesNotChecked:[...document.images].filter(i=>new URL(i.src).origin!==location.origin).map(i=>i.src),brokenImages:[...document.images].filter(i=>new URL(i.src).origin===location.origin&&(!i.complete||!i.naturalWidth)).map(i=>i.currentSrc)})''')
    row.update(file=name,width=width,errors=errors)
-   if name in ('index.html','trend.html') and width == 1440:
-    # The pause toggle was intentionally removed. Verify the marquee itself.
-    marquee=page.locator('[data-keycap-marquee]')
-    belt=marquee.locator('.keycap-marquee__belt')
-    expect(marquee).to_have_count(1)
-    expect(belt).to_have_count(1)
+   if name in ('index.html','trend.html','mobile.html','mobile-trend.html') and width in (390,1440):
+    # The shortcuts must not auto-run; mobile/phone layouts are manually
+    # swipeable, and full desktop layouts wrap without clipping.
+    nav=page.locator('[data-keycap-marquee]')
+    expect(nav).to_have_count(1)
+    keys=nav.locator('.keycap-marquee__group a')
+    expect(keys).to_have_count(11 if 'trend' in name else 6)
     expect(page.locator('.keycap-marquee__toggle')).to_have_count(0)
-    assert marquee.locator('.keycap-marquee__group:not(.keycap-marquee__group--duplicate) a').count() > 0
-    if name == 'index.html':
-     expect(marquee.locator('a[href="contact.html"]')).to_have_count(0)
-     expect(page.locator('.hero-cta-group a[href="contact.html"]')).to_have_count(1)
-    motion_allowed=page.evaluate("""() => matchMedia('(min-width: 769px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)').matches""")
-    if motion_allowed:
-     assert marquee.evaluate("e=>e.classList.contains('is-enhanced')")
-     assert belt.evaluate("e=>getComputedStyle(e).animationName") == 'none'
-     v=marquee.locator(".keycap-marquee__viewport")
-     # Sample only once vertical scrolling and chapter detection have settled.
-     # Start away from the wrap boundary, and measure the lock before/after.
-     locked=marquee.evaluate("e=>e.classList.contains('is-chapter-paused')")
-     if not locked:
-      v.evaluate("e=>e.scrollLeft=Math.min(e.scrollWidth-e.clientWidth-60,Math.max(0,parseFloat(e.querySelector('.keycap-marquee__belt').style.getPropertyValue('--keycap-start'))+14))")
-      page.wait_for_timeout(50)
-     before=v.evaluate("e=>e.scrollLeft")
-     page.wait_for_timeout(320)
-     after=v.evaluate("e=>e.scrollLeft")
-     state=marquee.evaluate("e=>({locked:e.classList.contains('is-chapter-paused'),classes:e.className,y:scrollY})")
-     assert state['locked']==locked, ('chapter state must settle before measurement',name,state)
-     assert (abs(after-before)<=1 if locked else after>before), ("chapter pause / native autoplay",name,before,after,state)
-     first_key = page.locator('.keycap-marquee__group a').first
-     first_key.dispatch_event('pointerover', {'pointerType': 'mouse'})
-     assert marquee.evaluate("e=>e.classList.contains('is-hover-paused')")
-     marquee.dispatch_event('pointerleave', {'pointerType': 'mouse'})
-     assert not marquee.evaluate("e=>e.classList.contains('is-hover-paused')")
-     page.locator('h1').click()
-     page.keyboard.press('Tab')
-    page.emulate_media(reduced_motion='reduce')
-    assert belt.evaluate("e=>getComputedStyle(e).animationName") == 'none'
-    page.emulate_media(reduced_motion='no-preference')
-    row['marquee_interactions']='passed'
+    assert nav.evaluate("e=>e.classList.contains('is-static-nav')"), name
+    assert not nav.evaluate("e=>e.classList.contains('is-enhanced')"), name
+    viewport=nav.locator('.keycap-marquee__viewport')
+    belt=nav.locator('.keycap-marquee__belt')
+    assert belt.evaluate('e=>getComputedStyle(e).animationName')=='none'
+    initial=viewport.evaluate('e=>e.scrollLeft')
+    page.wait_for_timeout(240)
+    assert abs(viewport.evaluate('e=>e.scrollLeft')-initial)<=1, (name,'no autoplay')
+    assert belt.evaluate('e=>getComputedStyle(e,"::before").display')=='none'
+    assert belt.evaluate('e=>getComputedStyle(e,"::after").display')=='none'
+    assert keys.evaluate_all('''es=>es.every(e=>getComputedStyle(e).visibility==='visible' &&
+                       getComputedStyle(e).display!=='none')'''),name
+    assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1'),name
+    if name.startswith('mobile') or width<=720:
+     assert viewport.evaluate('e=>getComputedStyle(e).overflowX')=='auto'
+     assert viewport.evaluate('e=>e.scrollWidth>e.clientWidth'),name
+     viewport.focus()
+     viewport.evaluate('e=>e.scrollLeft=0')
+     page.keyboard.press('ArrowRight')
+     assert viewport.evaluate('e=>e.scrollLeft')>=130, (name,'keyboard manual scroll')
+    else:
+     assert keys.evaluate_all('''es=>es.every(e=>e.getBoundingClientRect().right<=innerWidth+2)'''),name
+    row['static_navigation']='passed'
 
    if width in (390,1440):
     # Audit fully revealed content, not transient opacity during entrance effects.
