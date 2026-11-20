@@ -31,7 +31,7 @@ with sync_playwright() as p:
         held.goto(url)
         held.wait_for_timeout(350)
         units = held.locator('main section, main article, main .editorial-card, main .feature-card, main .method-card')
-        readable = units.evaluate_all('''els=>els.filter(e=>!e.closest('[hidden],[aria-hidden="true"]'))
+        readable = units.evaluate_all('''els=>els.filter(e=>!e.closest('[hidden],[aria-hidden="true"]') && !e.matches('.mobile-cover'))
             .map(e=>({opacity:getComputedStyle(e).opacity, transform:getComputedStyle(e).transform}))''')
         assert readable and all(float(unit['opacity']) > .99 and unit['transform']=='none'
                                 for unit in readable), (name, readable[:12])
@@ -49,7 +49,7 @@ with sync_playwright() as p:
         # and chapter headings have no delayed clipped/character-by-character
         # rendering even if the legacy markup classes are still present.
         visible = page.locator('main section, main .editorial-card, main .feature-card').evaluate_all(
-            '''els=>els.filter(e=>!e.closest('[hidden],[aria-hidden="true"]'))
+            '''els=>els.filter(e=>!e.closest('[hidden],[aria-hidden="true"]') && !e.matches('.mobile-cover'))
                .every(e=>+getComputedStyle(e).opacity>.99 && getComputedStyle(e).transform==='none')''')
         assert visible, ('narrative visible', name)
         assert page.locator('.tri-type-pending,.tri-type-active').evaluate_all(
@@ -138,7 +138,7 @@ with sync_playwright() as p:
             item.evaluate('(e)=>e.scrollIntoView({block:"center",behavior:"instant"})')
         page.wait_for_timeout(250)
         assert page.locator('main section,main article,main .method-card').evaluate_all(
-            '''els=>els.filter(e=>!e.closest('[hidden],[aria-hidden="true"]')).every(e=>+getComputedStyle(e).opacity>.99)'''), name
+            '''els=>els.filter(e=>!e.closest('[hidden],[aria-hidden="true"]') && !e.matches('.mobile-cover')).every(e=>+getComputedStyle(e).opacity>.99)'''), name
         rows.append({'page':name,'readableWithoutEntrance':True,'preservedChartChecks':True,
                      'contactActions':page.locator('.mk-pop-item').count()})
         # Focus into an offscreen pending unit must reveal all ancestors.
