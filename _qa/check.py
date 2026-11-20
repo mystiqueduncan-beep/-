@@ -240,7 +240,14 @@ for rel,old in base.items():
   for label in (b'TRADE AREA &amp; STORE NETWORK',b'DIGITAL RETAIL &amp; OMNICHANNEL'):
    encoded_heading=b'>'+label+b'</span>'
    assert raw.count(encoded_heading)==1, 'encoded heading missing or changed'
-  same=hashlib.sha1(b'blob '+str(len(raw)).encode('ascii')+bytes([0])+raw).hexdigest()==expanded[rel]
+  # The user-approved Part 03 title is shorter; restore that one exact
+  # presentation-only string for the immutable chart/research byte audit.
+  # Every other byte must still match the previously approved publication.
+  short_title='<span class="research-part-title">產業趨勢</span>'.encode('utf-8')
+  original_title='<span class="research-part-title">產業趨勢與數據視覺化</span>'.encode('utf-8')
+  if raw.count(short_title)!=1:errors.append(rel+': approved Part 03 heading missing or duplicated')
+  pinned_raw=raw.replace(short_title,original_title,1) if raw.count(short_title)==1 else raw
+  same=hashlib.sha1(b'blob '+str(len(pinned_raw)).encode('ascii')+bytes([0])+pinned_raw).hexdigest()==expanded[rel]
   if not same:errors.append(rel+': inline-chart research differs from approved publication; review required')
   for href in (
    'https://mnscdn.moea.gov.tw/mns/populace/news/News.aspx?kind=1&amp;menu_id=40&amp;news_id=123868',
