@@ -28,14 +28,25 @@
     );
     nav.classList.add("is-static-nav");
     const mobile = document.body.classList.contains("page-mobile");
-    viewport.setAttribute("aria-label",
-      (document.body.classList.contains("page-trend") ? "專題章節導覽" : "履歷章節導覽") +
-      (mobile ? "，可用手指或鍵盤左右滑動" : "，完整顯示所有章節"));
+    const navName = document.body.classList.contains("page-trend") ? "專題章節導覽" : "履歷章節導覽";
     const shell = nav.closest("nav");
     if (shell?.getAttribute("aria-label")?.includes("跑馬燈")) {
-      shell.setAttribute("aria-label","履歷章節導覽");
+      shell.setAttribute("aria-label",navName);
     }
-    if (!mobile && window.innerWidth > 720) viewport.removeAttribute("tabindex");
+    function syncViewportSemantics() {
+      const manual = mobile || window.innerWidth <= 720;
+      if (manual) {
+        viewport.setAttribute("tabindex","0");
+        viewport.setAttribute("aria-label",navName+"，可用手指或鍵盤左右滑動");
+      } else {
+        // A stationary, non-focusable desktop wrapper is purely structural.
+        // Never leave aria-label on a generic div without a supported role.
+        viewport.removeAttribute("tabindex");
+        viewport.removeAttribute("aria-label");
+      }
+    }
+    syncViewportSemantics();
+    window.addEventListener("resize",syncViewportSemantics,{passive:true});
 
     function currentChapter() {
       const shell = nav.closest(".mag-subnav-strip,.bilingual-mobile-strip,.trend-subnav-strip");
