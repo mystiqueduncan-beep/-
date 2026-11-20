@@ -11,6 +11,19 @@ _MAPPINGS = json.loads((Path(__file__).with_name("bilingual_ui_approved.json")).
 def restore_bilingual_home_ui(rel, html):
     if rel not in _MAPPINGS or "assets/bilingual-pastel-chapters.css" not in html:
         return html
+    if rel=="mobile.html":
+        # Reverse ONLY the removed upper mobile chapter strip for legacy text
+        # fingerprint verification. The actual page keeps only bottom tabs.
+        assert "bilingual-chapter-nav" not in html,rel+": old mobile top nav reappeared"
+        fragment=next(x["new"] for x in _MAPPINGS[rel] if x["label"]=="mobile marquee")
+        marker='</header>\n\n\n  <!-- Content Container -->'
+        assert html.count(marker)==1,rel+": mobile nav removal boundary changed"
+        html=html.replace(marker,'</header>'+fragment+'\n\n  <!-- Content Container -->',1)
+        script='<script src="assets/trend-marquee.js" defer></script>'
+        assert script not in html,rel+": removed mobile marquee script reappeared"
+        anchor='  <script src="assets/mk-inspired.js" defer></script>'
+        assert html.count(anchor)==1,rel+": mobile script location changed"
+        html=html.replace(anchor,script+'\n'+anchor,1)
     for asset in ("assets/bilingual-pastel-chapters.css",):
         assert (_ROOT / asset).is_file(), rel + ": missing approved bilingual asset " + asset
     assert html.count("bilingual-chapter-nav") == 1, rel + ": chapter marquee must appear once"
