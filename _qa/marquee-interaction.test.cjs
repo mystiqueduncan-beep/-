@@ -91,8 +91,7 @@ test("one stationary shortcut per chapter and no repeating animation loop",()=>{
   assert.doesNotMatch(src,/function autoScroll|function tick|setPointerCapture|--keycap-start/);
   assert.match(src,/aria-current/);
   assert.match(src,/is-static-nav/);
-  for(const [page,count] of [["index.html",6],["mobile.html",6],
-                             ["trend.html",11],["mobile-trend.html",11]]){
+  for(const [page,count] of [["index.html",6],["trend.html",11]]){
     const html=fs.readFileSync(path.join(root,page),"utf8");
     const nav=html.match(/<[^>]+data-keycap-marquee[\s\S]*?<\/nav>/i);
     assert.ok(nav, page+" navigation missing");
@@ -102,7 +101,17 @@ test("one stationary shortcut per chapter and no repeating animation loop",()=>{
     targets.forEach(id=>assert.ok(html.includes('id="'+id+'"'),page+" missing target "+id));
   }
 });
-test("desktop headings stay visible, while mobile uses native swipe",()=>{
+test("dedicated mobile pages contain only the existing bottom navigation",()=>{
+  for(const page of ["mobile.html","mobile-trend.html"]){
+    const html=fs.readFileSync(path.join(root,page),"utf8");
+    assert.doesNotMatch(html,/data-keycap-marquee|class="bilingual-mobile-strip|class="trend-subnav-strip/);
+    assert.doesNotMatch(html,/src="assets\/trend-marquee\.js/);
+    assert.match(html,/<nav class="mobile-bottom-bar"[^>]*aria-label="[^"]+"/);
+    assert.match(html,/href="mobile-contact\.html"/);
+    assert.match(html,/href="mobile-trend\.html"|class="bottom-nav-item active" href="mobile-trend\.html"/);
+  }
+});
+test("desktop headings stay visible, while mobile uses bottom navigation",()=>{
   assert.match(css,/Calm static section navigation \/ 2026-11-20/);
   assert.match(css,/flex-flow:row wrap !important/);
   assert.match(css,/scroll-snap-type:x proximity !important/);

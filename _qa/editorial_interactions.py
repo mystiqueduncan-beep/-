@@ -17,42 +17,43 @@ with sync_playwright() as p:
   page.route('https://**/*',lambda r:r.abort())
   url=f'http://127.0.0.1:{server.server_port}/{name}.html?view='+('mobile' if mobile else 'desktop')
   page.goto(url)
-  nav=page.locator('[data-keycap-marquee]')
-  expect(nav).to_have_count(1)
-  keys=nav.locator('.keycap-marquee__group a.nav-btn-mk')
-  expect(keys).to_have_count(11 if 'trend' in name else 6)
-  expect(nav.locator('.bilingual-nav-jp')).to_have_count(11 if 'trend' in name else 6)
-  assert nav.evaluate("e=>e.classList.contains('is-static-nav')"),name
-  assert not nav.evaluate("e=>e.classList.contains('is-enhanced')"),name
-  assert nav.locator('.keycap-marquee__belt').evaluate(
-   'e=>getComputedStyle(e).animationName')=='none',name
-  viewport=nav.locator('.keycap-marquee__viewport')
-  initial=viewport.evaluate('e=>e.scrollLeft')
-  page.wait_for_timeout(290)
-  assert abs(viewport.evaluate('e=>e.scrollLeft')-initial)<=1,('autoplay disabled',name)
-  assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),name
   if mobile:
-   assert viewport.evaluate('e=>getComputedStyle(e).overflowX')=='auto',name
-   assert viewport.evaluate('e=>e.scrollWidth>e.clientWidth'),name
-   assert page.locator('.mobile-bottom-bar').count()==1,name
-   viewport.evaluate('e=>e.scrollLeft=0')
-   viewport.focus()
-   page.keyboard.press('ArrowRight')
-   moved=viewport.evaluate('e=>e.scrollLeft')
-   assert moved>100, ('manual keyboard scroll',name,moved)
-   # Reading changes may recolor the active link but cannot relocate the nav.
-   page.evaluate('scrollBy({top:100,behavior:"instant"})')
-   page.wait_for_timeout(170)
-   assert abs(viewport.evaluate('e=>e.scrollLeft')-moved)<=1,('user position retained',name)
+   # A single existing bottom bar replaces the redundant top chapter strip.
+   expect(page.locator('[data-keycap-marquee]')).to_have_count(0)
+   bottom=page.locator('nav.mobile-bottom-bar')
+   expect(bottom).to_have_count(1)
+   assert bottom.is_visible(),name
+   assert bottom.evaluate('e=>getComputedStyle(e).position')=='fixed',name
+   assert page.locator('meta[name=viewport]').get_attribute('content').find('user-scalable=no')<0
+   if name=='mobile':
+    for fragment in ['#top','#advantages','#cases','#career']:
+     anchor=bottom.locator('a[href="'+fragment+'"]')
+     expect(anchor).to_have_count(1)
+     assert page.locator(fragment).count()==1,(name,fragment)
+    bottom.locator('a[href="#cases"]').click()
+    assert page.evaluate('location.hash')=='#cases',name
+   else:
+    assert bottom.locator('a[aria-current="page"][href="mobile-trend.html"]').count()==1,name
+    assert bottom.locator('a[href="mobile.html"]').count()==1,name
+    assert bottom.locator('a[href="mobile-contact.html"]').count()==1,name
+   assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),name
+   rows.append({'page':name,'topChapterNav':'removed','bottomNavigation':'pass'})
   else:
-   assert viewport.evaluate('e=>getComputedStyle(e).overflowX')=='visible',name
-  first=keys.first
-  first.click()
-  assert page.evaluate('location.hash')==first.get_attribute('href'),name
-  assert first.get_attribute('aria-current')=='location',name
-  assert page.locator('meta[name=viewport]').get_attribute('content').find('user-scalable=no')<0
-  assert not page.locator('.keycap-marquee__toggle').count()
-  rows.append({'page':name,'stationaryNav':'pass','chapterClick':'pass','manualScroll':mobile})
+   nav=page.locator('[data-keycap-marquee]')
+   expect(nav).to_have_count(1)
+   keys=nav.locator('.keycap-marquee__group a.nav-btn-mk')
+   expect(keys).to_have_count(11 if name=='trend' else 6)
+   assert nav.evaluate("e=>e.classList.contains('is-static-nav')"),name
+   assert not nav.evaluate("e=>e.classList.contains('is-enhanced')"),name
+   viewport=nav.locator('.keycap-marquee__viewport')
+   before=viewport.evaluate('e=>e.scrollLeft')
+   page.wait_for_timeout(260)
+   assert abs(viewport.evaluate('e=>e.scrollLeft')-before)<=1,('no autoplay',name)
+   first=keys.first
+   first.click()
+   assert page.evaluate('location.hash')==first.get_attribute('href'),name
+   assert first.get_attribute('aria-current')=='location',name
+   rows.append({'page':name,'stationaryDesktopNav':'pass'})
   page.close()
  # Same-tab cross-document navigation uses the existing transition mechanism.
  page=browser.new_page();page.route('https://**/*',lambda r:r.abort());page.goto(f'http://127.0.0.1:{server.server_port}/index.html?view=desktop')
@@ -80,7 +81,7 @@ with sync_playwright() as p:
   expect(toggle).to_have_attribute('aria-expanded','true')
   page.evaluate("location.hash = '%ZZ'")
   page.wait_for_timeout(80)
-  page.evaluate("location.hash = document.querySelector('[data-keycap-marquee] a').hash")
+  page.evaluate("location.hash = " + ("'#market'" if name=='mobile-trend' else "'#cases'" if name=='mobile' else "document.querySelector('[data-keycap-marquee] a').hash"))
   page.wait_for_timeout(80)
   assert not errors, ('malformed hash must not raise page errors',name,errors)
   assert page.evaluate("document.getElementById(decodeURIComponent(location.hash.slice(1))) !== null")

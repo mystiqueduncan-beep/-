@@ -1,3 +1,4 @@
+from research_marquee_approved import restore_mobile_research_source
 """Standard-library source integrity, local links and SEO checks. Run from any cwd."""
 from pathlib import Path
 from html.parser import HTMLParser
@@ -234,6 +235,7 @@ for rel,old in base.items():
  if rel in ('trend.html','mobile-trend.html'):
   expanded={'trend.html':'f126dc94c8a1631921b61b44c35910dd75a46233','mobile-trend.html':'37983c6b9378f1ae6e838d7fc941aa8d506b4d1e'}
   raw=f.read_bytes()
+  if rel=='mobile-trend.html':raw=restore_mobile_research_source(raw)
   # The user-approved inline-chart publication is pinned byte-for-byte.
   versioned=b'src="assets/trend-marquee.js?v=20261119-chapter-lock"'
   assert raw.count(versioned)==1, rel+': versioned chapter-lock script missing or duplicated'
@@ -463,28 +465,37 @@ for rel in ('trend.html','mobile-trend.html'):
   errors.append(rel+': expected three 90-day phases')
  if len(re.findall(r'class="metric-tile"',html))!=6:
   errors.append(rel+': expected six noninvented KPI tiles')
- # Both research views now share the homepage-style bilingual sticky
- # marquee; original section IDs and research text are immutable.
+ # Research sources and section IDs are immutable; navigation differs by
+ # device only. Mobile relies on the existing fixed bottom page switcher.
  nav=re.search(r'<nav aria-label="專題導覽" class="trend-subnav-strip trend-bilingual-nav">.*?</nav>',html,re.S)
- if not nav or html.count('data-keycap-marquee')!=1:
-  errors.append(rel+': bilingual research chapter marquee missing or duplicated')
+ if rel=='mobile-trend.html':
+  if nav or 'data-keycap-marquee' in html or 'src="assets/trend-marquee.js' in html:
+   errors.append(rel+': removed upper chapter navigation unexpectedly present')
+  bottom=re.search(r'<nav class="mobile-bottom-bar" aria-label="手機底部導覽">.*?</nav>',html,re.S)
+  if not bottom:
+   errors.append(rel+': mobile research footer navigation missing')
+  else:
+   for dest in ('mobile.html','mobile-trend.html','mobile-contact.html'):
+    if bottom.group(0).count('href="'+dest+'"')!=1:
+     errors.append(rel+': mobile footer link missing or duplicated '+dest)
  else:
-  links=re.findall(r'<a href="#([^"]+)" class="nav-btn-mk"><span class="bilingual-nav-cn">([^<]+)</span><span class="bilingual-nav-jp" lang="ja">([^<]+)</span></a>',nav.group(0))
-  expected=[('market','市場判讀','市場動向を運営判断につなげる'),
-            ('competition','品牌競爭','ブランド競争'),
-            ('consumer','消費心理','消費者心理'),
-            ('location','商圈研究','商圏分析'),
-            ('digital','數位轉型','デジタル化'),
-            ('people','人才管理','人材育成'),
-            ('experience','經驗連結','現場経験を複数店舗の管理へ'),
-            ('strategy','改善方針','六つの改善方針と担当体制'),
-            ('roadmap','90天計畫','90日間のエリア運営推進計画'),
-            ('metrics','成效追蹤','売上だけでなく改善コストも評価'),
-            ('sources','研究來源','情報源と提案の適用範囲')]
-  if links!=expected or 'bilingual-current' in nav.group(0):
-   errors.append(rel+': research bilingual marquee chapter labels or anchors changed')
- if rel=='mobile-trend.html' and 'class="mobile-bottom-bar"' not in html:
-  errors.append(rel+': mobile research footer navigation missing')
+  if not nav or html.count('data-keycap-marquee')!=1:
+   errors.append(rel+': desktop research chapter navigation missing or duplicated')
+  else:
+   links=re.findall(r'<a href="#([^"]+)" class="nav-btn-mk"><span class="bilingual-nav-cn">([^<]+)</span><span class="bilingual-nav-jp" lang="ja">([^<]+)</span></a>',nav.group(0))
+   expected=[('market','市場判讀','市場動向を運営判断につなげる'),
+             ('competition','品牌競爭','ブランド競争'),
+             ('consumer','消費心理','消費者心理'),
+             ('location','商圈研究','商圏分析'),
+             ('digital','數位轉型','デジタル化'),
+             ('people','人才管理','人材育成'),
+             ('experience','經驗連結','現場経験を複数店舗の管理へ'),
+             ('strategy','改善方針','六つの改善方針と担当体制'),
+             ('roadmap','90天計畫','90日間のエリア運営推進計画'),
+             ('metrics','成效追蹤','売上だけでなく改善コストも評価'),
+             ('sources','研究來源','情報源と提案の適用範囲')]
+   if links!=expected or 'bilingual-current' in nav.group(0):
+    errors.append(rel+': research bilingual chapter labels or anchors changed')
 # Preserve the earlier original contact portrait as a provenance backup.
 # The newly selected photo (IMG_3264) is resized for the unchanged circular contact frame, without facial retouching.
 portrait_path=ROOT/'contact-portrait-20261109.jpg'

@@ -46,46 +46,51 @@ with sync_playwright() as playwright:
             f"?view={'mobile' if mobile else 'desktop'}",
             wait_until="domcontentloaded",
         )
-        nav = page.locator(".bilingual-mobile-strip" if mobile else ".home-keycap-strip")
-        expect(nav).to_have_count(1)
-        expect(page.locator(".bilingual-current")).to_have_count(0)
-        expect(page.locator('[data-bilingual-title]')).to_have_count(0)
-        expect(page.locator('script[src$="bilingual-chapters.js"]')).to_have_count(0)
-        original = nav.locator(".keycap-marquee__group")
-        expect(original.locator("a.nav-btn-mk")).to_have_count(6)
-        expect(original.locator(".bilingual-nav-jp")).to_have_count(6)
-        assert original.evaluate("e=>[...e.children].every(c=>c.tagName==='LI')"), name
-        assert nav.evaluate("e=>getComputedStyle(e).position") == "sticky", name
-        assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1"), name
-        page.wait_for_timeout(150)
-        page.screenshot(path=str(out / f"{name}-top.png"), full_page=False)
-
-        # Scroll to an actual section to verify sticky remains at the top
-        # and the target heading stays below the navigation chrome.
-        page.evaluate(
-            "() => document.getElementById('cases').scrollIntoView({behavior:'instant'})"
-        )
-        page.wait_for_timeout(350)
-        geometry = page.evaluate("""(mobile) => {
-            const header = document.querySelector('.mobile-top-bar');
-            const nav = document.querySelector(mobile ? '.bilingual-mobile-strip' : '.home-keycap-strip');
-            const section = document.querySelector('#cases');
-            const n=nav.getBoundingClientRect();
-            const s=section.getBoundingClientRect();
-            return {scrollY:scrollY,navTop:n.top,navBottom:n.bottom,
-              headerBottom:header ? header.getBoundingClientRect().bottom : 0,
-              sectionTop:s.top,navPosition:getComputedStyle(nav).position,
-              overflow:document.documentElement.scrollWidth-innerWidth};
-        }""", mobile)
-        assert geometry["scrollY"] > 250, (name, geometry)
-        assert geometry["navPosition"] == "sticky", (name, geometry)
-        target_top = geometry["headerBottom"] if mobile else 0
-        assert abs(geometry["navTop"] - target_top) <= 9, (name, "sticky offset", geometry)
-        assert geometry["sectionTop"] >= geometry["navBottom"] - 5, (
-            name, "anchor heading covered", geometry
-        )
-        assert geometry["overflow"] <= 1, (name, "horizontal overflow", geometry)
-        page.screenshot(path=str(out / f"{name}-sticky.png"), full_page=False)
+        if mobile:
+            expect(page.locator(".bilingual-mobile-strip")).to_have_count(0)
+            expect(page.locator("[data-keycap-marquee]")).to_have_count(0)
+            nav=page.locator("nav.mobile-bottom-bar")
+            expect(nav).to_have_count(1)
+            assert nav.is_visible(),name
+            assert nav.evaluate('e=>getComputedStyle(e).position')=='fixed',name
+            assert nav.locator('a[href="#cases"]').count()==1,name
+            assert nav.locator('a[href="mobile-trend.html"]').count()==1,name
+            assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),name
+            page.screenshot(path=str(out / f"{name}-top.png"),full_page=False)
+            nav.locator('a[href="#cases"]').click()
+            page.wait_for_timeout(250)
+            assert page.evaluate("location.hash")=="#cases",name
+            geometry=page.evaluate("""() => {
+                const n=document.querySelector('.mobile-bottom-bar').getBoundingClientRect();
+                return {navTop:n.top,navBottom:n.bottom,navPosition:getComputedStyle(
+                     document.querySelector('.mobile-bottom-bar')).position,
+                     scrollY:scrollY,overflow:document.documentElement.scrollWidth-innerWidth};
+            }""")
+            assert geometry["navPosition"]=="fixed" and geometry["overflow"]<=1,(name,geometry)
+            assert geometry["navBottom"]<=page.viewport_size["height"]+1,(name,geometry)
+            page.screenshot(path=str(out / f"{name}-sticky.png"),full_page=False)
+        else:
+            nav=page.locator(".home-keycap-strip")
+            expect(nav).to_have_count(1)
+            expect(nav.locator('.keycap-marquee__group a.nav-btn-mk')).to_have_count(6)
+            assert nav.evaluate("e=>getComputedStyle(e).position")=="sticky",name
+            assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),name
+            page.screenshot(path=str(out / f"{name}-top.png"),full_page=False)
+            page.evaluate("() => document.getElementById('cases').scrollIntoView({behavior:'instant'})")
+            page.wait_for_timeout(350)
+            geometry=page.evaluate("""() => {
+                const nav=document.querySelector('.home-keycap-strip').getBoundingClientRect();
+                const section=document.getElementById('cases').getBoundingClientRect();
+                return {navTop:nav.top,navBottom:nav.bottom,navPosition:getComputedStyle(
+                  document.querySelector('.home-keycap-strip')).position,
+                  sectionTop:section.top,scrollY:scrollY,
+                  overflow:document.documentElement.scrollWidth-innerWidth};
+            }""")
+            assert geometry["scrollY"]>250 and geometry["navPosition"]=="sticky",(name,geometry)
+            assert abs(geometry["navTop"])<=9,(name,geometry)
+            assert geometry["sectionTop"]>=geometry["navBottom"]-5,(name,geometry)
+            assert geometry["overflow"]<=1,(name,geometry)
+            page.screenshot(path=str(out / f"{name}-sticky.png"),full_page=False)
         checks.append({"page":name,"viewport":width,**geometry})
         page.close()
     browser.close()

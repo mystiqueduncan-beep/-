@@ -92,6 +92,41 @@ try:
     try:
      page.goto(urljoin(base,name)+"?view="+("mobile" if mobile else "desktop"),
          wait_until="load",timeout=45000)
+     if mobile and not args.baseline:
+      # Dedicated phone layouts intentionally use just the fixed footer.
+      # They must not contain hidden/duplicated top chapter links.
+      verify(page.locator('[data-keycap-marquee]').count()==0,
+             "redundant mobile chapter strip still mounted",name)
+      verify(page.locator('nav.trend-bilingual-nav,nav.bilingual-mobile-strip').count()==0,
+             "old mobile top nav remains",name)
+      bottom=page.locator('nav.mobile-bottom-bar')
+      verify(bottom.count()==1 and bottom.is_visible(),"mobile bottom bar exists",name)
+      verify(bottom.evaluate('e=>getComputedStyle(e).position')=='fixed',
+             "bottom bar fixed",name)
+      verify(bottom.locator('a[href="mobile-contact.html"]').count()==1,
+             "contact navigation",name)
+      verify(bottom.locator('a[href="mobile-trend.html"]').count()==1,
+             "research navigation",name)
+      if name=='mobile.html':
+       for anchor in ('#top','#advantages','#cases','#career'):
+        verify(bottom.locator('a[href="'+anchor+'"]').count()==1 and
+               page.locator(anchor).count()==1,"mobile section anchor",anchor)
+      else:
+       verify(bottom.locator('a[href="mobile.html"]').count()==1,
+              "research page return to home",name)
+      verify(page.evaluate('document.documentElement.scrollWidth-innerWidth<=1'),
+             "mobile page horizontal overflow",name)
+      page.screenshot(path=str(out/f"{Path(name).stem}-{width}.png"))
+      page.evaluate("scrollTo({top:Math.min(1100,document.body.scrollHeight-innerHeight),behavior:'instant'})")
+      page.wait_for_timeout(130)
+      verify(bottom.is_visible() and bottom.evaluate('e=>getComputedStyle(e).position')=='fixed',
+             "bottom bar remains visible after scrolling",name)
+      verify(not errors,"no mobile page script exception",errors)
+      item['status']='passed'
+      rows.append(item)
+      print(json.dumps({k:item[k] for k in ("page","width","status")},ensure_ascii=False),flush=True)
+      page.close()
+      continue
      page.wait_for_function("""() => document.querySelector('[data-keycap-marquee]')
         ?.classList.contains('is-static-nav')""")
      nav=page.locator("[data-keycap-marquee]")

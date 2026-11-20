@@ -45,32 +45,30 @@ with sync_playwright() as p:
             assert page.locator(".portfolio-chart").count() >= 1, (name, "chart enhancement missing")
         assert chart_bars.count() > 0, (name, "chart data should remain")
         assert page.locator(".portfolio-chart-replay").count() == 0, (name, "replay button was removed")
-        nav = page.locator("[data-keycap-marquee]")
-        assert nav.count() == 1, name
-        assert nav.evaluate("e=>e.classList.contains('is-static-nav')"),name
-        assert not nav.evaluate("e=>e.classList.contains('is-enhanced')"),name
-        nav_strip = nav.locator("xpath=..") if mobile and name == "mobile" else page.locator(
-            ".trend-bilingual-nav" if "trend" in name else ".home-keycap-strip"
-        )
-        color = nav_strip.evaluate("(el)=>getComputedStyle(el).backgroundColor")
-        assert color == "rgba(0, 0, 0, 0)", (name, "sticky shell", color)
-        belt = nav.locator(".keycap-marquee__belt")
-        assert belt.evaluate("(el)=>getComputedStyle(el).backgroundColor") == "rgba(0, 0, 0, 0)",name
-        for pseudo in ("::before","::after"):
-            assert belt.evaluate("(el,p)=>getComputedStyle(el,p).display",pseudo) == "none",name
-        viewport=nav.locator(".keycap-marquee__viewport")
-        before=viewport.evaluate("(e)=>e.scrollLeft")
-        page.wait_for_timeout(230)
-        assert abs(viewport.evaluate("(e)=>e.scrollLeft")-before)<=1,('autoplay disabled',name)
-        section = page.locator("#" + target)
-        section.evaluate('(el)=>{el.scrollIntoView({block:"start",behavior:"instant"});dispatchEvent(new Event("scroll"));}')
-        page.wait_for_timeout(220)
-        active = nav.locator('.keycap-marquee__group a[aria-current="location"]')
-        assert active.count() == 1, (name, "one scroll-synced active chapter expected")
-        assert active.get_attribute("href") == "#" + target, (name, active.get_attribute("href"))
-        selected_bg = active.evaluate("(el)=>getComputedStyle(el).backgroundColor")
-        assert selected_bg == "rgb(233, 198, 211)", (name, selected_bg)
-        print("marquee:", name, target, selected_bg, color)
+        if mobile:
+            assert page.locator("[data-keycap-marquee]").count()==0,name
+            bottom=page.locator("nav.mobile-bottom-bar")
+            assert bottom.count()==1 and bottom.is_visible(),name
+            assert bottom.evaluate("e=>getComputedStyle(e).position")=="fixed",name
+            assert bottom.locator('a[href="mobile-contact.html"]').count()==1,name
+            assert page.evaluate("document.documentElement.scrollWidth<=innerWidth+1"),name
+            print("mobile bottom tabs:",name,"upper chapter strip removed")
+        else:
+            nav=page.locator("[data-keycap-marquee]")
+            assert nav.count()==1,name
+            assert nav.evaluate("e=>e.classList.contains('is-static-nav')"),name
+            assert not nav.evaluate("e=>e.classList.contains('is-enhanced')"),name
+            belt=nav.locator(".keycap-marquee__belt")
+            for pseudo in ("::before","::after"):
+                assert belt.evaluate("(el,p)=>getComputedStyle(el,p).display",pseudo)=="none",name
+            section=page.locator("#"+target)
+            section.evaluate('(el)=>{el.scrollIntoView({block:"start",behavior:"instant"});dispatchEvent(new Event("scroll"));}')
+            page.wait_for_timeout(220)
+            active=nav.locator('.keycap-marquee__group a[aria-current="location"]')
+            assert active.count()==1 and active.get_attribute("href")=="#"+target,name
+            selected_bg=active.evaluate("(el)=>getComputedStyle(el).backgroundColor")
+            assert selected_bg=="rgb(233, 198, 211)",name
+            print("desktop current chapter:",name,target)
 
         if "trend" in name:
             methods = page.locator("#experience .exp .exp-application")
