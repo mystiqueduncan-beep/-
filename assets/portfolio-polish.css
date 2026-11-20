@@ -525,3 +525,75 @@
     transition:none !important;
   }
 }
+
+
+/* 2026-11-20: shared home chart palette, matched to the four-color
+   research survey bars. This file loads after the desktop styles and
+   the precompiled mobile stylesheet. All five published values stay
+   in their original HTML, and color never carries information alone. */
+@media screen {
+  body.page-home #research {
+    --home-category-rose:#bd8294;
+    --home-category-yellow:#e9c85f;
+    --home-category-blue:#87a8bd;
+    --home-category-sage:#9cac92;
+    --home-category-lilac:#a18db1;
+    --home-category-track:#f1e7ec;
+  }
+  body.page-home #research .portfolio-chart .data-bar-row {
+    display:grid !important;
+    grid-template-columns:minmax(156px,1.3fr) minmax(90px,3.2fr) minmax(52px,auto);
+    align-items:center;
+    gap:clamp(8px,1.4vw,15px);
+    margin:0 0 15px !important;
+    min-width:0;
+  }
+  body.page-home #research .portfolio-chart .data-bar-row:last-child {margin-bottom:0 !important;}
+  body.page-home #research .portfolio-chart .data-bar-meta {display:contents !important;}
+  body.page-home #research .portfolio-chart .data-bar-meta > span:first-child {
+    grid-column:1;grid-row:1;min-width:0;
+    color:#624451 !important;font-weight:650;
+    font-size:clamp(.75rem,.95vw,.88rem);
+    line-height:1.45;overflow-wrap:anywhere;
+  }
+  body.page-home #research .portfolio-chart .data-bar-meta > span:last-child {
+    grid-column:3;grid-row:1;
+    color:#57313f !important;font-weight:800;
+    font-size:clamp(.78rem,1vw,.91rem);
+    text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;
+  }
+  body.page-home #research .portfolio-chart .data-bar-track {
+    grid-column:2;grid-row:1;
+    height:clamp(12px,1.55vw,17px) !important;
+    border:0 !important;border-radius:999px !important;
+    background:var(--home-category-track) !important;
+    overflow:hidden;
+  }
+  body.page-home #research .portfolio-chart .portfolio-bar {
+    height:100%;border-radius:999px !important;
+    transform-origin:left center !important;
+  }
+  body.page-home #research .portfolio-chart .data-bar-row:nth-child(1) .portfolio-bar {background:var(--home-category-rose) !important;}
+  body.page-home #research .portfolio-chart .data-bar-row:nth-child(2) .portfolio-bar {background:var(--home-category-yellow) !important;}
+  body.page-home #research .portfolio-chart .data-bar-row:nth-child(3) .portfolio-bar {background:var(--home-category-blue) !important;}
+  body.page-home #research .portfolio-chart .data-bar-row:nth-child(4) .portfolio-bar {background:var(--home-category-sage) !important;}
+  body.page-home #research .portfolio-chart .data-bar-row:nth-child(5) .portfolio-bar {background:var(--home-category-lilac) !important;}
+  @media (max-width:760px) {
+    body.page-home #research .portfolio-chart .data-bar-row {
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:4px 10px;
+      margin-bottom:14px !important;
+    }
+    body.page-home #research .portfolio-chart .data-bar-meta > span:first-child {grid-column:1;grid-row:1;}
+    body.page-home #research .portfolio-chart .data-bar-meta > span:last-child {grid-column:2;grid-row:1;}
+    body.page-home #research .portfolio-chart .data-bar-track {
+      grid-column:1/-1;grid-row:2;height:12px !important;
+    }
+  }
+}
+@media screen and (prefers-reduced-motion:no-preference) {
+  body.page-home #research .portfolio-chart-ready.portfolio-chart-active .portfolio-bar {
+    transform:scaleX(1) !important;
+    transition:transform 1.12s cubic-bezier(.22,1,.36,1) var(--portfolio-bar-delay,0ms) !important;
+  }
+}
