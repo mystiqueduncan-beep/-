@@ -22,7 +22,7 @@ jobs:
           curl -fL --retry 3 --retry-delay 2 --connect-timeout 15 --max-time 180 "https://raw.githubusercontent.com/google/fonts/main/ofl/notosanstc/NotoSansTC%5Bwght%5D.ttf" -o "$HOME/.local/share/fonts/NotoSansTC.ttf"
           curl -fL --retry 3 --retry-delay 2 --connect-timeout 15 --max-time 180 "https://raw.githubusercontent.com/google/fonts/main/ofl/notoseriftc/NotoSerifTC%5Bwght%5D.ttf" -o "$HOME/.local/share/fonts/NotoSerifTC.ttf"
           fc-cache -f "$HOME/.local/share/fonts"
-          python3 -m pip install playwright==1.51.0 pypdf==5.8.0 PyMuPDF==1.26.2
+          python3 -m pip install playwright==1.51.0 pypdf==5.8.0 PyMuPDF==1.26.3
           python3 -m playwright install --with-deps chromium
       - name: Render downloadable PDF from actual résumé HTML/CSS
         run: python3 _qa/export_resume_pdf.py
