@@ -252,3 +252,21 @@
    body.page-trend .inline-research-viz__rows li > b {font-size:.78rem;}
  }
 }
+
+
+/* 2026-11-20: animate only the existing four purchase-channel progress bars.
+   Width, 0–50% scale, percentage labels and source text are unchanged.
+   No-JS, print and reduced-motion users see fully populated bars. */
+@media screen and (prefers-reduced-motion:no-preference) {
+  body.page-trend .inline-research-viz--channels.inline-progress-ready
+    .inline-research-viz__track > i {
+    transform-origin:left center;
+    transform:scaleX(0);
+    transition:none;
+  }
+  body.page-trend .inline-research-viz--channels.inline-progress-ready.inline-progress-played
+    .inline-research-viz__track > i {
+    transform:scaleX(1);
+    transition:transform 1.12s cubic-bezier(.22,1,.36,1) var(--progress-delay,0ms);
+  }
+}
