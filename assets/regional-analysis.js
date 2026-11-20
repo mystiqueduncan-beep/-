@@ -197,3 +197,43 @@
     document.addEventListener("visibilitychange",()=>{if(document.hidden) [...active.keys()].forEach(finish);});
   } catch (_) {stop();}
 })();
+
+
+/* User-approved first-entrance fill for the four existing channel survey bars.
+   The original numbers and the 0–50% chart width contract stay in HTML. */
+(() => {
+  "use strict";
+  const host = document.querySelector("body.page-trend .inline-research-viz--channels");
+  const bars = host ? [...host.querySelectorAll(".inline-research-viz__track > i")] : [];
+  const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+  if (!host || bars.length !== 4 || reduce?.matches || !("IntersectionObserver" in window)) return;
+
+  bars.forEach((bar, index) => bar.style.setProperty("--progress-delay", (index * 110) + "ms"));
+  let played = false;
+  let observer = null;
+  const complete = () => {
+    if (played) return;
+    played = true;
+    observer?.disconnect();
+    // Two frames ensure the hidden 0%-fill state is committed before motion.
+    window.requestAnimationFrame(() =>
+      window.requestAnimationFrame(() => host.classList.add("inline-progress-played")));
+  };
+  try {
+    observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) complete();
+    }, {threshold:0.18,rootMargin:"0px 0px -4% 0px"});
+    host.classList.add("inline-progress-ready");
+    observer.observe(host);
+  } catch (_) {
+    observer?.disconnect();
+    host.classList.remove("inline-progress-ready");
+  }
+  const showFullBars = () => {
+    observer?.disconnect();
+    host.classList.remove("inline-progress-ready");
+    played = true;
+  };
+  reduce?.addEventListener?.("change", event => {if (event.matches) showFullBars();});
+  window.addEventListener("beforeprint", showFullBars);
+})();
