@@ -868,3 +868,14 @@
     transition:none !important;
   }
 }
+
+/* Narrow-screen desktop override: a single manually scrollable row even
+   when the user forces desktop view on a small phone. */
+@media screen and (max-width:720px) {
+  body.page-home.page-desktop .home-keycap-strip [data-keycap-marquee] .keycap-marquee__group,
+  body.page-trend.page-desktop .trend-bilingual-nav [data-keycap-marquee] .keycap-marquee__group {
+    flex-wrap:nowrap !important;
+    width:max-content !important;
+    max-width:none !important;
+  }
+}
