@@ -128,6 +128,26 @@ if __name__=='__main__':
    original_title='<span class="research-part-title">產業趨勢與數據視覺化</span>'.encode('utf-8')
    assert raw.count(short_title)==1,name+': approved Part 03 heading missing or repeated'
    pinned_raw=raw.replace(short_title,original_title,1)
+   # Undo only the user-approved presentational removal of chapter
+   # numbers, then compare the complete immutable research Git blob.
+   chapter_labels=(
+    ('<p class="research-edition" lang="en">RESEARCH EDITION</p>',
+     '<p class="research-edition" lang="en">01 / RESEARCH EDITION</p>'),
+    ('<span class="research-part-label" lang="en">EXECUTIVE SUMMARY</span>',
+     '<span class="research-part-label" lang="en">PART 02 / EXECUTIVE SUMMARY</span>'),
+    ('<span class="research-part-label" lang="en">INDUSTRY TRENDS</span>',
+     '<span class="research-part-label" lang="en">PART 03 / INDUSTRY TRENDS</span>'),
+    ('<span class="research-part-label" lang="en">MARKET ANALYSIS</span>',
+     '<span class="research-part-label" lang="en">PART 04 / MARKET ANALYSIS</span>'),
+    ('<span class="research-part-label" lang="en">REGIONAL STRATEGY</span>',
+     '<span class="research-part-label" lang="en">PART 05 / REGIONAL STRATEGY</span>'),
+    ('<span class="research-part-label" lang="en">EVIDENCE &amp; LIMITS</span>',
+     '<span class="research-part-label" lang="en">PART 06 / EVIDENCE &amp; LIMITS</span>'),
+   )
+   for visible,pinned in chapter_labels:
+    marker=visible.encode('utf-8')
+    assert pinned_raw.count(marker)==1,name+': heading label missing or repeated: '+visible
+    pinned_raw=pinned_raw.replace(marker,pinned.encode('utf-8'),1)
    actual=hashlib.sha1(b'blob '+str(len(pinned_raw)).encode('ascii')+bytes([0])+pinned_raw).hexdigest()
    assert actual==expanded[name],name+': expanded research source differs from approved publication'
    current[name]=actual
