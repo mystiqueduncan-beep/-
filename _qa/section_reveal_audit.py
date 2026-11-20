@@ -93,12 +93,13 @@ with sync_playwright() as p:
                 expect(bar).to_have_css('transform', 'matrix(1, 0, 0, 1, 0, 0)', timeout=6500)
                 info = bar.evaluate('''e=>({width:parseFloat(e.style.width),
                     ratio:100*e.getBoundingClientRect().width/e.parentElement.getBoundingClientRect().width,
-                    gradient:getComputedStyle(e).backgroundImage,
+                    color:getComputedStyle(e).backgroundColor,
                     delay:e.style.getPropertyValue("--portfolio-bar-delay")})''')
                 assert abs(info['width']-value)<.01 and abs(info['ratio']-value)<1, (name, chart_selector, value, info)
-                palettes = [('rgb(239, 179, 199)', 'rgb(198, 138, 161)')]
-                assert any(all(color in info['gradient'] for color in palette) for palette in palettes), (name, info)
-                assert info['delay']==str(i*250)+'ms', (name, info)
+                colors = ['rgb(189, 130, 148)', 'rgb(233, 200, 95)',
+                          'rgb(135, 168, 189)', 'rgb(156, 172, 146)', 'rgb(161, 141, 177)']
+                assert info['color']==colors[i], (name, i, info)
+                assert info['delay']==str(i*110)+'ms', (name, info)
             page.evaluate('scrollTo({top:0,behavior:"instant"})')
             chart.evaluate('(e)=>{e.scrollIntoView({block:"center",behavior:"instant"});dispatchEvent(new Event("scroll"))}')
             expect(chart).to_have_class(re.compile(r'.*portfolio-chart-active.*'))
@@ -132,6 +133,22 @@ with sync_playwright() as p:
                 scales=chart_rows.locator('.inline-research-viz__track > i').evaluate_all('(els)=>els.map(e=>parseFloat(e.style.getPropertyValue("--value")))')
                 assert all(abs(a-b)<.01 for a,b in zip(actual,values)), (name,chart_selector,actual)
                 assert all(abs(a-b/50*100)<.15 for a,b in zip(scales,values)), (name,chart_selector,scales)
+            if chart_selector.endswith('--channels'):
+                # Same muted four colors as the home chart; animate only the
+                # progress fill, not the labels or the verified data widths.
+                expected_colors=['rgb(189, 130, 148)','rgb(233, 200, 95)',
+                                 'rgb(135, 168, 189)','rgb(156, 172, 146)']
+                progress_bars=chart.locator('.inline-research-viz__track > i')
+                assert progress_bars.count()==4, (name,'channel progress count')
+                assert progress_bars.evaluate_all('''els=>els.map(e=>getComputedStyle(e).backgroundColor)''')==expected_colors, name
+                expect(chart).to_have_class(re.compile(r'.*inline-progress-played.*'),timeout=5000)
+                for bar in progress_bars.all():
+                    expect(bar).to_have_css('transform','matrix(1, 0, 0, 1, 0, 0)',timeout=5000)
+                page.evaluate('scrollTo({top:0,behavior:"instant"})')
+                chart.evaluate('(e)=>e.scrollIntoView({block:"center",behavior:"instant"})')
+                expect(chart).to_have_class(re.compile(r'.*inline-progress-played.*'))
+                for bar in progress_bars.all():
+                    expect(bar).to_have_css('transform','matrix(1, 0, 0, 1, 0, 0)')
             print('INLINE_CHART_REGRESSION_PASS',name,chart_selector,values,flush=True)
         # Returning upwards may not hide any previously visible text.
         for item in reversed(items.all()):
