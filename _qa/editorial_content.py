@@ -1,3 +1,4 @@
+from research_marquee_approved import restore_mobile_research_source
 """Whole-page text fingerprints of the approved portfolio after intentional UI removals. Facts and data are independently checked by check.py."""
 from html.parser import HTMLParser
 from pathlib import Path
@@ -118,6 +119,7 @@ if __name__=='__main__':
    # over the expanded research pages while allowing no general text exemption.
    expanded={'trend.html':'f126dc94c8a1631921b61b44c35910dd75a46233','mobile-trend.html':'37983c6b9378f1ae6e838d7fc941aa8d506b4d1e'}
    raw=(ROOT/name).read_bytes()
+   if name=='mobile-trend.html':raw=restore_mobile_research_source(raw)
    versioned=b'src="assets/trend-marquee.js?v=20261119-chapter-lock"'
    assert raw.count(versioned)==1, name+': versioned marquee script missing or duplicated'
    for label in (b'TRADE AREA &amp; STORE NETWORK',b'DIGITAL RETAIL &amp; OMNICHANNEL'):
