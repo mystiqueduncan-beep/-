@@ -47,43 +47,21 @@ with sync_playwright() as p:
         assert page.locator(".portfolio-chart-replay").count() == 0, (name, "replay button was removed")
         nav = page.locator("[data-keycap-marquee]")
         assert nav.count() == 1, name
-        page.wait_for_function(
-            '() => document.querySelector("[data-keycap-marquee]")?.classList.contains("is-enhanced")'
-        )
+        assert nav.evaluate("e=>e.classList.contains('is-static-nav')"),name
+        assert not nav.evaluate("e=>e.classList.contains('is-enhanced')"),name
         nav_strip = nav.locator("xpath=..") if mobile and name == "mobile" else page.locator(
             ".trend-bilingual-nav" if "trend" in name else ".home-keycap-strip"
         )
         color = nav_strip.evaluate("(el)=>getComputedStyle(el).backgroundColor")
         assert color == "rgba(0, 0, 0, 0)", (name, "sticky shell", color)
-        color = nav.evaluate("(el)=>getComputedStyle(el).backgroundColor")
-        # Current shared chrome: .96 at the top, .20 while reading.
-        page.wait_for_function("""() => {const n=document.querySelector('[data-keycap-marquee]');return getComputedStyle(n).backgroundColor === (n.classList.contains('is-reading-section') ? 'rgba(255, 249, 247, 0.2)' : 'rgba(255, 249, 247, 0.96)')}""")
-        color = nav.evaluate("(el)=>getComputedStyle(el).backgroundColor")
-
         belt = nav.locator(".keycap-marquee__belt")
-        background = belt.evaluate("(el)=>getComputedStyle(el).backgroundColor")
-        assert background == "rgba(0, 0, 0, 0)", (name, background)
-        decoration = belt.evaluate('(el)=>getComputedStyle(el,"::after").content')
-        assert "♡" in decoration and "✦" in decoration, (name, decoration)
-        # Both ornaments sit about 20px from the nearest chapter key, not
-        # centered hundreds of pixels away in the native-scroll run-out.
-        ornament_layout = belt.evaluate("""(el) => {
-          const first = getComputedStyle(el, "::before");
-          const last = getComputedStyle(el, "::after");
-          return {
-            firstAlign: first.justifyContent,
-            firstGap: first.paddingRight,
-            lastAlign: last.justifyContent,
-            lastGap: last.paddingLeft,
-            letterSpacing: first.letterSpacing
-          };
-        }""")
-        assert ornament_layout["firstAlign"] == "flex-end", (name, ornament_layout)
-        assert ornament_layout["lastAlign"] == "flex-start", (name, ornament_layout)
-        assert ornament_layout["firstGap"] == "20px", (name, ornament_layout)
-        assert ornament_layout["lastGap"] == "20px", (name, ornament_layout)
-        assert ornament_layout["letterSpacing"] == "6px", (name, ornament_layout)
-
+        assert belt.evaluate("(el)=>getComputedStyle(el).backgroundColor") == "rgba(0, 0, 0, 0)",name
+        for pseudo in ("::before","::after"):
+            assert belt.evaluate("(el,p)=>getComputedStyle(el,p).display",pseudo) == "none",name
+        viewport=nav.locator(".keycap-marquee__viewport")
+        before=viewport.evaluate("(e)=>e.scrollLeft")
+        page.wait_for_timeout(230)
+        assert abs(viewport.evaluate("(e)=>e.scrollLeft")-before)<=1,('autoplay disabled',name)
         section = page.locator("#" + target)
         section.evaluate('(el)=>{el.scrollIntoView({block:"start",behavior:"instant"});dispatchEvent(new Event("scroll"));}')
         page.wait_for_timeout(220)
@@ -91,7 +69,7 @@ with sync_playwright() as p:
         assert active.count() == 1, (name, "one scroll-synced active chapter expected")
         assert active.get_attribute("href") == "#" + target, (name, active.get_attribute("href"))
         selected_bg = active.evaluate("(el)=>getComputedStyle(el).backgroundColor")
-        assert selected_bg == "rgb(223, 173, 193)", (name, selected_bg)
+        assert selected_bg == "rgb(233, 198, 211)", (name, selected_bg)
         print("marquee:", name, target, selected_bg, color)
 
         if "trend" in name:

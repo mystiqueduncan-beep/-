@@ -11,164 +11,49 @@ rows=[]
 with sync_playwright() as p:
  browser=p.chromium.launch(executable_path=os.environ.get('CHROME_PATH'),args=['--no-sandbox'])
  for name in ['index','trend','mobile','mobile-trend']:
-  mobile=name.startswith('mobile');page=browser.new_page(viewport={'width':390 if mobile else 1440,'height':844},has_touch=mobile,is_mobile=mobile)
+  mobile=name.startswith('mobile')
+  page=browser.new_page(viewport={'width':390 if mobile else 1440,'height':844},
+                        has_touch=mobile,is_mobile=mobile)
   page.route('https://**/*',lambda r:r.abort())
   url=f'http://127.0.0.1:{server.server_port}/{name}.html?view='+('mobile' if mobile else 'desktop')
   page.goto(url)
-  # The approved mobile homepage again offers a bilingual chapter marquee.
-  # The research mobile edition now shares the same bilingual chapter navigation.
+  nav=page.locator('[data-keycap-marquee]')
+  expect(nav).to_have_count(1)
+  keys=nav.locator('.keycap-marquee__group a.nav-btn-mk')
+  expect(keys).to_have_count(11 if 'trend' in name else 6)
+  expect(nav.locator('.bilingual-nav-jp')).to_have_count(11 if 'trend' in name else 6)
+  assert nav.evaluate("e=>e.classList.contains('is-static-nav')"),name
+  assert not nav.evaluate("e=>e.classList.contains('is-enhanced')"),name
+  assert nav.locator('.keycap-marquee__belt').evaluate(
+   'e=>getComputedStyle(e).animationName')=='none',name
+  viewport=nav.locator('.keycap-marquee__viewport')
+  initial=viewport.evaluate('e=>e.scrollLeft')
+  page.wait_for_timeout(290)
+  assert abs(viewport.evaluate('e=>e.scrollLeft')-initial)<=1,('autoplay disabled',name)
+  assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),name
   if mobile:
-   if name == 'mobile':
-    expect(page.locator('.bilingual-mobile-strip.bilingual-chapter-nav')).to_have_count(1)
-    nav_mobile=page.locator('[data-keycap-marquee]')
-    expect(nav_mobile).to_have_count(1)
-    expect(nav_mobile.locator('a.nav-btn-mk')).to_have_count(6)
-    expect(nav_mobile.locator('a.nav-btn-mk .bilingual-nav-jp')).to_have_count(6)
-    expect(page.locator('.bilingual-current')).to_have_count(0)
-    assert nav_mobile.locator('.keycap-marquee__group').locator('a').count() == 6
-    assert '♡' in nav_mobile.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e,'::before').content")
-    assert '♡' in nav_mobile.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e,'::after').content")
-    expect(nav_mobile).to_have_class(__import__('re').compile('.*is-enhanced.*'))
-    first=nav_mobile.locator('a.nav-btn-mk').first
-    first.scroll_into_view_if_needed()
-    first.click()
-    assert page.evaluate('location.hash') == '#motivation'
-    assert first.get_attribute('aria-current') == 'location'
-    assert page.locator('[data-bilingual-title]').count() == 0
-    rows.append({'page':name,'marquee':'bilingual pass','bottomNavigation':'pass'})
-   else:
-    expect(page.locator('.trend-subnav-strip.trend-bilingual-nav')).to_have_count(1)
-    nav_mobile=page.locator('[data-keycap-marquee]')
-    expect(nav_mobile).to_have_count(1)
-    expect(nav_mobile.locator('a.nav-btn-mk')).to_have_count(11)
-    expect(nav_mobile.locator('a.nav-btn-mk .bilingual-nav-jp')).to_have_count(11)
-    expect(page.locator('.bilingual-current')).to_have_count(0)
-    expect(nav_mobile).to_have_class(__import__('re').compile('.*is-enhanced.*'))
-    assert '♡' in nav_mobile.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e,'::before').content")
-    assert '♡' in nav_mobile.locator('.keycap-marquee__belt').evaluate("e=>getComputedStyle(e,'::after').content")
-    rows.append({'page':name,'marquee':'bilingual research pass','bottomNavigation':'pass'})
-   expect(page.locator('.mobile-bottom-bar')).to_have_count(1)
-   assert page.locator('meta[name=viewport]').get_attribute('content').find('user-scalable=no') < 0
-   page.close()
-   continue
-  nav=page.locator('[data-keycap-marquee]');belt=nav.locator('.keycap-marquee__belt');link=nav.locator('a').first
-  if name in ('index','trend'):
-   expect(nav.locator('a.nav-btn-mk')).to_have_count(11 if name == 'trend' else 6)
-   expect(nav.locator('a.nav-btn-mk .bilingual-nav-jp')).to_have_count(11 if name == 'trend' else 6)
-  expect(nav).to_have_class(__import__('re').compile('.*is-enhanced.*'))
-  assert belt.evaluate('e=>getComputedStyle(e).animationName')=='none'
-  assert not page.locator('.keycap-marquee__toggle').count()
-  v=nav.locator('.keycap-marquee__viewport')
-  before=v.evaluate('e=>e.scrollLeft')
-  page.wait_for_timeout(320)
-  after=v.evaluate('e=>e.scrollLeft')
-  locked=nav.evaluate("e=>e.classList.contains('is-chapter-paused')")
-  if not locked and after<=before:
-   print("AUTOPLAY_DEBUG",name,page.evaluate("""() => {
-     const n=document.querySelector('[data-keycap-marquee]');
-     const v=n?.querySelector('.keycap-marquee__viewport');
-     const b=n?.querySelector('.keycap-marquee__belt');
-     return {classes:n?.className,hidden:document.hidden,scrollLeft:v?.scrollLeft,maxScroll:v?.scrollWidth-v?.clientWidth,
-       viewportWidth:v?.clientWidth,beltWidth:b?.getBoundingClientRect().width,
-       intro:getComputedStyle(b,'::before').width,animations:b?.getAnimations().map(a=>a.animationName),
-       raf:typeof requestAnimationFrame,visibility:document.visibilityState,debug:window.__marqueeDebug,scrollBehavior:getComputedStyle(v).scrollBehavior};
-   }"""),flush=True)
-  assert (abs(after-before)<=1 if locked else after>before), ('reading pauses; outside autoplays',name,before,after)
-  link.dispatch_event('pointerover',{'pointerType':'mouse'})
-  assert nav.evaluate("e=>e.classList.contains('is-hover-paused')")
-  paused=v.evaluate('e=>e.scrollLeft')
-  page.wait_for_timeout(150)
-  assert abs(v.evaluate('e=>e.scrollLeft')-paused)<1, ('hover pauses',name)
-  # Drag directly in the active native-scroll area to reveal earlier and later chapters.
-  pos=v.bounding_box()
-  x=pos['x']+pos['width']/2; y=pos['y']+pos['height']/2
-  page.mouse.move(x,y);page.mouse.down()
-  base=v.evaluate('e=>e.scrollLeft')
-  page.mouse.move(x-2,y,steps=1)
-  immediate=v.evaluate('e=>e.scrollLeft')
-  assert immediate>=base+1, ('first 2px mouse movement must move strip',name,base,immediate)
-  page.mouse.move(x+60,y,steps=4)
-  previous=v.evaluate('e=>e.scrollLeft')
-  page.mouse.move(x-40,y,steps=4)
-  following=v.evaluate('e=>e.scrollLeft')
-  assert following>previous+70, ('drag both directions',name,previous,following)
-  page.mouse.up()
-  # Actually move the pointer outside the sticky full-width strip.
-  # A synthetic leave event while the cursor is still over the strip can
-  # correctly re-pause on the next real pointerover and produces a false failure.
-  page.mouse.move(1,1)
-  assert not nav.evaluate("e=>e.classList.contains('is-hover-paused')"), ('pointer must leave nav',name)
-  resumed=v.evaluate('e=>e.scrollLeft')
-  page.wait_for_timeout(230)
-  next_scroll=v.evaluate('e=>e.scrollLeft')
-  limit=v.evaluate('e=>e.scrollWidth-e.clientWidth')
-  locked=nav.evaluate("e=>e.classList.contains('is-chapter-paused')")
-  assert (abs(next_scroll-resumed)<=1 if locked else next_scroll>resumed or (resumed>=limit-12 and next_scroll<25)), ('chapter pause or resume after pointer exit',name,resumed,next_scroll,limit)
+   assert viewport.evaluate('e=>getComputedStyle(e).overflowX')=='auto',name
+   assert viewport.evaluate('e=>e.scrollWidth>e.clientWidth'),name
+   assert page.locator('.mobile-bottom-bar').count()==1,name
+   viewport.evaluate('e=>e.scrollLeft=0')
+   viewport.focus()
+   page.keyboard.press('ArrowRight')
+   moved=viewport.evaluate('e=>e.scrollLeft')
+   assert moved>100, ('manual keyboard scroll',name,moved)
+   # Reading changes may recolor the active link but cannot relocate the nav.
+   page.evaluate('scrollBy({top:100,behavior:"instant"})')
+   page.wait_for_timeout(170)
+   assert abs(viewport.evaluate('e=>e.scrollLeft')-moved)<=1,('user position retained',name)
+  else:
+   assert viewport.evaluate('e=>getComputedStyle(e).overflowX')=='visible',name
+  first=keys.first
+  first.click()
+  assert page.evaluate('location.hash')==first.get_attribute('href'),name
+  assert first.get_attribute('aria-current')=='location',name
   assert page.locator('meta[name=viewport]').get_attribute('content').find('user-scalable=no')<0
-  # :focus-visible is keyboard-modality-only; actual pointer drag must not
-  # force a focus ring. Re-enter with Tab before checking keyboard outline.
-  page.keyboard.press('Tab')
-  link.focus();expect(link).to_be_focused()
-  assert link.evaluate('e=>getComputedStyle(e).outlineStyle')!='none'
-  page.emulate_media(reduced_motion='reduce')
-  assert belt.evaluate('e=>getComputedStyle(e).animationName')=='none'
-  rows.append({'page':name,'marquee':'pass','hover':'pass'});page.close()
- # Test actual Chromium touch input on the desktop-layout marquee at phone width.
- # Both dedicated mobile pages now include bilingual chapter marquees.
- for name in ['index','trend']:
-  touch_page=browser.new_page(viewport={'width':390,'height':844},has_touch=True,is_mobile=True)
-  touch_page.route('https://**/*',lambda r:r.abort())
-  touch_page.goto(f'http://127.0.0.1:{server.server_port}/{name}.html?view=desktop')
-  strip=touch_page.locator('[data-keycap-marquee]')
-  expect(strip).to_have_count(1)
-  strip.scroll_into_view_if_needed()
-  track=strip.locator('.keycap-marquee__viewport')
-  link=strip.locator('.keycap-marquee__group a').first
-  start_hash=touch_page.evaluate('location.hash')
-  initial=track.evaluate('e=>e.scrollLeft')
-  rect=track.bounding_box()
-  x=rect['x']+rect['width']*0.63;y=rect['y']+rect['height']*0.5
-  touch_page.evaluate("""() => {
-    window.__gestureTrace = [];
-    const n=document.querySelector('[data-keycap-marquee]');
-    ['pointerdown','pointermove','pointerup','pointercancel','lostpointercapture','touchstart','touchmove','touchend'].forEach(t=>{
-      n.addEventListener(t,e=>window.__gestureTrace.push({
-        type:e.type,x:e.clientX,scroll:n.querySelector('.keycap-marquee__viewport').scrollLeft,
-        cancelable:e.cancelable,defaultPrevented:e.defaultPrevented,
-        target:e.target?.className || e.target?.tagName
-      }),true);
-    });
-  }""")
-  devtools=touch_page.context.new_cdp_session(touch_page)
-  devtools.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':x,'y':y}]})
-  assert strip.evaluate("e=>e.classList.contains('is-touch-paused')"), ('touch pause',name)
-  devtools.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[{'x':x-2,'y':y}]})
-  touch_page.wait_for_timeout(24)
-  first=track.evaluate('e=>e.scrollLeft')
-  assert first>=initial+1, ('first 2px touch movement must move strip',name,initial,first)
-  for i in range(1,6):
-   devtools.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[{'x':x-i*22,'y':y}]})
-   touch_page.wait_for_timeout(22)
-  devtools.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]})
-  moved=track.evaluate('e=>e.scrollLeft')
-  if moved<=initial+65:
-   print('TOUCH_DEBUG',name,initial,moved,touch_page.evaluate("""() => {
-     const n=document.querySelector('[data-keycap-marquee]');
-     const v=n.querySelector('.keycap-marquee__viewport');
-     return {trace:window.__gestureTrace,classes:n.className,scrollWidth:v.scrollWidth,
-       clientWidth:v.clientWidth,scrollLeft:v.scrollLeft,navTouch:getComputedStyle(n).touchAction,
-       viewTouch:getComputedStyle(v).touchAction,group:n.querySelector('.keycap-marquee__group').getBoundingClientRect().width};
-   }"""),flush=True)
-  assert moved>initial+65, ('finger drag should move track',name,initial,moved)
-  touch_page.wait_for_timeout(80)
-  assert touch_page.evaluate('location.hash')==start_hash, ('drag must not click link',name)
-  link.scroll_into_view_if_needed()
-  target=link.get_attribute('href')
-  key=link.bounding_box()
-  touch_page.touchscreen.tap(key['x']+key['width']/2,key['y']+key['height']/2)
-  assert touch_page.evaluate('location.hash')==target, ('tap should navigate',name,target)
-  rows.append({'page':name+'-touch','drag':'pass','tap':'pass'})
-  touch_page.close()
+  assert not page.locator('.keycap-marquee__toggle').count()
+  rows.append({'page':name,'stationaryNav':'pass','chapterClick':'pass','manualScroll':mobile})
+  page.close()
  # Same-tab cross-document navigation uses the existing transition mechanism.
  page=browser.new_page();page.route('https://**/*',lambda r:r.abort());page.goto(f'http://127.0.0.1:{server.server_port}/index.html?view=desktop')
  assert page.locator('a[href="contact.html"]').first.get_attribute('target') in (None,'_self')

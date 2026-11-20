@@ -686,3 +686,196 @@
     display:none !important;
   }
 }
+
+
+/* Calm static section navigation / 2026-11-20.
+   Four pages share one nonmoving layout: desktop wraps naturally; mobile
+   allows native manual sideways scrolling. No duplicate track or autoplay.
+   Deliberately loaded after the legacy marquee stylesheet/bundle. */
+@media screen {
+  body:is(.page-home,.page-trend) [data-keycap-marquee].keycap-marquee,
+  body.page-trend .trend-bilingual-nav [data-keycap-marquee].keycap-marquee,
+  body.page-home .home-keycap-strip [data-keycap-marquee].keycap-marquee {
+    display:block !important;
+    box-sizing:border-box;
+    width:100% !important;
+    max-width:1120px !important;
+    min-width:0 !important;
+    margin-inline:auto !important;
+    padding:3px 5px !important;
+    cursor:default !important;
+    touch-action:auto !important;
+    user-select:auto !important;
+    -webkit-user-select:auto !important;
+  }
+  body:is(.page-home,.page-trend) [data-keycap-marquee] .keycap-marquee__viewport {
+    display:block !important;
+    width:100% !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    overflow:visible !important;
+    touch-action:auto !important;
+    cursor:default !important;
+    user-select:auto !important;
+    -webkit-user-select:auto !important;
+    -webkit-mask-image:none !important;
+    mask-image:none !important;
+    scroll-snap-type:none !important;
+  }
+  body:is(.page-home,.page-trend) [data-keycap-marquee] .keycap-marquee__belt {
+    display:block !important;
+    box-sizing:border-box !important;
+    width:100% !important;
+    max-width:100% !important;
+    padding:0 !important;
+    margin:0 !important;
+    transform:none !important;
+    animation:none !important;
+    will-change:auto !important;
+  }
+  body:is(.page-home,.page-trend) [data-keycap-marquee] .keycap-marquee__belt::before,
+  body:is(.page-home,.page-trend) [data-keycap-marquee] .keycap-marquee__belt::after {
+    content:none !important;
+    display:none !important;
+  }
+  body:is(.page-home,.page-trend) [data-keycap-marquee] .keycap-marquee__group,
+  body.page-home.page-desktop .home-keycap-strip [data-keycap-marquee] .keycap-marquee__group,
+  body.page-trend .trend-bilingual-nav [data-keycap-marquee] .keycap-marquee__group {
+    display:flex !important;
+    box-sizing:border-box !important;
+    flex-flow:row wrap !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+    gap:7px 9px !important;
+    width:100% !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    padding:4px 2px !important;
+    margin:0 !important;
+    list-style:none !important;
+  }
+  body:is(.page-home,.page-trend) [data-keycap-marquee] .keycap-marquee__group > li {
+    display:flex !important;
+    flex:0 1 auto !important;
+    min-width:0 !important;
+    margin:0 !important;
+  }
+  body:is(.page-home,.page-trend) [data-keycap-marquee] .keycap-marquee__group a,
+  body.page-trend .trend-bilingual-nav [data-keycap-marquee] .keycap-marquee__group a {
+    display:inline-flex !important;
+    flex-direction:row !important;
+    align-items:center !important;
+    justify-content:center !important;
+    width:auto !important;
+    min-height:36px !important;
+    padding:7px 12px !important;
+    border-radius:15px !important;
+    gap:0 !important;
+    font-size:clamp(.77rem,.94vw,.87rem) !important;
+    line-height:1.25 !important;
+    white-space:nowrap !important;
+    box-shadow:none !important;
+    transform:none !important;
+    transition:background-color .17s ease,border-color .17s ease,color .17s ease !important;
+    text-align:center !important;
+    -webkit-touch-callout:default !important;
+    -webkit-user-drag:auto !important;
+    user-select:auto !important;
+    -webkit-user-select:auto !important;
+  }
+  /* Native Japanese remains on every H2. Removing it only from this compact
+     shortcut strip makes all six / eleven chapter links readable at once. */
+  body:is(.page-home,.page-trend) [data-keycap-marquee] .bilingual-nav-jp {
+    display:none !important;
+  }
+  body:is(.page-home,.page-trend) [data-keycap-marquee] .keycap-marquee__group a:is(.is-current,[aria-current="location"]) {
+    background:#e9c6d3 !important;
+    color:#58384b !important;
+    border-color:#b9849b !important;
+    box-shadow:none !important;
+  }
+  body:is(.page-home,.page-trend) [data-keycap-marquee] .keycap-marquee__group a:focus-visible {
+    outline:3px solid #a56e82 !important;
+    outline-offset:2px !important;
+  }
+  body.page-home.page-desktop .home-keycap-strip .home-keycap-layout {
+    flex-wrap:wrap !important;
+  }
+  body.page-trend .trend-bilingual-nav > .container {
+    max-width:1180px !important;
+  }
+}
+/* Mobile routes, and the explicit desktop version opened on a small screen,
+   use a single stable horizontal row with native finger swipes; no motion
+   occurs unless the reader scrolls it or uses the arrow keys. */
+@media screen {
+  body:is(.page-home,.page-trend).page-mobile [data-keycap-marquee] .keycap-marquee__viewport {
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    scroll-snap-type:x proximity !important;
+    -webkit-overflow-scrolling:touch !important;
+    overscroll-behavior-x:contain !important;
+    touch-action:pan-x pan-y !important;
+    scrollbar-width:thin !important;
+    scrollbar-color:#c9a9b5 transparent !important;
+  }
+  body:is(.page-home,.page-trend).page-mobile [data-keycap-marquee] .keycap-marquee__group {
+    flex-wrap:nowrap !important;
+    width:max-content !important;
+    max-width:none !important;
+    gap:8px !important;
+    padding:4px 3px 7px !important;
+  }
+  body:is(.page-home,.page-trend).page-mobile [data-keycap-marquee] .keycap-marquee__group > li {
+    flex:0 0 auto !important;
+    scroll-snap-align:start;
+  }
+  body:is(.page-home,.page-trend).page-mobile [data-keycap-marquee] .keycap-marquee__belt {
+    width:max-content !important;
+    max-width:none !important;
+  }
+  body:is(.page-home,.page-trend).page-mobile [data-keycap-marquee] .keycap-marquee__group a,
+  body.page-trend.page-mobile .trend-bilingual-nav [data-keycap-marquee] .keycap-marquee__group a {
+    min-height:42px !important;
+    padding:8px 13px !important;
+    border-radius:18px !important;
+    font-size:.82rem !important;
+  }
+}
+@media screen and (max-width:720px) {
+  body:is(.page-home,.page-trend).page-desktop [data-keycap-marquee] .keycap-marquee__viewport {
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    -webkit-overflow-scrolling:touch !important;
+    touch-action:pan-x pan-y !important;
+    scrollbar-width:thin !important;
+  }
+  body:is(.page-home,.page-trend).page-desktop [data-keycap-marquee] .keycap-marquee__group {
+    flex-wrap:nowrap !important;
+    width:max-content !important;
+    max-width:none !important;
+  }
+  body:is(.page-home,.page-trend).page-desktop [data-keycap-marquee] .keycap-marquee__group > li {
+    flex:0 0 auto !important;
+  }
+  body:is(.page-home,.page-trend).page-desktop [data-keycap-marquee] .keycap-marquee__belt {
+    width:max-content !important;
+    max-width:none !important;
+  }
+}
+@media screen and (prefers-reduced-motion:reduce) {
+  body:is(.page-home,.page-trend) [data-keycap-marquee] .keycap-marquee__group a {
+    transition:none !important;
+  }
+}
+
+/* Narrow-screen desktop override: a single manually scrollable row even
+   when the user forces desktop view on a small phone. */
+@media screen and (max-width:720px) {
+  body.page-home.page-desktop .home-keycap-strip [data-keycap-marquee] .keycap-marquee__group,
+  body.page-trend.page-desktop .trend-bilingual-nav [data-keycap-marquee] .keycap-marquee__group {
+    flex-wrap:nowrap !important;
+    width:max-content !important;
+    max-width:none !important;
+  }
+}
