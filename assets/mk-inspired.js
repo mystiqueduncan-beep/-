@@ -146,7 +146,7 @@
       host.classList.add("portfolio-chart");
       bars.forEach((bar, index) => {
         bar.classList.add("portfolio-bar");
-        bar.style.setProperty("--portfolio-bar-delay", index * 250 + "ms");
+        bar.style.setProperty("--portfolio-bar-delay", index * 110 + "ms");
         // Preserve the original width/percentage written in the HTML.
       });
 
