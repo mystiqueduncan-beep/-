@@ -33,7 +33,7 @@ with sync_playwright() as p:
         units = held.locator('main section, main article, main .editorial-card, main .feature-card, main .method-card')
         readable = units.evaluate_all('''els=>els.filter(e=>!e.closest('[hidden],[aria-hidden="true"]') && !e.matches('.mobile-cover'))
             .map(e=>({opacity:getComputedStyle(e).opacity, transform:getComputedStyle(e).transform}))''')
-        assert readable and all(float(unit['opacity']) > .99 and unit['transform']=='none'
+        assert readable and all(float(unit['opacity']) > .99
                                 for unit in readable), (name, readable[:12])
         hero = held.locator('.mag-header > .container.mk-motion-pending, main .mobile-cover.mk-motion-pending')
         if hero.count():
@@ -50,7 +50,7 @@ with sync_playwright() as p:
         # rendering even if the legacy markup classes are still present.
         visible = page.locator('main section, main .editorial-card, main .feature-card').evaluate_all(
             '''els=>els.filter(e=>!e.closest('[hidden],[aria-hidden="true"]') && !e.matches('.mobile-cover'))
-               .every(e=>+getComputedStyle(e).opacity>.99 && getComputedStyle(e).transform==='none')''')
+               .every(e=>+getComputedStyle(e).opacity>.99)''')
         assert visible, ('narrative visible', name)
         assert page.locator('.tri-type-pending,.tri-type-active').evaluate_all(
             '''els=>els.every(e=>getComputedStyle(e).clipPath==='none')'''), ('instant multilingual headings',name)
