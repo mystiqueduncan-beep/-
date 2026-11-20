@@ -1,0 +1,39 @@
+name: A4 résumé print preflight
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - resume.html
+      - _qa/export_resume_pdf.py
+      - _qa/resume_print_preflight.py
+      - .github/workflows/resume-pr-validation.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  print-preflight:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install browser, fonts, and PDF analyzers
+        run: |
+          mkdir -p "$HOME/.local/share/fonts"
+          curl -fL --retry 3 --retry-delay 2 --connect-timeout 15 --max-time 180 "https://raw.githubusercontent.com/google/fonts/main/ofl/notosanstc/NotoSansTC%5Bwght%5D.ttf" -o "$HOME/.local/share/fonts/NotoSansTC.ttf"
+          curl -fL --retry 3 --retry-delay 2 --connect-timeout 15 --max-time 180 "https://raw.githubusercontent.com/google/fonts/main/ofl/notoseriftc/NotoSerifTC%5Bwght%5D.ttf" -o "$HOME/.local/share/fonts/NotoSerifTC.ttf"
+          fc-cache -f "$HOME/.local/share/fonts"
+          python3 -m pip install playwright==1.51.0 pypdf==5.8.0 PyMuPDF==1.26.3
+          python3 -m playwright install --with-deps chromium
+      - name: Render downloadable PDF from actual résumé HTML/CSS
+        run: python3 _qa/export_resume_pdf.py
+      - name: Validate page content and print bounds
+        run: python3 _qa/resume_print_preflight.py
+      - name: Preserve PDF and two page images
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: resume-a4-page-review
+          path: |
+            resume.pdf
+            _qa/resume-preview/*.png
+          if-no-files-found: warn

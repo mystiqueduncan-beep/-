@@ -304,9 +304,23 @@ with sync_playwright() as p:
    page.emulate_media(media='print')
    assert page.locator('.screen-control').evaluate('(e)=>getComputedStyle(e).display')=='none'
    assert page.locator('.paper').count()==2
+   # The print layout is intentionally content-height driven; fixed A4-height
+   # containers previously hid overflow. Actual 2-page A4 pagination is
+   # validated independently by the PDF preflight workflow.
    for section in page.locator('.paper').all():
-    height=float(section.evaluate('(e)=>getComputedStyle(e).height').removesuffix('px'))
-    assert abs(height-1122.52)<2,('A4 print section height',height)
+    geometry=section.evaluate("""e => {
+      const dossier=e.querySelector('.dossier');
+      const paper=getComputedStyle(e);
+      const inner=getComputedStyle(dossier);
+      return {height:e.getBoundingClientRect().height,
+              paperOverflow:paper.overflow,
+              dossierOverflow:inner.overflow,
+              paperScroll:e.scrollHeight,
+              paperClient:e.clientHeight};
+    }""")
+    assert geometry['height']>100,('print section missing content',geometry)
+    assert geometry['paperOverflow']=='visible' and geometry['dossierOverflow']=='visible',('print overflow clipped',geometry)
+    assert geometry['paperScroll']<=geometry['paperClient']+2,('print section overflows its bounds',geometry)
    pdf=page.pdf(print_background=True,prefer_css_page_size=True)
    assert pdf.startswith(b'%PDF-') and len(pdf)>18000,('A4 PDF output',len(pdf))
   page.close()
