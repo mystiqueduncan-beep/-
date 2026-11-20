@@ -54,41 +54,45 @@ with sync_playwright() as p:
    row=page.evaluate('''()=>({overflow:document.documentElement.scrollWidth>innerWidth,externalImagesNotChecked:[...document.images].filter(i=>new URL(i.src).origin!==location.origin).map(i=>i.src),brokenImages:[...document.images].filter(i=>new URL(i.src).origin===location.origin&&(!i.complete||!i.naturalWidth)).map(i=>i.currentSrc)})''')
    row.update(file=name,width=width,errors=errors)
    if name in ('index.html','trend.html','mobile.html','mobile-trend.html') and width in (390,1440):
-    # The shortcuts must not auto-run; mobile/phone layouts are manually
-    # swipeable, and full desktop layouts wrap without clipping.
-    nav=page.locator('[data-keycap-marquee]')
-    expect(nav).to_have_count(1)
-    keys=nav.locator('.keycap-marquee__group a')
-    expect(keys).to_have_count(11 if 'trend' in name else 6)
-    expect(page.locator('.keycap-marquee__toggle')).to_have_count(0)
-    assert nav.evaluate("e=>e.classList.contains('is-static-nav')"), name
-    assert not nav.evaluate("e=>e.classList.contains('is-enhanced')"), name
-    viewport=nav.locator('.keycap-marquee__viewport')
-    belt=nav.locator('.keycap-marquee__belt')
-    assert belt.evaluate('e=>getComputedStyle(e).animationName')=='none'
-    initial=viewport.evaluate('e=>e.scrollLeft')
-    page.wait_for_timeout(240)
-    assert abs(viewport.evaluate('e=>e.scrollLeft')-initial)<=1, (name,'no autoplay')
-    assert belt.evaluate('e=>getComputedStyle(e,"::before").display')=='none'
-    assert belt.evaluate('e=>getComputedStyle(e,"::after").display')=='none'
-    assert keys.evaluate_all('''es=>es.every(e=>getComputedStyle(e).visibility==='visible' &&
-                       getComputedStyle(e).display!=='none')'''),name
-    assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1'),name
-    if name.startswith('mobile') or width<=720:
-     assert viewport.evaluate('e=>getComputedStyle(e).overflowX')=='auto'
-     available_scroll=viewport.evaluate('e=>e.scrollWidth-e.clientWidth')
-     if available_scroll>12:
-      viewport.evaluate('e=>{e.scrollLeft=0;e.focus({preventScroll:true})}')
-      page.keyboard.press('ArrowRight')
-      page.wait_for_timeout(120)
-      keyboard_distance=viewport.evaluate('e=>e.scrollLeft')
-      assert keyboard_distance>8, (name,'keyboard manual scroll',keyboard_distance,
-                                 viewport.evaluate('e=>({max:e.scrollWidth-e.clientWidth,focused:document.activeElement===e})'))
+    if name.startswith('mobile'):
+     # Dedicated phone pages have ONE bottom navigation, never a top strip.
+     expect(page.locator('[data-keycap-marquee]')).to_have_count(0)
+     expect(page.locator('nav.mobile-bottom-bar')).to_have_count(1)
+     bottom=page.locator('nav.mobile-bottom-bar')
+     assert bottom.is_visible(),name
+     assert bottom.evaluate('e=>getComputedStyle(e).position')=='fixed',name
+     assert bottom.locator('a[href="mobile-contact.html"]').count()==1,name
+     assert bottom.locator('a[href="mobile-trend.html"]').count()==1,name
+     if name=='mobile.html':
+      for href in ('#top','#advantages','#cases','#career'):
+       assert bottom.locator('a[href="'+href+'"]').count()==1,(name,href)
+       assert page.locator(href).count()==1,(name,href)
+     else:
+      assert bottom.locator('a[href="mobile.html"]').count()==1,name
+     row['mobile_bottom_navigation']='passed'
+    else:
+     nav=page.locator('[data-keycap-marquee]')
+     expect(nav).to_have_count(1)
+     keys=nav.locator('.keycap-marquee__group a')
+     expect(keys).to_have_count(11 if 'trend' in name else 6)
+     assert nav.evaluate("e=>e.classList.contains('is-static-nav')"),name
+     assert not nav.evaluate("e=>e.classList.contains('is-enhanced')"),name
+     viewport=nav.locator('.keycap-marquee__viewport')
+     belt=nav.locator('.keycap-marquee__belt')
+     assert belt.evaluate('e=>getComputedStyle(e).animationName')=='none',name
+     initial=viewport.evaluate('e=>e.scrollLeft')
+     page.wait_for_timeout(230)
+     assert abs(viewport.evaluate('e=>e.scrollLeft')-initial)<=1,(name,'no autoplay')
+     assert belt.evaluate('e=>getComputedStyle(e,"::before").display')=='none',name
+     assert belt.evaluate('e=>getComputedStyle(e,"::after").display')=='none',name
+     assert keys.evaluate_all('''es=>es.every(e=>getComputedStyle(e).visibility==='visible' &&
+                         getComputedStyle(e).display!=='none')'''),name
+     if width<=720:
+      assert viewport.evaluate('e=>getComputedStyle(e).overflowX')=='auto',name
      else:
       assert keys.evaluate_all('''es=>es.every(e=>e.getBoundingClientRect().right<=innerWidth+2)'''),name
-    else:
-     assert keys.evaluate_all('''es=>es.every(e=>e.getBoundingClientRect().right<=innerWidth+2)'''),name
-    row['static_navigation']='passed'
+     row['desktop_static_navigation']='passed'
+    assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1'),name
 
    if width in (390,1440):
     # Audit fully revealed content, not transient opacity during entrance effects.
