@@ -369,3 +369,159 @@
   body.page-home .grid-2x2 > .editorial-card:hover,
   body.page-contact .personal-resume-link:hover {transform:none!important;}
 }
+
+
+/* 2026-11-20 / calm editorial motion and open-page reading.
+   Presentation only: preserve source text, data, semantics, original links,
+   nav/anchor functionality, chart information, and print/PDF styles. */
+@media screen {
+  /* Fewer nested frames: one magazine spread per chapter, separated by paper
+     and editorial rules instead of rounded boxes inside rounded boxes. */
+  body.page-home.page-desktop main.mag-main > .section-block,
+  body.page-home.page-desktop main.mag-main > .section-block:nth-of-type(even) {
+    background:transparent !important;
+    border:0 !important;
+    border-top:1px solid #e5cfd5 !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+    margin:0 0 clamp(6px,1.2vw,18px) !important;
+    padding:clamp(30px,4.3vw,54px) 0 !important;
+  }
+  body.page-home.page-mobile main.mobile-content > .mobile-card:not(.mobile-cover),
+  body.page-home.page-mobile main.mobile-content > #career,
+  body.page-home.page-mobile main.mobile-content > .mobile-trend-banner {
+    background:transparent !important;
+    border:0 !important;
+    border-top:1px solid #e5cfd5 !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+    margin:0 !important;
+    padding:clamp(24px,5.5vw,36px) 3px !important;
+  }
+  /* Keep the opening magazine cover, but quiet down the content below it. */
+  body.page-home .grid-2x2 > .editorial-card,
+  body.page-home .grid-2x2 > .editorial-card:hover,
+  body.page-home.page-mobile :is(.mobile-subcard,.mobile-case-box,.pillar-mini-card) {
+    border:0 !important;
+    border-top:1px solid #e5cfd5 !important;
+    border-radius:0 !important;
+    background:transparent !important;
+    box-shadow:none !important;
+    transform:none !important;
+  }
+  body.page-home .grid-2x2 > .editorial-card {
+    padding-block:clamp(14px,2.1vw,24px) !important;
+  }
+  body.page-home .section-editorial-header {
+    background:transparent !important;
+    box-shadow:none !important;
+    border-radius:0 !important;
+  }
+  /* Research is a continuous report, not eleven large floating cards.
+     The approved graphs retain their readable visual containers. */
+  body.page-trend .trend-main > section[id],
+  body.page-trend .trend-main > section[id]:nth-of-type(even) {
+    background:transparent !important;
+    border:0 !important;
+    border-top:1px solid #e5cfd5 !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+    padding:clamp(24px,3.5vw,42px) 0 !important;
+    margin:0 0 clamp(8px,1.5vw,22px) !important;
+  }
+  body.page-trend .trend-main .research-part {
+    background:transparent !important;
+    padding:12px 0 !important;
+    margin-bottom:clamp(16px,2.5vw,26px) !important;
+    border-block:0 !important;
+    border-bottom:1px solid #dfc5ce !important;
+  }
+  body.page-trend .research-part .research-part-no {
+    font-size:clamp(1.8rem,3.2vw,2.6rem) !important;
+  }
+  body.page-trend .trend-main :is(#competition,#consumer,#location,#digital,#people,#strategy) .feature-card {
+    border:0 !important;
+    border-top:1px solid #dfc5ce !important;
+    border-radius:0 !important;
+    background:transparent !important;
+    box-shadow:none !important;
+    padding:clamp(14px,2vw,22px) 0 !important;
+  }
+  /* Keep key statistics and data comparisons visually grouped; flatten the
+     repeated commentary cards instead of deleting any chart. */
+  body.page-trend .trend-main :is(.research-summary-panel,.content-article-box,.case-box) {
+    box-shadow:none !important;
+  }
+  body.page-contact .candidate-details-col,
+  body.page-contact .candidate-specs-box {
+    background:transparent !important;
+    border:0 !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+  }
+  body.page-contact .candidate-details-col {
+    padding:clamp(12px,2vw,22px) 0 !important;
+  }
+  body.page-contact .candidate-specs-box {padding:14px 0 !important;}
+  body.page-contact .method-card:not(.method-card--print) {
+    border-radius:12px !important;
+    box-shadow:none !important;
+  }
+  /* All reading content is visible without waiting for 30+ nested entrance
+     animations. Cover, portrait, data bars/count-up and usable interactions
+     still retain their respective motions. */
+  body:is(.page-home,.page-trend,.page-contact) main :is(.mk-motion-item,.mk-motion-pending,.mk-motion-in,.mk-pop-item,.mk-pop-pending,.mk-pop-in) {
+    opacity:1 !important;
+    transform:none !important;
+    transition: none !important;
+  }
+  body.page-home.page-mobile main .mobile-cover.mk-motion-pending {
+    opacity:0 !important;
+    transform:translateY(8px) !important;
+    transition:opacity .42s ease-out,transform .42s ease-out !important;
+  }
+  body.page-home.page-mobile main .mobile-cover.mk-motion-in {
+    opacity:1 !important;
+    transform:none !important;
+    transition:opacity .42s ease-out,transform .42s ease-out !important;
+  }
+  /* The number/chart animation is meaningful; commentary panels simply exist
+     on the page rather than taking turns fading into view. */
+  body.page-trend .trend-main .viz-reveal:not(.stats),
+  body.page-trend #experience .exp .exp-application.exp-method-pending {
+    opacity:1 !important;
+    transform:none !important;
+    translate:none !important;
+    transition:none !important;
+  }
+  /* Remove the repeated Chinese + English + Japanese character-by-character
+     typing treatment while retaining all three languages and their layout. */
+  body:is(.page-home,.page-trend,.page-contact) :is(.tri-type-pending,.tri-type-active) {
+    clip-path:none !important;
+    animation:none !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-primary-typing .tri-primary-char,
+  body:is(.page-home,.page-trend,.page-contact) .tri-type-pending .tri-subtitle-line > :is(.trilingual-en,.trilingual-ja,.tri-subtitle-divider),
+  body:is(.page-home,.page-trend,.page-contact) .tri-subtitle-line.tri-typing > :is(.trilingual-en,.trilingual-ja,.tri-subtitle-divider) {
+    opacity:1 !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) .tri-typed-visual {
+    display:none !important;
+  }
+}
+@media screen and (hover:hover) and (prefers-reduced-motion:no-preference) {
+  body:is(.page-home,.page-contact,.page-trend) :is(a.mag-btn,a.nav-btn-mk,.method-action-btns a,.personal-resume-link) {
+    transition:background-color .18s ease,color .18s ease,border-color .18s ease,transform .18s ease !important;
+  }
+  body:is(.page-home,.page-contact,.page-trend) :is(a.mag-btn,a.nav-btn-mk,.method-action-btns a,.personal-resume-link):hover {
+    transform:translateY(-2px) !important;
+  }
+}
+@media screen and (prefers-reduced-motion:reduce) {
+  body.page-home.page-mobile main .mobile-cover.mk-motion-pending,
+  body.page-home.page-mobile main .mobile-cover.mk-motion-in {
+    opacity:1 !important;
+    transform:none !important;
+    transition:none !important;
+  }
+}
