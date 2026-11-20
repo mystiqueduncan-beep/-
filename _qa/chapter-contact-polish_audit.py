@@ -33,11 +33,17 @@ with sync_playwright() as p:
             assert page.locator(".mag-footer .footer-inner > div").count() == 1
             assert "Matsumoto Kiyoshi" not in page.locator("body").inner_text()
             assert "志願應徵職位：" not in page.locator("body").inner_text()
-        # Both charts still exist and animate automatically, but neither
-        # desktop nor mobile page may create a replay button.
-        chart_bars = page.locator("#market .animated-bar" if "trend" in name else "#research .data-bar-fill")
+        # Homepage charts retain their automatic bars; research charts are now
+        # rendered inline as an accessible product-mix stack and channel list.
+        if "trend" in name:
+            chart_bars = page.locator(".inline-research-viz__stack > span, .inline-research-viz__rows > li")
+            assert page.locator(".inline-research-viz").count() == 2, (name, "inline research charts missing")
+            assert page.locator(".portfolio-chart").count() == 0, (name, "research chart should use inline layout")
+            assert not any("查看數據視覺化示範" in text for text in page.locator("a").all_text_contents()), (name, "no separate chart demo link")
+        else:
+            chart_bars = page.locator("#research .data-bar-fill")
+            assert page.locator(".portfolio-chart").count() >= 1, (name, "chart enhancement missing")
         assert chart_bars.count() > 0, (name, "chart data should remain")
-        assert page.locator(".portfolio-chart").count() >= 1, (name, "chart enhancement missing")
         assert page.locator(".portfolio-chart-replay").count() == 0, (name, "replay button was removed")
         nav = page.locator("[data-keycap-marquee]")
         assert nav.count() == 1, name
