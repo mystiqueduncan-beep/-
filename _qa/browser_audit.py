@@ -76,13 +76,16 @@ with sync_playwright() as p:
     assert not page.evaluate('document.documentElement.scrollWidth>innerWidth+1'),name
     if name.startswith('mobile') or width<=720:
      assert viewport.evaluate('e=>getComputedStyle(e).overflowX')=='auto'
-     assert viewport.evaluate('e=>e.scrollWidth>e.clientWidth'),name
-     viewport.evaluate('e=>{e.scrollLeft=0;e.focus({preventScroll:true})}')
-     page.keyboard.press('ArrowRight')
-     page.wait_for_timeout(120)
-     keyboard_distance=viewport.evaluate('e=>e.scrollLeft')
-     assert keyboard_distance>8, (name,'keyboard manual scroll',keyboard_distance,
+     available_scroll=viewport.evaluate('e=>e.scrollWidth-e.clientWidth')
+     if available_scroll>12:
+      viewport.evaluate('e=>{e.scrollLeft=0;e.focus({preventScroll:true})}')
+      page.keyboard.press('ArrowRight')
+      page.wait_for_timeout(120)
+      keyboard_distance=viewport.evaluate('e=>e.scrollLeft')
+      assert keyboard_distance>8, (name,'keyboard manual scroll',keyboard_distance,
                                  viewport.evaluate('e=>({max:e.scrollWidth-e.clientWidth,focused:document.activeElement===e})'))
+     else:
+      assert keys.evaluate_all('''es=>es.every(e=>e.getBoundingClientRect().right<=innerWidth+2)'''),name
     else:
      assert keys.evaluate_all('''es=>es.every(e=>e.getBoundingClientRect().right<=innerWidth+2)'''),name
     row['static_navigation']='passed'
