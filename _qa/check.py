@@ -247,6 +247,26 @@ for rel,old in base.items():
   original_title='<span class="research-part-title">產業趨勢與數據視覺化</span>'.encode('utf-8')
   if raw.count(short_title)!=1:errors.append(rel+': approved Part 03 heading missing or duplicated')
   pinned_raw=raw.replace(short_title,original_title,1) if raw.count(short_title)==1 else raw
+  # Allow exactly six visible heading-label simplifications only.
+  # Reverse them before comparing every other research byte to the approved SHA.
+  chapter_labels=(
+   ('<p class="research-edition" lang="en">RESEARCH EDITION</p>',
+    '<p class="research-edition" lang="en">01 / RESEARCH EDITION</p>'),
+   ('<span class="research-part-label" lang="en">EXECUTIVE SUMMARY</span>',
+    '<span class="research-part-label" lang="en">PART 02 / EXECUTIVE SUMMARY</span>'),
+   ('<span class="research-part-label" lang="en">INDUSTRY TRENDS</span>',
+    '<span class="research-part-label" lang="en">PART 03 / INDUSTRY TRENDS</span>'),
+   ('<span class="research-part-label" lang="en">MARKET ANALYSIS</span>',
+    '<span class="research-part-label" lang="en">PART 04 / MARKET ANALYSIS</span>'),
+   ('<span class="research-part-label" lang="en">REGIONAL STRATEGY</span>',
+    '<span class="research-part-label" lang="en">PART 05 / REGIONAL STRATEGY</span>'),
+   ('<span class="research-part-label" lang="en">EVIDENCE &amp; LIMITS</span>',
+    '<span class="research-part-label" lang="en">PART 06 / EVIDENCE &amp; LIMITS</span>'),
+  )
+  for visible,pinned in chapter_labels:
+   marker=visible.encode('utf-8')
+   if pinned_raw.count(marker)!=1:errors.append(rel+': heading label missing or repeated: '+visible)
+   else:pinned_raw=pinned_raw.replace(marker,pinned.encode('utf-8'),1)
   same=hashlib.sha1(b'blob '+str(len(pinned_raw)).encode('ascii')+bytes([0])+pinned_raw).hexdigest()==expanded[rel]
   if not same:errors.append(rel+': inline-chart research differs from approved publication; review required')
   for href in (

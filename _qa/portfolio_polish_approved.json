@@ -120,27 +120,27 @@
     },
     {
       "old": "<div class=\"trend-hero\">",
-      "now": "<div class=\"trend-hero\">\n<p class=\"research-edition\" lang=\"en\">01 / RESEARCH EDITION</p>"
+      "now": "<div class=\"trend-hero\">\n<p class=\"research-edition\" lang=\"en\">RESEARCH EDITION</p>"
     },
     {
       "old": "<section id=\"market\">",
-      "now": "<section id=\"market\"><div class=\"research-part\"><span class=\"research-part-no\" aria-hidden=\"true\">02</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">PART 02 / EXECUTIVE SUMMARY</span><span class=\"research-part-title\">核心研究摘要</span></div></div>"
+      "now": "<section id=\"market\"><div class=\"research-part\"><span class=\"research-part-no\" aria-hidden=\"true\">02</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">EXECUTIVE SUMMARY</span><span class=\"research-part-title\">核心研究摘要</span></div></div>"
     },
     {
       "old": "各指標年度不同。</p><div class=\"split\">",
-      "now": "各指標年度不同。</p><div class=\"research-part research-part--inside\"><span class=\"research-part-no\" aria-hidden=\"true\">03</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">PART 03 / INDUSTRY TRENDS</span><span class=\"research-part-title\">產業趨勢</span></div></div><div class=\"split\">"
+      "now": "各指標年度不同。</p><div class=\"research-part research-part--inside\"><span class=\"research-part-no\" aria-hidden=\"true\">03</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">INDUSTRY TRENDS</span><span class=\"research-part-title\">產業趨勢</span></div></div><div class=\"split\">"
     },
     {
       "old": "<section id=\"competition\" class=\"section-block\">",
-      "now": "<section id=\"competition\" class=\"section-block\"><div class=\"research-part\"><span class=\"research-part-no\" aria-hidden=\"true\">04</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">PART 04 / MARKET ANALYSIS</span><span class=\"research-part-title\">市場競爭與品牌分析</span></div></div>"
+      "now": "<section id=\"competition\" class=\"section-block\"><div class=\"research-part\"><span class=\"research-part-no\" aria-hidden=\"true\">04</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">MARKET ANALYSIS</span><span class=\"research-part-title\">市場競爭與品牌分析</span></div></div>"
     },
     {
       "old": "<section id=\"experience\">",
-      "now": "<section id=\"experience\"><div class=\"research-part\"><span class=\"research-part-no\" aria-hidden=\"true\">05</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">PART 05 / REGIONAL STRATEGY</span><span class=\"research-part-title\">區域經理的策略觀點</span></div></div>"
+      "now": "<section id=\"experience\"><div class=\"research-part\"><span class=\"research-part-no\" aria-hidden=\"true\">05</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">REGIONAL STRATEGY</span><span class=\"research-part-title\">區域經理的策略觀點</span></div></div>"
     },
     {
       "old": "<section class=\"sources\" id=\"sources\">",
-      "now": "<section class=\"sources\" id=\"sources\"><div class=\"research-part\"><span class=\"research-part-no\" aria-hidden=\"true\">06</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">PART 06 / EVIDENCE &amp; LIMITS</span><span class=\"research-part-title\">研究結論與資料來源</span></div></div>"
+      "now": "<section class=\"sources\" id=\"sources\"><div class=\"research-part\"><span class=\"research-part-no\" aria-hidden=\"true\">06</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">EVIDENCE &amp; LIMITS</span><span class=\"research-part-title\">研究結論與資料來源</span></div></div>"
     },
     {
       "old": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v3\">",
@@ -222,27 +222,27 @@
     },
     {
       "old": "<div class=\"trend-hero\">",
-      "now": "<div class=\"trend-hero\">\n<p class=\"research-edition\" lang=\"en\">01 / RESEARCH EDITION</p>"
+      "now": "<div class=\"trend-hero\">\n<p class=\"research-edition\" lang=\"en\">RESEARCH EDITION</p>"
     },
     {
       "old": "<section id=\"market\">",
-      "now": "<section id=\"market\"><div class=\"research-part\"><span class=\"research-part-no\" aria-hidden=\"true\">02</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">PART 02 / EXECUTIVE SUMMARY</span><span class=\"research-part-title\">核心研究摘要</span></div></div>"
+      "now": "<section id=\"market\"><div class=\"research-part\"><span class=\"research-part-no\" aria-hidden=\"true\">02</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">EXECUTIVE SUMMARY</span><span class=\"research-part-title\">核心研究摘要</span></div></div>"
     },
     {
       "old": "各指標年度不同。</p><div class=\"split\">",
-      "now": "各指標年度不同。</p><div class=\"research-part research-part--inside\"><span class=\"research-part-no\" aria-hidden=\"true\">03</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">PART 03 / INDUSTRY TRENDS</span><span class=\"research-part-title\">產業趨勢</span></div></div><div class=\"split\">"
+      "now": "各指標年度不同。</p><div class=\"research-part research-part--inside\"><span class=\"research-part-no\" aria-hidden=\"true\">03</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">INDUSTRY TRENDS</span><span class=\"research-part-title\">產業趨勢</span></div></div><div class=\"split\">"
     },
     {
       "old": "<section id=\"competition\" class=\"section-block\">",
-      "now": "<section id=\"competition\" class=\"section-block\"><div class=\"research-part\"><span class=\"research-part-no\" aria-hidden=\"true\">04</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">PART 04 / MARKET ANALYSIS</span><span class=\"research-part-title\">市場競爭與品牌分析</span></div></div>"
+      "now": "<section id=\"competition\" class=\"section-block\"><div class=\"research-part\"><span class=\"research-part-no\" aria-hidden=\"true\">04</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">MARKET ANALYSIS</span><span class=\"research-part-title\">市場競爭與品牌分析</span></div></div>"
     },
     {
       "old": "<section id=\"experience\">",
-      "now": "<section id=\"experience\"><div class=\"research-part\"><span class=\"research-part-no\" aria-hidden=\"true\">05</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">PART 05 / REGIONAL STRATEGY</span><span class=\"research-part-title\">區域經理的策略觀點</span></div></div>"
+      "now": "<section id=\"experience\"><div class=\"research-part\"><span class=\"research-part-no\" aria-hidden=\"true\">05</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">REGIONAL STRATEGY</span><span class=\"research-part-title\">區域經理的策略觀點</span></div></div>"
     },
     {
       "old": "<section class=\"sources\" id=\"sources\">",
-      "now": "<section class=\"sources\" id=\"sources\"><div class=\"research-part\"><span class=\"research-part-no\" aria-hidden=\"true\">06</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">PART 06 / EVIDENCE &amp; LIMITS</span><span class=\"research-part-title\">研究結論與資料來源</span></div></div>"
+      "now": "<section class=\"sources\" id=\"sources\"><div class=\"research-part\"><span class=\"research-part-no\" aria-hidden=\"true\">06</span><div class=\"research-part-copy\"><span class=\"research-part-label\" lang=\"en\">EVIDENCE &amp; LIMITS</span><span class=\"research-part-title\">研究結論與資料來源</span></div></div>"
     },
     {
       "old": "<link rel=\"stylesheet\" href=\"assets/portfolio-polish.css?v=20261120-unified-v3\">",

@@ -597,3 +597,92 @@
     transition:transform 1.12s cubic-bezier(.22,1,.36,1) var(--portfolio-bar-delay,0ms) !important;
   }
 }
+
+
+/* Sitewide number-free editorial heading system / 2026-11-20.
+   The website's H1s, 2024/2026 dates, percentages, job durations,
+   roadmap steps and navigation remain semantically unchanged.
+   Remove only decorative heading chapter digits. */
+@media screen {
+  body:is(.page-home,.page-trend,.page-contact)
+    :is(.section-editorial-header,.tri-editorial-header,.tri-education-line,h2.bilingual-mobile-heading,h2.mobile-card-title)
+    :is(.sec-number,.ui-code),
+  body:is(.page-home,.page-trend,.page-contact) .tri-heading-primary > .sec-number,
+  body.page-trend .trend-main .research-part .research-part-no {
+    display:none !important;
+  }
+  /* One title scale and common muted-rose typography across desktop/mobile
+     homepage, research chapters and the education/contact page. */
+  body:is(.page-home,.page-trend,.page-contact)
+    :is(.section-editorial-header,.tri-editorial-header,.tri-education-line)
+    .tri-heading-primary {
+    display:block !important;
+    width:100% !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    margin:0 !important;
+    padding:0 !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact)
+    :is(.section-editorial-header,.tri-editorial-header,.tri-education-line)
+    .tri-heading-primary :is(.trilingual-zh,.sec-title-main),
+  body.page-home.page-mobile h2.bilingual-mobile-heading .bilingual-mobile-cn,
+  body.page-contact #education-title .tri-heading-primary .trilingual-zh {
+    font-family:var(--font-sans,"Noto Sans TC",sans-serif) !important;
+    font-size:clamp(1.45rem,2.6vw,2.1rem) !important;
+    line-height:1.38 !important;
+    font-weight:850 !important;
+    color:#785367 !important;
+    letter-spacing:.02em !important;
+    text-wrap:balance;
+    margin:0 !important;
+    padding:0 !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact)
+    :is(.section-editorial-header,.tri-editorial-header,.tri-education-line)
+    .tri-editorial-line {
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:flex-start !important;
+    gap:clamp(6px,.7vw,10px) !important;
+    min-width:0 !important;
+    max-width:100% !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact)
+    :is(.section-editorial-header,.tri-editorial-header,.tri-education-line)
+    .tri-subtitle-line {
+    margin:0 !important;
+    min-height:0 !important;
+  }
+  body.page-home .section-editorial-header,
+  body.page-contact .education-profile__header,
+  body.page-contact #education-title,
+  body.page-home.page-mobile h2.bilingual-mobile-heading {
+    border-left:0 !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+  }
+}
+@media screen and (max-width:720px) {
+  body:is(.page-home,.page-trend,.page-contact)
+    :is(.section-editorial-header,.tri-editorial-header,.tri-education-line)
+    .tri-heading-primary :is(.trilingual-zh,.sec-title-main),
+  body.page-home.page-mobile h2.bilingual-mobile-heading .bilingual-mobile-cn,
+  body.page-contact #education-title .tri-heading-primary .trilingual-zh {
+    font-size:clamp(1.27rem,5.2vw,1.7rem) !important;
+  }
+}
+
+
+/* Final specificity lock: hide legacy round chapter labels even where older
+   magazine rules assign display:inline-flex!important to those badges. */
+@media screen {
+  body:is(.page-home,.page-trend,.page-contact):is(.page-desktop,.page-mobile)
+    .tri-heading-primary > .sec-number,
+  body:is(.page-home,.page-trend,.page-contact):is(.page-desktop,.page-mobile)
+    .section-editorial-header .sec-number,
+  body:is(.page-home,.page-trend,.page-contact):is(.page-desktop,.page-mobile)
+    #education-title .sec-number {
+    display:none !important;
+  }
+}
