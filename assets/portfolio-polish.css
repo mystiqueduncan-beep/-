@@ -672,3 +672,17 @@
     font-size:clamp(1.27rem,5.2vw,1.7rem) !important;
   }
 }
+
+
+/* Final specificity lock: hide legacy round chapter labels even where older
+   magazine rules assign display:inline-flex!important to those badges. */
+@media screen {
+  body:is(.page-home,.page-trend,.page-contact):is(.page-desktop,.page-mobile)
+    .tri-heading-primary > .sec-number,
+  body:is(.page-home,.page-trend,.page-contact):is(.page-desktop,.page-mobile)
+    .section-editorial-header .sec-number,
+  body:is(.page-home,.page-trend,.page-contact):is(.page-desktop,.page-mobile)
+    #education-title .sec-number {
+    display:none !important;
+  }
+}
