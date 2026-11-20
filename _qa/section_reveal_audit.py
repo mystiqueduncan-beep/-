@@ -54,18 +54,31 @@ with sync_playwright() as p:
         assert visible, ('narrative visible', name)
         assert page.locator('.tri-type-pending,.tri-type-active').evaluate_all(
             '''els=>els.every(e=>getComputedStyle(e).clipPath==='none')'''), ('instant multilingual headings',name)
+        # Consistent presentation contract across all six portfolio pages:
+        # no decorative 01/02 round badges in primary chapter headings.
+        numbered_heading_tokens = page.locator(
+            '.section-editorial-header .sec-number, '
+            '.tri-heading-primary > .sec-number, '
+            'h2.bilingual-mobile-heading .sec-number, '
+            'h2.mobile-card-title .ui-code, '
+            '#education-title .sec-number'
+        )
+        assert numbered_heading_tokens.evaluate_all(
+            '''els=>els.every(e=>getComputedStyle(e).display==='none')'''), ('numbered heading badge visible',name)
         if name in ('trend','mobile-trend'):
-            # PART 01 is the report hero. PARTS 02–06 become thin dividers;
-            # section headings remain the single prominent Chinese headings.
+            assert page.locator('.trend-hero .research-edition').inner_text().strip()=='RESEARCH EDITION',name
+        if name in ('trend','mobile-trend'):
+            # Six unnumbered research sections: the hero and five quiet
+            # bilingual divider labels keep their semantic contents.
             parts = page.locator('.trend-main .research-part')
             expect(parts).to_have_count(5)
             labels = parts.locator('.research-part-label').all_text_contents()
             assert labels == [
-                'PART 02 / EXECUTIVE SUMMARY',
-                'PART 03 / INDUSTRY TRENDS',
-                'PART 04 / MARKET ANALYSIS',
-                'PART 05 / REGIONAL STRATEGY',
-                'PART 06 / EVIDENCE & LIMITS'
+                'EXECUTIVE SUMMARY',
+                'INDUSTRY TRENDS',
+                'MARKET ANALYSIS',
+                'REGIONAL STRATEGY',
+                'EVIDENCE & LIMITS'
             ], (name, labels)
             assert page.locator('.trend-main .research-part .research-part-no').evaluate_all(
                 '''els=>els.every(e=>getComputedStyle(e).display==='none')'''), name
