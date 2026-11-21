@@ -1840,3 +1840,24 @@
     animation:none !important;filter:none !important;transform:none !important;opacity:1 !important;
   }
 }
+
+
+/* Resume print-link light overlay shares the same cycle as the research CTA;
+   the full résumé card is one button, not a decorative exception. */
+@media screen and (prefers-reduced-motion:no-preference) {
+  body.page-contact a.personal-resume-link.site-button-motion.site-button-active .research-meteor::before {
+    animation:site-project-light-sweep 6.4s ease-in-out
+      var(--site-button-glow-delay,1.25s) infinite !important;
+  }
+  body.page-contact a.personal-resume-link.site-button-motion.site-button-active .research-meteor::after {
+    animation:site-project-light-haze 6.4s ease-in-out
+      var(--site-button-glow-delay,1.25s) infinite !important;
+  }
+  body.page-contact a.personal-resume-link.site-button-motion.site-button-active:is(:hover,:focus-visible,:focus-within)
+    .research-meteor::before,
+  body.page-contact a.personal-resume-link.site-button-motion.site-button-active:is(:hover,:focus-visible,:focus-within)
+    .research-meteor::after {
+    animation-play-state:paused !important;
+    opacity:0 !important;
+  }
+}
