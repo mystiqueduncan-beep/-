@@ -618,6 +618,9 @@
     }
 
     if (!("IntersectionObserver" in window) || reduce?.matches) return;
+    // One editorial motion vocabulary for every page: full chapters first,
+    // then only substantive cards. Data bars, active filters, roadmap panels,
+    // headings and navigation keep their own meaningful interactions.
     const primary = [...document.querySelectorAll(
       "body.page-home.page-desktop main.mag-main > section.section-block," +
       "body.page-home.page-mobile main.mobile-content > section.mobile-card:not(.mobile-cover)," +
@@ -629,61 +632,91 @@
     const details = [...document.querySelectorAll(
       "body.page-home #competencies :is(.grid-2x2 > .editorial-card,.adv-dim-card)," +
       "body.page-home #cases :is(.wide-star-case,.mobile-case-box)," +
+      "body.page-home #career :is(.career-entry-card,.timeline-job-card)," +
       "body.page-home #proposal :is(.stage-card,.stage-card-mini)," +
-      "body.page-trend #competition > .cards-2x2-grid > .feature-card," +
-      "body.page-trend :is(#consumer,#location,#digital,#people) .cards-2x2-grid > .feature-card," +
+      "body.page-trend :is(#competition,#consumer,#location,#digital,#people) .cards-2x2-grid > .feature-card," +
+      "body.page-trend #strategy .strategies > .strategy.feature-card," +
       "body.page-trend #experience .experience > .exp.feature-card," +
       "body.page-trend :is(.swimlane-panel,.decision-map,.timeline-control)," +
       "body.page-trend #metrics .metric-grid > .metric-tile," +
-      "body.page-contact .method-card"
+      "body.page-contact :is(.method-card,.candidate-details-col,.candidate-specs-box,.edu-dedicated-card)"
     )];
     const targets = [...new Set([...primary, ...details])].filter(el => el.isConnected);
     if (!targets.length) return;
     let observer;
+    let scheduled = false;
+    let listening = false;
     const pending = new Set();
+    const visibleEnough = el => {
+      if (el.hidden || el.closest("[hidden],[inert]")) return false;
+      const rect = el.getBoundingClientRect();
+      const height = window.innerHeight || document.documentElement.clientHeight;
+      return rect.width > 0 && rect.height > 0 && rect.top <= height * .86 && rect.bottom > 0;
+    };
+    function detachFallback() {
+      if (!listening) return;
+      listening = false;
+      window.removeEventListener("scroll", scheduleCheck);
+      window.removeEventListener("resize", scheduleCheck);
+      window.removeEventListener("pageshow", scheduleCheck);
+    }
     const reveal = el => {
       if (!el) return;
       pending.delete(el);
       el.classList.remove("magazine-slide-pending");
       el.classList.add("magazine-slide-in");
-      observer?.unobserve(el);
+      observer?.unobserve?.(el);
+      if (!pending.size) detachFallback();
     };
     const revealAll = () => {
       observer?.disconnect();
       [...pending].forEach(reveal);
+      detachFallback();
       flow?.classList.add("magazine-flow-played");
     };
-    const alreadyInView = el => {
-      const rect = el.getBoundingClientRect();
-      const height = window.innerHeight || document.documentElement.clientHeight;
-      return rect.top <= height * .89 && rect.bottom > 0;
-    };
+    function scheduleCheck() {
+      if (scheduled || !pending.size) return;
+      scheduled = true;
+      window.requestAnimationFrame(() => {
+        scheduled = false;
+        [...pending].filter(visibleEnough).forEach(reveal);
+      });
+    }
+
     try {
       observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => { if (entry.isIntersecting) reveal(entry.target); });
-      }, {threshold:.08, rootMargin:"0px 0px -7% 0px"});
-      targets.forEach((el, index) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) reveal(entry.target);
+        });
+      }, {threshold:0.06, rootMargin:"0px 0px -6% 0px"});
+      targets.forEach(el => {
         el.classList.add("magazine-slide");
         const detail = details.includes(el);
-        const isExperience = el.matches("body.page-trend #experience .experience > .exp.feature-card");
-        let step = 0;
+        el.classList.toggle("magazine-slide-card", detail);
+        el.style.setProperty("--magazine-slide-x", detail ? "-12px" : "-18px");
+        el.style.setProperty("--magazine-slide-y", detail ? "7px" : "11px");
         if (detail) {
           const siblings = [...el.parentElement.children].filter(child => details.includes(child));
-          step = Math.max(0, siblings.indexOf(el));
-          el.style.setProperty("--magazine-delay", String(Math.min(step,3)*90)+"ms");
-        }
-        // The three experience cards really slide in on scroll again, from
-        // alternating sides; research details rise gently as one-time cards.
-        el.style.setProperty("--magazine-slide-x",
-          isExperience ? (step % 2 ? "26px" : "-26px") :
-          detail ? "0px" : (index % 2 ? "22px" : "-22px"));
-        if (alreadyInView(el)) el.classList.add("magazine-slide-in");
+          const step = Math.max(0, siblings.indexOf(el));
+          el.style.setProperty("--magazine-delay", String(Math.min(step,3) * 75) + "ms");
+        } else el.style.setProperty("--magazine-delay","0ms");
+        if (visibleEnough(el)) el.classList.add("magazine-slide-in");
         else {
           pending.add(el);
           el.classList.add("magazine-slide-pending");
           observer.observe(el);
         }
       });
+      if (pending.size) {
+        // Scroll/resize fallback catches tiny sections and fast scroll jumps.
+        // This also avoids a paragraph remaining invisible if the browser
+        // skips an IntersectionObserver callback during page transitions.
+        window.addEventListener("scroll",scheduleCheck,{passive:true});
+        window.addEventListener("resize",scheduleCheck,{passive:true});
+        window.addEventListener("pageshow",scheduleCheck);
+        listening = true;
+        scheduleCheck();
+      }
       // Never conceal content when scripting or observers are unavailable.
       document.documentElement.classList.add("magazine-motion-ready");
 
