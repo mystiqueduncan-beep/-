@@ -157,7 +157,10 @@ with sync_playwright() as p:
             expect(training).to_have_count(1)
             assert training.locator('ol > li').all_text_contents()==['重點觀摩','步驟演練','陪同操作'],name
             selector = '.hero-cta-group > .mk-pop-item' if name == 'index' else '.mobile-hero-actions > .mk-pop-item'
-            assert page.locator(selector).count() == 2, name
+            assert page.locator(selector).count() == 0, (name,'hero action unexpectedly animated')
+            actions = page.locator('.hero-cta-group > .mag-btn' if name == 'index' else '.mobile-hero-actions > a, .mobile-hero-actions > button')
+            assert actions.count() >= 2, (name,'missing original hero buttons')
+            assert actions.evaluate_all('''els=>els.every(el=>getComputedStyle(el).opacity==='1')'''),(name,'hidden hero button')
             cards = page.locator('#career .career-entry-card, #career .timeline-job-card')
             expect(cards).to_have_count(3)
             expect(page.locator('#career .portfolio-disclosure-toggle, #career .portfolio-disclosure-panel')).to_have_count(0)
