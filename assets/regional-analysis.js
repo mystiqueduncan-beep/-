@@ -64,10 +64,10 @@
  }
  const reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)");
  if(!("IntersectionObserver" in window)||(reduced&&reduced.matches))return;
- // The shared site observer already manages mk-motion-item cards; never
- // attach a second entrance observer to them, which would replay reveals.
- const items=[...document.querySelectorAll(".viz-comparison,.swimlane-panel,.metric-tile,.decision-map,.timeline-control,.stats,.split .box")]
-  .filter(el=>!el.matches(".mk-motion-item, .mk-pop-item"));
+ // All subordinate infographic cards use the shared observer. Never
+ // animate a whole .stats chapter or duplicate an existing card reveal.
+ const items=[...document.querySelectorAll(".viz-comparison,.swimlane-panel,.metric-tile,.decision-map,.timeline-control,.split .box")]
+  .filter(el=>!el.matches(".mk-motion-item, .mk-pop-item, .magazine-slide"));
  if(!items.length)return;
  let observer;
  try{
