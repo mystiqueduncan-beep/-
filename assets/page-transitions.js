@@ -248,7 +248,7 @@
       heading.classList.add("tri-editorial-header");
       heading.replaceChildren(line);
     });
-    document.querySelectorAll("h2.mobile-card-title:not(.bilingual-mobile-heading)").forEach((heading) => {
+    document.querySelectorAll(":is(h2,div).mobile-card-title:not(.bilingual-mobile-heading)").forEach((heading) => {
       const line = heading.querySelector(":scope > span:first-child");
       const ja = line?.querySelector(".mobile-section-jp");
       const en = heading.querySelector(":scope > .mobile-badge");
