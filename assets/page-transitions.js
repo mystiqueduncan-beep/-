@@ -630,7 +630,10 @@
       "body.page-home #competencies :is(.grid-2x2 > .editorial-card,.adv-dim-card)," +
       "body.page-home #cases :is(.wide-star-case,.mobile-case-box)," +
       "body.page-home #proposal :is(.stage-card,.stage-card-mini)," +
-      "body.page-trend #competition > .cards-2x2-grid > .feature-card"
+      "body.page-trend #competition > .cards-2x2-grid > .feature-card," +
+      "body.page-trend :is(.swimlane-panel,.decision-map,.timeline-control)," +
+      "body.page-trend #metrics .metric-grid > .metric-tile," +
+      "body.page-contact .method-card"
     )];
     const targets = [...new Set([...primary, ...details])].filter(el => el.isConnected);
     if (!targets.length) return;
