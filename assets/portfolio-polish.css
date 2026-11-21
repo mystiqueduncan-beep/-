@@ -1258,3 +1258,26 @@
     justify-content:center !important;
   }
 }
+
+
+/* 2026-11-21 | Homepage navigation matches the approved centered research
+   chapter keys. Keep natural left/right breathing room without stretching
+   any keys; mobile and forced desktop on phones still swipe horizontally. */
+@media screen and (min-width:721px) {
+  body.page-home.page-desktop nav.home-keycap-strip > .home-keycap-layout {
+    display:flex !important;
+    justify-content:center !important;
+    align-items:center !important;
+    width:100% !important;
+  }
+  body.page-home.page-desktop nav.home-keycap-strip [data-keycap-marquee].keycap-marquee {
+    flex:0 1 1120px !important;
+    width:100% !important;
+    max-width:1120px !important;
+    margin-inline:auto !important;
+  }
+  body.page-home.page-desktop nav.home-keycap-strip
+    [data-keycap-marquee] .keycap-marquee__group {
+    justify-content:center !important;
+  }
+}
