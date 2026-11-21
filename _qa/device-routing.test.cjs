@@ -12,6 +12,7 @@ const desktop = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0";
 function browser(address, options = {}) {
   const location = new URL(address, domain);
   const calls = [];
+  const historyCalls = [];
   const saved = options.saved || new Map();
   location.replace = value => calls.push(value);
   const storage = options.brokenStorage
@@ -21,12 +22,13 @@ function browser(address, options = {}) {
        removeItem(key) {saved.delete(key);}};
   const window = {
     location,
+    history: {replaceState(_state, _title, path) {historyCalls.push(path);}},
     localStorage: storage,
     navigator: {userAgent: options.ua || desktop, userAgentData: {mobile: Boolean(options.uaMobile)}},
     matchMedia() {return {matches: Boolean(options.coarse)};}
   };
   vm.runInNewContext(source, {window, URL, URLSearchParams, Boolean});
-  return {calls, saved};
+  return {calls, historyCalls, saved};
 }
 test("canonical desktop homepage stays desktop for desktop visitors", () => {
   assert.equal(browser("/-/").calls.length, 0);
@@ -78,4 +80,12 @@ test("tablet can retain desktop layout, independent of narrow desktop windows", 
 test("storage restrictions and unrelated files do not break page load", () => {
   assert.deepEqual(browser("/-/index.html", {ua:iphone,brokenStorage:true}).calls, [domain+"/-/mobile.html"]);
   assert.deepEqual(browser("/-/robots.txt", {ua:iphone}).calls, []);
+});
+
+test("automatic view clears the command without reloading an already-correct page", () => {
+  const saved = new Map([["portfolioPreferredView", "mobile"]]);
+  const actual = browser("/-/index.html?view=auto&topic=proof#career", {saved});
+  assert.deepEqual(actual.calls, []);
+  assert.deepEqual(actual.historyCalls, ["/-/index.html?topic=proof#career"]);
+  assert.equal(saved.has("portfolioPreferredView"), false);
 });
