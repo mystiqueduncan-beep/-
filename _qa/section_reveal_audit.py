@@ -117,6 +117,34 @@ with sync_playwright() as p:
             assert page.locator('.trend-main .section-editorial-header .tri-subtitle-line').count() == 11, name
             assert page.evaluate('document.documentElement.scrollWidth<=innerWidth'), name
             print('RESEARCH_HEADING_HIERARCHY_PASS',name,labels,flush=True)
+            # The editorial research is a continuous, scrollable article.
+            # No auto-generated disclosure controls or inert panels in cards.
+            research_groups = {
+                'competition':4, 'consumer':2, 'location':2,
+                'digital':4, 'people':4
+            }
+            for section_id, expected in research_groups.items():
+                cards=page.locator(f'#{section_id} > .cards-2x2-grid > .feature-card')
+                expect(cards).to_have_count(expected)
+                for card in cards.all():
+                    expect(card.locator('.portfolio-disclosure-toggle,.portfolio-disclosure-panel')).to_have_count(0)
+                    detail=card.locator('.feature-card-data')
+                    expect(detail).to_have_count(1)
+                    assert detail.inner_text().strip(),(name,section_id,'blank detail')
+                    assert detail.evaluate('(e)=>!e.closest("[inert],[aria-hidden=true]")'),(name,section_id)
+            strategies=page.locator('#strategy .strategies > .strategy.feature-card')
+            expect(strategies).to_have_count(6)
+            expect(page.locator('#strategy .portfolio-disclosure-toggle,#strategy .portfolio-disclosure-panel')).to_have_count(0)
+            experience=page.locator('#experience .experience > .exp.feature-card')
+            expect(experience).to_have_count(3)
+            for card in experience.all():
+                expect(card).to_have_class(re.compile(r'.*magazine-slide.*'))
+                card.evaluate('(e)=>e.scrollIntoView({block:"center",behavior:"instant"})')
+                expect(card).to_have_class(re.compile(r'.*magazine-slide-in.*'),timeout=4000)
+            page.evaluate('scrollTo({top:0,behavior:"instant"})')
+            for card in experience.all():
+                expect(card).to_have_class(re.compile(r'.*magazine-slide-in.*'))
+            print('RESEARCH_SCROLL_CARDS_PASS',name,research_groups,flush=True)
         if 'contact' in name:
             assert page.locator('.mk-pop-item').count() == 4, name
             assert page.locator('.method-card--print.mk-pop-item').count() == 1, name
