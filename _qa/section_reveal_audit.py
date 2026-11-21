@@ -259,7 +259,7 @@ with sync_playwright() as p:
         chapters=page.locator('main > section,main .contact-card-outer')
         assert chapters.count() >= 1,(name,'missing major chapters')
         for chapter in chapters.all():
-            assert 'magazine-slide' not in chapter.get_attribute('class').split(),(name,'animated outer chapter')
+            assert 'magazine-slide' not in (chapter.get_attribute('class') or '').split(),(name,'animated outer chapter')
             assert chapter.evaluate('''e=>{
                 const s=getComputedStyle(e);
                 return s.opacity==='1' && s.transform==='none' &&
