@@ -965,6 +965,7 @@
       const group=parent?[...parent.querySelectorAll(selector)]:[e];
       const position=Math.max(0,group.indexOf(e));
       e.style.setProperty("--site-button-phase",String(position%11));
+      e.style.setProperty("--site-button-glow-delay",(1.25+(position%11)*.25).toFixed(2)+"s");
       e.classList.add("site-button-motion");
     });
     // Static for those who prefer less motion. No-JS already shows every link.
