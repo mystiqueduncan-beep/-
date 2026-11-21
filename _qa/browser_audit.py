@@ -141,13 +141,17 @@ with sync_playwright() as p:
   switchbar=page.locator('body > nav.view-mode-switch[aria-label="瀏覽版本切換"]')
   expect(switchbar).to_have_count(1)
   switch=switchbar.locator('a.view-mode-switch__option')
-  expect(switch).to_have_count(2)
-  assert [x.strip() for x in switch.all_text_contents()]==['電腦版','手機版'],name
+  expect(switch).to_have_count(3)
+  assert [x.strip() for x in switch.all_text_contents()]==['電腦版','手機版','自動'],name
   current=switchbar.locator('a[aria-current="page"]')
   expect(current).to_have_count(1)
   assert current.text_content().strip()==('手機版' if is_mobile else '電腦版'),name
-  other=switchbar.locator('a:not([aria-current="page"])')
+  other=switchbar.locator('a:not([aria-current="page"]):not(.view-mode-switch__auto)')
   assert other.get_attribute('href').endswith('?view='+('desktop' if is_mobile else 'mobile')),name
+  automatic=switchbar.locator('a.view-mode-switch__auto')
+  expect(automatic).to_have_count(1)
+  assert automatic.get_attribute('href').endswith('?view=auto'),name
+  assert automatic.get_attribute('aria-label')=='恢復依裝置自動切換版本',name
   assert switchbar.evaluate('(e)=>e.getBoundingClientRect().top<25'),name
   assert other.evaluate('(e)=>getComputedStyle(e).backgroundColor')=='rgb(152, 87, 115)',name
   destination='mobile-contact.html' if is_mobile else 'contact.html'
