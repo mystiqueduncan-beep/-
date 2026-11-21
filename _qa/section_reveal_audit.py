@@ -139,6 +139,47 @@ with sync_playwright() as p:
             strategies=page.locator('#strategy .strategies > .strategy.feature-card')
             expect(strategies).to_have_count(6)
             expect(page.locator('#strategy .portfolio-disclosure-toggle,#strategy .portfolio-disclosure-panel')).to_have_count(0)
+            # Source-grounded diagrams replace the presentation of the
+            # original trade-area and Porter tables, without changing cells.
+            trade=page.locator('#location .editorial-trade-diagram')
+            force=page.locator('#competition .editorial-five-forces')
+            expect(trade).to_have_count(1)
+            expect(force).to_have_count(1)
+            trade_rows=trade.locator(':scope > .compare-row')
+            force_rows=force.locator(':scope > .compare-row')
+            expect(trade_rows).to_have_count(4)
+            expect(force_rows).to_have_count(5)
+            assert trade_rows.locator(':scope > span:first-child').all_text_contents()==[
+                '住宅型','交通型','百貨／觀光型','辦公型'],name
+            assert force_rows.locator(':scope > span:first-child').all_text_contents()==[
+                '現有競爭者','潛在進入者','替代品／通路','買方議價','供應商議價'],name
+            expect(force.locator('.editorial-five-center')).to_have_count(1)
+            assert '不設定強弱分數' in force.inner_text(),name
+            # The six diagrams read exact source-defined tracking and guard
+            # lines, never guessed achievement percentages.
+            diagram=page.locator('#strategy .editorial-measure-map')
+            expect(diagram).to_have_count(1)
+            linked=diagram.locator('.editorial-measure-map__row')
+            expect(linked).to_have_count(6)
+            for i in range(6):
+                original=strategies.nth(i)
+                mapped=linked.nth(i)
+                assert original.locator('.feature-card-title').inner_text() in mapped.inner_text(),(name,i)
+                raw=original.locator('.action-measure').inner_text()
+                mapped_text=mapped.inner_text()
+                assert '追蹤：' in raw,(name,i)
+                assert any(token in raw for token in ('保護條件：','啟動條件：')),(name,i)
+                for line in raw.splitlines():
+                    if line.startswith(('追蹤：','保護條件：','啟動條件：')):
+                        assert line.split('：',1)[1].strip() in mapped_text,(name,i,line)
+            page.locator('#strategy [data-filter="hq"]').click()
+            assert linked.evaluate_all('(els)=>els.filter(e=>!e.hidden).length')==2,name
+            page.locator('#strategy [data-filter="local"]').click()
+            assert linked.evaluate_all('(els)=>els.filter(e=>!e.hidden).length')==4,name
+            page.locator('#strategy [data-filter="all"]').click()
+            assert linked.evaluate_all('(els)=>els.filter(e=>!e.hidden).length')==6,name
+            assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),name
+            print('EDITORIAL_RESEARCH_DIAGRAMS_PASS',name,flush=True)
             experience=page.locator('#experience .experience > .exp.feature-card')
             expect(experience).to_have_count(3)
             for card in experience.all():
@@ -156,6 +197,13 @@ with sync_playwright() as p:
             training = page.locator('#cases .magazine-training-flow')
             expect(training).to_have_count(1)
             assert training.locator('ol > li').all_text_contents()==['重點觀摩','步驟演練','陪同操作'],name
+            other_flows=page.locator('#cases .editorial-case-flow')
+            expect(other_flows).to_have_count(2)
+            for i,flow in enumerate(other_flows.all()):
+                expect(flow.locator('ol > li')).to_have_count(3)
+                assert flow.locator('ol > li').evaluate_all('els=>els.every(e=>e.textContent.trim().length>=6)'),(name,i)
+            assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),name
+            print('EDITORIAL_CASE_FLOWS_PASS',name,flush=True)
             selector = '.hero-cta-group > .mk-pop-item' if name == 'index' else '.mobile-hero-actions > .mk-pop-item'
             assert page.locator(selector).count() == 0, (name,'hero action unexpectedly animated')
             actions = page.locator('.hero-cta-group > .mag-btn' if name == 'index' else '.mobile-hero-actions > a, .mobile-hero-actions > button')

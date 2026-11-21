@@ -754,3 +754,169 @@
     document.addEventListener("DOMContentLoaded", init, {once:true});
   else init();
 })();
+
+
+/* SOURCE-GROUNDED INFOGRAPHICS 2026-11-21
+   Use the existing cases, trade-area table, five competitive forces and
+   strategy measures. All original details and source citations remain. */
+(() => {
+  "use strict";
+  const el = (tag, cls, txt) => {
+    const node = document.createElement(tag);
+    if (cls) node.className = cls;
+    if (txt !== undefined) node.textContent = txt;
+    return node;
+  };
+  const textOf = node => (node?.textContent || "").replace(/\s+/g, " ").trim();
+
+  function caseIllustrations() {
+    const cards = [...document.querySelectorAll("#cases .wide-star-case, #cases .mobile-case-box")];
+    if (cards.length !== 3) return;
+    // The existing first training card already provides its sourced 3-step
+    // diagram. Avoid introducing a duplicate illustration.
+    const sequences = [
+      ["觀察尖峰排隊與排面空缺", "調整交班時段與提前查補", "機動開台，納入巡店檢核"],
+      ["整理總部檔期與陳列指引", "轉成每週行動清單", "門市例會雙向確認與回饋"]
+    ];
+    cards.slice(1).forEach((card,index) => {
+      const title=card.querySelector(".card-heading,.mobile-case-title");
+      if (!title || card.querySelector(".editorial-case-flow")) return;
+      const figure=el("figure","editorial-case-flow");
+      const caption=el("figcaption","editorial-case-flow__caption",
+        "CASE 0"+String(index+2)+" / 改善方法流程");
+      const list=el("ol","editorial-case-flow__steps");
+      sequences[index].forEach((word,i) => {
+        const item=el("li","editorial-diagram-step",word);
+        item.style.setProperty("--diagram-index",String(i));
+        list.append(item);
+      });
+      figure.append(caption,list);
+      title.insertAdjacentElement("afterend",figure);
+    });
+  }
+
+  function compareDiagram(sectionId,captionKeyword,cls,expected) {
+    const diagrams=[...document.querySelectorAll("#"+sectionId+" .viz-comparison")];
+    const diagram=diagrams.find(x=>textOf(x.querySelector(".viz-caption")).includes(captionKeyword));
+    if (!diagram) return null;
+    const rows=[...diagram.querySelectorAll(":scope > .compare-row")];
+    if (rows.length!==expected || rows.some(row=>row.children.length!==3)) return null;
+    diagram.classList.add(cls);
+    rows.forEach((row,i)=>{
+      row.classList.add("editorial-diagram-step",cls+"__node");
+      row.style.setProperty("--diagram-index",String(i));
+    });
+    return {diagram,rows};
+  }
+
+  function locationCards() {
+    // Each original comparison row is the visual card, avoiding duplicate
+    // descriptions and retaining precisely the previously cited information.
+    compareDiagram("location","四種店型假設","editorial-trade-diagram",4);
+  }
+
+  function competitiveFiveForces() {
+    const data=compareDiagram("competition","波特五力","editorial-five-forces",5);
+    if (!data || data.diagram.querySelector(".editorial-five-center")) return;
+    const center=el("div","editorial-five-center");
+    center.append(
+      el("span","editorial-five-center__eyebrow","PORTER'S FIVE FORCES"),
+      el("strong","editorial-five-center__title","產業競爭結構"),
+      el("small","editorial-five-center__note","定性觀察 · 不設定強弱分數")
+    );
+    data.diagram.querySelector(".compare-head").insertAdjacentElement("afterend",center);
+  }
+
+  function measuresDiagram() {
+    const section=document.querySelector("#strategy");
+    const original=section?.querySelector(":scope > .strategies");
+    const cards=original?[...original.querySelectorAll(":scope > .strategy.feature-card")]:[];
+    if (cards.length!==6 || section.querySelector(".editorial-measure-map")) return;
+    const figure=el("figure","editorial-measure-map");
+    figure.append(
+      el("figcaption","editorial-measure-map__title","MEASURE THE METHOD / 改善措施與追蹤指標"),
+      el("p","editorial-measure-map__intro","由原有六項管理提案整理。指標是觀察方向，並非已達成的績效。")
+    );
+    const list=el("ol","editorial-measure-map__list");
+    cards.forEach((card,i)=>{
+      const title=textOf(card.querySelector(".feature-card-title"));
+      const owner=card.dataset.owner||"local";
+      const raw=card.querySelector(".action-measure")?.innerText||"";
+      const follow=(raw.match(/追蹤：([^\n]+)/)||[])[1]?.trim();
+      const caution=(raw.match(/(?:保護條件|啟動條件)：([^\n]+)/)||[])[1]?.trim();
+      if (!title || !follow || !caution) return;
+      const item=el("li","editorial-measure-map__row editorial-diagram-step");
+      item.dataset.owner=owner;
+      item.style.setProperty("--diagram-index",String(i));
+      const left=el("div","editorial-measure-map__action");
+      left.append(el("small","",String(i+1).padStart(2,"0")+" / "+(owner==="hq"?"總部協作評估":"區域與門市執行")),
+                  el("strong","",title));
+      const arrow=el("span","editorial-measure-map__arrow","→");
+      arrow.setAttribute("aria-hidden","true");
+      const right=el("div","editorial-measure-map__measures");
+      right.append(el("small","","追蹤指標"),el("strong","",follow),
+                   el("span","editorial-measure-map__guard",caution));
+      item.append(left,arrow,right);
+      list.append(item);
+    });
+    if (list.children.length!==6) return;
+    figure.append(list);
+    original.insertAdjacentElement("beforebegin",figure);
+    // Mirror the existing strategy ownership filter in this visual summary.
+    const filters=[...section.querySelectorAll("[data-filter]")];
+    const sync=()=>{
+      const active=filters.find(b=>b.getAttribute("aria-pressed")==="true")?.dataset.filter||"all";
+      [...list.children].forEach(row=>{row.hidden=active!=="all"&&row.dataset.owner!==active;});
+    };
+    filters.forEach(btn=>btn.addEventListener("click",sync));
+    sync();
+  }
+
+  function onceMotion() {
+    const all=[...document.querySelectorAll(
+      ".editorial-case-flow .editorial-diagram-step, " +
+      ".editorial-trade-diagram .editorial-diagram-step, " +
+      ".editorial-five-forces .editorial-diagram-step, " +
+      ".editorial-measure-map .editorial-diagram-step")];
+    const reduce=window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    if (!all.length||reduce?.matches||!("IntersectionObserver" in window)) return;
+    let obs;
+    const reveal=node=>{
+      node.classList.add("editorial-diagram-visible");
+      obs?.unobserve?.(node);
+    };
+    const revealAll=()=>{obs?.disconnect?.();all.forEach(reveal);};
+    try {
+      obs=new IntersectionObserver(entries=>entries.forEach(entry=>{
+        if(entry.isIntersecting) reveal(entry.target);
+      }),{threshold:.07,rootMargin:"0px 0px -5% 0px"});
+      all.forEach(node=>{
+        const box=node.getBoundingClientRect();
+        if(box.top<innerHeight*.88&&box.bottom>0) reveal(node);
+        else obs.observe(node);
+      });
+      document.documentElement.classList.add("editorial-diagrams-ready");
+      window.addEventListener("beforeprint",revealAll);
+      window.addEventListener("pagehide",revealAll,{once:true});
+      document.addEventListener("visibilitychange",()=>{if(document.hidden) revealAll();});
+      reduce?.addEventListener?.("change",event=>{if(event.matches)revealAll();});
+      document.addEventListener("focusin",event=>{
+        const item=event.target?.closest?.(".editorial-diagram-step");
+        if(item)reveal(item);
+      });
+    } catch (_) {
+      document.documentElement.classList.remove("editorial-diagrams-ready");
+      revealAll();
+    }
+  }
+
+  function init() {
+    if(document.body?.classList.contains("page-home")) caseIllustrations();
+    if(document.body?.classList.contains("page-trend")){
+      locationCards();competitiveFiveForces();measuresDiagram();
+    }
+    onceMotion();
+  }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init,{once:true});
+  else init();
+})();
