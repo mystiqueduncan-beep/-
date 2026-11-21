@@ -631,6 +631,8 @@
       "body.page-home #cases :is(.wide-star-case,.mobile-case-box)," +
       "body.page-home #proposal :is(.stage-card,.stage-card-mini)," +
       "body.page-trend #competition > .cards-2x2-grid > .feature-card," +
+      "body.page-trend :is(#consumer,#location,#digital,#people) .cards-2x2-grid > .feature-card," +
+      "body.page-trend #experience .experience > .exp.feature-card," +
       "body.page-trend :is(.swimlane-panel,.decision-map,.timeline-control)," +
       "body.page-trend #metrics .metric-grid > .metric-tile," +
       "body.page-contact .method-card"
@@ -663,12 +665,18 @@
       targets.forEach((el, index) => {
         el.classList.add("magazine-slide");
         const detail = details.includes(el);
-        el.style.setProperty("--magazine-slide-x", detail ? "0px" : (index % 2 ? "22px" : "-22px"));
+        const isExperience = el.matches("body.page-trend #experience .experience > .exp.feature-card");
+        let step = 0;
         if (detail) {
           const siblings = [...el.parentElement.children].filter(child => details.includes(child));
-          const step = siblings.indexOf(el);
-          el.style.setProperty("--magazine-delay", String(Math.min(Math.max(step,0),3)*65)+"ms");
+          step = Math.max(0, siblings.indexOf(el));
+          el.style.setProperty("--magazine-delay", String(Math.min(step,3)*90)+"ms");
         }
+        // The three experience cards really slide in on scroll again, from
+        // alternating sides; research details rise gently as one-time cards.
+        el.style.setProperty("--magazine-slide-x",
+          isExperience ? (step % 2 ? "26px" : "-26px") :
+          detail ? "0px" : (index % 2 ? "22px" : "-22px"));
         if (alreadyInView(el)) el.classList.add("magazine-slide-in");
         else {
           pending.add(el);

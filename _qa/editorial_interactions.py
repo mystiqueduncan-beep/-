@@ -76,9 +76,17 @@ with sync_playwright() as p:
   chart_selector='.inline-research-viz' if 'trend' in name else '.portfolio-chart'
   expect(page.locator(chart_selector).first).to_be_attached()
   toggle=page.locator('.portfolio-disclosure-toggle').first
-  expect(toggle).to_have_attribute('aria-expanded','false')
-  toggle.click()
-  expect(toggle).to_have_attribute('aria-expanded','true')
+  if 'trend' in name:
+   # Research details are ordinary scroll content; no disclosure toggles.
+   expect(toggle).to_have_count(0)
+   detail=page.locator('#consumer .cards-2x2-grid > .feature-card .feature-card-data').first
+   assert detail.inner_text().strip(),name
+   assert detail.evaluate('(e)=>!e.closest("[inert],[aria-hidden=true]")'),name
+  else:
+   # Homepage competency/case toggles are intentionally preserved.
+   expect(toggle).to_have_attribute('aria-expanded','false')
+   toggle.click()
+   expect(toggle).to_have_attribute('aria-expanded','true')
   page.evaluate("location.hash = '%ZZ'")
   page.wait_for_timeout(80)
   page.evaluate("location.hash = " + ("'#market'" if name=='mobile-trend' else "'#cases'" if name=='mobile' else "document.querySelector('[data-keycap-marquee] a').hash"))
