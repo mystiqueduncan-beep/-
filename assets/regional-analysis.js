@@ -237,3 +237,49 @@
   reduce?.addEventListener?.("change", event => {if (event.matches) showFullBars();});
   window.addEventListener("beforeprint", showFullBars);
 })();
+
+
+/* Product mix: six source-backed categories, one progress reveal. Unlike the
+   four channel survey bars, these six shares form a genuine 100% whole. */
+(() => {
+  "use strict";
+  const host = document.querySelector("body.page-trend .inline-research-viz--mix");
+  const parts = host ? [...host.querySelectorAll(".inline-research-viz__stack > span")] : [];
+  const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+  if (!host || parts.length !== 6 || reduce?.matches || !("IntersectionObserver" in window)) return;
+  parts.forEach((part, index) =>
+    part.style.setProperty("--magazine-mix-delay", String(index * 95) + "ms"));
+  let observer;
+  let played = false;
+  const show = () => {
+    if (played) return;
+    played = true;
+    observer?.disconnect();
+    window.requestAnimationFrame(() =>
+      window.requestAnimationFrame(() => host.classList.add("magazine-mix-played")));
+  };
+  const revealImmediately = () => {
+    observer?.disconnect();
+    played = true;
+    host.classList.remove("magazine-mix-ready");
+  };
+  try {
+    observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) show();
+    }, {threshold:.16,rootMargin:"0px 0px -5% 0px"});
+    host.classList.add("magazine-mix-ready");
+    observer.observe(host);
+    const rect = host.getBoundingClientRect();
+    if (rect.top < window.innerHeight * .86 && rect.bottom > 0) show();
+    reduce?.addEventListener?.("change", event => {
+      if (event.matches) revealImmediately();
+    });
+    window.addEventListener("beforeprint", revealImmediately);
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) revealImmediately();
+    });
+  } catch (_) {
+    observer?.disconnect();
+    host.classList.remove("magazine-mix-ready");
+  }
+})();
