@@ -35,6 +35,15 @@ def digest(source,name=''):
   for new,old in pairs:
    assert source.count(new)==1,name+': citation label changed'
    source=source.replace(new,old,1)
+  # Photo disclaimer removed by user request: restore those six captions
+  # solely for comparison against the pinned historical text digest.
+  disclaimer='（僅作課堂履歷展示，非本人工作照片）'
+  assert disclaimer not in source,name+': obsolete career disclaimer remains visible'
+  assert source.count('class="career-photo__credit"')==3,name+': original image credits changed'
+  source,restored=re.subn(
+   r'(<figcaption class="career-photo__credit">.*?</a>)(</figcaption>)',
+   lambda m:m.group(1)+disclaimer+m.group(2),source,flags=re.S)
+  assert restored==3,name+': photo credit layout changed unexpectedly'
  parts=''.join(Text(source).parts)
  if name in ('contact.html','mobile-contact.html'):
   # The user approved removing only the redundant LINE heading suffix.
