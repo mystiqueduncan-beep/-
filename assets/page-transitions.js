@@ -743,7 +743,7 @@
       reduce?.addEventListener?.("change", event => { if (event.matches) revealAll(); });
 
       if (flow) {
-        if (alreadyInView(flow)) flow.classList.add("magazine-flow-played");
+        if (visibleEnough(flow)) flow.classList.add("magazine-flow-played");
         else {
           const flowObserver = new IntersectionObserver(entries => {
             if (!entries.some(entry => entry.isIntersecting)) return;
