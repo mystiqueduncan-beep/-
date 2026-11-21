@@ -693,8 +693,8 @@
         el.classList.add("magazine-slide");
         const detail = details.includes(el);
         el.classList.toggle("magazine-slide-card", detail);
-        el.style.setProperty("--magazine-slide-x", detail ? "-12px" : "-18px");
-        el.style.setProperty("--magazine-slide-y", detail ? "7px" : "11px");
+        el.style.setProperty("--magazine-slide-x", detail ? "0px" : "-18px");
+        el.style.setProperty("--magazine-slide-y", detail ? "12px" : "11px");
         if (detail) {
           const siblings = [...el.parentElement.children].filter(child => details.includes(child));
           const step = Math.max(0, siblings.indexOf(el));
