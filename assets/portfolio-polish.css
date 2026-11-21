@@ -1069,6 +1069,9 @@
   }
 }
 @media screen and (max-width:670px) {
+  body:is(.page-home,.page-trend,.page-contact) main .magazine-slide {
+    --magazine-slide-x:0px !important;
+  }
   body.page-home #proposal .proposal-stages-grid::before {display:none;}
   body.page-home .magazine-training-steps {grid-template-columns:minmax(0,1fr);}
   body.page-home .magazine-training-steps > li:not(:last-child)::after {
