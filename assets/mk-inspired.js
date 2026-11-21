@@ -92,25 +92,10 @@
         title, title?.textContent.trim() || "到任工作構想");
     });
 
-    $$("#strategy .strategy.feature-card").forEach(card => {
-      const title = $(".feature-card-title", card);
-      if (!title) return;
-      const after = [...card.children].slice([...card.children].indexOf(title) + 1);
-      disclosure(card, after, title, title.textContent.trim());
-    });
-
-    // Research uses the same disclosure controls as the homepage. Keep the
-    // introductory description, charts and source citations visible; reveal
-    // the proposed actions using the shared accessible control.
-    $$("#competition .cards-2x2-grid > .feature-card, #consumer .cards-2x2-grid > .feature-card, #location .cards-2x2-grid > .feature-card, #digital .cards-2x2-grid > .feature-card, #people .cards-2x2-grid > .feature-card").forEach(card => {
-      const title = $(".feature-card-title", card);
-      const synopsis = $(".feature-card-text", card);
-      const data = $(".feature-card-data", card);
-      if (!title || !synopsis || !data) return;
-      // Citations remain available even while detailed actions are folded.
-      [...data.querySelectorAll(".research-inline-source")].forEach(source => card.append(source));
-      disclosure(card, [data], synopsis, title.textContent.trim());
-    });
+    // Research is read by ordinary page scrolling, not card accordions.
+    // All original strategy, consumer, location, digital, people and brand
+    // details remain in the original DOM/reading order, always visible.
+    // Homepage disclosures above are intentionally unchanged.
 
     // Deep links and print should never leave a requested detail inaccessible.
     const openHash = () => {
