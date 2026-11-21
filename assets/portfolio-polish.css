@@ -1198,9 +1198,15 @@
     transform:none !important;
     transition:none !important;
   }
-  /* The mobile cover should not move twice as fast as the desktop cover. */
+  /* A pending cover must snap immediately to its hidden start pose.
+     Otherwise it visibly FADEs OUT for 0.59s before fading back IN,
+     which was the uneven flicker detected by the browser regression. */
   body.page-home.page-mobile main .mobile-cover.mk-motion-pending,
-  body.page-home.page-mobile main .mobile-cover.mk-motion-in {
+  body.page-home .mag-header > .container.mk-motion-pending {
+    transition:none !important;
+  }
+  body.page-home.page-mobile main .mobile-cover.mk-motion-in,
+  body.page-home .mag-header > .container.mk-motion-in {
     transition:opacity .59s ease-out,transform .68s cubic-bezier(.22,1,.36,1) !important;
   }
   /* Decorative glow/meteor makes one complete pass, never flashes forever.
