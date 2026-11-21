@@ -920,3 +920,81 @@
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init,{once:true});
   else init();
 })();
+
+
+/* EDITORIAL BUTTON RHYTHM 2026-11-21
+   All six desktop/mobile editions: one 520ms entrance, then a non-blinking
+   blush glimmer every 6.4s. Buttons never fade out or change layout after
+   their first appearance. Phase offsets avoid simultaneous flashing.
+   Honor prefers-reduced-motion, focus and disabled states. */
+(() => {
+  "use strict";
+  const selector = [
+    "button",
+    'input[type="button"]', 'input[type="submit"]',
+    'a[role="button"]',
+    "a.mag-btn", "a.nav-btn-mk", "a.btn-action-primary",
+    "a.btn-contact-action", "a.btn-switch-desktop",
+    "a.btn-switch-mobile", "a.bottom-nav-item",
+    "a.portfolio-home-pill", "a.home-action-pill",
+    "a.home-project-action", "a.personal-resume-link",
+    "a.top-switch-link", "a[class*='button']"
+  ].join(",");
+  const reduce=window.matchMedia?.("(prefers-reduced-motion: reduce)");
+  function init() {
+    const buttons=[...document.querySelectorAll(selector)]
+      .filter(e=>!e.closest("[hidden],[aria-hidden='true']") && !e.matches(":disabled,[aria-disabled='true']"));
+    if(!buttons.length) return;
+    let observer;
+    const pending=new Set();
+    const visible=e=>{
+      const rect=e.getBoundingClientRect();
+      return rect.width>0&&rect.height>0&&rect.top<(innerHeight||document.documentElement.clientHeight)*.92&&rect.bottom>0;
+    };
+    const play=e=>{
+      if(!e||!e.isConnected)return;
+      pending.delete(e);
+      e.classList.add("site-button-active");
+      observer?.unobserve?.(e);
+      if(!pending.size) observer?.disconnect?.();
+    };
+    buttons.forEach(e=>{
+      const parent=e.closest(
+        "nav,[role='group'],.hero-cta-group,.mobile-hero-actions,.method-action-btns,.contact-bottom-links,.filters,.roadmap-navigation"
+      ) || e.parentElement;
+      const group=parent?[...parent.querySelectorAll(selector)]:[e];
+      const position=Math.max(0,group.indexOf(e));
+      e.style.setProperty("--site-button-phase",String(position%11));
+      e.style.setProperty("--site-button-glow-delay",(1.25+(position%11)*.25).toFixed(2)+"s");
+      e.classList.add("site-button-motion");
+    });
+    // Static for those who prefer less motion. No-JS already shows every link.
+    if(reduce?.matches)return;
+    try {
+      if("IntersectionObserver" in window) {
+        observer=new IntersectionObserver(entries=>{
+          entries.forEach(entry=>{if(entry.isIntersecting)play(entry.target);});
+        },{threshold:.08,rootMargin:"0px 0px -4% 0px"});
+      }
+      buttons.forEach(e=>{
+        if(!observer||visible(e))play(e);
+        else {pending.add(e);observer.observe(e);}
+      });
+    } catch(_) {buttons.forEach(play);}
+    // Keyboard activation must never wait for a viewport callback.
+    document.addEventListener("focusin",event=>{
+      const e=event.target?.closest?.(".site-button-motion");
+      if(e)play(e);
+    });
+    const revealAll=()=>{observer?.disconnect?.();buttons.forEach(play);};
+    window.addEventListener("beforeprint",revealAll);
+    reduce?.addEventListener?.("change",event=>{if(event.matches)revealAll();});
+    // Resolve skipped observers during very fast touch-scrolling.
+    window.addEventListener("scroll",()=>{
+      if(!pending.size)return;
+      [...pending].filter(visible).forEach(play);
+    },{passive:true});
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});
+  else init();
+})();

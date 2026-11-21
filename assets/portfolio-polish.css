@@ -1729,3 +1729,135 @@
     transition:none !important;animation:none !important;
   }
 }
+
+
+/* SITE-WIDE SOFT BUTTON GLIMMER 2026-11-21
+   All actual buttons and button-shaped links on desktop/mobile. A 520ms
+   entrance happens once; after that a quiet 0.8s rose brightness/shadow
+   accent occurs every 6.4 seconds. No visibility blinking or shifting text.
+   Nearby buttons receive separate offsets instead of strobing in unison. */
+@keyframes site-button-pop-once {
+  0%   {opacity:.93;transform:translate3d(0,7px,0) scale(.952);}
+  72%  {opacity:1;transform:translate3d(0,-1px,0) scale(1.008);}
+  100% {opacity:1;transform:none;}
+}
+@keyframes site-button-blush-pulse {
+  0%,11%,26%,100% {
+    filter:brightness(1) drop-shadow(0 0 0 rgb(169 108 134 / 0%));
+  }
+  17% {
+    filter:brightness(var(--site-button-peak,1.055))
+           drop-shadow(0 0 5px rgb(169 108 134 / 24%));
+  }
+  22% {
+    filter:brightness(1.025) drop-shadow(0 0 3px rgb(169 108 134 / 10%));
+  }
+}
+@keyframes site-project-light-sweep {
+  0%,12%,28%,100% {opacity:0;transform:translate3d(-100%,0,0) skewX(-22deg);}
+  15% {opacity:.35;}
+  21% {opacity:.68;transform:translate3d(270%,0,0) skewX(-22deg);}
+  27% {opacity:0;transform:translate3d(360%,0,0) skewX(-22deg);}
+}
+@keyframes site-project-light-haze {
+  0%,12%,26%,100% {opacity:0;}
+  18% {opacity:.15;}
+  22% {opacity:.08;}
+}
+@media screen and (prefers-reduced-motion:no-preference) {
+  body:is(.page-home,.page-trend,.page-contact)
+    .site-button-motion.site-button-active:not(:disabled):not([aria-disabled="true"]) {
+    animation:
+      site-button-pop-once .52s cubic-bezier(.2,.78,.26,1.22) 0s 1 backwards,
+      site-button-blush-pulse 6.4s ease-in-out
+        var(--site-button-glow-delay,1.25s) infinite !important;
+    animation-play-state:running,running !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact)
+    .site-button-motion.site-button-active:not(:disabled):not([aria-disabled="true"]):is(:hover,:focus-visible,:focus-within) {
+    animation-play-state:running,paused !important;
+    filter:none !important;
+  }
+  body:is(.page-home,.page-trend,.page-contact)
+    .site-button-motion.site-button-active:disabled,
+  body:is(.page-home,.page-trend,.page-contact)
+    .site-button-motion.site-button-active[aria-disabled="true"] {
+    animation:none !important;
+    filter:none !important;
+  }
+  /* The original scrapbook CTA frame, tape and tiny heart stay intact.
+     Its independent meteor returns once per 6.4s cycle, synchronized
+     to the button glow, with no competing 4.5/5.2s loops. */
+  body:is(.page-home,.page-contact)
+    a[href="trend.html"].site-button-motion.site-button-active,
+  body:is(.page-home,.page-contact)
+    a[href="mobile-trend.html"].site-button-motion.site-button-active {
+    --site-button-peak:1.075;
+  }
+  body:is(.page-home,.page-contact)
+    a[href="trend.html"].site-button-motion.site-button-active .research-meteor::before,
+  body:is(.page-home,.page-contact)
+    a[href="mobile-trend.html"].site-button-motion.site-button-active .research-meteor::before {
+    animation:site-project-light-sweep 6.4s ease-in-out
+      var(--site-button-glow-delay,1.25s) infinite !important;
+  }
+  body:is(.page-home,.page-contact)
+    a[href="trend.html"].site-button-motion.site-button-active .research-meteor::after,
+  body:is(.page-home,.page-contact)
+    a[href="mobile-trend.html"].site-button-motion.site-button-active .research-meteor::after {
+    animation:site-project-light-haze 6.4s ease-in-out
+      var(--site-button-glow-delay,1.25s) infinite !important;
+  }
+  body:is(.page-home,.page-contact)
+    a[href="trend.html"].site-button-motion.site-button-active:is(:hover,:focus-visible,:focus-within)
+      .research-meteor::before,
+  body:is(.page-home,.page-contact)
+    a[href="trend.html"].site-button-motion.site-button-active:is(:hover,:focus-visible,:focus-within)
+      .research-meteor::after,
+  body:is(.page-home,.page-contact)
+    a[href="mobile-trend.html"].site-button-motion.site-button-active:is(:hover,:focus-visible,:focus-within)
+      .research-meteor::before,
+  body:is(.page-home,.page-contact)
+    a[href="mobile-trend.html"].site-button-motion.site-button-active:is(:hover,:focus-visible,:focus-within)
+      .research-meteor::after {
+    animation-play-state:paused !important;
+    opacity:0 !important;
+  }
+}
+@media screen and (prefers-reduced-motion:reduce) {
+  body:is(.page-home,.page-trend,.page-contact) .site-button-motion {
+    animation:none !important;filter:none !important;transform:none !important;opacity:1 !important;
+  }
+  body:is(.page-home,.page-contact)
+    a.site-button-motion .research-meteor::before,
+  body:is(.page-home,.page-contact)
+    a.site-button-motion .research-meteor::after {
+    animation:none !important;opacity:0 !important;
+  }
+}
+@media print {
+  .site-button-motion {
+    animation:none !important;filter:none !important;transform:none !important;opacity:1 !important;
+  }
+}
+
+
+/* Resume print-link light overlay shares the same cycle as the research CTA;
+   the full résumé card is one button, not a decorative exception. */
+@media screen and (prefers-reduced-motion:no-preference) {
+  body.page-contact a.personal-resume-link.site-button-motion.site-button-active .research-meteor::before {
+    animation:site-project-light-sweep 6.4s ease-in-out
+      var(--site-button-glow-delay,1.25s) infinite !important;
+  }
+  body.page-contact a.personal-resume-link.site-button-motion.site-button-active .research-meteor::after {
+    animation:site-project-light-haze 6.4s ease-in-out
+      var(--site-button-glow-delay,1.25s) infinite !important;
+  }
+  body.page-contact a.personal-resume-link.site-button-motion.site-button-active:is(:hover,:focus-visible,:focus-within)
+    .research-meteor::before,
+  body.page-contact a.personal-resume-link.site-button-motion.site-button-active:is(:hover,:focus-visible,:focus-within)
+    .research-meteor::after {
+    animation-play-state:paused !important;
+    opacity:0 !important;
+  }
+}

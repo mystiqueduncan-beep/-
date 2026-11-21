@@ -189,11 +189,21 @@ with sync_playwright() as p:
    assert print_card.locator('a,button').count()==0,('no nested buttons',name,width)
    assert print_link.evaluate('(e)=>getComputedStyle(e).display')=='flex',(
     'entire resume card must be one click target',name,width)
-   assert 'research-soft-glow' in print_link.evaluate('(e)=>getComputedStyle(e).animationName'),(
-    'research matching soft glow',name,width)
+   assert print_link.evaluate('(e)=>e.classList.contains("site-button-motion")'),(
+    'shared site-wide button rhythm',name,width)
    assert print_link.locator('.research-meteor').count()==1,('shimmer overlay',name,width)
-   assert print_link.locator('.research-meteor').evaluate('(e)=>getComputedStyle(e,"::before").animationName')=='research-meteor-sweep',(
-    'research matching shimmer',name,width)
+   print_link.scroll_into_view_if_needed()
+   expect(print_link).to_have_class(__import__('re').compile('.*site-button-active.*'),timeout=5000)
+   motion=print_link.evaluate('''e=>({
+      names:getComputedStyle(e).animationName,
+      durations:getComputedStyle(e).animationDuration,
+      shine:getComputedStyle(e.querySelector(".research-meteor"),"::before").animationName,
+      cycles:getComputedStyle(e.querySelector(".research-meteor"),"::before").animationIterationCount
+    })''')
+   assert 'site-button-pop-once' in motion['names'],(name,width,motion)
+   assert 'site-button-blush-pulse' in motion['names'],(name,width,motion)
+   assert '6.4s' in motion['durations'],(name,width,motion)
+   assert motion['shine']=='site-project-light-sweep' and motion['cycles']=='infinite',(name,width,motion)
    assert print_link.get_attribute('target') in (None,'_self'),(name,width)
    assert print_card.evaluate('(e)=>getComputedStyle(e).borderTopStyle')=='dashed',(
     'pink dashed print card border',name,width)
