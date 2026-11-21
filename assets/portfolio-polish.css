@@ -1122,3 +1122,48 @@
   }
   body.page-home .magazine-training-steps > li {animation:none !important;}
 }
+
+
+/* 2026-11-21: research cards are always part of the normal reading flow.
+   No accordion, internal scroll region or hidden summary. The original
+   evidence/data and source links follow the paragraph as readers scroll. */
+@media screen {
+  body.page-trend :is(#competition,#consumer,#location,#digital,#people)
+    .cards-2x2-grid > .feature-card .feature-card-data,
+  body.page-trend #strategy .strategy.feature-card .action-measure {
+    display:block !important;
+    opacity:1 !important;
+    max-height:none !important;
+    overflow:visible !important;
+    margin-top:clamp(12px,1.7vw,18px) !important;
+  }
+  /* Preserve the rose stationery note panels instead of leaving the
+     previously collapsed explanation visually detached. */
+  body.page-trend :is(#consumer,#location,#digital,#people) .cards-2x2-grid > .feature-card {
+    align-content:start;
+  }
+}
+
+/* Restore the original three experience method slides. The 2026-11-20
+   calm-mode override disabled them; here each method moves from above just
+   once. Parent experience cards use the shared lateral scroll entrance. */
+@media screen and (prefers-reduced-motion:no-preference) {
+  body.page-trend #experience .exp .exp-application.exp-method-pending:not(.exp-method-in) {
+    opacity:0 !important;
+    transform:translate3d(0,-18px,0) !important;
+    transition:none !important;
+  }
+  body.page-trend #experience .exp .exp-application.exp-method-pending.exp-method-in {
+    opacity:1 !important;
+    transform:translate3d(0,0,0) !important;
+    transition:transform .76s cubic-bezier(.22,1,.36,1) var(--exp-method-delay,0ms),
+      opacity .66s ease-out var(--exp-method-delay,0ms) !important;
+  }
+}
+@media (prefers-reduced-motion:reduce), print {
+  body.page-trend #experience .exp .exp-application {
+    opacity:1 !important;
+    transform:none !important;
+    transition:none !important;
+  }
+}
