@@ -231,7 +231,7 @@ with sync_playwright() as p:
   page.close()
  for name in ('contact.html','mobile-contact.html'):
   # Short viewport keeps the photo below the fold: must stay transparent
-  # until visible, then take 1.5s to fade in once without position changes.
+  # until visible, then take 0.8s to fade in once without position changes.
   page=browser.new_page(viewport={'width':390 if name.startswith('mobile') else 1440,'height':240})
   page.goto(base+name+'?view='+('mobile' if name.startswith('mobile') else 'desktop'))
   photo=page.locator('img[src="assets/portrait-cafe-lowres.webp"]')
@@ -252,15 +252,15 @@ with sync_playwright() as p:
   appearance=photo.evaluate("""e=>{const s=getComputedStyle(e);return {
    name:s.animationName,duration:s.animationDuration,iterations:s.animationIterationCount,
    fit:s.objectFit,filter:s.filter,transform:s.transform}}""")
-  assert appearance=={'name':'contact-portrait-soft-fade','duration':'1.5s','iterations':'1',
+  assert appearance=={'name':'contact-portrait-soft-fade','duration':'0.8s','iterations':'1',
                       'fit':'cover','filter':'none','transform':'none'},(name,appearance)
-  # Sample the native CSS Animation at its actual midpoint (0.75 s of 1.5 s).
+  # Sample the native CSS Animation at its actual midpoint (0.4 s of 0.8 s).
   # This checks a rendered intermediate opacity without timing flakiness.
   midway=photo.evaluate("""e=>{
     const a=e.getAnimations().find(a=>a.animationName==='contact-portrait-soft-fade');
     if(!a)return -1;
     a.pause();
-    a.currentTime=750;
+    a.currentTime=400;
     return parseFloat(getComputedStyle(e).opacity);
   }""")
   assert .03 < midway < .97,(name,'opacity must interpolate between transparent and opaque',midway)

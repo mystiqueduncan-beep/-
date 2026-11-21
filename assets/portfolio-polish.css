@@ -1167,3 +1167,71 @@
     transition:none !important;
   }
 }
+
+
+/* UNIFIED EDITORIAL MOTION CONTRACT — 2026-11-21.
+   One reading rhythm across desktop / mobile home, profile, and research:
+   chapters = soft left-and-up slide; substantive cards = same direction,
+   shorter distance with light sibling staggering. Preserve responsive geometry,
+   chart progress, factual values, print and all reduced-motion safeguards. */
+@media screen and (prefers-reduced-motion:no-preference) {
+  html.magazine-motion-ready body:is(.page-home,.page-contact,.page-trend) main
+    .magazine-slide.magazine-slide-pending {
+    opacity:0 !important;
+    transform:translate3d(var(--magazine-slide-x,-18px),var(--magazine-slide-y,11px),0) !important;
+    transition:none !important;
+  }
+  html.magazine-motion-ready body:is(.page-home,.page-contact,.page-trend) main
+    .magazine-slide.magazine-slide-in {
+    opacity:1 !important;
+    transform:none !important;
+    transition:
+      opacity .59s ease-out var(--magazine-delay,0ms),
+      transform .68s cubic-bezier(.22,1,.36,1) var(--magazine-delay,0ms) !important;
+  }
+
+  /* The experience cards use the same entrance as all other research cards.
+     Do not replay another vertical slide inside each entering card. */
+  body.page-trend #experience .exp .exp-application.exp-method-pending,
+  body.page-trend #experience .exp .exp-application.exp-method-pending.exp-method-in {
+    opacity:1 !important;
+    transform:none !important;
+    transition:none !important;
+  }
+  /* A pending cover must snap immediately to its hidden start pose.
+     Otherwise it visibly FADEs OUT for 0.59s before fading back IN,
+     which was the uneven flicker detected by the browser regression. */
+  body.page-home.page-mobile main .mobile-cover.mk-motion-pending,
+  body.page-home .mag-header > .container.mk-motion-pending {
+    transition:none !important;
+  }
+  body.page-home.page-mobile main .mobile-cover.mk-motion-in,
+  body.page-home .mag-header > .container.mk-motion-in {
+    transition:opacity .59s ease-out,transform .68s cubic-bezier(.22,1,.36,1) !important;
+  }
+  /* Decorative glow/meteor makes one complete pass, never flashes forever.
+     Section transitions and data/CTA reveal timing are distinct purposes. */
+  body:is(.page-home,.page-contact) a[href="trend.html"],
+  body:is(.page-home,.page-contact) a[href="mobile-trend.html"] {
+    animation-iteration-count:1 !important;
+  }
+  body:is(.page-home,.page-contact) a[href="trend.html"] .research-meteor::before,
+  body:is(.page-home,.page-contact) a[href="trend.html"] .research-meteor::after,
+  body:is(.page-home,.page-contact) a[href="mobile-trend.html"] .research-meteor::before,
+  body:is(.page-home,.page-contact) a[href="mobile-trend.html"] .research-meteor::after {
+    animation-iteration-count:1 !important;
+  }
+}
+@media screen and (max-width:720px) {
+  /* On narrow viewports move from below only, never sideways offscreen. */
+  body:is(.page-home,.page-trend,.page-contact) main .magazine-slide {
+    --magazine-slide-x:0px !important;
+    --magazine-slide-y:13px !important;
+  }
+}
+@media (prefers-reduced-motion:reduce), print {
+  html.magazine-motion-ready body:is(.page-home,.page-contact,.page-trend) main .magazine-slide,
+  html.magazine-motion-ready body:is(.page-home,.page-contact,.page-trend) main .magazine-slide-pending {
+    opacity:1 !important;transform:none !important;transition:none !important;
+  }
+}

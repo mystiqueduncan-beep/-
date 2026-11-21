@@ -35,9 +35,13 @@ with sync_playwright() as p:
                  onscreen:e.getBoundingClientRect().top<innerHeight*.72 && e.getBoundingClientRect().bottom>0}))''')
         assert readable and all(float(unit['opacity']) > .99
                                 for unit in readable if unit['onscreen']), (name, readable[:12])
-        hero = held.locator('.mag-header > .container.mk-motion-pending, main .mobile-cover.mk-motion-pending')
+        # Inspect the actual cover for this edition: a page can also carry
+        # an offscreen legacy header with the same pending class.
+        hero = held.locator('main .mobile-cover.mk-motion-pending' if mobile
+                            else '.mag-header > .container.mk-motion-pending')
         if hero.count():
-            assert hero.first.evaluate('(e)=>+getComputedStyle(e).opacity<.1'), name
+            opacity=hero.first.evaluate('(e)=>+getComputedStyle(e).opacity')
+            assert opacity<.1,(name,'cover entrance blocked',opacity,hero.first.get_attribute('class'))
         assert held.evaluate('document.documentElement.scrollWidth<=innerWidth'), name
         held.close()
 
@@ -249,14 +253,28 @@ with sync_playwright() as p:
         # revealed on revisit and never requires a repeated animation.
         magazine_panels=page.locator('main .magazine-slide')
         assert magazine_panels.count() >= 1,name
+        card_count=page.locator('main .magazine-slide-card').count()
+        minimum_cards = 12 if name in ('index','mobile') else 22 if 'trend' in name else 1
+        assert card_count >= minimum_cards,(name,'inconsistent motion coverage',card_count)
+        # Chapters and cards share one timing vocabulary. The cover/portrait
+        # and genuine data bars retain their own meaningful motion categories.
         for panel in magazine_panels.all():
             panel.evaluate('(e)=>e.scrollIntoView({block:"center",behavior:"instant"})')
             expect(panel).to_have_class(re.compile(r'.*magazine-slide-in.*'),timeout=3500)
+        animation=magazine_panels.first.evaluate('''e=>{
+            const style=getComputedStyle(e);
+            return {property:style.transitionProperty,duration:style.transitionDuration,
+                    delay:style.transitionDelay};
+        }''')
+        assert animation['property']=='opacity, transform',(name,animation)
+        assert animation['duration']=='0.59s, 0.68s',(name,animation)
+        assert animation['delay']=='0s, 0s',(name,animation)
         page.evaluate('scrollTo({top:0,behavior:"instant"})')
         for panel in magazine_panels.all():
             expect(panel).to_have_class(re.compile(r'.*magazine-slide-in.*'))
         rows.append({'page':name,'magazinePanelsRevealed':magazine_panels.count(),
-                     'preservedChartChecks':True,'contactActions':page.locator('.mk-pop-item').count()})
+                     'unifiedMotionCards':card_count,'preservedChartChecks':True,
+                     'contactActions':page.locator('.mk-pop-item').count()})
         # Focus into an offscreen pending unit must reveal all ancestors.
         page.goto(url)
         focus = page.locator('main summary').last if name in ('trend', 'mobile-trend') else page.locator('main a, main button').last
