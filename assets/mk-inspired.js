@@ -188,7 +188,7 @@
   else { initDisclosures(); initBarCharts(); }
 })();
 
-/* One-time editorial motion: major chapters slide in, inner cards simply fade in.
+/* Legacy one-time markers: only subordinate content may be registered.
    Contact/hero buttons keep their one-time pop. Reduced-motion/print/no-JS are safe. */
 (() => {
   "use strict";
@@ -196,9 +196,6 @@
   if (!("IntersectionObserver" in window) || (reduced && reduced.matches)) return;
 
   const selectors = [
-    ".mag-header > .container",
-    ".source-verification",
-    "main section",
     ".key-pillar-card",
     ".hero-action-card",
     "main .star-field-box",
@@ -208,11 +205,6 @@
     "main .timeline-job-card",
     "main .mobile-case-box",
     "main .pillar-mini-card",
-    "main .contact-card-outer",
-    "main .section-editorial-header",
-    "main .mobile-card-title",
-    "main #career > div > h2",
-    "main .education-profile > h2",
     "main .editorial-card",
     "main .wide-star-case",
     "main .career-entry-card",
@@ -220,7 +212,6 @@
     "main #career .duty-list > li",
     "main .edu-dedicated-card",
     "main .stage-card",
-    "main .research-summary-panel",
     "main .contact-action-panel",
     "main .feature-card",
     "main .metric-tile",
