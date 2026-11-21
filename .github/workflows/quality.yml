@@ -34,7 +34,7 @@ jobs:
           node --check assets/view-mode-switch.js
           node --check assets/contact-portrait-reveal.js
       - name: Automatic device routing and manual override tests
-        run: node --test _qa/device-routing.test.cjs
+        run: node --test _qa/device-routing.test.cjs _qa/view-selector.test.cjs
       - name: Desktop marquee interaction regression
         run: node --test _qa/marquee-interaction.test.cjs _qa/trend-charts.test.cjs
       - name: HTML structure
