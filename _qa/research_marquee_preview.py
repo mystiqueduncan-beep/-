@@ -46,6 +46,32 @@ with sync_playwright() as browserapi:
    expect(nav).to_have_count(1)
    expect(nav.locator("a.nav-btn-mk")).to_have_count(11)
    assert nav.evaluate("e=>getComputedStyle(e).position")=="sticky",name
+   # Confirm full desktop chapter group and every wrapped row are genuinely
+   # centered across the available sticky navigation, not left-justified.
+   for wide_width in (1280,1440,1920):
+    page.set_viewport_size({"width":wide_width,"height":860})
+    alignment=page.evaluate("""() => {
+      const nav=document.querySelector('nav.trend-bilingual-nav');
+      const port=nav.querySelector('.keycap-marquee__viewport');
+      const bounds=nav.getBoundingClientRect(), p=port.getBoundingClientRect();
+      const rows=[];
+      [...nav.querySelectorAll('.keycap-marquee__group a')].forEach(anchor=>{
+        const r=anchor.getBoundingClientRect();
+        let row=rows.find(row=>Math.abs(row.top-r.top)<3);
+        if(!row){row={top:r.top,left:r.left,right:r.right};rows.push(row);}
+        else{row.left=Math.min(row.left,r.left);row.right=Math.max(row.right,r.right);}
+      });
+      return {shellCenter:(bounds.left+bounds.right)/2,
+        listCenter:(p.left+p.right)/2,
+        rowCenters:rows.map(row=>(row.left+row.right)/2),
+        overflow:document.documentElement.scrollWidth-innerWidth};
+    }""")
+    assert alignment["rowCenters"] and len(alignment["rowCenters"])<=2,(name,wide_width,alignment)
+    assert abs(alignment["shellCenter"]-alignment["listCenter"])<=16,(name,wide_width,alignment)
+    assert all(abs(x-alignment["listCenter"])<=16 for x in alignment["rowCenters"]),(name,wide_width,alignment)
+    assert alignment["overflow"]<=1,(name,wide_width,alignment)
+    print("RESEARCH_NAV_CENTER_PASS",name,wide_width,alignment,flush=True)
+   page.set_viewport_size({"width":width,"height":860})
    assert page.evaluate("document.documentElement.scrollWidth<=innerWidth+1"),name
    page.screenshot(path=str(out/f"{name}-top.png"),full_page=False)
    page.evaluate("() => document.getElementById('strategy').scrollIntoView({behavior:'instant'})")

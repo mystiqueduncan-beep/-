@@ -1235,3 +1235,26 @@
     opacity:1 !important;transform:none !important;transition:none !important;
   }
 }
+
+
+/* 2026-11-21 | Research chapter navigation: horizontally center the full
+   set of chapter keys, leaving symmetrical free space in the sticky strip.
+   Desktop only: narrow/mobile navigation must remain swipe-scrollable. */
+@media screen and (min-width:721px) {
+  body.page-trend.page-desktop nav.trend-bilingual-nav > .container {
+    display:flex !important;
+    justify-content:center !important;
+    align-items:center !important;
+    width:100% !important;
+  }
+  body.page-trend.page-desktop nav.trend-bilingual-nav [data-keycap-marquee].keycap-marquee {
+    flex:0 1 1120px !important;
+    width:100% !important;
+    max-width:1120px !important;
+    margin-inline:auto !important;
+  }
+  body.page-trend.page-desktop nav.trend-bilingual-nav
+    [data-keycap-marquee] .keycap-marquee__group {
+    justify-content:center !important;
+  }
+}
