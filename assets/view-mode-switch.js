@@ -29,15 +29,31 @@
   selected.textContent = current;
   selected.setAttribute("aria-current","page");
 
+  // Restores device-based routing instead of keeping a saved manual override.
+  const automatic = document.createElement("a");
+  automatic.className = "view-mode-switch__option view-mode-switch__auto";
+  automatic.href = (window.location.pathname.split("/").pop() || "index.html")
+    + "?view=auto" + (window.location.hash || "");
+  automatic.textContent = "自動";
+  let isAutomatic = false;
+  try {
+    const preference = window.localStorage.getItem("portfolioPreferredView");
+    isAutomatic = preference !== "desktop" && preference !== "mobile";
+  } catch (_) {
+    isAutomatic = true;
+  }
+  if (isAutomatic) automatic.classList.add("is-auto-current");
+  automatic.setAttribute("aria-label", isAutomatic ? "目前依裝置自動切換版本" : "恢復依裝置自動切換版本");
+
   const oldParent = counterpart.parentElement;
   counterpart.classList.add("view-mode-switch__option");
   counterpart.textContent = label;
   counterpart.removeAttribute("style");
   counterpart.removeAttribute("title");
   if (mobile) {
-    options.append(counterpart,selected);
+    options.append(counterpart, selected, automatic);
   } else {
-    options.append(selected,counterpart);
+    options.append(selected, counterpart, automatic);
   }
   inner.append(cue,options);
   nav.append(inner);

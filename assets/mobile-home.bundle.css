@@ -4262,11 +4262,15 @@ body .view-mode-switch__options a:not(.is-current):focus-visible {
   outline: 3px solid #36304a !important;
   outline-offset: 3px !important;
 }
+/* The third choice clears a prior manual view preference. */
+body .view-mode-switch__options .view-mode-switch__auto.is-auto-current {
+  box-shadow: inset 0 -3px 0 #ffe6a3 !important;
+}
 @media (max-width: 480px) {
   body .view-mode-switch__inner { min-height: 56px; gap: 8px; justify-content: center; }
   body .view-mode-switch__label { display: none; }
-  body .view-mode-switch__options { width: min(100%, 320px); }
-  body .view-mode-switch__options a { flex: 1 1 0; min-width: 0; }
+  body .view-mode-switch__options { width: min(100%, 358px); }
+  body .view-mode-switch__options a { flex: 1 1 0; min-width: 0; padding-inline: 8px !important; }
 }
 @media print { body .view-mode-switch { display: none !important; } }
 

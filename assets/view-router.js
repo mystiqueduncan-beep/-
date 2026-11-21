@@ -39,7 +39,16 @@
     || (typeof window.matchMedia === "function"
         && window.matchMedia("(max-width: 767px) and (pointer: coarse)").matches);
   const destination = preferred === "mobile" || (!preferred && phone) ? pages[1] : pages[0];
-  if (destination === current) return;
+  if (destination === current) {
+    // Clear a one-shot automatic-mode command from the visible URL even when
+    // the device is already on the correct page. Preserve other query data.
+    if (requested === "auto" && window.history?.replaceState) {
+      const clean = new URL(window.location.href);
+      clean.searchParams.delete("view");
+      window.history.replaceState(null, "", clean.pathname + clean.search + clean.hash);
+    }
+    return;
+  }
 
   const next = new URL(destination, window.location.href);
   next.search = window.location.search;
