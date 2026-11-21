@@ -157,7 +157,10 @@ with sync_playwright() as p:
             expect(training).to_have_count(1)
             assert training.locator('ol > li').all_text_contents()==['重點觀摩','步驟演練','陪同操作'],name
             selector = '.hero-cta-group > .mk-pop-item' if name == 'index' else '.mobile-hero-actions > .mk-pop-item'
-            assert page.locator(selector).count() == 2, name
+            assert page.locator(selector).count() == 0, (name,'hero action unexpectedly animated')
+            actions = page.locator('.hero-cta-group > .mag-btn' if name == 'index' else '.mobile-hero-actions > a, .mobile-hero-actions > button')
+            assert actions.count() >= 2, (name,'missing original hero buttons')
+            assert actions.evaluate_all('''els=>els.every(el=>getComputedStyle(el).opacity==='1')'''),(name,'hidden hero button')
             cards = page.locator('#career .career-entry-card, #career .timeline-job-card')
             expect(cards).to_have_count(3)
             expect(page.locator('#career .portfolio-disclosure-toggle, #career .portfolio-disclosure-panel')).to_have_count(0)
@@ -251,13 +254,29 @@ with sync_playwright() as p:
             print('INLINE_CHART_REGRESSION_PASS',name,chart_selector,values,flush=True)
         # Every magazine panel reveals after being scrolled into view, stays
         # revealed on revisit and never requires a repeated animation.
-        magazine_panels=page.locator('main .magazine-slide')
+        # User-approved separation: big paper chapters and headings stay
+        # static while their interior, individually meaningful cards enter.
+        chapters=page.locator('main > section,main .contact-card-outer')
+        assert chapters.count() >= 1,(name,'missing major chapters')
+        for chapter in chapters.all():
+            assert 'magazine-slide' not in (chapter.get_attribute('class') or '').split(),(name,'animated outer chapter')
+            assert chapter.evaluate('''e=>{
+                const s=getComputedStyle(e);
+                return s.opacity==='1' && s.transform==='none' &&
+                    (s.transitionDuration==='0s' || s.transitionDuration==='0s, 0s');
+            }'''),(name,'outer chapter is not static',chapter.get_attribute('id'))
+        headings=page.locator('main .section-editorial-header,main .mobile-card-title,main .research-part')
+        assert headings.evaluate_all('''els=>els.every(e=>{
+            const s=getComputedStyle(e);
+            return s.opacity==='1' && s.transform==='none';
+        })'''),(name,'animated heading')
+        magazine_panels=page.locator('main .magazine-slide-card')
         assert magazine_panels.count() >= 1,name
-        card_count=page.locator('main .magazine-slide-card').count()
+        card_count=magazine_panels.count()
         minimum_cards = 12 if name in ('index','mobile') else 22 if 'trend' in name else 1
         assert card_count >= minimum_cards,(name,'inconsistent motion coverage',card_count)
-        # Chapters and cards share one timing vocabulary. The cover/portrait
-        # and genuine data bars retain their own meaningful motion categories.
+        # Interior cards alone share one timing vocabulary. The charts keep
+        # their own numeric reveal while the chapters remain still.
         for panel in magazine_panels.all():
             panel.evaluate('(e)=>e.scrollIntoView({block:"center",behavior:"instant"})')
             expect(panel).to_have_class(re.compile(r'.*magazine-slide-in.*'),timeout=3500)
@@ -267,7 +286,7 @@ with sync_playwright() as p:
                     delay:style.transitionDelay};
         }''')
         assert animation['property']=='opacity, transform',(name,animation)
-        assert animation['duration']=='0.59s, 0.68s',(name,animation)
+        assert animation['duration']=='0.56s, 0.62s',(name,animation)
         assert animation['delay']=='0s, 0s',(name,animation)
         page.evaluate('scrollTo({top:0,behavior:"instant"})')
         for panel in magazine_panels.all():

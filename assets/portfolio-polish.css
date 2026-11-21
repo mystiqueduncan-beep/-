@@ -1281,3 +1281,63 @@
     justify-content:center !important;
   }
 }
+
+
+/* 2026-11-21 | FINAL READING MOTION: STATIC CHAPTERS / ANIMATED INNER CARDS.
+   The layout and chapter headings are always present. Only intentionally
+   selected inner cards receive the one-time .magazine-slide-card entrance.
+   Percentage chart fills and accessible interactive controls remain intact. */
+@media screen {
+  body:is(.page-home,.page-trend,.page-contact) :is(
+    .mag-header > .container,
+    main > section,
+    main .mobile-cover,
+    main .section-editorial-header,
+    main .mobile-card-title,
+    main .research-part,
+    main #career > div > h2,
+    main .education-profile > h2,
+    main .contact-card-outer,
+    main .trend-main .stats
+  ) {
+    opacity:1 !important;
+    transform:none !important;
+    translate:none !important;
+    transition:none !important;
+    animation:none !important;
+  }
+}
+@media screen and (prefers-reduced-motion:no-preference) {
+  html.magazine-motion-ready body:is(.page-home,.page-trend,.page-contact)
+    main .magazine-slide-card.magazine-slide-pending {
+    opacity:0 !important;
+    transform:translate3d(0,15px,0) !important;
+    transition:none !important;
+  }
+  html.magazine-motion-ready body:is(.page-home,.page-trend,.page-contact)
+    main .magazine-slide-card.magazine-slide-in {
+    opacity:1 !important;
+    transform:none !important;
+    transition:opacity .56s ease-out var(--magazine-delay,0ms),
+      transform .62s cubic-bezier(.22,1,.36,1) var(--magazine-delay,0ms) !important;
+  }
+  /* Previously the entire mobile cover briefly disappeared and re-entered.
+     It now stays completely static like all other chapter frames. */
+  body.page-home.page-mobile main .mobile-cover.mk-motion-pending,
+  body.page-home.page-mobile main .mobile-cover.mk-motion-in,
+  body.page-home .mag-header > .container.mk-motion-pending,
+  body.page-home .mag-header > .container.mk-motion-in {
+    opacity:1 !important;
+    transform:none !important;
+    transition:none !important;
+    animation:none !important;
+  }
+}
+@media (prefers-reduced-motion:reduce), print {
+  body:is(.page-home,.page-trend,.page-contact) main .magazine-slide-card {
+    opacity:1 !important;
+    transform:none !important;
+    transition:none !important;
+    animation:none !important;
+  }
+}

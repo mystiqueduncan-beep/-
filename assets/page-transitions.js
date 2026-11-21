@@ -618,30 +618,24 @@
     }
 
     if (!("IntersectionObserver" in window) || reduce?.matches) return;
-    // One editorial motion vocabulary for every page: full chapters first,
-    // then only substantive cards. Data bars, active filters, roadmap panels,
-    // headings and navigation keep their own meaningful interactions.
-    const primary = [...document.querySelectorAll(
-      "body.page-home.page-desktop main.mag-main > section.section-block," +
-      "body.page-home.page-mobile main.mobile-content > section.mobile-card:not(.mobile-cover)," +
-      "body.page-home.page-mobile main.mobile-content > section#career," +
-      "body.page-trend .trend-main > section[id]," +
-      "body.page-contact .contact-card-outer," +
-      "body.page-contact.page-mobile main.mobile-content > section.mobile-card"
-    )];
+    // Reading chapters and their headings are static. Animate only smaller,
+    // self-contained information cards; numerical chart fills keep their own
+    // independent progress animation. Do not animate full-width sections.
     const details = [...document.querySelectorAll(
       "body.page-home #competencies :is(.grid-2x2 > .editorial-card,.adv-dim-card)," +
       "body.page-home #cases :is(.wide-star-case,.mobile-case-box)," +
       "body.page-home #career :is(.career-entry-card,.timeline-job-card)," +
       "body.page-home #proposal :is(.stage-card,.stage-card-mini)," +
+      "body.page-trend #market .stats > .stat," +
+      "body.page-trend #market .split > .feature-card," +
       "body.page-trend :is(#competition,#consumer,#location,#digital,#people) .cards-2x2-grid > .feature-card," +
       "body.page-trend #strategy .strategies > .strategy.feature-card," +
       "body.page-trend #experience .experience > .exp.feature-card," +
-      "body.page-trend :is(.swimlane-panel,.decision-map,.timeline-control)," +
+      "body.page-trend :is(.viz-comparison,.swimlane-panel,.decision-map,.timeline-control)," +
       "body.page-trend #metrics .metric-grid > .metric-tile," +
-      "body.page-contact :is(.method-card,.candidate-details-col,.candidate-specs-box,.edu-dedicated-card)"
+      "body.page-contact :is(.method-card,.candidate-specs-box,.edu-dedicated-card)"
     )];
-    const targets = [...new Set([...primary, ...details])].filter(el => el.isConnected);
+    const targets = [...new Set(details)].filter(el => el.isConnected);
     if (!targets.length) return;
     let observer;
     let scheduled = false;
@@ -691,15 +685,12 @@
       }, {threshold:0.06, rootMargin:"0px 0px -6% 0px"});
       targets.forEach(el => {
         el.classList.add("magazine-slide");
-        const detail = details.includes(el);
-        el.classList.toggle("magazine-slide-card", detail);
-        el.style.setProperty("--magazine-slide-x", detail ? "0px" : "-18px");
-        el.style.setProperty("--magazine-slide-y", detail ? "12px" : "11px");
-        if (detail) {
-          const siblings = [...el.parentElement.children].filter(child => details.includes(child));
-          const step = Math.max(0, siblings.indexOf(el));
-          el.style.setProperty("--magazine-delay", String(Math.min(step,3) * 75) + "ms");
-        } else el.style.setProperty("--magazine-delay","0ms");
+        el.classList.add("magazine-slide-card");
+        el.style.setProperty("--magazine-slide-x", "0px");
+        el.style.setProperty("--magazine-slide-y", "15px");
+        const siblings = [...el.parentElement.children].filter(child => details.includes(child));
+        const step = Math.max(0, siblings.indexOf(el));
+        el.style.setProperty("--magazine-delay", String(Math.min(step,3) * 90) + "ms");
         if (visibleEnough(el)) el.classList.add("magazine-slide-in");
         else {
           pending.add(el);

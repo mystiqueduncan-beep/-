@@ -188,7 +188,7 @@
   else { initDisclosures(); initBarCharts(); }
 })();
 
-/* One-time editorial motion: major chapters slide in, inner cards simply fade in.
+/* Legacy one-time markers: only subordinate content may be registered.
    Contact/hero buttons keep their one-time pop. Reduced-motion/print/no-JS are safe. */
 (() => {
   "use strict";
@@ -196,9 +196,6 @@
   if (!("IntersectionObserver" in window) || (reduced && reduced.matches)) return;
 
   const selectors = [
-    ".mag-header > .container",
-    ".source-verification",
-    "main section",
     ".key-pillar-card",
     ".hero-action-card",
     "main .star-field-box",
@@ -208,11 +205,6 @@
     "main .timeline-job-card",
     "main .mobile-case-box",
     "main .pillar-mini-card",
-    "main .contact-card-outer",
-    "main .section-editorial-header",
-    "main .mobile-card-title",
-    "main #career > div > h2",
-    "main .education-profile > h2",
     "main .editorial-card",
     "main .wide-star-case",
     "main .career-entry-card",
@@ -220,7 +212,6 @@
     "main #career .duty-list > li",
     "main .edu-dedicated-card",
     "main .stage-card",
-    "main .research-summary-panel",
     "main .contact-action-panel",
     "main .feature-card",
     "main .metric-tile",
@@ -233,13 +224,13 @@
   const targets = [...new Set(document.querySelectorAll(selectors.join(",")))];
   const contactMethods = [...document.querySelectorAll("main .contact-methods-stack > .method-card, main > section .method-card")];
   // Pop-in is reserved for action controls, not narrative content.
-  const heroActions = [...document.querySelectorAll(".hero-cta-group > .mag-btn, .mobile-hero-actions > a, .mobile-hero-actions > button")];
+  // Hero controls are immediately present; only hover and focus feedback remain.
   // Move only headline units: full sections and narrative cards fade in place.
   // Contact/hero actions retain their one-time pop.
   const chapterSelector = ".mag-header > .container, main .section-editorial-header, main .mobile-card-title, main #career > div > h2, main .education-profile > h2";
   // Phase cards use the dedicated interactive roadmap animation. Do not attach
   // one-time scroll reveal to panels that can be intentionally hidden.
-  const allTargets = [...new Set([...targets, ...contactMethods, ...heroActions])]
+  const allTargets = [...new Set([...targets, ...contactMethods])]
     .filter(el => !el.matches("#roadmap [data-phase-card]"));
   if (!allTargets.length) return;
 
@@ -305,8 +296,7 @@
     return box.width > 0 && box.height > 0;
   });
   for (const el of toObserve) {
-    const heroIndex = heroActions.indexOf(el);
-    const isPopItem = contactMethods.includes(el) || heroIndex !== -1;
+    const isPopItem = contactMethods.includes(el);
     el.classList.add(isPopItem ? "mk-pop-item" : "mk-motion-item");
     // A fade remains part of the same one-time observer/focus/anchor lifecycle.
     // This prevents nested elements from sliding repeatedly inside a chapter.
