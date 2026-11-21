@@ -631,7 +631,7 @@
       "body.page-trend :is(#competition,#consumer,#location,#digital,#people) .cards-2x2-grid > .feature-card," +
       "body.page-trend #strategy .strategies > .strategy.feature-card," +
       "body.page-trend #experience .experience > .exp.feature-card," +
-      "body.page-trend :is(.swimlane-panel,.decision-map,.timeline-control)," +
+      "body.page-trend :is(.viz-comparison,.swimlane-panel,.decision-map,.timeline-control)," +
       "body.page-trend #metrics .metric-grid > .metric-tile," +
       "body.page-contact :is(.method-card,.candidate-specs-box,.edu-dedicated-card)"
     )];
