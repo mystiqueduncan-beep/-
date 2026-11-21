@@ -684,7 +684,9 @@
         while (current) { reveal(current); current = current.parentElement?.closest?.(".magazine-slide"); }
       });
       const revealHash = () => {
-        const id = decodeURIComponent(window.location.hash.slice(1));
+        let id;
+        try { id = decodeURIComponent(window.location.hash.slice(1)); }
+        catch (_) { return; }
         if (!id) return;
         const target = document.getElementById(id);
         let parent = target?.closest(".magazine-slide");
