@@ -35,9 +35,13 @@ with sync_playwright() as p:
                  onscreen:e.getBoundingClientRect().top<innerHeight*.72 && e.getBoundingClientRect().bottom>0}))''')
         assert readable and all(float(unit['opacity']) > .99
                                 for unit in readable if unit['onscreen']), (name, readable[:12])
-        hero = held.locator('.mag-header > .container.mk-motion-pending, main .mobile-cover.mk-motion-pending')
+        # Inspect the actual cover for this edition: a page can also carry
+        # an offscreen legacy header with the same pending class.
+        hero = held.locator('main .mobile-cover.mk-motion-pending' if mobile
+                            else '.mag-header > .container.mk-motion-pending')
         if hero.count():
-            assert hero.first.evaluate('(e)=>+getComputedStyle(e).opacity<.1'), name
+            opacity=hero.first.evaluate('(e)=>+getComputedStyle(e).opacity')
+            assert opacity<.1,(name,'cover entrance blocked',opacity,hero.first.get_attribute('class'))
         assert held.evaluate('document.documentElement.scrollWidth<=innerWidth'), name
         held.close()
 
