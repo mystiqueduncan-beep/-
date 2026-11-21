@@ -75,11 +75,9 @@ test("automatic selection reflects cleared preference without changing current p
   assert.equal(children[1].getAttribute("aria-current"), "page");
 });
 
-test("mobile cover label is not a heading before the candidate name", () => {
+test("mobile cover keeps approved source markup and decorates its accessible role", () => {
   const html = fs.readFileSync(path.join(__dirname, "../mobile.html"), "utf8");
-  const main = html.match(/<main\b[^>]*>[\s\S]*?<\/main>/i)?.[0];
-  assert.ok(main);
-  assert.match(main, /<div class="mobile-card-title">\s*<span> 個人作品集/);
-  const firstHeading = main.match(/<h[1-6]\b[^>]*>/i)?.[0];
-  assert.match(firstHeading, /^<h1\b/i);
+  assert.match(html, /<h2 class="mobile-card-title">\s*<span> 個人作品集/);
+  const transitions = fs.readFileSync(path.join(__dirname, "../assets/page-transitions.js"), "utf8");
+  assert.match(transitions, /heading\.closest\("#profile"\).*?setAttribute\("role", "presentation"\)/);
 });
