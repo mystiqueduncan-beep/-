@@ -879,3 +879,243 @@
     max-width:none !important;
   }
 }
+
+
+/* 2026-11-21 | Editorial paper surfaces and intentional motion.
+   Scope: visual only. Approved copy, graphs, sources, contact details, print
+   layout, and mobile/desktop page structure remain unchanged. */
+@media screen {
+  /* A section is a warm, fully painted sheet—not a transparent void.
+     Alternate the tint very subtly so long editorial pages have a rhythm. */
+  body.page-home.page-desktop main.mag-main > section.section-block,
+  body.page-home.page-desktop main.mag-main > section.section-block:nth-of-type(even) {
+    background:linear-gradient(150deg,#fffefb 0%,#fff9f7 100%) !important;
+    border:1px solid #e8d5db !important;
+    border-radius:24px !important;
+    box-shadow:0 10px 28px rgb(94 61 75 / 6%) !important;
+    padding:clamp(22px,3.4vw,40px) !important;
+    margin:0 0 clamp(19px,2.6vw,32px) !important;
+  }
+  body.page-home.page-desktop main.mag-main > section.section-block:nth-of-type(even) {
+    background:linear-gradient(145deg,#fcf3f6 0%,#fffcfa 90%) !important;
+  }
+  body.page-home.page-mobile main.mobile-content > section.mobile-card:not(.mobile-cover),
+  body.page-home.page-mobile main.mobile-content > section#career,
+  body.page-home.page-mobile main.mobile-content > .mobile-trend-banner {
+    background:#fffdfa !important;
+    border:1px solid #ead7dd !important;
+    border-radius:21px !important;
+    box-shadow:0 6px 20px rgb(94 61 75 / 5%) !important;
+    padding:clamp(19px,4.6vw,29px) !important;
+    margin-bottom:18px !important;
+  }
+  body.page-home.page-mobile main.mobile-content > section.mobile-card:nth-of-type(even) {
+    background:#fcf4f6 !important;
+  }
+
+  /* Inner cards are a different shade of paper, so each item has a boundary
+     without the heavy double-frame appearance. */
+  body.page-home.page-desktop #competencies .grid-2x2 > .editorial-card,
+  body.page-home.page-mobile #competencies .adv-dim-card,
+  body.page-home.page-desktop #cases .wide-star-case,
+  body.page-home.page-mobile #cases .mobile-case-box,
+  body.page-home #proposal :is(.stage-card,.stage-card-mini),
+  body.page-home #career :is(.career-entry-card,.timeline-job-card) {
+    background:#fffaf7 !important;
+    border:1px solid #e5cdd6 !important;
+    border-top:3px solid #c69aab !important;
+    border-radius:17px !important;
+    box-shadow:0 5px 16px rgb(101 71 83 / 5%) !important;
+  }
+  body.page-home #competencies :is(.editorial-card,.adv-dim-card):nth-child(4n + 2) {border-top-color:#a3b7a2 !important;}
+  body.page-home #competencies :is(.editorial-card,.adv-dim-card):nth-child(4n + 3) {border-top-color:#d7ba78 !important;}
+  body.page-home #competencies :is(.editorial-card,.adv-dim-card):nth-child(4n + 4) {border-top-color:#9aacc9 !important;}
+  body.page-home.page-desktop #competencies .grid-2x2 > .editorial-card {padding:clamp(15px,2vw,22px) !important;}
+  body.page-home.page-mobile #competencies .adv-dim-card,
+  body.page-home.page-mobile #cases .mobile-case-box,
+  body.page-home.page-mobile #proposal .stage-card-mini {
+    padding:clamp(16px,4vw,23px) !important;
+    margin-bottom:13px !important;
+  }
+  body.page-home #cases :is(.wide-star-case,.mobile-case-box):nth-child(2) {border-top-color:#b2bba8 !important;}
+  body.page-home #cases :is(.wide-star-case,.mobile-case-box):nth-child(3) {border-top-color:#d8bd82 !important;}
+  body.page-home.page-desktop #cases .wide-star-case {padding:clamp(17px,2.8vw,27px) !important;}
+  body.page-home #career :is(.career-entry-card,.timeline-job-card) {overflow:clip;}
+  body.page-home #career .tenure-text,
+  body.page-home #career .job-tenure {
+    display:inline-flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:6px;
+    max-width:100%;
+    padding:6px 11px !important;
+    background:#f8e9ee !important;
+    border-radius:999px;
+    color:#754d5e !important;
+    font-variant-numeric:tabular-nums;
+  }
+
+  /* The three-stage proposal reads as a connected editorial route. */
+  body.page-home #proposal .proposal-stages-grid {position:relative;}
+  body.page-home #proposal .proposal-stages-grid::before {
+    content:"";
+    position:absolute;
+    top:30px;
+    left:12%;
+    right:12%;
+    border-top:2px dashed #d4adb9;
+    pointer-events:none;
+  }
+  body.page-home #proposal .proposal-stages-grid > .stage-card {position:relative;z-index:1;}
+  body.page-home.page-mobile #proposal .stage-card-mini {position:relative;margin-left:10px !important;}
+  body.page-home.page-mobile #proposal .stage-card-mini::before {
+    content:"";
+    position:absolute;
+    top:13px;
+    bottom:13px;
+    left:-13px;
+    border-left:2px dashed #d4adb9;
+    pointer-events:none;
+  }
+
+  /* The research report gains clear paper sections without hiding original
+     dense tables, reference notes or already implemented chart modules. */
+  body.page-trend .trend-main > section[id],
+  body.page-trend .trend-main > section[id]:nth-of-type(even) {
+    background:#fffdfa !important;
+    border:1px solid #e9d5dc !important;
+    border-radius:23px !important;
+    box-shadow:0 8px 24px rgb(94 61 75 / 5%) !important;
+    padding:clamp(22px,3.2vw,39px) !important;
+    margin:0 0 clamp(18px,2.4vw,30px) !important;
+  }
+  body.page-trend .trend-main > section[id]:nth-of-type(even) {
+    background:#fcf4f6 !important;
+  }
+  body.page-trend .trend-main :is(#competition,#consumer,#location,#digital,#people,#strategy) .feature-card {
+    background:#fffaf7 !important;
+    border:1px solid #e7d4da !important;
+    border-top:3px solid #c7a0ae !important;
+    border-radius:15px !important;
+    padding:clamp(14px,2vw,22px) !important;
+    box-shadow:0 4px 13px rgb(94 61 75 / 4%) !important;
+  }
+  body.page-trend #competition .cards-2x2-grid > .feature-card:nth-child(4n + 2) {border-top-color:#a4b8a4 !important;}
+  body.page-trend #competition .cards-2x2-grid > .feature-card:nth-child(4n + 3) {border-top-color:#e0c27e !important;}
+  body.page-trend #competition .cards-2x2-grid > .feature-card:nth-child(4n + 4) {border-top-color:#a5b5ce !important;}
+  body.page-trend #metrics .metric-grid .metric-tile,
+  body.page-trend .trend-main :is(.viz-comparison,.swimlane-panel,.decision-map,.timeline-control) {
+    background:#fffaf7 !important;
+    border:1px solid #e5d0d8 !important;
+    border-radius:16px !important;
+    box-shadow:0 4px 14px rgb(94 61 75 / 4%) !important;
+  }
+  body.page-trend .inline-research-viz__track,
+  body.page-home #research .portfolio-chart .data-bar-track {
+    background-color:#f1e4e9 !important;
+  }
+  body.page-trend .inline-research-viz--mix .inline-research-viz__stack {
+    border-radius:10px !important;
+    box-shadow:0 2px 10px rgb(94 61 75 / 8%);
+  }
+
+  /* Contact dossier: an opaque readable panel behind every important detail.
+     Preserve the approved photograph without modifying its texture or size. */
+  body.page-contact .candidate-details-col,
+  body.page-contact .candidate-specs-box {
+    background:#fffaf7 !important;
+    border:1px solid #e7d2da !important;
+    border-radius:19px !important;
+    box-shadow:0 7px 20px rgb(94 61 75 / 5%) !important;
+  }
+  body.page-contact .candidate-details-col {padding:clamp(18px,3vw,31px) !important;}
+  body.page-contact .candidate-specs-box {padding:clamp(14px,2vw,21px) !important;}
+  body.page-contact.page-mobile main.mobile-content > section.mobile-card {
+    background:#fffdfa !important;
+    border:1px solid #e9d5dc !important;
+    border-radius:22px !important;
+    box-shadow:0 9px 26px rgb(94 61 75 / 5%) !important;
+  }
+
+  /* Only a genuine method from the existing case gains an extra pictorial
+     reading route. The written case remains fully available underneath. */
+  body.page-home .magazine-training-flow {
+    margin:16px 0 20px;
+    padding:14px clamp(11px,2vw,19px) 12px;
+    border:1px solid #e1cbd4;
+    border-radius:15px;
+    background:#f9edef;
+  }
+  body.page-home .magazine-training-flow > figcaption {
+    font-size:.73rem;font-weight:760;color:#825b6d;
+    letter-spacing:.04em;margin:0 0 11px;
+  }
+  body.page-home .magazine-training-steps {
+    display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+    align-items:stretch;gap:11px;
+    margin:0;padding:0;list-style:none;
+  }
+  body.page-home .magazine-training-steps > li {
+    position:relative;display:flex;align-items:center;justify-content:center;
+    min-width:0;min-height:44px;padding:10px;
+    border-radius:10px;border:1px solid #e1cbd4;
+    background:#fffdfa;color:#654b57;font-weight:750;
+    font-size:clamp(.75rem,1vw,.88rem);text-align:center;
+  }
+  body.page-home .magazine-training-steps > li:not(:last-child)::after {
+    content:"›";position:absolute;right:-11px;top:50%;
+    z-index:1;transform:translate(50%,-50%);
+    color:#a77d8e;font-size:1.5rem;
+  }
+}
+@media screen and (max-width:670px) {
+  body.page-home #proposal .proposal-stages-grid::before {display:none;}
+  body.page-home .magazine-training-steps {grid-template-columns:minmax(0,1fr);}
+  body.page-home .magazine-training-steps > li:not(:last-child)::after {
+    content:"⌄";right:auto;top:auto;bottom:-13px;left:50%;
+    transform:translateX(-50%);
+  }
+  body.page-home.page-desktop main.mag-main > section.section-block {padding:20px !important;}
+  body.page-trend .trend-main > section[id] {padding:clamp(17px,4vw,23px) !important;}
+}
+@media screen and (prefers-reduced-motion:no-preference) {
+  /* Opt-in at runtime: if scripting, observers or motion support fail,
+     source content is always immediately visible, including print. */
+  html.magazine-motion-ready body:is(.page-home,.page-trend,.page-contact) main
+    .magazine-slide.magazine-slide-pending {
+    opacity:0 !important;
+    transform:translate3d(var(--magazine-slide-x,-24px),16px,0) !important;
+    transition:none !important;
+  }
+  html.magazine-motion-ready body:is(.page-home,.page-trend,.page-contact) main
+    .magazine-slide.magazine-slide-in {
+    opacity:1 !important;transform:none !important;
+    transition:opacity .56s ease-out var(--magazine-delay,0ms),
+      transform .72s cubic-bezier(.21,.82,.23,1) var(--magazine-delay,0ms) !important;
+  }
+  body.page-home #competencies :is(.editorial-card,.adv-dim-card):hover,
+  body.page-trend #competition .feature-card:hover {
+    box-shadow:0 12px 25px rgb(94 61 75 / 10%) !important;
+  }
+  body.page-home .magazine-training-flow.magazine-flow-played
+    .magazine-training-steps > li {
+    animation:magazine-step-enter .5s both;
+    animation-delay:calc(var(--magazine-step) * 100ms);
+  }
+  @keyframes magazine-step-enter {
+    from {opacity:.45;transform:translateY(10px);}
+    to {opacity:1;transform:none;}
+  }
+}
+@media screen and (prefers-reduced-motion:reduce) {
+  body:is(.page-home,.page-trend,.page-contact) main .magazine-slide {
+    opacity:1 !important;transform:none !important;transition:none !important;
+  }
+  body.page-home .magazine-training-steps > li {animation:none !important;}
+}
+@media print {
+  body:is(.page-home,.page-trend,.page-contact) main .magazine-slide {
+    opacity:1 !important;transform:none !important;transition:none !important;
+  }
+  body.page-home .magazine-training-steps > li {animation:none !important;}
+}
