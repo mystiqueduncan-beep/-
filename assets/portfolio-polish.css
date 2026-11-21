@@ -1774,7 +1774,7 @@
     animation-play-state:running,running !important;
   }
   body:is(.page-home,.page-trend,.page-contact)
-    .site-button-motion.site-button-active:is(:hover,:focus-visible,:focus-within) {
+    .site-button-motion.site-button-active:not(:disabled):not([aria-disabled="true"]):is(:hover,:focus-visible,:focus-within) {
     animation-play-state:running,paused !important;
     filter:none !important;
   }
