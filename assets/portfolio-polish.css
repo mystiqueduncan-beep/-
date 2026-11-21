@@ -1770,7 +1770,7 @@
     animation:
       site-button-pop-once .52s cubic-bezier(.2,.78,.26,1.22) 0s 1 backwards,
       site-button-blush-pulse 6.4s ease-in-out
-        calc(1.25s + var(--site-button-phase,0) * .25s) infinite !important;
+        var(--site-button-glow-delay,1.25s) infinite !important;
     animation-play-state:running,running !important;
   }
   body:is(.page-home,.page-trend,.page-contact)
@@ -1799,14 +1799,14 @@
   body:is(.page-home,.page-contact)
     a[href="mobile-trend.html"].site-button-motion.site-button-active .research-meteor::before {
     animation:site-project-light-sweep 6.4s ease-in-out
-      calc(1.25s + var(--site-button-phase,0) * .25s) infinite !important;
+      var(--site-button-glow-delay,1.25s) infinite !important;
   }
   body:is(.page-home,.page-contact)
     a[href="trend.html"].site-button-motion.site-button-active .research-meteor::after,
   body:is(.page-home,.page-contact)
     a[href="mobile-trend.html"].site-button-motion.site-button-active .research-meteor::after {
     animation:site-project-light-haze 6.4s ease-in-out
-      calc(1.25s + var(--site-button-phase,0) * .25s) infinite !important;
+      var(--site-button-glow-delay,1.25s) infinite !important;
   }
   body:is(.page-home,.page-contact)
     a[href="trend.html"].site-button-motion.site-button-active:is(:hover,:focus-visible,:focus-within)
