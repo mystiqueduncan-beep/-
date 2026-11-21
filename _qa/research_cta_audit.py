@@ -41,6 +41,7 @@ with sync_playwright() as p:
             assert style["before"] == '""', (name, style)
             assert "♡" in style["after"], (name, style)
             assert "research-soft-glow" in style["animation"], (name, style)
+            assert link.evaluate('(e)=>getComputedStyle(e).animationIterationCount') == '1', (name,'no infinite CTA glow')
             assert link.locator(".research-meteor").count() == 1, (name, "meteor")
             assert link.evaluate("""e => {
                 const overlay=e.querySelector(".research-meteor");
@@ -49,6 +50,9 @@ with sync_playwright() as p:
             assert link.locator(".research-meteor").evaluate(
                 '(e)=>getComputedStyle(e,"::before").animationName'
             ) == "research-meteor-sweep", (name, "meteor animation")
+            assert link.locator(".research-meteor").evaluate(
+                '(e)=>getComputedStyle(e,"::before").animationIterationCount'
+            ) == '1', (name,'no infinite meteor')
             # Reveals once when scrolled to, then stays revealed.
             link.evaluate('(e)=>e.scrollIntoView({block:"center",behavior:"instant"})')
             expect(link).to_have_class(__import__("re").compile(".*research-pop-in.*"), timeout=5000)
