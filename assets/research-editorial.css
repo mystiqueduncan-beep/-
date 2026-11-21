@@ -468,3 +468,12 @@
     background:#f3f7fa !important;border-top-color:#9eb6c6 !important;
   }
 }
+
+
+/* Editorial-paper contrast: rose labels must clear WCAG AA on both warm
+   white and alternating pink section backgrounds. */
+@media screen {
+  body.page-trend .trend-main .research-part .research-part-label {
+    color:#654753 !important;
+  }
+}
