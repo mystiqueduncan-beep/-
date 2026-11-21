@@ -431,3 +431,49 @@
     }
   }
 }
+
+
+/* 2026-11-21 | Six-category product mix: reveal the existing real proportions
+   once, without changing the 100% geometry, legend, citation or a11y label.
+   JavaScript adds these classes only after a reliable observer is installed. */
+@media screen and (prefers-reduced-motion:no-preference) {
+  body.page-trend .inline-research-viz--mix.magazine-mix-ready
+    .inline-research-viz__stack > span {
+    clip-path:inset(0 100% 0 0);
+    transition:none;
+  }
+  body.page-trend .inline-research-viz--mix.magazine-mix-ready.magazine-mix-played
+    .inline-research-viz__stack > span {
+    clip-path:inset(0 0 0 0);
+    transition:clip-path .68s cubic-bezier(.21,.82,.23,1) var(--magazine-mix-delay,0ms);
+  }
+}
+/* Protect the comparison-card colors from legacy research rules. This is a
+   category palette, not a brand rating or a market-share comparison. */
+@media screen {
+  body.page-trend #competition > .cards-2x2-grid > .feature-card {
+    background:#fffaf7 !important;
+    border:1px solid #e4ced7 !important;
+    border-top:3px solid #c49aaa !important;
+    border-radius:16px !important;
+    box-shadow:0 5px 16px rgb(94 61 75 / 5%) !important;
+  }
+  body.page-trend #competition > .cards-2x2-grid > .feature-card:nth-child(2) {
+    background:#f6f8f3 !important;border-top-color:#a4b8a4 !important;
+  }
+  body.page-trend #competition > .cards-2x2-grid > .feature-card:nth-child(3) {
+    background:#fff9ed !important;border-top-color:#d9bd80 !important;
+  }
+  body.page-trend #competition > .cards-2x2-grid > .feature-card:nth-child(4) {
+    background:#f3f7fa !important;border-top-color:#9eb6c6 !important;
+  }
+}
+
+
+/* Editorial-paper contrast: rose labels must clear WCAG AA on both warm
+   white and alternating pink section backgrounds. */
+@media screen {
+  body.page-trend .trend-main .research-part .research-part-label {
+    color:#654753 !important;
+  }
+}

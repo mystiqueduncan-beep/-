@@ -582,3 +582,143 @@
     init();
   }
 })();
+
+
+/* Japanese magazine entrance choreography: once-only sections and a factual
+   training-process diagram. No source wording, values or links are changed. */
+(() => {
+  "use strict";
+  function init() {
+    if (!document.body?.matches(".page-home,.page-trend,.page-contact")) return;
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+
+    // An illustrated restatement of the original case, not an invented result.
+    let flow = null;
+    if (document.body.classList.contains("page-home")) {
+      const heading = document.querySelector(
+        ".page-desktop #cases .wide-star-case .card-heading," +
+        ".page-mobile #cases .mobile-case-box .mobile-case-title"
+      );
+      if (heading && !heading.parentElement.querySelector(".magazine-training-flow")) {
+        flow = document.createElement("figure");
+        flow.className = "magazine-training-flow";
+        const caption = document.createElement("figcaption");
+        caption.textContent = "TRAINING STEPS / 新人帶訓方法圖解";
+        const steps = document.createElement("ol");
+        steps.className = "magazine-training-steps";
+        ["重點觀摩", "步驟演練", "陪同操作"].forEach((label, index) => {
+          const item = document.createElement("li");
+          item.textContent = label;
+          item.style.setProperty("--magazine-step", String(index));
+          steps.append(item);
+        });
+        flow.append(caption, steps);
+        heading.insertAdjacentElement("afterend", flow);
+      }
+    }
+
+    if (!("IntersectionObserver" in window) || reduce?.matches) return;
+    const primary = [...document.querySelectorAll(
+      "body.page-home.page-desktop main.mag-main > section.section-block," +
+      "body.page-home.page-mobile main.mobile-content > section.mobile-card:not(.mobile-cover)," +
+      "body.page-home.page-mobile main.mobile-content > section#career," +
+      "body.page-trend .trend-main > section[id]," +
+      "body.page-contact .contact-card-outer," +
+      "body.page-contact.page-mobile main.mobile-content > section.mobile-card"
+    )];
+    const details = [...document.querySelectorAll(
+      "body.page-home #competencies :is(.grid-2x2 > .editorial-card,.adv-dim-card)," +
+      "body.page-home #cases :is(.wide-star-case,.mobile-case-box)," +
+      "body.page-home #proposal :is(.stage-card,.stage-card-mini)," +
+      "body.page-trend #competition > .cards-2x2-grid > .feature-card," +
+      "body.page-trend :is(.swimlane-panel,.decision-map,.timeline-control)," +
+      "body.page-trend #metrics .metric-grid > .metric-tile," +
+      "body.page-contact .method-card"
+    )];
+    const targets = [...new Set([...primary, ...details])].filter(el => el.isConnected);
+    if (!targets.length) return;
+    let observer;
+    const pending = new Set();
+    const reveal = el => {
+      if (!el) return;
+      pending.delete(el);
+      el.classList.remove("magazine-slide-pending");
+      el.classList.add("magazine-slide-in");
+      observer?.unobserve(el);
+    };
+    const revealAll = () => {
+      observer?.disconnect();
+      [...pending].forEach(reveal);
+      flow?.classList.add("magazine-flow-played");
+    };
+    const alreadyInView = el => {
+      const rect = el.getBoundingClientRect();
+      const height = window.innerHeight || document.documentElement.clientHeight;
+      return rect.top <= height * .89 && rect.bottom > 0;
+    };
+    try {
+      observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => { if (entry.isIntersecting) reveal(entry.target); });
+      }, {threshold:.08, rootMargin:"0px 0px -7% 0px"});
+      targets.forEach((el, index) => {
+        el.classList.add("magazine-slide");
+        const detail = details.includes(el);
+        el.style.setProperty("--magazine-slide-x", detail ? "0px" : (index % 2 ? "22px" : "-22px"));
+        if (detail) {
+          const siblings = [...el.parentElement.children].filter(child => details.includes(child));
+          const step = siblings.indexOf(el);
+          el.style.setProperty("--magazine-delay", String(Math.min(Math.max(step,0),3)*65)+"ms");
+        }
+        if (alreadyInView(el)) el.classList.add("magazine-slide-in");
+        else {
+          pending.add(el);
+          el.classList.add("magazine-slide-pending");
+          observer.observe(el);
+        }
+      });
+      // Never conceal content when scripting or observers are unavailable.
+      document.documentElement.classList.add("magazine-motion-ready");
+
+      document.addEventListener("focusin", event => {
+        let current = event.target?.closest?.(".magazine-slide");
+        while (current) { reveal(current); current = current.parentElement?.closest?.(".magazine-slide"); }
+      });
+      const revealHash = () => {
+        let id;
+        try { id = decodeURIComponent(window.location.hash.slice(1)); }
+        catch (_) { return; }
+        if (!id) return;
+        const target = document.getElementById(id);
+        let parent = target?.closest(".magazine-slide");
+        while (parent) { reveal(parent); parent = parent.parentElement?.closest?.(".magazine-slide"); }
+      };
+      window.addEventListener("hashchange", revealHash);
+      revealHash();
+      window.addEventListener("beforeprint", revealAll);
+      window.addEventListener("pagehide", revealAll, {once:true});
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) revealAll();
+      });
+      reduce?.addEventListener?.("change", event => { if (event.matches) revealAll(); });
+
+      if (flow) {
+        if (alreadyInView(flow)) flow.classList.add("magazine-flow-played");
+        else {
+          const flowObserver = new IntersectionObserver(entries => {
+            if (!entries.some(entry => entry.isIntersecting)) return;
+            flow.classList.add("magazine-flow-played");
+            flowObserver.disconnect();
+          }, {threshold:.1});
+          flowObserver.observe(flow);
+          window.addEventListener("beforeprint", () => flowObserver.disconnect(), {once:true});
+        }
+      }
+    } catch (_) {
+      document.documentElement.classList.remove("magazine-motion-ready");
+      revealAll();
+    }
+  }
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", init, {once:true});
+  else init();
+})();

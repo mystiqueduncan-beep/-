@@ -21,10 +21,9 @@ with sync_playwright() as p:
         url = f'http://127.0.0.1:{server.server_port}/{name}.html?view={"mobile" if mobile else "desktop"}'
         page = browser.new_page(viewport={'width': 390 if mobile else 1440, 'height': 844})
         page.route('https://**/*', lambda r: r.abort())
-        # User-approved calm editorial motion: the entire reading narrative is
-        # immediately visible; only the cover, portrait and data retain motion.
-        # Force the original observer to hold its pending classes and verify CSS
-        # still exposes text without JavaScript-driven entrances.
+        # The new editorial chapters intentionally slide in once; a held
+        # observer may leave OFFSCREEN sections pending. Source text still
+        # exists and above-fold content must never start blank.
         held = browser.new_page(viewport={'width':390 if mobile else 1440,'height':844})
         held.route('https://**/*', lambda r: r.abort())
         held.add_init_script('window.IntersectionObserver=class {observe(){} unobserve(){} disconnect(){}}; window.requestAnimationFrame=()=>0')
@@ -32,9 +31,10 @@ with sync_playwright() as p:
         held.wait_for_timeout(350)
         units = held.locator('main section, main article, main .editorial-card, main .feature-card, main .method-card')
         readable = units.evaluate_all('''els=>els.filter(e=>!e.closest('[hidden],[aria-hidden="true"]') && !e.matches('.mobile-cover'))
-            .map(e=>({opacity:getComputedStyle(e).opacity, transform:getComputedStyle(e).transform}))''')
+            .map(e=>({opacity:getComputedStyle(e).opacity,
+                 onscreen:e.getBoundingClientRect().top<innerHeight*.72 && e.getBoundingClientRect().bottom>0}))''')
         assert readable and all(float(unit['opacity']) > .99
-                                for unit in readable), (name, readable[:12])
+                                for unit in readable if unit['onscreen']), (name, readable[:12])
         hero = held.locator('.mag-header > .container.mk-motion-pending, main .mobile-cover.mk-motion-pending')
         if hero.count():
             assert hero.first.evaluate('(e)=>+getComputedStyle(e).opacity<.1'), name
@@ -45,13 +45,34 @@ with sync_playwright() as p:
         page.wait_for_timeout(550)
         items = page.locator('.mk-motion-item,.mk-pop-item')
         assert items.count() > 0, name
-        # User-requested design checks: main text stays available on arrival,
-        # and chapter headings have no delayed clipped/character-by-character
-        # rendering even if the legacy markup classes are still present.
+        # Only viewport-visible content must be immediately readable.
+        # Below-fold content can animate once when reached.
         visible = page.locator('main section, main .editorial-card, main .feature-card').evaluate_all(
-            '''els=>els.filter(e=>!e.closest('[hidden],[aria-hidden="true"]') && !e.matches('.mobile-cover'))
+            '''els=>els.filter(e=>!e.closest('[hidden],[aria-hidden="true"]') &&
+               !e.matches('.mobile-cover') && e.getBoundingClientRect().top<innerHeight*.7 &&
+               e.getBoundingClientRect().bottom>0)
                .every(e=>+getComputedStyle(e).opacity>.99)''')
-        assert visible, ('narrative visible', name)
+        assert visible, ('onscreen narrative visible', name)
+        assert page.locator('html').evaluate('(e)=>e.classList.contains("magazine-motion-ready")'),name
+        # Previously flattened transparent containers now have a painted paper
+        # surface. Gradients report transparent backgroundColor; inspect both.
+        surfaces = {
+            'index': ['main.mag-main > #competencies','#competencies .editorial-card'],
+            'mobile': ['main.mobile-content > #competencies','#competencies .adv-dim-card'],
+            'trend': ['.trend-main > #competition','#competition > .cards-2x2-grid > .feature-card'],
+            'mobile-trend': ['.trend-main > #competition','#competition > .cards-2x2-grid > .feature-card'],
+            'contact': ['.candidate-details-col','.candidate-specs-box'],
+            'mobile-contact': ['main.mobile-content > section.mobile-card']
+        }
+        for selector in surfaces[name]:
+            surface=page.locator(selector).first
+            expect(surface).to_have_count(1)
+            painted=surface.evaluate('''e=>{
+                const style=getComputedStyle(e);
+                return style.backgroundImage!=='none' ||
+                    !['transparent','rgba(0, 0, 0, 0)'].includes(style.backgroundColor);
+            }''')
+            assert painted,('transparent editorial panel',name,selector)
         assert page.locator('.tri-type-pending,.tri-type-active').evaluate_all(
             '''els=>els.every(e=>getComputedStyle(e).clipPath==='none')'''), ('instant multilingual headings',name)
         # Consistent presentation contract across all six portfolio pages:
@@ -100,6 +121,9 @@ with sync_playwright() as p:
             assert page.locator('.mk-pop-item').count() == 4, name
             assert page.locator('.method-card--print.mk-pop-item').count() == 1, name
         if name in ('index','mobile'):
+            training = page.locator('#cases .magazine-training-flow')
+            expect(training).to_have_count(1)
+            assert training.locator('ol > li').all_text_contents()==['重點觀摩','步驟演練','陪同操作'],name
             selector = '.hero-cta-group > .mk-pop-item' if name == 'index' else '.mobile-hero-actions > .mk-pop-item'
             assert page.locator(selector).count() == 2, name
             cards = page.locator('#career .career-entry-card, #career .timeline-job-card')
@@ -167,6 +191,7 @@ with sync_playwright() as p:
                 assert all(abs(a-b)<.01 for a,b in zip(shares,values)), (name,chart_selector,shares)
                 assert all(abs(a-b)<.01 for a,b in zip(legend_values,values)), (name,chart_selector,legend_values)
                 assert abs(sum(shares)-100)<.01, (name,shares)
+                expect(chart).to_have_class(re.compile(r'.*magazine-mix-played.*'),timeout=5000)
             else:
                 chart_rows=chart.locator('.inline-research-viz__rows > li')
                 expect(chart_rows).to_have_count(len(values))
@@ -192,27 +217,31 @@ with sync_playwright() as p:
                 for bar in progress_bars.all():
                     expect(bar).to_have_css('transform','matrix(1, 0, 0, 1, 0, 0)')
             print('INLINE_CHART_REGRESSION_PASS',name,chart_selector,values,flush=True)
-        # Returning upwards may not hide any previously visible text.
-        for item in reversed(items.all()):
-            item.evaluate('(e)=>e.scrollIntoView({block:"center",behavior:"instant"})')
-        page.wait_for_timeout(250)
-        assert page.locator('main section,main article,main .method-card').evaluate_all(
-            '''els=>els.filter(e=>!e.closest('[hidden],[aria-hidden="true"]') && !e.matches('.mobile-cover')).every(e=>+getComputedStyle(e).opacity>.99)'''), name
-        rows.append({'page':name,'readableWithoutEntrance':True,'preservedChartChecks':True,
-                     'contactActions':page.locator('.mk-pop-item').count()})
+        # Every magazine panel reveals after being scrolled into view, stays
+        # revealed on revisit and never requires a repeated animation.
+        magazine_panels=page.locator('main .magazine-slide')
+        assert magazine_panels.count() >= 1,name
+        for panel in magazine_panels.all():
+            panel.evaluate('(e)=>e.scrollIntoView({block:"center",behavior:"instant"})')
+            expect(panel).to_have_class(re.compile(r'.*magazine-slide-in.*'),timeout=3500)
+        page.evaluate('scrollTo({top:0,behavior:"instant"})')
+        for panel in magazine_panels.all():
+            expect(panel).to_have_class(re.compile(r'.*magazine-slide-in.*'))
+        rows.append({'page':name,'magazinePanelsRevealed':magazine_panels.count(),
+                     'preservedChartChecks':True,'contactActions':page.locator('.mk-pop-item').count()})
         # Focus into an offscreen pending unit must reveal all ancestors.
         page.goto(url)
         focus = page.locator('main summary').last if name in ('trend', 'mobile-trend') else page.locator('main a, main button').last
         focus.evaluate('(e)=>e.focus({preventScroll:true})')
-        assert focus.evaluate('(e)=>!e.closest(".mk-motion-pending,.mk-pop-pending")')
+        assert focus.evaluate('(e)=>!e.closest(".mk-motion-pending,.mk-pop-pending,.magazine-slide-pending")')
         # Direct and changed hashes expose descendant targets and their ancestors.
         anchor = 'emailText' if 'contact' in name else ('career' if name in ('index', 'mobile') else 'market')
         page.goto(url + '#' + anchor)
-        assert page.locator('#' + anchor).evaluate('(e)=>!e.closest(".mk-motion-pending,.mk-pop-pending")')
+        assert page.locator('#' + anchor).evaluate('(e)=>!e.closest(".mk-motion-pending,.mk-pop-pending,.magazine-slide-pending")')
         page.goto(url + '#%E0%A4%A')
         page.evaluate('(id)=>{location.hash=id}', anchor)
         page.wait_for_timeout(100)
-        assert page.locator('#' + anchor).evaluate('(e)=>!e.closest(".mk-motion-pending,.mk-pop-pending")')
+        assert page.locator('#' + anchor).evaluate('(e)=>!e.closest(".mk-motion-pending,.mk-pop-pending,.magazine-slide-pending")')
         page.emulate_media(media='print')
         for item in page.locator('.mk-motion-item,.mk-pop-item').all():
             expect(item).to_have_css('opacity', '1')
