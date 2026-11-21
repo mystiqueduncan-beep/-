@@ -54,6 +54,25 @@ with sync_playwright() as p:
                .every(e=>+getComputedStyle(e).opacity>.99)''')
         assert visible, ('onscreen narrative visible', name)
         assert page.locator('html').evaluate('(e)=>e.classList.contains("magazine-motion-ready")'),name
+        # Previously flattened transparent containers now have a painted paper
+        # surface. Gradients report transparent backgroundColor; inspect both.
+        surfaces = {
+            'index': ['main.mag-main > #competencies','#competencies .editorial-card'],
+            'mobile': ['main.mobile-content > #competencies','#competencies .adv-dim-card'],
+            'trend': ['.trend-main > #competition','#competition > .cards-2x2-grid > .feature-card'],
+            'mobile-trend': ['.trend-main > #competition','#competition > .cards-2x2-grid > .feature-card'],
+            'contact': ['.candidate-details-col','.candidate-specs-box'],
+            'mobile-contact': ['main.mobile-content > section.mobile-card']
+        }
+        for selector in surfaces[name]:
+            surface=page.locator(selector).first
+            expect(surface).to_have_count(1)
+            painted=surface.evaluate('''e=>{
+                const style=getComputedStyle(e);
+                return style.backgroundImage!=='none' ||
+                    !['transparent','rgba(0, 0, 0, 0)'].includes(style.backgroundColor);
+            }''')
+            assert painted,('transparent editorial panel',name,selector)
         assert page.locator('.tri-type-pending,.tri-type-active').evaluate_all(
             '''els=>els.every(e=>getComputedStyle(e).clipPath==='none')'''), ('instant multilingual headings',name)
         # Consistent presentation contract across all six portfolio pages:
