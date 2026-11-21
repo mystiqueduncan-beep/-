@@ -256,7 +256,7 @@ with sync_playwright() as p:
         # revealed on revisit and never requires a repeated animation.
         # User-approved separation: big paper chapters and headings stay
         # static while their interior, individually meaningful cards enter.
-        chapters=page.locator('main > section')
+        chapters=page.locator('main > section,main .contact-card-outer')
         assert chapters.count() >= 1,(name,'missing major chapters')
         for chapter in chapters.all():
             assert 'magazine-slide' not in chapter.get_attribute('class').split(),(name,'animated outer chapter')
