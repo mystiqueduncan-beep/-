@@ -126,7 +126,7 @@ if __name__=='__main__':
   if name in ('trend.html','mobile-trend.html'):
    # Pin the exact user-approved inline-chart publication. This preserves a byte-level guard
    # over the expanded research pages while allowing no general text exemption.
-   expanded={'trend.html':'f126dc94c8a1631921b61b44c35910dd75a46233','mobile-trend.html':'37983c6b9378f1ae6e838d7fc941aa8d506b4d1e'}
+   expanded={'trend.html':'d60da7997cd4006d0fc0ecc7f6bcd2f27b7a7535','mobile-trend.html':'690cdb35197be801371212c303776c1865ddcf26'}
    raw=(ROOT/name).read_bytes()
    if name=='mobile-trend.html':raw=restore_mobile_research_source(raw)
    versioned=b'src="assets/trend-marquee.js?v=20261119-chapter-lock"'

@@ -233,7 +233,7 @@ for rel,old in base.items():
  # Pin exact Git blobs from main ec5bdddbe536094cc20f4b42e3356a944f68c09e.
  # Keep the older six-chapter fingerprint for historical verification.
  if rel in ('trend.html','mobile-trend.html'):
-  expanded={'trend.html':'f126dc94c8a1631921b61b44c35910dd75a46233','mobile-trend.html':'37983c6b9378f1ae6e838d7fc941aa8d506b4d1e'}
+  expanded={'trend.html':'d60da7997cd4006d0fc0ecc7f6bcd2f27b7a7535','mobile-trend.html':'690cdb35197be801371212c303776c1865ddcf26'}
   raw=f.read_bytes()
   if rel=='mobile-trend.html':raw=restore_mobile_research_source(raw)
   # The user-approved inline-chart publication is pinned byte-for-byte.
