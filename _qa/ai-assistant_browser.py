@@ -51,7 +51,7 @@ try:
                 if nav.count() and nav.is_visible():
                     button_box = page.locator(".bs-ai-launcher").bounding_box()
                     nav_box = nav.bounding_box()
-                    assert button_box["y"] >= nav_box["y"] - 1 or button_box["x"] >= nav_box["x"] + nav_box["width"] or button_box["x"] + button_box["width"] <= nav_box["x"], (file_name, button_box, nav_box)
+                    assert button_box["y"] + button_box["height"] <= nav_box["y"] + 1 or button_box["x"] >= nav_box["x"] + nav_box["width"] or button_box["x"] + button_box["width"] <= nav_box["x"], (file_name, button_box, nav_box)
             panel.get_by_role("button", name="產業分析專題").click()
             expect(panel.get_by_text("改善提案，不代表已實施", exact=False)).to_be_visible(timeout=3000)
             target = "mobile-trend.html#market" if "mobile" in file_name else "trend.html#market"
