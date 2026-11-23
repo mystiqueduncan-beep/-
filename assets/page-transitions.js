@@ -1309,126 +1309,75 @@
 })();
 
 
-/* DIRECTIONAL CONTENT REVEALS | 2026-11-23
-   Three source-grounded enhancements on the research page. All original
-   source text remains unchanged, in DOM order, readable without JavaScript
-   and fully visible when printed. */
+/* SINGLE-PASS DIRECTIONAL REVEALS | 2026-11-23
+   Work history and left-hand action titles remain stationary.
+   Down/right arrows appear first; real source copy slides into place once.
+   No clicking, replay or hidden contents after reveal. */
 (() => {
   "use strict";
 
+  function revealOnce(elements,readyClass,visibleClass) {
+    if(!elements.length)return;
+    const reduce=window.matchMedia("(prefers-reduced-motion: reduce)");
+    let observer;
+    const show=node=>{
+      node.classList.add(visibleClass);
+      observer?.unobserve(node);
+    };
+    const showAll=()=>{
+      elements.forEach(show);
+      observer?.disconnect();
+    };
+    if(reduce.matches || !("IntersectionObserver" in window)){
+      showAll();return;
+    }
+    // Mark only when the observer is ready. Without JS all content is visible.
+    elements.forEach((el,i)=>{
+      el.style.setProperty("--settle-order",String(i));
+      el.classList.add(readyClass);
+    });
+    try {
+      observer=new IntersectionObserver(entries=>{
+        entries.forEach(entry=>{if(entry.isIntersecting)show(entry.target);});
+      },{threshold:.12,rootMargin:"0px 0px -3% 0px"});
+      elements.forEach(el=>{
+        const rect=el.getBoundingClientRect();
+        if(rect.top<innerHeight*.88 && rect.bottom>0)show(el);
+        else observer.observe(el);
+      });
+    }catch(_){showAll();}
+    window.addEventListener("beforeprint",showAll);
+    window.addEventListener("pagehide",showAll,{once:true});
+    reduce.addEventListener?.("change",e=>{if(e.matches)showAll();});
+    document.addEventListener("focusin",event=>{
+      const el=event.target.closest?.("."+readyClass);
+      if(el)show(el);
+    });
+  }
+
   function experienceReveal() {
     const cards=[...document.querySelectorAll("#experience .experience > .exp.feature-card")];
-    if(cards.length!==3) return;
-    const nodes=cards.map((card,i)=>{
-      const arrow=card.querySelector(":scope > .exp-connector");
-      const content=card.querySelector(":scope > .exp-application");
-      const name=card.querySelector(":scope > b")?.textContent?.trim();
-      if(!arrow||!content||!name) return null;
-
-      const button=document.createElement("button");
-      button.type="button";
-      button.className="exp-connector exp-arrow-button";
-      button.setAttribute("aria-label",name+"：展開可延伸方法");
-      button.setAttribute("aria-expanded","false");
-      const icon=document.createElement("span");
-      icon.className="exp-arrow-glyph";
-      icon.textContent="↓";
-      icon.setAttribute("aria-hidden","true");
-      button.append(icon);
-
-      const detail=document.createElement("div");
-      detail.className="exp-method-reveal";
-      detail.id="exp-method-reveal-"+i;
-      detail.setAttribute("aria-hidden","true");
-      detail.inert=true;
-      button.setAttribute("aria-controls",detail.id);
-      arrow.replaceWith(button);
-      button.insertAdjacentElement("afterend",detail);
-      detail.append(content);
-      card.classList.add("exp-arrow-ready");
-      return {card,button,detail,name};
+    if(cards.length!==3 || cards.some(card=>
+      !card.querySelector(":scope > .exp-connector") ||
+      !card.querySelector(":scope > .exp-application")))return;
+    cards.forEach(card=>{
+      // Preserve the original decorative arrow and original source content.
+      // No synthetic button, aria-expanded, or repeated toggles.
+      card.querySelector(":scope > .exp-connector").setAttribute("aria-hidden","true");
     });
-    if(nodes.some(node=>!node)) return;
-    let current=-1;
-    const select=index=>{
-      current=current===index?-1:index;
-      nodes.forEach(({card,button,detail,name},i)=>{
-        const opened=i===current;
-        card.classList.toggle("exp-method-open",opened);
-        button.setAttribute("aria-expanded",String(opened));
-        button.setAttribute("aria-label",name+"："+(opened?"收合":"展開")+"可延伸方法");
-        detail.setAttribute("aria-hidden",String(!opened));
-        detail.inert=!opened;
-      });
-    };
-    nodes.forEach(({button},i)=>button.addEventListener("click",()=>select(i)));
+    revealOnce(cards,"exp-story-ready","exp-story-visible");
   }
 
   function measuresReveal() {
-    // The existing generated diagram uses the six original strategy cards,
-    // preserving their exact management guardrails and tracking definitions.
     const root=document.querySelector("#strategy .editorial-measure-map");
     const rows=[...(root?.querySelectorAll(".editorial-measure-map__list > .editorial-measure-map__row")||[])];
-    if(rows.length!==6) return;
-    const interactive=rows.map((row,i)=>{
-      const action=row.querySelector(":scope > .editorial-measure-map__action");
-      const detail=row.querySelector(":scope > .editorial-measure-map__measures");
-      if(!action||!detail||!action.querySelector("strong")) return null;
-      const title=action.querySelector("strong").textContent.trim();
-      const button=document.createElement("button");
-      button.type="button";
-      button.className="measure-reveal-trigger";
-      button.setAttribute("aria-label",title+"：展開追蹤指標");
-      button.setAttribute("aria-expanded","false");
-      detail.id="measure-flow-detail-"+i;
-      button.setAttribute("aria-controls",detail.id);
-      while(action.firstChild) button.append(action.firstChild);
-      action.append(button);
-      detail.setAttribute("aria-hidden","true");
-      detail.inert=true;
-      row.classList.add("measure-flow-row");
-      return {row,button,detail,title};
-    });
-    if(interactive.some(item=>!item)) return;
-    root.classList.add("measure-flow-interactive");
-    const hoverSupported=window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    let selected=-1;
-    const activate=index=>{
-      selected=selected===index?-1:index;
-      interactive.forEach(({row,button,detail,title},i)=>{
-        const active=i===selected;
-        row.classList.toggle("measure-flow-open",active);
-        button.setAttribute("aria-expanded",String(active));
-        button.setAttribute("aria-label",title+"："+(active?"收合":"展開")+"追蹤指標");
-        detail.setAttribute("aria-hidden",String(!active));
-        detail.inert=!active;
-      });
-    };
-    interactive.forEach(({row,button},i)=>{
-      button.addEventListener("click",()=>activate(i));
-      if(hoverSupported){
-        row.addEventListener("pointerenter",()=>row.classList.add("measure-flow-preview"));
-        row.addEventListener("pointerleave",()=>row.classList.remove("measure-flow-preview"));
-      }
-    });
-    // If the existing Local/HQ filter hides the pinned row, reset its
-    // expansion without changing the filter's established behavior.
-    document.querySelectorAll("#strategy [data-filter]").forEach(button=>{
-      button.addEventListener("click",()=>{
-        requestAnimationFrame(()=>{
-          if(selected!==-1 && interactive[selected].row.hidden) activate(selected);
-        });
-      });
-    });
-    if("IntersectionObserver" in window) {
-      const observer=new IntersectionObserver(entries=>{
-        if(entries.some(e=>e.isIntersecting)){
-          root.classList.add("measure-flow-arrived");
-          observer.disconnect();
-        }
-      },{threshold:.1});
-      observer.observe(root);
-    } else root.classList.add("measure-flow-arrived");
+    if(rows.length!==6 || rows.some(row=>
+      !row.querySelector(":scope > .editorial-measure-map__action > strong") ||
+      !row.querySelector(":scope > .editorial-measure-map__arrow") ||
+      !row.querySelector(":scope > .editorial-measure-map__measures")))return;
+    // Preserve original six action-and-indicator rows and ownership filters.
+    // The arrow moves first, the indicator text follows; each stays visible.
+    revealOnce(rows,"measure-story-ready","measure-story-visible");
   }
 
   function init() {
