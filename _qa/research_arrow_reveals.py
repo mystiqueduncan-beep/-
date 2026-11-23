@@ -28,7 +28,7 @@ def run(browser, base, filename, width):
               wait_until="load")
     page.locator("#experience .exp-arrow-ready").first.wait_for()
     page.locator("#strategy .measure-flow-interactive").wait_for()
-    page.locator("#strategy .arrow-flow-grid").wait_for()
+    page.locator("#strategy .swim-grid").wait_for()
 
     experience=page.locator("#experience .exp-arrow-ready")
     assert experience.count()==3
