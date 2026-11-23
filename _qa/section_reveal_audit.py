@@ -166,17 +166,13 @@ with sync_playwright() as p:
                 mapped=linked.nth(i)
                 assert original.locator('.feature-card-title').inner_text() in mapped.inner_text(),(name,i)
                 raw=original.locator('.action-measure').inner_text()
-                # The new directional view defaults to visually collapsed.
-                # Compare source DOM text, then ensure the native control
-                # makes the original measures visible when activated.
+                # Source text remains intact and appears automatically
+                # after a one-time arrow-then-detail entrance. No click.
                 mapped_text=mapped.text_content()
-                reveal=mapped.locator('.measure-reveal-trigger')
-                expect(reveal).to_have_count(1)
-                reveal.click()
-                expect(reveal).to_have_attribute('aria-expanded','true')
+                expect(mapped.locator('.measure-reveal-trigger')).to_have_count(0)
+                mapped.scroll_into_view_if_needed()
+                expect(mapped).to_have_class(__import__('re').compile(r'measure-story-visible'))
                 expect(mapped.locator('.editorial-measure-map__measures')).to_be_visible()
-                reveal.click()
-                expect(reveal).to_have_attribute('aria-expanded','false')
                 assert '追蹤：' in raw,(name,i)
                 assert any(token in raw for token in ('保護條件：','啟動條件：')),(name,i)
                 for line in raw.splitlines():

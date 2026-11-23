@@ -72,25 +72,30 @@ with sync_playwright() as p:
 
         if "trend" in name:
             methods = page.locator("#experience .exp .exp-application")
-            arrows = page.locator("#experience .exp .exp-arrow-button")
-            assert methods.count() == arrows.count() == 3, name
-            for index, method in enumerate(methods.all()):
-                arrow = arrows.nth(index)
-                arrow.scroll_into_view_if_needed()
-                arrow.click()
-                assert arrow.get_attribute("aria-expanded") == "true", name
-                method.wait_for(state="visible")
-                page.wait_for_timeout(400)
-                assert method.evaluate('(el)=>getComputedStyle(el).opacity') == "1", name
-                assert method.evaluate('(el)=>new DOMMatrix(getComputedStyle(el).transform).m42') == 0, name
-                arrow.click()
-                assert arrow.get_attribute("aria-expanded") == "false", name
-                assert method.evaluate('(el)=>el.textContent.trim().length > 15'), name
+            arrows = page.locator("#experience .exp .exp-connector")
+            cards = page.locator("#experience .exp")
+            assert methods.count() == arrows.count() == cards.count() == 3, name
+            assert page.locator("#experience .exp-arrow-button").count() == 0, name
+            for i in range(3):
+                card=cards.nth(i)
+                card.scroll_into_view_if_needed()
+                page.wait_for_function(
+                    "(i) => document.querySelectorAll('#experience .exp')[i].classList.contains('exp-story-visible')",
+                    arg=i
+                )
+                page.wait_for_timeout(1500)
+                assert methods.nth(i).is_visible(), (name,i)
+                assert methods.nth(i).evaluate('(el)=>getComputedStyle(el).opacity')=="1", (name,i)
+                assert methods.nth(i).evaluate('(el)=>new DOMMatrix(getComputedStyle(el).transform).m42')==0, (name,i)
+                assert arrows.nth(i).get_attribute("aria-hidden")=="true", (name,i)
+            # An already-seen card does not restart on scroll or interaction.
+            cards.first.scroll_into_view_if_needed()
+            assert cards.first.get_attribute("class").count("exp-story-visible")==1, name
             page.emulate_media(reduced_motion="reduce")
-            arrows.first.click()
-            assert arrows.first.get_attribute("aria-expanded") == "true", name
-            assert methods.first.evaluate('(el)=>getComputedStyle(el).opacity') == "1", name
-            assert methods.first.evaluate('(el)=>getComputedStyle(el).transitionDuration.split(",").every(x=>parseFloat(x)===0)'), name
+            assert all(
+                method.evaluate('(el)=>getComputedStyle(el).opacity')=="1"
+                for method in methods.all()
+            ),name
         page.close()
 
     for name in ("contact", "mobile-contact"):

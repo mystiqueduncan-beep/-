@@ -2613,253 +2613,117 @@
 }
 
 
-/* DIRECTIONAL CONTENT REVEALS | 2026-11-23
-   Existing work history, qualitative measures and four-stage swimlane
-   keep their exact original words; only their presentation is enhanced. */
+/* SINGLE-PASS RESEARCH REVEALS | 2026-11-23
+   Only arrows and the corresponding explanation animate once.
+   Main experience cards, left labels and colored row panels never shift.
+   Source copy stays in the DOM, in the same layout and visible in print. */
 @media screen {
-  /* EXPERIENCE: the arrow invites a downward reveal, not a card flip. */
-  body.page-trend #experience .exp.exp-arrow-ready {
-    align-self:stretch;
-    transition:box-shadow .28s ease,border-color .28s ease !important;
+  body.page-trend #experience .exp.exp-story-ready,
+  body.page-trend #strategy .editorial-measure-map__row.measure-story-ready {
+    transform:none !important;
+    animation:none !important;
+    transition:none !important;
   }
-  body.page-trend #experience .exp .exp-arrow-button {
-    appearance:none;
+  body.page-trend #experience .exp .exp-connector {
     display:flex !important;
     align-items:center;
     justify-content:center;
-    width:84px;
-    min-height:44px;
-    margin:8px auto 2px !important;
-    padding:5px 14px !important;
+    width:60px;
+    height:43px;
+    min-height:43px;
+    padding:0 !important;
+    margin:9px auto 7px !important;
+    background:#fff8fa;
     border:1px solid #e5c5d3;
     border-radius:999px;
-    background:#fffafa;
-    color:#9e6680;
-    cursor:pointer;
-    font:inherit;
+    color:#ab7991 !important;
+    font-size:1.55rem !important;
     line-height:1;
-    transition:background-color .25s ease,color .25s ease,
-      box-shadow .25s ease,transform .25s ease !important;
+    pointer-events:none;
   }
-  body.page-trend #experience .exp .exp-arrow-button .exp-arrow-glyph {
-    display:block;
-    font-size:1.45rem;
-    transform:translateY(0);
-    transition:transform .3s cubic-bezier(.22,1,.36,1);
-  }
-  body.page-trend #experience .exp .exp-arrow-button:is(:hover,:focus-visible),
-  body.page-trend #experience .exp.exp-method-open .exp-arrow-button {
-    background:#f1dce6;
-    color:#80506b;
-    box-shadow:0 5px 13px rgb(129 79 105 / 11%);
-  }
-  body.page-trend #experience .exp .exp-arrow-button:focus-visible {
-    outline:3px solid #a46783 !important;
-    outline-offset:3px;
-  }
-  body.page-trend #experience .exp .exp-arrow-button:is(:hover,:focus-visible) .exp-arrow-glyph,
-  body.page-trend #experience .exp.exp-method-open .exp-arrow-glyph {
-    transform:translateY(4px);
-  }
-  body.page-trend #experience .exp.exp-method-open {
-    border-color:#d6aec2 !important;
-    box-shadow:0 9px 23px rgb(117 75 95 / 10%) !important;
-  }
-  body.page-trend #experience .exp.exp-arrow-ready > .exp-method-reveal {
-    width:100%;
-    max-height:0;
-    min-height:0;
-    opacity:0;
-    visibility:hidden;
-    overflow:hidden;
-    transform:translate3d(0,-13px,0);
-    transition:max-height .36s cubic-bezier(.22,1,.36,1),
-      opacity .26s ease,transform .36s cubic-bezier(.22,1,.36,1),
-      visibility 0s linear .36s !important;
-  }
-  body.page-trend #experience .exp.exp-method-open > .exp-method-reveal {
-    max-height:440px;
-    opacity:1;
-    visibility:visible;
-    transform:none;
-    transition:max-height .36s cubic-bezier(.22,1,.36,1),
-      opacity .28s ease,transform .36s cubic-bezier(.22,1,.36,1),
-      visibility 0s !important;
-  }
-  body.page-trend #experience .exp.exp-arrow-ready .exp-method-reveal > .exp-application {
+  body.page-trend #experience .exp.exp-story-ready > .exp-application {
     display:block !important;
     width:100%;
     min-width:0;
-    margin:9px 0 0 !important;
+    max-height:none !important;
+    visibility:visible !important;
+    overflow:visible !important;
+    margin-top:4px !important;
+    border-radius:17px;
+    background:#f6e5e9;
+    padding:16px !important;
     overflow-wrap:anywhere;
   }
-
-  /* MEASURES: the left topic stays anchored, followed by a short travelling
-     arrow and its original right-side indicators and safety conditions. */
-  body.page-trend #strategy .measure-flow-interactive .measure-flow-row {
+  body.page-trend #strategy .editorial-measure-map__row.measure-story-ready {
     position:relative;
-    overflow:hidden;
-    min-height:94px;
-    transition:box-shadow .29s ease,border-color .29s ease !important;
+    min-width:0;
   }
-  body.page-trend #strategy .measure-flow-interactive .measure-flow-row:is(.measure-flow-preview,.measure-flow-open,:focus-within) {
-    border-color:#cfabbf !important;
-    box-shadow:0 8px 23px rgb(108 72 89 / 10%) !important;
-  }
-  body.page-trend #strategy .measure-flow-interactive .measure-reveal-trigger {
-    appearance:none;
-    display:flex;
-    flex-direction:column;
-    align-items:stretch;
-    gap:6px;
-    width:100%;
-    min-height:56px;
-    padding:9px 11px;
-    margin:0;
-    border:1px solid transparent;
-    border-radius:10px;
-    background:transparent;
-    text-align:left;
-    cursor:pointer;
-    font:inherit;
-    color:inherit;
-  }
-  body.page-trend #strategy .measure-flow-interactive .measure-reveal-trigger > small {
-    font-size:.7rem;
-    font-weight:740;
-    color:#866c78;
-  }
-  body.page-trend #strategy .measure-flow-interactive .measure-reveal-trigger > strong {
-    font-size:.91rem;
-    line-height:1.55;
-    font-weight:770;
-    color:#654a58;
-    overflow-wrap:anywhere;
-  }
-  body.page-trend #strategy .measure-flow-interactive .measure-reveal-trigger::after {
-    content:"點選查看追蹤指標";
-    font-size:.67rem;
-    font-weight:620;
-    letter-spacing:.02em;
-    color:#946d83;
-  }
-  body.page-trend #strategy .measure-flow-interactive .measure-flow-row.measure-flow-open .measure-reveal-trigger::after {
-    content:"點選收合追蹤指標";
-  }
-  body.page-trend #strategy .measure-flow-interactive .measure-reveal-trigger:is(:hover,:focus-visible) {
-    background:rgb(189 139 161 / 10%);
-    border-color:#e5cbd6;
-  }
-  body.page-trend #strategy .measure-flow-interactive .measure-reveal-trigger:focus-visible {
-    outline:3px solid #a36a83 !important;
-    outline-offset:2px;
-  }
-  body.page-trend #strategy .measure-flow-interactive .measure-flow-row > .editorial-measure-map__measures {
-    max-height:0;
-    min-height:0;
-    opacity:0;
-    visibility:hidden;
-    overflow:hidden;
-    transform:translate3d(-20px,0,0);
-    pointer-events:none;
-    transition:max-height .34s ease,opacity .3s ease,
-      transform .34s cubic-bezier(.22,1,.36,1),
-      visibility 0s linear .34s !important;
-  }
-  body.page-trend #strategy .measure-flow-interactive .measure-flow-row:is(.measure-flow-preview,.measure-flow-open) > .editorial-measure-map__measures {
-    max-height:460px;
-    opacity:1;
-    visibility:visible;
-    transform:none;
-    pointer-events:auto;
-    transition:max-height .34s ease,opacity .3s ease,
-      transform .34s cubic-bezier(.22,1,.36,1),
-      visibility 0s !important;
-  }
-  body.page-trend #strategy .measure-flow-interactive .measure-flow-row > .editorial-measure-map__arrow {
-    display:block;
-    transition:transform .3s ease,color .3s ease !important;
-  }
-  body.page-trend #strategy .measure-flow-interactive .measure-flow-row:is(.measure-flow-preview,.measure-flow-open) > .editorial-measure-map__arrow {
-    color:#9a5d7a;
-    transform:translateX(6px) !important;
-  }
-  @keyframes measure-arrow-travel {
-    0% {transform:translateX(-6px);opacity:.5;}
-    100% {transform:translateX(0);opacity:1;}
-  }
-  body.page-trend #strategy .measure-flow-interactive.measure-flow-arrived .measure-flow-row > .editorial-measure-map__arrow {
-    animation:measure-arrow-travel .45s ease-out both;
-    animation-delay:calc(var(--diagram-index,0) * .09s);
-  }
-
-}
-@media screen and (max-width:670px) {
-  body.page-trend #strategy .measure-flow-interactive .measure-flow-row {
-    grid-template-columns:minmax(0,1fr) !important;
-    row-gap:6px;
-  }
-  body.page-trend #strategy .measure-flow-interactive .measure-flow-row > .editorial-measure-map__arrow {
-    width:24px;
-    margin-left:12px;
-    transform:rotate(90deg) !important;
-  }
-  body.page-trend #strategy .measure-flow-interactive .measure-flow-row:is(.measure-flow-preview,.measure-flow-open) > .editorial-measure-map__arrow {
-    transform:rotate(90deg) translateX(5px) !important;
-  }
-  body.page-trend #strategy .measure-flow-interactive .measure-flow-row > .editorial-measure-map__measures {
-    transform:translate3d(0,-13px,0);
-    margin-left:11px;
-  }
-  body.page-trend #strategy .measure-flow-interactive .measure-flow-row:is(.measure-flow-preview,.measure-flow-open) > .editorial-measure-map__measures {
-    transform:none;
-  }
-}
-@media screen and (prefers-reduced-motion:reduce) {
-  body.page-trend #experience .exp.exp-arrow-ready > .exp-method-reveal,
-  body.page-trend #strategy .measure-flow-interactive .measure-flow-row > .editorial-measure-map__measures {
+  body.page-trend #strategy .editorial-measure-map__row.measure-story-ready > .editorial-measure-map__action {
+    opacity:1 !important;
     transform:none !important;
+    animation:none !important;
+    transition:none !important;
+  }
+  body.page-trend #strategy .editorial-measure-map__row.measure-story-ready > .editorial-measure-map__measures {
+    display:flex !important;
+    max-height:none !important;
+    min-height:0;
+    opacity:1;
+    visibility:visible !important;
+    transform:none;
+    overflow:visible !important;
+    pointer-events:auto;
+  }
+}
+@keyframes research-arrow-arrive {
+  from {opacity:0;transform:translate3d(-8px,0,0);}
+  to {opacity:1;transform:none;}
+}
+@keyframes research-down-arrive {
+  from {opacity:0;transform:translate3d(0,-19px,0);}
+  to {opacity:1;transform:none;}
+}
+@keyframes research-right-arrive {
+  from {opacity:0;transform:translate3d(-22px,0,0);}
+  to {opacity:1;transform:none;}
+}
+@media screen and (prefers-reduced-motion:no-preference) {
+  /* No flash or reverse animation on repeated scrolling. */
+  body.page-trend #experience .exp.exp-story-ready:not(.exp-story-visible) > .exp-connector,
+  body.page-trend #experience .exp.exp-story-ready:not(.exp-story-visible) > .exp-application,
+  body.page-trend #strategy .measure-story-ready:not(.measure-story-visible) > .editorial-measure-map__arrow,
+  body.page-trend #strategy .measure-story-ready:not(.measure-story-visible) > .editorial-measure-map__measures {
+    opacity:0 !important;
     transition:none !important;
     animation:none !important;
   }
-  body.page-trend #experience .exp.exp-method-open > .exp-method-reveal,
-  body.page-trend #strategy .measure-flow-interactive .measure-flow-row:is(.measure-flow-open,.measure-flow-preview) > .editorial-measure-map__measures {
-    visibility:visible !important;
-    opacity:1 !important;
+  body.page-trend #experience .exp.exp-story-visible > .exp-connector {
+    animation:research-arrow-arrive .33s ease-out var(--story-arrow-delay,0ms) both !important;
+  }
+  body.page-trend #experience .exp.exp-story-visible > .exp-application {
+    animation:research-down-arrive .66s cubic-bezier(.22,1,.36,1) var(--story-text-delay,330ms) both !important;
+    transition:none !important;
+  }
+  body.page-trend #strategy .measure-story-visible > .editorial-measure-map__arrow {
+    animation:research-arrow-arrive .33s ease-out var(--story-arrow-delay,0ms) both !important;
+  }
+  body.page-trend #strategy .measure-story-visible > .editorial-measure-map__measures {
+    animation:research-right-arrive .66s cubic-bezier(.22,1,.36,1) var(--story-text-delay,300ms) both !important;
+    transition:none !important;
   }
 }
 @media (prefers-reduced-motion:reduce),print {
-  body.page-trend #experience .exp .exp-arrow-button,
-  body.page-trend #strategy .measure-flow-interactive .measure-flow-row > .editorial-measure-map__arrow {
-    transform:none !important;
-    transition:none !important;
-    animation:none !important;
+  body.page-trend #experience .exp > :is(.exp-connector,.exp-application),
+  body.page-trend #strategy .editorial-measure-map__row > :is(.editorial-measure-map__action,.editorial-measure-map__arrow,.editorial-measure-map__measures) {
     opacity:1 !important;
-  }
-}
-@media print {
-  body.page-trend #experience .exp.exp-arrow-ready > .exp-method-reveal,
-  body.page-trend #strategy .measure-flow-interactive .measure-flow-row > .editorial-measure-map__measures {
-    max-height:none !important;
     visibility:visible !important;
-    opacity:1 !important;
     transform:none !important;
-    transition:none !important;
     animation:none !important;
-  }
-  body.page-trend #experience .exp .exp-arrow-button {display:none !important;}
-  body.page-trend #experience .exp.exp-arrow-ready .exp-method-reveal > .exp-application {
-    break-inside:avoid !important;
-    page-break-inside:avoid !important;
-  }
-  body.page-trend #strategy .measure-flow-interactive .measure-reveal-trigger::after {content:none !important;}
-  body.page-trend #strategy .measure-flow-interactive .measure-flow-row > .editorial-measure-map__measures {
-    overflow:visible !important;
-    pointer-events:auto !important;
+    transition:none !important;
   }
 }
 
-/* Printed research is an informational document, not an interactive card. */
+/* Card interaction hints are screen-only; retain source text in print. */
 @media print {
   body.page-trend #location .editorial-trade-diagram.mag-trade-selector > .mag-trade-choice > .mag-trade-hint {
     display:none !important;
