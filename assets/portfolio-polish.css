@@ -2894,16 +2894,20 @@
       calc(var(--flow-hop,1) * .11s) both !important;
   }
 }
-@media (prefers-reduced-motion:reduce),print {
+@media screen and (prefers-reduced-motion:reduce) {
   body.page-trend #experience .exp.exp-arrow-ready > .exp-method-reveal,
   body.page-trend #strategy .measure-flow-interactive .measure-flow-row > .editorial-measure-map__measures {
-    max-height:none !important;
-    visibility:visible !important;
-    opacity:1 !important;
     transform:none !important;
     transition:none !important;
     animation:none !important;
   }
+  body.page-trend #experience .exp.exp-method-open > .exp-method-reveal,
+  body.page-trend #strategy .measure-flow-interactive .measure-flow-row:is(.measure-flow-open,.measure-flow-preview) > .editorial-measure-map__measures {
+    visibility:visible !important;
+    opacity:1 !important;
+  }
+}
+@media (prefers-reduced-motion:reduce),print {
   body.page-trend #experience .exp .exp-arrow-button,
   body.page-trend #strategy .measure-flow-interactive .measure-flow-row > .editorial-measure-map__arrow,
   body.page-trend #strategy .arrow-flow-grid > * {
@@ -2912,7 +2916,6 @@
     animation:none !important;
     opacity:1 !important;
   }
-  body.page-trend #strategy .arrow-flow-mobile-controls {display:none !important;}
 }
 @media print {
   body.page-trend #experience .exp .exp-arrow-button {display:none !important;}
