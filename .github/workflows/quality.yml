@@ -52,6 +52,8 @@ jobs:
           npm install --no-save --package-lock=false axe-core@4.10.3
       - name: Portfolio AI chat interactions, routing and responsive access
         run: python3 _qa/ai-assistant_browser.py
+      - name: Reader-first section navigation and focus-mode UX
+        run: python3 _qa/reader_first_browser.py
       - name: One-time section and contact reveals
         run: python3 _qa/section_reveal_audit.py
       - name: Cross-page research CTA frame, reveal, glow, and accessibility

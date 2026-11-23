@@ -363,3 +363,238 @@
     });
   }
 })();
+
+
+/* 2026-11-23 | Reader-first editorial guide.
+ * Keeps all eleven approved research chapters and every source/chart untouched.
+ * Focus mode is opt-in, inline (no modal), reversible and print-safe.
+ */
+(() => {
+  "use strict";
+  if (!document.body?.classList.contains("page-trend")) return;
+
+  function initReader() {
+    const main = document.querySelector("main.trend-main");
+    if (!main || main.querySelector(".reader-guide")) return;
+    const sections = [...main.querySelectorAll(":scope > section[id]")];
+    const names = {
+      market: "市場判讀", competition: "品牌競爭", consumer: "消費心理",
+      location: "商圈研究", digital: "數位轉型", people: "人才管理",
+      experience: "經驗連結", strategy: "改善方針", roadmap: "90 天計畫",
+      metrics: "成效追蹤", sources: "資料來源"
+    };
+    if (sections.length !== 11 || sections.some(s => !names[s.id])) return;
+    const ids = sections.map(s => s.id);
+    const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    const guide = document.createElement("aside");
+    guide.className = "reader-guide";
+    guide.setAttribute("aria-label", "專題閱讀導覽");
+    const eyebrow = document.createElement("p");
+    eyebrow.className = "reader-guide__eyebrow";
+    eyebrow.textContent = "THE READING MAP  /  專題閱讀地圖";
+    const title = document.createElement("h2");
+    title.className = "reader-guide__title";
+    title.textContent = "先選主題，再深入閱讀";
+    const intro = document.createElement("p");
+    intro.className = "reader-guide__intro";
+    intro.textContent = "完整研究仍在原頁面。你可以自由跳章，或啟用單章閱讀，減少一次出現的資訊量。";
+    const landmarks = document.createElement("nav");
+    landmarks.className = "reader-guide__landmarks";
+    landmarks.setAttribute("aria-label", "專題快速路徑");
+    const groups = [
+      ["#market", "01", "看市場與消費", "MARKET & PEOPLE"],
+      ["#experience", "02", "看管理與改善", "ACTION & PRACTICE"],
+      ["#metrics", "03", "看成效與來源", "EVIDENCE & LIMITS"]
+    ];
+    groups.forEach(([href,number,label,english]) => {
+      const a = document.createElement("a");
+      a.className = "reader-guide__route";
+      a.href = href;
+      const n = document.createElement("span");
+      n.className = "reader-guide__route-number";
+      n.textContent = number;
+      const copy = document.createElement("span");
+      const zh = document.createElement("strong");
+      zh.textContent = label;
+      const en = document.createElement("small");
+      en.textContent = english;
+      copy.append(zh, en);
+      const arrow = document.createElement("span");
+      arrow.className = "reader-guide__route-arrow";
+      arrow.setAttribute("aria-hidden", "true");
+      arrow.textContent = "↗";
+      a.append(n,copy,arrow);
+      landmarks.append(a);
+    });
+
+    const toolbar = document.createElement("div");
+    toolbar.className = "reader-guide__toolbar";
+    const label = document.createElement("label");
+    label.className = "reader-guide__select-label";
+    const labelText = document.createElement("span");
+    labelText.textContent = "跳至章節";
+    const select = document.createElement("select");
+    select.className = "reader-guide__select";
+    select.setAttribute("aria-label", "選擇研究章節");
+    sections.forEach((section,index) => {
+      const option = document.createElement("option");
+      option.value = section.id;
+      option.textContent = String(index + 1).padStart(2,"0") + "  " + names[section.id];
+      select.append(option);
+    });
+    label.append(labelText,select);
+    const focusButton = document.createElement("button");
+    focusButton.className = "reader-guide__mode";
+    focusButton.type = "button";
+    focusButton.textContent = "切換單章閱讀";
+    focusButton.setAttribute("aria-pressed", "false");
+    focusButton.setAttribute("aria-label", "啟用單章閱讀模式");
+    const prev = document.createElement("button");
+    prev.type = "button";
+    prev.className = "reader-guide__step";
+    prev.textContent = "← 上一章";
+    prev.hidden = true;
+    const next = document.createElement("button");
+    next.type = "button";
+    next.className = "reader-guide__step";
+    next.textContent = "下一章 →";
+    next.hidden = true;
+    toolbar.append(label,focusButton,prev,next);
+
+    const progress = document.createElement("div");
+    progress.className = "reader-guide__progress";
+    const now = document.createElement("p");
+    now.className = "reader-guide__now";
+    const track = document.createElement("div");
+    track.className = "reader-guide__track";
+    track.setAttribute("aria-hidden", "true");
+    const fill = document.createElement("span");
+    fill.className = "reader-guide__fill";
+    track.append(fill);
+    progress.append(now,track);
+    guide.append(eyebrow,title,intro,landmarks,toolbar,progress);
+    main.insertBefore(guide,sections[0]);
+
+    let currentIndex = 0;
+    let focusMode = false;
+    let scheduled = false;
+
+    function hashChapter() {
+      const raw = window.location.hash.slice(1);
+      let id;
+      try { id = decodeURIComponent(raw); } catch (_) { return null; }
+      const target = document.getElementById(id);
+      const section = target?.closest("section[id]");
+      return section && ids.includes(section.id) ? ids.indexOf(section.id) : null;
+    }
+
+    function selectCurrent(index) {
+      currentIndex = Math.max(0,Math.min(sections.length-1,index));
+      select.value = ids[currentIndex];
+      now.textContent =
+        "閱讀進度  " + String(currentIndex + 1).padStart(2,"0") +
+        " / 11  ·  " + names[ids[currentIndex]];
+      fill.style.width = ((currentIndex + 1) / sections.length * 100) + "%";
+      sections.forEach((section,i) =>
+        section.classList.toggle("reader-current",i === currentIndex));
+      prev.disabled = currentIndex === 0;
+      next.disabled = currentIndex === sections.length - 1;
+    }
+
+    function goTo(index,writeHash=true) {
+      selectCurrent(index);
+      if (focusMode) {
+        sections.forEach((section,i) => {
+          section.classList.toggle("reader-focus-active",i === currentIndex);
+        });
+      }
+      if (writeHash) {
+        try {
+          const url = new URL(window.location.href);
+          url.hash = ids[currentIndex];
+          window.history.replaceState(null,"",url.pathname+url.search+url.hash);
+        } catch (_) {}
+      }
+      const target = sections[currentIndex];
+      // Native anchor positioning is preserved; no modal or content cloning.
+      target.scrollIntoView({
+        behavior: reduced?.matches ? "auto" : "smooth",
+        block: "start"
+      });
+    }
+
+    function setMode(active) {
+      focusMode = active;
+      main.classList.toggle("reader-focus-mode",active);
+      focusButton.setAttribute("aria-pressed",String(active));
+      focusButton.setAttribute(
+        "aria-label",active ? "關閉單章閱讀，顯示完整研究" : "啟用單章閱讀模式");
+      focusButton.textContent = active ? "展開全部章節" : "切換單章閱讀";
+      prev.hidden = !active;
+      next.hidden = !active;
+      sections.forEach((section,i) =>
+        section.classList.toggle("reader-focus-active",active && i === currentIndex));
+    }
+
+    select.addEventListener("change",() => goTo(ids.indexOf(select.value)));
+    focusButton.addEventListener("click",() => {
+      const selected = currentIndex;
+      setMode(!focusMode);
+      if (focusMode) goTo(selected,false);
+    });
+    prev.addEventListener("click",() => goTo(currentIndex - 1));
+    next.addEventListener("click",() => goTo(currentIndex + 1));
+
+    // When focus mode is on, opening a chapter from the original chapter nav
+    // must reveal it before scrolling. Normal anchor clicks remain native.
+    document.addEventListener("click",event => {
+      if (!focusMode || event.defaultPrevented || event.button !== 0 ||
+          event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
+      const link = event.target.closest?.('a[href^="#"]');
+      if (!link) return;
+      let id;
+      try { id=decodeURIComponent(link.hash.slice(1)); } catch (_) { return; }
+      const target = document.getElementById(id);
+      const section = target?.closest("section[id]");
+      if (!section || !ids.includes(section.id)) return;
+      event.preventDefault();
+      goTo(ids.indexOf(section.id));
+      if (target !== section) target.scrollIntoView({block:"start"});
+    });
+
+    function onScroll() {
+      scheduled = false;
+      if (focusMode) return;
+      let selected = 0;
+      const line = Math.min(window.innerHeight * .35,300);
+      for (let index=0;index<sections.length;index++) {
+        if (sections[index].getBoundingClientRect().top <= line) selected=index;
+        else break;
+      }
+      // Before reaching the article itself, prefer the first chapter.
+      selectCurrent(selected);
+    }
+    function schedule() {
+      if (scheduled) return;
+      scheduled=true;
+      window.requestAnimationFrame(onScroll);
+    }
+    window.addEventListener("scroll",schedule,{passive:true});
+    window.addEventListener("resize",schedule,{passive:true});
+    window.addEventListener("hashchange",() => {
+      const index=hashChapter();
+      if (index !== null) {
+        if (focusMode) goTo(index,false);
+        else selectCurrent(index);
+      }
+    });
+    window.addEventListener("beforeprint",() => setMode(false));
+    const initial = hashChapter();
+    selectCurrent(initial ?? 0);
+    schedule();
+  }
+
+  if (document.readyState==="loading")
+    document.addEventListener("DOMContentLoaded",initReader,{once:true});
+  else initReader();
+})();
