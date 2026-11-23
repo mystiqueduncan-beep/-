@@ -70,7 +70,7 @@
       links: [["開啟 A4 個人簡歷", "resume", ""], ["查看工作經歷", "home", "career"]]
     },
     contact: {
-      answer: "可以透過作品集的聯絡資訊頁查看 Email、電話及 LINE 等聯絡方式。為確保聯絡資訊以目前公開版本為準，請直接從該頁選擇適合的方式聯繫。",
+      answer: "聯絡方式包含 Email、電話與 LINE，請點下方按鈕查看。",
       links: [["前往聯絡資訊", "contact", ""]]
     },
     greeting: {
