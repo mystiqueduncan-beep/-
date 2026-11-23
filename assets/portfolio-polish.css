@@ -1861,3 +1861,187 @@
     opacity:0 !important;
   }
 }
+
+
+/* 2026-11-23 | Five-forces diagram: accessible, calm interactive focus.
+   Preserve the original five comparison rows and their research language. */
+@media screen {
+  body.page-trend #competition .editorial-five-forces.five-force-interactive {
+    position:relative;
+    isolation:isolate;
+  }
+  body.page-trend #competition .editorial-five-forces > .editorial-five-links {
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    overflow:visible;
+    pointer-events:none;
+    z-index:0;
+  }
+  body.page-trend #competition .editorial-five-links > path {
+    fill:none;
+    stroke:#c18ba4;
+    stroke-width:2;
+    stroke-linecap:round;
+    opacity:.11;
+    transition:opacity .35s ease,stroke-width .35s ease;
+  }
+  body.page-trend #competition .editorial-five-links > path.is-active {
+    stroke:#ac6b8a;
+    stroke-width:2.7;
+    opacity:.87;
+  }
+  body.page-trend #competition .five-force-interactive > :is(.editorial-five-center,.editorial-five-forces__node) {
+    position:relative;
+    z-index:1;
+  }
+  body.page-trend #competition .five-force-interactive > .editorial-five-forces__node {
+    cursor:pointer;
+    transition:opacity .28s ease,filter .28s ease,
+      box-shadow .32s ease,transform .32s ease !important;
+    -webkit-tap-highlight-color:transparent;
+  }
+  body.page-trend #competition .five-force-interactive > .editorial-five-forces__node:focus-visible {
+    outline:3px solid #9c5979;
+    outline-offset:4px;
+  }
+  body.page-trend #competition .five-force-interactive.has-five-force-focus > .editorial-five-forces__node:not(.is-active) {
+    opacity:.71 !important;
+    filter:saturate(.8);
+  }
+  body.page-trend #competition .five-force-interactive > .editorial-five-forces__node.is-active {
+    z-index:2;
+    transform:translateY(-3px) !important;
+    border-color:#b67895 !important;
+    border-top-color:#9c5979 !important;
+    background:#fffafc !important;
+    box-shadow:0 12px 30px rgb(136 75 104 / 18%) !important;
+    filter:none;
+    opacity:1 !important;
+  }
+  body.page-trend #competition .five-force-interactive .editorial-five-center {
+    transition:box-shadow .4s ease,background-color .4s ease !important;
+  }
+  body.page-trend #competition .five-force-interactive.has-five-force-focus .editorial-five-center {
+    background:#f5e0e9;
+    box-shadow:0 0 0 6px rgb(192 130 157 / 10%),0 10px 28px rgb(94 61 75 / 11%);
+  }
+  body.page-trend #competition .five-force-interactive .editorial-five-center::before {
+    content:"";
+    position:absolute;
+    inset:-9px;
+    border:1px solid rgb(182 130 156 / 34%);
+    border-radius:inherit;
+    opacity:.28;
+    pointer-events:none;
+  }
+}
+@media screen and (max-width:800px) {
+  body.page-trend #competition .editorial-five-forces.five-force-interactive {
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:13px !important;
+  }
+  body.page-trend #competition .five-force-interactive .editorial-five-center {
+    grid-column:1 !important;
+    grid-row:2 !important;
+    min-height:112px;
+  }
+  body.page-trend #competition .five-force-interactive > .editorial-five-links {
+    display:none;
+  }
+  body.page-trend #competition .five-force-interactive > .editorial-five-forces__node {
+    grid-column:1 !important;
+    grid-row:auto !important;
+    margin-left:24px;
+  }
+  body.page-trend #competition .five-force-interactive > .editorial-five-forces__node::before {
+    content:"";
+    position:absolute;
+    width:1px;
+    top:-15px;
+    bottom:-15px;
+    left:-17px;
+    background:linear-gradient(#d4a9be,#eccdd9);
+    pointer-events:none;
+  }
+  body.page-trend #competition .five-force-interactive > .editorial-five-forces__node::after {
+    content:"";
+    position:absolute;
+    width:9px;
+    height:9px;
+    left:-21px;
+    top:24px;
+    border-radius:50%;
+    border:2px solid #fff9fb;
+    background:#bd87a0;
+    box-shadow:0 0 0 2px #dcc0ce;
+    pointer-events:none;
+  }
+  body.page-trend #competition .five-force-interactive > .editorial-five-forces__node.is-active::after {
+    background:#93536f;
+    box-shadow:0 0 0 4px rgb(184 122 152 / 24%);
+  }
+  body.page-trend #competition .five-force-interactive > .editorial-five-forces__node > :nth-child(3) {
+    display:none !important;
+  }
+  body.page-trend #competition .five-force-interactive > .editorial-five-forces__node.is-active > :nth-child(3) {
+    display:block !important;
+  }
+  body.page-trend #competition .five-force-interactive > .editorial-five-forces__node > :first-child {
+    padding-right:26px !important;
+  }
+  body.page-trend #competition .five-force-interactive > .editorial-five-forces__node > :first-child::after {
+    content:"+";
+    position:absolute;
+    right:15px;
+    color:#a66e89;
+    font-size:1.2rem;
+    font-weight:500;
+  }
+  body.page-trend #competition .five-force-interactive > .editorial-five-forces__node.is-active > :first-child::after {
+    content:"−";
+  }
+}
+@keyframes five-force-center-entry {
+  from {opacity:0;transform:scale(.9);}
+  to {opacity:1;transform:none;}
+}
+@keyframes five-force-card-entry {
+  from {
+    opacity:0;
+    transform:translate3d(var(--five-start-x,0px),var(--five-start-y,20px),0) scale(.94);
+  }
+  to {opacity:1;transform:none;}
+}
+@keyframes five-force-breathe {
+  0%,100% {opacity:.15;transform:scale(1);}
+  50% {opacity:.35;transform:scale(1.022);}
+}
+@media screen and (prefers-reduced-motion:no-preference) {
+  body.page-trend #competition .five-force-interactive .editorial-five-center::before {
+    animation:five-force-breathe 7s ease-in-out infinite;
+  }
+  body.page-trend #competition .editorial-five-forces.five-force-awaiting:not(.five-force-revealed) > :is(.editorial-five-center,.editorial-five-forces__node) {
+    opacity:0 !important;
+    transition:none !important;
+  }
+  body.page-trend #competition .editorial-five-forces.five-force-awaiting.five-force-revealed > .editorial-five-center {
+    animation:five-force-center-entry .67s cubic-bezier(.2,.75,.3,1) both;
+  }
+  body.page-trend #competition .editorial-five-forces.five-force-awaiting.five-force-revealed > .editorial-five-forces__node {
+    animation:five-force-card-entry .7s cubic-bezier(.22,1,.36,1) var(--five-delay,0.3s) both;
+  }
+}
+@media (prefers-reduced-motion:reduce), print {
+  body.page-trend #competition .editorial-five-forces > :is(.editorial-five-center,.editorial-five-forces__node) {
+    opacity:1 !important;
+    transform:none !important;
+    animation:none !important;
+    transition:none !important;
+    filter:none !important;
+  }
+  body.page-trend #competition .editorial-five-center::before {
+    animation:none !important;
+  }
+}
