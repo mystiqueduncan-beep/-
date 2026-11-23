@@ -241,7 +241,6 @@ for rel,old in base.items():
    b'\n  <link rel="stylesheet" href="assets/ai-assistant.css?v=20261123-guide">\n'
    b'  <script src="assets/ai-assistant.js?v=20261123-guide" defer></script>\n'
   )
-  ai_widget_head = b"".join(ai_widget_head)
   if raw.count(ai_widget_head) != 1:
    errors.append(rel + ": expected one approved static AI guide asset pair")
   else:
