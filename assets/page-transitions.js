@@ -1185,6 +1185,9 @@
       }
     };
     const focusable = (nodes) => nodes.forEach(el => {
+      // Display-only ARTICLE elements already have native semantics.
+      // Do not invent ARIA roles or extra keyboard tab stops for them.
+      if (el.tagName === "ARTICLE") return;
       el.setAttribute("tabindex", "0");
       el.setAttribute("role", "group");
     });
