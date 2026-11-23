@@ -40,7 +40,7 @@ def run(browser, base, filename, width):
         "以需求詢問、商品比較與陳列維護為服務帶訓內容",
     ]
     for i in range(3):
-        assert original[i] in experience.nth(i).inner_text()
+        assert original[i] in experience.nth(i).text_content()  # collapsed visually, never deleted
         assert actions.nth(i).get_attribute("aria-expanded")=="false"
         expect(experience.nth(i).locator(".exp-method-reveal")).to_be_hidden()
     actions.first.click()
