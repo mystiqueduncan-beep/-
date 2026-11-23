@@ -29,7 +29,7 @@ def assert_ready(page):
         "#digital .mag-digital-steps > .compare-row": 3,
         "#people .mag-people-methods > .feature-card": 4,
         "#strategy .mag-strategy-board > .strategy": 6,
-        "#strategy .mag-lane-focus > .lane-task": 12,
+        "#strategy .swim-grid > .lane-task": 12,
         "#metrics .mag-metric-pairs > .metric-tile": 6,
         "#metrics .mag-branching": 1,
         "#competition .editorial-five-forces.five-force-interactive": 1,
