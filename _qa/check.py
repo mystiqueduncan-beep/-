@@ -502,27 +502,27 @@ portrait_path=ROOT/'contact-portrait-20261109.jpg'
 portrait_sha256='07b12e127431934991eb06749525344e02389b28919bd0465879848897f0ffef'
 if not portrait_path.is_file() or hashlib.sha256(portrait_path.read_bytes()).hexdigest()!=portrait_sha256:
  errors.append('contact portrait: prior original photograph differs from approved source')
-avatar_path=ROOT/'assets/portrait-cafe-lowres.webp'
+avatar_path=ROOT/'assets/portrait-cafe-iphone17.webp'
 if not avatar_path.is_file():
  errors.append('new circular profile image asset missing')
 else:
  avatar_data=avatar_path.read_bytes()
  if (not avatar_data.startswith(b'RIFF') or b'WEBP' not in avatar_data[:16]
-     or hashlib.sha256(avatar_data).hexdigest()!='8abc62ac941049f16b94c6a68f242a2e5300da2327db4ed1a95b78ebed77150b'):
+     or hashlib.sha256(avatar_data).hexdigest()!='254aa0ae2474f9c586723adc7ead0893c55e153ef3bbbecddc6f8dee1687e4bd'):
   errors.append('new profile photo: WebP does not match the approved user-provided cafe conversion')
 for rel in ('contact.html','mobile-contact.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
  if len(re.findall(r'<img\b',html))!=1:
   errors.append(rel+': expected exactly one personal portrait image')
- if len(re.findall(r'<img\b[^>]*src="assets/portrait-cafe-lowres.webp"',html))!=1:
+ if len(re.findall(r'<img\b[^>]*src="assets/portrait-cafe-iphone17.webp"',html))!=1:
   errors.append(rel+': new circular portrait missing')
  if 'contact-portrait-fade.css' not in html:
   errors.append(rel+': portrait fade style missing')
- if 'assets/portrait-cafe-lowres.webp' not in html:
+ if 'assets/portrait-cafe-iphone17.webp' not in html:
   errors.append(rel+': new cafe portrait metadata/preload missing')
  if 'width="320" height="400" class="contact-portrait-photo"' not in html:
   errors.append(rel+': reduced pixel dimensions not declared')
- if 'https://mystiqueduncan-beep.github.io/-/assets/portrait-cafe-lowres.webp' not in html:
+ if 'https://mystiqueduncan-beep.github.io/-/assets/portrait-cafe-iphone17.webp' not in html:
   errors.append(rel+': social preview not updated')
 for rel in ('index.html','mobile.html','trend.html','mobile-trend.html'):
  if 'assets/portrait-img3264.webp' in (ROOT/rel).read_text(encoding='utf-8'):
