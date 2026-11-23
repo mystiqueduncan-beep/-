@@ -1450,6 +1450,7 @@
     if(headers.some(h=>!h.matches(".lane-stage")))return;
     grid.classList.add("arrow-flow-grid");
     const reduced=window.matchMedia("(prefers-reduced-motion: reduce)");
+    const hoverFine=window.matchMedia("(hover: hover) and (pointer: fine)");
     const stageNames=headers.map(x=>x.textContent.trim());
     const buttons=headers.map((heading,i)=>{
       const button=document.createElement("button");
@@ -1501,7 +1502,7 @@
       const viewport=scroll.getBoundingClientRect();
       scroll.scrollTo({
         left:Math.max(0,scroll.scrollLeft+heading.left-viewport.left-20),
-        behavior:reduced.matches?"instant":"smooth"
+        behavior:reduced.matches?"auto":"smooth"
       });
     };
     const handleStage=(buttons,moveOnClick)=>{
@@ -1529,13 +1530,15 @@
     handleStage(mobileButtons,true);
 
     grid.addEventListener("pointerover",event=>{
-      if(event.pointerType==="touch")return;
+      if(!hoverFine.matches || event.pointerType==="touch")return;
       const cell=event.target.closest(".lane-task,.lane-stage");
       if(!cell || !grid.contains(cell))return;
       const stage=cells.indexOf(cell)%5;
       if(stage>0 && Number(grid.dataset.flowStage)!==stage)paint(stage);
     });
-    grid.addEventListener("pointerleave",()=>paint(pinned));
+    grid.addEventListener("pointerleave",()=>{
+      if(hoverFine.matches && Number(grid.dataset.flowStage)!==pinned)paint(pinned);
+    });
     grid.addEventListener("focusin",event=>{
       const cell=event.target.closest(".lane-task,.lane-stage");
       if(!cell || !grid.contains(cell))return;
