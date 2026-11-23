@@ -128,6 +128,13 @@ if __name__=='__main__':
    # over the expanded research pages while allowing no general text exemption.
    expanded={'trend.html':'d60da7997cd4006d0fc0ecc7f6bcd2f27b7a7535','mobile-trend.html':'690cdb35197be801371212c303776c1865ddcf26'}
    raw=(ROOT/name).read_bytes()
+   # Ignore only the exact static chat asset pair when checking pinned research bytes.
+   ai_widget_head = (
+    b'\n  <link rel="stylesheet" href="assets/ai-assistant.css?v=20261123-guide">\n'
+    b'  <script src="assets/ai-assistant.js?v=20261123-guide" defer></script>\n'
+   )
+   assert raw.count(ai_widget_head)==1,name+": AI guide asset pair missing or repeated"
+   raw=raw.replace(ai_widget_head,b"",1)
    if name=='mobile-trend.html':raw=restore_mobile_research_source(raw)
    versioned=b'src="assets/trend-marquee.js?v=20261119-chapter-lock"'
    assert raw.count(versioned)==1, name+': versioned marquee script missing or duplicated'
