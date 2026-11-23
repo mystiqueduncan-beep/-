@@ -818,13 +818,153 @@
   function competitiveFiveForces() {
     const data=compareDiagram("competition","波特五力","editorial-five-forces",5);
     if (!data || data.diagram.querySelector(".editorial-five-center")) return;
+    const {diagram,rows}=data;
     const center=el("div","editorial-five-center");
     center.append(
       el("span","editorial-five-center__eyebrow","PORTER'S FIVE FORCES"),
       el("strong","editorial-five-center__title","產業競爭結構"),
       el("small","editorial-five-center__note","定性觀察 · 不設定強弱分數")
     );
-    data.diagram.querySelector(".compare-head").insertAdjacentElement("afterend",center);
+    diagram.querySelector(".compare-head").insertAdjacentElement("afterend",center);
+
+    // Keep the five original source rows in place; only enhance their
+    // presentation, keyboard semantics and highlighted relationships.
+    const compact=window.matchMedia("(max-width: 800px)");
+    const reduce=window.matchMedia("(prefers-reduced-motion: reduce)");
+    const ns="http://www.w3.org/2000/svg";
+    const svg=document.createElementNS(ns,"svg");
+    svg.setAttribute("class","editorial-five-links");
+    svg.setAttribute("aria-hidden","true");
+    svg.setAttribute("focusable","false");
+    const paths=rows.map(()=>{
+      const path=document.createElementNS(ns,"path");
+      svg.append(path);
+      return path;
+    });
+    center.insertAdjacentElement("afterend",svg);
+    diagram.classList.add("five-force-interactive");
+
+    const incoming=[
+      ["0px","30px"],["30px","8px"],["-30px","8px"],
+      ["30px","-12px"],["-30px","-12px"]
+    ];
+    let pinned=null;
+    let hovered=null;
+    const setState=()=>{
+      const focused=hovered===null?pinned:hovered;
+      diagram.classList.toggle("has-five-force-focus",focused!==null);
+      rows.forEach((row,i)=>{
+        const active=i===focused;
+        row.classList.toggle("is-active",active);
+        paths[i].classList.toggle("is-active",active);
+        if(compact.matches){
+          row.removeAttribute("aria-pressed");
+          row.setAttribute("aria-expanded",String(i===pinned));
+        }else{
+          row.removeAttribute("aria-expanded");
+          row.setAttribute("aria-pressed",String(i===pinned));
+        }
+      });
+    };
+    rows.forEach((row,i)=>{
+      row.dataset.forceIndex=String(i+1);
+      row.style.setProperty("--five-delay",(0.24+i*.12).toFixed(2)+"s");
+      row.style.setProperty("--five-start-x",incoming[i][0]);
+      row.style.setProperty("--five-start-y",incoming[i][1]);
+      row.classList.add("editorial-diagram-visible");
+      row.setAttribute("role","button");
+      row.setAttribute("tabindex","0");
+      row.addEventListener("pointerenter",event=>{
+        if(!compact.matches && event.pointerType!=="touch"){
+          hovered=i;setState();
+        }
+      });
+      row.addEventListener("pointerleave",()=>{
+        hovered=null;setState();
+      });
+      row.addEventListener("focus",()=>{
+        if(!compact.matches){hovered=i;setState();}
+        reveal();
+      });
+      row.addEventListener("blur",()=>{hovered=null;setState();});
+      row.addEventListener("click",()=>{
+        pinned=pinned===i?null:i;
+        hovered=null;
+        setState();
+      });
+      row.addEventListener("keydown",event=>{
+        if(event.key==="Enter"||event.key===" "){
+          event.preventDefault();row.click();
+        }else if(event.key==="Escape"){
+          pinned=null;hovered=null;setState();
+        }else if(["ArrowDown","ArrowRight","ArrowUp","ArrowLeft"].includes(event.key)){
+          event.preventDefault();
+          const delta=["ArrowDown","ArrowRight"].includes(event.key)?1:-1;
+          rows[(i+delta+rows.length)%rows.length].focus();
+        }
+      });
+    });
+
+    function drawLinks() {
+      if(compact.matches || !diagram.isConnected) return;
+      const host=diagram.getBoundingClientRect();
+      if(!host.width||!host.height) return;
+      svg.setAttribute("viewBox","0 0 "+host.width+" "+host.height);
+      const rect=element=>{
+        const b=element.getBoundingClientRect();
+        return {x:b.left-host.left,y:b.top-host.top,w:b.width,h:b.height};
+      };
+      const middle=r=>({x:r.x+r.w/2,y:r.y+r.h/2});
+      const edge=(r,target)=>{
+        const m=middle(r);
+        const dx=target.x-m.x,dy=target.y-m.y;
+        const scale=Math.min(
+          Math.max(0,r.w/2-7)/Math.max(Math.abs(dx),.001),
+          Math.max(0,r.h/2-7)/Math.max(Math.abs(dy),.001)
+        );
+        return {x:m.x+dx*scale,y:m.y+dy*scale};
+      };
+      const centerRect=rect(center);
+      const centerPoint=middle(centerRect);
+      rows.forEach((row,i)=>{
+        const rowRect=rect(row);
+        const rowPoint=middle(rowRect);
+        const start=edge(centerRect,rowPoint);
+        const end=edge(rowRect,centerPoint);
+        paths[i].setAttribute("d","M "+start.x.toFixed(1)+" "+start.y.toFixed(1)+
+          " L "+end.x.toFixed(1)+" "+end.y.toFixed(1));
+      });
+    }
+    const resizeObserver="ResizeObserver" in window?new ResizeObserver(drawLinks):null;
+    resizeObserver?.observe(diagram);
+    rows.forEach(row=>resizeObserver?.observe(row));
+    window.addEventListener("resize",drawLinks,{passive:true});
+    window.addEventListener("load",drawLinks,{once:true});
+    document.fonts?.ready?.then(drawLinks);
+    compact.addEventListener?.("change",()=>{hovered=null;setState();drawLinks();});
+    requestAnimationFrame(drawLinks);
+
+    // One coherent sequence for the diagram, center first and original
+    // cards outward with a 120 ms stagger. No hidden content without JS.
+    let entranceObserver;
+    const reveal=()=>{
+      diagram.classList.add("five-force-revealed");
+      entranceObserver?.disconnect();
+    };
+    if(!reduce.matches && "IntersectionObserver" in window){
+      diagram.classList.add("five-force-awaiting");
+      try{
+        entranceObserver=new IntersectionObserver(entries=>{
+          if(entries.some(entry=>entry.isIntersecting)) reveal();
+        },{threshold:.08,rootMargin:"0px 0px -4% 0px"});
+        const box=diagram.getBoundingClientRect();
+        if(box.top<innerHeight*.88 && box.bottom>0) reveal();
+        else entranceObserver.observe(diagram);
+      }catch(_){reveal();}
+    }
+    window.addEventListener("beforeprint",reveal);
+    reduce.addEventListener?.("change",event=>{if(event.matches)reveal();});
+    setState();
   }
 
   function measuresDiagram() {
@@ -876,7 +1016,6 @@
     const all=[...document.querySelectorAll(
       ".editorial-case-flow .editorial-diagram-step, " +
       ".editorial-trade-diagram .editorial-diagram-step, " +
-      ".editorial-five-forces .editorial-diagram-step, " +
       ".editorial-measure-map .editorial-diagram-step")];
     const reduce=window.matchMedia?.("(prefers-reduced-motion: reduce)");
     if (!all.length||reduce?.matches||!("IntersectionObserver" in window)) return;
