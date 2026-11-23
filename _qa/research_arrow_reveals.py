@@ -85,7 +85,7 @@ def run(browser, base, filename, width):
     assert grid.locator(":scope > .lane-stage").count()==4
     assert grid.locator(":scope > .lane-task").count()==12
     assert grid.locator(".arrow-flow-stage,.flow-follow,.flow-current").count()==0
-    assert not grid.evaluate("(el)=>el.classList.contains('arrow-flow-grid') or el.classList.contains('mag-lane-focus')")
+    assert not grid.evaluate("(el)=>el.classList.contains('arrow-flow-grid') || el.classList.contains('mag-lane-focus')")
     assert page.locator("#strategy .arrow-flow-mobile-controls").count()==0
     assert grid.locator(".lane-stage").all_text_contents()==[
         "01 發現問題","02 選擇措施","03 試行追蹤","04 檢討擴大"
