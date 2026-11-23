@@ -507,7 +507,7 @@ for rel in ('trend.html','mobile-trend.html'):
    if links!=expected or 'bilingual-current' in nav.group(0):
     errors.append(rel+': research bilingual chapter labels or anchors changed')
 # Preserve the earlier original contact portrait as a provenance backup.
-# The user-selected cafe portrait is downsampled and compressed for the existing contact frame, without facial retouching.
+# The 2026-11-23 user-selected original cafe photo is cropped to 4:5 and compressed for the contact frame, without generative facial changes.
 portrait_path=ROOT/'contact-portrait-20261109.jpg'
 portrait_sha256='07b12e127431934991eb06749525344e02389b28919bd0465879848897f0ffef'
 if not portrait_path.is_file() or hashlib.sha256(portrait_path.read_bytes()).hexdigest()!=portrait_sha256:
@@ -518,7 +518,7 @@ if not avatar_path.is_file():
 else:
  avatar_data=avatar_path.read_bytes()
  if (not avatar_data.startswith(b'RIFF') or b'WEBP' not in avatar_data[:16]
-     or hashlib.sha256(avatar_data).hexdigest()!='254aa0ae2474f9c586723adc7ead0893c55e153ef3bbbecddc6f8dee1687e4bd'):
+     or hashlib.sha256(avatar_data).hexdigest()!='7da8cb136aa8f2a9104d0ff36fdd021e58f34eec0d99a19fab8eabb44ebb0840'):
   errors.append('new profile photo: WebP does not match the approved user-provided cafe conversion')
 for rel in ('contact.html','mobile-contact.html'):
  html=(ROOT/rel).read_text(encoding='utf-8')
