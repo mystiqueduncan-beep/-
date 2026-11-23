@@ -1333,7 +1333,8 @@
     }
     // Mark only when the observer is ready. Without JS all content is visible.
     elements.forEach((el,i)=>{
-      el.style.setProperty("--settle-order",String(i));
+      el.style.setProperty("--story-arrow-delay",(i*95)+"ms");
+      el.style.setProperty("--story-text-delay",(330+i*95)+"ms");
       el.classList.add(readyClass);
     });
     try {
