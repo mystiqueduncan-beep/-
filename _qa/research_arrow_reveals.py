@@ -9,7 +9,7 @@ from pathlib import Path
 from threading import Thread
 import os
 
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, expect
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -42,14 +42,14 @@ def run(browser, base, filename, width):
     for i in range(3):
         assert original[i] in experience.nth(i).inner_text()
         assert actions.nth(i).get_attribute("aria-expanded")=="false"
-        assert not experience.nth(i).locator(".exp-method-reveal").is_visible()
+        expect(experience.nth(i).locator(".exp-method-reveal")).to_be_hidden()
     actions.first.click()
     assert actions.first.get_attribute("aria-expanded")=="true"
-    assert experience.first.locator(".exp-method-reveal").is_visible()
+    expect(experience.first.locator(".exp-method-reveal")).to_be_visible()
     actions.nth(1).click()
     assert actions.first.get_attribute("aria-expanded")=="false"
     assert actions.nth(1).get_attribute("aria-expanded")=="true"
-    assert not experience.first.locator(".exp-method-reveal").is_visible()
+    expect(experience.first.locator(".exp-method-reveal")).to_be_hidden()
     actions.nth(1).press("Enter")
     assert actions.nth(1).get_attribute("aria-expanded")=="false"
 
@@ -60,10 +60,10 @@ def run(browser, base, filename, width):
     controls=rows.locator(".measure-reveal-trigger")
     for i in range(6):
         assert controls.nth(i).get_attribute("aria-expanded")=="false"
-        assert not rows.nth(i).locator(".editorial-measure-map__measures").is_visible()
+        expect(rows.nth(i).locator(".editorial-measure-map__measures")).to_be_hidden()
     controls.first.click()
     assert controls.first.get_attribute("aria-expanded")=="true"
-    assert rows.first.locator(".editorial-measure-map__measures").is_visible()
+    expect(rows.first.locator(".editorial-measure-map__measures")).to_be_visible()
     assert "缺貨率、庫存準確率、報損成本" in rows.first.inner_text()
     controls.nth(4).click()
     assert controls.first.get_attribute("aria-expanded")=="false"
@@ -115,12 +115,10 @@ def run(browser, base, filename, width):
             (filename,"print measure",i)
     assert not page.locator("#strategy .arrow-flow-mobile-controls").is_visible()
     page.emulate_media(media="screen",reduced_motion="reduce")
-    assert not experience.first.locator(".exp-method-reveal").is_visible(),\
-        (filename,"reduced-motion leaked collapsed experience")
-    assert not rows.first.locator(".editorial-measure-map__measures").is_visible(),\
-        (filename,"reduced-motion leaked collapsed indicator")
+    expect(experience.first.locator(".exp-method-reveal")).to_be_hidden()
+    expect(rows.first.locator(".editorial-measure-map__measures")).to_be_hidden()
     actions.first.click()
-    assert experience.first.locator(".exp-method-reveal").is_visible()
+    expect(experience.first.locator(".exp-method-reveal")).to_be_visible()
     assert experience.first.locator(".exp-method-reveal").evaluate(
         "el=>getComputedStyle(el).transitionDuration.split(',').every(x=>parseFloat(x)===0)")
 
