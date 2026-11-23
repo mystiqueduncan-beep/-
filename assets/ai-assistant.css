@@ -37,7 +37,7 @@
     font-size: .9rem;
     font-weight: 800;
     letter-spacing: .035em;
-    animation: bs-ai-gentle-float 4s ease-in-out infinite;
+    /* Breathing halo stays animated; launcher hit target remains stationary. */
   }
   .bs-ai-root .bs-ai-launcher-emblem {
     display: grid;
@@ -293,10 +293,6 @@
       animation-iteration-count: 1 !important;
       transition-duration: .01ms !important;
     }
-  }
-  @keyframes bs-ai-gentle-float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-3px); }
   }
   @keyframes bs-ai-halo {
     0%, 100% { opacity: .25; transform: scale(1); }
