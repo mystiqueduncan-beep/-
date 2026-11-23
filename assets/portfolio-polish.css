@@ -2921,7 +2921,7 @@
   }
   body.page-trend .reader-guide__route-number {
     flex:0 0 auto;
-    color:#9d6c80;
+    color:#643a50;
     font:800 .8rem/1 var(--font-mono,ui-monospace,monospace);
   }
   body.page-trend .reader-guide__route > span:nth-child(2) {
