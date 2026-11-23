@@ -28,7 +28,7 @@ def run(browser, base, filename, width):
               wait_until="load")
     page.locator("#experience .exp-arrow-ready").first.wait_for()
     page.locator("#strategy .measure-flow-interactive").wait_for()
-    page.locator("#strategy .arrow-flow-grid").wait_for()
+    page.locator("#strategy .swim-grid").wait_for()
 
     experience=page.locator("#experience .exp-arrow-ready")
     assert experience.count()==3
@@ -78,28 +78,18 @@ def run(browser, base, filename, width):
     page.locator("#strategy [data-filter='all']").click()
     assert rows.nth(0).is_visible()
 
-    # Four real stages, three owner lanes, one small downstream highlight trail.
-    grid=page.locator("#strategy .arrow-flow-grid")
+    # Static swimlane: original four phase headings and twelve owner cells.
+    # No selectable stages, additional mobile controls or animated highlights.
+    grid=page.locator("#strategy .swim-grid")
+    assert grid.count()==1
+    assert grid.locator(":scope > .lane-stage").count()==4
     assert grid.locator(":scope > .lane-task").count()==12
-    stages=grid.locator(".arrow-flow-stage")
-    assert stages.count()==4
-    assert stages.first.get_attribute("aria-pressed")=="true"
-    stages.nth(1).click()
-    assert grid.get_attribute("data-flow-stage")=="2"
-    assert stages.nth(1).get_attribute("aria-pressed")=="true"
-    assert grid.locator(".flow-follow").count()>=1
-    stages.nth(1).press("ArrowRight")
-    assert grid.get_attribute("data-flow-stage")=="3"
-    assert stages.nth(2).get_attribute("aria-pressed")=="true"
-    controls_mobile=page.locator("#strategy .arrow-flow-mobile-controls button")
-    assert controls_mobile.count()==4
-    if width<=760:
-        assert controls_mobile.first.is_visible()
-        controls_mobile.nth(3).click()
-        assert grid.get_attribute("data-flow-stage")=="4"
-    else:
-        assert not controls_mobile.first.is_visible()
-
+    assert grid.locator(".arrow-flow-stage,.flow-follow,.flow-current").count()==0
+    assert not grid.evaluate("(el)=>el.classList.contains('arrow-flow-grid') || el.classList.contains('mag-lane-focus')")
+    assert page.locator("#strategy .arrow-flow-mobile-controls").count()==0
+    assert grid.locator(".lane-stage").all_text_contents()==[
+        "01 發現問題","02 選擇措施","03 試行追蹤","04 檢討擴大"
+    ]
     # Check document-level overflow: the existing 720px swimlane may scroll
     # within its own accessible container but never stretch the whole page.
     overflow=page.evaluate("document.documentElement.scrollWidth - innerWidth")
@@ -113,7 +103,7 @@ def run(browser, base, filename, width):
         assert rows.nth(i).locator(".editorial-measure-map__measures").evaluate(
             "el=>getComputedStyle(el).visibility==='visible'"),\
             (filename,"print measure",i)
-    assert not page.locator("#strategy .arrow-flow-mobile-controls").is_visible()
+    assert page.locator("#strategy .arrow-flow-mobile-controls").count()==0
     page.emulate_media(media="screen",reduced_motion="reduce")
     expect(experience.first.locator(".exp-method-reveal")).to_be_hidden()
     expect(rows.first.locator(".editorial-measure-map__measures")).to_be_hidden()
@@ -134,7 +124,7 @@ def run(browser, base, filename, width):
     assert static.locator("#strategy .swim-grid .lane-task:visible").count()==12
     context.close()
     print(f"{filename}@{width}: arrow direction, toggles, guardrails, "
-          "keyboard, mobile, print, reduced motion, no JS: PASS")
+          "keyboard, static swimlane, print, reduced motion, no JS: PASS")
 
 
 def main():

@@ -2433,20 +2433,6 @@
     transform:translateY(-3px) !important;
     box-shadow:0 12px 28px rgb(94 61 75 / 13%) !important;
   }
-  body.page-trend #strategy .mag-lane-focus > .lane-task {
-    transition:box-shadow .23s ease,background-color .23s ease,transform .23s ease;
-  }
-  body.page-trend #strategy .mag-lane-focus > .lane-task:focus-visible {
-    outline:3px solid #9f6782;
-    outline-offset:2px;
-  }
-  body.page-trend #strategy .mag-lane-focus[data-active-column="1"] > :nth-child(5n + 2),
-  body.page-trend #strategy .mag-lane-focus[data-active-column="2"] > :nth-child(5n + 3),
-  body.page-trend #strategy .mag-lane-focus[data-active-column="3"] > :nth-child(5n + 4),
-  body.page-trend #strategy .mag-lane-focus[data-active-column="4"] > :nth-child(5n + 5) {
-    box-shadow:inset 0 0 0 2px #b78b9f,0 7px 15px rgb(94 61 75 / 10%) !important;
-    transform:translateY(-2px);
-  }
   body.page-trend #metrics .mag-metric-pairs {
     display:grid !important;
     grid-template-columns:repeat(2,minmax(0,1fr)) !important;
@@ -2783,88 +2769,6 @@
     animation-delay:calc(var(--diagram-index,0) * .09s);
   }
 
-  /* SWIMLANE: each stage travels left -> right. The grid never hides source
-     cells; interaction applies a focus trail rather than a destructive carousel. */
-  body.page-trend #strategy .arrow-flow-grid .lane-stage {
-    min-width:0;
-  }
-  body.page-trend #strategy .arrow-flow-grid .arrow-flow-stage {
-    appearance:none;
-    width:100%;
-    min-height:44px;
-    padding:6px 7px;
-    border:1px solid transparent;
-    border-radius:10px;
-    background:transparent;
-    color:inherit;
-    font:inherit;
-    font-weight:800;
-    letter-spacing:.015em;
-    cursor:pointer;
-    transition:background .25s ease,color .25s ease,border-color .25s ease !important;
-  }
-  body.page-trend #strategy .arrow-flow-grid .arrow-flow-stage:is(:hover,:focus-visible),
-  body.page-trend #strategy .arrow-flow-grid .arrow-flow-stage[aria-pressed="true"] {
-    border-color:#ca9db3;
-    background:#f9eaf0;
-    color:#794c64;
-  }
-  body.page-trend #strategy .arrow-flow-grid .arrow-flow-stage:focus-visible,
-  body.page-trend #strategy .arrow-flow-mobile-controls button:focus-visible {
-    outline:3px solid #a56d8a !important;
-    outline-offset:2px;
-  }
-  body.page-trend #strategy .arrow-flow-grid > :is(.lane-stage,.lane-task).flow-current {
-    box-shadow:inset 0 0 0 2px #b6819c,0 5px 14px rgb(101 65 84 / 9%) !important;
-    filter:saturate(1.07);
-  }
-  body.page-trend #strategy .arrow-flow-grid > .lane-task.flow-follow {
-    z-index:1;
-  }
-  body.page-trend #strategy .arrow-flow-mobile-controls {
-    display:none;
-  }
-  @keyframes arrow-flow-hop {
-    from {
-      opacity:.52;
-      transform:translate3d(-13px,0,0);
-      box-shadow:inset 0 0 0 2px rgb(174 101 134 / 3%);
-    }
-    to {
-      opacity:1;
-      transform:none;
-      box-shadow:inset 0 0 0 2px rgb(174 101 134 / 34%);
-    }
-  }
-  @keyframes arrow-flow-soft-entry {
-    from {opacity:.68;transform:translate3d(-13px,0,0);}
-    to {opacity:1;transform:none;}
-  }
-}
-@media screen and (max-width:760px) {
-  body.page-trend #strategy .arrow-flow-mobile-controls {
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:8px;
-    margin:8px 0 12px;
-  }
-  body.page-trend #strategy .arrow-flow-mobile-controls button {
-    appearance:none;
-    min-height:44px;
-    border-radius:12px;
-    border:1px solid #d8beca;
-    background:#fff9fa;
-    color:#805c6e;
-    font-size:.77rem;
-    font-weight:760;
-    padding:8px;
-    cursor:pointer;
-  }
-  body.page-trend #strategy .arrow-flow-mobile-controls button[aria-pressed="true"] {
-    background:#f3dfe8;
-    border-color:#b98ba4;
-    color:#74415c;
-  }
 }
 @media screen and (max-width:670px) {
   body.page-trend #strategy .measure-flow-interactive .measure-flow-row {
@@ -2887,13 +2791,6 @@
     transform:none;
   }
 }
-@media screen and (prefers-reduced-motion:no-preference) {
-  body.page-trend #strategy .arrow-flow-grid.arrow-flow-entered > .lane-task.flow-follow,
-  body.page-trend #strategy .arrow-flow-grid.arrow-flow-entered > .lane-stage.flow-follow {
-    animation:arrow-flow-hop .54s cubic-bezier(.22,1,.36,1)
-      calc(var(--flow-hop,1) * .11s) both !important;
-  }
-}
 @media screen and (prefers-reduced-motion:reduce) {
   body.page-trend #experience .exp.exp-arrow-ready > .exp-method-reveal,
   body.page-trend #strategy .measure-flow-interactive .measure-flow-row > .editorial-measure-map__measures {
@@ -2909,8 +2806,7 @@
 }
 @media (prefers-reduced-motion:reduce),print {
   body.page-trend #experience .exp .exp-arrow-button,
-  body.page-trend #strategy .measure-flow-interactive .measure-flow-row > .editorial-measure-map__arrow,
-  body.page-trend #strategy .arrow-flow-grid > * {
+  body.page-trend #strategy .measure-flow-interactive .measure-flow-row > .editorial-measure-map__arrow {
     transform:none !important;
     transition:none !important;
     animation:none !important;
@@ -2927,7 +2823,6 @@
     transition:none !important;
     animation:none !important;
   }
-  body.page-trend #strategy .arrow-flow-mobile-controls {display:none !important;}
   body.page-trend #experience .exp .exp-arrow-button {display:none !important;}
   body.page-trend #experience .exp.exp-arrow-ready .exp-method-reveal > .exp-application {
     break-inside:avoid !important;
