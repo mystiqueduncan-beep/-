@@ -1317,3 +1317,267 @@
     document.addEventListener("DOMContentLoaded",init,{once:true});
   else init();
 })();
+
+
+/* DIRECTIONAL CONTENT REVEALS | 2026-11-23
+   Three source-grounded enhancements on the research page. All original
+   source text remains unchanged, in DOM order, readable without JavaScript
+   and fully visible when printed. */
+(() => {
+  "use strict";
+
+  function experienceReveal() {
+    const cards=[...document.querySelectorAll("#experience .experience > .exp.feature-card")];
+    if(cards.length!==3) return;
+    const nodes=cards.map((card,i)=>{
+      const arrow=card.querySelector(":scope > .exp-connector");
+      const content=card.querySelector(":scope > .exp-application");
+      const name=card.querySelector(":scope > b")?.textContent?.trim();
+      if(!arrow||!content||!name) return null;
+
+      const button=document.createElement("button");
+      button.type="button";
+      button.className="exp-connector exp-arrow-button";
+      button.setAttribute("aria-label",name+"：展開可延伸方法");
+      button.setAttribute("aria-expanded","false");
+      const icon=document.createElement("span");
+      icon.className="exp-arrow-glyph";
+      icon.textContent="↓";
+      icon.setAttribute("aria-hidden","true");
+      button.append(icon);
+
+      const detail=document.createElement("div");
+      detail.className="exp-method-reveal";
+      detail.id="exp-method-reveal-"+i;
+      detail.setAttribute("aria-hidden","true");
+      detail.inert=true;
+      button.setAttribute("aria-controls",detail.id);
+      arrow.replaceWith(button);
+      button.insertAdjacentElement("afterend",detail);
+      detail.append(content);
+      card.classList.add("exp-arrow-ready");
+      return {card,button,detail,name};
+    });
+    if(nodes.some(node=>!node)) return;
+    let current=-1;
+    const select=index=>{
+      current=current===index?-1:index;
+      nodes.forEach(({card,button,detail,name},i)=>{
+        const opened=i===current;
+        card.classList.toggle("exp-method-open",opened);
+        button.setAttribute("aria-expanded",String(opened));
+        button.setAttribute("aria-label",name+"："+(opened?"收合":"展開")+"可延伸方法");
+        detail.setAttribute("aria-hidden",String(!opened));
+        detail.inert=!opened;
+      });
+    };
+    nodes.forEach(({button},i)=>button.addEventListener("click",()=>select(i)));
+  }
+
+  function measuresReveal() {
+    // The existing generated diagram uses the six original strategy cards,
+    // preserving their exact management guardrails and tracking definitions.
+    const root=document.querySelector("#strategy .editorial-measure-map");
+    const rows=[...(root?.querySelectorAll(".editorial-measure-map__list > .editorial-measure-map__row")||[])];
+    if(rows.length!==6) return;
+    const interactive=rows.map((row,i)=>{
+      const action=row.querySelector(":scope > .editorial-measure-map__action");
+      const detail=row.querySelector(":scope > .editorial-measure-map__measures");
+      if(!action||!detail||!action.querySelector("strong")) return null;
+      const title=action.querySelector("strong").textContent.trim();
+      const button=document.createElement("button");
+      button.type="button";
+      button.className="measure-reveal-trigger";
+      button.setAttribute("aria-label",title+"：展開追蹤指標");
+      button.setAttribute("aria-expanded","false");
+      detail.id="measure-flow-detail-"+i;
+      button.setAttribute("aria-controls",detail.id);
+      while(action.firstChild) button.append(action.firstChild);
+      action.append(button);
+      detail.setAttribute("aria-hidden","true");
+      detail.inert=true;
+      row.classList.add("measure-flow-row");
+      return {row,button,detail,title};
+    });
+    if(interactive.some(item=>!item)) return;
+    root.classList.add("measure-flow-interactive");
+    const hoverSupported=window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    let selected=-1;
+    const activate=index=>{
+      selected=selected===index?-1:index;
+      interactive.forEach(({row,button,detail,title},i)=>{
+        const active=i===selected;
+        row.classList.toggle("measure-flow-open",active);
+        button.setAttribute("aria-expanded",String(active));
+        button.setAttribute("aria-label",title+"："+(active?"收合":"展開")+"追蹤指標");
+        detail.setAttribute("aria-hidden",String(!active));
+        detail.inert=!active;
+      });
+    };
+    interactive.forEach(({row,button},i)=>{
+      button.addEventListener("click",()=>activate(i));
+      if(hoverSupported){
+        row.addEventListener("pointerenter",()=>row.classList.add("measure-flow-preview"));
+        row.addEventListener("pointerleave",()=>row.classList.remove("measure-flow-preview"));
+      }
+    });
+    // If the existing Local/HQ filter hides the pinned row, reset its
+    // expansion without changing the filter's established behavior.
+    document.querySelectorAll("#strategy [data-filter]").forEach(button=>{
+      button.addEventListener("click",()=>{
+        requestAnimationFrame(()=>{
+          if(selected!==-1 && interactive[selected].row.hidden) activate(selected);
+        });
+      });
+    });
+    if("IntersectionObserver" in window) {
+      const observer=new IntersectionObserver(entries=>{
+        if(entries.some(e=>e.isIntersecting)){
+          root.classList.add("measure-flow-arrived");
+          observer.disconnect();
+        }
+      },{threshold:.1});
+      observer.observe(root);
+    } else root.classList.add("measure-flow-arrived");
+  }
+
+  function swimlaneReveal() {
+    const grid=document.querySelector("#strategy .swimlane-panel .swim-grid");
+    const scroll=grid?.closest(".swim-scroll");
+    const cells=[...(grid?.children||[])];
+    if(!scroll || cells.length!==20) return;
+    const headers=cells.slice(1,5);
+    if(headers.some(h=>!h.matches(".lane-stage")))return;
+    grid.classList.add("arrow-flow-grid");
+    const reduced=window.matchMedia("(prefers-reduced-motion: reduce)");
+    const hoverFine=window.matchMedia("(hover: hover) and (pointer: fine)");
+    const stageNames=headers.map(x=>x.textContent.trim());
+    const buttons=headers.map((heading,i)=>{
+      const button=document.createElement("button");
+      button.type="button";
+      button.className="arrow-flow-stage";
+      button.textContent=stageNames[i];
+      button.setAttribute("aria-pressed","false");
+      button.dataset.flowStage=String(i+1);
+      heading.textContent="";
+      heading.append(button);
+      return button;
+    });
+    const mobileControls=document.createElement("div");
+    mobileControls.className="arrow-flow-mobile-controls";
+    mobileControls.setAttribute("role","group");
+    mobileControls.setAttribute("aria-label","跨店執行：選擇流程階段");
+    const mobileButtons=stageNames.map((label,i)=>{
+      const button=document.createElement("button");
+      button.type="button";
+      button.textContent=label;
+      button.dataset.flowStage=String(i+1);
+      button.setAttribute("aria-pressed","false");
+      mobileControls.append(button);
+      return button;
+    });
+    scroll.insertAdjacentElement("beforebegin",mobileControls);
+    let pinned=1;
+    const paint=(stage,commit=false)=>{
+      if(commit) pinned=stage;
+      grid.dataset.flowStage=String(stage);
+      [...buttons,...mobileButtons].forEach(btn=>{
+        btn.setAttribute("aria-pressed",String(Number(btn.dataset.flowStage)===pinned));
+      });
+      cells.forEach((cell,i)=>{
+        const column=i%5;
+        cell.style.setProperty("--flow-hop",String(Math.max(column-stage,0)));
+        cell.classList.remove("flow-current","flow-follow");
+        if(column===stage && cell.matches(".lane-task,.lane-stage")) cell.classList.add("flow-current");
+      });
+      // Restart a short, directional trail only on a genuine stage change.
+      void grid.offsetWidth;
+      cells.forEach((cell,i)=>{
+        const column=i%5;
+        if(column>stage && cell.matches(".lane-task,.lane-stage")) cell.classList.add("flow-follow");
+      });
+    };
+    const scrollToStage=stage=>{
+      const heading=headers[stage-1].getBoundingClientRect();
+      const viewport=scroll.getBoundingClientRect();
+      scroll.scrollTo({
+        left:Math.max(0,scroll.scrollLeft+heading.left-viewport.left-20),
+        behavior:reduced.matches?"auto":"smooth"
+      });
+    };
+    const handleStage=(buttons,moveOnClick)=>{
+      buttons.forEach((button,i)=>{
+        const stage=i+1;
+        button.addEventListener("click",()=>{
+          paint(stage,true);
+          if(moveOnClick) scrollToStage(stage);
+        });
+        button.addEventListener("keydown",event=>{
+          let next=null;
+          if(event.key==="ArrowRight"||event.key==="ArrowDown")next=(i+1)%4;
+          if(event.key==="ArrowLeft"||event.key==="ArrowUp")next=(i+3)%4;
+          if(event.key==="Home")next=0;
+          if(event.key==="End")next=3;
+          if(next===null)return;
+          event.preventDefault();
+          buttons[next].focus();
+          paint(next+1,true);
+          if(moveOnClick) scrollToStage(next+1);
+        });
+      });
+    };
+    handleStage(buttons,false);
+    handleStage(mobileButtons,true);
+
+    grid.addEventListener("pointerover",event=>{
+      if(!hoverFine.matches || event.pointerType==="touch")return;
+      const cell=event.target.closest(".lane-task,.lane-stage");
+      if(!cell || !grid.contains(cell))return;
+      const stage=cells.indexOf(cell)%5;
+      if(stage>0 && Number(grid.dataset.flowStage)!==stage)paint(stage);
+    });
+    grid.addEventListener("pointerleave",()=>{
+      if(hoverFine.matches && Number(grid.dataset.flowStage)!==pinned)paint(pinned);
+    });
+    grid.addEventListener("focusin",event=>{
+      const cell=event.target.closest(".lane-task,.lane-stage");
+      if(!cell || !grid.contains(cell))return;
+      const stage=cells.indexOf(cell)%5;
+      if(stage>0)paint(stage);
+    });
+    grid.addEventListener("focusout",event=>{
+      if(!grid.contains(event.relatedTarget))paint(pinned);
+    });
+    paint(1,true);
+
+    // The first reveal is a gentle sequence that starts when the actual
+    // flow enters the viewport. All text is visible without JS and in print.
+    const entrance=()=>{
+      grid.classList.add("arrow-flow-entered");
+      observer?.disconnect();
+    };
+    let observer;
+    if(!reduced.matches && "IntersectionObserver" in window){
+      try{
+        observer=new IntersectionObserver(entries=>{
+          if(entries.some(e=>e.isIntersecting))entrance();
+        },{threshold:.1});
+        observer.observe(grid);
+        const box=grid.getBoundingClientRect();
+        if(box.top<innerHeight*.85 && box.bottom>0)entrance();
+      }catch(_){entrance();}
+    }else entrance();
+    window.addEventListener("beforeprint",entrance);
+    reduced.addEventListener?.("change",event=>{if(event.matches)entrance();});
+  }
+
+  function init() {
+    if(!document.body?.classList.contains("page-trend"))return;
+    experienceReveal();
+    measuresReveal();
+    swimlaneReveal();
+  }
+  if(document.readyState==="loading")
+    document.addEventListener("DOMContentLoaded",init,{once:true});
+  else init();
+})();

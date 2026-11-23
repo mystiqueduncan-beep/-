@@ -72,18 +72,25 @@ with sync_playwright() as p:
 
         if "trend" in name:
             methods = page.locator("#experience .exp .exp-application")
-            assert methods.count() == 3, name
-            for method in methods.all():
-                method.evaluate('(el)=>el.scrollIntoView({block:"center",behavior:"instant"})')
-                page.wait_for_timeout(1100)
-                assert method.evaluate('(el)=>el.classList.contains("exp-method-in")'), name
+            arrows = page.locator("#experience .exp .exp-arrow-button")
+            assert methods.count() == arrows.count() == 3, name
+            for index, method in enumerate(methods.all()):
+                arrow = arrows.nth(index)
+                arrow.scroll_into_view_if_needed()
+                arrow.click()
+                assert arrow.get_attribute("aria-expanded") == "true", name
+                method.wait_for(state="visible")
+                page.wait_for_timeout(400)
                 assert method.evaluate('(el)=>getComputedStyle(el).opacity') == "1", name
                 assert method.evaluate('(el)=>new DOMMatrix(getComputedStyle(el).transform).m42') == 0, name
+                arrow.click()
+                assert arrow.get_attribute("aria-expanded") == "false", name
+                assert method.evaluate('(el)=>el.textContent.trim().length > 15'), name
             page.emulate_media(reduced_motion="reduce")
-            assert all(
-                method.evaluate('(el)=>getComputedStyle(el).opacity') == "1"
-                for method in methods.all()
-            ), name
+            arrows.first.click()
+            assert arrows.first.get_attribute("aria-expanded") == "true", name
+            assert methods.first.evaluate('(el)=>getComputedStyle(el).opacity') == "1", name
+            assert methods.first.evaluate('(el)=>getComputedStyle(el).transitionDuration.split(",").every(x=>parseFloat(x)===0)'), name
         page.close()
 
     for name in ("contact", "mobile-contact"):

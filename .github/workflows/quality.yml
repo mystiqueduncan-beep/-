@@ -61,6 +61,8 @@ jobs:
         run: python3 _qa/roadmap_interactions.py
       - name: Research visual grammar, source preservation, keyboard and print
         run: python3 _qa/research_visual_system.py
+      - name: Directional arrow reveals, source guardrails and reduced-motion
+        run: python3 _qa/research_arrow_reveals.py
       - name: Responsive layouts, keyboard controls and axe
         run: python3 _qa/browser_audit.py --out /tmp/browser-audit --axe node_modules/axe-core/axe.min.js
       - name: Chapter highlights, experience slide and contact-action layout
