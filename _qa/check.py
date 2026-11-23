@@ -235,6 +235,16 @@ for rel,old in base.items():
  if rel in ('trend.html','mobile-trend.html'):
   expanded={'trend.html':'d60da7997cd4006d0fc0ecc7f6bcd2f27b7a7535','mobile-trend.html':'690cdb35197be801371212c303776c1865ddcf26'}
   raw=f.read_bytes()
+  # Presentation-only AI guide: exclude exactly the new static asset tags
+  # from the immutable research publication digest, never the report body.
+  ai_widget_head = (
+   b'\n  <link rel="stylesheet" href="assets/ai-assistant.css?v=20261123-guide">\n'
+   b'  <script src="assets/ai-assistant.js?v=20261123-guide" defer></script>\n'
+  )
+  if raw.count(ai_widget_head) != 1:
+   errors.append(rel + ": expected one approved static AI guide asset pair")
+  else:
+   raw = raw.replace(ai_widget_head, b"", 1)
   if rel=='mobile-trend.html':raw=restore_mobile_research_source(raw)
   # The user-approved inline-chart publication is pinned byte-for-byte.
   versioned=b'src="assets/trend-marquee.js?v=20261119-chapter-lock"'

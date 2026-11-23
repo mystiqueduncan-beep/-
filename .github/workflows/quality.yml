@@ -23,6 +23,7 @@ jobs:
         run: python3 _qa/resource_security.py
       - name: JavaScript syntax
         run: |
+          node --check assets/ai-assistant.js
           node --check assets/contact.js
           node --check assets/trend-marquee.js
           node --check assets/regional-analysis.js
@@ -49,6 +50,8 @@ jobs:
           python3 -m pip install playwright==1.51.0
           python3 -m playwright install --with-deps chromium
           npm install --no-save --package-lock=false axe-core@4.10.3
+      - name: Portfolio AI chat interactions, routing and responsive access
+        run: python3 _qa/ai-assistant_browser.py
       - name: One-time section and contact reveals
         run: python3 _qa/section_reveal_audit.py
       - name: Cross-page research CTA frame, reveal, glow, and accessibility
