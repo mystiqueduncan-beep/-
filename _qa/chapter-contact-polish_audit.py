@@ -81,7 +81,7 @@ with sync_playwright() as p:
                 card.scroll_into_view_if_needed()
                 page.wait_for_function(
                     "(i) => document.querySelectorAll('#experience .exp')[i].classList.contains('exp-story-visible')",
-                    i
+                    arg=i
                 )
                 page.wait_for_timeout(1000)
                 assert methods.nth(i).is_visible(), (name,i)
