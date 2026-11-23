@@ -1137,3 +1137,183 @@
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});
   else init();
 })();
+
+
+/* INTERACTIVE RESEARCH EDITORIAL | 2026-11-23
+   Progressive enhancement only: original sourced prose remains in the
+   same DOM order; no fabricated values, duplicate summary copy or modals. */
+(() => {
+  "use strict";
+  function init() {
+    if (!document.body?.classList.contains("page-trend")) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const labelText = el => (el?.textContent || "").replace(/\s+/g, " ").trim();
+    const compare = (section, phrase, count) => {
+      const host = [...document.querySelectorAll("#" + section + " .viz-comparison")]
+        .find(el => labelText(el.querySelector(":scope > .viz-caption")).includes(phrase));
+      if (!host) return null;
+      const rows = [...host.querySelectorAll(":scope > .compare-row")];
+      return rows.length === count && rows.every(el => el.children.length === 3)
+        ? { host, rows } : null;
+    };
+    const reveal = (host, nodes) => {
+      if (!host || !nodes.length || reduced.matches || !("IntersectionObserver" in window)) return;
+      const rect = host.getBoundingClientRect();
+      if (rect.top < innerHeight * .88 && rect.bottom > 0) return;
+      let observer;
+      try {
+        host.classList.add("mag-reveal-pending");
+        nodes.forEach((node, i) => node.style.setProperty("--mag-order", String(i)));
+        observer = new IntersectionObserver(entries => {
+          if (!entries.some(e => e.isIntersecting)) return;
+          host.classList.add("mag-revealed");
+          observer.disconnect();
+        }, {threshold: .07, rootMargin: "0px 0px -5% 0px"});
+        observer.observe(host);
+        const immediate = () => {
+          host.classList.add("mag-revealed");
+          observer.disconnect();
+        };
+        window.addEventListener("beforeprint", immediate, {once:true});
+        reduced.addEventListener?.("change", event => { if (event.matches) immediate(); });
+        document.addEventListener("focusin", event => {
+          if (host.contains(event.target)) immediate();
+        });
+      } catch (_) {
+        host.classList.remove("mag-reveal-pending");
+        observer?.disconnect();
+      }
+    };
+    const focusable = (nodes) => nodes.forEach(el => {
+      // Display-only ARTICLE elements already have native semantics.
+      // Do not invent ARIA roles or extra keyboard tab stops for them.
+      if (el.tagName === "ARTICLE") return;
+      el.setAttribute("tabindex", "0");
+      el.setAttribute("role", "group");
+    });
+
+    // Strategy logic: original three cells remain one step-to-step row.
+    const market = compare("market", "實體優勢 × 經營挑戰", 4);
+    if (market) {
+      market.host.classList.add("mag-strategy-flow");
+      focusable(market.rows);
+      reveal(market.host, market.rows);
+    }
+
+    // SWOT is a matrix, not another table or an invented scoring diagram.
+    const swot = [...document.querySelectorAll("#competition .viz-comparison")]
+      .find(el => labelText(el.querySelector(":scope > .viz-caption")).includes("SWOT"));
+    const swotCards = [...(swot?.querySelectorAll(":scope > .cards-2x2-grid > .feature-card") || [])];
+    if (swotCards.length === 4) {
+      swot.classList.add("mag-swot");
+      focusable(swotCards);
+      reveal(swot, swotCards);
+    }
+
+    // All five original customer journey stages become linked steps.
+    const customer = compare("consumer", "購買決策", 5);
+    if (customer) {
+      customer.host.classList.add("mag-customer-journey");
+      focusable(customer.rows);
+      reveal(customer.host, customer.rows);
+    }
+
+    // Four existing store-type cards are selection controls. The original
+    // observations are always shown; only the management-response field
+    // is expanded for the selected type, without a duplicate detail panel.
+    const trade = compare("location", "四種店型假設", 4);
+    if (trade) {
+      trade.host.classList.add("mag-trade-selector");
+      const rows=trade.rows;
+      let active=0;
+      const select = index => {
+        active=index;
+        rows.forEach((row, i) => {
+          const current=i===active;
+          row.classList.toggle("mag-selected", current);
+          row.setAttribute("aria-expanded", String(current));
+        });
+      };
+      rows.forEach((row,i)=>{
+        row.setAttribute("role","button");
+        row.setAttribute("tabindex","0");
+        row.setAttribute("aria-controls","mag-trade-response-"+i);
+        row.children[2].id="mag-trade-response-"+i;
+        row.classList.add("mag-trade-choice");
+        row.addEventListener("click",()=>select(i));
+        row.addEventListener("keydown",event=>{
+          const key=event.key;
+          if(key==="Enter"||key===" "){event.preventDefault();select(i);return;}
+          const delta=key==="ArrowRight"||key==="ArrowDown"?1:
+            key==="ArrowLeft"||key==="ArrowUp"?-1:0;
+          if(delta||key==="Home"||key==="End"){
+            event.preventDefault();
+            const target=key==="Home"?0:key==="End"?rows.length-1:
+              (i+delta+rows.length)%rows.length;
+            select(target);rows[target].focus();
+          }
+        });
+      });
+      select(0);
+      reveal(trade.host, rows);
+    }
+
+    // The three rollout stages are a horizontal pathway on desktop,
+    // a vertical sequence on phones. No inferred milestone percentages.
+    const digital = compare("digital", "導入流程", 3);
+    if (digital) {
+      digital.host.classList.add("mag-digital-steps");
+      focusable(digital.rows);
+      reveal(digital.host, digital.rows);
+    }
+
+    const people = document.querySelector("#people .cards-2x2-grid");
+    const peopleCards=[...(people?.querySelectorAll(":scope > .feature-card")||[])];
+    if (peopleCards.length===4) {
+      people.classList.add("mag-people-methods");
+      focusable(peopleCards);
+      reveal(people, peopleCards);
+    }
+
+    const strategies=document.querySelector("#strategy .strategies");
+    const tasks=[...(strategies?.querySelectorAll(":scope > .strategy")||[])];
+    if (tasks.length===6) {
+      strategies.classList.add("mag-strategy-board");
+      focusable(tasks);
+      // Existing ownership filters and hidden states remain authoritative.
+    }
+
+    const grid=document.querySelector("#strategy .swim-grid");
+    const swimCells=[...(grid?.children||[])];
+    if (swimCells.length===20) {
+      grid.classList.add("mag-lane-focus");
+      swimCells.forEach((cell,i)=>{
+        const col=i%5;
+        if(!col) return;
+        cell.addEventListener("pointerenter",()=>grid.dataset.activeColumn=String(col));
+        cell.addEventListener("pointerleave",()=>delete grid.dataset.activeColumn);
+        if(cell.classList.contains("lane-task")){
+          cell.tabIndex=0;
+          cell.addEventListener("focus",()=>grid.dataset.activeColumn=String(col));
+          cell.addEventListener("blur",()=>delete grid.dataset.activeColumn);
+        }
+      });
+    }
+
+    const metrics=document.querySelector("#metrics .metric-grid");
+    const tiles=[...(metrics?.querySelectorAll(":scope > .metric-tile")||[])];
+    if(tiles.length===6) {
+      metrics.classList.add("mag-metric-pairs");
+      focusable(tiles);
+    }
+    const decisions=document.querySelector("#metrics .decision-map");
+    if(decisions) {
+      decisions.classList.add("mag-branching");
+      focusable([...decisions.querySelectorAll(".decision-question,.decision-result")]);
+    }
+    document.querySelector("#roadmap .timeline-control")?.classList.add("mag-roadmap-tabs");
+  }
+  if (document.readyState==="loading")
+    document.addEventListener("DOMContentLoaded",init,{once:true});
+  else init();
+})();
