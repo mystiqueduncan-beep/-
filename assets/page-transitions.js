@@ -1283,23 +1283,6 @@
       // Existing ownership filters and hidden states remain authoritative.
     }
 
-    const grid=document.querySelector("#strategy .swim-grid");
-    const swimCells=[...(grid?.children||[])];
-    if (swimCells.length===20) {
-      grid.classList.add("mag-lane-focus");
-      swimCells.forEach((cell,i)=>{
-        const col=i%5;
-        if(!col) return;
-        cell.addEventListener("pointerenter",()=>grid.dataset.activeColumn=String(col));
-        cell.addEventListener("pointerleave",()=>delete grid.dataset.activeColumn);
-        if(cell.classList.contains("lane-task")){
-          cell.tabIndex=0;
-          cell.addEventListener("focus",()=>grid.dataset.activeColumn=String(col));
-          cell.addEventListener("blur",()=>delete grid.dataset.activeColumn);
-        }
-      });
-    }
-
     const metrics=document.querySelector("#metrics .metric-grid");
     const tiles=[...(metrics?.querySelectorAll(":scope > .metric-tile")||[])];
     if(tiles.length===6) {
@@ -1441,141 +1424,10 @@
     } else root.classList.add("measure-flow-arrived");
   }
 
-  function swimlaneReveal() {
-    const grid=document.querySelector("#strategy .swimlane-panel .swim-grid");
-    const scroll=grid?.closest(".swim-scroll");
-    const cells=[...(grid?.children||[])];
-    if(!scroll || cells.length!==20) return;
-    const headers=cells.slice(1,5);
-    if(headers.some(h=>!h.matches(".lane-stage")))return;
-    grid.classList.add("arrow-flow-grid");
-    const reduced=window.matchMedia("(prefers-reduced-motion: reduce)");
-    const hoverFine=window.matchMedia("(hover: hover) and (pointer: fine)");
-    const stageNames=headers.map(x=>x.textContent.trim());
-    const buttons=headers.map((heading,i)=>{
-      const button=document.createElement("button");
-      button.type="button";
-      button.className="arrow-flow-stage";
-      button.textContent=stageNames[i];
-      button.setAttribute("aria-pressed","false");
-      button.dataset.flowStage=String(i+1);
-      heading.textContent="";
-      heading.append(button);
-      return button;
-    });
-    const mobileControls=document.createElement("div");
-    mobileControls.className="arrow-flow-mobile-controls";
-    mobileControls.setAttribute("role","group");
-    mobileControls.setAttribute("aria-label","跨店執行：選擇流程階段");
-    const mobileButtons=stageNames.map((label,i)=>{
-      const button=document.createElement("button");
-      button.type="button";
-      button.textContent=label;
-      button.dataset.flowStage=String(i+1);
-      button.setAttribute("aria-pressed","false");
-      mobileControls.append(button);
-      return button;
-    });
-    scroll.insertAdjacentElement("beforebegin",mobileControls);
-    let pinned=1;
-    const paint=(stage,commit=false)=>{
-      if(commit) pinned=stage;
-      grid.dataset.flowStage=String(stage);
-      [...buttons,...mobileButtons].forEach(btn=>{
-        btn.setAttribute("aria-pressed",String(Number(btn.dataset.flowStage)===pinned));
-      });
-      cells.forEach((cell,i)=>{
-        const column=i%5;
-        cell.style.setProperty("--flow-hop",String(Math.max(column-stage,0)));
-        cell.classList.remove("flow-current","flow-follow");
-        if(column===stage && cell.matches(".lane-task,.lane-stage")) cell.classList.add("flow-current");
-      });
-      // Restart a short, directional trail only on a genuine stage change.
-      void grid.offsetWidth;
-      cells.forEach((cell,i)=>{
-        const column=i%5;
-        if(column>stage && cell.matches(".lane-task,.lane-stage")) cell.classList.add("flow-follow");
-      });
-    };
-    const scrollToStage=stage=>{
-      const heading=headers[stage-1].getBoundingClientRect();
-      const viewport=scroll.getBoundingClientRect();
-      scroll.scrollTo({
-        left:Math.max(0,scroll.scrollLeft+heading.left-viewport.left-20),
-        behavior:reduced.matches?"auto":"smooth"
-      });
-    };
-    const handleStage=(buttons,moveOnClick)=>{
-      buttons.forEach((button,i)=>{
-        const stage=i+1;
-        button.addEventListener("click",()=>{
-          paint(stage,true);
-          if(moveOnClick) scrollToStage(stage);
-        });
-        button.addEventListener("keydown",event=>{
-          let next=null;
-          if(event.key==="ArrowRight"||event.key==="ArrowDown")next=(i+1)%4;
-          if(event.key==="ArrowLeft"||event.key==="ArrowUp")next=(i+3)%4;
-          if(event.key==="Home")next=0;
-          if(event.key==="End")next=3;
-          if(next===null)return;
-          event.preventDefault();
-          buttons[next].focus();
-          paint(next+1,true);
-          if(moveOnClick) scrollToStage(next+1);
-        });
-      });
-    };
-    handleStage(buttons,false);
-    handleStage(mobileButtons,true);
-
-    grid.addEventListener("pointerover",event=>{
-      if(!hoverFine.matches || event.pointerType==="touch")return;
-      const cell=event.target.closest(".lane-task,.lane-stage");
-      if(!cell || !grid.contains(cell))return;
-      const stage=cells.indexOf(cell)%5;
-      if(stage>0 && Number(grid.dataset.flowStage)!==stage)paint(stage);
-    });
-    grid.addEventListener("pointerleave",()=>{
-      if(hoverFine.matches && Number(grid.dataset.flowStage)!==pinned)paint(pinned);
-    });
-    grid.addEventListener("focusin",event=>{
-      const cell=event.target.closest(".lane-task,.lane-stage");
-      if(!cell || !grid.contains(cell))return;
-      const stage=cells.indexOf(cell)%5;
-      if(stage>0)paint(stage);
-    });
-    grid.addEventListener("focusout",event=>{
-      if(!grid.contains(event.relatedTarget))paint(pinned);
-    });
-    paint(1,true);
-
-    // The first reveal is a gentle sequence that starts when the actual
-    // flow enters the viewport. All text is visible without JS and in print.
-    const entrance=()=>{
-      grid.classList.add("arrow-flow-entered");
-      observer?.disconnect();
-    };
-    let observer;
-    if(!reduced.matches && "IntersectionObserver" in window){
-      try{
-        observer=new IntersectionObserver(entries=>{
-          if(entries.some(e=>e.isIntersecting))entrance();
-        },{threshold:.1});
-        observer.observe(grid);
-        const box=grid.getBoundingClientRect();
-        if(box.top<innerHeight*.85 && box.bottom>0)entrance();
-      }catch(_){entrance();}
-    }else entrance();
-    window.addEventListener("beforeprint",entrance);
-    reduced.addEventListener?.("change",event=>{if(event.matches)entrance();});
-  }
-
   function init() {
     if(!document.body?.classList.contains("page-trend"))return;
     experienceReveal();
     measuresReveal();
-    swimlaneReveal();
   }
   if(document.readyState==="loading")
     document.addEventListener("DOMContentLoaded",init,{once:true});
