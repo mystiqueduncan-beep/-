@@ -2337,12 +2337,6 @@
     background:#fbeaf2;
     color:#79465f !important;
   }
-  @media print {
-    body.page-trend #location .editorial-trade-diagram.mag-trade-selector > .mag-trade-choice > .mag-trade-hint {
-      display:none !important;
-    }
-  }
-
   /* 5. Digital rollout as a three-stage operational process. */
   body.page-trend #digital .mag-digital-steps {
     display:grid !important;
@@ -2862,5 +2856,12 @@
   body.page-trend #strategy .measure-flow-interactive .measure-flow-row > .editorial-measure-map__measures {
     overflow:visible !important;
     pointer-events:auto !important;
+  }
+}
+
+/* Printed research is an informational document, not an interactive card. */
+@media print {
+  body.page-trend #location .editorial-trade-diagram.mag-trade-selector > .mag-trade-choice > .mag-trade-hint {
+    display:none !important;
   }
 }
