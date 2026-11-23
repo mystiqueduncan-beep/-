@@ -66,24 +66,46 @@ def test_view(browser, base, filename, width):
         assert len(columns.split())==5,(filename,"journey desktop",columns)
 
     store=page.locator("#location .mag-trade-selector > .mag-trade-choice")
+    hints=store.locator(":scope > .mag-trade-hint")
+    assert hints.count()==4,(filename,"missing trade directions")
     assert store.first.get_attribute("aria-expanded")=="true"
     assert store.nth(1).get_attribute("aria-expanded")=="false"
+    assert hints.first.inner_text()=="點擊－收合營運方向"
+    assert hints.nth(1).inner_text()=="點擊＋查看營運方向"
+    for card in store.all():
+        assert card.locator(":scope > .mag-trade-hint").is_visible()
+        assert card.evaluate("""el => {
+          const a=el.getBoundingClientRect();
+          const b=el.querySelector('.mag-trade-hint').getBoundingClientRect();
+          return b.left>=a.left-1 && b.right<=a.right+1 && b.bottom<=a.bottom+1;
+        }"""),(filename,width,"hint overflows card")
     store.nth(1).click()
     assert store.nth(1).get_attribute("aria-expanded")=="true"
+    assert hints.nth(1).inner_text()=="點擊－收合營運方向"
     assert store.first.get_attribute("aria-expanded")=="false"
+    assert hints.first.inner_text()=="點擊＋查看營運方向"
     assert store.nth(1).locator("strong").is_visible()
     assert not store.first.locator("strong").is_visible()
+    store.nth(1).click()
+    assert store.nth(1).get_attribute("aria-expanded")=="false"
+    assert hints.nth(1).inner_text()=="點擊＋查看營運方向"
+    assert not store.nth(1).locator("strong").is_visible()
     store.nth(1).focus()
     store.nth(1).press("ArrowRight")
     assert store.nth(2).get_attribute("aria-expanded")=="true"
     assert store.nth(2).evaluate("(el) => document.activeElement===el")
     assert store.nth(2).locator("strong").is_visible()
+    assert hints.nth(2).inner_text()=="點擊－收合營運方向"
     assert store.nth(2).get_attribute("aria-controls") == store.nth(2).locator("strong").get_attribute("id")
+    store.nth(2).press("Enter")
+    assert store.nth(2).get_attribute("aria-expanded")=="false"
+    assert hints.nth(2).inner_text()=="點擊＋查看營運方向"
 
     assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 2"), (filename,width,"horizontal overflow")
     page.emulate_media(media="print")
     for card in store.all():
         assert card.locator("strong").is_visible(),(filename,"print hides original response")
+        assert not card.locator(":scope > .mag-trade-hint").is_visible(),(filename,"print displays click hint")
     page.emulate_media(media="screen",reduced_motion="reduce")
     animation=page.locator("#market .mag-strategy-flow > .compare-row").first.evaluate(
         "(el) => getComputedStyle(el).animationName")
