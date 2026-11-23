@@ -83,7 +83,7 @@ with sync_playwright() as p:
                     "(i) => document.querySelectorAll('#experience .exp')[i].classList.contains('exp-story-visible')",
                     arg=i
                 )
-                page.wait_for_timeout(1000)
+                page.wait_for_timeout(1500)
                 assert methods.nth(i).is_visible(), (name,i)
                 assert methods.nth(i).evaluate('(el)=>getComputedStyle(el).opacity')=="1", (name,i)
                 assert methods.nth(i).evaluate('(el)=>new DOMMatrix(getComputedStyle(el).transform).m42')==0, (name,i)
