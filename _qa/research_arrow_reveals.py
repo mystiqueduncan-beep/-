@@ -51,7 +51,8 @@ def run(browser,base,name,width):
         assert not row.locator(":scope > .editorial-measure-map__measures").evaluate(
             "el => el.inert || el.getAttribute('aria-hidden')==='true'")
     # All six source-defined arrow/indicator pairs stay visible.
-    page.wait_for_timeout(1200)
+    # Final sixth-row delay plus animation duration must be fully complete.
+    page.wait_for_timeout(1900)
     for i in range(6):
         row=rows.nth(i)
         measure=row.locator(":scope > .editorial-measure-map__measures")
