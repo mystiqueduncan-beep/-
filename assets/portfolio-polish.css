@@ -2045,3 +2045,560 @@
     animation:none !important;
   }
 }
+
+
+/* RESEARCH VISUAL SYSTEM | 2026-11-23
+   Distinct visual grammar for relationships, matrices, journeys, store types,
+   execution, metrics. Progressive enhancement of source-grounded original DOM.
+   Strictly scoped to the research page; never affects resume or contact. */
+@media screen {
+  body.page-trend .mag-strategy-flow,
+  body.page-trend .mag-customer-journey,
+  body.page-trend .mag-digital-steps,
+  body.page-trend .mag-swot {
+    --mag-rose:#b47d97;
+    --mag-cream:#f7eacb;
+    --mag-sage:#dcebe0;
+    --mag-ink:#604454;
+  }
+  body.page-trend :is(
+    .mag-strategy-flow > .compare-row,
+    .mag-customer-journey > .compare-row,
+    .mag-digital-steps > .compare-row,
+    .mag-people-methods > .feature-card,
+    .mag-swot .feature-card,
+    .mag-trade-selector > .compare-row
+  ):focus-visible {
+    outline:3px solid #9a5878 !important;
+    outline-offset:3px;
+  }
+
+  /* 1. Advantages -> operational challenge -> managerial action.
+     Four source rows read as four distinct connected horizontal pathways. */
+  body.page-trend #market .mag-strategy-flow {
+    display:flex !important;
+    flex-direction:column;
+    gap:13px;
+    padding:clamp(16px,2.6vw,28px) !important;
+    border-radius:22px !important;
+    background:linear-gradient(155deg,#fffbf9,#f9f1f5) !important;
+  }
+  body.page-trend #market .mag-strategy-flow > .compare-head {display:none !important;}
+  body.page-trend #market .mag-strategy-flow > .compare-row {
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.25fr) !important;
+    gap:20px !important;
+    align-items:stretch !important;
+    margin:0 !important;
+    padding:0 !important;
+    border:0 !important;
+    border-radius:15px !important;
+    background:transparent !important;
+    min-width:0;
+    cursor:default;
+    transition:transform .28s ease,filter .28s ease !important;
+  }
+  body.page-trend #market .mag-strategy-flow > .compare-row > * {
+    position:relative;
+    display:flex !important;
+    flex-direction:column;
+    justify-content:center;
+    gap:8px;
+    min-width:0;
+    padding:35px 16px 15px !important;
+    border:1px solid #e5cfda !important;
+    border-radius:15px !important;
+    color:#664b5a !important;
+    font-size:clamp(.82rem,1.15vw,.96rem) !important;
+    line-height:1.65 !important;
+    overflow-wrap:anywhere;
+    box-shadow:0 4px 13px rgb(93 56 75 / 4%);
+  }
+  body.page-trend #market .mag-strategy-flow > .compare-row > :first-child {
+    background:#f6ebf1 !important;
+    font-weight:750 !important;
+  }
+  body.page-trend #market .mag-strategy-flow > .compare-row > :nth-child(2) {
+    background:#fff6e5 !important;
+  }
+  body.page-trend #market .mag-strategy-flow > .compare-row > :nth-child(3) {
+    background:#edf6f0 !important;
+    font-weight:730 !important;
+  }
+  body.page-trend #market .mag-strategy-flow > .compare-row > :first-child::before,
+  body.page-trend #market .mag-strategy-flow > .compare-row > :nth-child(2)::before,
+  body.page-trend #market .mag-strategy-flow > .compare-row > :nth-child(3)::before {
+    position:absolute;
+    left:16px;
+    top:10px;
+    font-size:.69rem;
+    letter-spacing:.045em;
+    font-weight:850;
+    color:#815e70;
+    text-transform:none;
+  }
+  body.page-trend #market .mag-strategy-flow > .compare-row > :first-child::before {content:"01 ／ 可發揮的優勢";}
+  body.page-trend #market .mag-strategy-flow > .compare-row > :nth-child(2)::before {content:"02 ／ 經營挑戰";}
+  body.page-trend #market .mag-strategy-flow > .compare-row > :nth-child(3)::before {content:"03 ／ 改善落點";}
+  body.page-trend #market .mag-strategy-flow > .compare-row > :first-child::after,
+  body.page-trend #market .mag-strategy-flow > .compare-row > :nth-child(2)::after {
+    content:"→";
+    position:absolute;
+    z-index:2;
+    right:-17px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:1.15rem;
+    color:#c49baf;
+    font-weight:850;
+    transition:color .25s ease,transform .25s ease;
+    pointer-events:none;
+  }
+  body.page-trend #market .mag-strategy-flow > .compare-row:is(:hover,:focus-visible) {
+    transform:translateY(-3px) !important;
+    filter:saturate(1.07);
+  }
+  body.page-trend #market .mag-strategy-flow > .compare-row:is(:hover,:focus-visible) > :is(:first-child,:nth-child(2))::after {
+    color:#9e5779;
+    transform:translate(3px,-50%);
+  }
+
+  /* 2. SWOT four-quadrant magazine matrix: all original hypotheses stay visible. */
+  body.page-trend #competition .mag-swot > .cards-2x2-grid {
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:14px !important;
+    margin:14px 0 10px !important;
+  }
+  body.page-trend #competition .mag-swot > .cards-2x2-grid > .feature-card {
+    position:relative;
+    min-width:0;
+    border:1px solid #e4d0da !important;
+    border-top:5px solid var(--mag-card-color,#be91a5) !important;
+    border-radius:18px !important;
+    padding:clamp(16px,2.2vw,25px) !important;
+    background:var(--mag-card-bg,#f9f0f4) !important;
+    transition:transform .3s ease,box-shadow .3s ease,opacity .3s ease !important;
+    box-shadow:0 6px 16px rgb(94 61 75 / 4%) !important;
+  }
+  body.page-trend #competition .mag-swot > .cards-2x2-grid > .feature-card:nth-child(1) {--mag-card-bg:#f9edf2;--mag-card-color:#b67d98;}
+  body.page-trend #competition .mag-swot > .cards-2x2-grid > .feature-card:nth-child(2) {--mag-card-bg:#f2f7f2;--mag-card-color:#87a68e;}
+  body.page-trend #competition .mag-swot > .cards-2x2-grid > .feature-card:nth-child(3) {--mag-card-bg:#fff9eb;--mag-card-color:#cfaf72;}
+  body.page-trend #competition .mag-swot > .cards-2x2-grid > .feature-card:nth-child(4) {--mag-card-bg:#f0f4f9;--mag-card-color:#91a8bf;}
+  body.page-trend #competition .mag-swot .feature-card:is(:hover,:focus-visible) {
+    transform:translateY(-4px) scale(1.008) !important;
+    box-shadow:0 14px 30px rgb(94 61 75 / 14%) !important;
+    opacity:1 !important;
+  }
+  body.page-trend #competition .mag-swot > .cards-2x2-grid:has(> .feature-card:is(:hover,:focus-visible)) > .feature-card:not(:hover,:focus-visible) {
+    opacity:.76;
+  }
+  body.page-trend #competition .mag-swot .feature-card .label {
+    font-weight:800;
+    letter-spacing:.04em;
+  }
+
+  /* 3. Five-stage customer path: not an unsourced numerical funnel. */
+  body.page-trend #consumer .mag-customer-journey {
+    display:grid !important;
+    grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+    gap:12px !important;
+    align-items:stretch !important;
+    padding:clamp(16px,2.6vw,27px) !important;
+    background:linear-gradient(165deg,#fffafa,#f8f1f5) !important;
+  }
+  body.page-trend #consumer .mag-customer-journey > .viz-caption {
+    grid-column:1/-1;
+  }
+  body.page-trend #consumer .mag-customer-journey > .compare-head {display:none !important;}
+  body.page-trend #consumer .mag-customer-journey > .compare-row {
+    position:relative;
+    display:flex !important;
+    flex-direction:column !important;
+    gap:11px;
+    min-width:0;
+    min-height:205px;
+    margin:0 !important;
+    padding:17px 14px !important;
+    border:1px solid #e6cdd8 !important;
+    border-top:5px solid #bf8ba3 !important;
+    border-radius:16px !important;
+    background:#fffdfb !important;
+    box-shadow:0 6px 16px rgb(94 61 75 / 5%) !important;
+    transition:transform .28s ease,box-shadow .28s ease !important;
+  }
+  body.page-trend #consumer .mag-customer-journey > .compare-row:nth-of-type(2n) {
+    border-top-color:#a5b7a6 !important;
+    background:#f8fbf7 !important;
+  }
+  body.page-trend #consumer .mag-customer-journey > .compare-row > * {
+    display:block !important;
+    margin:0 !important;
+    min-width:0;
+    overflow-wrap:anywhere;
+    font-size:.82rem;
+    line-height:1.62;
+  }
+  body.page-trend #consumer .mag-customer-journey > .compare-row > :first-child {
+    font-size:.92rem !important;
+    font-weight:830;
+    color:#6f4761 !important;
+    padding-bottom:8px;
+    border-bottom:1px dashed #e0c9d3;
+  }
+  body.page-trend #consumer .mag-customer-journey > .compare-row > :nth-child(2)::before,
+  body.page-trend #consumer .mag-customer-journey > .compare-row > :nth-child(3)::before {
+    content:"可能需求";
+    display:block;
+    font-size:.7rem;
+    margin-bottom:5px;
+    color:#8a6475;
+    font-weight:780;
+  }
+  body.page-trend #consumer .mag-customer-journey > .compare-row > :nth-child(3)::before {content:"門市提案";}
+  body.page-trend #consumer .mag-customer-journey > .compare-row > :nth-child(3) {
+    margin-top:auto !important;
+    padding:10px !important;
+    border-radius:10px;
+    background:#f8ecf2;
+    color:#63495a !important;
+    font-weight:690;
+  }
+  body.page-trend #consumer .mag-customer-journey > .compare-row:not(:last-child)::after {
+    content:"→";
+    position:absolute;
+    right:-16px;
+    top:28px;
+    color:#bb87a0;
+    font-size:1.15rem;
+    z-index:3;
+    font-weight:800;
+  }
+  body.page-trend #consumer .mag-customer-journey > .compare-row:is(:hover,:focus-visible) {
+    transform:translateY(-4px) !important;
+    box-shadow:0 13px 28px rgb(120 76 98 / 15%) !important;
+  }
+
+  /* 4. Store-type atlas: existing four observation cards are clickable.
+     Source response remains within each card, visible only when expanded. */
+  body.page-trend #location .editorial-trade-diagram.mag-trade-selector > .mag-trade-choice {
+    cursor:pointer;
+    min-height:178px;
+    transition:box-shadow .3s ease,transform .3s ease,filter .3s ease !important;
+  }
+  body.page-trend #location .editorial-trade-diagram.mag-trade-selector > .mag-trade-choice::after {
+    content:"+";
+    position:absolute;
+    top:9px;
+    right:12px;
+    font-size:1.45rem;
+    line-height:1;
+    font-weight:450;
+    color:#90667c;
+    pointer-events:none;
+  }
+  body.page-trend #location .editorial-trade-diagram.mag-trade-selector > .mag-trade-choice.mag-selected::after {
+    content:"−";
+  }
+  body.page-trend #location .editorial-trade-diagram.mag-trade-selector > .mag-trade-choice:not(.mag-selected) > :nth-child(3) {
+    display:none !important;
+  }
+  body.page-trend #location .editorial-trade-diagram.mag-trade-selector > .mag-trade-choice.mag-selected > :nth-child(3) {
+    display:block !important;
+  }
+  body.page-trend #location .editorial-trade-diagram.mag-trade-selector > .mag-trade-choice:is(:hover,:focus-visible,.mag-selected) {
+    transform:translateY(-3px) !important;
+    box-shadow:0 12px 25px rgb(107 65 87 / 14%) !important;
+    border-color:#bf8ba3 !important;
+    filter:saturate(1.08);
+  }
+
+  /* 5. Digital rollout as a three-stage operational process. */
+  body.page-trend #digital .mag-digital-steps {
+    display:grid !important;
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:24px !important;
+    padding:clamp(18px,2.6vw,28px) !important;
+    background:linear-gradient(150deg,#fffaf7,#f5f8f5) !important;
+  }
+  body.page-trend #digital .mag-digital-steps > .viz-caption {grid-column:1/-1;}
+  body.page-trend #digital .mag-digital-steps > .compare-head {display:none !important;}
+  body.page-trend #digital .mag-digital-steps > .compare-row {
+    position:relative;
+    display:flex !important;
+    flex-direction:column !important;
+    gap:12px !important;
+    min-width:0;
+    min-height:190px;
+    margin:0 !important;
+    padding:20px !important;
+    background:var(--mag-stage-bg,#f7eaf0) !important;
+    border:1px solid #e4cfd9 !important;
+    border-left:5px solid var(--mag-stage-accent,#b9849d) !important;
+    border-radius:16px !important;
+    box-shadow:0 5px 15px rgb(98 63 75 / 5%);
+    transition:box-shadow .3s ease,transform .3s ease !important;
+  }
+  body.page-trend #digital .mag-digital-steps > .compare-row:nth-of-type(2) {--mag-stage-bg:#f5f9f3;--mag-stage-accent:#95ae9a;}
+  body.page-trend #digital .mag-digital-steps > .compare-row:nth-of-type(3) {--mag-stage-bg:#fff9ed;--mag-stage-accent:#c9ab75;}
+  body.page-trend #digital .mag-digital-steps > .compare-row:nth-of-type(4) {--mag-stage-bg:#f2f6fa;--mag-stage-accent:#95abc2;}
+  body.page-trend #digital .mag-digital-steps > .compare-row > * {
+    display:block !important;
+    min-width:0;
+    font-size:.86rem !important;
+    line-height:1.7 !important;
+    overflow-wrap:anywhere;
+    margin:0 !important;
+  }
+  body.page-trend #digital .mag-digital-steps > .compare-row > :first-child {
+    font-size:1rem !important;
+    color:#6e4e5e;
+    font-weight:850;
+    padding-bottom:8px;
+    border-bottom:1px dashed #dfc6d0;
+  }
+  body.page-trend #digital .mag-digital-steps > .compare-row > :nth-child(2)::before {
+    content:"執行工作";
+    display:block;
+    font-size:.7rem;
+    font-weight:800;
+    color:#866b76;
+  }
+  body.page-trend #digital .mag-digital-steps > .compare-row > :nth-child(3)::before {
+    content:"通過標準";
+    display:block;
+    font-size:.7rem;
+    font-weight:800;
+    color:#866b76;
+  }
+  body.page-trend #digital .mag-digital-steps > .compare-row > :nth-child(3) {
+    margin-top:auto !important;
+    background:#fffdfb !important;
+    padding:9px 11px !important;
+    border-radius:9px;
+    color:#5a4652;
+    font-weight:730 !important;
+  }
+  body.page-trend #digital .mag-digital-steps > .compare-row:not(:last-child)::after {
+    content:"→";
+    position:absolute;
+    right:-20px;
+    top:42%;
+    font-size:1.35rem;
+    color:#a98095;
+    z-index:2;
+  }
+  body.page-trend #digital .mag-digital-steps > .compare-row:is(:hover,:focus-visible) {
+    transform:translateY(-4px) !important;
+    box-shadow:0 12px 26px rgb(103 67 81 / 13%) !important;
+  }
+
+  /* 6. People, management board, owner lanes, paired metrics.
+     Supporting views complement the four main infographic variations. */
+  body.page-trend #people .mag-people-methods {
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:16px !important;
+  }
+  body.page-trend #people .mag-people-methods > .feature-card {
+    position:relative;
+    border:1px solid #e2cdd7 !important;
+    border-left:5px solid var(--mag-people-color,#b9879e) !important;
+    background:var(--mag-people-bg,#fff8fb) !important;
+    border-radius:18px !important;
+    padding:clamp(18px,2.3vw,27px) !important;
+    transition:transform .25s ease,box-shadow .25s ease !important;
+  }
+  body.page-trend #people .mag-people-methods > .feature-card:nth-child(2) {--mag-people-color:#8ea995;--mag-people-bg:#f7fbf6;}
+  body.page-trend #people .mag-people-methods > .feature-card:nth-child(3) {--mag-people-color:#c9a56c;--mag-people-bg:#fffcf3;}
+  body.page-trend #people .mag-people-methods > .feature-card:nth-child(4) {--mag-people-color:#91aac2;--mag-people-bg:#f6f9fc;}
+  body.page-trend #people .mag-people-methods > .feature-card:is(:hover,:focus-visible) {
+    transform:translateY(-3px) !important;
+    box-shadow:0 13px 26px rgb(94 61 75 / 12%) !important;
+  }
+  body.page-trend #strategy .mag-strategy-board {
+    gap:16px !important;
+  }
+  body.page-trend #strategy .mag-strategy-board > .strategy {
+    position:relative;
+    border-radius:16px !important;
+    border-left:5px solid #bb8b9f !important;
+    background:#fffaf8 !important;
+    transition:box-shadow .27s ease,transform .27s ease !important;
+  }
+  body.page-trend #strategy .mag-strategy-board > .strategy[data-owner="hq"] {
+    border-left-color:#91a7be !important;
+    background:#f7faff !important;
+  }
+  body.page-trend #strategy .mag-strategy-board > .strategy:is(:hover,:focus-visible) {
+    transform:translateY(-3px) !important;
+    box-shadow:0 12px 28px rgb(94 61 75 / 13%) !important;
+  }
+  body.page-trend #strategy .mag-lane-focus > .lane-task {
+    transition:box-shadow .23s ease,background-color .23s ease,transform .23s ease;
+  }
+  body.page-trend #strategy .mag-lane-focus > .lane-task:focus-visible {
+    outline:3px solid #9f6782;
+    outline-offset:2px;
+  }
+  body.page-trend #strategy .mag-lane-focus[data-active-column="1"] > :nth-child(5n + 2),
+  body.page-trend #strategy .mag-lane-focus[data-active-column="2"] > :nth-child(5n + 3),
+  body.page-trend #strategy .mag-lane-focus[data-active-column="3"] > :nth-child(5n + 4),
+  body.page-trend #strategy .mag-lane-focus[data-active-column="4"] > :nth-child(5n + 5) {
+    box-shadow:inset 0 0 0 2px #b78b9f,0 7px 15px rgb(94 61 75 / 10%) !important;
+    transform:translateY(-2px);
+  }
+  body.page-trend #metrics .mag-metric-pairs {
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:13px !important;
+  }
+  body.page-trend #metrics .mag-metric-pairs > .metric-tile {
+    position:relative;
+    padding:clamp(17px,2vw,24px) !important;
+    min-width:0;
+    border-left:5px solid var(--mag-metric-color,#b7809a) !important;
+    background:var(--mag-metric-bg,#fff6f9) !important;
+    transition:transform .25s ease,box-shadow .25s ease !important;
+  }
+  body.page-trend #metrics .mag-metric-pairs > .metric-tile:nth-child(3),
+  body.page-trend #metrics .mag-metric-pairs > .metric-tile:nth-child(4) {
+    --mag-metric-color:#92aa96;--mag-metric-bg:#f7fbf7;
+  }
+  body.page-trend #metrics .mag-metric-pairs > .metric-tile:nth-child(5),
+  body.page-trend #metrics .mag-metric-pairs > .metric-tile:nth-child(6) {
+    --mag-metric-color:#99aec5;--mag-metric-bg:#f7fafd;
+  }
+  body.page-trend #metrics .mag-metric-pairs > .metric-tile:is(:hover,:focus-visible) {
+    transform:translateY(-3px) !important;
+    box-shadow:0 11px 26px rgb(94 61 75 / 12%) !important;
+  }
+  body.page-trend #metrics .mag-metric-pairs > .metric-tile:focus-visible,
+  body.page-trend #metrics .mag-branching :is(.decision-question,.decision-result):focus-visible,
+  body.page-trend #strategy .mag-strategy-board > .strategy:focus-visible {
+    outline:3px solid #9a5878 !important;
+    outline-offset:3px;
+  }
+  body.page-trend #metrics .mag-branching :is(.decision-question,.decision-result) {
+    transition:box-shadow .25s ease,transform .25s ease !important;
+  }
+  body.page-trend #metrics .mag-branching :is(.decision-question,.decision-result):is(:hover,:focus-visible) {
+    transform:translateY(-2px) !important;
+    box-shadow:0 11px 24px rgb(94 61 75 / 12%) !important;
+  }
+  body.page-trend #roadmap .mag-roadmap-tabs .phase-tab:focus-visible {
+    outline:3px solid #9a5878 !important;
+    outline-offset:3px;
+  }
+}
+@media screen and (max-width:1050px) {
+  body.page-trend #consumer .mag-customer-journey {
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  }
+  body.page-trend #consumer .mag-customer-journey > .compare-row:not(:last-child)::after {
+    content:none;
+  }
+}
+@media screen and (max-width:850px) {
+  body.page-trend #market .mag-strategy-flow > .compare-row {
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:17px !important;
+  }
+  body.page-trend #market .mag-strategy-flow > .compare-row > :first-child::after,
+  body.page-trend #market .mag-strategy-flow > .compare-row > :nth-child(2)::after {
+    content:"↓";
+    right:50%;
+    top:auto;
+    bottom:-19px;
+    transform:translateX(50%);
+  }
+  body.page-trend #market .mag-strategy-flow > .compare-row:is(:hover,:focus-visible) > :is(:first-child,:nth-child(2))::after {
+    transform:translateX(50%);
+  }
+  body.page-trend #digital .mag-digital-steps {
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:18px !important;
+  }
+  body.page-trend #digital .mag-digital-steps > .compare-row {
+    min-height:0 !important;
+  }
+  body.page-trend #digital .mag-digital-steps > .compare-row:not(:last-child)::after {
+    content:"↓";
+    right:50%;
+    top:auto;
+    bottom:-21px;
+    transform:translateX(50%);
+  }
+}
+@media screen and (max-width:690px) {
+  body.page-trend #consumer .mag-customer-journey {
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:13px !important;
+  }
+  body.page-trend #consumer .mag-customer-journey > .compare-row {
+    min-height:0 !important;
+    margin-left:20px !important;
+    padding:15px !important;
+  }
+  body.page-trend #consumer .mag-customer-journey > .compare-row:not(:last-child)::after {
+    content:"";
+    position:absolute;
+    top:auto;
+    right:auto;
+    bottom:-15px;
+    left:-13px;
+    height:25px;
+    width:2px;
+    background:#cb9cad;
+  }
+  body.page-trend #consumer .mag-customer-journey > .compare-row::before {
+    content:"";
+    position:absolute;
+    left:-26px;
+    top:25px;
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    border:2px solid #fffaf7;
+    background:#b98ba1;
+    box-shadow:0 0 0 2px #d8b9c7;
+  }
+  body.page-trend #competition .mag-swot > .cards-2x2-grid,
+  body.page-trend #people .mag-people-methods,
+  body.page-trend #metrics .mag-metric-pairs {
+    grid-template-columns:minmax(0,1fr) !important;
+  }
+}
+@keyframes mag-research-pop {
+  from {opacity:0;transform:translate3d(0,17px,0) scale(.985);}
+  to {opacity:1;transform:none;}
+}
+@media screen and (prefers-reduced-motion:no-preference) {
+  body.page-trend .mag-reveal-pending:not(.mag-revealed) > .compare-row,
+  body.page-trend .mag-reveal-pending:not(.mag-revealed) > .cards-2x2-grid > .feature-card,
+  body.page-trend .mag-reveal-pending:not(.mag-revealed) > .feature-card {
+    opacity:0 !important;
+    transition:none !important;
+  }
+  body.page-trend .mag-reveal-pending.mag-revealed > .compare-row,
+  body.page-trend .mag-reveal-pending.mag-revealed > .cards-2x2-grid > .feature-card,
+  body.page-trend .mag-reveal-pending.mag-revealed > .feature-card {
+    animation:mag-research-pop .64s cubic-bezier(.22,1,.36,1)
+      calc(var(--mag-order,0) * .14s) both;
+  }
+}
+@media (prefers-reduced-motion:reduce),print {
+  body.page-trend :is(.mag-strategy-flow,.mag-customer-journey,.mag-digital-steps,
+    .mag-swot,.mag-trade-selector,.mag-people-methods,.mag-strategy-board,
+    .mag-metric-pairs,.mag-branching) *,
+  body.page-trend .mag-reveal-pending * {
+    opacity:1 !important;
+    animation:none !important;
+    transition:none !important;
+    filter:none !important;
+    transform:none !important;
+  }
+  body.page-trend #location .mag-trade-selector > .mag-trade-choice > :nth-child(3) {
+    display:block !important;
+  }
+}
