@@ -2722,3 +2722,10 @@
     transition:none !important;
   }
 }
+
+/* Card interaction hints are screen-only; retain source text in print. */
+@media print {
+  body.page-trend #location .editorial-trade-diagram.mag-trade-selector > .mag-trade-choice > .mag-trade-hint {
+    display:none !important;
+  }
+}
