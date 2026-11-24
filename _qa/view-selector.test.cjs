@@ -10,6 +10,7 @@ const source = fs.readFileSync(path.join(__dirname, "../assets/view-mode-switch.
 function makeElement(tagName) {
   const classes = new Set();
   const attrs = new Map();
+  const listeners = new Map();
   const node = {
     tagName, children: [], textContent: "", className: "",
     classList: {
@@ -20,6 +21,10 @@ function makeElement(tagName) {
       for (const child of children) { child.parentElement = node; node.children.push(child); }
     },
     appendChild(child) { node.append(child); },
+    addEventListener(type, fn) { listeners.set(type, fn); },
+    contains(child) { return node.children.includes(child); },
+    closest(selector) { return selector === "a" && tagName === "a" ? node : null; },
+    dispatch(type, target) { listeners.get(type)?.({target}); },
     setAttribute(name, value) { attrs.set(name, value); },
     removeAttribute(name) { attrs.delete(name); },
     getAttribute(name) { return attrs.get(name) || null; }
@@ -34,6 +39,7 @@ function render(mobile, savedPreference = null) {
   body.insertBefore = function(child) { this.append(child); };
   const counterpart = makeElement("a");
   counterpart.className = mobile ? "btn-switch-desktop" : "top-switch-link";
+  counterpart.href = mobile ? "index.html?view=desktop" : "mobile.html?view=mobile";
   const parent = makeElement("div");
   parent.textContent = "existing switch";
   counterpart.parentElement = parent;
@@ -44,13 +50,13 @@ function render(mobile, savedPreference = null) {
   };
   const basename = mobile ? "mobile.html" : "index.html";
   const window = {
-    location: { pathname: "/-/" + basename, hash: "#career" },
+    location: new URL("https://example.test/-/" + basename + "?source=qr#career"),
     localStorage: { getItem: () => savedPreference }
   };
-  vm.runInNewContext(source, { document, window });
+  vm.runInNewContext(source, { document, window, URL, URLSearchParams });
   const nav = body.children[0];
   const options = nav.children[0].children[1];
-  return { nav, options, children: options.children };
+  return { nav, options, children: options.children, window };
 }
 
 test("selector contains manual desktop, manual mobile and automatic modes", () => {
@@ -80,4 +86,13 @@ test("mobile cover keeps approved source markup and decorates its accessible rol
   assert.match(html, /<h2 class="mobile-card-title">\s*<span> 個人作品集/);
   const transitions = fs.readFileSync(path.join(__dirname, "../assets/page-transitions.js"), "utf8");
   assert.match(transitions, /heading\.closest\("#profile"\).*?setAttribute\("role", "presentation"\)/);
+});
+
+ test("manual and automatic switch preserve current anchor and unrelated query data", () => {
+  const {options,children,window}=render(false);
+  window.location.hash="#proposal";
+  options.dispatch("click",children[1]);
+  assert.equal(children[1].href,"https://example.test/-/mobile.html?source=qr&view=mobile#proposal");
+  options.dispatch("click",children[2]);
+  assert.equal(children[2].href,"https://example.test/-/index.html?source=qr&view=auto#proposal");
 });
