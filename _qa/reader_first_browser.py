@@ -48,6 +48,20 @@ try:
             expect(compact.locator(".reader-compact-name")).to_have_text("改善方針")
             expect(compact.locator("[role=progressbar]")).to_have_attribute("aria-valuenow","8")
             assert compact.evaluate("e=>getComputedStyle(e).position")=="fixed"
+            assert compact.evaluate("e=>e.getBoundingClientRect().height")<=56
+            assert compact.evaluate("e=>getComputedStyle(e).gridTemplateColumns.split(' ').length")==4
+            assert compact.locator("button").all_text_contents()==["‹","›"]
+            assert compact.locator("button, a").evaluate_all("es=>es.every(e=>e.getBoundingClientRect().width>=44 && e.getBoundingClientRect().height>=44)")
+            # Real direction change: hide on downward reading, keep hidden when idle,
+            # restore on upward reading, even with reduced-motion enabled.
+            page.mouse.wheel(0,220)
+            expect(compact).to_have_class(__import__("re").compile("reader-compact-away"))
+            assert compact.evaluate("e=>e.getBoundingClientRect().bottom")<=0
+            page.wait_for_timeout(350)
+            expect(compact).to_have_class(__import__("re").compile("reader-compact-away"))
+            page.mouse.wheel(0,-220)
+            expect(compact).not_to_have_class(__import__("re").compile("reader-compact-away"))
+            assert compact.evaluate("e=>e.getBoundingClientRect().top")>=0
             expect(guide.locator('a[aria-current="location"]')).to_have_attribute("href","#strategy")
             compact.get_by_role("button",name="下一章：90天計畫").click()
             expect(compact.locator(".reader-compact-name")).to_have_text("90天計畫")

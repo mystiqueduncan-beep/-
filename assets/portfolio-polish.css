@@ -2863,7 +2863,7 @@
     line-height:1.65 !important;
   }
   body.page-trend.reader-index-ready nav.trend-bilingual-nav {display:none!important;}
-  html:has(body.page-trend.reader-index-ready) {scroll-padding-top:124px!important;scroll-behavior:smooth;}
+  html:has(body.page-trend.reader-index-ready) {scroll-padding-top:62px!important;scroll-behavior:smooth;}
   body.page-trend.reader-index-ready .trend-main > section[id] {scroll-margin-top:8px!important;}
   body.page-trend .reader-index-grid {
     display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;
@@ -2893,33 +2893,46 @@
   }
   body.page-trend .reader-index-link:hover {background:#fffafc;transform:translateX(2px);}
   body.page-trend .reader-index-link[aria-current="location"] {background:#e9c6d3;color:#503044!important;}
-  body.page-trend .reader-index-link-number {font:750 .72rem/1 var(--font-mono,ui-monospace,monospace);color:#765267;}
+  body.page-trend .reader-index-link-number {font:750 .72rem/1 var(--font-mono,ui-monospace,monospace);color:#56384b!important;}
   body.page-trend .reader-index-arrow {margin-left:auto;color:#765267;font-size:1.2rem;}
+  /* One-row reading HUD: narrow footprint, 44px touch targets, no spacer row. */
   body.page-trend .reader-compact {
-    position:fixed!important;top:6px!important;left:50%;transform:translateX(-50%);
-    z-index:800;box-sizing:border-box;width:min(calc(100% - 24px),1136px);
-    display:grid!important;gap:5px;padding:7px 12px;background:#fffaf8!important;
-    border:1px solid #d6b7c7!important;border-radius:15px;box-shadow:0 5px 22px rgba(76,47,64,.12);
-    color:#603d52;animation:reader-compact-in .25s ease both;
+    position:fixed!important;top:6px!important;left:50%;transform:translate(-50%,0);
+    z-index:800;box-sizing:border-box;width:min(calc(100% - 24px),560px);
+    display:grid!important;grid-template-columns:44px minmax(0,1fr) 44px auto;
+    grid-template-rows:44px 3px;align-items:center;gap:0 5px;padding:0 6px 3px!important;
+    background:rgba(255,250,248,.94)!important;
+    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+    border:1px solid #d6b7c7!important;border-radius:13px;
+    box-shadow:0 4px 16px rgba(76,47,64,.1);color:#603d52;
+    transition:transform .23s cubic-bezier(.22,1,.36,1),opacity .2s ease!important;
   }
   body.page-trend .reader-compact[hidden] {display:none!important;}
-  @keyframes reader-compact-in {from{opacity:0;translate:0 -7px;}to{opacity:1;translate:0 0;}}
-  body.page-trend .reader-compact-top,body.page-trend .reader-compact-controls {
-    display:flex;align-items:center;justify-content:space-between;gap:6px;min-width:0;
+  body.page-trend .reader-compact.reader-compact-away {
+    transform:translate(-50%,calc(-100% - 12px));opacity:0;pointer-events:none;
   }
-  body.page-trend .reader-compact-status {display:flex;align-items:baseline;gap:9px;min-width:0;flex-wrap:wrap;}
-  body.page-trend .reader-compact-count {font:750 .69rem/1.25 var(--font-mono,ui-monospace,monospace);color:#765267;}
-  body.page-trend .reader-compact-name {font-size:1rem;line-height:1.3;color:#603d52;}
+  body.page-trend .reader-compact.reader-compact-away:has(:focus-visible) {
+    transform:translate(-50%,0);opacity:1;pointer-events:auto;
+  }
+  body.page-trend .reader-compact-status {
+    display:flex;align-items:center;justify-content:center;gap:9px;min-width:0;
+    white-space:nowrap;
+  }
+  body.page-trend .reader-compact-count {font:750 .72rem/1.2 var(--font-mono,ui-monospace,monospace);color:#603d52;}
+  body.page-trend .reader-compact-name {font-size:.93rem;line-height:1.2;color:#503044;overflow:hidden;text-overflow:ellipsis;}
   body.page-trend .reader-compact-index,body.page-trend .reader-compact-step {
-    display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;
-    padding:5px 10px;border:1px solid #d6b7c7;border-radius:9px;background:#fffdfc;
-    color:#603d52!important;font-size:.82rem;font-weight:750;text-decoration:none!important;
-    white-space:nowrap;transition:background-color .2s ease;
+    display:inline-flex!important;align-items:center;justify-content:center;gap:6px;
+    box-sizing:border-box;min-height:44px!important;height:44px;min-width:44px;
+    padding:0 8px!important;margin:0!important;border:0!important;border-radius:8px;
+    background:transparent!important;color:#603d52!important;font-size:.82rem;font-weight:750;
+    line-height:1!important;text-decoration:none!important;white-space:nowrap;
+    transition:background-color .2s ease;
   }
-  body.page-trend .reader-compact-index:hover,body.page-trend .reader-compact-step:not(:disabled):hover {background:#f2dce5;}
+  body.page-trend .reader-compact-step {font-size:1.65rem!important;}
+  body.page-trend .reader-compact-icon {font-size:1.1rem;line-height:1;}
+  body.page-trend .reader-compact-index:hover,body.page-trend .reader-compact-step:not(:disabled):hover {background:#f2dce5!important;}
   body.page-trend .reader-compact-step:disabled {opacity:.45;cursor:not-allowed;}
-  body.page-trend .reader-compact-step-name {font-size:.76rem;color:#725267;font-weight:500;}
-  body.page-trend .reader-compact-track {height:4px;border-radius:6px;background:#ead7e0;overflow:hidden;}
+  body.page-trend .reader-compact-track {grid-column:1/-1;height:3px;margin-inline:4px;border-radius:6px;background:#ead7e0;overflow:hidden;}
   body.page-trend .reader-compact-fill {display:block;height:100%;border-radius:inherit;background:#956078;transition:width .25s ease;}
   body.page-trend :is(.reader-guide,.reader-compact) :is(a,button):focus-visible {
     outline:3px solid #894e6d!important;outline-offset:2px;
@@ -2948,9 +2961,10 @@
   }
   body.page-trend .reader-index-grid {grid-template-columns:1fr;gap:10px;}
   body.page-trend .reader-index-group {padding:13px;}
-  body.page-trend .reader-compact {width:calc(100% - 18px);padding:6px 9px;}
-  body.page-trend .reader-compact-status {display:grid;gap:2px;}
-  body.page-trend .reader-compact-step-name {display:none;}
+  body.page-trend .reader-compact {width:min(calc(100% - 18px),360px);grid-template-columns:44px minmax(0,1fr) 44px 44px;}
+  body.page-trend .reader-compact-status {display:grid;gap:2px;justify-items:center;align-content:center;}
+  body.page-trend .reader-compact-index-label {display:none;}
+  body.page-trend .reader-compact-name {font-size:.83rem;}
   body.page-trend .inline-research-viz {
     padding:12px !important;
   }

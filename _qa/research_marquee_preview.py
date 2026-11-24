@@ -45,6 +45,7 @@ with sync_playwright() as browserapi:
   }""")
   assert geometry["scrollY"]>250 and geometry["position"]=="fixed",(name,geometry)
   assert geometry["navTop"]>=0 and geometry["sectionTop"]>=geometry["navBottom"]-3,(name,geometry)
+  assert compact.evaluate("e=>e.getBoundingClientRect().height")<=56,(name,"compact height")
   assert geometry["overflow"]<=1,(name,geometry)
   if mobile:
    assert page.locator("nav.mobile-bottom-bar").is_visible()

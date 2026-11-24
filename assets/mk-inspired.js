@@ -424,24 +424,19 @@
     const compact=create("nav","reader-compact");
     compact.setAttribute("aria-label","目前研究章節與切換");
     compact.hidden=true;
-    const top=create("div","reader-compact-top");
     const status=create("div","reader-compact-status");
     const counter=create("span","reader-compact-count");
     const name=create("strong","reader-compact-name");
     status.append(counter,name);
-    const indexLink=create("a","reader-compact-index","研究目次");
+    const indexLink=create("a","reader-compact-index");
     indexLink.href="#research-index";
-    top.append(status,indexLink);
-    const controls=create("div","reader-compact-controls");
-    const prev=create("button","reader-compact-step");
-    const next=create("button","reader-compact-step");
+    indexLink.setAttribute("aria-label","研究目次");
+    const indexIcon=create("span","reader-compact-icon","☰");
+    indexIcon.setAttribute("aria-hidden","true");
+    indexLink.append(indexIcon,create("span","reader-compact-index-label","研究目次"));
+    const prev=create("button","reader-compact-step","‹");
+    const next=create("button","reader-compact-step","›");
     prev.type=next.type="button";
-    const prevText=create("span","reader-compact-step-label","〈 上一章");
-    const nextText=create("span","reader-compact-step-label","下一章 〉");
-    const prevName=create("span","reader-compact-step-name");
-    const nextName=create("span","reader-compact-step-name");
-    prev.append(prevText,prevName);next.append(nextName,nextText);
-    controls.append(prev,next);
     const track=create("div","reader-compact-track");
     track.setAttribute("role","progressbar");
     track.setAttribute("aria-label","目前閱讀章節");
@@ -449,15 +444,16 @@
     track.setAttribute("aria-valuemax",String(entries.length));
     const fill=create("span","reader-compact-fill");
     track.append(fill);
-    compact.append(top,controls,track);
+    compact.append(prev,status,next,indexLink,track);
     main.insertBefore(guide,sections[0]);
     main.insertBefore(compact,sections[0]);
     document.body.classList.add("reader-index-ready");
-    let current=-1,scheduled=false;
+    let current=-1,scheduled=false,reading=false,directionAnchor=window.scrollY;
+    let navigationTarget=null,navigationDeadline=0;
     function setCurrent(index){
       if(index===current)return;
       current=index;
-      counter.textContent="CHAPTER "+number(index)+" / "+entries.length;
+      counter.textContent=number(index)+" / "+entries.length;
       name.textContent=entries[index][1];
       track.setAttribute("aria-valuenow",String(index+1));
       track.setAttribute("aria-valuetext",number(index)+" / "+entries.length+" "+entries[index][1]);
@@ -468,8 +464,8 @@
       });
       sections.forEach((s,i)=>s.classList.toggle("reader-current",i===index));
       prev.disabled=index===0;next.disabled=index===entries.length-1;
-      prevName.textContent=index>0?entries[index-1][1]:"";
-      nextName.textContent=index<entries.length-1?entries[index+1][1]:"";
+      prev.title=index>0?"上一章："+entries[index-1][1]:"已是第一章";
+      next.title=index<entries.length-1?"下一章："+entries[index+1][1]:"已是最後一章";
       prev.setAttribute("aria-label",index>0?"上一章："+entries[index-1][1]:"上一章");
       next.setAttribute("aria-label",index<entries.length-1?"下一章："+entries[index+1][1]:"下一章");
     }
@@ -480,20 +476,53 @@
         return sections.indexOf(section);
       }catch(_){return -1;}
     }
+    // Keep deliberate chapter jumps visible; ordinary downward reading hides
+    // the bar. A small cumulative direction threshold prevents touch jitter.
+    function reveal(){
+      compact.classList.remove("reader-compact-away");
+    }
+    function prepareJump(target){
+      navigationTarget=target;
+      navigationDeadline=performance.now()+1800;
+      reveal();
+    }
     function update(){
       scheduled=false;
-      const show=guide.getBoundingClientRect().bottom<=150 &&
+      const y=Math.max(0,window.scrollY);
+      const eligible=guide.getBoundingClientRect().bottom<=80 &&
         sections[sections.length-1].getBoundingClientRect().bottom>0;
-      compact.hidden=!show;
+      compact.hidden=!eligible;
+      let jumping=!!navigationTarget && performance.now()<navigationDeadline;
+      if(jumping){
+        const rect=navigationTarget.getBoundingClientRect();
+        if(Math.abs(rect.top-70)<=12 || y+innerHeight>=document.documentElement.scrollHeight-3)
+          navigationTarget=null;
+      }else navigationTarget=null;
+      if(!eligible || !reading || jumping){
+        reveal();
+        directionAnchor=y;
+      }else{
+        const distance=y-directionAnchor;
+        if(distance>=12){
+          // Never move a control away from a keyboard user.
+          if(!compact.querySelector(":focus-visible"))compact.classList.add("reader-compact-away");
+          directionAnchor=y;
+        }else if(distance<=-8){
+          reveal();
+          directionAnchor=y;
+        }
+      }
+      reading=eligible;
       let index=0;
-      const line=Math.max(160,Math.min(innerHeight*.32,300));
+      const line=Math.max(90,Math.min(innerHeight*.23,160));
       sections.forEach((section,i)=>{if(section.getBoundingClientRect().top<=line)index=i;});
-      if(window.scrollY+innerHeight>=document.documentElement.scrollHeight-3)index=sections.length-1;
+      if(y+innerHeight>=document.documentElement.scrollHeight-3)index=sections.length-1;
       setCurrent(index);
     }
     function schedule(){if(!scheduled){scheduled=true;requestAnimationFrame(update);}}
     function goTo(index){
       if(index<0||index>=sections.length)return;
+      prepareJump(sections[index]);
       const hash="#"+entries[index][0];
       if(location.hash!==hash)location.hash=hash;
       else sections[index].scrollIntoView({behavior:reduced.matches?"instant":"smooth",block:"start"});
@@ -501,13 +530,37 @@
     }
     prev.addEventListener("click",()=>goTo(current-1));
     next.addEventListener("click",()=>goTo(current+1));
-    indexLink.addEventListener("click",()=>guide.focus({preventScroll:true}));
+    indexLink.addEventListener("click",()=>{
+      navigationTarget=null;
+      guide.focus({preventScroll:true});
+    });
+    compact.addEventListener("focusin",reveal);
+    // A wheel, touch or keyboard scroll interrupts any in-progress jump.
+    // Normal anchor clicks and browser history still use the existing hash.
+    const interrupt=()=>{if(navigationTarget){navigationTarget=null;directionAnchor=window.scrollY;}};
+    window.addEventListener("wheel",interrupt,{passive:true});
+    window.addEventListener("touchstart",interrupt,{passive:true});
+    window.addEventListener("keydown",event=>{
+      if(["ArrowUp","ArrowDown","PageUp","PageDown","Home","End"," "].includes(event.key) &&
+         !compact.contains(event.target))interrupt();
+    });
+    document.addEventListener("click",event=>{
+      if(event.button!==0||event.metaKey||event.ctrlKey||event.altKey||event.shiftKey)return;
+      const link=event.target.closest?.('a[href^="#"]');
+      const section=link&&sections.find(s=>"#"+s.id===link.hash);
+      if(section)prepareJump(section);
+    },true);
     window.addEventListener("scroll",schedule,{passive:true});
     window.addEventListener("resize",schedule,{passive:true});
-    window.addEventListener("hashchange",schedule);
+    window.addEventListener("hashchange",()=>{
+      const index=hashChapter();
+      if(index>=0)prepareJump(sections[index]);
+      schedule();
+    });
     window.addEventListener("pageshow",schedule);
     const initial=hashChapter();
     setCurrent(initial>=0?initial:0);
+    if(initial>=0)prepareJump(sections[initial]);
     schedule();
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initReader,{once:true});
