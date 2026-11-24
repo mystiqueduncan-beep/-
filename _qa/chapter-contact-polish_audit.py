@@ -53,6 +53,14 @@ with sync_playwright() as p:
             assert bottom.locator('a[href="mobile-contact.html"]').count()==1,name
             assert page.evaluate("document.documentElement.scrollWidth<=innerWidth+1"),name
             print("mobile bottom tabs:",name,"upper chapter strip removed")
+        elif name=="trend":
+            guide=page.locator(".reader-guide")
+            assert guide.locator(".reader-index-link").count()==11
+            assert not page.locator("nav.trend-bilingual-nav").is_visible()
+            section=page.locator("#"+target)
+            section.evaluate('(el)=>{el.scrollIntoView({block:"start",behavior:"instant"});dispatchEvent(new Event("scroll"));}')
+            page.wait_for_function('() => document.querySelector(".reader-index-link[aria-current=location]")?.hash==="#experience"')
+            assert page.locator(".reader-compact").is_visible()
         else:
             nav=page.locator("[data-keycap-marquee]")
             assert nav.count()==1,name

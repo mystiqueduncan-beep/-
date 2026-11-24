@@ -1,4 +1,4 @@
-"""Reader-first design acceptance: chapter flow, focus mode and data preservation."""
+"""Magazine contents, compact navigation, chapter flow and data preservation."""
 import functools
 import http.server
 import threading
@@ -30,27 +30,39 @@ try:
             guide=page.locator("main.trend-main > .reader-guide")
             expect(guide).to_be_visible()
             expect(guide.locator(".reader-guide__intro")).to_have_text("可以自由選章節閱讀")
-            expect(guide.locator("select option")).to_have_count(11)
+            expect(guide.locator(".reader-index-group")).to_have_count(3)
+            expect(guide.locator("a.reader-index-link")).to_have_count(11)
+            assert guide.locator("a.reader-index-link").evaluate_all("es=>es.map(e=>e.hash)") == ["#"+id for id in chapters]
+            expect(guide.locator("select,button")).to_have_count(0)
+            expect(page.locator("nav.trend-bilingual-nav:visible")).to_have_count(0)
+            compact=page.locator(".reader-compact")
+            expect(compact).to_be_hidden()
             expect(page.locator("main.trend-main > section[id]")).to_have_count(11)
             assert page.locator("#market .stats .stat").count()==3
             assert page.locator("#strategy .strategy").count()==6
             assert page.locator("#metrics .metric-tile").count()==6
             assert page.locator("#roadmap [data-phase]").count()==3
             assert page.locator('a[href*="mnscdn.moea.gov.tw"]').count()>=1
-            page.get_by_role("button",name="啟用單章閱讀模式").click()
-            assert page.locator("main.trend-main").evaluate(
-                "e=>e.classList.contains('reader-focus-mode')")
-            assert page.locator("main.trend-main > section.reader-focus-active").count()==1
-            assert page.locator("#competition").evaluate(
-                "e=>getComputedStyle(e).display==='none'")
-            page.get_by_role("combobox",name="選擇研究章節").select_option("strategy")
-            expect(page.locator("#strategy")).to_be_visible()
-            assert page.locator("#market").evaluate(
-                "e=>getComputedStyle(e).display==='none'")
-            page.get_by_role("button",name="下一章 →").click()
-            expect(page.locator("#roadmap")).to_be_visible()
-            page.get_by_role("button",name="關閉單章閱讀，顯示完整研究").click()
+            guide.locator('a[href="#strategy"]').click()
+            expect(compact).to_be_visible()
+            expect(compact.locator(".reader-compact-name")).to_have_text("改善方針")
+            expect(compact.locator("[role=progressbar]")).to_have_attribute("aria-valuenow","8")
+            assert compact.evaluate("e=>getComputedStyle(e).position")=="fixed"
+            expect(guide.locator('a[aria-current="location"]')).to_have_attribute("href","#strategy")
+            compact.get_by_role("button",name="下一章：90天計畫").click()
+            expect(compact.locator(".reader-compact-name")).to_have_text("90天計畫")
+            compact.get_by_role("button",name="上一章：改善方針").click()
+            expect(compact.locator(".reader-compact-name")).to_have_text("改善方針")
             assert all(page.locator(f"#{id}").evaluate("e=>getComputedStyle(e).display!=='none'") for id in chapters)
+            assert page.locator("#strategy").evaluate("e=>e.getBoundingClientRect().top") >= compact.evaluate("e=>e.getBoundingClientRect().bottom")-2
+            compact.get_by_role("link",name="研究目次").click()
+            expect(compact).to_be_hidden()
+            expect(guide).to_be_in_viewport()
+            page.emulate_media(media="print")
+            expect(guide).to_be_hidden()
+            expect(compact).to_be_hidden()
+            assert all(page.locator(f"#{id}").evaluate("e=>getComputedStyle(e).display!=='none'") for id in chapters)
+            page.emulate_media(media="screen",reduced_motion="reduce")
             # Sources remain in the DOM and a printable outline stays intact.
             assert page.locator("main.trend-main").inner_text().count("90 天")>=1
             overflow=page.evaluate(

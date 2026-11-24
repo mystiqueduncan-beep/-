@@ -70,6 +70,11 @@ with sync_playwright() as p:
      else:
       assert bottom.locator('a[href="mobile.html"]').count()==1,name
      row['mobile_bottom_navigation']='passed'
+    elif name=="trend.html":
+     expect(page.locator("nav.trend-bilingual-nav")).to_be_hidden()
+     expect(page.locator(".reader-index-link")).to_have_count(11)
+     assert page.locator(".reader-compact").count()==1
+     row["magazine_navigation"]="passed"
     else:
      nav=page.locator('[data-keycap-marquee]')
      expect(nav).to_have_count(1)

@@ -365,236 +365,151 @@
 })();
 
 
-/* 2026-11-23 | Reader-first editorial guide.
- * Keeps all eleven approved research chapters and every source/chart untouched.
- * Focus mode is opt-in, inline (no modal), reversible and print-safe.
- */
+/* Research magazine contents + compact reading navigation.
+ * Original chapter IDs, full article, source links and all existing motion stay intact.
+ * The legacy desktop chapter strip remains a no-JS fallback. */
 (() => {
   "use strict";
   if (!document.body?.classList.contains("page-trend")) return;
-
   function initReader() {
     const main = document.querySelector("main.trend-main");
     if (!main || main.querySelector(".reader-guide")) return;
     const sections = [...main.querySelectorAll(":scope > section[id]")];
-    const names = {
-      market: "市場判讀", competition: "品牌競爭", consumer: "消費心理",
-      location: "商圈研究", digital: "數位轉型", people: "人才管理",
-      experience: "經驗連結", strategy: "改善方針", roadmap: "90 天計畫",
-      metrics: "成效追蹤", sources: "資料來源"
-    };
-    if (sections.length !== 11 || sections.some(s => !names[s.id])) return;
-    const ids = sections.map(s => s.id);
-    const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)");
-    const guide = document.createElement("aside");
-    guide.className = "reader-guide";
-    guide.setAttribute("aria-label", "專題閱讀導覽");
-    const eyebrow = document.createElement("p");
-    eyebrow.className = "reader-guide__eyebrow";
-    eyebrow.textContent = "THE READING MAP  /  專題閱讀地圖";
-    const title = document.createElement("h2");
-    title.className = "reader-guide__title";
-    title.textContent = "先選主題，再深入閱讀";
-    const intro = document.createElement("p");
-    intro.className = "reader-guide__intro";
-    intro.textContent = "可以自由選章節閱讀";
-    const landmarks = document.createElement("nav");
-    landmarks.className = "reader-guide__landmarks";
-    landmarks.setAttribute("aria-label", "專題快速路徑");
     const groups = [
-      ["#market", "01", "看市場與消費", "MARKET & PEOPLE"],
-      ["#experience", "02", "看管理與改善", "ACTION & PRACTICE"],
-      ["#metrics", "03", "看成效與來源", "EVIDENCE & LIMITS"]
+      ["市場與消費","MARKET & PEOPLE",[
+        ["market","市場判讀"],["competition","品牌競爭"],["consumer","消費心理"],["location","商圈研究"]]],
+      ["管理與改善","ACTION & PRACTICE",[
+        ["digital","數位轉型"],["people","人才管理"],["experience","經驗連結"],["strategy","改善方針"],["roadmap","90天計畫"]]],
+      ["成效與來源","EVIDENCE & LIMITS",[
+        ["metrics","成效追蹤"],["sources","研究來源"]]]
     ];
-    groups.forEach(([href,number,label,english]) => {
-      const a = document.createElement("a");
-      a.className = "reader-guide__route";
-      a.href = href;
-      const n = document.createElement("span");
-      n.className = "reader-guide__route-number";
-      n.textContent = number;
-      const copy = document.createElement("span");
-      const zh = document.createElement("strong");
-      zh.textContent = label;
-      const en = document.createElement("small");
-      en.textContent = english;
-      copy.append(zh, en);
-      const arrow = document.createElement("span");
-      arrow.className = "reader-guide__route-arrow";
-      arrow.setAttribute("aria-hidden", "true");
-      arrow.textContent = "↗";
-      a.append(n,copy,arrow);
-      landmarks.append(a);
-    });
-
-    const toolbar = document.createElement("div");
-    toolbar.className = "reader-guide__toolbar";
-    const label = document.createElement("label");
-    label.className = "reader-guide__select-label";
-    const labelText = document.createElement("span");
-    labelText.textContent = "跳至章節";
-    const select = document.createElement("select");
-    select.className = "reader-guide__select";
-    select.setAttribute("aria-label", "選擇研究章節");
-    sections.forEach((section,index) => {
-      const option = document.createElement("option");
-      option.value = section.id;
-      option.textContent = String(index + 1).padStart(2,"0") + "  " + names[section.id];
-      select.append(option);
-    });
-    label.append(labelText,select);
-    const focusButton = document.createElement("button");
-    focusButton.className = "reader-guide__mode";
-    focusButton.type = "button";
-    focusButton.textContent = "切換單章閱讀";
-    focusButton.setAttribute("aria-pressed", "false");
-    focusButton.setAttribute("aria-label", "啟用單章閱讀模式");
-    const prev = document.createElement("button");
-    prev.type = "button";
-    prev.className = "reader-guide__step";
-    prev.textContent = "← 上一章";
-    prev.hidden = true;
-    const next = document.createElement("button");
-    next.type = "button";
-    next.className = "reader-guide__step";
-    next.textContent = "下一章 →";
-    next.hidden = true;
-    toolbar.append(label,focusButton,prev,next);
-
-    const progress = document.createElement("div");
-    progress.className = "reader-guide__progress";
-    const now = document.createElement("p");
-    now.className = "reader-guide__now";
-    const track = document.createElement("div");
-    track.className = "reader-guide__track";
-    track.setAttribute("aria-hidden", "true");
-    const fill = document.createElement("span");
-    fill.className = "reader-guide__fill";
-    track.append(fill);
-    progress.append(now,track);
-    guide.append(eyebrow,title,intro,landmarks,toolbar,progress);
-    main.insertBefore(guide,sections[0]);
-
-    let currentIndex = 0;
-    let focusMode = false;
-    let scheduled = false;
-
-    function hashChapter() {
-      const raw = window.location.hash.slice(1);
-      let id;
-      try { id = decodeURIComponent(raw); } catch (_) { return null; }
-      const target = document.getElementById(id);
-      const section = target?.closest("section[id]");
-      return section && ids.includes(section.id) ? ids.indexOf(section.id) : null;
-    }
-
-    function selectCurrent(index) {
-      currentIndex = Math.max(0,Math.min(sections.length-1,index));
-      select.value = ids[currentIndex];
-      now.textContent =
-        "閱讀進度  " + String(currentIndex + 1).padStart(2,"0") +
-        " / 11  ·  " + names[ids[currentIndex]];
-      fill.style.width = ((currentIndex + 1) / sections.length * 100) + "%";
-      sections.forEach((section,i) =>
-        section.classList.toggle("reader-current",i === currentIndex));
-      prev.disabled = currentIndex === 0;
-      next.disabled = currentIndex === sections.length - 1;
-    }
-
-    function goTo(index,writeHash=true) {
-      selectCurrent(index);
-      if (focusMode) {
-        sections.forEach((section,i) => {
-          section.classList.toggle("reader-focus-active",i === currentIndex);
-        });
-      }
-      if (writeHash) {
-        try {
-          const url = new URL(window.location.href);
-          url.hash = ids[currentIndex];
-          window.history.replaceState(null,"",url.pathname+url.search+url.hash);
-        } catch (_) {}
-      }
-      const target = sections[currentIndex];
-      // Native anchor positioning is preserved; no modal or content cloning.
-      target.scrollIntoView({
-        behavior: reduced?.matches ? "auto" : "smooth",
-        block: "start"
+    const entries=groups.flatMap(group=>group[2]);
+    if(sections.length!==entries.length || sections.some((s,i)=>s.id!==entries[i][0])) return;
+    const create=(tag,cls,copy)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(copy!==undefined)e.textContent=copy;return e;};
+    const number=i=>String(i+1).padStart(2,"0");
+    const reduced=window.matchMedia("(prefers-reduced-motion: reduce)");
+    const guide=create("aside","reader-guide");
+    guide.id="research-index";
+    guide.setAttribute("aria-labelledby","research-index-title");
+    guide.tabIndex=-1;
+    const eyebrow=create("p","reader-guide__eyebrow","CONTENTS / 目次");
+    const title=create("h2","reader-guide__title","研究章節一覽");
+    title.id="research-index-title";
+    const intro=create("p","reader-guide__intro","可以自由選章節閱讀");
+    const grid=create("nav","reader-index-grid");
+    grid.setAttribute("aria-label","研究章節目次");
+    const links=[];
+    groups.forEach(([name,en,items],gi)=>{
+      const group=create("div","reader-index-group");
+      const heading=create("h3","reader-index-heading");
+      heading.append(create("span","reader-index-number",number(gi)),create("span","reader-index-name",name));
+      const english=create("p","reader-index-english",en);
+      english.lang="en";
+      const list=create("ul","reader-index-list");
+      items.forEach(([id,label])=>{
+        const i=entries.findIndex(entry=>entry[0]===id);
+        const li=create("li");
+        const a=create("a","reader-index-link");
+        a.href="#"+id;
+        const n=create("span","reader-index-link-number",number(i));
+        n.setAttribute("aria-hidden","true");
+        const arrow=create("span","reader-index-arrow","›");
+        arrow.setAttribute("aria-hidden","true");
+        a.append(n,create("span","reader-index-link-name",label),arrow);
+        li.append(a);list.append(li);links.push(a);
       });
-    }
-
-    function setMode(active) {
-      focusMode = active;
-      main.classList.toggle("reader-focus-mode",active);
-      focusButton.setAttribute("aria-pressed",String(active));
-      focusButton.setAttribute(
-        "aria-label",active ? "關閉單章閱讀，顯示完整研究" : "啟用單章閱讀模式");
-      focusButton.textContent = active ? "展開全部章節" : "切換單章閱讀";
-      prev.hidden = !active;
-      next.hidden = !active;
-      sections.forEach((section,i) =>
-        section.classList.toggle("reader-focus-active",active && i === currentIndex));
-    }
-
-    select.addEventListener("change",() => goTo(ids.indexOf(select.value)));
-    focusButton.addEventListener("click",() => {
-      const selected = currentIndex;
-      setMode(!focusMode);
-      if (focusMode) goTo(selected,false);
+      group.append(heading,english,list);grid.append(group);
     });
-    prev.addEventListener("click",() => goTo(currentIndex - 1));
-    next.addEventListener("click",() => goTo(currentIndex + 1));
-
-    // When focus mode is on, opening a chapter from the original chapter nav
-    // must reveal it before scrolling. Normal anchor clicks remain native.
-    document.addEventListener("click",event => {
-      if (!focusMode || event.defaultPrevented || event.button !== 0 ||
-          event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
-      const link = event.target.closest?.('a[href^="#"]');
-      if (!link) return;
-      let id;
-      try { id=decodeURIComponent(link.hash.slice(1)); } catch (_) { return; }
-      const target = document.getElementById(id);
-      const section = target?.closest("section[id]");
-      if (!section || !ids.includes(section.id)) return;
-      event.preventDefault();
-      goTo(ids.indexOf(section.id));
-      if (target !== section) target.scrollIntoView({block:"start"});
-    });
-
-    function onScroll() {
-      scheduled = false;
-      if (focusMode) return;
-      let selected = 0;
-      const line = Math.min(window.innerHeight * .35,300);
-      for (let index=0;index<sections.length;index++) {
-        if (sections[index].getBoundingClientRect().top <= line) selected=index;
-        else break;
-      }
-      // Before reaching the article itself, prefer the first chapter.
-      selectCurrent(selected);
+    guide.append(eyebrow,title,intro,grid);
+    const compact=create("nav","reader-compact");
+    compact.setAttribute("aria-label","目前研究章節與切換");
+    compact.hidden=true;
+    const top=create("div","reader-compact-top");
+    const status=create("div","reader-compact-status");
+    const counter=create("span","reader-compact-count");
+    const name=create("strong","reader-compact-name");
+    status.append(counter,name);
+    const indexLink=create("a","reader-compact-index","研究目次");
+    indexLink.href="#research-index";
+    top.append(status,indexLink);
+    const controls=create("div","reader-compact-controls");
+    const prev=create("button","reader-compact-step");
+    const next=create("button","reader-compact-step");
+    prev.type=next.type="button";
+    const prevText=create("span","reader-compact-step-label","〈 上一章");
+    const nextText=create("span","reader-compact-step-label","下一章 〉");
+    const prevName=create("span","reader-compact-step-name");
+    const nextName=create("span","reader-compact-step-name");
+    prev.append(prevText,prevName);next.append(nextName,nextText);
+    controls.append(prev,next);
+    const track=create("div","reader-compact-track");
+    track.setAttribute("role","progressbar");
+    track.setAttribute("aria-label","目前閱讀章節");
+    track.setAttribute("aria-valuemin","1");
+    track.setAttribute("aria-valuemax",String(entries.length));
+    const fill=create("span","reader-compact-fill");
+    track.append(fill);
+    compact.append(top,controls,track);
+    main.insertBefore(guide,sections[0]);
+    main.insertBefore(compact,sections[0]);
+    document.body.classList.add("reader-index-ready");
+    let current=-1,scheduled=false;
+    function setCurrent(index){
+      if(index===current)return;
+      current=index;
+      counter.textContent="CHAPTER "+number(index)+" / "+entries.length;
+      name.textContent=entries[index][1];
+      track.setAttribute("aria-valuenow",String(index+1));
+      track.setAttribute("aria-valuetext",number(index)+" / "+entries.length+" "+entries[index][1]);
+      fill.style.width=((index+1)/entries.length*100)+"%";
+      links.forEach((link,i)=>{
+        if(i===index)link.setAttribute("aria-current","location");
+        else link.removeAttribute("aria-current");
+      });
+      sections.forEach((s,i)=>s.classList.toggle("reader-current",i===index));
+      prev.disabled=index===0;next.disabled=index===entries.length-1;
+      prevName.textContent=index>0?entries[index-1][1]:"";
+      nextName.textContent=index<entries.length-1?entries[index+1][1]:"";
+      prev.setAttribute("aria-label",index>0?"上一章："+entries[index-1][1]:"上一章");
+      next.setAttribute("aria-label",index<entries.length-1?"下一章："+entries[index+1][1]:"下一章");
     }
-    function schedule() {
-      if (scheduled) return;
-      scheduled=true;
-      window.requestAnimationFrame(onScroll);
+    function hashChapter(){
+      try{
+        const target=document.getElementById(decodeURIComponent(location.hash.slice(1)));
+        const section=target?.closest("section[id]");
+        return sections.indexOf(section);
+      }catch(_){return -1;}
     }
+    function update(){
+      scheduled=false;
+      const show=guide.getBoundingClientRect().bottom<=150 &&
+        sections[sections.length-1].getBoundingClientRect().bottom>0;
+      compact.hidden=!show;
+      let index=0;
+      const line=Math.max(160,Math.min(innerHeight*.32,300));
+      sections.forEach((section,i)=>{if(section.getBoundingClientRect().top<=line)index=i;});
+      if(window.scrollY+innerHeight>=document.documentElement.scrollHeight-3)index=sections.length-1;
+      setCurrent(index);
+    }
+    function schedule(){if(!scheduled){scheduled=true;requestAnimationFrame(update);}}
+    function goTo(index){
+      if(index<0||index>=sections.length)return;
+      const hash="#"+entries[index][0];
+      if(location.hash!==hash)location.hash=hash;
+      else sections[index].scrollIntoView({behavior:reduced.matches?"instant":"smooth",block:"start"});
+      schedule();
+    }
+    prev.addEventListener("click",()=>goTo(current-1));
+    next.addEventListener("click",()=>goTo(current+1));
+    indexLink.addEventListener("click",()=>guide.focus({preventScroll:true}));
     window.addEventListener("scroll",schedule,{passive:true});
     window.addEventListener("resize",schedule,{passive:true});
-    window.addEventListener("hashchange",() => {
-      const index=hashChapter();
-      if (index !== null) {
-        if (focusMode) goTo(index,false);
-        else selectCurrent(index);
-      }
-    });
-    window.addEventListener("beforeprint",() => setMode(false));
-    const initial = hashChapter();
-    selectCurrent(initial ?? 0);
+    window.addEventListener("hashchange",schedule);
+    window.addEventListener("pageshow",schedule);
+    const initial=hashChapter();
+    setCurrent(initial>=0?initial:0);
     schedule();
   }
-
-  if (document.readyState==="loading")
-    document.addEventListener("DOMContentLoaded",initReader,{once:true});
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initReader,{once:true});
   else initReader();
 })();

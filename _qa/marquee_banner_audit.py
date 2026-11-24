@@ -92,6 +92,24 @@ try:
     try:
      page.goto(urljoin(base,name)+"?view="+("mobile" if mobile else "desktop"),
          wait_until="load",timeout=45000)
+     if "trend" in name and not args.baseline:
+      guide=page.locator(".reader-guide")
+      compact=page.locator(".reader-compact")
+      verify(guide.locator(".reader-index-link").count()==11,"11 magazine chapter links",name)
+      verify(page.locator("nav.trend-bilingual-nav:visible").count()==0,"no duplicate desktop strip",name)
+      verify(page.evaluate("document.documentElement.scrollWidth-innerWidth<=1"),"page overflow",name)
+      guide.scroll_into_view_if_needed()
+      page.screenshot(path=str(out/f"{Path(name).stem}-{width}-contents.png"))
+      guide.locator('a[href="#strategy"]').click()
+      expect(compact).to_be_visible()
+      expect(compact.locator(".reader-compact-name")).to_have_text("改善方針")
+      verify(compact.evaluate("e=>getComputedStyle(e).position")== "fixed","compact fixed",name)
+      if mobile:
+       verify(page.locator("nav.mobile-bottom-bar").is_visible(),"mobile cross-page nav retained",name)
+      verify(not errors,"no research page script exception",errors)
+      page.screenshot(path=str(out/f"{Path(name).stem}-{width}.png"))
+      item["status"]="passed";rows.append(item);print(json.dumps(item,ensure_ascii=False),flush=True)
+      page.close();continue
      if mobile and not args.baseline:
       # Dedicated phone layouts intentionally use just the fixed footer.
       # They must not contain hidden/duplicated top chapter links.

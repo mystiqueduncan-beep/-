@@ -38,6 +38,14 @@ with sync_playwright() as p:
     assert bottom.locator('a[href="mobile-contact.html"]').count()==1,name
    assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),name
    rows.append({'page':name,'topChapterNav':'removed','bottomNavigation':'pass'})
+  elif name=="trend":
+   guide=page.locator(".reader-guide")
+   expect(guide.locator(".reader-index-link")).to_have_count(11)
+   expect(page.locator("nav.trend-bilingual-nav")).to_be_hidden()
+   guide.locator('a[href="#market"]').click()
+   expect(page.locator(".reader-compact-name")).to_have_text("市場判讀")
+   assert page.evaluate("location.hash")=="#market"
+   rows.append({"page":name,"magazineNavigation":"pass"})
   else:
    nav=page.locator('[data-keycap-marquee]')
    expect(nav).to_have_count(1)

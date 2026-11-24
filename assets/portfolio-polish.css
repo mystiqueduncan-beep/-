@@ -2862,151 +2862,67 @@
     color:#6c5262;
     line-height:1.65 !important;
   }
-  body.page-trend .reader-guide__landmarks {
-    display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:11px;
+  body.page-trend.reader-index-ready nav.trend-bilingual-nav {display:none!important;}
+  html:has(body.page-trend.reader-index-ready) {scroll-padding-top:124px!important;scroll-behavior:smooth;}
+  body.page-trend.reader-index-ready .trend-main > section[id] {scroll-margin-top:8px!important;}
+  body.page-trend .reader-index-grid {
+    display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;
+    min-width:0;position:static!important;background:none!important;border:0!important;
   }
-  body.page-trend .reader-guide__route {
-    display:flex;
-    align-items:center;
-    gap:11px;
-    min-width:0;
-    min-height:65px;
-    padding:11px 13px;
-    border:1px solid #e2cdd5;
-    border-radius:14px;
-    background:#fffdfa;
-    color:#563b4c;
-    text-decoration:none !important;
-    box-shadow:none;
-    transition:border-color .2s ease,background-color .2s ease;
+  body.page-trend .reader-index-group {
+    min-width:0;padding:clamp(14px,2vw,21px);border:1px solid #dfc5d0;border-radius:15px;
+    background:#f8ebf0;color:#563b4c;box-shadow:0 3px 12px rgba(80,54,70,.035);
   }
-  body.page-trend .reader-guide__route:nth-child(2) {
-    background:#fbfcf9;
-    border-color:#d5e1d6;
+  body.page-trend .reader-index-group:nth-child(2) {background:#edf3eb;border-color:#cddbcf;}
+  body.page-trend .reader-index-group:nth-child(3) {background:#f1eef6;border-color:#d8d0e3;}
+  body.page-trend .reader-index-heading {
+    display:flex;align-items:baseline;gap:10px;margin:0!important;color:#603d52;
+    font-size:clamp(1rem,1.6vw,1.2rem);line-height:1.4;
   }
-  body.page-trend .reader-guide__route:nth-child(3) {
-    background:#fbfafc;
-    border-color:#ddd7e6;
+  body.page-trend .reader-index-number {font:800 1.8rem/1 var(--font-mono,ui-monospace,monospace);color:#866078;}
+  body.page-trend .reader-index-english {
+    margin:5px 0 11px!important;color:#695264;letter-spacing:.05em;font-size:.68rem;font-weight:700;
   }
-  body.page-trend .reader-guide__route:hover {
-    background:#f8e9ef;
-    border-color:#b98d9f;
+  body.page-trend .reader-index-list {list-style:none!important;padding:0!important;margin:0!important;border-top:1px solid #d7c4cf;}
+  body.page-trend .reader-index-list > li {margin:0!important;padding:0!important;}
+  body.page-trend .reader-index-link {
+    display:flex;align-items:center;gap:8px;min-height:44px;padding:5px 7px;
+    border-bottom:1px solid rgba(128,83,110,.15);border-radius:6px;
+    color:#563b4c!important;text-decoration:none!important;font-size:.9rem;font-weight:700;
+    transition:background-color .22s ease,color .22s ease,transform .22s ease;
   }
-  body.page-trend .reader-guide__route-number {
-    flex:0 0 auto;
-    color:#643a50;
-    font:800 .8rem/1 var(--font-mono,ui-monospace,monospace);
+  body.page-trend .reader-index-link:hover {background:#fffafc;transform:translateX(2px);}
+  body.page-trend .reader-index-link[aria-current="location"] {background:#e9c6d3;color:#503044!important;}
+  body.page-trend .reader-index-link-number {font:750 .72rem/1 var(--font-mono,ui-monospace,monospace);color:#765267;}
+  body.page-trend .reader-index-arrow {margin-left:auto;color:#765267;font-size:1.2rem;}
+  body.page-trend .reader-compact {
+    position:fixed!important;top:6px!important;left:50%;transform:translateX(-50%);
+    z-index:800;box-sizing:border-box;width:min(calc(100% - 24px),1136px);
+    display:grid!important;gap:5px;padding:7px 12px;background:#fffaf8!important;
+    border:1px solid #d6b7c7!important;border-radius:15px;box-shadow:0 5px 22px rgba(76,47,64,.12);
+    color:#603d52;animation:reader-compact-in .25s ease both;
   }
-  body.page-trend .reader-guide__route > span:nth-child(2) {
-    display:grid;
-    gap:2px;
-    min-width:0;
+  body.page-trend .reader-compact[hidden] {display:none!important;}
+  @keyframes reader-compact-in {from{opacity:0;translate:0 -7px;}to{opacity:1;translate:0 0;}}
+  body.page-trend .reader-compact-top,body.page-trend .reader-compact-controls {
+    display:flex;align-items:center;justify-content:space-between;gap:6px;min-width:0;
   }
-  body.page-trend .reader-guide__route strong {
-    font-size:.9rem;
-    line-height:1.5;
-    font-weight:750;
+  body.page-trend .reader-compact-status {display:flex;align-items:baseline;gap:9px;min-width:0;flex-wrap:wrap;}
+  body.page-trend .reader-compact-count {font:750 .69rem/1.25 var(--font-mono,ui-monospace,monospace);color:#765267;}
+  body.page-trend .reader-compact-name {font-size:1rem;line-height:1.3;color:#603d52;}
+  body.page-trend .reader-compact-index,body.page-trend .reader-compact-step {
+    display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;
+    padding:5px 10px;border:1px solid #d6b7c7;border-radius:9px;background:#fffdfc;
+    color:#603d52!important;font-size:.82rem;font-weight:750;text-decoration:none!important;
+    white-space:nowrap;transition:background-color .2s ease;
   }
-  body.page-trend .reader-guide__route small {
-    font-size:.62rem;
-    line-height:1.5;
-    color:#806878;
-    font-weight:700;
-    letter-spacing:.05em;
-  }
-  body.page-trend .reader-guide__route-arrow {
-    margin-left:auto;
-    color:#8c6580;
-  }
-  body.page-trend .reader-guide__toolbar {
-    display:flex;
-    align-items:end;
-    flex-wrap:wrap;
-    gap:10px;
-    min-width:0;
-  }
-  body.page-trend .reader-guide__select-label {
-    display:grid;
-    gap:5px;
-    flex:1 1 240px;
-    min-width:0;
-    font-size:.75rem;
-    font-weight:740;
-    color:#624758;
-  }
-  body.page-trend .reader-guide__select {
-    width:100%;
-    min-width:0;
-    min-height:44px;
-    border:1px solid #bfa1ae;
-    border-radius:11px;
-    padding:9px 12px;
-    background:#fff;
-    color:#4a3644;
-    font:700 .88rem/1.4 var(--font-sans,system-ui,sans-serif);
-  }
-  body.page-trend .reader-guide__mode,
-  body.page-trend .reader-guide__step {
-    min-height:44px;
-    padding:9px 13px;
-    border:1px solid #97697e;
-    border-radius:11px;
-    background:#fffafc;
-    color:#633f54;
-    font-size:.82rem;
-    font-weight:790;
-  }
-  body.page-trend .reader-guide__mode[aria-pressed="true"] {
-    background:#71455e;
-    color:#fff;
-  }
-  body.page-trend .reader-guide__step {border-color:#c7abb8;}
-  body.page-trend .reader-guide__step:disabled {opacity:.44;cursor:not-allowed;}
-  body.page-trend .reader-guide__step[hidden] {display:none!important;}
-  body.page-trend .reader-guide :is(a,button,select):focus-visible {
-    outline:3px solid #894e6d !important;
-    outline-offset:3px;
-  }
-  body.page-trend .reader-guide__progress {
-    display:flex;
-    align-items:center;
-    gap:12px;
-    border-top:1px solid #e7d4de;
-    padding-top:11px;
-  }
-  body.page-trend .reader-guide__now {
-    flex:0 0 auto;
-    margin:0!important;
-    font-size:.76rem;
-    color:#715267;
-    font-weight:750;
-  }
-  body.page-trend .reader-guide__track {
-    flex:1;
-    height:5px;
-    min-width:35px;
-    border-radius:10px;
-    background:#e8d5de;
-    overflow:hidden;
-  }
-  body.page-trend .reader-guide__fill {
-    display:block;
-    height:100%;
-    width:9.09%;
-    border-radius:inherit;
-    background:#956078;
-    transition:width .25s ease;
-  }
-  body.page-trend .trend-main.reader-focus-mode > section[id]:not(.reader-focus-active) {
-    display:none !important;
-  }
-  body.page-trend .trend-main.reader-focus-mode > section[id].reader-focus-active {
-    display:block !important;
-  }
-  body.page-trend .trend-main.reader-focus-mode > section[id] {
-    margin-bottom:32px!important;
+  body.page-trend .reader-compact-index:hover,body.page-trend .reader-compact-step:not(:disabled):hover {background:#f2dce5;}
+  body.page-trend .reader-compact-step:disabled {opacity:.45;cursor:not-allowed;}
+  body.page-trend .reader-compact-step-name {font-size:.76rem;color:#725267;font-weight:500;}
+  body.page-trend .reader-compact-track {height:4px;border-radius:6px;background:#ead7e0;overflow:hidden;}
+  body.page-trend .reader-compact-fill {display:block;height:100%;border-radius:inherit;background:#956078;transition:width .25s ease;}
+  body.page-trend :is(.reader-guide,.reader-compact) :is(a,button):focus-visible {
+    outline:3px solid #894e6d!important;outline-offset:2px;
   }
   /* Keep chapter links readable even when the tiny EN/JA labels are present. */
   body.page-trend .trend-bilingual-nav .bilingual-nav-jp {
@@ -3030,43 +2946,24 @@
     padding:15px;
     border-radius:17px;
   }
-  body.page-trend .reader-guide__landmarks {
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:7px;
-  }
-  body.page-trend .reader-guide__route {
-    min-height:62px;
-    align-items:flex-start;
-    gap:6px;
-    padding:9px 8px;
-    flex-direction:column;
-  }
-  body.page-trend .reader-guide__route strong {font-size:.73rem;}
-  body.page-trend .reader-guide__route small {display:none;}
-  body.page-trend .reader-guide__route-arrow {display:none;}
-  body.page-trend .reader-guide__toolbar {gap:8px;}
-  body.page-trend .reader-guide__select-label {flex-basis:100%;}
-  body.page-trend .reader-guide__mode {flex:1 1 100%;}
-  body.page-trend .reader-guide__step {flex:1 1 120px;}
-  body.page-trend .reader-guide__progress {
-    flex-wrap:wrap;
-    gap:6px;
-  }
-  body.page-trend .reader-guide__track {flex-basis:100%;}
+  body.page-trend .reader-index-grid {grid-template-columns:1fr;gap:10px;}
+  body.page-trend .reader-index-group {padding:13px;}
+  body.page-trend .reader-compact {width:calc(100% - 18px);padding:6px 9px;}
+  body.page-trend .reader-compact-status {display:grid;gap:2px;}
+  body.page-trend .reader-compact-step-name {display:none;}
   body.page-trend .inline-research-viz {
     padding:12px !important;
   }
 }
 @media print {
-  body.page-trend .reader-guide {display:none!important;}
-  body.page-trend .trend-main.reader-focus-mode > section[id] {
-    display:block!important;
-  }
+  body.page-trend :is(.reader-guide,.reader-compact) {display:none!important;}
 }
 @media (prefers-reduced-motion:reduce) {
-  body.page-trend .reader-guide *,
-  body.page-trend .reader-guide *::before,
-  body.page-trend .reader-guide *::after {
+  html:has(body.page-trend.reader-index-ready) {scroll-behavior:auto!important;}
+  body.page-trend :is(.reader-guide,.reader-compact),
+  body.page-trend :is(.reader-guide,.reader-compact) *,
+  body.page-trend :is(.reader-guide,.reader-compact) *::before,
+  body.page-trend :is(.reader-guide,.reader-compact) *::after {
     animation:none!important;
     transition:none!important;
     scroll-behavior:auto!important;
