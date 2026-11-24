@@ -247,7 +247,9 @@ with sync_playwright() as p:
   photo=page.locator('img[src="assets/portrait-cafe-iphone17.webp"]')
   expect(photo).to_have_count(1)
   photo.evaluate('(e)=>e.decode()')
-  assert photo.evaluate('(e)=>e.complete && e.naturalWidth===960 && e.naturalHeight===1200')
+  # Approved 2026-11-23 cafe WebP: 640 x 800; its exact SHA-256 is pinned in check.py.
+  intrinsic=photo.evaluate('(e)=>({complete:e.complete,width:e.naturalWidth,height:e.naturalHeight})')
+  assert intrinsic=={'complete':True,'width':640,'height':800},(name,'approved portrait intrinsic dimensions',intrinsic)
   assert photo.evaluate('(e)=>getComputedStyle(e.closest(".photo-frame")).borderRadius==="15px"')
   assert photo.evaluate('(e)=>getComputedStyle(e).objectPosition==="50% 0%"'),(name,'portrait crop must preserve full hairline')
   assert photo.evaluate('(e)=>{const r=e.getBoundingClientRect();return Math.abs(r.width/r.height-.8)<.02}'),(name,'portrait crop must remain 4:5')
