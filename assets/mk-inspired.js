@@ -397,7 +397,7 @@
     title.textContent = "先選主題，再深入閱讀";
     const intro = document.createElement("p");
     intro.className = "reader-guide__intro";
-    intro.textContent = "完整研究仍在原頁面。你可以自由跳章，或啟用單章閱讀，減少一次出現的資訊量。";
+    intro.textContent = "可以自由選章節閱讀";
     const landmarks = document.createElement("nav");
     landmarks.className = "reader-guide__landmarks";
     landmarks.setAttribute("aria-label", "專題快速路徑");

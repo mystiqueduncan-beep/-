@@ -29,6 +29,7 @@ try:
             page.goto(f"{root}/{file}?view={view}",wait_until="domcontentloaded")
             guide=page.locator("main.trend-main > .reader-guide")
             expect(guide).to_be_visible()
+            expect(guide.locator(".reader-guide__intro")).to_have_text("可以自由選章節閱讀")
             expect(guide.locator("select option")).to_have_count(11)
             expect(page.locator("main.trend-main > section[id]")).to_have_count(11)
             assert page.locator("#market .stats .stat").count()==3

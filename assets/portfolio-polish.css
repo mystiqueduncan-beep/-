@@ -2312,31 +2312,6 @@
     border-color:#bf8ba3 !important;
     filter:saturate(1.08);
   }
-  /* An understated text cue; the original +/− in the card corner remains.
-     It stays inside the card, never covers the source observations. */
-  body.page-trend #location .editorial-trade-diagram.mag-trade-selector > .mag-trade-choice > .mag-trade-hint {
-    display:inline-flex !important;
-    align-items:center;
-    align-self:flex-start;
-    max-width:100%;
-    min-width:0;
-    margin-top:auto !important;
-    padding:5px 9px !important;
-    border:1px solid #e3cbd5;
-    border-radius:999px;
-    background:rgba(255,255,255,.72);
-    color:#81556e !important;
-    font-size:.72rem !important;
-    font-weight:720 !important;
-    line-height:1.5 !important;
-    letter-spacing:.01em;
-    overflow-wrap:anywhere;
-  }
-  body.page-trend #location .editorial-trade-diagram.mag-trade-selector > .mag-trade-choice.mag-selected > .mag-trade-hint {
-    border-color:#d8b6c7;
-    background:#fbeaf2;
-    color:#79465f !important;
-  }
   /* 5. Digital rollout as a three-stage operational process. */
   body.page-trend #digital .mag-digital-steps {
     display:grid !important;
@@ -2723,9 +2698,9 @@
   }
 }
 
-/* Card interaction hints are screen-only; retain source text in print. */
+/* Section interaction guidance is screen-only; retain source text in print. */
 @media print {
-  body.page-trend #location .editorial-trade-diagram.mag-trade-selector > .mag-trade-choice > .mag-trade-hint {
+  body.page-trend #location .mag-trade-help {
     display:none !important;
   }
 }
