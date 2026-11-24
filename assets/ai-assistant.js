@@ -86,11 +86,11 @@
   const patterns = [
     ["contact", ["如何聯絡", "聯絡", "聯繫", "連絡", "聯絡方式", "聯絡資訊", "電子郵件", "信箱", "email", "mail", "電話", "line", "怎麼找你"]],
     ["resume", ["簡歷", "履歷表", "履歷pdf", "下載履歷", "列印履歷", "列印簡歷", "下載pdf", "a4", "pdf"]],
-    ["education", ["學歷", "學校", "萬能", "企管系", "大學", "畢業", "就學", "讀什麼"]],
+    ["education", ["學歷", "學校", "萬能", "企管系", "大學", "畢業", "就學", "讀什麼", "入學", "就讀", "學系"]],
     ["levis", ["levis", "牛仔", "服飾工作"]],
     ["zhuxin", ["築心", "動物醫院", "獸醫院"]],
-    ["tomods", ["tomods", "tomods工作", "藥妝店長"]],
-    ["strategy", ["90天", "九十天", "改善方針", "改善策略", "改善計畫", "改善方案", "營運改善", "執行計畫", "管理提案", "六項", "6項"]],
+    ["tomods", ["tomods", "tomods工作", "藥妝店長", "三友藥妝"]],
+    ["strategy", ["90天", "九十天", "kpi", "績效指標", "改善方針", "改善策略", "改善計畫", "改善方案", "營運改善", "執行計畫", "管理提案", "六項", "6項"]],
     ["research", ["產業分析", "產業研究", "分析專題", "分析專案", "產業專題", "藥妝專題", "研究專題", "專題", "市場趨勢", "藥妝產業", "商圈", "數位轉型", "消費者行為", "專案", "競爭分析"]],
     ["skills", ["核心能力", "核心管理", "核心專長", "核心優勢", "企管核心", "管理能力", "專長", "優勢", "技能", "擅長", "強項", "帶訓", "排班"]],
     ["experience", ["工作經歷", "工作經驗", "過往經歷", "經歷", "資歷", "做過哪些工作", "任職", "履歷", "店長經驗"]],
@@ -103,14 +103,41 @@
     return String(value).toLocaleLowerCase().normalize("NFKC").replace(/[^\p{L}\p{N}]/gu, "");
   }
 
+  // Keep Latin terms as words: "online" must not match LINE, and "this"
+  // must not match the greeting "hi". Chinese phrases can match naturally.
+  function matches(question, word) {
+    if (/^[a-z0-9]+$/i.test(word)) {
+      const latin = String(question).normalize("NFKC").toLowerCase().replace(/['’]/g, "");
+      return new RegExp("(^|[^a-z0-9])" + word.toLowerCase() + "(?=$|[^a-z0-9])").test(latin);
+    }
+    return normalize(question).includes(normalize(word));
+  }
+
   function answerFor(question) {
     const value = normalize(question);
-    for (const entry of patterns) {
-      if (entry[1].some(word => value.includes(normalize(word)))) {
-        return knowledge[entry[0]];
-      }
+    const found = patterns.filter(([key, words]) =>
+      key !== "greeting" && words.some(word => matches(question, word))
+    ).map(([key]) => key);
+    // A company-specific question usually needs only that company's answer.
+    // Retain an explicitly requested general career overview, however.
+    const companies = ["tomods", "levis", "zhuxin"];
+    const broadCareer = /工作經歷|工作經驗|所有經歷|完整經歷|全部經歷|做過哪些工作/.test(value);
+    const topics = found.filter(key =>
+      !(key === "experience" && found.some(item => companies.includes(item)) && !broadCareer)
+    );
+    if (!topics.length) {
+      const greeting = patterns.find(([key]) => key === "greeting");
+      return greeting[1].some(word => value === normalize(word)) ? knowledge.greeting : knowledge.fallback;
     }
-    return knowledge.fallback;
+    if (topics.length === 1) return knowledge[topics[0]];
+    const answers = topics.map(key => knowledge[key]);
+    const links = [];
+    const seen = new Set();
+    answers.forEach(item => item.links.forEach(link => {
+      const id = link[1] + "#" + link[2];
+      if (!seen.has(id)) { seen.add(id); links.push(link); }
+    }));
+    return { answer: answers.map(item => item.answer).join("\n\n"), links };
   }
 
   function element(tag, className, textValue) {
