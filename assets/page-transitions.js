@@ -1225,6 +1225,11 @@
     if (trade) {
       trade.host.classList.add("mag-trade-selector");
       const rows=trade.rows;
+      const help=document.createElement("span");
+      help.id="mag-trade-help";
+      help.className="mag-trade-help";
+      help.textContent="點選卡片查看或收合營運方向，或使用方向鍵切換。";
+      trade.host.querySelector(":scope > .viz-caption").append(help);
       let active=0;
       const select = (index,toggle=false) => {
         active=toggle && active===index ? -1 : index;
@@ -1232,9 +1237,6 @@
           const current=i===active;
           row.classList.toggle("mag-selected", current);
           row.setAttribute("aria-expanded", String(current));
-          const hint=row.querySelector(":scope > .mag-trade-hint");
-          if(hint) hint.textContent=current
-            ? "點擊－收合營運方向" : "點擊＋查看營運方向";
         });
       };
       rows.forEach((row,i)=>{
@@ -1243,10 +1245,7 @@
         row.setAttribute("aria-controls","mag-trade-response-"+i);
         row.children[2].id="mag-trade-response-"+i;
         row.classList.add("mag-trade-choice");
-        const hint=document.createElement("span");
-        hint.className="mag-trade-hint";
-        hint.setAttribute("aria-hidden","true");
-        row.append(hint);
+        row.setAttribute("aria-describedby",help.id);
         row.addEventListener("click",()=>select(i,true));
         row.addEventListener("keydown",event=>{
           const key=event.key;
