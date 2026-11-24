@@ -4,14 +4,14 @@
  * All motion below is progressive enhancement; page content is visible by default.
  */
 :root {
-  --mk-inspired-yellow: #FFDB00;
-  --mk-inspired-yellow-light: #FFF7C7;
-  --mk-inspired-yellow-pale: #FFFCED;
-  --mk-inspired-navy: #0B2240;
-  --mk-inspired-red: #C5161D;
+  --mk-inspired-yellow: #e2dcd1;
+  --mk-inspired-yellow-light: #f7f6f3;
+  --mk-inspired-yellow-pale: #fcfcfa;
+  --mk-inspired-navy: #1c221e;
+  --mk-inspired-red: #4d674f;
   --mk-inspired-stroke: #DCDDD9;
-  --mk-inspired-shadow: 0 12px 30px rgba(11, 34, 64, 0.075);
-  --mk-inspired-shadow-hover: 0 16px 34px rgba(11, 34, 64, 0.135);
+  --mk-inspired-shadow: 0 12px 30px rgba(28, 34, 30, 0.075);
+  --mk-inspired-shadow-hover: 0 16px 34px rgba(28, 34, 30, 0.135);
   --mk-inspired-radius: 13px;
 }
 
@@ -20,8 +20,8 @@ html { overflow-x: clip; }
 /* Storefront rhythm: large clean panels separated by bright editorial stripes. */
 body {
   overflow-x: clip;
-  background-color: #F7F6F0;
-  background-image: linear-gradient(180deg, rgba(255, 247, 199, .32), transparent 530px);
+  background-color: #f7f6f3;
+  background-image: linear-gradient(180deg, rgba(247, 246, 243, .32), transparent 530px);
 }
 .mag-top-ticker { background-color: var(--mk-inspired-navy); border-bottom: 3px solid var(--mk-inspired-yellow); }
 /* Keep mobile header on white: its existing logo and controls use dark text. */
@@ -30,7 +30,7 @@ body {
   position: relative;
   overflow: clip;
   border-top: 4px solid var(--mk-inspired-yellow);
-  background: linear-gradient(111deg, #FFFFFF 0%, #FFFFFF 57%, #FFF9D9 100%);
+  background: linear-gradient(111deg, #FFFFFF 0%, #FFFFFF 57%, #f9f8f6 100%);
 }
 .mag-header::after {
   content: "";
@@ -39,7 +39,7 @@ body {
   top: 9%;
   width: min(32vw, 420px);
   aspect-ratio: 1;
-  border: 35px solid rgba(255, 219, 0, .11);
+  border: 35px solid rgba(226, 220, 209, .11);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -50,7 +50,7 @@ body {
   background: #FFFFFF;
 }
 .mobile-app-wrapper {
-  background: #F8F7F2;
+  background: #f8f7f4;
 }
 .mobile-status-strip {
   border-bottom: 2px solid var(--mk-inspired-yellow);
@@ -70,15 +70,15 @@ body {
 .candidate-intro-lead {
   border-radius: 10px;
   border-inline-start: 5px solid var(--mk-inspired-yellow);
-  background-color: #FFFCED;
+  background-color: #fcfcfa;
 }
 :is(.portfolio-badge, .badge-report, .brand-logo-badge, .ticker-pill) {
-  box-shadow: 2px 3px 0 rgba(11, 34, 64, .18);
+  box-shadow: 2px 3px 0 rgba(28, 34, 30, .18);
 }
 :is(.hero-photo-frame, .candidate-photo-frame, .photo-frame) {
   border-radius: 13px;
   overflow: hidden;
-  box-shadow: 9px 10px 0 rgba(11, 34, 64, .13);
+  box-shadow: 9px 10px 0 rgba(28, 34, 30, .13);
 }
 :is(.hero-photo-frame, .candidate-photo-frame, .photo-frame, .source-photo-image) img {
   transition: transform .42s cubic-bezier(.2,.7,.2,1), filter .35s ease;
@@ -99,8 +99,8 @@ body {
   border-left: 6px solid var(--mk-inspired-yellow);
   border-bottom: 2px solid var(--mk-inspired-navy);
   border-radius: 10px;
-  background: linear-gradient(100deg, #FFF9DA, #FFFFFF 38%, #FFFFFF 100%);
-  box-shadow: 0 5px 14px rgba(11,34,64,.045);
+  background: linear-gradient(100deg, #f9f8f6, #FFFFFF 38%, #FFFFFF 100%);
+  box-shadow: 0 5px 14px rgba(28,34,30,.045);
 }
 .section-editorial-header .sec-number {
   flex-shrink: 0;
@@ -113,7 +113,7 @@ body {
   border: 1px solid var(--mk-inspired-navy);
   border-radius: 5px;
   background: var(--mk-inspired-yellow);
-  color: #A90E16;
+  color: #415743;
   box-shadow: 2px 3px 0 var(--mk-inspired-navy);
 }
 .section-editorial-header .sec-title-main {
@@ -186,14 +186,14 @@ body {
 /* Alternating category rhythm adapted from the official product listing layout. */
 main.mag-main .section-block:nth-of-type(even) {
   padding: clamp(14px, 2.2vw, 24px);
-  border: 1px solid rgba(226, 204, 113, .45);
+  border: 1px solid rgba(213, 203, 187, .45);
   border-radius: 17px;
-  background: linear-gradient(135deg, #FFFAE3 0%, #FFFDF4 52%, rgba(255,255,255,.28) 100%);
+  background: linear-gradient(135deg, #faf9f8 0%, #fdfdfc 52%, rgba(255,255,255,.28) 100%);
 }
 main.trend-main > section[id]:nth-of-type(even) {
   padding: clamp(14px, 2vw, 23px);
   border-radius: 17px;
-  background: linear-gradient(145deg, rgba(255,247,199,.60), rgba(255,255,255,.64) 44%);
+  background: linear-gradient(145deg, rgba(247,246,243,.60), rgba(255,255,255,.64) 44%);
 }
 main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
   border-left: 4px solid var(--mk-inspired-yellow);
@@ -250,7 +250,7 @@ main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
 .source-verification {
   border-left: 5px solid var(--mk-inspired-yellow);
   border-radius: 8px;
-  background: #FFFCED;
+  background: #fcfcfa;
 }
 
 /* Dark footer bookend and brighter section transitions. */
@@ -363,7 +363,7 @@ main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
 /* 90-day regional roadmap: one readable stage, original editorial palette. */
 #roadmap .roadmap-hint {
   margin: 15px 0 -12px;
-  color: #654753;
+  color: #435247;
   font-size: .78rem;
 }
 #roadmap .timeline-control::after {
@@ -373,7 +373,7 @@ main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
   left: 16%;
   height: 2px;
   width: var(--roadmap-progress, 0%);
-  background: #956375;
+  background: #58755b;
   border-radius: 2px;
   pointer-events: none;
   z-index: 0;
@@ -385,16 +385,16 @@ main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
   transition: color .2s ease;
 }
 #roadmap .phase-tab:hover .phase-dot {
-  box-shadow: 0 6px 14px rgba(117, 72, 92, .17);
+  box-shadow: 0 6px 14px rgba(67, 88, 68, .17);
   transform: scale(1.07);
 }
 #roadmap .phase-tab:focus-visible,
 #roadmap .roadmap-step-button:focus-visible {
-  outline: 3px solid #805266 !important;
+  outline: 3px solid #4b634d !important;
   outline-offset: 4px;
 }
 #roadmap .phase-tab[aria-pressed="true"] b {
-  color: #805266;
+  color: #4b634d;
   font-weight: 800;
 }
 #roadmap.roadmap-ready .roadmap {
@@ -410,21 +410,21 @@ main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
   min-width: 0;
   min-height: 280px;
   margin: 0;
-  border: 1px solid #d9bfc9 !important;
+  border: 1px solid #bccab8 !important;
   border-radius: 26px;
   padding: clamp(21px, 3vw, 32px) !important;
-  background: #fffcfa !important;
-  box-shadow: 0 10px 28px rgba(106, 66, 82, .045) !important;
+  background: #fdfbf6 !important;
+  box-shadow: 0 10px 28px rgba(61, 80, 62, .045) !important;
   animation: roadmap-panel-enter .32s cubic-bezier(.2,.75,.25,1) both;
 }
 #roadmap.roadmap-ready .phase strong {
   display: block;
-  color: #805266;
+  color: #4b634d;
   font-size: clamp(1.5rem,2.8vw,2rem);
 }
 #roadmap.roadmap-ready .phase h3 {
   margin: 4px 0 14px;
-  color: #754b60;
+  color: #445a46;
   font-size: clamp(1.08rem,1.8vw,1.25rem);
 }
 #roadmap.roadmap-ready .phase ul {
@@ -442,7 +442,7 @@ main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
   overflow-wrap: anywhere;
 }
 #roadmap.roadmap-ready .phase .deliver {
-  border-top: 1px solid #e4cbd3;
+  border-top: 1px solid #c9d5c5;
   padding-top: 13px;
   margin-top: 16px;
   line-height: 1.9;
@@ -458,16 +458,16 @@ main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
 #roadmap .roadmap-step-button {
   min-height: 44px;
   padding: 9px 18px;
-  color: #7f5265;
-  background: #fff9f8;
-  border: 1px solid #d6b7c3;
+  color: #4a624c;
+  background: #f9fbf9;
+  border: 1px solid #b5c3b0;
   border-radius: 100px;
   font-size: .85rem;
   font-weight: 700;
   transition: background .2s ease, transform .2s ease;
 }
 #roadmap .roadmap-step-button:not(:disabled):hover {
-  background: #f2e0e7;
+  background: #e0e7dd;
   transform: translateY(-2px);
 }
 #roadmap .roadmap-step-button:disabled {
@@ -475,7 +475,7 @@ main.mobile-content > :is(.mobile-card, .timeline-job-card):nth-of-type(even) {
   cursor: not-allowed;
 }
 #roadmap .roadmap-step-count {
-  color: #654753;
+  color: #435247;
   font: 700 .76rem/1.2 ui-monospace, Consolas, monospace;
   white-space: nowrap;
   letter-spacing: .08em;

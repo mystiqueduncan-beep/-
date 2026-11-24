@@ -18,10 +18,10 @@ body.page-home .home-quick-actions .home-action-pill {
   min-height: 50px !important;
   padding: 11px 13px !important;
   box-sizing: border-box;
-  border: 1.5px solid #bd96a5 !important;
+  border: 1.5px solid #8ba88e !important;
   border-radius: 999px !important;
-  background: #fffcfa !important;
-  color: #654753 !important;
+  background: #fdfbf6 !important;
+  color: #435247 !important;
   box-shadow: none !important;
   text-decoration: none !important;
   text-align: center !important;
@@ -40,13 +40,13 @@ body.page-home .home-quick-actions .home-action-pill svg {
 }
 body.page-home .home-quick-actions .home-action-pill--solid,
 body.page-home .home-quick-actions .home-action-pill--project {
-  background: #885365 !important;
-  color: #fffcfa !important;
-  border-color: #885365 !important;
+  background: #536457 !important;
+  color: #fdfbf6 !important;
+  border-color: #536457 !important;
 }
 body.page-home .home-quick-actions .home-action-pill--project {
-  background: #936e7d !important;
-  border-color: #936e7d !important;
+  background: #5e7c60 !important;
+  border-color: #5e7c60 !important;
 }
 body.page-home .home-quick-actions .home-action-pill--print {
   border-style: dashed !important;
@@ -71,20 +71,20 @@ body.page-home .home-quick-actions .home-file-actions > a { min-width: 0 !import
 @media (hover: hover) and (pointer: fine) {
   body.page-home .home-quick-actions .home-action-pill:hover {
     transform: translateY(-2px);
-    border-color: #885365 !important;
+    border-color: #536457 !important;
   }
   body.page-home .home-quick-actions .home-action-pill--outline:hover {
-    background: #f6e6ec !important;
+    background: #e6ece4 !important;
   }
   body.page-home .home-quick-actions .home-action-pill--solid:hover {
-    background: #734657 !important;
+    background: #415643 !important;
   }
   body.page-home .home-quick-actions .home-action-pill--project:hover {
-    background: #805663 !important;
+    background: #4c654e !important;
   }
 }
 body.page-home .home-quick-actions .home-action-pill:focus-visible {
-  outline: 3px solid #885365 !important;
+  outline: 3px solid #536457 !important;
   outline-offset: 3px !important;
 }
 @media (max-width: 520px) {
