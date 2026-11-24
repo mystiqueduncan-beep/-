@@ -50,8 +50,8 @@ try:
             assert compact.evaluate("e=>getComputedStyle(e).position")=="fixed"
             assert compact.evaluate("e=>e.getBoundingClientRect().height")<=56
             assert compact.evaluate("e=>getComputedStyle(e).gridTemplateColumns.split(' ').length")==4
-            assert compact.locator("button").all_text_contents()==["‹","›"]
-            assert compact.locator("button, a").evaluate_all("es=>es.every(e=>e.getBoundingClientRect().width>=44 && e.getBoundingClientRect().height>=44)")
+            assert compact.locator(".reader-compact-step").all_text_contents()==["‹","›"]
+            assert compact.locator("button:visible, a:visible").evaluate_all("es=>es.every(e=>e.getBoundingClientRect().width>=44 && e.getBoundingClientRect().height>=44)")
             # Fixed throughout reading: the bar never disappears in either direction.
             assert compact.evaluate("e=>getComputedStyle(e).backgroundColor")=="rgba(255, 250, 248, 0.2)"
             initial_top=compact.evaluate("e=>e.getBoundingClientRect().top")
@@ -71,9 +71,35 @@ try:
             expect(compact.locator(".reader-compact-name")).to_have_text("改善方針")
             assert all(page.locator(f"#{id}").evaluate("e=>getComputedStyle(e).display!=='none'") for id in chapters)
             assert page.locator("#strategy").evaluate("e=>e.getBoundingClientRect().top") >= compact.evaluate("e=>e.getBoundingClientRect().bottom")-2
-            compact.get_by_role("link",name="研究目次").click()
-            expect(compact).to_be_hidden()
-            expect(guide).to_be_in_viewport()
+            trigger=compact.get_by_role("button",name="研究目次")
+            menu=compact.locator(".reader-quick-index")
+            expect(menu).to_be_hidden()
+            y=page.evaluate("scrollY")
+            trigger.click()
+            expect(menu).to_be_visible()
+            expect(trigger).to_have_attribute("aria-expanded","true")
+            assert abs(page.evaluate("scrollY")-y)<=2
+            expect(menu.locator(".reader-quick-link")).to_have_count(11)
+            if width<=720:
+                expect(menu.locator(".reader-quick-group:visible")).to_have_count(1)
+                menu.get_by_role("button",name="市場與消費").click()
+                expect(menu.locator(".reader-quick-link:visible")).to_have_count(4)
+            else:
+                expect(menu.locator(".reader-quick-group:visible")).to_have_count(3)
+                expect(menu.locator(".reader-quick-link:visible")).to_have_count(11)
+            menu.locator('a[href="#consumer"]').click()
+            expect(menu).to_be_hidden()
+            expect(compact.locator(".reader-compact-name")).to_have_text("消費心理")
+            expect(trigger).to_have_attribute("aria-expanded","false")
+            trigger.click()
+            expect(menu.locator('a[aria-current="location"]')).to_have_attribute("href","#consumer")
+            page.keyboard.press("Escape")
+            expect(menu).to_be_hidden()
+            expect(trigger).to_be_focused()
+            trigger.click()
+            page.mouse.click(5, height-150)
+            expect(menu).to_be_hidden()
+            expect(compact).to_be_visible()
             page.emulate_media(media="print")
             expect(guide).to_be_hidden()
             expect(compact).to_be_hidden()

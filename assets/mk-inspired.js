@@ -428,9 +428,11 @@
     const counter=create("span","reader-compact-count");
     const name=create("strong","reader-compact-name");
     status.append(counter,name);
-    const indexLink=create("a","reader-compact-index");
-    indexLink.href="#research-index";
+    const indexLink=create("button","reader-compact-index");
+    indexLink.type="button";
     indexLink.setAttribute("aria-label","研究目次");
+    indexLink.setAttribute("aria-expanded","false");
+    indexLink.setAttribute("aria-controls","reader-quick-index");
     const indexIcon=create("span","reader-compact-icon","☰");
     indexIcon.setAttribute("aria-hidden","true");
     indexLink.append(indexIcon,create("span","reader-compact-index-label","研究目次"));
@@ -444,11 +446,74 @@
     track.setAttribute("aria-valuemax",String(entries.length));
     const fill=create("span","reader-compact-fill");
     track.append(fill);
-    compact.append(prev,status,next,indexLink,track);
+    const menu=create("div","reader-quick-index");
+    menu.id="reader-quick-index";
+    menu.hidden=true;
+    menu.setAttribute("aria-label","快速選擇研究章節");
+    const mobileLayout=window.matchMedia("(max-width:720px)");
+    const tabs=create("div","reader-quick-tabs");
+    tabs.setAttribute("role","group");
+    tabs.setAttribute("aria-label","研究分類");
+    const menuGrid=create("div","reader-quick-grid");
+    const menuLinks=[], groupCards=[], groupButtons=[];
+    let activeGroup=0;
+    groups.forEach(([label,en,items],gi)=>{
+      const tab=create("button","reader-quick-tab",label);
+      tab.type="button";
+      tab.setAttribute("aria-controls","reader-quick-group-"+gi);
+      tab.addEventListener("click",()=>setGroup(gi));
+      tabs.append(tab);groupButtons.push(tab);
+      const card=create("div","reader-quick-group");
+      card.id="reader-quick-group-"+gi;
+      const head=create("p","reader-quick-heading",label);
+      card.append(head);
+      items.forEach(([id,copy])=>{
+        const link=create("a","reader-quick-link");
+        link.href="#"+id;
+        const i=entries.findIndex(e=>e[0]===id);
+        const num=create("span","reader-quick-number",number(i));
+        num.setAttribute("aria-hidden","true");
+        link.append(num,create("span","reader-quick-name",copy));
+        link.addEventListener("click",event=>{
+          if(event.button!==0||event.metaKey||event.ctrlKey||event.altKey||event.shiftKey)return;
+          event.preventDefault();
+          closeMenu(true);
+          goTo(i);
+        });
+        card.append(link);menuLinks.push(link);
+      });
+      menuGrid.append(card);groupCards.push(card);
+    });
+    menu.append(tabs,menuGrid);
+    compact.append(prev,status,next,indexLink,track,menu);
     main.insertBefore(guide,sections[0]);
     main.insertBefore(compact,sections[0]);
     document.body.classList.add("reader-index-ready");
     let current=-1,scheduled=false;
+    function setGroup(index){
+      activeGroup=index;
+      tabs.hidden=!mobileLayout.matches;
+      groupCards.forEach((card,i)=>{
+        card.hidden=mobileLayout.matches&&i!==activeGroup;
+        groupButtons[i].setAttribute("aria-pressed",String(i===activeGroup));
+      });
+    }
+    function closeMenu(restoreFocus=false){
+      if(menu.hidden)return;
+      menu.hidden=true;
+      indexLink.setAttribute("aria-expanded","false");
+      indexIcon.textContent="☰";
+      if(restoreFocus&&!compact.hidden)indexLink.focus({preventScroll:true});
+    }
+    function openMenu(){
+      const id=entries[Math.max(0,current)][0];
+      setGroup(Math.max(0,groups.findIndex(g=>g[2].some(e=>e[0]===id))));
+      menu.hidden=false;
+      indexLink.setAttribute("aria-expanded","true");
+      indexIcon.textContent="×";
+    }
+    mobileLayout.addEventListener?.("change",()=>setGroup(activeGroup));
+    setGroup(0);
     function setCurrent(index){
       if(index===current)return;
       current=index;
@@ -457,10 +522,10 @@
       track.setAttribute("aria-valuenow",String(index+1));
       track.setAttribute("aria-valuetext",number(index)+" / "+entries.length+" "+entries[index][1]);
       fill.style.width=((index+1)/entries.length*100)+"%";
-      links.forEach((link,i)=>{
+      [links,menuLinks].forEach(list=>list.forEach((link,i)=>{
         if(i===index)link.setAttribute("aria-current","location");
         else link.removeAttribute("aria-current");
-      });
+      }));
       sections.forEach((s,i)=>s.classList.toggle("reader-current",i===index));
       prev.disabled=index===0;next.disabled=index===entries.length-1;
       prev.title=index>0?"上一章："+entries[index-1][1]:"已是第一章";
@@ -481,6 +546,7 @@
       scheduled=false;
       const y=Math.max(0,window.scrollY);
       compact.hidden=guide.getBoundingClientRect().bottom>80;
+      if(compact.hidden)closeMenu();
       let index=0;
       const line=Math.max(90,Math.min(innerHeight*.23,160));
       sections.forEach((section,i)=>{if(section.getBoundingClientRect().top<=line)index=i;});
@@ -495,9 +561,18 @@
       else sections[index].scrollIntoView({behavior:reduced.matches?"instant":"smooth",block:"start"});
       schedule();
     }
-    prev.addEventListener("click",()=>goTo(current-1));
-    next.addEventListener("click",()=>goTo(current+1));
-    indexLink.addEventListener("click",()=>guide.focus({preventScroll:true}));
+    prev.addEventListener("click",()=>{closeMenu();goTo(current-1);});
+    next.addEventListener("click",()=>{closeMenu();goTo(current+1);});
+    indexLink.addEventListener("click",()=>menu.hidden?openMenu():closeMenu());
+    document.addEventListener("pointerdown",event=>{
+      if(!menu.hidden&&!compact.contains(event.target))closeMenu();
+    });
+    compact.addEventListener("focusout",event=>{
+      if(event.relatedTarget&&!compact.contains(event.relatedTarget))closeMenu();
+    });
+    document.addEventListener("keydown",event=>{
+      if(event.key==="Escape"&&!menu.hidden){event.preventDefault();closeMenu(true);}
+    });
     window.addEventListener("scroll",schedule,{passive:true});
     window.addEventListener("resize",schedule,{passive:true});
     window.addEventListener("hashchange",schedule);
