@@ -122,8 +122,8 @@ with sync_playwright() as p:
         assert specs.evaluate("e=>e.scrollWidth<=e.clientWidth+1"), name
         assert page.locator("#education").count() == 1, name
         assert "萬能科技大學" in page.locator("#education").inner_text(), name
-        assert "Tomod's 6年門市實務" in page.locator("body").inner_text(), name
-        assert "動物醫院任職4年期間兼任新人帶訓工作" in page.locator("body").inner_text(), name
+        assert "Tomod's 6 年日系藥妝經驗" in page.locator("body").inner_text(), name
+        assert "動物醫院任職 4 年期間兼任新人帶訓" in page.locator("body").inner_text(), name
         assert page.evaluate("document.documentElement.scrollWidth<=innerWidth+1"), name
         cards = page.locator("div.method-card")
         assert cards.count() == 3, name

@@ -35,12 +35,12 @@ RESEARCH = [
     ("商圈研究與展店策略", "TRADE AREA & STORE NETWORK", "商圏分析と出店戦略"),
     ("零售數位轉型與虛實整合", "DIGITAL RETAIL & OMNICHANNEL", "小売のデジタル化とオムニチャネル"),
     ("組織行為與人才管理", "ORGANIZATIONAL BEHAVIOR & TALENT MANAGEMENT", "組織行動と人材育成"),
-    ("市場訊號，如何轉成營運決策？", "FROM MARKET SIGNALS TO OPERATIONAL DECISIONS", "市場動向を運営判断につなげる"),
-    ("把既有經驗，轉成跨店管理方法", "APPLYING EXPERIENCE TO MULTI-STORE MANAGEMENT", "現場経験を複数店舗の管理に生かす"),
-    ("六項改善方針，明確分工執行", "SIX IMPROVEMENT PRIORITIES & CLEAR RESPONSIBILITIES", "六つの改善方針と明確な役割分担"),
+    ("市場趨勢與營運決策", "MARKET TRENDS & OPERATIONAL DECISIONS", "市場動向と運営判断"),
+    ("實務經驗與跨店管理", "EXPERIENCE & MULTI-STORE MANAGEMENT", "現場経験と複数店舗の管理"),
+    ("六項營運改善方針", "SIX OPERATIONAL IMPROVEMENT PRIORITIES", "六つの店舗運営改善方針"),
     ("90 天區域營運推進計畫", "90-DAY REGIONAL OPERATIONS ROADMAP", "90日間のエリア運営推進計画"),
-    ("不只看業績，也看改善的代價", "BEYOND SALES: ASSESSING IMPROVEMENT COSTS", "売上だけでなく改善コストも評価する"),
-    ("資料來源與提案邊界", "SOURCES & PROPOSAL SCOPE", "情報源と提案の適用範囲"),
+    ("營運成效與成本評估", "OPERATING PERFORMANCE & COST ASSESSMENT", "運営成果とコスト評価"),
+    ("資料來源與研究限制", "SOURCES & RESEARCH LIMITATIONS", "情報源と研究の限界"),
 ]
 MOBILE = [
     ("個人作品集", "PERSONAL PORTFOLIO", "個人ポートフォリオ"),
