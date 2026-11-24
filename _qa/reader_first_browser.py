@@ -52,15 +52,17 @@ try:
             assert compact.evaluate("e=>getComputedStyle(e).gridTemplateColumns.split(' ').length")==4
             assert compact.locator("button").all_text_contents()==["‹","›"]
             assert compact.locator("button, a").evaluate_all("es=>es.every(e=>e.getBoundingClientRect().width>=44 && e.getBoundingClientRect().height>=44)")
-            # Real direction change: hide on downward reading, keep hidden when idle,
-            # restore on upward reading, even with reduced-motion enabled.
-            page.mouse.wheel(0,220)
-            expect(compact).to_have_class(__import__("re").compile("reader-compact-away"))
-            assert compact.evaluate("e=>e.getBoundingClientRect().bottom")<=0
-            page.wait_for_timeout(350)
-            expect(compact).to_have_class(__import__("re").compile("reader-compact-away"))
-            page.mouse.wheel(0,-220)
-            expect(compact).not_to_have_class(__import__("re").compile("reader-compact-away"))
+            # Fixed throughout reading: the bar never disappears in either direction.
+            assert compact.evaluate("e=>getComputedStyle(e).backgroundColor")=="rgba(255, 250, 248, 0.2)"
+            initial_top=compact.evaluate("e=>e.getBoundingClientRect().top")
+            for delta in (220,-220,350,-120):
+                page.mouse.wheel(0,delta)
+                page.wait_for_timeout(150)
+                expect(compact).to_be_visible()
+                assert compact.evaluate("e=>getComputedStyle(e).opacity")=="1"
+                assert abs(compact.evaluate("e=>e.getBoundingClientRect().top")-initial_top)<=1
+            page.mouse.wheel(0,-230)
+            page.wait_for_timeout(150)
             assert compact.evaluate("e=>e.getBoundingClientRect().top")>=0
             expect(guide.locator('a[aria-current="location"]')).to_have_attribute("href","#strategy")
             compact.get_by_role("button",name="下一章：90天計畫").click()

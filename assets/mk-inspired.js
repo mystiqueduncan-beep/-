@@ -448,8 +448,7 @@
     main.insertBefore(guide,sections[0]);
     main.insertBefore(compact,sections[0]);
     document.body.classList.add("reader-index-ready");
-    let current=-1,scheduled=false,reading=false,directionAnchor=window.scrollY;
-    let navigationTarget=null,navigationDeadline=0;
+    let current=-1,scheduled=false;
     function setCurrent(index){
       if(index===current)return;
       current=index;
@@ -476,43 +475,12 @@
         return sections.indexOf(section);
       }catch(_){return -1;}
     }
-    // Keep deliberate chapter jumps visible; ordinary downward reading hides
-    // the bar. A small cumulative direction threshold prevents touch jitter.
-    function reveal(){
-      compact.classList.remove("reader-compact-away");
-    }
-    function prepareJump(target){
-      navigationTarget=target;
-      navigationDeadline=performance.now()+1800;
-      reveal();
-    }
+    // Keep the compact navigation fixed throughout the article. Only the
+    // full contents area supersedes it; scroll direction never hides it.
     function update(){
       scheduled=false;
       const y=Math.max(0,window.scrollY);
-      const eligible=guide.getBoundingClientRect().bottom<=80 &&
-        sections[sections.length-1].getBoundingClientRect().bottom>0;
-      compact.hidden=!eligible;
-      let jumping=!!navigationTarget && performance.now()<navigationDeadline;
-      if(jumping){
-        const rect=navigationTarget.getBoundingClientRect();
-        if(Math.abs(rect.top-70)<=12 || y+innerHeight>=document.documentElement.scrollHeight-3)
-          navigationTarget=null;
-      }else navigationTarget=null;
-      if(!eligible || !reading || jumping){
-        reveal();
-        directionAnchor=y;
-      }else{
-        const distance=y-directionAnchor;
-        if(distance>=12){
-          // Never move a control away from a keyboard user.
-          if(!compact.querySelector(":focus-visible"))compact.classList.add("reader-compact-away");
-          directionAnchor=y;
-        }else if(distance<=-8){
-          reveal();
-          directionAnchor=y;
-        }
-      }
-      reading=eligible;
+      compact.hidden=guide.getBoundingClientRect().bottom>80;
       let index=0;
       const line=Math.max(90,Math.min(innerHeight*.23,160));
       sections.forEach((section,i)=>{if(section.getBoundingClientRect().top<=line)index=i;});
@@ -522,7 +490,6 @@
     function schedule(){if(!scheduled){scheduled=true;requestAnimationFrame(update);}}
     function goTo(index){
       if(index<0||index>=sections.length)return;
-      prepareJump(sections[index]);
       const hash="#"+entries[index][0];
       if(location.hash!==hash)location.hash=hash;
       else sections[index].scrollIntoView({behavior:reduced.matches?"instant":"smooth",block:"start"});
@@ -530,37 +497,13 @@
     }
     prev.addEventListener("click",()=>goTo(current-1));
     next.addEventListener("click",()=>goTo(current+1));
-    indexLink.addEventListener("click",()=>{
-      navigationTarget=null;
-      guide.focus({preventScroll:true});
-    });
-    compact.addEventListener("focusin",reveal);
-    // A wheel, touch or keyboard scroll interrupts any in-progress jump.
-    // Normal anchor clicks and browser history still use the existing hash.
-    const interrupt=()=>{if(navigationTarget){navigationTarget=null;directionAnchor=window.scrollY;}};
-    window.addEventListener("wheel",interrupt,{passive:true});
-    window.addEventListener("touchstart",interrupt,{passive:true});
-    window.addEventListener("keydown",event=>{
-      if(["ArrowUp","ArrowDown","PageUp","PageDown","Home","End"," "].includes(event.key) &&
-         !compact.contains(event.target))interrupt();
-    });
-    document.addEventListener("click",event=>{
-      if(event.button!==0||event.metaKey||event.ctrlKey||event.altKey||event.shiftKey)return;
-      const link=event.target.closest?.('a[href^="#"]');
-      const section=link&&sections.find(s=>"#"+s.id===link.hash);
-      if(section)prepareJump(section);
-    },true);
+    indexLink.addEventListener("click",()=>guide.focus({preventScroll:true}));
     window.addEventListener("scroll",schedule,{passive:true});
     window.addEventListener("resize",schedule,{passive:true});
-    window.addEventListener("hashchange",()=>{
-      const index=hashChapter();
-      if(index>=0)prepareJump(sections[index]);
-      schedule();
-    });
+    window.addEventListener("hashchange",schedule);
     window.addEventListener("pageshow",schedule);
     const initial=hashChapter();
     setCurrent(initial>=0?initial:0);
-    if(initial>=0)prepareJump(sections[initial]);
     schedule();
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initReader,{once:true});

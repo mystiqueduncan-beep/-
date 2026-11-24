@@ -2901,19 +2901,13 @@
     z-index:800;box-sizing:border-box;width:min(calc(100% - 24px),560px);
     display:grid!important;grid-template-columns:44px minmax(0,1fr) 44px auto;
     grid-template-rows:44px 3px;align-items:center;gap:0 5px;padding:0 6px 3px!important;
-    background:rgba(255,250,248,.94)!important;
+    background:rgba(255,250,248,.20)!important;
     -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
     border:1px solid #d6b7c7!important;border-radius:13px;
-    box-shadow:0 4px 16px rgba(76,47,64,.1);color:#603d52;
-    transition:transform .23s cubic-bezier(.22,1,.36,1),opacity .2s ease!important;
+    box-shadow:0 2px 9px rgba(76,47,64,.06);color:#603d52;
+    text-shadow:0 0 3px rgba(255,250,248,.9),0 0 6px rgba(255,250,248,.75);
   }
   body.page-trend .reader-compact[hidden] {display:none!important;}
-  body.page-trend .reader-compact.reader-compact-away {
-    transform:translate(-50%,calc(-100% - 12px));opacity:0;pointer-events:none;
-  }
-  body.page-trend .reader-compact.reader-compact-away:has(:focus-visible) {
-    transform:translate(-50%,0);opacity:1;pointer-events:auto;
-  }
   body.page-trend .reader-compact-status {
     display:flex;align-items:center;justify-content:center;gap:9px;min-width:0;
     white-space:nowrap;
