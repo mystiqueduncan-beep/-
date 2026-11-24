@@ -128,6 +128,11 @@ if __name__=='__main__':
    # over the expanded research pages while allowing no general text exemption.
    expanded={'trend.html':'d60da7997cd4006d0fc0ecc7f6bcd2f27b7a7535','mobile-trend.html':'690cdb35197be801371212c303776c1865ddcf26'}
    raw=(ROOT/name).read_bytes()
+   # Only this exact indexing directive may be excluded from the immutable research digest.
+   if name=='trend.html':
+    privacy_meta=b'\n  <meta name="robots" content="noindex,follow">'
+    assert raw.count(privacy_meta)==1,name+': expected exact noindex metadata'
+    raw=raw.replace(privacy_meta,b'',1)
    # Ignore only the exact static chat asset pair when checking pinned research bytes.
    ai_widget_head = (
     b'\n  <link rel="stylesheet" href="assets/ai-assistant.css?v=20261123-guide">\n'

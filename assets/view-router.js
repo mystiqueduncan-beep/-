@@ -52,7 +52,9 @@
 
   const next = new URL(destination, window.location.href);
   next.search = window.location.search;
-  next.hash = window.location.hash;
+  // The mobile cover uses #profile; desktop uses #top.
+  const hash = window.location.hash;
+  next.hash = destination === "index.html" && hash === "#profile" ? "#top" : hash;
   if (requested === "auto") next.searchParams.delete("view");
   window.location.replace(next.href);
 })();

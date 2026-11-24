@@ -60,6 +60,19 @@
   const skip = body.querySelector(":scope > .skip-link");
   body.insertBefore(nav,skip ? skip.nextSibling : body.firstChild);
 
+  // Preserve current query data and the current section at click time.
+  // The hash may have changed since initial rendering.
+  options.addEventListener("click", event => {
+    const link = event.target.closest("a");
+    if (!link || !options.contains(link)) return;
+    const target = new URL(link.href, window.location.href);
+    const params = new URLSearchParams(window.location.search);
+    params.set("view", target.searchParams.get("view") || "auto");
+    target.search = params.toString();
+    target.hash = window.location.hash;
+    link.href = target.href;
+  });
+
   // The research page formerly placed its version switch after its hero.
   const nowEmpty = oldParent && oldParent.textContent.trim() === "";
   if (nowEmpty && oldParent.classList.contains("analysis-switch-bar")) oldParent.remove();
