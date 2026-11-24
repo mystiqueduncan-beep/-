@@ -208,12 +208,18 @@
 
     const launcher = element("button", "bs-ai-launcher");
     launcher.type = "button";
-    launcher.setAttribute("aria-label", "開啟履歷 AI 導覽");
+    launcher.setAttribute("aria-label", "開啟履歷 AI 導覽：AI問答小助手");
     launcher.setAttribute("aria-expanded", "false");
     launcher.setAttribute("aria-controls", "bs-ai-panel");
-    const emblem = element("span", "bs-ai-launcher-emblem", "✦");
+    const face = element("span", "bs-ai-launcher-face");
+    const emblem = element("span", "bs-ai-launcher-emblem", "♥");
     emblem.setAttribute("aria-hidden", "true");
-    launcher.append(emblem, element("span", "bs-ai-launcher-label", "問問 AI"));
+    const starOne = element("span", "bs-ai-launcher-star bs-ai-launcher-star--one", "✧");
+    const starTwo = element("span", "bs-ai-launcher-star bs-ai-launcher-star--two", "✦");
+    starOne.setAttribute("aria-hidden", "true");
+    starTwo.setAttribute("aria-hidden", "true");
+    face.append(emblem, element("span", "bs-ai-launcher-label", "AI問答小助手"), starOne, starTwo);
+    launcher.append(face);
     root.append(panel, launcher);
     document.body.append(root);
 
@@ -248,7 +254,7 @@
       panel.hidden = !open;
       root.classList.toggle("bs-ai-root--open", open);
       launcher.setAttribute("aria-expanded", String(open));
-      launcher.setAttribute("aria-label", open ? "收合履歷 AI 導覽" : "開啟履歷 AI 導覽");
+      launcher.setAttribute("aria-label", (open ? "收合履歷 AI 導覽" : "開啟履歷 AI 導覽") + "：AI問答小助手");
       if (open) {
         if (!openedOnce) {
           message("bot",

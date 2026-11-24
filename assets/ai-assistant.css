@@ -20,24 +20,40 @@
   .bs-ai-root button { cursor: pointer; }
   .bs-ai-root button:disabled { cursor: wait; opacity: .6; }
   .bs-ai-root :focus-visible { outline: 3px solid #a64675; outline-offset: 3px; }
+  /* A + B: star float, heartbeat and breathing halo on a stationary hit area. */
   .bs-ai-root .bs-ai-launcher {
     pointer-events: auto;
+    position: relative;
     display: inline-flex;
     min-width: 114px;
     min-height: 56px;
     align-items: center;
     justify-content: center;
-    gap: 9px;
-    padding: 10px 17px 10px 11px;
-    border: 2px solid #8e5a70;
+    padding: 0;
+    border: 0;
     border-radius: 999px;
-    background: linear-gradient(135deg, #fff7ef 0%, #ffe5ef 100%);
-    box-shadow: 0 8px 0 -4px rgba(107, 76, 99, .23), 0 12px 30px rgba(75, 45, 72, .2);
+    background: transparent;
     color: #64364d;
     font-size: .9rem;
     font-weight: 800;
-    letter-spacing: .035em;
-    /* Breathing halo stays animated; launcher hit target remains stationary. */
+    letter-spacing: .015em;
+  }
+  .bs-ai-root .bs-ai-launcher-face {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 56px;
+    padding: 10px 17px 10px 11px;
+    border: 2px solid #a36883;
+    border-radius: 999px;
+    background: linear-gradient(135deg,#fff7ef 0%,#fbd5e5 100%);
+    box-shadow: 0 8px 0 -4px rgba(107,76,99,.23),0 8px 22px rgba(117,60,91,.18);
+    white-space: nowrap;
+    animation: bs-ai-float 2.7s ease-in-out infinite;
+    transition: transform .2s cubic-bezier(.2,.8,.3,1.25);
   }
   .bs-ai-root .bs-ai-launcher-emblem {
     display: grid;
@@ -49,19 +65,41 @@
     background: #ffd2e2;
     box-shadow: inset 0 0 0 2px #fff;
     color: #824660;
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     line-height: 1;
+    animation: bs-ai-heartbeat 2.7s ease-in-out infinite;
   }
-  .bs-ai-root .bs-ai-launcher::after {
+  .bs-ai-root .bs-ai-launcher-face::after {
     content: "";
     position: absolute;
-    inset: -6px;
-    border: 1px solid rgba(196, 117, 153, .4);
+    inset: -4px;
+    border: 2px solid rgba(174,91,132,.56);
     border-radius: inherit;
     pointer-events: none;
-    animation: bs-ai-halo 3s ease-in-out infinite;
+    animation: bs-ai-halo 2.7s ease-out infinite;
+    z-index: -1;
   }
-  .bs-ai-root--open .bs-ai-launcher { animation: none; }
+  .bs-ai-root .bs-ai-launcher-star {
+    position: absolute;
+    pointer-events: none;
+    color: #9a5279;
+    font-size: .9rem;
+    line-height: 1;
+    animation: bs-ai-star 2.7s ease-in-out infinite;
+  }
+  .bs-ai-root .bs-ai-launcher-star--one {top:-8px;right:14px;}
+  .bs-ai-root .bs-ai-launcher-star--two {bottom:1px;left:-8px;animation-delay:.55s;}
+  .bs-ai-root .bs-ai-launcher:hover .bs-ai-launcher-face,
+  .bs-ai-root .bs-ai-launcher:focus-visible .bs-ai-launcher-face {
+    animation:none;transform:scale(1.025);
+  }
+  .bs-ai-root .bs-ai-launcher:active .bs-ai-launcher-face {transform:scale(.96);}
+  .bs-ai-root--open .bs-ai-launcher-face,
+  .bs-ai-root--open .bs-ai-launcher-emblem,
+  .bs-ai-root--open .bs-ai-launcher-star,
+  .bs-ai-root--open .bs-ai-launcher-face::after {animation:none!important;transform:none!important;}
+  .bs-ai-root--open .bs-ai-launcher-face::after {opacity:0;}
+  .bs-ai-root--open .bs-ai-launcher-star {opacity:0;}
   .bs-ai-root .bs-ai-panel {
     pointer-events: auto;
     position: absolute;
@@ -278,7 +316,8 @@
   }
   @media (max-width: 480px) {
     .bs-ai-root { right: 12px; }
-    .bs-ai-root .bs-ai-launcher { min-height: 52px; padding: 8px 13px 8px 9px; }
+    .bs-ai-root .bs-ai-launcher { min-height: 52px; }
+    .bs-ai-root .bs-ai-launcher-face { min-height: 52px; padding: 8px 13px 8px 9px; }
     .bs-ai-root .bs-ai-panel { width: calc(100vw - 24px); border-radius: 18px; }
     .bs-ai-root .bs-ai-header { padding: 10px 12px; }
     .bs-ai-root .bs-ai-messages { padding: 10px; }
@@ -288,15 +327,33 @@
     .bs-ai-root--bottom-nav .bs-ai-panel { height: calc(100dvh - 170px); }
   }
   @media (prefers-reduced-motion: reduce) {
+    .bs-ai-root .bs-ai-launcher-face,
+    .bs-ai-root .bs-ai-launcher-emblem,
+    .bs-ai-root .bs-ai-launcher-star,
+    .bs-ai-root .bs-ai-launcher-face::after {animation:none!important;transform:none!important;}
+    .bs-ai-root .bs-ai-launcher-face::after {opacity:0;}
     .bs-ai-root *, .bs-ai-root *::before, .bs-ai-root *::after {
       animation-duration: .01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: .01ms !important;
     }
   }
+  @keyframes bs-ai-float {
+    0%,100% { transform:translateY(0); }
+    50% { transform:translateY(-6px); }
+  }
+  @keyframes bs-ai-heartbeat {
+    0%,30%,48%,100% { transform:scale(1); }
+    16% { transform:scale(1.16); }
+    39% { transform:scale(1.11); }
+  }
   @keyframes bs-ai-halo {
-    0%, 100% { opacity: .25; transform: scale(1); }
-    50% { opacity: .65; transform: scale(1.04); }
+    0% { opacity:.65; transform:scale(1); }
+    78%,100% { opacity:0; transform:scale(1.10); }
+  }
+  @keyframes bs-ai-star {
+    0%,100% { opacity:.30; transform:scale(.76) rotate(-10deg); }
+    48% { opacity:1; transform:scale(1.2) rotate(14deg); }
   }
   @keyframes bs-ai-panel-in {
     from { opacity: 0; transform: translateY(10px) scale(.98); }

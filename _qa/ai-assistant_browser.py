@@ -38,7 +38,16 @@ try:
             page.goto(f"{base}/{file_name}{mode}", wait_until="domcontentloaded")
             opener = page.get_by_role("button", name="開啟履歷 AI 導覽")
             expect(opener).to_be_visible()
+            expect(opener.locator(".bs-ai-launcher-label")).to_have_text("AI問答小助手")
+            expect(opener.locator(".bs-ai-launcher-emblem")).to_have_text("♥")
+            expect(opener.locator(".bs-ai-launcher-star")).to_have_count(2)
+            assert opener.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e).animationName")=="bs-ai-float"
+            assert opener.locator(".bs-ai-launcher-emblem").evaluate("e=>getComputedStyle(e).animationName")=="bs-ai-heartbeat"
+            assert opener.locator(".bs-ai-launcher-star").first.evaluate("e=>getComputedStyle(e).animationIterationCount")=="infinite"
+            assert opener.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e,'::after').animationName")=="bs-ai-halo"
             opener.click()
+            assert opener.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e).animationName")=="none"
+            assert opener.locator(".bs-ai-launcher-emblem").evaluate("e=>getComputedStyle(e).animationName")=="none"
             panel = page.get_by_role("region", name="黃博詩的 AI 履歷導覽")
             expect(panel).to_be_visible()
             expect(panel.get_by_text("您好！我是黃博詩的 AI 數位分身", exact=False)).to_be_visible()
@@ -72,7 +81,9 @@ try:
 
         narrow = browser.new_page(viewport={"width": 320, "height": 568}, reduced_motion="reduce")
         narrow.goto(f"{base}/mobile.html?view=mobile", wait_until="domcontentloaded")
-        narrow.get_by_role("button", name="開啟履歷 AI 導覽").click()
+        narrow_opener=narrow.get_by_role("button", name="開啟履歷 AI 導覽")
+        assert narrow_opener.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e).animationName")=="none"
+        narrow_opener.click()
         box = narrow.locator("#bs-ai-panel").bounding_box()
         assert box and box["x"] >= -1 and box["y"] >= -1, box
         assert box["x"] + box["width"] <= 321, box

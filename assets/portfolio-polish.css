@@ -2983,3 +2983,31 @@
     scroll-behavior:auto!important;
   }
 }
+
+/* C / Dreamy flowing light for research CTAs only.
+   The source CTA background, scrapbook tape, heart, link and one-time pop
+   are preserved. The colored flow lives below the label, not on the text. */
+@keyframes research-dream-flow {
+  0%,100% {background-position:0% 50%;opacity:.43;}
+  50% {background-position:100% 50%;opacity:.61;}
+}
+@keyframes research-dream-sweep {
+  0%,22% {opacity:0;transform:translate3d(-100%,0,0) skewX(-22deg);}
+  32% {opacity:.7;}
+  54% {opacity:.9;transform:translate3d(270%,0,0) skewX(-22deg);}
+  68%,100% {opacity:0;transform:translate3d(360%,0,0) skewX(-22deg);}
+}
+@media screen and (prefers-reduced-motion:no-preference) {
+  body:is(.page-home,.page-contact) :is(a[href="trend.html"],a[href="mobile-trend.html"]).site-button-motion.site-button-active .research-meteor {
+    border-radius:inherit;
+  }
+  body:is(.page-home,.page-contact) :is(a[href="trend.html"],a[href="mobile-trend.html"]).site-button-motion.site-button-active .research-meteor::before {
+    animation:research-dream-sweep 3.8s ease-in-out infinite!important;
+    z-index:1;
+  }
+  body:is(.page-home,.page-contact) :is(a[href="trend.html"],a[href="mobile-trend.html"]).site-button-motion.site-button-active .research-meteor::after {
+    background:linear-gradient(110deg,#fff2e6 0%,#f4cfe0 28%,#e4d9f8 54%,#f9d6e7 78%,#fff2e6 100%)!important;
+    background-size:280% 100%!important;
+    animation:research-dream-flow 4s ease-in-out infinite!important;
+  }
+}

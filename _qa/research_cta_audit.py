@@ -58,13 +58,19 @@ with sync_playwright() as p:
               iterations:getComputedStyle(e).animationIterationCount,
               durations:getComputedStyle(e).animationDuration,
               shine:getComputedStyle(e.querySelector(".research-meteor"),"::before").animationName,
-              shineIterations:getComputedStyle(e.querySelector(".research-meteor"),"::before").animationIterationCount
+              shineIterations:getComputedStyle(e.querySelector(".research-meteor"),"::before").animationIterationCount,
+              flow:getComputedStyle(e.querySelector(".research-meteor"),"::after").animationName,
+              flowIterations:getComputedStyle(e.querySelector(".research-meteor"),"::after").animationIterationCount,
+              flowBackground:getComputedStyle(e.querySelector(".research-meteor"),"::after").backgroundImage
             })""")
             assert "site-button-pop-once" in animated["names"],(name,animated)
             assert "site-button-blush-pulse" in animated["names"],(name,animated)
             assert animated["iterations"].replace(" ","")=="1,infinite",(name,animated)
             assert animated["durations"].replace(" ","")=="0.52s,6.4s",(name,animated)
-            assert animated["shine"]=="site-project-light-sweep",(name,animated)
+            assert animated["shine"]=="research-dream-sweep",(name,animated)
+            assert animated["flow"]=="research-dream-flow",(name,animated)
+            assert animated["flowIterations"]=="infinite",(name,animated)
+            assert "gradient" in animated["flowBackground"],(name,animated)
             assert animated["shineIterations"]=="infinite",(name,animated)
         page.evaluate("scrollTo({top:0,behavior:'instant'})")
         for link in links.all():
@@ -82,6 +88,7 @@ with sync_playwright() as p:
             assert "research-pop-wait" not in (link.get_attribute("class") or ""), name
             state = link.evaluate("(e)=>({opacity:getComputedStyle(e).opacity,animation:getComputedStyle(e).animationName})")
             assert state == {"opacity":"1","animation":"none"}, (name, state)
+            assert link.locator(".research-meteor").evaluate("e=>getComputedStyle(e,'::after').animationName")=="none",name
         reduced.close()
 
         fallback = browser.new_page(viewport={"width":390 if mobile else 1440,"height":844})
