@@ -219,6 +219,7 @@ if not (ROOT/'_qa/export_resume_pdf.py').is_file():errors.append('PDF export scr
 if not (ROOT/'.github/workflows/resume-pdf.yml').is_file():errors.append('PDF synchronization workflow missing')
 if (ROOT/'.github/workflows/print-pdf-sync.yml').exists():errors.append('Obsolete full-portfolio PDF workflow reappeared')
 resume_html=(ROOT/'resume.html').read_text(encoding='utf-8')
+if resume_html.count('<meta name="robots" content="noindex,follow">')!=1:errors.append('Resume indexing privacy')
 if resume_html.count('onclick="window.print()"')!=1:errors.append('Separate print-only button missing')
 if resume_html.count('href="resume.pdf"')!=1 or resume_html.count('download="黃博詩_個人簡歷.pdf"')!=1:
  errors.append('Dedicated downloadable PDF action missing')
@@ -235,6 +236,12 @@ for rel,old in base.items():
  if rel in ('trend.html','mobile-trend.html'):
   expanded={'trend.html':'d60da7997cd4006d0fc0ecc7f6bcd2f27b7a7535','mobile-trend.html':'690cdb35197be801371212c303776c1865ddcf26'}
   raw=f.read_bytes()
+  # Remove only the exact approved indexing metadata before comparing the
+  # immutable research publication. All report content remains byte-pinned.
+  if rel=='trend.html':
+   privacy_meta=b'\n  <meta name="robots" content="noindex,follow">'
+   if raw.count(privacy_meta)!=1:errors.append(rel+': expected exact noindex metadata')
+   else:raw=raw.replace(privacy_meta,b'',1)
   # Presentation-only AI guide: exclude exactly the new static asset tags
   # from the immutable research publication digest, never the report body.
   ai_widget_head = (
@@ -416,7 +423,7 @@ for rel,old in base.items():
   if sum(t=='h1' for t,a in p.tags)!=1:errors.append(rel+': h1 count')
   for name in ['description']:
    if not any(t=='meta' and a.get('name')==name and a.get('content') for t,a in p.tags):errors.append(rel+': '+name)
-  if 'mobile' in rel and not any(a.get('name')=='robots' and a.get('content')=='noindex,follow' for t,a in p.tags):errors.append(rel+': mobile indexing')
+  if not any(a.get('name')=='robots' and a.get('content')=='noindex,follow' for t,a in p.tags):errors.append(rel+': indexing privacy')
   for literal in (['萬能科技大學','企業管理系','2026.10','2030.06'] if rel in ('contact.html','mobile-contact.html') else []):
    if literal not in compact(''.join(p.text)):errors.append(rel+': education '+literal)
 # The contact button must be absent from the homepage marquee only.
