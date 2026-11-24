@@ -111,6 +111,20 @@ with sync_playwright() as p:
         page = browser.new_page(viewport={"width":390 if mobile else 1440, "height":844})
         page.route("https://**/*", lambda route: route.abort())
         page.goto(f'{base}{name}.html?view={"mobile" if mobile else "desktop"}')
+        # User-approved compact contact card: identical four rows at both widths.
+        specs = page.locator(".candidate-specs-box")
+        assert specs.count() == 1, name
+        assert specs.locator(".specs-box-title").inner_text().strip() == "應徵資訊", name
+        assert specs.locator(".spec-entry .k").all_inner_texts() == ["應徵職位", "志願區域", "居住區域", "到職與排班"], name
+        assert specs.locator(".spec-entry .v").all_inner_texts() == ["區域營運經理", "桃竹苗、大台北", "桃園市大園區", "面談確認"], name
+        assert specs.locator('[lang="en"]').inner_text() == "CAREER PROFILE", name
+        assert specs.locator('[lang="ja"]').inner_text() == "応募情報", name
+        assert specs.evaluate("e=>e.scrollWidth<=e.clientWidth+1"), name
+        assert page.locator("#education").count() == 1, name
+        assert "萬能科技大學" in page.locator("#education").inner_text(), name
+        assert "Tomod's 6年門市實務" in page.locator("body").inner_text(), name
+        assert "動物醫院任職4年期間兼任新人帶訓工作" in page.locator("body").inner_text(), name
+        assert page.evaluate("document.documentElement.scrollWidth<=innerWidth+1"), name
         cards = page.locator("div.method-card")
         assert cards.count() == 3, name
         first_x = None
