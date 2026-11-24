@@ -28,19 +28,19 @@
 
   <style>
     :root {
-      --mk-yellow: #FFD600;
-      --mk-yellow-light: #FFF9D2;
-      --mk-navy: #0B2240;
-      --mk-navy-dark: #06152B;
-      --mk-navy-soft: #16375F;
-      --mk-red: #C5161D;
-      --mk-red-soft: #FFF0F0;
-      --paper-bg: #F7F5F0;
+      --mk-yellow: #dfd8cc;
+      --mk-yellow-light: #f9f8f5;
+      --mk-navy: #1c221e;
+      --mk-navy-dark: #111513;
+      --mk-navy-soft: #2d3731;
+      --mk-red: #4d674f;
+      --mk-red-soft: #f1f4f0;
+      --paper-bg: #f4f1e9;
       --paper-card: #FFFFFF;
       --ink-primary: #1C1C1E;
-      --ink-secondary: #3D4148;
-      --ink-muted: #6E727A;
-      --hairline: #E2DFD6;
+      --ink-secondary: #433e36;
+      --ink-muted: #776d5f;
+      --hairline: #e4ded4;
       --radius-sm: 4px;
       --radius-md: 8px;
       --radius-lg: 12px;
@@ -57,7 +57,7 @@
     }
 
     body {
-      background-color: #ECEAE3;
+      background-color: #edeae3;
       color: var(--ink-primary);
       font-family: var(--font-sans);
       line-height: 1.7;
@@ -263,7 +263,7 @@
     }
 
     .hero-edu-tag {
-      background: #FFFDF0;
+      background: #fdfcfc;
       border: 1.5px solid var(--mk-navy);
       border-left: 4px solid var(--mk-navy);
       border-radius: var(--radius-sm);
@@ -689,7 +689,7 @@
 
     .data-bar-track {
       height: 9px;
-      background: #F0EDE6;
+      background: #f0ede7;
       border-radius: 2px;
       overflow: hidden;
       border: 1px solid var(--hairline);
@@ -763,27 +763,27 @@
       display: flex; justify-content: flex-start; align-items: center;
       gap: 12px; padding: 13px 14px; min-height: 88px; width: 100%;
       text-align: left; text-decoration: none;
-      border: 1.5px solid #CE9FAD; border-radius: 4px;
-      box-shadow: 3px 3px 0 #E8CBD5; color: #704856;
+      border: 1.5px solid #99b29b; border-radius: 4px;
+      box-shadow: 3px 3px 0 #cad6c6; color: #415643;
       transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
     }
-    .mobile-doc-file-btn--pdf { background: #EBC8D2; }
+    .mobile-doc-file-btn--pdf { background: #c8d4c4; }
     .mobile-doc-file-btn--html { background: #FFFBFC; }
     .mobile-doc-file-btn__icon {
       flex: none; display: flex; justify-content: center; align-items: center;
       width: 45px; height: 45px; background: rgba(255,255,255,.48);
-      border: 1px solid rgba(112,72,86,.3); border-radius: 3px;
+      border: 1px solid rgba(65,86,67,.3); border-radius: 3px;
     }
-    .mobile-doc-file-btn--html .mobile-doc-file-btn__icon { background: #F9EBF0; }
+    .mobile-doc-file-btn--html .mobile-doc-file-btn__icon { background: #ebf0ea; }
     .mobile-doc-file-btn__copy { display: flex; flex: 1; flex-direction: column; min-width: 0; }
-    .mobile-doc-file-btn__eyebrow { font-size: .64rem; color: #9A6979; font-weight: 900; letter-spacing: .1em; line-height: 1.4; }
-    .mobile-doc-file-btn__label { font-size: 1rem; color: #704856; font-weight: 900; line-height: 1.45; }
-    .mobile-doc-file-btn__caption { font-size: .72rem; color: #815F6C; font-weight: 600; line-height: 1.45; }
-    .mobile-doc-file-btn__arrow { flex: none; font-size: 1.1rem; color: #805663; }
-    .mobile-doc-file-btn:is(:hover,:focus-visible) { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 #D9A8B9; }
-    .mobile-doc-file-btn--pdf:is(:hover,:focus-visible) { background: #F1D5DF; }
-    .mobile-doc-file-btn--html:is(:hover,:focus-visible) { background: #F9EEF2; }
-    .mobile-doc-file-btn:focus-visible { outline: 3px solid #AE6B82; outline-offset: 4px; }
+    .mobile-doc-file-btn__eyebrow { font-size: .64rem; color: #5d7b5f; font-weight: 900; letter-spacing: .1em; line-height: 1.4; }
+    .mobile-doc-file-btn__label { font-size: 1rem; color: #415643; font-weight: 900; line-height: 1.45; }
+    .mobile-doc-file-btn__caption { font-size: .72rem; color: #516c54; font-weight: 600; line-height: 1.45; }
+    .mobile-doc-file-btn__arrow { flex: none; font-size: 1.1rem; color: #4c654e; }
+    .mobile-doc-file-btn:is(:hover,:focus-visible) { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 #a9baa4; }
+    .mobile-doc-file-btn--pdf:is(:hover,:focus-visible) { background: #d6dfd3; }
+    .mobile-doc-file-btn--html:is(:hover,:focus-visible) { background: #eef2ed; }
+    .mobile-doc-file-btn:focus-visible { outline: 3px solid #638366; outline-offset: 4px; }
     @media (prefers-reduced-motion: reduce) { .mobile-doc-file-btn { transition: none; } }
 
   </style>

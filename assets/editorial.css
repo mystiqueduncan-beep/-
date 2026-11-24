@@ -15,7 +15,7 @@
   --ed-hairline: #DDDDDD;
   --ed-white:    #FFFFFF;
   --ed-ivory:    #FAF9F6;
-  --ed-red:      #A61E25;
+  --ed-red:      #435844;
 
   /* Override mk-* colour tokens to editorial palette */
   --mk-navy:         var(--ed-black);

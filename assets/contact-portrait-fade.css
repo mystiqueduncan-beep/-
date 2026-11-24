@@ -46,13 +46,13 @@ body.page-contact .photo-frame {
   aspect-ratio: 1 / 1 !important;
   padding: 10px !important;
   margin: 0 auto 20px !important;
-  border: 2px solid #c8a4b1 !important;
+  border: 2px solid #9bb49d !important;
   border-radius: 50% !important;
-  background: #fffaf8 !important;
+  background: #fdfbf6 !important;
   overflow: hidden !important;
   rotate: none !important;
-  box-shadow: 0 0 0 5px #f4e4e8, 0 0 0 7px #ba94a4,
-              0 12px 28px rgb(101 71 83 / 13%) !important;
+  box-shadow: 0 0 0 5px #e4eae2, 0 0 0 7px #89a68b,
+              0 12px 28px rgb(67 82 71 / 13%) !important;
 }
 body.page-contact .photo-frame::before,
 body.page-contact .photo-frame::after,
@@ -80,7 +80,7 @@ body.page-contact .photo-frame img.contact-portrait-photo {
 @media print {
   body.page-contact .photo-frame {
     box-shadow: none !important;
-    border: 2px solid #a17a89 !important;
+    border: 2px solid #67896a !important;
     rotate: none !important;
   }
 }

@@ -1,9 +1,9 @@
 /* Shared chart treatment; original source notes and category geometry are preserved. */
-.channel-study { color: #0B2240; margin: 24px 0; }
+.channel-study { color: #1c221e; margin: 24px 0; }
 .channel-study * { box-sizing: border-box; }
 .channel-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-bottom: 24px; }
-.channel-metric { display: flex; flex-direction: column; gap: 8px; background: #FFD600; border: 2px solid #0B2240; box-shadow: 4px 4px 0 #0B2240; padding: clamp(14px, 3vw, 24px); font-weight: 700; }
-.channel-metric:nth-child(2) { background: #F7F5F0; }
+.channel-metric { display: flex; flex-direction: column; gap: 8px; background: #dfd8cc; border: 2px solid #1c221e; box-shadow: 4px 4px 0 #1c221e; padding: clamp(14px, 3vw, 24px); font-weight: 700; }
+.channel-metric:nth-child(2) { background: #f4f1e9; }
 .channel-metric > strong { font-family: var(--font-mono); font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.15; letter-spacing: -.06em; font-variant-numeric: tabular-nums; }
 .channel-metric > strong span { font-size: .45em; margin-left: 4px; }
 .channel-metric > span { font-size: .85rem; }
@@ -11,15 +11,15 @@
 .channel-scale { display: flex; justify-content: space-between; font: .75rem var(--font-mono); margin: 0 8px 4px; }
 .channel-bars { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
 .channel-row { padding: 8px; border: 1px solid transparent; border-radius: 0; }
-.channel-row:is(:hover, :focus, :active) { border-color: #0B2240; background: #F7F5F0; }
-.channel-row:focus-visible { outline: 3px solid #0B2240; outline-offset: 3px; }
+.channel-row:is(:hover, :focus, :active) { border-color: #1c221e; background: #f4f1e9; }
+.channel-row:focus-visible { outline: 3px solid #1c221e; outline-offset: 3px; }
 .channel-label { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: .95rem; margin-bottom: 8px; }
 .channel-detail { font-size: .82rem; }
 .channel-value { white-space: nowrap; font: 900 1.2rem var(--font-mono); font-variant-numeric: tabular-nums; }
-.channel-track { height: 18px; border: 1px solid #0B2240; background: #F0EDE6; }
+.channel-track { height: 18px; border: 1px solid #1c221e; background: #f0ede7; }
 .channel-fill { display: block; height: 100%; transform-origin: left; }
 .channel-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px; margin-top: 24px; }
-.channel-summary p { margin: 0; padding: 14px; border: 2px solid #0B2240; box-shadow: 2px 2px 0 #0B2240; background: #F7F5F0; font-size: .85rem; line-height: 1.8; }
+.channel-summary p { margin: 0; padding: 14px; border: 2px solid #1c221e; box-shadow: 2px 2px 0 #1c221e; background: #f4f1e9; font-size: .85rem; line-height: 1.8; }
 .channel-summary b { display: block; margin-bottom: 6px; }
 /* Only active while the one-time viewport animation runs: no hidden pending content. */
 .channel-study.is-entering .channel-metric { animation: channel-card 650ms both; }

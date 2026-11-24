@@ -30,25 +30,25 @@
        ========================================================================== */
     :root {
       /* Signature Palette */
-      --mk-navy: #0B2240;
-      --mk-navy-dark: #06152B;
-      --mk-navy-light: #16375F;
-      --mk-navy-soft: #234E82;
-      --mk-yellow: #FFD600;
-      --mk-yellow-light: #FFF9D2;
-      --mk-yellow-warm: #FFE033;
-      --mk-red: #C5161D;
-      --mk-red-soft: #FFF0F0;
+      --mk-navy: #1c221e;
+      --mk-navy-dark: #111513;
+      --mk-navy-light: #2d3731;
+      --mk-navy-soft: #404e46;
+      --mk-yellow: #dfd8cc;
+      --mk-yellow-light: #f9f8f5;
+      --mk-yellow-warm: #e5e0d6;
+      --mk-red: #4d674f;
+      --mk-red-soft: #f1f4f0;
 
       /* Editorial Neutrals */
-      --paper-bg: #F7F5F0;
+      --paper-bg: #f4f1e9;
       --paper-card: #FFFFFF;
-      --paper-subtle: #F0EDE5;
+      --paper-subtle: #f0ede7;
       --ink-primary: #1C1C1E;
-      --ink-secondary: #3D4148;
-      --ink-muted: #6E727A;
-      --hairline: #DCD8CE;
-      --hairline-dark: #0B2240;
+      --ink-secondary: #433e36;
+      --ink-muted: #776d5f;
+      --hairline: #dfd7cb;
+      --hairline-dark: #1c221e;
 
       /* Typography Stacks */
       --font-serif: 'Noto Serif TC', "Yu Mincho", "Songti TC", serif;
@@ -299,7 +299,7 @@
 
     /* Current Education Banner inside Hero */
     .hero-edu-pill {
-      background: #FFFDF0;
+      background: #fdfcfc;
       border: 1.5px solid var(--mk-yellow);
       border-left: 4px solid var(--mk-navy);
       padding: 8px 14px;
@@ -764,11 +764,11 @@
       display: block;
     }
 
-    .lbl-situation { color: #854D0E; }
+    .lbl-situation { color: #64563e; }
     .lbl-role { color: var(--mk-navy-soft); }
-    .lbl-action { color: #166534; }
+    .lbl-action { color: #495a43; }
     .lbl-result { color: var(--mk-navy); }
-    .lbl-reflection { color: #4338CA; }
+    .lbl-reflection { color: #43524a; }
 
     /* ==========================================================================
        SECTION: CAREER TIMELINE & EDUCATION
@@ -995,8 +995,8 @@
 
     .data-bar-fill.fill-pharma { background: var(--mk-navy); }
     .data-bar-fill.fill-food { background: var(--mk-red); }
-    .data-bar-fill.fill-home { background: #234E82; }
-    .data-bar-fill.fill-apparel { background: #854D0E; }
+    .data-bar-fill.fill-home { background: #404e46; }
+    .data-bar-fill.fill-apparel { background: #64563e; }
 
     /* ==========================================================================
        SECTION: CONTACT & RESUME
@@ -1147,13 +1147,13 @@
       padding: 13px 15px;
       min-height: 82px;
       text-align: left;
-      border: 1.5px solid #CE9FAD;
+      border: 1.5px solid #99b29b;
       border-radius: 4px;
-      box-shadow: 3px 3px 0 #E8CBD5;
-      color: #704856;
+      box-shadow: 3px 3px 0 #cad6c6;
+      color: #415643;
       transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
     }
-    .doc-file-btn--pdf { background: #EBC8D2; }
+    .doc-file-btn--pdf { background: #c8d4c4; }
     .doc-file-btn--html { background: #FFFBFC; }
     .doc-file-btn__icon {
       flex: none;
@@ -1163,19 +1163,19 @@
       width: 45px;
       height: 45px;
       background: rgba(255,255,255,.48);
-      border: 1px solid rgba(112,72,86,.3);
+      border: 1px solid rgba(65,86,67,.3);
       border-radius: 3px;
     }
-    .doc-file-btn--html .doc-file-btn__icon { background: #F9EBF0; }
+    .doc-file-btn--html .doc-file-btn__icon { background: #ebf0ea; }
     .doc-file-btn__copy { display: flex; flex: 1; flex-direction: column; align-items: flex-start; min-width: 0; }
-    .doc-file-btn__eyebrow { font-size: .65rem; font-weight: 900; line-height: 1.4; letter-spacing: .1em; color: #9A6979; }
-    .doc-file-btn__label { font-size: 1.05rem; font-weight: 900; line-height: 1.45; letter-spacing: .04em; color: #704856; }
-    .doc-file-btn__caption { font-size: .73rem; font-weight: 600; line-height: 1.45; color: #815F6C; }
-    .doc-file-btn__arrow { flex: none; font-size: 1.15rem; color: #805663; }
-    .doc-file-btn:is(:hover,:focus-visible) { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 #D9A8B9; }
-    .doc-file-btn--pdf:is(:hover,:focus-visible) { background: #F1D5DF; }
-    .doc-file-btn--html:is(:hover,:focus-visible) { background: #F9EEF2; }
-    .doc-file-btn:focus-visible { outline: 3px solid #AE6B82; outline-offset: 4px; }
+    .doc-file-btn__eyebrow { font-size: .65rem; font-weight: 900; line-height: 1.4; letter-spacing: .1em; color: #5d7b5f; }
+    .doc-file-btn__label { font-size: 1.05rem; font-weight: 900; line-height: 1.45; letter-spacing: .04em; color: #415643; }
+    .doc-file-btn__caption { font-size: .73rem; font-weight: 600; line-height: 1.45; color: #516c54; }
+    .doc-file-btn__arrow { flex: none; font-size: 1.15rem; color: #4c654e; }
+    .doc-file-btn:is(:hover,:focus-visible) { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 #a9baa4; }
+    .doc-file-btn--pdf:is(:hover,:focus-visible) { background: #d6dfd3; }
+    .doc-file-btn--html:is(:hover,:focus-visible) { background: #eef2ed; }
+    .doc-file-btn:focus-visible { outline: 3px solid #638366; outline-offset: 4px; }
     @media (prefers-reduced-motion: reduce) { .doc-file-btn { transition: none; } }
 
   </style>
@@ -1454,7 +1454,7 @@
               </p>
             </div>
 
-            <div class="star-field-box" style="border-left: 3px solid #4338CA;">
+            <div class="star-field-box" style="border-left: 3px solid #43524a;">
               <span class="star-field-label lbl-reflection">【可延伸的方法】對區域營運督導的參考價值？</span>
               <p class="card-body-text">
                 以「步驟化指引＋循序漸進陪同」作為帶訓工具，巡店督導時能協助新任店長更具體地培育新同仁，建立一致的門市服務品質。
@@ -1500,7 +1500,7 @@
               </p>
             </div>
 
-            <div class="star-field-box" style="border-left: 3px solid #4338CA;">
+            <div class="star-field-box" style="border-left: 3px solid #43524a;">
               <span class="star-field-label lbl-reflection">【可延伸的方法】對區域營運督導的參考價值？</span>
               <p class="card-body-text">
                 將「尖峰前預排補貨＋機動開台支援」列為巡店時的觀察指標，協助各門市店長根據商圈特性彈性調整工作節奏。
@@ -1546,7 +1546,7 @@
               </p>
             </div>
 
-            <div class="star-field-box" style="border-left: 3px solid #4338CA;">
+            <div class="star-field-box" style="border-left: 3px solid #43524a;">
               <span class="star-field-label lbl-reflection">【可延伸的方法】對區域營運督導的參考價值？</span>
               <p class="card-body-text">
                 區域經理扮演總部與門市的轉譯橋樑，建立簡潔明確的執行清單並保持雙向傾聽，能有效促進多店方針同步。

@@ -35,9 +35,9 @@
     align-items:center!important;justify-content:center!important;
     gap:2px!important;text-align:center!important;
     min-height:57px!important;padding:7px 15px!important;
-    border:1px solid #c79cad!important;border-radius:25px!important;
-    background:#fffcfa!important;color:#654753!important;
-    box-shadow:0 2px 0 #e8cbd5!important;
+    border:1px solid #94ae96!important;border-radius:25px!important;
+    background:#fdfbf6!important;color:#435247!important;
+    box-shadow:0 2px 0 #cad6c6!important;
     text-decoration:none!important;white-space:nowrap!important;
     line-height:1.35!important;
     transition:background-color .16s ease,border-color .16s ease,box-shadow .16s ease!important;
@@ -48,14 +48,14 @@
   }
   body.page-trend .trend-bilingual-nav .bilingual-nav-jp {
     display:block;font-family:'Noto Sans JP','Yu Gothic','Noto Sans TC',sans-serif;
-    font-size:.68rem;font-weight:600;letter-spacing:0;color:#573447!important;
+    font-size:.68rem;font-weight:600;letter-spacing:0;color:#314132!important;
   }
   body.page-trend .trend-bilingual-nav .keycap-marquee__group a:is(:hover,:focus-visible,.is-current,[aria-current="location"]) {
-    background:#f5d6df!important;border-color:#be8fa3!important;
-    box-shadow:0 2px 0 #d2a7b8!important;
+    background:#d8e0d5!important;border-color:#86a488!important;
+    box-shadow:0 2px 0 #a6b8a0!important;
   }
   body.page-trend .trend-bilingual-nav .keycap-marquee__group a:focus-visible {
-    outline:3px solid #a56e82!important;outline-offset:3px!important;
+    outline:3px solid #628265!important;outline-offset:3px!important;
   }
   /* Preserve the native-scroll engine's run-in/out space. No ornament
      text, star, heart, heading, or other component enters the moving track. */
@@ -105,13 +105,13 @@
    translucent page-level chrome as the portfolio homepage. */
 @media screen {
   body.page-trend .trend-bilingual-nav .keycap-marquee__group a:is(.is-current,[aria-current="location"]) {
-    background: #dfadc1 !important;
-    color: #4f3042 !important;
-    border-color: #ac7189 !important;
-    box-shadow: 0 3px 0 #c58b9f !important;
+    background: #b0bfaa !important;
+    color: #2d3b2e !important;
+    border-color: #668768 !important;
+    box-shadow: 0 3px 0 #85a387 !important;
   }
   body.page-trend .trend-bilingual-nav .keycap-marquee__group a:is(.is-current,[aria-current="location"]) .bilingual-nav-jp {
-    color: #4f3042 !important;
+    color: #2d3b2e !important;
   }
 }
 @media screen and (prefers-reduced-motion: no-preference) {
@@ -121,7 +121,7 @@
     align-items: center;
     justify-content: center;
     background: transparent !important;
-    color: #ad8295 !important;
+    color: #749677 !important;
     opacity: .72;
     font: 20px/1 Georgia, serif !important;
     letter-spacing: .30em !important;
