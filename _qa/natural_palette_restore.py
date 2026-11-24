@@ -6,11 +6,16 @@ import json
 import re
 from pathlib import Path
 
+EDITORIAL_PATCHES=json.loads(Path(__file__).with_name("editorial_style_approved.json").read_text(encoding="utf-8"))
 CONTACT_PATCHES=json.loads(Path(__file__).with_name("contact_specs_approved.json").read_text(encoding="utf-8"))
 PATCHES=json.loads(Path(__file__).with_name("natural_palette_html.json").read_text(encoding="utf-8"))
 REGIONS=re.compile(r'<style\b[^>]*>[\s\S]*?</style>|\bstyle="[^"]*"',re.I)
 
 def restore_natural_html(name, html):
+    # Reverse only exact, user-approved editorial fragments; leave all original guards in force.
+    for offset, old, new in reversed(EDITORIAL_PATCHES.get(name, [])):
+        assert html[offset:offset+len(new)] == new, (name, offset, "unapproved editorial change")
+        html = html[:offset] + old + html[offset+len(new):]
     # Reconstruct only the exact user-approved shortened contact card before
     # reversing color edits by ordinal. The complete historical content guard remains.
     if name in CONTACT_PATCHES:
