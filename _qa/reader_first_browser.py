@@ -53,7 +53,7 @@ try:
             assert compact.locator(".reader-compact-step").all_text_contents()==["‹","›"]
             assert compact.locator("button:visible, a:visible").evaluate_all("es=>es.every(e=>e.getBoundingClientRect().width>=44 && e.getBoundingClientRect().height>=44)")
             # Fixed throughout reading: the bar never disappears in either direction.
-            assert compact.evaluate("e=>getComputedStyle(e).backgroundColor")=="rgba(255, 250, 248, 0.2)"
+            assert compact.evaluate("e=>getComputedStyle(e).backgroundColor")=="rgba(253, 251, 246, 0.2)"
             initial_top=compact.evaluate("e=>e.getBoundingClientRect().top")
             for delta in (220,-220,350,-120):
                 page.mouse.wheel(0,delta)

@@ -158,7 +158,7 @@ with sync_playwright() as p:
   assert automatic.get_attribute('href').endswith('?view=auto'),name
   assert automatic.get_attribute('aria-label')=='恢復依裝置自動切換版本',name
   assert switchbar.evaluate('(e)=>e.getBoundingClientRect().top<25'),name
-  assert other.evaluate('(e)=>getComputedStyle(e).backgroundColor')=='rgb(152, 87, 115)',name
+  assert other.evaluate('(e)=>getComputedStyle(e).backgroundColor')=='rgb(83, 100, 87)',name
   destination='mobile-contact.html' if is_mobile else 'contact.html'
   for link in page.locator('a[href="'+destination+'"]').all():
    assert link.text_content().strip()=='個人聯絡資訊',(name,link.text_content())
@@ -211,9 +211,9 @@ with sync_playwright() as p:
    assert motion['shine']=='site-project-light-sweep' and motion['cycles']=='infinite',(name,width,motion)
    assert print_link.get_attribute('target') in (None,'_self'),(name,width)
    assert print_card.evaluate('(e)=>getComputedStyle(e).borderTopStyle')=='dashed',(
-    'pink dashed print card border',name,width)
-   assert print_card.evaluate('(e)=>getComputedStyle(e).borderTopColor')=='rgb(212, 150, 173)',(
-    'print border should remain pastel pink',name,width)
+    'earth-tone dashed print card border',name,width)
+   assert print_card.evaluate('(e)=>getComputedStyle(e).borderTopColor')=='rgb(185, 165, 140)',(
+    'print border should use approved earth tone',name,width)
    assert page.locator('a[href="resume.pdf"], a[download]').count()==0,(name,width)
    assert page.locator('#phoneText').count()==1 and page.locator('#emailText').count()==1
    print_link.scroll_into_view_if_needed()

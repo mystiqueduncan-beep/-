@@ -3037,3 +3037,26 @@
     animation:research-dream-flow 4s ease-in-out infinite!important;
   }
 }
+
+/* C — Japanese natural selection: stable semantic palette for the main pages. */
+:root {
+  --natural-forest:#536457;
+  --natural-taupe:#62564d;
+  --natural-linen:#f4f1e9;
+  --natural-paper:#fdfbf6;
+  --natural-sage:#d9e1d5;
+  --natural-sand:#e6dfd1;
+  --natural-ink:#403c34;
+}
+@media screen {
+  body:is(.page-home,.page-trend,.page-contact) {
+    background:var(--natural-linen)!important;
+    color:var(--natural-ink);
+  }
+  body:is(.page-home,.page-trend,.page-contact) .mag-header {
+    background-color:var(--natural-linen)!important;
+  }
+  body:is(.page-home,.page-trend,.page-contact) :is(.mag-top-ticker,.mobile-status-strip) {
+    background-color:var(--natural-sage)!important;
+  }
+}
