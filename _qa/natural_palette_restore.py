@@ -6,10 +6,17 @@ import json
 import re
 from pathlib import Path
 
+CONTACT_PATCHES=json.loads(Path(__file__).with_name("contact_specs_approved.json").read_text(encoding="utf-8"))
 PATCHES=json.loads(Path(__file__).with_name("natural_palette_html.json").read_text(encoding="utf-8"))
 REGIONS=re.compile(r'<style\b[^>]*>[\s\S]*?</style>|\bstyle="[^"]*"',re.I)
 
 def restore_natural_html(name, html):
+    # Reconstruct only the exact user-approved shortened contact card before
+    # reversing color edits by ordinal. The complete historical content guard remains.
+    if name in CONTACT_PATCHES:
+        change=CONTACT_PATCHES[name]
+        assert html.count(change["now"])==1,(name,"approved contact card missing or altered")
+        html=html.replace(change["now"],change["old"],1)
     patches=dict(PATCHES.get(name, []))
     if not patches:
         return html
