@@ -472,7 +472,7 @@
     function checkVisible() {
       const height = window.innerHeight || document.documentElement.clientHeight;
       let top = 0;
-      document.querySelectorAll(".mag-subnav-strip,.bilingual-mobile-strip,.trend-subnav-strip,.mobile-top-bar").forEach(nav => {
+      document.querySelectorAll(".mag-subnav-strip,.bilingual-mobile-strip,.trend-subnav-strip,.mobile-top-bar,.reader-compact").forEach(nav => {
         const style = window.getComputedStyle(nav);
         const rect = nav.getBoundingClientRect();
         const offset = Number.parseFloat(style.top);
