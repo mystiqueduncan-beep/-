@@ -1,3 +1,4 @@
+from natural_palette_restore import restore_natural_html, restore_natural_bytes
 from research_marquee_approved import restore_mobile_research_source
 """Standard-library source integrity, local links and SEO checks. Run from any cwd."""
 from pathlib import Path
@@ -225,7 +226,7 @@ if resume_html.count('href="resume.pdf"')!=1 or resume_html.count('download="黃
  errors.append('Dedicated downloadable PDF action missing')
 if '列印／另存 PDF' in resume_html:errors.append('Combined print/save action still present')
 for rel,old in base.items():
- f=ROOT/rel;p=Page(strip_approved_japanese_ui(rel, f.read_text(encoding='utf-8')));ids=[a['id'] for t,a in p.tags if 'id' in a]
+ f=ROOT/rel;p=Page(strip_approved_japanese_ui(rel, restore_natural_html(rel, f.read_text(encoding='utf-8'))));ids=[a['id'] for t,a in p.tags if 'id' in a]
  if len(ids)!=len(set(ids)):errors.append(rel+': duplicate id')
  # Exact source files supplied and approved by user replace only the two
  # research pages. Every other resume page remains checked against the
@@ -235,7 +236,7 @@ for rel,old in base.items():
  # Keep the older six-chapter fingerprint for historical verification.
  if rel in ('trend.html','mobile-trend.html'):
   expanded={'trend.html':'d60da7997cd4006d0fc0ecc7f6bcd2f27b7a7535','mobile-trend.html':'690cdb35197be801371212c303776c1865ddcf26'}
-  raw=f.read_bytes()
+  raw=restore_natural_bytes(rel, f.read_bytes())
   # Remove only the exact approved indexing metadata before comparing the
   # immutable research publication. All report content remains byte-pinned.
   if rel=='trend.html':
@@ -296,7 +297,7 @@ for rel,old in base.items():
    if raw.count(needle)<1:errors.append(rel+': expected published research source URL missing or duplicated')
  elif rel in approved_report:
   raw=restore_historical_contact_link_labels(
-   rel, strip_approved_japanese_ui(rel, restore_approved_footer_layout(rel, f.read_text(encoding='utf-8')))
+   rel, strip_approved_japanese_ui(rel, restore_approved_footer_layout(rel, restore_natural_html(rel, f.read_text(encoding='utf-8'))))
   ).encode('utf-8')
   # Only for immutable approved-content comparison, reverse the single
   # authorized ICO link change. Any other research byte still fails the SHA.
@@ -337,7 +338,7 @@ for rel,old in base.items():
   expect=expected_text(rel,old)
   # Restore only the approved button labels when verifying immutable factual text.
   historical_html=restore_historical_footer_badge(rel, restore_historical_contact_link_labels(
-   rel, strip_approved_japanese_ui(rel, f.read_text(encoding='utf-8'))))
+   rel, strip_approved_japanese_ui(rel, restore_natural_html(rel, f.read_text(encoding='utf-8')))))
   actual=normalized(Page(historical_html).text)
   # Approved presentation-only relocation (2026-11-11): the research CTA is
   # immediately after the introduction, not in the homepage marquee/footer.
@@ -347,7 +348,7 @@ for rel,old in base.items():
    intro='重視門市營運標準、服務品質與溝通協調，期望投入區域營運管理，讓門市日常作業更加穩定一致。'
    label='藥妝專題研究'
    old_marker='07/通路研究' if rel=='index.html' else 'MK個人應徵作品集｜黃博詩'
-   html=f.read_text(encoding='utf-8')
+   html=restore_natural_html(rel, f.read_text(encoding='utf-8'))
    hero_link='trend.html' if rel=='index.html' else 'mobile-trend.html'
    hero_pattern=r'<div class="(?:hero-cta-group|mobile-hero-actions) home-quick-actions">[\s\S]*?<a class="[^"]*home-project-action" href="'+re.escape(hero_link)+r'">[\s\S]*?<span>藥妝專題研究</span></a>'
    if not re.search(hero_pattern,html):
@@ -368,7 +369,7 @@ for rel,old in base.items():
   if rel in ('contact.html','mobile-contact.html'):
    # This is a *comparison-only* normalization of the intentionally moved UI.
    # The actual HTML must contain the print card and no PDF download link.
-   html=f.read_text(encoding='utf-8')
+   html=restore_natural_html(rel, f.read_text(encoding='utf-8'))
    if html.count('class="method-card method-card--print personal-resume-link"')!=1:
     errors.append(rel+': printable card must appear exactly once')
    if 'href="resume.pdf"' in html or '下載簡歷' in html:

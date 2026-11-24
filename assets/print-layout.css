@@ -15,8 +15,8 @@
   }
   html { font-size: 10pt !important; }
   body {
-    background: #fffaf8 !important;
-    color: #473d42 !important;
+    background: #fdfbf6 !important;
+    color: #423d35 !important;
     font-family: "Noto Sans CJK TC", "Noto Sans TC", sans-serif !important;
     font-size: 9.5pt !important;
     line-height: 1.53 !important;
@@ -71,8 +71,8 @@
   }
   .mag-main, .trend-main, .mobile-content { padding-top: 0 !important; padding-bottom: 0 !important; }
   .mag-header, .mag-hero-section, .mobile-cover, .trend-hero {
-    background: #f4e5e9 !important;
-    color: #654753 !important;
+    background: #e4eae3 !important;
+    color: #435247 !important;
     box-shadow: none !important;
   }
   .mag-header, .mag-hero-section, .trend-hero {
@@ -107,7 +107,7 @@
   }
   body.page-home .section-block:nth-of-type(even),
   body.page-trend .trend-main > section[id]:nth-of-type(even) {
-    background: #f8eef0 !important;
+    background: #eef1ec !important;
   }
   .section-editorial-header, .sec-title-wrap, .mobile-card-title,
   .case-header-row, .career-company-header, .job-title,
@@ -146,11 +146,11 @@
   .mobile-card, .timeline-job-card, .feature-card, .method-card,
   .stage-card, .edu-dedicated-card, .contact-card-outer {
     box-shadow: none !important;
-    border-color: #dcc3c9 !important;
+    border-color: #c0cdbc !important;
   }
   .editorial-card, .wide-star-case, .career-entry-card,
   .mobile-card, .feature-card, .method-card {
-    background: #fffcfa !important;
+    background: #fdfbf6 !important;
   }
   .wide-star-case, .career-entry-card, .contact-card-outer {
     overflow: visible !important;
@@ -166,7 +166,7 @@
   body.page-mobile .trend-main {
     width: 100% !important;
     max-width: none !important;
-    background: #fffaf8 !important;
+    background: #fdfbf6 !important;
   }
   body.page-mobile .mobile-card {
     margin: 0 0 5mm !important;
@@ -207,12 +207,12 @@
   img { max-width: 100% !important; }
   .source-photo, .career-photo, .photo-frame { break-inside: avoid-page !important; }
   .source-photo img, .career-photo img { object-position: center; }
-  .source-photo-credit { position: static !important; color: #654753 !important; background: transparent !important; }
+  .source-photo-credit { position: static !important; color: #435247 !important; background: transparent !important; }
   .career-photo { rotate: 0deg !important; transform: none !important; }
 
   /* Contact spread follows the same magazine typography without overflow. */
   body.page-contact .contact-main {
-    background: #fffaf8 !important;
+    background: #fdfbf6 !important;
     padding: 0 !important;
   }
   body.page-contact .contact-dossier-grid {
@@ -230,13 +230,13 @@
     break-inside: avoid-page !important;
     margin-top: 5mm !important;
     padding: 2mm 0 !important;
-    background: #fffaf8 !important;
-    color: #654753 !important;
-    border-top: 1px solid #dcc3c9 !important;
+    background: #fdfbf6 !important;
+    color: #435247 !important;
+    border-top: 1px solid #c0cdbc !important;
     box-shadow: none !important;
     font-size: 8pt !important;
   }
-  a { color: #654753 !important; text-decoration-color: #cbaab5; }
+  a { color: #435247 !important; text-decoration-color: #a6b8a0; }
 
   /* Print review: do not leave a case-study or employment heading on the
      preceding sheet while its explanation / photograph starts on the next. */
@@ -327,41 +327,41 @@
 @media print {
   @page { size: A4 portrait; margin: 13mm 14mm 15mm; }
   body.page-home, body.page-contact, body.page-trend {
-    --paper-bg: #fffaf5;
-    --paper-card: #fffdf9;
-    --ink-primary: #604851;
-    --ink-secondary: #6a535d;
-    --hairline: #e5c5ce;
-    --mk-navy: #775366;
-    --mk-red: #a46c7f;
-    background:#fffaf5 !important;
-    color:#604851 !important;
+    --paper-bg: #fdfbf6;
+    --paper-card: #fdfdfd;
+    --ink-primary: #3d513f;
+    --ink-secondary: #465c47;
+    --hairline: #c4d1bf;
+    --mk-navy: #49614b;
+    --mk-red: #618063;
+    background:#fdfbf6 !important;
+    color:#3d513f !important;
     -webkit-print-color-adjust:exact;
     print-color-adjust:exact;
   }
   body:is(.page-home,.page-contact,.page-trend) :is(
     .mag-header,.mag-hero-section,.mobile-cover,.trend-hero
   ) {
-    background-color:#f9e8e8 !important;
-    background-image:url("island-stitched-flora.svg"),linear-gradient(125deg,#fff8f0,#f9e5e9) !important;
+    background-color:#e8ede7 !important;
+    background-image:url("island-stitched-flora.svg"),linear-gradient(125deg,#faf9f7,#e6ebe4) !important;
     background-position:right 3mm top 2mm,center !important;
     background-size:17mm auto,cover !important;
     background-repeat:no-repeat !important;
-    border:1px solid #e5bec8 !important;
-    border-bottom:2px solid #dcaebb !important;
+    border:1px solid #beccb9 !important;
+    border-bottom:2px solid #afbfaa !important;
     border-radius:3mm !important;
   }
   body:is(.page-home,.page-contact,.page-trend) :is(
     .section-editorial-header,.mobile-card-title
   ) {
-    border-bottom:1px dashed #cfa0ae !important;
-    background:#fff9f5 !important;
-    color:#755366 !important;
+    border-bottom:1px dashed #9ab39c !important;
+    background:#fbfaf8 !important;
+    color:#48604a !important;
   }
   body:is(.page-home,.page-trend) .sec-number {
-    color:#945e73 !important;
-    background:#fbe9eb !important;
-    border-color:#e1b6c3 !important;
+    color:#567258 !important;
+    background:#eaefe8 !important;
+    border-color:#b7c5b3 !important;
   }
   body:is(.page-home,.page-contact,.page-trend) :is(
     .editorial-card,.wide-star-case,.career-entry-card,.feature-card,
@@ -369,28 +369,28 @@
     .research-summary-panel,.contact-action-panel,.candidate-specs-box,
     .contact-card-outer,.edu-dedicated-card,.contact-card-item,.case-box
   ) {
-    background-color:#fffaf7 !important;
-    border-color:#e7c5cc !important;
+    background-color:#fdfbf6 !important;
+    border-color:#c4d1c0 !important;
     box-shadow:none !important;
     border-radius:2.5mm !important;
   }
   body:is(.page-home,.page-trend) :is(.section-block:nth-of-type(even),.trend-main>section[id]:nth-of-type(even)) {
-    background:#f9eeee !important;
+    background:#eef2ec !important;
   }
   body:is(.page-home,.page-contact,.page-trend) :is(
     .source-verification,.audited-source-note
   ) {
-    border:1px solid #dfbbc6 !important;
-    border-left:2px solid #bd859a !important;
-    background:#fff9f3 !important;
+    border:1px solid #bbc8b6 !important;
+    border-left:2px solid #7d9d7f !important;
+    background:#fbfaf8 !important;
   }
   body:is(.page-home,.page-contact,.page-trend) :is(.mag-footer,.mobile-footer) {
-    border-top:1px dashed #d7b0bd !important;
-    background:#fffaf5 !important;
-    color:#745365 !important;
+    border-top:1px dashed #afbfaa !important;
+    background:#fdfbf6 !important;
+    color:#48604a !important;
   }
   body.page-trend :is(.data-bar-fill,.bar i) {
-    background:#d3a0b2 !important;
+    background:#a1b39a !important;
   }
   /* Original portrait and job photographs remain fully legible and uncropped. */
   .career-photo__frame img,.source-photo-image img,.photo-frame img {
@@ -411,11 +411,11 @@
     max-width:100% !important;
     margin: 2.6mm 0 1.5mm !important;
     padding: 2.4mm 3.1mm 2.5mm !important;
-    border:1px solid #deb4c0 !important;
-    border-left:3px solid #b67e96 !important;
+    border:1px solid #b5c3b0 !important;
+    border-left:3px solid #759777 !important;
     border-radius:2.5mm !important;
-    background:#fff9f5 !important;
-    color:#634653 !important;
+    background:#fbfaf8 !important;
+    color:#3d513f !important;
     box-shadow:none !important;
     break-inside:avoid-page !important;
     page-break-inside:avoid !important;
@@ -423,8 +423,8 @@
   body.page-home.page-desktop .print-contact-card__title {
     margin: 0 0 1.5mm !important;
     padding:0 0 1mm !important;
-    border-bottom:1px dashed #d9a9b8 !important;
-    color:#875468 !important;
+    border-bottom:1px dashed #aabba4 !important;
+    color:#4d664f !important;
     font: 800 9.2pt/1.3 "Noto Sans CJK TC","Noto Sans TC",sans-serif !important;
     letter-spacing:.03em !important;
   }
@@ -443,11 +443,11 @@
   }
   body.page-home.page-desktop .print-contact-card__label {
     font:700 7pt/1.3 "Noto Sans CJK TC","Noto Sans TC",sans-serif !important;
-    color:#a36e83 !important;
+    color:#628264 !important;
   }
   body.page-home.page-desktop .print-contact-card__value {
     font:700 8.4pt/1.35 "Noto Sans CJK TC","Noto Sans TC",sans-serif !important;
-    color:#543b48 !important;
+    color:#344435 !important;
     white-space:normal !important;
     overflow-wrap:anywhere !important;
     word-break:normal !important;

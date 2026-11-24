@@ -220,7 +220,7 @@ with sync_playwright() as p:
             expect(page.locator('#career .portfolio-disclosure-toggle, #career .portfolio-disclosure-panel')).to_have_count(0)
             duties = page.locator('#career .duty-bullet-list > li, #career .duty-list > li')
             assert duties.count() > 3
-            assert duties.evaluate_all('(rows)=>rows.every(r=>getComputedStyle(r).color==="rgb(73, 54, 62)")'), ('career copy',name)
+            assert duties.evaluate_all('(rows)=>rows.every(r=>getComputedStyle(r).color==="rgb(64, 60, 52)")'), ('career copy',name)
             plain = browser.new_page(java_script_enabled=False, viewport={'width':390 if mobile else 1440,'height':844})
             plain.route('https://**/*', lambda route: route.abort())
             plain.goto(url)
@@ -251,8 +251,8 @@ with sync_playwright() as p:
                     color:getComputedStyle(e).backgroundColor,
                     delay:e.style.getPropertyValue("--portfolio-bar-delay")})''')
                 assert abs(info['width']-value)<.01 and abs(info['ratio']-value)<1, (name, chart_selector, value, info)
-                colors = ['rgb(189, 130, 148)', 'rgb(233, 200, 95)',
-                          'rgb(135, 168, 189)', 'rgb(156, 172, 146)', 'rgb(161, 141, 177)']
+                colors = ['rgb(83, 100, 87)', 'rgb(180, 160, 109)',
+                          'rgb(140, 157, 145)', 'rgb(169, 179, 150)', 'rgb(154, 136, 120)']
                 assert info['color']==colors[i], (name, i, info)
                 assert info['delay']==str(i*110)+'ms', (name, info)
             page.evaluate('scrollTo({top:0,behavior:"instant"})')
@@ -292,8 +292,8 @@ with sync_playwright() as p:
             if chart_selector.endswith('--channels'):
                 # Same muted four colors as the home chart; animate only the
                 # progress fill, not the labels or the verified data widths.
-                expected_colors=['rgb(189, 130, 148)','rgb(233, 200, 95)',
-                                 'rgb(135, 168, 189)','rgb(156, 172, 146)']
+                expected_colors=['rgb(83, 100, 87)','rgb(180, 160, 109)',
+                                 'rgb(140, 157, 145)','rgb(169, 179, 150)']
                 progress_bars=chart.locator('.inline-research-viz__track > i')
                 assert progress_bars.count()==4, (name,'channel progress count')
                 assert progress_bars.evaluate_all('''els=>els.map(e=>getComputedStyle(e).backgroundColor)''')==expected_colors, name

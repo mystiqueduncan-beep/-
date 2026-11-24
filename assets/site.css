@@ -1,10 +1,10 @@
 /* Shared quality improvements. Page-specific editorial styles stay in each HTML file. */
-:root { --ink-muted: #595e67; }
+:root { --ink-muted: #625a4e; }
 html { scroll-padding-top: 100px; }
 body { overflow-wrap: break-word; }
 main:focus { outline: none; }
-:focus-visible { outline: 3px solid var(--mk-red, #C5161D); outline-offset: 4px; }
-.skip-link { position: fixed; top: 12px; left: 12px; transform: translateY(-200%); z-index: 10000; padding: 12px 18px; background: #fff; color: #0B2240; border: 2px solid #0B2240; font-weight: 700; }
+:focus-visible { outline: 3px solid var(--mk-red, #4d674f); outline-offset: 4px; }
+.skip-link { position: fixed; top: 12px; left: 12px; transform: translateY(-200%); z-index: 10000; padding: 12px 18px; background: #fff; color: #1c221e; border: 2px solid #1c221e; font-weight: 700; }
 .skip-link:focus { transform: none; }
 img { max-width: 100%; }
 main, .container, .subnav-items, .subnav-links, .editorial-card, .contact-card-item,
@@ -81,7 +81,7 @@ section[id] { scroll-margin-top: 110px; }
   h1, h2, h3, h4 { break-after: avoid; }
   p, li { orphans: 3; widows: 3; }
 }
-:root { --mk-red: #C5161D; }
+:root { --mk-red: #4d674f; }
 .mobile-card-title { font-size: inherit; }
 .trend-subnav-items a { min-height: 44px; }
 @media (max-width: 640px) {
@@ -90,7 +90,7 @@ section[id] { scroll-margin-top: 110px; }
   .trend-subnav-items a { white-space: normal; }
 }
 
-.nav-btn-mk span.num { color: #A90E16; }
+.nav-btn-mk span.num { color: #415743; }
 .cards-2col-grid, .cards-2x2-grid, .feature-card { min-width: 0; }
 .feature-card { overflow-wrap: anywhere; }
 @media (max-width: 768px) {
@@ -99,13 +99,13 @@ section[id] { scroll-margin-top: 110px; }
 
 
 /* Verified, attributed illustrative photographs. No real employment scene is implied. */
-.source-photo { max-width: 680px; margin: 18px 0 24px; overflow: hidden; background: #fff; border: 1px solid #DCD8CE; border-radius: 5px; }
-.source-photo-image { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #F0EDE5; }
+.source-photo { max-width: 680px; margin: 18px 0 24px; overflow: hidden; background: #fff; border: 1px solid #dfd7cb; border-radius: 5px; }
+.source-photo-image { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #f0ede7; }
 .source-photo-image img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
-.source-photo-credit { position: absolute; bottom: 8px; right: 8px; max-width: calc(100% - 16px); color: #fff; background: rgba(6,21,43,.92); padding: 5px 9px; font-size: .73rem; line-height: 1.35; }
-.source-photo figcaption { padding: 10px 12px; font-size: .8rem; line-height: 1.65; color: #3D4148; }
-.source-photo figcaption a, .source-verification a { color: #0B396B; text-underline-offset: 3px; }
-.source-verification { margin: 18px 0; padding: 14px 16px; background: #FFFDF0; border: 1px solid #DCD8CE; border-left: 4px solid #0B2240; color: #293744; font-size: .83rem; line-height: 1.8; overflow-wrap: anywhere; }
+.source-photo-credit { position: absolute; bottom: 8px; right: 8px; max-width: calc(100% - 16px); color: #fff; background: rgba(17,21,19,.92); padding: 5px 9px; font-size: .73rem; line-height: 1.35; }
+.source-photo figcaption { padding: 10px 12px; font-size: .8rem; line-height: 1.65; color: #433e36; }
+.source-photo figcaption a, .source-verification a { color: #2f3933; text-underline-offset: 3px; }
+.source-verification { margin: 18px 0; padding: 14px 16px; background: #fdfcfc; border: 1px solid #dfd7cb; border-left: 4px solid #1c221e; color: #2c3630; font-size: .83rem; line-height: 1.8; overflow-wrap: anywhere; }
 .source-verification a { display: inline; overflow-wrap: anywhere; }
 @media (max-width: 640px) {
   .source-photo { margin: 12px 0 18px; }
@@ -113,7 +113,7 @@ section[id] { scroll-margin-top: 110px; }
   .source-photo-credit { font-size: .66rem; bottom: 6px; right: 6px; }
   .source-verification { padding: 12px; font-size: .78rem; }
 }
-@media print { .source-photo { break-inside: avoid; } .source-photo-credit { position: static; background: transparent; color: #0B2240; } }
+@media print { .source-photo { break-inside: avoid; } .source-photo-credit { position: static; background: transparent; color: #1c221e; } }
 
 /* ==========================================================================
    Page Transitions: Smooth Cross-Document Transitions & Fallback
@@ -211,16 +211,16 @@ html.page-trans-fallback body.is-page-exiting {
    the phone. Screen only: the actual printed resume layout is not changed. */
 @media screen {
   body.page-contact .method-card.method-card--print {
-    background: #fff8f7 !important;
-    border: 2px dashed #d496ad !important;
+    background: #f8faf8 !important;
+    border: 2px dashed #b9a58c !important;
     border-radius: 23px !important;
-    box-shadow: 0 5px 16px rgba(159, 89, 120, .08) !important;
+    box-shadow: 0 5px 16px rgba(87, 115, 89, .08) !important;
   }
   body.page-contact .method-card--print .method-card-label {
-    color: #89546b !important;
+    color: #4e6750 !important;
   }
   body.page-contact .method-card--print .method-huge-text {
-    color: #704a5e !important;
+    color: #435844 !important;
     overflow-wrap: anywhere;
   }
   body.page-contact .method-card--print .method-action-btns a {
@@ -229,20 +229,20 @@ html.page-trans-fallback body.is-page-exiting {
     justify-content: center;
     gap: 6px;
     min-height: 44px;
-    color: #664455 !important;
-    background: #fffaf6 !important;
-    border: 1.5px solid #cb91a6 !important;
+    color: #3d513e !important;
+    background: #fbfbf9 !important;
+    border: 1.5px solid #8ca88f !important;
     border-radius: 15px !important;
-    box-shadow: 1px 2px 0 #efd0db !important;
+    box-shadow: 1px 2px 0 #d1dbcd !important;
     font-weight: 800;
     text-decoration: none;
   }
   body.page-contact .method-card--print .method-action-btns a:is(:hover,:focus-visible) {
-    color: #533244 !important;
-    background: #f7dfe7 !important;
+    color: #2f3e30 !important;
+    background: #e0e7de !important;
   }
   body.page-contact .method-card--print .method-action-btns a:focus-visible {
-    outline: 3px solid #8d526a !important;
+    outline: 3px solid #4e6750 !important;
     outline-offset: 3px;
   }
 }
@@ -268,19 +268,19 @@ html.page-trans-fallback body.is-page-exiting {
     min-height: 116px;
     padding: 26px clamp(20px, 5vw, 42px) !important;
     margin: 0 !important;
-    border: 2px dashed #d496ad !important;
+    border: 2px dashed #b9a58c !important;
     border-radius: 24px !important;
-    color: #684454 !important;
+    color: #3d513f !important;
     background:
-      linear-gradient(105deg, rgba(255,251,246,.98) 0%, rgba(255,240,244,.96) 63%, rgba(252,227,236,.88) 100%),
+      linear-gradient(105deg, rgba(252,251,250,.98) 0%, rgba(242,245,241,.96) 63%, rgba(229,235,227,.88) 100%),
       url("island-stitched-flora.svg") right 16px center / 105px auto no-repeat !important;
-    box-shadow: 0 8px 24px rgba(101,71,83,.13), 0 0 0 1px #f1d2dd !important;
+    box-shadow: 0 8px 24px rgba(67,82,71,.13), 0 0 0 1px #d3ddd0 !important;
     text-decoration: none !important;
     font-weight: 900;
     line-height: 1.4;
     overflow: visible !important;
     cursor: pointer;
-    -webkit-tap-highlight-color: rgba(212,150,173,.2);
+    -webkit-tap-highlight-color: rgba(185,165,140,.2);
     animation: research-soft-glow 4.5s ease-in-out 1s infinite;
     transition: background-color .2s ease, box-shadow .2s ease, transform .2s ease !important;
   }
@@ -292,7 +292,7 @@ html.page-trans-fallback body.is-page-exiting {
     left: 50%;
     width: 72px;
     height: 16px;
-    background: repeating-linear-gradient(130deg,#dca9bc 0 9px,#f8dfe7 9px 18px);
+    background: repeating-linear-gradient(130deg,#abbca6 0 9px,#e0e7de 9px 18px);
     transform: translateX(-50%) rotate(-5deg);
     border-radius: 2px;
     opacity: .95;
@@ -304,7 +304,7 @@ html.page-trans-fallback body.is-page-exiting {
     right: 12px;
     bottom: -14px;
     font: 21px/1 Georgia,serif;
-    color: #af7993;
+    color: #6b8d6e;
     pointer-events: none;
   }
   body.page-contact .personal-resume-link__icon {
@@ -314,11 +314,11 @@ html.page-trans-fallback body.is-page-exiting {
     place-items: center;
     flex: 0 0 58px;
     height: 58px;
-    border: 1.5px dashed #bf879f;
+    border: 1.5px dashed #809f82;
     border-radius: 50%;
-    background: #f9e3ea;
-    color: #875569;
-    box-shadow: inset 0 0 0 3px #fff8f4;
+    background: #e4eae2;
+    color: #4e6750;
+    box-shadow: inset 0 0 0 3px #faf9f7;
     pointer-events: none;
   }
   body.page-contact .personal-resume-link__icon svg {
@@ -333,8 +333,8 @@ html.page-trans-fallback body.is-page-exiting {
     font-size: clamp(1.5rem,3vw,2rem);
     font-weight: 900;
     letter-spacing: .10em;
-    color: #704658;
-    text-shadow: 0 1px 0 #fffaf7;
+    color: #405542;
+    text-shadow: 0 1px 0 #fdfbf6;
     pointer-events: none;
   }
   body.page-contact .personal-resume-link__arrow {
@@ -345,7 +345,7 @@ html.page-trans-fallback body.is-page-exiting {
     width: 38px;
     height: 38px;
     flex: 0 0 38px;
-    color: #87566c;
+    color: #4e6851;
     border-radius: 50%;
     background: rgba(255,255,255,.7);
     pointer-events: none;
@@ -353,12 +353,12 @@ html.page-trans-fallback body.is-page-exiting {
   body.page-contact .personal-resume-link__arrow svg { width: 22px; height: 22px; }
   body.page-contact a.personal-resume-link:hover {
     background:
-      linear-gradient(105deg,#fff8f6,#f8dbe7 72%,#f4ccd9),
+      linear-gradient(105deg,#f8faf8,#dde5db 72%,#cfd9cb),
       url("island-stitched-flora.svg") right 16px center / 105px auto no-repeat !important;
-    box-shadow: 0 9px 24px rgba(124,75,98,.20), 0 0 0 1px #e3b1c3 !important;
+    box-shadow: 0 9px 24px rgba(70,93,72,.20), 0 0 0 1px #b4c3af !important;
   }
   body.page-contact a.personal-resume-link:focus-visible {
-    outline: 3px solid #814b62 !important;
+    outline: 3px solid #475f49 !important;
     outline-offset: 5px !important;
   }
   /* Same full-card diagonal meteor shimmer as the research entry. */
@@ -375,7 +375,7 @@ html.page-trans-fallback body.is-page-exiting {
     position: absolute;
     top: -55%; bottom: -55%; left: -74%;
     width: 75%;
-    background: linear-gradient(90deg,transparent 0%,rgba(255,248,254,.06) 11%,rgba(255,252,255,.20) 29%,rgba(255,255,255,.47) 46%,rgba(255,255,255,.68) 50%,rgba(255,250,255,.34) 59%,rgba(255,250,255,.06) 80%,transparent 100%);
+    background: linear-gradient(90deg,transparent 0%,rgba(249,250,249,.06) 11%,rgba(255,252,255,.20) 29%,rgba(255,255,255,.47) 46%,rgba(255,255,255,.68) 50%,rgba(251,252,250,.34) 59%,rgba(251,252,250,.06) 80%,transparent 100%);
     filter: blur(4px);
     mix-blend-mode: screen;
     opacity: 0;

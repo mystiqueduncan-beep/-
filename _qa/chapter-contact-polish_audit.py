@@ -75,7 +75,7 @@ with sync_playwright() as p:
             active=nav.locator('.keycap-marquee__group a[aria-current="location"]')
             assert active.count()==1 and active.get_attribute("href")=="#"+target,name
             selected_bg=active.evaluate("(el)=>getComputedStyle(el).backgroundColor")
-            assert selected_bg=="rgb(233, 198, 211)",name
+            assert selected_bg=="rgb(217, 225, 213)",name
             print("desktop current chapter:",name,target)
 
         if "trend" in name:

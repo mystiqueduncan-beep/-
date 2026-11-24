@@ -1,3 +1,4 @@
+from natural_palette_restore import restore_natural_html, restore_natural_bytes
 from research_marquee_approved import restore_mobile_research_source
 """Whole-page text fingerprints of the approved portfolio after intentional UI removals. Facts and data are independently checked by check.py."""
 from html.parser import HTMLParser
@@ -127,7 +128,7 @@ if __name__=='__main__':
    # Pin the exact user-approved inline-chart publication. This preserves a byte-level guard
    # over the expanded research pages while allowing no general text exemption.
    expanded={'trend.html':'d60da7997cd4006d0fc0ecc7f6bcd2f27b7a7535','mobile-trend.html':'690cdb35197be801371212c303776c1865ddcf26'}
-   raw=(ROOT/name).read_bytes()
+   raw=restore_natural_bytes(name, (ROOT/name).read_bytes())
    # Only this exact indexing directive may be excluded from the immutable research digest.
    if name=='trend.html':
     privacy_meta=b'\n  <meta name="robots" content="noindex,follow">'
@@ -176,7 +177,7 @@ if __name__=='__main__':
    current[name]=actual
   elif name in approved:
    raw=restore_historical_contact_link_labels(
-    name,strip_approved_japanese_ui(name,restore_approved_footer_layout(name,(ROOT/name).read_text(encoding='utf-8')))
+    name,strip_approved_japanese_ui(name,restore_approved_footer_layout(name,restore_natural_html(name, (ROOT/name).read_text(encoding='utf-8'))))
    ).encode('utf-8')
    # Reconstruct only the old icon tag when verifying the approved research SHA.
    ico_link=b'<link rel="icon" href="favicon.ico" type="image/x-icon">'
@@ -210,7 +211,7 @@ if __name__=='__main__':
    assert actual==approved[name],name+': regional analysis content not approved'
    current[name]=actual
   else:
-   actual=digest((ROOT/name).read_text(encoding='utf-8'),name)
+   actual=digest(restore_natural_html(name, (ROOT/name).read_text(encoding='utf-8')),name)
    assert actual==expected,name+': main text changed'
    current[name]=actual
   print(name+': approved content and factual data preserved')

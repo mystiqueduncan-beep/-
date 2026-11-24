@@ -1,11 +1,11 @@
 /* 中日雙語章節導覽：沿用既有粉色雜誌風格，不更動原文或跑馬燈引擎。 */
 @media screen {
   body.page-home {
-    --bilingual-ink:#785367;
-    --bilingual-deep:#654753;
-    --bilingual-line:#dcb8c5;
-    --bilingual-pale:#fff9f7;
-    --bilingual-selected:#f5d6df;
+    --bilingual-ink:#49614b;
+    --bilingual-deep:#435247;
+    --bilingual-line:#b7c5b3;
+    --bilingual-pale:#f9fbf9;
+    --bilingual-selected:#d8e0d5;
   }
   body.page-home.page-desktop .home-keycap-strip {
     position:sticky!important;top:0!important;z-index:95!important;
@@ -28,10 +28,10 @@
   body.page-home .bilingual-chapter-nav .keycap-marquee__group a {
     display:flex!important;flex-direction:column!important;align-items:center!important;
     justify-content:center!important;gap:2px!important;text-align:center!important;
-    border:1px solid #c79cad!important;border-radius:25px!important;
-    background:#fffcfa!important;color:#654753!important;
+    border:1px solid #94ae96!important;border-radius:25px!important;
+    background:#fdfbf6!important;color:#435247!important;
     padding:7px 15px!important;min-height:57px!important;
-    box-shadow:0 2px 0 #e8cbd5!important;text-decoration:none!important;
+    box-shadow:0 2px 0 #cad6c6!important;text-decoration:none!important;
     line-height:1.35!important;white-space:nowrap!important;
     transition:background-color .16s ease, border-color .16s ease, box-shadow .16s ease!important;
   }
@@ -40,14 +40,14 @@
   }
   body.page-home .bilingual-chapter-nav .keycap-marquee__group a .bilingual-nav-jp {
     display:block;font-family:'Noto Sans JP','Yu Gothic','Noto Sans TC',sans-serif;
-    font-size:.68rem;font-weight:600;letter-spacing:0;color:#886675;
+    font-size:.68rem;font-weight:600;letter-spacing:0;color:#577359;
   }
   body.page-home .bilingual-chapter-nav .keycap-marquee__group a:is(:hover,:focus-visible,.is-current),
   body.page-home .bilingual-chapter-nav .keycap-marquee__group a[aria-current='location'] {
-    background:#f5d6df!important;border-color:#be8fa3!important;box-shadow:0 2px 0 #d2a7b8!important;
+    background:#d8e0d5!important;border-color:#86a488!important;box-shadow:0 2px 0 #a6b8a0!important;
   }
   body.page-home .bilingual-chapter-nav .keycap-marquee__group a:focus-visible{
-    outline:3px solid #a56e82!important;outline-offset:3px!important;
+    outline:3px solid #628265!important;outline-offset:3px!important;
   }
 
   /* The moving track contains only the six chapter links. Keep its empty
@@ -64,8 +64,8 @@
   body.page-home.page-desktop .section-editorial-header .sec-number {
     display:grid!important;flex:0 0 45px!important;width:45px!important;height:45px!important;
     place-items:center!important;margin-top:2px;
-    color:#885e71!important;background:#f6e5e9!important;
-    border:1px solid #e1c0cc!important;border-radius:50%!important;
+    color:#536e55!important;background:#e5ebe3!important;
+    border:1px solid #c0ccbc!important;border-radius:50%!important;
   }
   body.page-home.page-desktop .section-editorial-header .bilingual-heading-text {
     display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-width:0;
@@ -74,24 +74,24 @@
     font-family:var(--font-sans,'Noto Sans TC',sans-serif)!important;
     font-size:clamp(1.35rem,2.2vw,2.05rem)!important;
     font-weight:900!important;line-height:1.45!important;
-    color:#785367!important;letter-spacing:.025em!important;
+    color:#49614b!important;letter-spacing:.025em!important;
   }
   body.page-home.page-desktop .section-editorial-header .bilingual-heading-sub {
     display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 9px;
-    color:#815d70;max-width:100%;font-size:.74rem;line-height:1.55;
+    color:#516b53;max-width:100%;font-size:.74rem;line-height:1.55;
   }
   body.page-home.page-desktop .section-editorial-header .bilingual-heading-sub .sec-title-sub {
     display:inline!important;width:auto!important;margin:0!important;
     font:700 .68rem/1.6 var(--font-mono,'Arial',sans-serif)!important;
-    letter-spacing:.07em!important;color:#895e71!important;
+    letter-spacing:.07em!important;color:#536e55!important;
   }
   body.page-home.page-desktop .section-editorial-header .bilingual-heading-sub .sec-title-jp {
     display:inline!important;margin:0!important;padding:0!important;
     font-family:'Noto Sans JP','Yu Gothic','Noto Sans TC',sans-serif!important;
-    font-size:.78rem!important;line-height:1.6!important;color:#815d70!important;
+    font-size:.78rem!important;line-height:1.6!important;color:#516b53!important;
   }
   body.page-home.page-desktop .section-editorial-header .bilingual-heading-sub .sec-title-jp::before {
-    content:'／'!important;margin-right:8px!important;color:#be91a2!important;
+    content:'／'!important;margin-right:8px!important;color:#87a58a!important;
   }
   /* overflow-x:hidden creates a scroll container and prevents mobile sticky.
      clip retains horizontal clipping without stealing the page scrollport. */
@@ -123,21 +123,21 @@
     display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:0;
   }
   body.page-home.page-mobile .bilingual-mobile-cn{
-    color:#785367!important;font-size:clamp(1.12rem,4.3vw,1.37rem)!important;
+    color:#49614b!important;font-size:clamp(1.12rem,4.3vw,1.37rem)!important;
     font-weight:900!important;line-height:1.38!important;letter-spacing:.02em;
   }
   body.page-home.page-mobile .bilingual-mobile-sub{
     display:flex;flex-wrap:wrap;align-items:baseline;gap:1px 8px;
-    font-size:.69rem!important;color:#835c6d;line-height:1.55;
+    font-size:.69rem!important;color:#506b53;line-height:1.55;
   }
   body.page-home.page-mobile .bilingual-mobile-en {
     font-family:var(--font-mono,'Arial',sans-serif);font-size:.62rem!important;
-    letter-spacing:.045em!important;color:#875e70;
+    letter-spacing:.045em!important;color:#526d55;
   }
   body.page-home.page-mobile .bilingual-mobile-jp{
     font-family:'Noto Sans JP','Yu Gothic','Noto Sans TC',sans-serif;font-size:.72rem;
   }
-  body.page-home.page-mobile .bilingual-mobile-jp::before{content:'／';margin-right:6px;color:#bd8b9e}
+  body.page-home.page-mobile .bilingual-mobile-jp::before{content:'／';margin-right:6px;color:#82a184}
   body.page-home.page-mobile .bilingual-mobile-heading .mobile-badge{display:none!important}
   /* Keep mixed Latin/Japanese subtitle glyph boxes on one visual baseline. */
   body.page-home.page-mobile .bilingual-mobile-heading .tri-subtitle-line > .trilingual-ja {
@@ -161,13 +161,13 @@
 @media screen {
   body.page-home.page-desktop .section-editorial-header .sec-number,
   body.page-home.page-desktop .tri-heading-primary .sec-number {
-    color:#573447!important;
+    color:#314132!important;
   }
   body.page-home .bilingual-chapter-nav .keycap-marquee__group a .bilingual-nav-jp {
-    color:#573447!important;
+    color:#314132!important;
   }
   body.page-home .bilingual-chapter-nav .keycap-marquee__group a:is(:hover,:focus-visible,.is-current,[aria-current="location"]) .bilingual-nav-jp {
-    color:#573447!important;
+    color:#314132!important;
   }
 }
 
@@ -177,13 +177,13 @@
    genuinely empty run-in/run-out of the scrolling chapter marquee. */
 @media screen {
   body.page-home .bilingual-chapter-nav .keycap-marquee__group a:is(.is-current,[aria-current="location"]) {
-    background: #dfadc1 !important;
-    color: #4f3042 !important;
-    border-color: #ac7189 !important;
-    box-shadow: 0 3px 0 #c58b9f !important;
+    background: #b0bfaa !important;
+    color: #2d3b2e !important;
+    border-color: #668768 !important;
+    box-shadow: 0 3px 0 #85a387 !important;
   }
   body.page-home .bilingual-chapter-nav .keycap-marquee__group a:is(.is-current,[aria-current="location"]) .bilingual-nav-jp {
-    color: #4f3042 !important;
+    color: #2d3b2e !important;
   }
 }
 @media screen and (prefers-reduced-motion: no-preference) {
@@ -193,7 +193,7 @@
     align-items: center;
     justify-content: center;
     background: transparent !important;
-    color: #ad8295 !important;
+    color: #749677 !important;
     opacity: .72;
     font: 20px/1 Georgia, serif !important;
     letter-spacing: .30em !important;

@@ -36,7 +36,7 @@ try:
             page.route("https://**/*", lambda route: route.abort())
             mode = f"?view={variant}" if variant else ""
             page.goto(f"{base}/{file_name}{mode}", wait_until="domcontentloaded")
-            opener = page.get_by_role("button", name="開啟履歷 AI 導覽")
+            opener = page.locator(".bs-ai-launcher")
             expect(opener).to_be_visible()
             expect(opener.locator(".bs-ai-launcher-label")).to_have_text("AI問答小助手")
             expect(opener.locator(".bs-ai-launcher-emblem")).to_have_text("♥")

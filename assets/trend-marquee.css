@@ -41,11 +41,11 @@
   gap: 8px;
   min-height: 46px;
   padding: 9px 16px;
-  border: 1.5px solid #0B2240;
+  border: 1.5px solid #1c221e;
   border-radius: 7px;
-  background: #FFFDF8;
-  box-shadow: 0 4px 0 #0B2240;
-  color: #0B2240;
+  background: #fdfdfc;
+  box-shadow: 0 4px 0 #1c221e;
+  color: #1c221e;
   font-family: var(--font-sans, "Noto Sans TC", sans-serif);
   font-size: .83rem;
   font-weight: 800;
@@ -55,25 +55,25 @@
   transition: background-color .15s ease, transform .15s ease, box-shadow .15s ease;
 }
 .keycap-marquee__group a .num {
-  color: #A90E16;
+  color: #415743;
   font-family: var(--font-mono, monospace);
   font-size: .76rem;
   font-weight: 800;
 }
 .keycap-marquee__group a:hover,
 .keycap-marquee__group a.is-current {
-  background: #FFD600;
+  background: #dfd8cc;
 }
 .keycap-marquee__group a:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 0 #0B2240;
+  box-shadow: 0 6px 0 #1c221e;
 }
 .keycap-marquee__group a:active {
   transform: translateY(3px);
-  box-shadow: 0 1px 0 #0B2240;
+  box-shadow: 0 1px 0 #1c221e;
 }
 .keycap-marquee__group a:focus-visible {
-  outline: 3px solid #A90E16;
+  outline: 3px solid #415743;
   outline-offset: 4px;
 }
 
@@ -90,8 +90,8 @@
   font-family: Georgia, serif;
   font-size: clamp(17px, 1.7vw, 23px);
   letter-spacing: .8em;
-  color: #ae8292;
-  background: radial-gradient(ellipse at center, rgba(239,211,221,.52), transparent 70%);
+  color: #749677;
+  background: radial-gradient(ellipse at center, rgba(211,221,208,.52), transparent 70%);
   pointer-events: none;
 }
 .keycap-marquee.is-keyboard-paused .keycap-marquee__belt::after { display: none !important; }
@@ -145,20 +145,20 @@
   min-height: 46px;
   width: auto;
   padding: 10px 14px;
-  background: #FFFDF8;
-  color: #0B2240;
-  border: 1.5px solid #0B2240;
+  background: #fdfdfc;
+  color: #1c221e;
+  border: 1.5px solid #1c221e;
   border-radius: 7px;
-  box-shadow: 0 4px 0 #0B2240;
+  box-shadow: 0 4px 0 #1c221e;
   text-align: left;
   white-space: nowrap;
   scroll-snap-align: start;
   transition: background-color .15s ease, transform .15s ease, box-shadow .15s ease;
 }
-.mobile-keycap-nav .btn-subcard-nav:hover { background: #FFD600; transform: translateY(-2px); box-shadow: 0 6px 0 #0B2240; }
-.mobile-keycap-nav .btn-subcard-nav:active { transform: translateY(3px); box-shadow: 0 1px 0 #0B2240; }
+.mobile-keycap-nav .btn-subcard-nav:hover { background: #dfd8cc; transform: translateY(-2px); box-shadow: 0 6px 0 #1c221e; }
+.mobile-keycap-nav .btn-subcard-nav:active { transform: translateY(3px); box-shadow: 0 1px 0 #1c221e; }
 .mobile-keycap-nav .btn-subcard-nav:focus-visible,
-.mobile-keycap-nav:focus-visible { outline: 3px solid #A90E16; outline-offset: 3px; }
+.mobile-keycap-nav:focus-visible { outline: 3px solid #415743; outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) {
   .keycap-marquee__belt, .mobile-keycap-nav .btn-subcard-nav { animation: none !important; transition: none !important; }
 }
@@ -179,9 +179,9 @@
 .home-keycap-strip .keycap-marquee__viewport {
   max-width: min(100%, 620px);
 }
-.home-keycap-strip .keycap-marquee__group a.btn-accent { background: #0B2240; color: #FFD600; }
-.home-keycap-strip .keycap-marquee__group a.btn-accent .num { color: #FFD600; }
-.home-keycap-strip .keycap-marquee__group a.btn-accent:hover { background: #173C68; }
+.home-keycap-strip .keycap-marquee__group a.btn-accent { background: #1c221e; color: #dfd8cc; }
+.home-keycap-strip .keycap-marquee__group a.btn-accent .num { color: #dfd8cc; }
+.home-keycap-strip .keycap-marquee__group a.btn-accent:hover { background: #313c36; }
 .home-keycap-strip .subnav-status-badge { align-self: flex-start; margin: 0; }
 @media (max-width: 768px) {
   .home-keycap-strip .keycap-marquee { gap: 0; }
@@ -199,20 +199,20 @@
   max-width: 100%;
   min-height: 46px;
   padding: 10px 16px;
-  background: #0B2240;
-  border: 1.5px solid #0B2240;
+  background: #1c221e;
+  border: 1.5px solid #1c221e;
   border-radius: 7px;
-  box-shadow: 0 4px 0 #0B2240;
-  color: #FFD600;
+  box-shadow: 0 4px 0 #1c221e;
+  color: #dfd8cc;
   font-weight: 800;
   text-decoration: none;
   line-height: 1.4;
   white-space: normal;
 }
-.home-keycap-strip .home-research-link .num { color: #FFD600; }
-.home-keycap-strip .home-research-link:hover { background: #173C68; transform: translateY(-2px); box-shadow: 0 6px 0 #0B2240; }
-.home-keycap-strip .home-research-link:active { transform: translateY(3px); box-shadow: 0 1px 0 #0B2240; }
-.home-keycap-strip .home-research-link:focus-visible { outline: 3px solid #A90E16; outline-offset: 4px; }
+.home-keycap-strip .home-research-link .num { color: #dfd8cc; }
+.home-keycap-strip .home-research-link:hover { background: #313c36; transform: translateY(-2px); box-shadow: 0 6px 0 #1c221e; }
+.home-keycap-strip .home-research-link:active { transform: translateY(3px); box-shadow: 0 1px 0 #1c221e; }
+.home-keycap-strip .home-research-link:focus-visible { outline: 3px solid #415743; outline-offset: 4px; }
 
 /* Mobile research chapter marquee: no separate pause control. */
 .mobile-keycap-marquee { display:block; scroll-snap-type:none; }
@@ -237,10 +237,10 @@
 /* Shared visual specification across homepage, desktop research and mobile research marquees.
    Scope deliberately excludes the fixed, dark-blue "完整趨勢研究" shortcut. */
 :root {
-  --marquee-key-bg: #FFFDF8;
-  --marquee-key-ink: #0B2240;
-  --marquee-key-number: #A90E16;
-  --marquee-key-selected: #FFD600;
+  --marquee-key-bg: #fdfdfc;
+  --marquee-key-ink: #1c221e;
+  --marquee-key-number: #415743;
+  --marquee-key-selected: #dfd8cc;
   --marquee-key-height: 46px;
   --marquee-key-radius: 7px;
   --marquee-key-border: 1.5px solid var(--marquee-key-ink);
@@ -349,7 +349,7 @@
 }
 .keycap-marquee__viewport:active,
 .keycap-marquee.is-drag-paused .keycap-marquee__viewport { cursor: grabbing; }
-.keycap-marquee__viewport:focus-visible { outline: 2px solid #a57b8a; outline-offset: -3px; }
+.keycap-marquee__viewport:focus-visible { outline: 2px solid #698b6c; outline-offset: -3px; }
 .keycap-marquee__viewport .keycap-marquee__group a { -webkit-user-drag: none; }
 .keycap-marquee.is-enhanced .keycap-marquee__belt {
   animation: none !important;
@@ -363,11 +363,11 @@
   align-items: center;
   justify-content: center;
   white-space: pre;
-  color: #b08a9b;
+  color: #7c9c7f;
   font: 23px/1 Georgia,serif;
   letter-spacing: .5em;
   pointer-events: none;
-  background: radial-gradient(ellipse at center,#f1dfe780,transparent 72%);
+  background: radial-gradient(ellipse at center,#dfe6dc80,transparent 72%);
 }
 .keycap-marquee.is-enhanced.is-keyboard-paused .keycap-marquee__belt {
   animation: none !important;
@@ -384,8 +384,8 @@
   body:is(.page-home,.page-trend) [data-keycap-marquee].keycap-marquee {
     box-sizing: border-box;
     max-width: 100%;
-    background: rgba(255,249,247,.70) !important;
-    border: 1px solid rgba(221,186,199,.55);
+    background: rgba(249,251,249,.70) !important;
+    border: 1px solid rgba(185,199,181,.55);
     border-radius: 24px;
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
@@ -426,9 +426,9 @@
     min-width: 0 !important;
     margin-inline: auto !important;
     padding: 3px 10px 5px !important;
-    border: 1px solid rgba(221,186,199,.55) !important;
+    border: 1px solid rgba(185,199,181,.55) !important;
     border-radius: 24px !important;
-    background: rgba(255,249,247,.96) !important;
+    background: rgba(249,251,249,.96) !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     box-shadow: none !important;
@@ -437,7 +437,7 @@
   body:is(.page-home,.page-trend):is(.page-desktop,.page-mobile)
     nav:is(.home-keycap-strip,.bilingual-mobile-strip,.trend-bilingual-nav)
     [data-keycap-marquee].keycap-marquee.is-reading-section {
-    background: rgba(255,249,247,.20) !important;
+    background: rgba(249,251,249,.20) !important;
   }
   body:is(.page-home,.page-trend):is(.page-desktop,.page-mobile)
     nav:is(.home-keycap-strip,.bilingual-mobile-strip,.trend-bilingual-nav)
