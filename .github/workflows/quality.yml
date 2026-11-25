@@ -48,7 +48,7 @@ jobs:
       - name: Install browser audit dependencies
         run: |
           python3 -m pip install playwright==1.51.0
-          python3 -m playwright install --with-deps chromium
+          python3 -m playwright install --with-deps chromium webkit
           npm install --no-save --package-lock=false axe-core@4.10.3
       - name: Portfolio AI chat interactions, routing and responsive access
         run: python3 _qa/ai-assistant_browser.py

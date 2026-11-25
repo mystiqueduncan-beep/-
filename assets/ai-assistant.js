@@ -289,6 +289,29 @@
       return candidates.filter(s=>s.box.top<=y).sort((a,b)=>b.box.top-a.box.top)[0] || candidates[0] || {id:"overview",topic:menus[pageKind][0],phrase:"想先看看重點嗎？"};
     }
     let active = visibleSection(), pendingSection = false, sectionTimer = 0;
+    const sectionAlternatives = {
+      profile:["想先認識我嗎？","想了解應徵方向嗎？"],
+      motivation:["想了解應徵動機嗎？","想了解職涯方向嗎？"],
+      competencies:["想了解管理能力嗎？","想了解核心專長嗎？"],
+      cases:["想了解改善構想嗎？","想看看門市改善方法嗎？"],
+      career:["想了解工作經歷嗎？","想了解店長經驗嗎？"],
+      proposal:["想了解工作構想嗎？","想看看到任後的規劃嗎？"],
+      research:["想看看產業研究嗎？","想了解研究重點嗎？"],
+      market:["想了解市場趨勢嗎？","想了解商品結構嗎？"],
+      competition:["想了解品牌競爭嗎？","想看看品牌定位嗎？"],
+      consumer:["想了解消費者行為嗎？","想了解顧客需求嗎？"],
+      location:["想了解展店策略嗎？","想了解商圈評估嗎？"],
+      digital:["想了解數位轉型嗎？","想看看數位工具嗎？"],
+      people:["想了解人才管理嗎？","想了解新人帶訓嗎？"],
+      experience:["想了解跨店管理嗎？","想了解門市實務嗎？"],
+      strategy:["想了解改善方針嗎？","想看看六項改善構想嗎？"],
+      roadmap:["想了解執行計畫嗎？","想看看90天計畫嗎？"],
+      metrics:["想了解評估指標嗎？","想了解如何衡量成效嗎？"],
+      sources:["想查看研究來源嗎？","想了解研究依據嗎？"],
+      education:["想了解教育背景嗎？","想了解目前學歷嗎？"],
+      contact:["想找聯絡方式嗎？","想了解聯絡管道嗎？"],
+      resume:["想了解應徵方向嗎？","想了解職涯背景嗎？"]
+    };
     let afterClose = 0;
     function updateContext() {
       contextLabel.textContent = "正在閱讀："+(cards[active.topic]?.[1] || "作品集");
@@ -315,8 +338,13 @@
     } catch (_) { /* Storage can be denied; reminders still work within the page. */ }
     const save = () => { try { sessionStorage.setItem(key, JSON.stringify(state)); } catch (_) {} };
     save();
-    let timer = 0, lastScroll = -Infinity, hintVisible = false;
-    function clearHintTimer() { window.clearTimeout(timer); timer = 0; }
+    // Scheduling a future hint must never cancel the current typing/hold phase.
+    let scheduleTimer = 0, phaseTimer = 0, lastScroll = -Infinity, hintVisible = false, fadeUntil = 0;
+    function clearScheduledHint() { window.clearTimeout(scheduleTimer); scheduleTimer = 0; }
+    function clearHintTimer() {
+      clearScheduledHint();
+      window.clearTimeout(phaseTimer); phaseTimer = 0;
+    }
     function hideHint() {
       hintVisible = false;
       hint.classList.remove("is-visible");
@@ -329,8 +357,9 @@
       const specificPool = [...new Set([active.phrase,...contextual])];
       if (pendingSection) {
         pendingSection=false;
-        const options=specificPool.filter(s=>s!==state.last);
-        return options[Math.floor(Math.random()*options.length)];
+        const options=[...new Set([active.phrase,...(sectionAlternatives[active.id]||[])])].filter(s=>s!==state.last);
+        const pool=options.length?options:[active.phrase];
+        return pool[Math.floor(Math.random()*pool.length)];
       }
       const pool = common.concat(specificPool);
       let available = pool.filter(s => s !== state.last && !state.used.includes(s));
@@ -346,16 +375,24 @@
       return group[Math.floor(Math.random()*group.length)];
     }
     function scheduleHint() {
-      clearHintTimer();
+      if (hintVisible) return;
+      clearScheduledHint();
       if (!panel.hidden || document.hidden) return;
       const delay = Math.max(0, state.nextAt-Date.now(), lastScroll+timing.idle-Date.now());
-      timer = window.setTimeout(() => {
-        if (!panel.hidden || document.hidden) return;
-        if (Date.now()-lastScroll < timing.idle || Date.now() < state.nextAt) { scheduleHint(); return; }
+      scheduleTimer = window.setTimeout(() => {
+        scheduleTimer = 0;
+        if (!panel.hidden || document.hidden || hintVisible) return;
+        if (Date.now()-lastScroll < timing.idle) { scheduleHint(); return; }
+        // A scroll-idle timer and an ordinary repeat can expire in the same
+        // turn. Read the actual viewport before choosing the queued question.
+        detectSection(false);
+        if (Date.now() < state.nextAt) { scheduleHint(); return; }
         showHint();
       }, delay);
     }
     function showHint() {
+      if (hintVisible || !panel.hidden || document.hidden) return;
+      clearScheduledHint();
       const phrase = pickPhrase();
       pendingSection = false;
       const letters = Array.from(phrase);
@@ -373,26 +410,27 @@
       hint.removeAttribute("aria-hidden");
       const finish = () => {
         cursor.hidden = true;
-        timer = window.setTimeout(endHint, timing.hold);
+        phaseTimer = window.setTimeout(endHint, timing.hold);
       };
       let i = 0;
       const type = () => {
         if (!hintVisible) return;
         hintText.textContent = letters.slice(0, ++i).join("");
-        if (i < letters.length) timer = window.setTimeout(type, timing.char);
+        if (i < letters.length) phaseTimer = window.setTimeout(type, timing.char);
         else finish();
       };
       if (reduceMotion) finish();
-      else timer = window.setTimeout(type, timing.enter+timing.char);
+      else phaseTimer = window.setTimeout(type, timing.enter+timing.char);
     }
     function endHint() {
       // Do not remove a focused control underneath keyboard users.
       if (document.activeElement === hint) {
-        timer = window.setTimeout(endHint, 1000);
+        phaseTimer = window.setTimeout(endHint, 1000);
         return;
       }
       hideHint();
-      state.nextAt = Date.now()+(reduceMotion ? 0 : timing.fade)+(pendingSection ? 0 : timing.gap);
+      fadeUntil = Date.now()+(reduceMotion ? 0 : timing.fade);
+      state.nextAt = fadeUntil+(pendingSection ? 0 : timing.gap);
       save();
       scheduleHint();
     }
@@ -403,7 +441,7 @@
       save();
       scheduleHint();
     }
-    function detectSection() {
+    function detectSection(reschedule = true) {
       const next = visibleSection();
       if (next.id === active.id) return;
       active = next;
@@ -412,16 +450,21 @@
       if (!state.seen || document.hidden) return;
       pendingSection = true;
       if (!hintVisible) {
-        state.nextAt = Math.max(Date.now(), afterClose);
+        state.nextAt = Math.max(Date.now(), afterClose, fadeUntil);
         save();
-        scheduleHint();
+        if (reschedule) scheduleHint();
       }
     }
-    window.addEventListener("scroll", () => {
+    // Listen to document and nested scroll containers, but never chat scrolling.
+    window.addEventListener("scroll", event => {
+      if (event.target instanceof Node && root.contains(event.target)) return;
       lastScroll = Date.now();
       clearTimeout(sectionTimer);
       sectionTimer = setTimeout(detectSection,timing.idle);
-    }, { passive:true });
+    }, { passive:true,capture:true });
+    window.addEventListener("hashchange",()=>{
+      clearTimeout(sectionTimer); sectionTimer=setTimeout(detectSection,timing.idle);
+    });
     window.addEventListener("resize",()=>{clearTimeout(sectionTimer);sectionTimer=setTimeout(detectSection,timing.idle);},{passive:true});
     try {
       const pending=JSON.parse(sessionStorage.getItem(highlightKey)||"null");
