@@ -30,6 +30,8 @@ ASSETS = (
     "assets/career-images.css",
     "assets/contact-portrait-fade.css",
     "assets/trend-marquee.css",
+    "assets/research-editorial.css",
+    "assets/regional-analysis.js",
 )
 BASE_SHA = os.environ.get("EXPECTED_BASE_SHA", "").strip()
 REQUEST_ID = os.environ.get("GITHUB_RUN_ID", "check")
@@ -64,6 +66,9 @@ def verify():
                 raise RuntimeError(f"{page}: does not declare the new 16/32 flower ICO")
             if b'favicon-floral-20261114.svg' in content:
                 raise RuntimeError(f"{page}: still points at the older SVG icon URL")
+        if page in ("index.html", "mobile.html", "trend.html", "mobile-trend.html"):
+            if hashlib.sha256(content).digest() != hashlib.sha256(expected_file(page)).digest():
+                raise RuntimeError(f"{page}: published chart/home content differs from expected revision")
         print(f"OK {page}: HTTP 200, HTML and favicon reference verified", flush=True)
     for path in ASSETS:
         actual = remote_file(path)

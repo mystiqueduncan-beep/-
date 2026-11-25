@@ -477,3 +477,61 @@
     color:#435247 !important;
   }
 }
+
+/* Research charts: actual geometry, one-time reveal, and matching touch/keyboard selection.
+   Base styles are complete without JavaScript and are retained in print. */
+body.page-trend .viz-ring {
+ display:block;width:min(100%,320px);height:auto;margin:0 auto;overflow:visible;
+}
+body.page-trend .viz-ring-arc {cursor:default;transition:stroke-width .18s ease,opacity .18s ease;}
+body.page-trend .chart-interactive .viz-ring-arc {cursor:pointer;}
+body.page-trend .viz-ring-value {font-size:13px;font-weight:800;pointer-events:none;}
+body.page-trend .viz-ring-year {fill:#536457;font-size:18px;font-weight:800;}
+body.page-trend .viz-ring-caption {fill:#62564d;font-size:12px;font-weight:650;}
+body.page-trend .viz-ring-total {fill:#536457;font-size:25px;font-weight:800;}
+body.page-trend .inline-research-viz__legend.viz-ring-legend {display:grid;grid-template-columns:minmax(0,1fr);gap:3px;list-style:none;padding:0;margin:8px 0 14px;}
+body.page-trend .viz-ring-legend li {display:block;min-width:0;border-bottom:1px solid #e6dfd1;}
+body.page-trend .viz-key {
+ display:grid;grid-template-columns:12px minmax(0,1fr) auto;align-items:center;gap:8px;
+ width:100%;min-height:44px;padding:6px 7px;border:1px solid transparent;border-radius:8px;
+ font:inherit;color:#403c34;background:transparent;text-align:left;
+}
+body.page-trend .viz-key i {width:11px;height:11px;border-radius:3px;background:var(--tone);}
+body.page-trend .viz-key:disabled,body.page-trend .viz-channel-button:disabled {opacity:1;cursor:default;}
+body.page-trend .chart-interactive :is(.viz-key,.viz-channel-button) {cursor:pointer;}
+body.page-trend .viz-key.is-selected,body.page-trend .viz-key.is-hovered {background:#e6eadf;border-color:#b7c1b0;}
+body.page-trend .viz-ring-arc.is-selected,body.page-trend .viz-ring-arc.is-hovered {stroke-width:64;}
+body.page-trend .viz-key:focus-visible,body.page-trend .viz-channel-button:focus-visible {outline:2px solid #536457;outline-offset:2px;}
+body.page-trend .viz-channel-chart {display:grid;grid-template-columns:29px minmax(0,1fr);gap:5px;padding-top:16px;margin:4px 0 15px;--plot-height:clamp(150px,23vw,210px);}
+body.page-trend .viz-channel-axis {height:var(--plot-height);display:flex;flex-direction:column;justify-content:space-between;color:#62564d;font-size:.67rem;transform:translateY(-.45em);}
+body.page-trend .inline-research-viz__rows.viz-channel-rows {
+ display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;list-style:none;margin:0;padding:0;
+ background:repeating-linear-gradient(to top,#c7cfc3 0 1px,transparent 1px 20%) 0 0/100% var(--plot-height) no-repeat;
+}
+body.page-trend .viz-channel-rows li {display:block;min-width:0;}
+body.page-trend .viz-channel-button {position:relative;display:block;width:100%;min-width:0;padding:0 1px 4px;border:0;border-radius:6px;background:transparent;color:#403c34;font:inherit;}
+body.page-trend .viz-channel-plot {display:block;height:var(--plot-height);position:relative;}
+body.page-trend .viz-channel-stem {position:absolute;left:50%;bottom:0;width:4px;height:var(--value);background:var(--tone);border-radius:4px;transform:translateX(-50%) scaleY(1);transform-origin:center bottom;}
+body.page-trend .viz-channel-stem i {position:absolute;left:50%;top:0;width:13px;height:13px;border-radius:50%;transform:translate(-50%,-50%);background:var(--tone);border:1px solid #fdfbf6;}
+body.page-trend .viz-channel-value {position:absolute;top:calc(var(--plot-height) * var(--remaining) - 25px);left:0;right:0;text-align:center;white-space:nowrap;font-size:clamp(.65rem,1.15vw,.86rem);color:#403c34;}
+body.page-trend .viz-channel-name {display:block;min-height:3em;padding:8px 1px 0;font-size:clamp(.68rem,1.2vw,.84rem);line-height:1.4;overflow-wrap:anywhere;}
+body.page-trend .viz-channel-button.is-selected,body.page-trend .viz-channel-button.is-hovered {background:#e6eadf;}
+body.page-trend .viz-channel-button.is-selected .viz-channel-stem i,body.page-trend .viz-channel-button.is-hovered .viz-channel-stem i {outline:2px solid #536457;outline-offset:2px;}
+@media screen and (prefers-reduced-motion:no-preference) {
+ body.page-trend .chart-ready:not(.chart-played) .viz-ring-arc {stroke-dasharray:0 100;}
+ body.page-trend .chart-ready.chart-played .viz-ring-arc {animation:research-ring-grow var(--duration) linear var(--delay) both;}
+ body.page-trend .chart-ready:not(.chart-played) .viz-ring-value {opacity:0;}
+ body.page-trend .chart-ready.chart-played .viz-ring-value {animation:research-value-in .24s ease var(--delay) both;}
+ body.page-trend .chart-ready:not(.chart-played) .viz-channel-stem {transform:translateX(-50%) scaleY(0);}
+ body.page-trend .chart-ready.chart-played .viz-channel-stem {transition:transform 1.1s cubic-bezier(.22,1,.36,1) var(--delay);}
+ body.page-trend .chart-ready:not(.chart-played) .viz-channel-value {opacity:0;}
+ body.page-trend .chart-ready.chart-played .viz-channel-value {animation:research-value-in .25s ease calc(var(--delay) + 850ms) both;}
+}
+@keyframes research-ring-grow {from {stroke-dasharray:0 100;} to {stroke-dasharray:var(--share) calc(100 - var(--share));}}
+@keyframes research-value-in {from {opacity:0;} to {opacity:1;}}
+@media print {
+ body.page-trend .viz-ring {width:230px;max-width:100%;}
+ body.page-trend .viz-channel-chart {--plot-height:130px;}
+ body.page-trend .viz-key {min-height:0;padding:2px 4px;}
+ body.page-trend :is(.viz-key,.viz-channel-button) {print-color-adjust:exact;-webkit-print-color-adjust:exact;}
+}
