@@ -369,6 +369,16 @@
       483,
       "assets/ai-assistant.js?v=20261123-guide",
       "assets/ai-assistant.js?v=20261125-context-guide"
+    ],
+    [
+      417,
+      "assets/ai-assistant.css?v=20261125-context-guide",
+      "assets/ai-assistant.css?v=20261125-reading-assistant"
+    ],
+    [
+      487,
+      "assets/ai-assistant.js?v=20261125-context-guide",
+      "assets/ai-assistant.js?v=20261125-reading-assistant"
     ]
   ],
   "mobile.html": [
@@ -756,6 +766,16 @@
       455,
       "assets/ai-assistant.js?v=20261123-guide",
       "assets/ai-assistant.js?v=20261125-context-guide"
+    ],
+    [
+      389,
+      "assets/ai-assistant.css?v=20261125-context-guide",
+      "assets/ai-assistant.css?v=20261125-reading-assistant"
+    ],
+    [
+      459,
+      "assets/ai-assistant.js?v=20261125-context-guide",
+      "assets/ai-assistant.js?v=20261125-reading-assistant"
     ]
   ],
   "contact.html": [
@@ -788,6 +808,16 @@
       483,
       "assets/ai-assistant.js?v=20261123-guide",
       "assets/ai-assistant.js?v=20261125-context-guide"
+    ],
+    [
+      417,
+      "assets/ai-assistant.css?v=20261125-context-guide",
+      "assets/ai-assistant.css?v=20261125-reading-assistant"
+    ],
+    [
+      487,
+      "assets/ai-assistant.js?v=20261125-context-guide",
+      "assets/ai-assistant.js?v=20261125-reading-assistant"
     ]
   ],
   "mobile-contact.html": [
@@ -840,6 +870,16 @@
       455,
       "assets/ai-assistant.js?v=20261123-guide",
       "assets/ai-assistant.js?v=20261125-context-guide"
+    ],
+    [
+      389,
+      "assets/ai-assistant.css?v=20261125-context-guide",
+      "assets/ai-assistant.css?v=20261125-reading-assistant"
+    ],
+    [
+      459,
+      "assets/ai-assistant.js?v=20261125-context-guide",
+      "assets/ai-assistant.js?v=20261125-reading-assistant"
     ]
   ],
   "trend.html": [
@@ -1122,6 +1162,16 @@
       935,
       "assets/ai-assistant.js?v=20261123-guide",
       "assets/ai-assistant.js?v=20261125-context-guide"
+    ],
+    [
+      869,
+      "assets/ai-assistant.css?v=20261125-context-guide",
+      "assets/ai-assistant.css?v=20261125-reading-assistant"
+    ],
+    [
+      939,
+      "assets/ai-assistant.js?v=20261125-context-guide",
+      "assets/ai-assistant.js?v=20261125-reading-assistant"
     ]
   ],
   "mobile-trend.html": [
@@ -1379,6 +1429,16 @@
       932,
       "assets/ai-assistant.js?v=20261123-guide",
       "assets/ai-assistant.js?v=20261125-context-guide"
+    ],
+    [
+      866,
+      "assets/ai-assistant.css?v=20261125-context-guide",
+      "assets/ai-assistant.css?v=20261125-reading-assistant"
+    ],
+    [
+      936,
+      "assets/ai-assistant.js?v=20261125-context-guide",
+      "assets/ai-assistant.js?v=20261125-reading-assistant"
     ]
   ],
   "resume.html": [
@@ -1648,6 +1708,16 @@
       142,
       "assets/ai-assistant.js?v=20261123-guide",
       "assets/ai-assistant.js?v=20261125-context-guide"
+    ],
+    [
+      76,
+      "assets/ai-assistant.css?v=20261125-context-guide",
+      "assets/ai-assistant.css?v=20261125-reading-assistant"
+    ],
+    [
+      146,
+      "assets/ai-assistant.js?v=20261125-context-guide",
+      "assets/ai-assistant.js?v=20261125-reading-assistant"
     ]
   ]
 }
