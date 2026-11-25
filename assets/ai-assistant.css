@@ -445,9 +445,9 @@
 
 /* Reading assistant: both visual elements share exactly one floating transform. */
 @media screen {
-  .bs-ai-root .bs-ai-dock {position:relative;display:flex;justify-content:flex-end;animation:bs-ai-float 2.7s ease-in-out infinite;}
-  .bs-ai-root .bs-ai-dock .bs-ai-launcher-face {animation:none;transform:none;}
-  .bs-ai-root .bs-ai-dock:hover,.bs-ai-root .bs-ai-dock:focus-within,.bs-ai-root--open .bs-ai-dock {animation:none;transform:none;}
+  .bs-ai-root .bs-ai-dock {position:relative;display:flex;justify-content:flex-end;}
+  .bs-ai-root .bs-ai-dock .bs-ai-launcher-face, .bs-ai-root .bs-ai-dock .bs-ai-guide-hint {animation:bs-ai-float 2.7s ease-in-out infinite;transform:none;}
+  .bs-ai-root .bs-ai-dock:hover :is(.bs-ai-launcher-face,.bs-ai-guide-hint),.bs-ai-root .bs-ai-dock:focus-within :is(.bs-ai-launcher-face,.bs-ai-guide-hint),.bs-ai-root--open .bs-ai-dock :is(.bs-ai-launcher-face,.bs-ai-guide-hint) {animation-play-state:paused; }
   .bs-ai-root .bs-ai-dock .bs-ai-launcher:active .bs-ai-launcher-face {transform:none;}
   .bs-ai-root .bs-ai-guide-hint {bottom:calc(100% + 11px);transform:none;transition:opacity .6s ease,visibility 0s linear .6s;}
   .bs-ai-root .bs-ai-guide-hint.is-visible {transform:none;transition:opacity .4s ease,visibility 0s;}
@@ -471,5 +471,5 @@
   .bs-reading-highlight {outline:2px solid #8d9f88;outline-offset:3px;animation:bs-reading-glow 2.6s ease-out both;}
   @keyframes bs-reading-glow {0%,65%{outline-color:#8d9f88;box-shadow:0 0 0 5px rgba(141,159,136,.17);}100%{outline-color:transparent;box-shadow:none;}}
   @media(max-width:345px){.bs-ai-root .bs-ai-header-icon{display:none;}.bs-ai-root .bs-ai-title{font-size:13px;}.bs-ai-root .bs-ai-kicker{font-size:8px;}.bs-ai-root .bs-ai-close{width:36px;height:36px;flex-basis:36px;}.bs-ai-root .bs-ai-reset{font-size:10px;}}
-  @media(prefers-reduced-motion:reduce){.bs-ai-root .bs-ai-dock{animation:none!important;transform:none!important;}.bs-reading-highlight{animation:none!important;box-shadow:none;}}
+  @media(prefers-reduced-motion:reduce){ .bs-ai-root .bs-ai-dock :is(.bs-ai-launcher-face,.bs-ai-guide-hint){animation:none!important;transform:none!important;}.bs-reading-highlight{animation:none!important;box-shadow:none;}}
 }

@@ -42,13 +42,13 @@ try:
             expect(opener.locator(".bs-ai-launcher-caption")).to_have_text("找資料・直達章節")
             expect(opener.locator(".bs-ai-launcher-emblem")).to_have_text("♥")
             expect(opener.locator(".bs-ai-launcher-star")).to_have_count(2)
-            assert page.locator(".bs-ai-dock").evaluate("e=>getComputedStyle(e).animationName")=="bs-ai-float"
+            assert opener.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e).animationName")=="bs-ai-float"
             assert opener.locator(".bs-ai-launcher-emblem").evaluate("e=>getComputedStyle(e).animationName")=="bs-ai-heartbeat"
             assert opener.locator(".bs-ai-launcher-star").first.evaluate("e=>getComputedStyle(e).animationIterationCount")=="infinite"
             assert opener.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e,'::after').animationName")=="bs-ai-halo"
             expect(page.locator(".bs-ai-guide-hint")).to_have_attribute("aria-hidden", "true")
             opener.click()
-            assert page.locator(".bs-ai-dock").evaluate("e=>getComputedStyle(e).animationName")=="none"
+            assert opener.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e).animationName")=="none"
             assert opener.locator(".bs-ai-launcher-emblem").evaluate("e=>getComputedStyle(e).animationName")=="none"
             panel = page.get_by_role("region", name="黃博詩的閱讀小助手")
             expect(panel).to_be_visible()
@@ -161,7 +161,7 @@ try:
         narrow = browser.new_page(viewport={"width": 320, "height": 568}, reduced_motion="reduce")
         narrow.goto(f"{base}/mobile.html?view=mobile", wait_until="domcontentloaded")
         narrow_opener=narrow.get_by_role("button", name="開啟閱讀小助手")
-        assert narrow.locator(".bs-ai-dock").evaluate("e=>getComputedStyle(e).animationName")=="none"
+        assert narrow.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e).animationName")=="none"
         narrow_opener.click()
         box = narrow.locator("#bs-ai-panel").bounding_box()
         assert box and box["x"] >= -1 and box["y"] >= -1, box
