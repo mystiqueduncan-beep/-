@@ -492,3 +492,18 @@
 
 /* The two visible faces inherit the same value from the dock at every frame. */
 @property --bs-reading-y {syntax:"<length>";inherits:true;initial-value:0px;}
+
+/* Reserve launcher geometry independently of font metrics and loading. */
+@media screen {
+  .bs-ai-root .bs-ai-dock {height:56px;}
+  .bs-ai-root .bs-ai-dock .bs-ai-launcher,
+  .bs-ai-root .bs-ai-dock .bs-ai-launcher-face {height:56px;min-height:56px;max-height:56px;}
+  .bs-ai-root .bs-ai-dock .bs-ai-launcher-copy {flex-shrink:0;}
+  .bs-ai-root .bs-ai-dock .bs-ai-guide-hint,
+  .bs-ai-root .bs-ai-dock .bs-ai-guide-face {height:32px;min-height:32px;max-height:32px;}
+  @media (max-width:480px) {
+    .bs-ai-root .bs-ai-dock,
+    .bs-ai-root .bs-ai-dock .bs-ai-launcher,
+    .bs-ai-root .bs-ai-dock .bs-ai-launcher-face {height:52px;min-height:52px;max-height:52px;}
+  }
+}
