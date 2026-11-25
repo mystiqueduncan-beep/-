@@ -136,15 +136,16 @@ try:
         gaps=[v[2] for v in motion["values"]]
         assert max(gaps)-min(gaps)<0.5,motion
         # Sample throughout a full cycle on the real browser clock (not a forced phase).
-        live_motion=browser.new_page(viewport={"width":1440,"height":900})
-        live_motion.route("https://**/*",lambda route:route.abort())
-        live_motion.goto(f"{base}/index.html?view=desktop",wait_until="domcontentloaded")
-        live_motion.locator(".bs-ai-guide-hint-text").wait_for()
-        expect(live_motion.locator(".bs-ai-guide-hint-text")).to_have_text("想找什麼嗎？",timeout=6000)
-        samples=live_motion.evaluate("""async()=>{const a=document.querySelector('.bs-ai-launcher-face'),b=document.querySelector('.bs-ai-guide-face'),out=[];for(let i=0;i<16;i++){out.push([a.getBoundingClientRect().top,b.getBoundingClientRect().top]);await new Promise(r=>setTimeout(r,180));}return out;}""")
-        assert max(x[0] for x in samples)-min(x[0] for x in samples)>4,samples
-        assert max(x[0]-x[1] for x in samples)-min(x[0]-x[1] for x in samples)<0.5,samples
-        live_motion.close()
+        for file,view,width,height in (("index.html","desktop",1440,900),("mobile.html","mobile",390,844)):
+            live_motion=browser.new_page(viewport={"width":width,"height":height})
+            live_motion.route("https://**/*",lambda route:route.abort())
+            live_motion.goto(f"{base}/{file}?view={view}",wait_until="domcontentloaded")
+            live_motion.locator(".bs-ai-guide-hint-text").wait_for()
+            expect(live_motion.locator(".bs-ai-guide-hint-text")).to_have_text("想找什麼嗎？",timeout=6000)
+            samples=live_motion.evaluate("""async()=>{const a=document.querySelector('.bs-ai-launcher-face'),b=document.querySelector('.bs-ai-guide-face'),out=[];for(let i=0;i<16;i++){out.push([a.getBoundingClientRect().top,b.getBoundingClientRect().top]);await new Promise(r=>setTimeout(r,180));}return out;}""")
+            assert max(x[0] for x in samples)-min(x[0] for x in samples)>4,samples
+            assert max(x[0]-x[1] for x in samples)-min(x[0]-x[1] for x in samples)<0.5,samples
+            live_motion.close()
         hint.click()
         expect(guide.locator("#bs-ai-panel")).to_be_visible()
         expect(hint).to_have_attribute("aria-hidden","true")
@@ -166,9 +167,14 @@ try:
         hint=contextual.locator(".bs-ai-guide-hint")
         expect(hint).to_have_attribute("aria-hidden","true")
         contextual.evaluate("document.getElementById('roadmap').scrollIntoView({behavior:'instant',block:'start'})")
-        contextual.clock.run_for(4100)
+        contextual.clock.run_for(100)
+        geometry=contextual.evaluate("""()=>{const e=document.getElementById('roadmap'),r=e.getBoundingClientRect();return {top:r.top,bottom:r.bottom,y:innerHeight*.32,scrollY}}""")
+        assert geometry["top"]<=geometry["y"]<=geometry["bottom"],geometry
+        contextual.clock.run_for(1700)
+        expect(hint).to_have_attribute("aria-hidden","true")
+        contextual.clock.run_for(2500)
         expect(hint).to_have_class("bs-ai-guide-hint is-visible")
-        assert contextual.locator(".bs-ai-guide-hint-text").inner_text() in ["想了解執行計畫嗎？","想看看90天計畫嗎？"]
+        assert contextual.locator(".bs-ai-guide-hint-text").inner_text() in ["想了解執行計畫嗎？","想看看90天計畫嗎？"],(contextual.locator(".bs-ai-guide-hint-text").inner_text(),geometry,contextual.evaluate("sessionStorage.getItem('bs-ai-guide-timing-v1')"))
         # Both children have the same positioned ancestor and no individual float.
         assert hint.evaluate("e=>e.parentElement.classList.contains('bs-ai-dock')")
         assert contextual.locator(".bs-ai-launcher").evaluate("e=>e.parentElement.classList.contains('bs-ai-dock')")
