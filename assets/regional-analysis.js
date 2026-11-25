@@ -199,87 +199,51 @@
 })();
 
 
-/* User-approved first-entrance fill for the four existing channel survey bars.
-   The original numbers and the 0–50% chart width contract stay in HTML. */
+/* Accessible real-data chart interactions. All values remain in the HTML. */
 (() => {
-  "use strict";
-  const host = document.querySelector("body.page-trend .inline-research-viz--channels");
-  const bars = host ? [...host.querySelectorAll(".inline-research-viz__track > i")] : [];
-  const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)");
-  if (!host || bars.length !== 4 || reduce?.matches || !("IntersectionObserver" in window)) return;
-
-  bars.forEach((bar, index) => bar.style.setProperty("--progress-delay", (index * 110) + "ms"));
-  let played = false;
-  let observer = null;
-  const complete = () => {
-    if (played) return;
-    played = true;
-    observer?.disconnect();
-    // Two frames ensure the hidden 0%-fill state is committed before motion.
-    window.requestAnimationFrame(() =>
-      window.requestAnimationFrame(() => host.classList.add("inline-progress-played")));
+ "use strict";
+ const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+ document.querySelectorAll("body.page-trend .inline-research-viz").forEach(host => {
+  const buttons = [...host.querySelectorAll(".viz-key, .viz-channel-button")];
+  if (!buttons.length) return;
+  const visual = [...host.querySelectorAll(".viz-ring-arc, .viz-ring-value, .viz-key, .viz-channel-button")];
+  let selected = null;
+  const mark = (index, kind) => visual.forEach(el => el.classList.toggle(kind, el.dataset.vizIndex === index));
+  const select = index => {
+   selected = selected === index ? null : index;
+   mark(selected, "is-selected");
+   buttons.forEach(btn => btn.setAttribute("aria-pressed", String(btn.dataset.vizIndex === selected)));
+  };
+  buttons.forEach(btn => {
+   btn.disabled = false;
+   btn.addEventListener("click", () => select(btn.dataset.vizIndex));
+   btn.addEventListener("focus", () => mark(btn.dataset.vizIndex,"is-hovered"));
+   btn.addEventListener("blur", () => mark(null,"is-hovered"));
+  });
+  host.querySelectorAll(".viz-ring-arc").forEach(arc => arc.addEventListener("click", () => select(arc.dataset.vizIndex)));
+  host.querySelectorAll(".viz-ring-arc, .viz-key, .viz-channel-button").forEach(el => {
+   el.addEventListener("pointerenter", event => {if(event.pointerType === "mouse") mark(el.dataset.vizIndex,"is-hovered");});
+   el.addEventListener("pointerleave", () => mark(null,"is-hovered"));
+  });
+  host.classList.add("chart-interactive");
+  if (reduced?.matches || !("IntersectionObserver" in window)) return;
+  let observer, played = false;
+  const finish = () => {played=true;observer?.disconnect();host.classList.remove("chart-ready");host.classList.add("chart-played");};
+  const start = () => {
+   if(played)return;
+   played=true;observer?.disconnect();
+   requestAnimationFrame(() => requestAnimationFrame(() => host.classList.add("chart-played")));
   };
   try {
-    observer = new IntersectionObserver(entries => {
-      if (entries.some(entry => entry.isIntersecting)) complete();
-    }, {threshold:0.18,rootMargin:"0px 0px -4% 0px"});
-    host.classList.add("inline-progress-ready");
-    observer.observe(host);
-  } catch (_) {
-    observer?.disconnect();
-    host.classList.remove("inline-progress-ready");
-  }
-  const showFullBars = () => {
-    observer?.disconnect();
-    host.classList.remove("inline-progress-ready");
-    played = true;
-  };
-  reduce?.addEventListener?.("change", event => {if (event.matches) showFullBars();});
-  window.addEventListener("beforeprint", showFullBars);
+   observer = new IntersectionObserver(entries => {
+    if(entries.some(entry => entry.isIntersecting)) start();
+   }, {threshold:.12,rootMargin:"0px 0px -4% 0px"});
+   host.classList.add("chart-ready");
+   observer.observe(host.querySelector(".viz-ring, .viz-channel-chart") || host);
+   reduced?.addEventListener?.("change",event=>{if(event.matches)finish();});
+   window.addEventListener("beforeprint",finish);
+   host.addEventListener("focusin",()=>{if(!played)finish();});
+  }catch(_){finish();}
+ });
 })();
 
-
-/* Product mix: six source-backed categories, one progress reveal. Unlike the
-   four channel survey bars, these six shares form a genuine 100% whole. */
-(() => {
-  "use strict";
-  const host = document.querySelector("body.page-trend .inline-research-viz--mix");
-  const parts = host ? [...host.querySelectorAll(".inline-research-viz__stack > span")] : [];
-  const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)");
-  if (!host || parts.length !== 6 || reduce?.matches || !("IntersectionObserver" in window)) return;
-  parts.forEach((part, index) =>
-    part.style.setProperty("--magazine-mix-delay", String(index * 95) + "ms"));
-  let observer;
-  let played = false;
-  const show = () => {
-    if (played) return;
-    played = true;
-    observer?.disconnect();
-    window.requestAnimationFrame(() =>
-      window.requestAnimationFrame(() => host.classList.add("magazine-mix-played")));
-  };
-  const revealImmediately = () => {
-    observer?.disconnect();
-    played = true;
-    host.classList.remove("magazine-mix-ready");
-  };
-  try {
-    observer = new IntersectionObserver(entries => {
-      if (entries.some(entry => entry.isIntersecting)) show();
-    }, {threshold:.16,rootMargin:"0px 0px -5% 0px"});
-    host.classList.add("magazine-mix-ready");
-    observer.observe(host);
-    const rect = host.getBoundingClientRect();
-    if (rect.top < window.innerHeight * .86 && rect.bottom > 0) show();
-    reduce?.addEventListener?.("change", event => {
-      if (event.matches) revealImmediately();
-    });
-    window.addEventListener("beforeprint", revealImmediately);
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden) revealImmediately();
-    });
-  } catch (_) {
-    observer?.disconnect();
-    host.classList.remove("magazine-mix-ready");
-  }
-})();

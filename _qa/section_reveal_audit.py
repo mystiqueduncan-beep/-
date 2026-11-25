@@ -272,39 +272,47 @@ with sync_playwright() as p:
             expect(chart).to_have_count(1)
             chart.evaluate('(e)=>e.scrollIntoView({block:"center",behavior:"instant"})')
             if chart_selector.endswith('--mix'):
-                segments=chart.locator('.inline-research-viz__stack > span')
+                segments=chart.locator('.viz-ring-arc')
                 expect(segments).to_have_count(len(values))
                 shares=segments.evaluate_all('(els)=>els.map(e=>parseFloat(e.style.getPropertyValue("--share")))')
                 legend=chart.locator('.inline-research-viz__legend b').all_text_contents()
-                legend_values=[float(v.rstrip("%")) for v in legend]
-                assert all(abs(a-b)<.01 for a,b in zip(shares,values)), (name,chart_selector,shares)
-                assert all(abs(a-b)<.01 for a,b in zip(legend_values,values)), (name,chart_selector,legend_values)
+                actual=[float(v.rstrip("%")) for v in legend]
+                assert all(abs(a-b)<.01 for a,b in zip(shares,values)), (name,shares)
+                assert all(abs(a-b)<.01 for a,b in zip(actual,values)), (name,actual)
                 assert abs(sum(shares)-100)<.01, (name,shares)
-                expect(chart).to_have_class(re.compile(r'.*magazine-mix-played.*'),timeout=5000)
+                offsets=segments.evaluate_all('(els)=>els.map(e=>Number(e.getAttribute("stroke-dashoffset")))')
+                assert all(abs(offset+sum(values[:i]))<.01 for i,offset in enumerate(offsets)), (name,offsets)
+                controls=chart.locator('.viz-key')
+                expect(chart).to_have_class(re.compile(r'.*chart-played.*'),timeout=5000)
+                page.wait_for_timeout(1950)
+                for segment,value in zip(segments.all(),values):
+                    dash=segment.evaluate('(e)=>parseFloat(getComputedStyle(e).strokeDasharray)')
+                    assert abs(dash-value)<.02,(name,dash,value)
             else:
-                chart_rows=chart.locator('.inline-research-viz__rows > li')
-                expect(chart_rows).to_have_count(len(values))
-                labels=chart_rows.locator('b').all_text_contents()
-                actual=[float(v.rstrip("%")) for v in labels]
-                scales=chart_rows.locator('.inline-research-viz__track > i').evaluate_all('(els)=>els.map(e=>parseFloat(e.style.getPropertyValue("--value")))')
-                assert all(abs(a-b)<.01 for a,b in zip(actual,values)), (name,chart_selector,actual)
-                assert all(abs(a-b/50*100)<.15 for a,b in zip(scales,values)), (name,chart_selector,scales)
-            if chart_selector.endswith('--channels'):
-                # Same muted four colors as the home chart; animate only the
-                # progress fill, not the labels or the verified data widths.
-                expected_colors=['rgb(83, 100, 87)','rgb(180, 160, 109)',
-                                 'rgb(140, 157, 145)','rgb(169, 179, 150)']
-                progress_bars=chart.locator('.inline-research-viz__track > i')
-                assert progress_bars.count()==4, (name,'channel progress count')
-                assert progress_bars.evaluate_all('''els=>els.map(e=>getComputedStyle(e).backgroundColor)''')==expected_colors, name
-                expect(chart).to_have_class(re.compile(r'.*inline-progress-played.*'),timeout=5000)
-                for bar in progress_bars.all():
-                    expect(bar).to_have_css('transform','matrix(1, 0, 0, 1, 0, 0)',timeout=5000)
-                page.evaluate('scrollTo({top:0,behavior:"instant"})')
-                chart.evaluate('(e)=>e.scrollIntoView({block:"center",behavior:"instant"})')
-                expect(chart).to_have_class(re.compile(r'.*inline-progress-played.*'))
-                for bar in progress_bars.all():
-                    expect(bar).to_have_css('transform','matrix(1, 0, 0, 1, 0, 0)')
+                controls=chart.locator('.viz-channel-button')
+                expect(controls).to_have_count(len(values))
+                actual=[float(v.rstrip("%")) for v in controls.locator('b').all_text_contents()]
+                scales=controls.evaluate_all('(els)=>els.map(e=>parseFloat(e.style.getPropertyValue("--value")))')
+                assert all(abs(a-b)<.01 for a,b in zip(actual,values)),(name,actual)
+                assert all(abs(a-b/50*100)<.15 for a,b in zip(scales,values)),(name,scales)
+                expect(chart).to_have_class(re.compile(r'.*chart-played.*'),timeout=5000)
+                page.wait_for_timeout(1600)
+                for stem,scale in zip(chart.locator('.viz-channel-stem').all(),scales):
+                    fraction=stem.evaluate('(e)=>e.getBoundingClientRect().height/e.parentElement.getBoundingClientRect().height')
+                    assert abs(fraction-scale/100)<.02,(name,fraction,scale)
+                assert chart.locator('.viz-channel-axis span').all_text_contents()==['50%','40%','30%','20%','10%','0%']
+            controls.first.focus()
+            controls.first.press('Enter')
+            expect(controls.first).to_have_attribute('aria-pressed','true')
+            controls.nth(1).press('Space')
+            expect(controls.nth(1)).to_have_attribute('aria-pressed','true')
+            expect(controls.first).to_have_attribute('aria-pressed','false')
+            controls.nth(1).press('Space')
+            expect(controls.nth(1)).to_have_attribute('aria-pressed','false')
+            page.evaluate('scrollTo({top:0,behavior:"instant"})')
+            chart.evaluate('(e)=>e.scrollIntoView({block:"center",behavior:"instant"})')
+            expect(chart).to_have_class(re.compile(r'.*chart-played.*'))
+            assert chart.evaluate('e=>e.scrollWidth<=e.clientWidth+2'),(name,chart_selector)
             print('INLINE_CHART_REGRESSION_PASS',name,chart_selector,values,flush=True)
         # Every magazine panel reveals after being scrolled into view, stays
         # revealed on revisit and never requires a repeated animation.

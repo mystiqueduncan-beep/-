@@ -34,9 +34,9 @@ with sync_playwright() as p:
             assert "Matsumoto Kiyoshi" not in page.locator("body").inner_text()
             assert "志願應徵職位：" not in page.locator("body").inner_text()
         # Homepage charts retain their automatic bars; research charts are now
-        # rendered inline as an accessible product-mix stack and channel list.
+        # rendered inline as an accessible product-mix ring and vertical channel comparison.
         if "trend" in name:
-            chart_bars = page.locator(".inline-research-viz__stack > span, .inline-research-viz__rows > li")
+            chart_bars = page.locator(".viz-ring-arc, .viz-channel-rows > li")
             assert page.locator(".inline-research-viz").count() == 2, (name, "inline research charts missing")
             assert page.locator(".portfolio-chart").count() == 0, (name, "research chart should use inline layout")
             assert not any("查看數據視覺化示範" in text for text in page.locator("a").all_text_contents()), (name, "no separate chart demo link")
