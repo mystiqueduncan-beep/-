@@ -2901,7 +2901,7 @@
     z-index:800;box-sizing:border-box;width:min(calc(100% - 24px),560px);
     display:grid!important;grid-template-columns:44px minmax(0,1fr) 44px auto;
     grid-template-rows:44px 3px;align-items:center;gap:0 5px;padding:0 6px 3px!important;
-    background:rgba(253,251,246,.20)!important;
+    background:rgba(253,251,246,.95)!important;
     -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
     border:1px solid #bdb5a6!important;border-radius:13px;
     box-shadow:0 2px 9px rgba(43,58,45,.06);color:#435247;
@@ -3058,5 +3058,13 @@
   }
   body:is(.page-home,.page-trend,.page-contact) :is(.mag-top-ticker,.mobile-status-strip) {
     background-color:var(--natural-sage)!important;
+  }
+}
+
+/* Homepage chapter keys: match the research reading bar's 95% opacity.
+   Keep all navigation geometry, states, and the mobile bottom bar unchanged. */
+@media screen {
+  body.page-home nav.home-keycap-strip [data-keycap-marquee] .keycap-marquee__group a.nav-btn-mk {
+    opacity:.95 !important;
   }
 }

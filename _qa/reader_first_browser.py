@@ -53,7 +53,7 @@ try:
             assert compact.locator(".reader-compact-step").all_text_contents()==["‹","›"]
             assert compact.locator("button:visible, a:visible").evaluate_all("es=>es.every(e=>e.getBoundingClientRect().width>=44 && e.getBoundingClientRect().height>=44)")
             # Fixed throughout reading: the bar never disappears in either direction.
-            assert compact.evaluate("e=>getComputedStyle(e).backgroundColor")=="rgba(253, 251, 246, 0.2)"
+            assert compact.evaluate("e=>getComputedStyle(e).backgroundColor")=="rgba(253, 251, 246, 0.95)"
             initial_top=compact.evaluate("e=>e.getBoundingClientRect().top")
             for delta in (220,-220,350,-120):
                 page.mouse.wheel(0,delta)
@@ -118,6 +118,12 @@ try:
             assert page.locator("#career").count()==1
             assert page.locator("#research").count()==1
             assert page.locator("main .reader-guide").count()==0
+            if view=="desktop":
+                keys=page.locator("nav.home-keycap-strip .keycap-marquee__group a.nav-btn-mk")
+                expect(keys).to_have_count(6)
+                assert keys.evaluate_all("es=>es.every(e=>getComputedStyle(e).opacity==='0.95')")
+                page.locator("#cases").scroll_into_view_if_needed()
+                assert keys.evaluate_all("es=>es.every(e=>getComputedStyle(e).opacity==='0.95')")
             assert page.locator('a[href*="trend.html"]').count()>=1
             page.close()
         browser.close()
