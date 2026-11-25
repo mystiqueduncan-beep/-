@@ -338,8 +338,13 @@
     } catch (_) { /* Storage can be denied; reminders still work within the page. */ }
     const save = () => { try { sessionStorage.setItem(key, JSON.stringify(state)); } catch (_) {} };
     save();
-    let timer = 0, lastScroll = -Infinity, hintVisible = false;
-    function clearHintTimer() { window.clearTimeout(timer); timer = 0; }
+    // Scheduling a future hint must never cancel the current typing/hold phase.
+    let scheduleTimer = 0, phaseTimer = 0, lastScroll = -Infinity, hintVisible = false, fadeUntil = 0;
+    function clearScheduledHint() { window.clearTimeout(scheduleTimer); scheduleTimer = 0; }
+    function clearHintTimer() {
+      clearScheduledHint();
+      window.clearTimeout(phaseTimer); phaseTimer = 0;
+    }
     function hideHint() {
       hintVisible = false;
       hint.classList.remove("is-visible");
@@ -370,16 +375,24 @@
       return group[Math.floor(Math.random()*group.length)];
     }
     function scheduleHint() {
-      clearHintTimer();
+      if (hintVisible) return;
+      clearScheduledHint();
       if (!panel.hidden || document.hidden) return;
       const delay = Math.max(0, state.nextAt-Date.now(), lastScroll+timing.idle-Date.now());
-      timer = window.setTimeout(() => {
-        if (!panel.hidden || document.hidden) return;
-        if (Date.now()-lastScroll < timing.idle || Date.now() < state.nextAt) { scheduleHint(); return; }
+      scheduleTimer = window.setTimeout(() => {
+        scheduleTimer = 0;
+        if (!panel.hidden || document.hidden || hintVisible) return;
+        if (Date.now()-lastScroll < timing.idle) { scheduleHint(); return; }
+        // A scroll-idle timer and an ordinary repeat can expire in the same
+        // turn. Read the actual viewport before choosing the queued question.
+        detectSection(false);
+        if (Date.now() < state.nextAt) { scheduleHint(); return; }
         showHint();
       }, delay);
     }
     function showHint() {
+      if (hintVisible || !panel.hidden || document.hidden) return;
+      clearScheduledHint();
       const phrase = pickPhrase();
       pendingSection = false;
       const letters = Array.from(phrase);
@@ -397,26 +410,27 @@
       hint.removeAttribute("aria-hidden");
       const finish = () => {
         cursor.hidden = true;
-        timer = window.setTimeout(endHint, timing.hold);
+        phaseTimer = window.setTimeout(endHint, timing.hold);
       };
       let i = 0;
       const type = () => {
         if (!hintVisible) return;
         hintText.textContent = letters.slice(0, ++i).join("");
-        if (i < letters.length) timer = window.setTimeout(type, timing.char);
+        if (i < letters.length) phaseTimer = window.setTimeout(type, timing.char);
         else finish();
       };
       if (reduceMotion) finish();
-      else timer = window.setTimeout(type, timing.enter+timing.char);
+      else phaseTimer = window.setTimeout(type, timing.enter+timing.char);
     }
     function endHint() {
       // Do not remove a focused control underneath keyboard users.
       if (document.activeElement === hint) {
-        timer = window.setTimeout(endHint, 1000);
+        phaseTimer = window.setTimeout(endHint, 1000);
         return;
       }
       hideHint();
-      state.nextAt = Date.now()+(reduceMotion ? 0 : timing.fade)+(pendingSection ? 0 : timing.gap);
+      fadeUntil = Date.now()+(reduceMotion ? 0 : timing.fade);
+      state.nextAt = fadeUntil+(pendingSection ? 0 : timing.gap);
       save();
       scheduleHint();
     }
@@ -427,7 +441,7 @@
       save();
       scheduleHint();
     }
-    function detectSection() {
+    function detectSection(reschedule = true) {
       const next = visibleSection();
       if (next.id === active.id) return;
       active = next;
@@ -436,9 +450,9 @@
       if (!state.seen || document.hidden) return;
       pendingSection = true;
       if (!hintVisible) {
-        state.nextAt = Math.max(Date.now(), afterClose);
+        state.nextAt = Math.max(Date.now(), afterClose, fadeUntil);
         save();
-        scheduleHint();
+        if (reschedule) scheduleHint();
       }
     }
     // Listen to document and nested scroll containers, but never chat scrolling.

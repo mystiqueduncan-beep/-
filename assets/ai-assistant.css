@@ -435,6 +435,7 @@
     background:#536457;
     animation:bs-ai-guide-blink .8s steps(1) infinite;
   }
+  .bs-ai-root .bs-ai-guide-cursor[hidden] {display:none!important;}
   .bs-ai-root--open .bs-ai-guide-hint {visibility:hidden!important;opacity:0!important;transition:none!important;pointer-events:none!important;}
   @keyframes bs-ai-guide-blink {50%{opacity:0;}}
   @media (prefers-reduced-motion:reduce) {
