@@ -359,6 +359,16 @@
       46278,
       "<div class=\"cover-introduction\"><p class=\"hero-professional-intro\">Tomod’s 日系藥妝 6 年，其中 3 年擔任店長。負責門市排班與營運，並在築心動物醫院兼任新人帶訓。</p>\n</div>",
       ""
+    ],
+    [
+      417,
+      "assets/ai-assistant.css?v=20261123-guide",
+      "assets/ai-assistant.css?v=20261125-context-guide"
+    ],
+    [
+      483,
+      "assets/ai-assistant.js?v=20261123-guide",
+      "assets/ai-assistant.js?v=20261125-context-guide"
     ]
   ],
   "mobile.html": [
@@ -736,6 +746,16 @@
       35055,
       "<p class=\"mobile-profile-intro\">Tomod’s 日系藥妝 6 年，其中 3 年擔任店長。負責門市排班與營運，並在築心動物醫院兼任新人帶訓。</p>\n\n",
       ""
+    ],
+    [
+      389,
+      "assets/ai-assistant.css?v=20261123-guide",
+      "assets/ai-assistant.css?v=20261125-context-guide"
+    ],
+    [
+      455,
+      "assets/ai-assistant.js?v=20261123-guide",
+      "assets/ai-assistant.js?v=20261125-context-guide"
     ]
   ],
   "contact.html": [
@@ -758,6 +778,16 @@
       18590,
       "src=\"assets/page-transitions.js?v=20261118-heading2\"",
       "src=\"assets/page-transitions.js?v=20261125-editorial\""
+    ],
+    [
+      417,
+      "assets/ai-assistant.css?v=20261123-guide",
+      "assets/ai-assistant.css?v=20261125-context-guide"
+    ],
+    [
+      483,
+      "assets/ai-assistant.js?v=20261123-guide",
+      "assets/ai-assistant.js?v=20261125-context-guide"
     ]
   ],
   "mobile-contact.html": [
@@ -800,6 +830,16 @@
       16637,
       "  ",
       ""
+    ],
+    [
+      389,
+      "assets/ai-assistant.css?v=20261123-guide",
+      "assets/ai-assistant.css?v=20261125-context-guide"
+    ],
+    [
+      455,
+      "assets/ai-assistant.js?v=20261123-guide",
+      "assets/ai-assistant.js?v=20261125-context-guide"
     ]
   ],
   "trend.html": [
@@ -1072,6 +1112,16 @@
       36008,
       "href=\"assets/research-editorial.css?v=20261125-charts\"",
       "href=\"assets/research-editorial.css?v=20261125-connectors\""
+    ],
+    [
+      869,
+      "assets/ai-assistant.css?v=20261123-guide",
+      "assets/ai-assistant.css?v=20261125-context-guide"
+    ],
+    [
+      935,
+      "assets/ai-assistant.js?v=20261123-guide",
+      "assets/ai-assistant.js?v=20261125-context-guide"
     ]
   ],
   "mobile-trend.html": [
@@ -1319,6 +1369,16 @@
       35986,
       "href=\"assets/research-editorial.css?v=20261125-charts\"",
       "href=\"assets/research-editorial.css?v=20261125-connectors\""
+    ],
+    [
+      866,
+      "assets/ai-assistant.css?v=20261123-guide",
+      "assets/ai-assistant.css?v=20261125-context-guide"
+    ],
+    [
+      932,
+      "assets/ai-assistant.js?v=20261123-guide",
+      "assets/ai-assistant.js?v=20261125-context-guide"
     ]
   ],
   "resume.html": [
@@ -1578,6 +1638,16 @@
       4984,
       "調查小提醒",
       "調查限制"
+    ],
+    [
+      76,
+      "assets/ai-assistant.css?v=20261123-guide",
+      "assets/ai-assistant.css?v=20261125-context-guide"
+    ],
+    [
+      142,
+      "assets/ai-assistant.js?v=20261123-guide",
+      "assets/ai-assistant.js?v=20261125-context-guide"
     ]
   ]
 }
