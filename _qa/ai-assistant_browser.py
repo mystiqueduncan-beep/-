@@ -227,7 +227,7 @@ try:
         # Crossing two sections quickly must not interrupt the current
         # question. Only the final stable section is queued.
         first_target=hint.get_attribute("data-target")
-        safe=[s for s in ("strategy","consumer","people","digital") if s!=first_target]
+        safe=[s for s in ("strategy","consumer","people","digital") if s!=first_target and not (first_target=="data" and s=="consumer")]
         contextual.evaluate("id=>document.getElementById(id).scrollIntoView({behavior:'instant',block:'start'})",safe[0])
         contextual.wait_for_timeout(300)
         contextual.evaluate("id=>document.getElementById(id).scrollIntoView({behavior:'instant',block:'start'})",safe[1])
