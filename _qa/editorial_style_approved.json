@@ -389,6 +389,16 @@
       483,
       "assets/ai-assistant.js?v=20261125-reading-assistant",
       "assets/ai-assistant.js?v=20261125-shared-bubble"
+    ],
+    [
+      417,
+      "assets/ai-assistant.css?v=20261125-shared-bubble",
+      "assets/ai-assistant.css?v=20261125-passive-bubble"
+    ],
+    [
+      484,
+      "assets/ai-assistant.js?v=20261125-shared-bubble",
+      "assets/ai-assistant.js?v=20261125-passive-bubble"
     ]
   ],
   "mobile.html": [
@@ -796,6 +806,16 @@
       455,
       "assets/ai-assistant.js?v=20261125-reading-assistant",
       "assets/ai-assistant.js?v=20261125-shared-bubble"
+    ],
+    [
+      389,
+      "assets/ai-assistant.css?v=20261125-shared-bubble",
+      "assets/ai-assistant.css?v=20261125-passive-bubble"
+    ],
+    [
+      456,
+      "assets/ai-assistant.js?v=20261125-shared-bubble",
+      "assets/ai-assistant.js?v=20261125-passive-bubble"
     ]
   ],
   "contact.html": [
@@ -848,6 +868,16 @@
       483,
       "assets/ai-assistant.js?v=20261125-reading-assistant",
       "assets/ai-assistant.js?v=20261125-shared-bubble"
+    ],
+    [
+      417,
+      "assets/ai-assistant.css?v=20261125-shared-bubble",
+      "assets/ai-assistant.css?v=20261125-passive-bubble"
+    ],
+    [
+      484,
+      "assets/ai-assistant.js?v=20261125-shared-bubble",
+      "assets/ai-assistant.js?v=20261125-passive-bubble"
     ]
   ],
   "mobile-contact.html": [
@@ -920,6 +950,16 @@
       455,
       "assets/ai-assistant.js?v=20261125-reading-assistant",
       "assets/ai-assistant.js?v=20261125-shared-bubble"
+    ],
+    [
+      389,
+      "assets/ai-assistant.css?v=20261125-shared-bubble",
+      "assets/ai-assistant.css?v=20261125-passive-bubble"
+    ],
+    [
+      456,
+      "assets/ai-assistant.js?v=20261125-shared-bubble",
+      "assets/ai-assistant.js?v=20261125-passive-bubble"
     ]
   ],
   "trend.html": [
@@ -1222,6 +1262,16 @@
       935,
       "assets/ai-assistant.js?v=20261125-reading-assistant",
       "assets/ai-assistant.js?v=20261125-shared-bubble"
+    ],
+    [
+      869,
+      "assets/ai-assistant.css?v=20261125-shared-bubble",
+      "assets/ai-assistant.css?v=20261125-passive-bubble"
+    ],
+    [
+      936,
+      "assets/ai-assistant.js?v=20261125-shared-bubble",
+      "assets/ai-assistant.js?v=20261125-passive-bubble"
     ]
   ],
   "mobile-trend.html": [
@@ -1499,6 +1549,16 @@
       932,
       "assets/ai-assistant.js?v=20261125-reading-assistant",
       "assets/ai-assistant.js?v=20261125-shared-bubble"
+    ],
+    [
+      866,
+      "assets/ai-assistant.css?v=20261125-shared-bubble",
+      "assets/ai-assistant.css?v=20261125-passive-bubble"
+    ],
+    [
+      933,
+      "assets/ai-assistant.js?v=20261125-shared-bubble",
+      "assets/ai-assistant.js?v=20261125-passive-bubble"
     ]
   ],
   "resume.html": [
@@ -1788,6 +1848,16 @@
       142,
       "assets/ai-assistant.js?v=20261125-reading-assistant",
       "assets/ai-assistant.js?v=20261125-shared-bubble"
+    ],
+    [
+      76,
+      "assets/ai-assistant.css?v=20261125-shared-bubble",
+      "assets/ai-assistant.css?v=20261125-passive-bubble"
+    ],
+    [
+      143,
+      "assets/ai-assistant.js?v=20261125-shared-bubble",
+      "assets/ai-assistant.js?v=20261125-passive-bubble"
     ]
   ]
 }
