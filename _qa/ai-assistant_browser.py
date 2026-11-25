@@ -123,6 +123,20 @@ try:
         expect(hint).to_have_attribute("aria-hidden","true")
         guide.clock.run_for(20000)
         assert words.inner_text() in ["需要我帶路嗎？","有什麼想了解的嗎？","想先看看重點嗎？","不知道從哪裡看起嗎？","有需要我幫忙的嗎？","想讓我為你介紹嗎？","想找聯絡方式嗎？","想了解教育背景嗎？","想了解應徵方向嗎？"],words.inner_text()
+        # Verify the visual surfaces share the same animation phase while hit targets stay fixed.
+        motion = guide.evaluate("""() => {
+          const a=document.querySelector('.bs-ai-launcher-face'), b=document.querySelector('.bs-ai-guide-face');
+          const sample=()=>[a.getBoundingClientRect().top,b.getBoundingClientRect().top];
+          const first=sample();
+          for(const e of [a,b]) {const anim=e.getAnimations().find(x=>x.animationName==='bs-ai-float'); anim.pause(); anim.currentTime=1350;}
+          const mid=sample();
+          for(const e of [a,b]) {const anim=e.getAnimations().find(x=>x.animationName==='bs-ai-float'); anim.currentTime=0;}
+          const start=sample();
+          for(const e of [a,b]) e.getAnimations().find(x=>x.animationName==='bs-ai-float').play();
+          return {first,mid,start};
+        }""")
+        assert abs((motion["mid"][0]-motion["start"][0])-(motion["mid"][1]-motion["start"][1]))<0.5,motion
+        assert abs(motion["mid"][0]-motion["start"][0]+6)<0.5,motion
         hint.click()
         expect(guide.locator("#bs-ai-panel")).to_be_visible()
         expect(hint).to_have_attribute("aria-hidden","true")

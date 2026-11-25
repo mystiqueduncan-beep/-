@@ -269,7 +269,9 @@
     const cursor = element("span", "bs-ai-guide-cursor");
     cursor.setAttribute("aria-hidden", "true");
     cursor.hidden = true;
-    hint.append(hintText, cursor);
+    const hintFace = element("span", "bs-ai-guide-face");
+    hintFace.append(hintText, cursor);
+    hint.append(hintFace);
     const dock = element("div","bs-ai-dock");
     dock.append(launcher,hint);
     root.append(panel, dock);

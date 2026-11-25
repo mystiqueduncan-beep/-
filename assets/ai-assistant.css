@@ -446,8 +446,8 @@
 /* Reading assistant: both visual elements share exactly one floating transform. */
 @media screen {
   .bs-ai-root .bs-ai-dock {position:relative;display:flex;justify-content:flex-end;}
-  .bs-ai-root .bs-ai-dock .bs-ai-launcher-face, .bs-ai-root .bs-ai-dock .bs-ai-guide-hint {animation:bs-ai-float 2.7s ease-in-out infinite;transform:none;}
-  .bs-ai-root .bs-ai-dock:hover :is(.bs-ai-launcher-face,.bs-ai-guide-hint),.bs-ai-root .bs-ai-dock:focus-within :is(.bs-ai-launcher-face,.bs-ai-guide-hint),.bs-ai-root--open .bs-ai-dock :is(.bs-ai-launcher-face,.bs-ai-guide-hint) {animation-play-state:paused; }
+  .bs-ai-root .bs-ai-dock .bs-ai-launcher-face, .bs-ai-root .bs-ai-dock .bs-ai-guide-face {animation:bs-ai-float 2.7s ease-in-out infinite;transform:none;}
+  .bs-ai-root .bs-ai-dock:hover :is(.bs-ai-launcher-face,.bs-ai-guide-face),.bs-ai-root .bs-ai-dock:focus-within :is(.bs-ai-launcher-face,.bs-ai-guide-face),.bs-ai-root--open .bs-ai-dock :is(.bs-ai-launcher-face,.bs-ai-guide-face) {animation-play-state:paused; }
   .bs-ai-root .bs-ai-dock .bs-ai-launcher:active .bs-ai-launcher-face {transform:none;}
   .bs-ai-root .bs-ai-guide-hint {bottom:calc(100% + 11px);transform:none;transition:opacity .6s ease,visibility 0s linear .6s;}
   .bs-ai-root .bs-ai-guide-hint.is-visible {transform:none;transition:opacity .4s ease,visibility 0s;}
@@ -471,5 +471,13 @@
   .bs-reading-highlight {outline:2px solid #8d9f88;outline-offset:3px;animation:bs-reading-glow 2.6s ease-out both;}
   @keyframes bs-reading-glow {0%,65%{outline-color:#8d9f88;box-shadow:0 0 0 5px rgba(141,159,136,.17);}100%{outline-color:transparent;box-shadow:none;}}
   @media(max-width:345px){.bs-ai-root .bs-ai-header-icon{display:none;}.bs-ai-root .bs-ai-title{font-size:13px;}.bs-ai-root .bs-ai-kicker{font-size:8px;}.bs-ai-root .bs-ai-close{width:36px;height:36px;flex-basis:36px;}.bs-ai-root .bs-ai-reset{font-size:10px;}}
-  @media(prefers-reduced-motion:reduce){ .bs-ai-root .bs-ai-dock :is(.bs-ai-launcher-face,.bs-ai-guide-hint){animation:none!important;transform:none!important;}.bs-reading-highlight{animation:none!important;box-shadow:none;}}
+  @media(prefers-reduced-motion:reduce){ .bs-ai-root .bs-ai-dock :is(.bs-ai-launcher-face,.bs-ai-guide-face){animation:none!important;transform:none!important;}.bs-reading-highlight{animation:none!important;box-shadow:none;}}
+}
+
+@media screen {
+  .bs-ai-root .bs-ai-dock .bs-ai-guide-hint {padding:0;border:0;background:transparent;box-shadow:none;overflow:visible;animation:none;}
+  .bs-ai-root .bs-ai-dock .bs-ai-guide-hint::after {display:none;}
+  .bs-ai-root .bs-ai-guide-face {position:relative;display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border:1px solid #a7b6a2;border-radius:10px 10px 3px 10px;background:#fdfbf6;box-shadow:0 3px 8px #53645712;}
+  .bs-ai-root .bs-ai-guide-face::after {content:"";position:absolute;bottom:-5px;right:7px;width:8px;height:8px;background:#fdfbf6;border-right:1px solid #a7b6a2;border-bottom:1px solid #a7b6a2;transform:skewY(35deg);pointer-events:none;}
+  .bs-ai-root .bs-ai-guide-hint::before {content:"";position:absolute;inset:-6px 0 0;pointer-events:auto;}
 }
