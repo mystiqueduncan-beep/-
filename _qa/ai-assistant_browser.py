@@ -38,7 +38,7 @@ try:
             page.goto(f"{base}/{file_name}{mode}", wait_until="domcontentloaded")
             opener = page.locator(".bs-ai-launcher")
             expect(opener).to_be_visible()
-            expect(opener.locator(".bs-ai-launcher-label")).to_have_text("AI 快速導覽")
+            expect(opener.locator(".bs-ai-launcher-label")).to_have_text("閱讀小助手")
             expect(opener.locator(".bs-ai-launcher-caption")).to_have_text("找資料・直達章節")
             expect(opener.locator(".bs-ai-launcher-emblem")).to_have_text("♥")
             expect(opener.locator(".bs-ai-launcher-star")).to_have_count(2)
@@ -50,7 +50,7 @@ try:
             opener.click()
             assert opener.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e).animationName")=="none"
             assert opener.locator(".bs-ai-launcher-emblem").evaluate("e=>getComputedStyle(e).animationName")=="none"
-            panel = page.get_by_role("region", name="黃博詩的 AI 履歷導覽")
+            panel = page.get_by_role("region", name="黃博詩的閱讀小助手")
             expect(panel).to_be_visible()
             expect(panel.locator(".bs-ai-chip")).to_have_count(6)
             expect(page.locator(".bs-ai-guide-hint")).to_have_attribute("aria-hidden", "true")
@@ -65,7 +65,21 @@ try:
                     button_box = page.locator(".bs-ai-launcher").bounding_box()
                     nav_box = nav.bounding_box()
                     assert button_box["y"] + button_box["height"] <= nav_box["y"] + 1 or button_box["x"] >= nav_box["x"] + nav_box["width"] or button_box["x"] + button_box["width"] <= nav_box["x"], (file_name, button_box, nav_box)
-            panel.get_by_role("button", name="產業分析專題").click()
+            if variant != "mobile":
+                expect(panel.get_by_role("button", name="請自我介紹", exact=True)).to_be_visible()
+                expect(panel.get_by_role("button", name="如何聯絡", exact=True)).to_be_visible()
+            assert not any("簡歷" in x for x in panel.locator(".bs-ai-chip").all_text_contents())
+            intro = panel.get_by_role("button", name="請自我介紹", exact=True)
+            if intro.count():
+                intro.click()
+                expect(panel.get_by_text("您好，我是黃博詩，目前就讀", exact=False)).to_be_visible(timeout=3000)
+                expect(panel.locator(".bs-ai-facts").first).to_be_visible()
+                panel.get_by_role("button", name="重新開始對話", exact=False).click()
+                expect(panel.locator(".bs-ai-chip")).to_have_count(6)
+                expect(panel.get_by_text("您好，我是黃博詩，目前就讀", exact=False)).to_have_count(0)
+            prompt = panel.get_by_role("textbox", name="輸入作品集相關問題")
+            prompt.fill("介紹你的產業分析專題")
+            prompt.press("Enter")
             expect(panel.get_by_text("改善提案，不代表已實施", exact=False)).to_be_visible(timeout=3000)
             target = "mobile-trend.html#market" if "mobile" in file_name else "trend.html#market"
             if file_name == "data-visualization.html":
@@ -80,7 +94,7 @@ try:
             expect(panel.get_by_text("無法回答網站未提供的資訊", exact=False)).to_be_visible(timeout=3000)
             page.keyboard.press("Escape")
             expect(panel).to_be_hidden()
-            expect(page.get_by_role("button", name="開啟履歷 AI 導覽")).to_be_visible()
+            expect(page.get_by_role("button", name="開啟閱讀小助手")).to_be_visible()
             page.close()
 
         # Virtual clock exercises real production intervals without a long sleep.
@@ -108,7 +122,21 @@ try:
         guide.clock.run_for(3000)
         expect(hint).to_have_attribute("aria-hidden","true")
         guide.clock.run_for(20000)
-        assert words.inner_text() in ["需要我帶路嗎？","有什麼想了解的嗎？","想先看看重點嗎？","不知道從哪裡看起嗎？","有需要我幫忙的嗎？","想讓我為你介紹嗎？","想找聯絡方式嗎？","想看看個人簡歷嗎？"],words.inner_text()
+        assert words.inner_text() in ["需要我帶路嗎？","有什麼想了解的嗎？","想先看看重點嗎？","不知道從哪裡看起嗎？","有需要我幫忙的嗎？","想讓我為你介紹嗎？","想找聯絡方式嗎？","想了解教育背景嗎？","想了解應徵方向嗎？"],words.inner_text()
+        # Verify the visual surfaces share the same animation phase while hit targets stay fixed.
+        motion = guide.evaluate("""() => {
+          const a=document.querySelector('.bs-ai-launcher-face'), b=document.querySelector('.bs-ai-guide-face');
+          const sample=()=>[a.getBoundingClientRect().top,b.getBoundingClientRect().top];
+          const first=sample();
+          for(const e of [a,b]) {const anim=e.getAnimations().find(x=>x.animationName==='bs-ai-float'); anim.pause(); anim.currentTime=1350;}
+          const mid=sample();
+          for(const e of [a,b]) {const anim=e.getAnimations().find(x=>x.animationName==='bs-ai-float'); anim.currentTime=0;}
+          const start=sample();
+          for(const e of [a,b]) e.getAnimations().find(x=>x.animationName==='bs-ai-float').play();
+          return {first,mid,start};
+        }""")
+        assert abs((motion["mid"][0]-motion["start"][0])-(motion["mid"][1]-motion["start"][1]))<0.5,motion
+        assert abs(motion["mid"][0]-motion["start"][0]+6)<0.5,motion
         hint.click()
         expect(guide.locator("#bs-ai-panel")).to_be_visible()
         expect(hint).to_have_attribute("aria-hidden","true")
@@ -121,16 +149,40 @@ try:
         expect(hint).to_have_class("bs-ai-guide-hint is-visible")
         guide.close()
 
+        # A stable large section triggers a fresh hint before the normal 20-second gap.
+        contextual = browser.new_page(viewport={"width": 390,"height":844})
+        contextual.route("https://**/*",lambda route:route.abort())
+        contextual.clock.install()
+        contextual.goto(f"{base}/mobile-trend.html?view=mobile",wait_until="domcontentloaded")
+        contextual.clock.run_for(14000)
+        hint=contextual.locator(".bs-ai-guide-hint")
+        expect(hint).to_have_attribute("aria-hidden","true")
+        contextual.evaluate("document.getElementById('roadmap').scrollIntoView({behavior:'instant',block:'start'})")
+        contextual.clock.run_for(4100)
+        expect(hint).to_have_class("bs-ai-guide-hint is-visible")
+        # Both children have the same positioned ancestor and no individual float.
+        assert hint.evaluate("e=>e.parentElement.classList.contains('bs-ai-dock')")
+        assert contextual.locator(".bs-ai-launcher").evaluate("e=>e.parentElement.classList.contains('bs-ai-dock')")
+        contextual.locator(".bs-ai-launcher").click()
+        expect(contextual.locator(".bs-ai-chip").first).to_have_attribute("data-topic","roadmap")
+        contextual.locator(".bs-ai-chip").first.click()
+        contextual.get_by_role("button",name="重新開始對話",exact=False).click()
+        contextual.clock.run_for(2000)
+        expect(contextual.locator(".bs-ai-chip")).to_have_count(6)
+        expect(contextual.locator(".bs-ai-message--user")).to_have_count(0)
+        contextual.close()
+
         narrow = browser.new_page(viewport={"width": 320, "height": 568}, reduced_motion="reduce")
         narrow.goto(f"{base}/mobile.html?view=mobile", wait_until="domcontentloaded")
-        narrow_opener=narrow.get_by_role("button", name="開啟履歷 AI 導覽")
-        assert narrow_opener.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e).animationName")=="none"
+        narrow_opener=narrow.get_by_role("button", name="開啟閱讀小助手")
+        assert narrow.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e).animationName")=="none"
         narrow_opener.click()
         box = narrow.locator("#bs-ai-panel").bounding_box()
         assert box and box["x"] >= -1 and box["y"] >= -1, box
         assert box["x"] + box["width"] <= 321, box
         assert box["y"] + box["height"] <= 569, box
-        narrow.get_by_role("button", name="如何聯絡你").click()
+        narrow.get_by_role("textbox", name="輸入作品集相關問題").fill("如何聯絡")
+        narrow.get_by_role("textbox", name="輸入作品集相關問題").press("Enter")
         expect(narrow.get_by_role("link", name="前往聯絡資訊")).to_be_visible(timeout=1500)
         assert narrow.get_by_role("link", name="前往聯絡資訊").get_attribute("href") == "mobile-contact.html"
         narrow.close()
