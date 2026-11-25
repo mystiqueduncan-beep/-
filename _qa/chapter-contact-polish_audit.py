@@ -96,6 +96,21 @@ with sync_playwright() as p:
                 assert methods.nth(i).evaluate('(el)=>getComputedStyle(el).opacity')=="1", (name,i)
                 assert methods.nth(i).evaluate('(el)=>new DOMMatrix(getComputedStyle(el).transform).m42')==0, (name,i)
                 assert arrows.nth(i).get_attribute("aria-hidden")=="true", (name,i)
+            # Quiet connector: no button-like shell; both editions use a thin line.
+            for arrow in arrows.all():
+                style = arrow.evaluate("""e=>{const s=getComputedStyle(e);
+                    return [s.backgroundColor,s.borderTopWidth,s.boxShadow,s.width,s.height,s.color,s.pointerEvents,
+                    getComputedStyle(e,'::before').width,getComputedStyle(e,'::after').borderBottomWidth]}""")
+                assert style == ["rgba(0, 0, 0, 0)", "0px", "none", "18px", "30px", "rgb(140, 157, 145)", "none", "1px", "1px"],(name,style)
+            for method in methods.all():
+                title=method.locator(":scope > b")
+                assert title.inner_text()=="可延伸方法：",name
+                assert title.evaluate("e=>getComputedStyle(e).display")=="block",name
+                assert title.evaluate("e=>parseFloat(getComputedStyle(e).fontSize)")<=17,name
+            if name=="trend":
+                rects=arrows.evaluate_all("els=>els.map(e=>e.getBoundingClientRect().top)")
+                assert max(rects)-min(rects)<=2,(name,"arrow alignment",rects)
+            assert page.evaluate("document.documentElement.scrollWidth<=innerWidth+2"),name
             # An already-seen card does not restart on scroll or interaction.
             cards.first.scroll_into_view_if_needed()
             assert cards.first.get_attribute("class").count("exp-story-visible")==1, name

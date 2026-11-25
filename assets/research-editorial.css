@@ -535,3 +535,79 @@ body.page-trend .viz-channel-button.is-selected .viz-channel-stem i,body.page-tr
  body.page-trend .viz-key {min-height:0;padding:2px 4px;}
  body.page-trend :is(.viz-key,.viz-channel-button) {print-color-adjust:exact;-webkit-print-color-adjust:exact;}
 }
+
+/* Experience chapter: quiet editorial connector, not an action button.
+   Keep the six source nodes and their existing single-pass entrance. */
+@media screen {
+  body.page-trend #experience .experience > .exp.feature-card {
+    display:grid !important;
+    grid-template-rows:auto auto auto 1fr auto auto;
+    align-content:start;
+    row-gap:6px;
+    min-width:0;
+  }
+  @supports (grid-template-rows:subgrid) {
+    body.page-trend #experience .experience > .exp.feature-card {
+      grid-row:span 6;
+      grid-template-rows:subgrid;
+    }
+  }
+  body.page-trend #experience .exp > .exp-connector {
+    position:relative;
+    display:block !important;
+    box-sizing:border-box;
+    width:18px !important;
+    height:30px !important;
+    min-height:0 !important;
+    padding:0 !important;
+    margin:2px auto !important;
+    background:transparent !important;
+    border:0 !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+    font-size:0 !important;
+    line-height:0 !important;
+    color:#8c9d91 !important;
+    pointer-events:none;
+  }
+  body.page-trend #experience .exp > .exp-connector::before {
+    content:"";
+    position:absolute;
+    top:2px;
+    left:50%;
+    width:1px;
+    height:24px;
+    background:currentColor;
+    transform:translateX(-50%);
+  }
+  body.page-trend #experience .exp > .exp-connector::after {
+    content:"";
+    position:absolute;
+    bottom:4px;
+    left:50%;
+    width:8px;
+    height:8px;
+    border:solid currentColor;
+    border-width:0 1px 1px 0;
+    transform:translateX(-50%) rotate(45deg);
+  }
+  body.page-trend #experience .exp > .exp-application {
+    box-sizing:border-box;
+    margin-top:0 !important;
+    min-width:0;
+    font-size:.88rem !important;
+    line-height:1.75 !important;
+  }
+  body.page-trend #experience .exp > .exp-application > b {
+    display:block !important;
+    font-size:.94rem !important;
+    line-height:1.5 !important;
+    font-weight:700;
+    margin:0 0 7px !important;
+    color:#536457 !important;
+    background:none !important;
+    box-shadow:none !important;
+    white-space:normal;
+    overflow-wrap:normal;
+  }
+}

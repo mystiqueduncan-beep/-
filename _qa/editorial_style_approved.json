@@ -1067,6 +1067,11 @@
       56048,
       "--value:48.8%;--tone:#a9b396",
       "--value:48.8%;--remaining:0.512;--tone:#a9b396"
+    ],
+    [
+      36008,
+      "href=\"assets/research-editorial.css?v=20261125-charts\"",
+      "href=\"assets/research-editorial.css?v=20261125-connectors\""
     ]
   ],
   "mobile-trend.html": [
@@ -1309,6 +1314,11 @@
       54161,
       "--value:48.8%;--tone:#a9b396",
       "--value:48.8%;--remaining:0.512;--tone:#a9b396"
+    ],
+    [
+      35986,
+      "href=\"assets/research-editorial.css?v=20261125-charts\"",
+      "href=\"assets/research-editorial.css?v=20261125-connectors\""
     ]
   ],
   "resume.html": [
