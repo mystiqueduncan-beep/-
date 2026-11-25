@@ -275,6 +275,13 @@
     hint.append(hintFace);
     const dock = element("div","bs-ai-dock");
     dock.append(launcher,hint);
+    // Pause only the actual launcher, never a passive bubble or touch hover.
+    let pointerPaused = false;
+    const syncPause = () => dock.classList.toggle("is-paused", pointerPaused || launcher.matches(":focus-visible"));
+    launcher.addEventListener("pointerenter", event => { if (event.pointerType==="mouse" && matchMedia("(hover: hover)").matches) { pointerPaused=true; syncPause(); } });
+    launcher.addEventListener("pointerleave", () => { pointerPaused=false; syncPause(); });
+    launcher.addEventListener("focus", syncPause);
+    launcher.addEventListener("blur", () => { pointerPaused=false; syncPause(); });
     root.append(panel, dock);
     document.body.append(root);
 

@@ -453,8 +453,7 @@
   .bs-ai-root .bs-ai-dock .bs-ai-launcher:hover .bs-ai-launcher-face,
   .bs-ai-root .bs-ai-dock .bs-ai-launcher:focus-visible .bs-ai-launcher-face,
   .bs-ai-root .bs-ai-dock .bs-ai-launcher:active .bs-ai-launcher-face {animation:none;transform:translateY(var(--bs-reading-y));transition:none;}
-  .bs-ai-root .bs-ai-dock:has(.bs-ai-launcher:hover),
-  .bs-ai-root .bs-ai-dock:has(.bs-ai-launcher:focus-visible) {animation-play-state:paused;}
+  .bs-ai-root .bs-ai-dock.is-paused {animation-play-state:paused;}
   .bs-ai-root--open .bs-ai-dock {animation:none;--bs-reading-y:0px;}
   @keyframes bs-reading-shared-float {0%,100%{--bs-reading-y:0px;}50%{--bs-reading-y:-6px;}}
   .bs-ai-root .bs-ai-guide-hint {bottom:calc(100% + 11px);transform:none;transition:opacity .4s ease,visibility 0s linear .4s;}

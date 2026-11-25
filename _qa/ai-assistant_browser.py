@@ -152,13 +152,17 @@ try:
             else:
                 live_motion=engine.new_page(viewport={"width":width,"height":height})
             live_motion.route("https://**/*",lambda route:route.abort())
-            live_motion.goto(f"{base}/{file}?view={view}",wait_until="domcontentloaded")
+            live_motion.goto(f"{base}/{file}?view={view}",wait_until="load")
+            live_motion.bring_to_front()
+            if engine!=safari:
+                live_motion.mouse.move(10,10)
+            live_motion.evaluate("document.fonts.ready")
             live_motion.locator(".bs-ai-guide-hint-text").wait_for()
             expect(live_motion.locator(".bs-ai-guide-hint-text")).to_have_text(re.compile(r"^想[^我]+嗎？$"),timeout=6000)
             dock=live_motion.locator(".bs-ai-dock")
             assert dock.evaluate("e=>getComputedStyle(e).animationDuration")=="2.7s"
             samples=live_motion.evaluate("""async()=>{const a=document.querySelector('.bs-ai-launcher-face'),b=document.querySelector('.bs-ai-guide-face'),out=[];for(let i=0;i<16;i++){out.push([a.getBoundingClientRect().top,b.getBoundingClientRect().top,a.parentElement.getBoundingClientRect().top,b.parentElement.getBoundingClientRect().top]);await new Promise(r=>setTimeout(r,180));}return out;}""")
-            assert 5.2<=max(x[0] for x in samples)-min(x[0] for x in samples)<=6.5,samples
+            assert 5.2<=max(x[0] for x in samples)-min(x[0] for x in samples)<=6.5,(engine==safari,file,dock.evaluate("e=>({state:getComputedStyle(e).animationPlayState,value:getComputedStyle(e).getPropertyValue('--bs-reading-y'),visibility:document.visibilityState})"),samples)
             assert max(x[0]-x[1] for x in samples)-min(x[0]-x[1] for x in samples)<0.5,samples
             assert all(max(x[i] for x in samples)-min(x[i] for x in samples)<0.5 for i in (2,3)),samples
             if view=="desktop":
