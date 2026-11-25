@@ -165,8 +165,11 @@ with sync_playwright() as p:
   if name in ('index.html','mobile.html'):
    assert page.locator('#education').count()==0,name
    assert page.locator('#career .career-photo img').count()==3,name
-   intro=page.locator('.mobile-profile-intro' if is_mobile else '.hero-professional-intro').text_content()
-   assert '萬能科技大學' not in intro and "Tomod's" not in intro,name
+   # User-approved removal of redundant cover introduction on both editions.
+   assert page.locator('.mobile-profile-intro, .hero-professional-intro, .cover-introduction').count()==0,name
+   assert page.locator('h1').count()==1,name
+   assert page.locator('.portfolio-target-role').count()==1,name
+   assert page.locator('#career').count()==1,name
   if name in ('contact.html','mobile-contact.html'):
    education=page.locator('#education')
    expect(education).to_have_count(1)
