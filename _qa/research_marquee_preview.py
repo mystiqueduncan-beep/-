@@ -28,7 +28,26 @@ with sync_playwright() as browserapi:
    page.set_viewport_size({"width":w,"height":860})
    guide.scroll_into_view_if_needed()
    cols=guide.locator(".reader-index-grid").evaluate("e=>getComputedStyle(e).gridTemplateColumns.split(' ').length")
-   assert cols==(1 if w<=720 else 3),(name,w,cols)
+   assert cols==1,(name,w,cols)
+   layout=guide.locator(".reader-index-grid").evaluate("""e=>{
+     const groups=[...e.querySelectorAll('.reader-index-group')];
+     const bounds=e.getBoundingClientRect();
+     return {height:bounds.height,groups:groups.map(g=>{
+       const r=g.getBoundingClientRect(),h=g.querySelector('.reader-index-heading').getBoundingClientRect();
+       const list=g.querySelector('.reader-index-list').getBoundingClientRect();
+       const links=[...g.querySelectorAll('.reader-index-link')].map(a=>{const b=a.getBoundingClientRect();return {w:b.width,h:b.height,left:b.left,right:b.right,top:b.top,bottom:b.bottom};});
+       return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,headingRight:h.right,headingBottom:h.bottom,listLeft:list.left,listTop:list.top,links};
+     })};
+   }""")
+   assert len(layout["groups"])==3,(name,w,layout)
+   assert all(a["bottom"]<=b["top"]+1 for a,b in zip(layout["groups"],layout["groups"][1:])),(name,w,layout)
+   assert all(l["w"]>=44 and l["h"]>=44 and l["left"]>=g["left"]-1 and l["right"]<=g["right"]+1 and l["top"]>=g["top"]-1 and l["bottom"]<=g["bottom"]+1 for g in layout["groups"] for l in g["links"]),(name,w,layout)
+   if w>=1280:
+    assert layout["height"]<=260,(name,w,layout)
+    assert all(g["listLeft"]>=g["headingRight"]-1 for g in layout["groups"]),(name,w,layout)
+   else:
+    assert all(g["listTop"]>=g["headingBottom"]-1 for g in layout["groups"]),(name,w,layout)
+   print("COMPACT_CONTENTS_PASS",name,w,layout["height"],flush=True)
    assert page.evaluate("document.documentElement.scrollWidth<=innerWidth+1"),(name,w)
   page.set_viewport_size({"width":width,"height":860})
   guide.scroll_into_view_if_needed()
