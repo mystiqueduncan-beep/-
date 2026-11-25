@@ -3061,29 +3061,22 @@
   }
 }
 
-/* 95% transparent means a .05 background alpha, never .05 element opacity.
-   The home strip has no extra painted layer beneath the six keys: the
-   two navigation surfaces use the same 12px blur without stacked filters. */
+/* 95% transparency applies only to the navigation surfaces, not their
+   buttons. Use one backdrop blur per surface; preserve the original key
+   colors and the research index button's active/hover states. */
 @media screen {
-  body.page-home.page-desktop nav.home-keycap-strip,
-  body.page-home.page-desktop nav.home-keycap-strip [data-keycap-marquee].keycap-marquee,
-  body.page-home.page-desktop nav.home-keycap-strip [data-keycap-marquee].keycap-marquee.is-reading-section {
+  body.page-home.page-desktop nav.home-keycap-strip {
     background:transparent !important;
     -webkit-backdrop-filter:none !important;
     backdrop-filter:none !important;
   }
-  body.page-home nav.home-keycap-strip [data-keycap-marquee] .keycap-marquee__group a.nav-btn-mk {
-    opacity:1 !important;
+  body.page-home.page-desktop nav.home-keycap-strip [data-keycap-marquee].keycap-marquee,
+  body.page-home.page-desktop nav.home-keycap-strip [data-keycap-marquee].keycap-marquee.is-reading-section {
     background:rgba(253,251,246,.05) !important;
     -webkit-backdrop-filter:blur(12px) !important;
     backdrop-filter:blur(12px) !important;
-    text-shadow:0 0 3px rgba(253,251,246,.9),0 0 6px rgba(253,251,246,.75);
   }
-  body.page-home nav.home-keycap-strip [data-keycap-marquee] .keycap-marquee__group a.nav-btn-mk:is(:hover,:focus-visible,.is-current,[aria-current="location"]) {
-    background:rgba(217,225,213,.05) !important;
-  }
-  body.page-trend .reader-compact-index:is(:hover,[aria-expanded="true"]),
-  body.page-trend .reader-compact-step:not(:disabled):hover {
-    background:rgba(220,228,218,.05) !important;
+  body.page-home nav.home-keycap-strip [data-keycap-marquee] .keycap-marquee__group a.nav-btn-mk {
+    opacity:1 !important;
   }
 }
