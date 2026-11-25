@@ -2901,7 +2901,7 @@
     z-index:800;box-sizing:border-box;width:min(calc(100% - 24px),560px);
     display:grid!important;grid-template-columns:44px minmax(0,1fr) 44px auto;
     grid-template-rows:44px 3px;align-items:center;gap:0 5px;padding:0 6px 3px!important;
-    background:rgba(253,251,246,.95)!important;
+    background:rgba(253,251,246,.05)!important;
     -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
     border:1px solid #bdb5a6!important;border-radius:13px;
     box-shadow:0 2px 9px rgba(43,58,45,.06);color:#435247;
@@ -3061,10 +3061,22 @@
   }
 }
 
-/* Homepage chapter keys: match the research reading bar's 95% opacity.
-   Keep all navigation geometry, states, and the mobile bottom bar unchanged. */
+/* 95% transparency applies only to the navigation surfaces, not their
+   buttons. Use one backdrop blur per surface; preserve the original key
+   colors and the research index button's active/hover states. */
 @media screen {
+  body.page-home.page-desktop nav.home-keycap-strip {
+    background:transparent !important;
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+  }
+  body.page-home.page-desktop nav.home-keycap-strip [data-keycap-marquee].keycap-marquee,
+  body.page-home.page-desktop nav.home-keycap-strip [data-keycap-marquee].keycap-marquee.is-reading-section {
+    background:rgba(253,251,246,.05) !important;
+    -webkit-backdrop-filter:blur(12px) !important;
+    backdrop-filter:blur(12px) !important;
+  }
   body.page-home nav.home-keycap-strip [data-keycap-marquee] .keycap-marquee__group a.nav-btn-mk {
-    opacity:.95 !important;
+    opacity:1 !important;
   }
 }
