@@ -1,5 +1,6 @@
 /* Portfolio AI guide: entirely local, knowledge-based demo for GitHub Pages.
- * No external service, API key, analytics, storage or user-message transmission.
+ * No external service, API key, analytics or user-message transmission. Only
+ * reminder timing and phrase history use tab-local session storage.
  * Answers are limited to verified facts already published in this portfolio.
  */
 (() => {
@@ -166,7 +167,7 @@
     headerIcon.setAttribute("aria-hidden", "true");
     const titleBlock = element("div", "bs-ai-title-block");
     titleBlock.append(
-      element("strong", "bs-ai-title", "博詩的 AI 數位分身"),
+      element("strong", "bs-ai-title", "AI 快速導覽"),
       element("span", "bs-ai-kicker", "PORTFOLIO GUIDE / 作品集導覽")
     );
     const close = element("button", "bs-ai-close", "×");
@@ -184,16 +185,18 @@
     const promptLabel = element("p", "bs-ai-chips-label", "QUICK QUESTIONS / 快速提問");
     const chips = element("div", "bs-ai-chips");
     const quick = [
-      ["請自我介紹", "請自我介紹"],
+      ["工作經歷", "完整工作經歷"],
+      ["管理能力", "核心管理能力"],
       ["產業分析專題", "介紹你的產業分析專題"],
-      ["企管核心專長", "你的企管核心專長"],
+      ["90 天計畫", "90 天營運改善計畫"],
+      ["下載簡歷", "下載簡歷"],
       ["如何聯絡你", "如何聯絡你"]
     ];
 
     const form = element("form", "bs-ai-form");
     const input = element("input", "bs-ai-input");
     input.type = "text";
-    input.placeholder = "輸入想了解的問題…";
+    input.placeholder = "例如：如何聯絡？";
     input.autocomplete = "off";
     input.maxLength = 200;
     input.setAttribute("aria-label", "輸入作品集相關問題");
@@ -208,7 +211,7 @@
 
     const launcher = element("button", "bs-ai-launcher");
     launcher.type = "button";
-    launcher.setAttribute("aria-label", "開啟履歷 AI 導覽：AI問答小助手");
+    launcher.setAttribute("aria-label", "開啟履歷 AI 導覽：AI 快速導覽");
     launcher.setAttribute("aria-expanded", "false");
     launcher.setAttribute("aria-controls", "bs-ai-panel");
     const face = element("span", "bs-ai-launcher-face");
@@ -218,14 +221,139 @@
     const starTwo = element("span", "bs-ai-launcher-star bs-ai-launcher-star--two", "✦");
     starOne.setAttribute("aria-hidden", "true");
     starTwo.setAttribute("aria-hidden", "true");
-    face.append(emblem, element("span", "bs-ai-launcher-label", "AI問答小助手"), starOne, starTwo);
+    const label = element("span", "bs-ai-launcher-copy");
+    label.append(element("strong", "bs-ai-launcher-label", "AI 快速導覽"),
+      element("small", "bs-ai-launcher-caption", "找資料・直達章節"));
+    face.append(emblem, label, starOne, starTwo);
     launcher.append(face);
-    root.append(panel, launcher);
+    const hint = element("button", "bs-ai-guide-hint");
+    hint.type = "button";
+    hint.tabIndex = -1;
+    hint.setAttribute("aria-label", "開啟 AI 快速導覽");
+    hint.setAttribute("aria-hidden", "true");
+    const hintText = element("span", "bs-ai-guide-hint-text");
+    hintText.setAttribute("aria-hidden", "true");
+    const cursor = element("span", "bs-ai-guide-cursor");
+    cursor.setAttribute("aria-hidden", "true");
+    cursor.hidden = true;
+    hint.append(hintText, cursor);
+    root.append(panel, launcher, hint);
     document.body.append(root);
 
     let openedOnce = false;
     let busy = false;
     let composing = false;
+
+    // Contextual prompts: all approved copy, no tracking or question storage.
+    const common = ["想找什麼嗎？", "需要我帶路嗎？", "有什麼想了解的嗎？",
+      "想先看看重點嗎？", "不知道從哪裡看起嗎？",
+      "有需要我幫忙的嗎？", "想讓我為你介紹嗎？"];
+    const contextual = currentPage.includes("trend") || currentPage === "data-visualization.html"
+      ? ["想看看產業研究嗎？", "想了解管理能力嗎？"]
+      : currentPage.includes("contact")
+        ? ["想找聯絡方式嗎？", "想看看個人簡歷嗎？"]
+        : ["想了解工作經歷嗎？", "想了解管理能力嗎？", "想看看個人簡歷嗎？"];
+    const key = "bs-ai-guide-timing-v1";
+    const timing = { first:2000, enter:400, char:140, hold:10000, fade:600, gap:20000, idle:2000 };
+    let state = { seen:false, nextAt:Date.now()+timing.first, last:"", used:[] };
+    try {
+      const saved = JSON.parse(sessionStorage.getItem(key) || "null");
+      if (saved && typeof saved.seen === "boolean" && Number.isFinite(saved.nextAt)
+        && typeof saved.last === "string" && Array.isArray(saved.used)) {
+        state = { seen:saved.seen, nextAt:saved.nextAt, last:saved.last, used:saved.used.slice(-12) };
+      }
+    } catch (_) { /* Storage can be denied; reminders still work within the page. */ }
+    const save = () => { try { sessionStorage.setItem(key, JSON.stringify(state)); } catch (_) {} };
+    save();
+    let timer = 0, lastScroll = -Infinity, hintVisible = false;
+    function clearHintTimer() { window.clearTimeout(timer); timer = 0; }
+    function hideHint() {
+      hintVisible = false;
+      hint.classList.remove("is-visible");
+      hint.tabIndex = -1;
+      hint.setAttribute("aria-hidden", "true");
+      cursor.hidden = true;
+    }
+    function pickPhrase() {
+      if (!state.seen) return common[0];
+      const pool = common.concat(contextual);
+      let available = pool.filter(s => s !== state.last && !state.used.includes(s));
+      if (!available.length) {
+        state.used = [];
+        available = pool.filter(s => s !== state.last);
+      }
+      const general = available.filter(s => common.includes(s));
+      const specific = available.filter(s => contextual.includes(s));
+      const group = general.length && specific.length
+        ? (Math.random() < .65 ? general : specific)
+        : available;
+      return group[Math.floor(Math.random()*group.length)];
+    }
+    function scheduleHint() {
+      clearHintTimer();
+      if (!panel.hidden || document.hidden) return;
+      const delay = Math.max(0, state.nextAt-Date.now(), lastScroll+timing.idle-Date.now());
+      timer = window.setTimeout(() => {
+        if (!panel.hidden || document.hidden) return;
+        if (Date.now()-lastScroll < timing.idle || Date.now() < state.nextAt) { scheduleHint(); return; }
+        showHint();
+      }, delay);
+    }
+    function showHint() {
+      const phrase = pickPhrase();
+      const letters = Array.from(phrase);
+      const duration = reduceMotion ? 0 : timing.enter+letters.length*timing.char;
+      state.seen = true;
+      state.last = phrase;
+      state.used = state.used.concat(phrase).slice(-12);
+      state.nextAt = Date.now()+duration+timing.hold+(reduceMotion ? 0 : timing.fade)+timing.gap;
+      save();
+      hintVisible = true;
+      hintText.textContent = reduceMotion ? phrase : "";
+      cursor.hidden = reduceMotion;
+      hint.classList.add("is-visible");
+      hint.tabIndex = 0;
+      hint.removeAttribute("aria-hidden");
+      const finish = () => {
+        cursor.hidden = true;
+        timer = window.setTimeout(endHint, timing.hold);
+      };
+      let i = 0;
+      const type = () => {
+        if (!hintVisible) return;
+        hintText.textContent = letters.slice(0, ++i).join("");
+        if (i < letters.length) timer = window.setTimeout(type, timing.char);
+        else finish();
+      };
+      if (reduceMotion) finish();
+      else timer = window.setTimeout(type, timing.enter+timing.char);
+    }
+    function endHint() {
+      // Do not remove a focused control underneath keyboard users.
+      if (document.activeElement === hint) {
+        timer = window.setTimeout(endHint, 1000);
+        return;
+      }
+      hideHint();
+      state.nextAt = Date.now()+(reduceMotion ? 0 : timing.fade)+timing.gap;
+      save();
+      scheduleHint();
+    }
+    function stopHint() { clearHintTimer(); hideHint(); }
+    function restartHint() {
+      stopHint();
+      state.nextAt = Date.now()+timing.gap;
+      save();
+      scheduleHint();
+    }
+    window.addEventListener("scroll", () => { lastScroll = Date.now(); }, { passive:true });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stopHint();
+      else scheduleHint();
+    });
+    window.addEventListener("pagehide", stopHint);
+    window.addEventListener("pageshow", () => { if (!hintVisible) scheduleHint(); });
+    scheduleHint();
 
     function scrollToLatest() {
       messages.scrollTop = messages.scrollHeight;
@@ -254,11 +382,12 @@
       panel.hidden = !open;
       root.classList.toggle("bs-ai-root--open", open);
       launcher.setAttribute("aria-expanded", String(open));
-      launcher.setAttribute("aria-label", (open ? "收合履歷 AI 導覽" : "開啟履歷 AI 導覽") + "：AI問答小助手");
+      launcher.setAttribute("aria-label", (open ? "收合履歷 AI 導覽" : "開啟履歷 AI 導覽") + "：AI 快速導覽");
+      restartHint();
       if (open) {
         if (!openedOnce) {
           message("bot",
-            "您好！我是黃博詩的 AI 數位分身，專門介紹他的工作經歷、核心能力與藥妝產業分析專題。想先了解哪個部分？",
+            "您好！我是黃博詩的 AI 數位分身。想了解哪一部分呢？選擇下方主題，或直接輸入問題，我會提供內容摘要及對應章節。",
             []);
           openedOnce = true;
         }
@@ -309,6 +438,7 @@
     });
 
     launcher.addEventListener("click", () => setOpen(panel.hidden));
+    hint.addEventListener("click", () => setOpen(true));
     close.addEventListener("click", () => setOpen(false));
     form.addEventListener("submit", event => {
       event.preventDefault();
@@ -318,6 +448,10 @@
     input.addEventListener("compositionend", () => { composing = false; });
     document.addEventListener("keydown", event => {
       if (event.key === "Escape" && !panel.hidden) setOpen(false);
+      else if (event.key === "Escape" && hintVisible) {
+        if (document.activeElement === hint) launcher.focus({ preventScroll:true });
+        restartHint();
+      }
     });
   }
 

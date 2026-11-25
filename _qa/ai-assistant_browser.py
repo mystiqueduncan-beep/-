@@ -38,18 +38,22 @@ try:
             page.goto(f"{base}/{file_name}{mode}", wait_until="domcontentloaded")
             opener = page.locator(".bs-ai-launcher")
             expect(opener).to_be_visible()
-            expect(opener.locator(".bs-ai-launcher-label")).to_have_text("AI問答小助手")
+            expect(opener.locator(".bs-ai-launcher-label")).to_have_text("AI 快速導覽")
+            expect(opener.locator(".bs-ai-launcher-caption")).to_have_text("找資料・直達章節")
             expect(opener.locator(".bs-ai-launcher-emblem")).to_have_text("♥")
             expect(opener.locator(".bs-ai-launcher-star")).to_have_count(2)
             assert opener.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e).animationName")=="bs-ai-float"
             assert opener.locator(".bs-ai-launcher-emblem").evaluate("e=>getComputedStyle(e).animationName")=="bs-ai-heartbeat"
             assert opener.locator(".bs-ai-launcher-star").first.evaluate("e=>getComputedStyle(e).animationIterationCount")=="infinite"
             assert opener.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e,'::after').animationName")=="bs-ai-halo"
+            expect(page.locator(".bs-ai-guide-hint")).to_have_attribute("aria-hidden", "true")
             opener.click()
             assert opener.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e).animationName")=="none"
             assert opener.locator(".bs-ai-launcher-emblem").evaluate("e=>getComputedStyle(e).animationName")=="none"
             panel = page.get_by_role("region", name="黃博詩的 AI 履歷導覽")
             expect(panel).to_be_visible()
+            expect(panel.locator(".bs-ai-chip")).to_have_count(6)
+            expect(page.locator(".bs-ai-guide-hint")).to_have_attribute("aria-hidden", "true")
             expect(panel.get_by_text("您好！我是黃博詩的 AI 數位分身", exact=False)).to_be_visible()
             box = panel.bounding_box()
             assert box is not None
@@ -78,6 +82,44 @@ try:
             expect(panel).to_be_hidden()
             expect(page.get_by_role("button", name="開啟履歷 AI 導覽")).to_be_visible()
             page.close()
+
+        # Virtual clock exercises real production intervals without a long sleep.
+        guide = browser.new_page(viewport={"width": 390, "height": 844})
+        guide.route("https://**/*", lambda route: route.abort())
+        guide.clock.install()
+        guide.goto(f"{base}/mobile-trend.html?view=mobile", wait_until="domcontentloaded")
+        hint=guide.locator(".bs-ai-guide-hint")
+        words=hint.locator(".bs-ai-guide-hint-text")
+        guide.clock.run_for(2100)
+        expect(hint).to_have_class("bs-ai-guide-hint is-visible")
+        guide.clock.run_for(1400)
+        expect(words).to_have_text("想找什麼嗎？")
+        box=hint.bounding_box()
+        assert box and 0<=box["x"] and box["x"]+box["width"]<=390,box
+        assert box["width"]<125,box
+        guide.clock.run_for(9000)
+        expect(hint).to_have_class("bs-ai-guide-hint is-visible")
+        guide.clock.run_for(2000)
+        expect(hint).to_have_attribute("aria-hidden","true")
+        # Cross-page session timing does not reset to the first greeting.
+        guide.goto(f"{base}/mobile-contact.html?view=mobile", wait_until="domcontentloaded")
+        hint=guide.locator(".bs-ai-guide-hint")
+        words=hint.locator(".bs-ai-guide-hint-text")
+        guide.clock.run_for(3000)
+        expect(hint).to_have_attribute("aria-hidden","true")
+        guide.clock.run_for(20000)
+        assert words.inner_text() in ["需要我帶路嗎？","有什麼想了解的嗎？","想先看看重點嗎？","不知道從哪裡看起嗎？","有需要我幫忙的嗎？","想讓我為你介紹嗎？","想找聯絡方式嗎？","想看看個人簡歷嗎？"],words.inner_text()
+        hint.click()
+        expect(guide.locator("#bs-ai-panel")).to_be_visible()
+        expect(hint).to_have_attribute("aria-hidden","true")
+        guide.clock.run_for(35000)
+        expect(hint).to_have_attribute("aria-hidden","true")
+        guide.keyboard.press("Escape")
+        guide.clock.run_for(15000)
+        expect(hint).to_have_attribute("aria-hidden","true")
+        guide.clock.run_for(7000)
+        expect(hint).to_have_class("bs-ai-guide-hint is-visible")
+        guide.close()
 
         narrow = browser.new_page(viewport={"width": 320, "height": 568}, reduced_motion="reduce")
         narrow.goto(f"{base}/mobile.html?view=mobile", wait_until="domcontentloaded")

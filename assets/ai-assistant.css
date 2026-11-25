@@ -365,3 +365,80 @@
   }
 }
 @media print { .bs-ai-root { display: none !important; } }
+
+/* Approved compact contextual guide: leave the original 2.7s launcher motion intact. */
+@media screen {
+  .bs-ai-root .bs-ai-launcher-copy {
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:3px;
+    line-height:1.25;
+    text-align:left;
+  }
+  .bs-ai-root .bs-ai-launcher-label {font-size:15px;font-weight:800;}
+  .bs-ai-root .bs-ai-launcher-caption {font-size:11px;font-weight:650;color:#62564d;}
+  .bs-ai-root .bs-ai-chips {grid-template-columns:repeat(3,minmax(0,1fr));}
+  .bs-ai-root .bs-ai-chip {min-width:0;overflow-wrap:anywhere;}
+  .bs-ai-root .bs-ai-guide-hint {
+    position:absolute;
+    bottom:calc(100% + 11px);
+    right:9px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:max-content;
+    max-width:calc(100vw - 45px);
+    margin:0;
+    padding:6px 10px;
+    border:1px solid #a7b6a2;
+    border-radius:10px 10px 3px 10px;
+    background:#fdfbf6;
+    color:#435247;
+    font-size:13px;
+    font-weight:600;
+    line-height:1.4;
+    letter-spacing:0;
+    white-space:nowrap;
+    box-shadow:0 3px 8px #53645712;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transform:translateY(4px);
+    transition:opacity .6s ease,transform .4s ease,visibility 0s linear .6s;
+  }
+  .bs-ai-root .bs-ai-guide-hint.is-visible {
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+    pointer-events:auto;
+    transition:opacity .4s ease,transform .4s ease,visibility 0s;
+  }
+  .bs-ai-root .bs-ai-guide-hint::after {
+    content:"";
+    position:absolute;
+    bottom:-5px;
+    right:7px;
+    width:8px;
+    height:8px;
+    background:#fdfbf6;
+    border-right:1px solid #a7b6a2;
+    border-bottom:1px solid #a7b6a2;
+    transform:skewY(35deg);
+    pointer-events:none;
+  }
+  .bs-ai-root .bs-ai-guide-cursor {
+    display:inline-block;
+    width:1px;
+    height:12px;
+    margin-left:2px;
+    background:#536457;
+    animation:bs-ai-guide-blink .8s steps(1) infinite;
+  }
+  .bs-ai-root--open .bs-ai-guide-hint {visibility:hidden!important;opacity:0!important;transition:none!important;pointer-events:none!important;}
+  @keyframes bs-ai-guide-blink {50%{opacity:0;}}
+  @media (prefers-reduced-motion:reduce) {
+    .bs-ai-root .bs-ai-guide-hint {transform:none;transition:none!important;}
+    .bs-ai-root .bs-ai-guide-cursor {display:none!important;animation:none!important;}
+  }
+}
