@@ -53,7 +53,8 @@ try:
             assert compact.locator(".reader-compact-step").all_text_contents()==["‹","›"]
             assert compact.locator("button:visible, a:visible").evaluate_all("es=>es.every(e=>e.getBoundingClientRect().width>=44 && e.getBoundingClientRect().height>=44)")
             # Fixed throughout reading: the bar never disappears in either direction.
-            assert compact.evaluate("e=>getComputedStyle(e).backgroundColor")=="rgba(253, 251, 246, 0.95)"
+            assert compact.evaluate("e=>getComputedStyle(e).backgroundColor")=="rgba(253, 251, 246, 0.05)"
+            assert compact.evaluate("e=>getComputedStyle(e).backdropFilter")=="blur(12px)"
             initial_top=compact.evaluate("e=>e.getBoundingClientRect().top")
             for delta in (220,-220,350,-120):
                 page.mouse.wheel(0,delta)
@@ -121,9 +122,12 @@ try:
             if view=="desktop":
                 keys=page.locator("nav.home-keycap-strip .keycap-marquee__group a.nav-btn-mk")
                 expect(keys).to_have_count(6)
-                assert keys.evaluate_all("es=>es.every(e=>getComputedStyle(e).opacity==='0.95')")
+                shell=page.locator("nav.home-keycap-strip [data-keycap-marquee]")
+                expect(shell).to_have_css("background-color","rgba(0, 0, 0, 0)")
+                expect(shell).to_have_css("backdrop-filter","none")
+                assert keys.evaluate_all("es=>es.every(e=>{const s=getComputedStyle(e);return s.opacity==='1' && s.backdropFilter==='blur(12px)' && s.backgroundColor.endsWith(', 0.05)')})")
                 page.locator("#cases").scroll_into_view_if_needed()
-                assert keys.evaluate_all("es=>es.every(e=>getComputedStyle(e).opacity==='0.95')")
+                assert keys.evaluate_all("es=>es.every(e=>{const s=getComputedStyle(e);return s.opacity==='1' && s.backdropFilter==='blur(12px)' && s.backgroundColor.endsWith(', 0.05)')})")
             assert page.locator('a[href*="trend.html"]').count()>=1
             page.close()
         browser.close()

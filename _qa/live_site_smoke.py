@@ -32,6 +32,7 @@ ASSETS = (
     "assets/trend-marquee.css",
     "assets/research-editorial.css",
     "assets/regional-analysis.js",
+    "assets/portfolio-polish.css",
     "assets/ai-assistant.css",
     "assets/ai-assistant.js",
 )
