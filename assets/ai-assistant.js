@@ -289,6 +289,29 @@
       return candidates.filter(s=>s.box.top<=y).sort((a,b)=>b.box.top-a.box.top)[0] || candidates[0] || {id:"overview",topic:menus[pageKind][0],phrase:"想先看看重點嗎？"};
     }
     let active = visibleSection(), pendingSection = false, sectionTimer = 0;
+    const sectionAlternatives = {
+      profile:["想先認識我嗎？","想了解應徵方向嗎？"],
+      motivation:["想了解應徵動機嗎？","想了解職涯方向嗎？"],
+      competencies:["想了解管理能力嗎？","想了解核心專長嗎？"],
+      cases:["想了解改善構想嗎？","想看看門市改善方法嗎？"],
+      career:["想了解工作經歷嗎？","想了解店長經驗嗎？"],
+      proposal:["想了解工作構想嗎？","想看看到任後的規劃嗎？"],
+      research:["想看看產業研究嗎？","想了解研究重點嗎？"],
+      market:["想了解市場趨勢嗎？","想了解商品結構嗎？"],
+      competition:["想了解品牌競爭嗎？","想看看品牌定位嗎？"],
+      consumer:["想了解消費者行為嗎？","想了解顧客需求嗎？"],
+      location:["想了解展店策略嗎？","想了解商圈評估嗎？"],
+      digital:["想了解數位轉型嗎？","想看看數位工具嗎？"],
+      people:["想了解人才管理嗎？","想了解新人帶訓嗎？"],
+      experience:["想了解跨店管理嗎？","想了解門市實務嗎？"],
+      strategy:["想了解改善方針嗎？","想看看六項改善構想嗎？"],
+      roadmap:["想了解執行計畫嗎？","想看看90天計畫嗎？"],
+      metrics:["想了解評估指標嗎？","想了解如何衡量成效嗎？"],
+      sources:["想查看研究來源嗎？","想了解研究依據嗎？"],
+      education:["想了解教育背景嗎？","想了解目前學歷嗎？"],
+      contact:["想找聯絡方式嗎？","想了解聯絡管道嗎？"],
+      resume:["想了解應徵方向嗎？","想了解職涯背景嗎？"]
+    };
     let afterClose = 0;
     function updateContext() {
       contextLabel.textContent = "正在閱讀："+(cards[active.topic]?.[1] || "作品集");
@@ -329,8 +352,9 @@
       const specificPool = [...new Set([active.phrase,...contextual])];
       if (pendingSection) {
         pendingSection=false;
-        const options=specificPool.filter(s=>s!==state.last);
-        return options[Math.floor(Math.random()*options.length)];
+        const options=[...new Set([active.phrase,...(sectionAlternatives[active.id]||[])])].filter(s=>s!==state.last);
+        const pool=options.length?options:[active.phrase];
+        return pool[Math.floor(Math.random()*pool.length)];
       }
       const pool = common.concat(specificPool);
       let available = pool.filter(s => s !== state.last && !state.used.includes(s));
@@ -417,11 +441,16 @@
         scheduleHint();
       }
     }
-    window.addEventListener("scroll", () => {
+    // Listen to document and nested scroll containers, but never chat scrolling.
+    window.addEventListener("scroll", event => {
+      if (event.target instanceof Node && root.contains(event.target)) return;
       lastScroll = Date.now();
       clearTimeout(sectionTimer);
       sectionTimer = setTimeout(detectSection,timing.idle);
-    }, { passive:true });
+    }, { passive:true,capture:true });
+    window.addEventListener("hashchange",()=>{
+      clearTimeout(sectionTimer); sectionTimer=setTimeout(detectSection,timing.idle);
+    });
     window.addEventListener("resize",()=>{clearTimeout(sectionTimer);sectionTimer=setTimeout(detectSection,timing.idle);},{passive:true});
     try {
       const pending=JSON.parse(sessionStorage.getItem(highlightKey)||"null");

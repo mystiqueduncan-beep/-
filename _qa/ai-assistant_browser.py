@@ -42,13 +42,13 @@ try:
             expect(opener.locator(".bs-ai-launcher-caption")).to_have_text("找資料・直達章節")
             expect(opener.locator(".bs-ai-launcher-emblem")).to_have_text("♥")
             expect(opener.locator(".bs-ai-launcher-star")).to_have_count(2)
-            assert opener.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e).animationName")=="bs-ai-float"
+            assert page.locator(".bs-ai-dock").evaluate("e=>getComputedStyle(e).animationName")=="bs-reading-shared-float"
             assert opener.locator(".bs-ai-launcher-emblem").evaluate("e=>getComputedStyle(e).animationName")=="bs-ai-heartbeat"
             assert opener.locator(".bs-ai-launcher-star").first.evaluate("e=>getComputedStyle(e).animationIterationCount")=="infinite"
             assert opener.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e,'::after').animationName")=="bs-ai-halo"
             expect(page.locator(".bs-ai-guide-hint")).to_have_attribute("aria-hidden", "true")
             opener.click()
-            assert opener.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e).animationName")=="none"
+            assert page.locator(".bs-ai-dock").evaluate("e=>getComputedStyle(e).animationName")=="none"
             assert opener.locator(".bs-ai-launcher-emblem").evaluate("e=>getComputedStyle(e).animationName")=="none"
             panel = page.get_by_role("region", name="黃博詩的閱讀小助手")
             expect(panel).to_be_visible()
@@ -123,20 +123,28 @@ try:
         expect(hint).to_have_attribute("aria-hidden","true")
         guide.clock.run_for(20000)
         assert words.inner_text() in ["需要我帶路嗎？","有什麼想了解的嗎？","想先看看重點嗎？","不知道從哪裡看起嗎？","有需要我幫忙的嗎？","想讓我為你介紹嗎？","想找聯絡方式嗎？","想了解教育背景嗎？","想了解應徵方向嗎？"],words.inner_text()
-        # Verify the visual surfaces share the same animation phase while hit targets stay fixed.
-        motion = guide.evaluate("""() => {
-          const a=document.querySelector('.bs-ai-launcher-face'), b=document.querySelector('.bs-ai-guide-face');
-          const sample=()=>[a.getBoundingClientRect().top,b.getBoundingClientRect().top];
-          const first=sample();
-          for(const e of [a,b]) {const anim=e.getAnimations().find(x=>x.animationName==='bs-ai-float'); anim.pause(); anim.currentTime=1350;}
-          const mid=sample();
-          for(const e of [a,b]) {const anim=e.getAnimations().find(x=>x.animationName==='bs-ai-float'); anim.currentTime=0;}
-          const start=sample();
-          for(const e of [a,b]) e.getAnimations().find(x=>x.animationName==='bs-ai-float').play();
-          return {first,mid,start};
+        # Sample actual running motion WITHOUT aligning or manually changing animation clocks.
+        motion = guide.evaluate("""async () => {
+          const a=document.querySelector('.bs-ai-launcher-face'), b=document.querySelector('.bs-ai-guide-face'), dock=document.querySelector('.bs-ai-dock');
+          const values=[];
+          const x=a.getBoundingClientRect().top,y=b.getBoundingClientRect().top;
+          values.push([x,y,x-y]);
+          return {values,clock:dock.getAnimations().map(x=>x.animationName),faces:[a,b].map(e=>getComputedStyle(e).animationName)};
         }""")
-        assert abs((motion["mid"][0]-motion["start"][0])-(motion["mid"][1]-motion["start"][1]))<0.5,motion
-        assert abs(motion["mid"][0]-motion["start"][0]+6)<0.5,motion
+        assert motion["clock"]==["bs-reading-shared-float"],motion
+        assert motion["faces"]==["none","none"],motion
+        gaps=[v[2] for v in motion["values"]]
+        assert max(gaps)-min(gaps)<0.5,motion
+        # Sample throughout a full cycle on the real browser clock (not a forced phase).
+        live_motion=browser.new_page(viewport={"width":1440,"height":900})
+        live_motion.route("https://**/*",lambda route:route.abort())
+        live_motion.goto(f"{base}/index.html?view=desktop",wait_until="domcontentloaded")
+        live_motion.locator(".bs-ai-guide-hint-text").wait_for()
+        expect(live_motion.locator(".bs-ai-guide-hint-text")).to_have_text("想找什麼嗎？",timeout=6000)
+        samples=live_motion.evaluate("""async()=>{const a=document.querySelector('.bs-ai-launcher-face'),b=document.querySelector('.bs-ai-guide-face'),out=[];for(let i=0;i<16;i++){out.push([a.getBoundingClientRect().top,b.getBoundingClientRect().top]);await new Promise(r=>setTimeout(r,180));}return out;}""")
+        assert max(x[0] for x in samples)-min(x[0] for x in samples)>4,samples
+        assert max(x[0]-x[1] for x in samples)-min(x[0]-x[1] for x in samples)<0.5,samples
+        live_motion.close()
         hint.click()
         expect(guide.locator("#bs-ai-panel")).to_be_visible()
         expect(hint).to_have_attribute("aria-hidden","true")
@@ -160,6 +168,7 @@ try:
         contextual.evaluate("document.getElementById('roadmap').scrollIntoView({behavior:'instant',block:'start'})")
         contextual.clock.run_for(4100)
         expect(hint).to_have_class("bs-ai-guide-hint is-visible")
+        assert contextual.locator(".bs-ai-guide-hint-text").inner_text() in ["想了解執行計畫嗎？","想看看90天計畫嗎？"]
         # Both children have the same positioned ancestor and no individual float.
         assert hint.evaluate("e=>e.parentElement.classList.contains('bs-ai-dock')")
         assert contextual.locator(".bs-ai-launcher").evaluate("e=>e.parentElement.classList.contains('bs-ai-dock')")
@@ -175,7 +184,7 @@ try:
         narrow = browser.new_page(viewport={"width": 320, "height": 568}, reduced_motion="reduce")
         narrow.goto(f"{base}/mobile.html?view=mobile", wait_until="domcontentloaded")
         narrow_opener=narrow.get_by_role("button", name="開啟閱讀小助手")
-        assert narrow.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e).animationName")=="none"
+        assert narrow.locator(".bs-ai-dock").evaluate("e=>getComputedStyle(e).animationName")=="none"
         narrow_opener.click()
         box = narrow.locator("#bs-ai-panel").bounding_box()
         assert box and box["x"] >= -1 and box["y"] >= -1, box

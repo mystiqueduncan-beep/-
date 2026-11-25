@@ -379,6 +379,16 @@
       487,
       "assets/ai-assistant.js?v=20261125-context-guide",
       "assets/ai-assistant.js?v=20261125-reading-assistant"
+    ],
+    [
+      417,
+      "assets/ai-assistant.css?v=20261125-reading-assistant",
+      "assets/ai-assistant.css?v=20261125-shared-bubble"
+    ],
+    [
+      483,
+      "assets/ai-assistant.js?v=20261125-reading-assistant",
+      "assets/ai-assistant.js?v=20261125-shared-bubble"
     ]
   ],
   "mobile.html": [
@@ -776,6 +786,16 @@
       459,
       "assets/ai-assistant.js?v=20261125-context-guide",
       "assets/ai-assistant.js?v=20261125-reading-assistant"
+    ],
+    [
+      389,
+      "assets/ai-assistant.css?v=20261125-reading-assistant",
+      "assets/ai-assistant.css?v=20261125-shared-bubble"
+    ],
+    [
+      455,
+      "assets/ai-assistant.js?v=20261125-reading-assistant",
+      "assets/ai-assistant.js?v=20261125-shared-bubble"
     ]
   ],
   "contact.html": [
@@ -818,6 +838,16 @@
       487,
       "assets/ai-assistant.js?v=20261125-context-guide",
       "assets/ai-assistant.js?v=20261125-reading-assistant"
+    ],
+    [
+      417,
+      "assets/ai-assistant.css?v=20261125-reading-assistant",
+      "assets/ai-assistant.css?v=20261125-shared-bubble"
+    ],
+    [
+      483,
+      "assets/ai-assistant.js?v=20261125-reading-assistant",
+      "assets/ai-assistant.js?v=20261125-shared-bubble"
     ]
   ],
   "mobile-contact.html": [
@@ -880,6 +910,16 @@
       459,
       "assets/ai-assistant.js?v=20261125-context-guide",
       "assets/ai-assistant.js?v=20261125-reading-assistant"
+    ],
+    [
+      389,
+      "assets/ai-assistant.css?v=20261125-reading-assistant",
+      "assets/ai-assistant.css?v=20261125-shared-bubble"
+    ],
+    [
+      455,
+      "assets/ai-assistant.js?v=20261125-reading-assistant",
+      "assets/ai-assistant.js?v=20261125-shared-bubble"
     ]
   ],
   "trend.html": [
@@ -1172,6 +1212,16 @@
       939,
       "assets/ai-assistant.js?v=20261125-context-guide",
       "assets/ai-assistant.js?v=20261125-reading-assistant"
+    ],
+    [
+      869,
+      "assets/ai-assistant.css?v=20261125-reading-assistant",
+      "assets/ai-assistant.css?v=20261125-shared-bubble"
+    ],
+    [
+      935,
+      "assets/ai-assistant.js?v=20261125-reading-assistant",
+      "assets/ai-assistant.js?v=20261125-shared-bubble"
     ]
   ],
   "mobile-trend.html": [
@@ -1439,6 +1489,16 @@
       936,
       "assets/ai-assistant.js?v=20261125-context-guide",
       "assets/ai-assistant.js?v=20261125-reading-assistant"
+    ],
+    [
+      866,
+      "assets/ai-assistant.css?v=20261125-reading-assistant",
+      "assets/ai-assistant.css?v=20261125-shared-bubble"
+    ],
+    [
+      932,
+      "assets/ai-assistant.js?v=20261125-reading-assistant",
+      "assets/ai-assistant.js?v=20261125-shared-bubble"
     ]
   ],
   "resume.html": [
@@ -1718,6 +1778,16 @@
       146,
       "assets/ai-assistant.js?v=20261125-context-guide",
       "assets/ai-assistant.js?v=20261125-reading-assistant"
+    ],
+    [
+      76,
+      "assets/ai-assistant.css?v=20261125-reading-assistant",
+      "assets/ai-assistant.css?v=20261125-shared-bubble"
+    ],
+    [
+      142,
+      "assets/ai-assistant.js?v=20261125-reading-assistant",
+      "assets/ai-assistant.js?v=20261125-shared-bubble"
     ]
   ]
 }
