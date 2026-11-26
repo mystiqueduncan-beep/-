@@ -145,7 +145,7 @@ try:
                 live_motion=engine.new_page(viewport={"width":width,"height":height})
             live_motion.route("https://**/*",lambda route:route.abort())
             live_motion.goto(f"{base}/{file}?view={view}",wait_until="domcontentloaded")
-            live_motion.locator(".bs-ai-guide-hint-text").wait_for()
+            live_motion.locator(".bs-ai-guide-hint-text").wait_for(state="attached")
             # The site-wide pop/glimmer must never attach to the widget.
             # Capture hit-target geometry immediately, before the greeting.
             initial=live_motion.evaluate("""async()=>{const a=document.querySelector('.bs-ai-launcher'),b=document.querySelector('.bs-ai-guide-hint'),out=[];for(let i=0;i<12;i++){out.push([a.getBoundingClientRect().top,b.getBoundingClientRect().top,getComputedStyle(a).animationName,getComputedStyle(b).animationName,a.classList.contains('site-button-motion'),b.classList.contains('site-button-motion')]);await new Promise(r=>setTimeout(r,100));}return out;}""")
