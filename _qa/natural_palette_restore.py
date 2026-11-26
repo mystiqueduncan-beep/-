@@ -12,6 +12,19 @@ PATCHES=json.loads(Path(__file__).with_name("natural_palette_html.json").read_te
 REGIONS=re.compile(r'<style\b[^>]*>[\s\S]*?</style>|\bstyle="[^"]*"',re.I)
 
 def restore_natural_html(name, html):
+    # Exact cache-key-only release normalization; preserve the immutable
+    # historical offsets, hashes, approved content and all subsequent checks.
+    widget_pages = {"index.html", "mobile.html", "contact.html", "mobile-contact.html", "trend.html", "mobile-trend.html", "data-visualization.html"}
+    if name in widget_pages:
+        current = 'href="assets/ai-assistant.css?v=20261126-isolated-motion"'
+        previous = 'href="assets/ai-assistant.css?v=20261125-shared-bubble"'
+        assert html.count(current) == 1 and previous not in html, (name, "reading widget CSS release key")
+        html = html.replace(current, previous, 1)
+    if name in widget_pages - {"data-visualization.html"}:
+        current = 'src="assets/page-transitions.js?v=20261126-isolated-motion"'
+        previous = 'src="assets/page-transitions.js?v=20261125-editorial"'
+        assert html.count(current) == 1 and previous not in html, (name, "page transitions JS release key")
+        html = html.replace(current, previous, 1)
     # Reverse only exact, user-approved editorial fragments; leave all original guards in force.
     for offset, old, new in reversed(EDITORIAL_PATCHES.get(name, [])):
         assert html[offset:offset+len(new)] == new, (name, offset, "unapproved editorial change")
