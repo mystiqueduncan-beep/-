@@ -1082,7 +1082,7 @@
   const reduce=window.matchMedia?.("(prefers-reduced-motion: reduce)");
   function init() {
     const buttons=[...document.querySelectorAll(selector)]
-      .filter(e=>!e.closest("[hidden],[aria-hidden='true']") && !e.matches(":disabled,[aria-disabled='true']"));
+      .filter(e=>!e.closest("#bs-ai-root,[hidden],[aria-hidden='true']") && !e.matches(":disabled,[aria-disabled='true']"));
     if(!buttons.length) return;
     let observer;
     const pending=new Set();

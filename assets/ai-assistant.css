@@ -507,3 +507,16 @@
     .bs-ai-root .bs-ai-dock .bs-ai-launcher-face {height:52px;min-height:52px;max-height:52px;}
   }
 }
+
+/* The reading assistant owns its animation; generic site button effects must
+   never translate the stationary hit targets or desynchronize their faces. */
+@media screen {
+  .bs-ai-root .bs-ai-dock {align-items:flex-start;}
+  .bs-ai-root .bs-ai-dock > .bs-ai-launcher {
+    align-self:flex-start;flex:0 0 auto;top:0;
+    animation:none!important;transform:none!important;transition:none!important;
+  }
+  .bs-ai-root .bs-ai-dock > .bs-ai-guide-hint {
+    animation:none!important;transform:none!important;
+  }
+}

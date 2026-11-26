@@ -146,6 +146,11 @@ try:
             live_motion.route("https://**/*",lambda route:route.abort())
             live_motion.goto(f"{base}/{file}?view={view}",wait_until="domcontentloaded")
             live_motion.locator(".bs-ai-guide-hint-text").wait_for()
+            # The site-wide pop/glimmer must never attach to the widget.
+            # Capture hit-target geometry immediately, before the greeting.
+            initial=live_motion.evaluate("""async()=>{const a=document.querySelector('.bs-ai-launcher'),b=document.querySelector('.bs-ai-guide-hint'),out=[];for(let i=0;i<12;i++){out.push([a.getBoundingClientRect().top,b.getBoundingClientRect().top,getComputedStyle(a).animationName,getComputedStyle(b).animationName,a.classList.contains('site-button-motion'),b.classList.contains('site-button-motion')]);await new Promise(r=>setTimeout(r,100));}return out;}""")
+            assert all(row[2:]==["none","none",False,False] for row in initial), (file,initial)
+            assert all(max(row[i] for row in initial)-min(row[i] for row in initial)<0.5 for i in (0,1)), (file,initial)
             expect(live_motion.locator(".bs-ai-guide-hint-text")).to_have_text("想找什麼嗎？",timeout=6000)
             dock=live_motion.locator(".bs-ai-dock")
             assert dock.evaluate("e=>getComputedStyle(e).animationDuration")=="2.7s"
