@@ -453,8 +453,9 @@
   .bs-ai-root .bs-ai-dock .bs-ai-launcher:hover .bs-ai-launcher-face,
   .bs-ai-root .bs-ai-dock .bs-ai-launcher:focus-visible .bs-ai-launcher-face,
   .bs-ai-root .bs-ai-dock .bs-ai-launcher:active .bs-ai-launcher-face {animation:bs-reading-shared-float 2.7s ease-in-out infinite;transition:none;}
+  /* Match the launcher interaction selector specificity so the animation shorthand cannot reset pause. */
   .bs-ai-root .bs-ai-dock:hover :is(.bs-ai-launcher-face,.bs-ai-guide-face),
-  .bs-ai-root .bs-ai-dock:has(:focus-visible) :is(.bs-ai-launcher-face,.bs-ai-guide-face) {animation-play-state:paused;}
+  .bs-ai-root .bs-ai-dock:has(:focus-visible) :is(.bs-ai-launcher-face,.bs-ai-guide-face) {animation-play-state:paused!important;}
   .bs-ai-root--open .bs-ai-dock :is(.bs-ai-launcher-face,.bs-ai-guide-face) {animation:none!important;transform:none!important;}
   @keyframes bs-reading-shared-float {0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
   .bs-ai-root .bs-ai-guide-hint {bottom:calc(100% + 11px);transform:none;transition:opacity .6s ease,visibility 0s linear .6s;}
