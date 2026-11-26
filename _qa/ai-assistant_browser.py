@@ -157,7 +157,7 @@ try:
             if view=="desktop":
                 live_motion.mouse.move(10,10)
             dock=live_motion.locator(".bs-ai-dock")
-            print("Passive motion state",file,engine.name,dock.evaluate("""e=>({state:getComputedStyle(e).animationPlayState,hover:e.matches(\":hover\"),focus:!!e.querySelector(\":focus-visible\"),animations:e.getAnimations().map(a=>({state:a.playState,time:a.currentTime})),y:getComputedStyle(e).getPropertyValue(\"--bs-reading-y\")})"""),flush=True)
+            print("Passive motion state",file,engine.browser_type.name,dock.evaluate("""e=>({state:getComputedStyle(e).animationPlayState,hover:e.matches(\":hover\"),focus:!!e.querySelector(\":focus-visible\"),animations:e.getAnimations().map(a=>({state:a.playState,time:a.currentTime})),y:getComputedStyle(e).getPropertyValue(\"--bs-reading-y\")})"""),flush=True)
             assert dock.evaluate("e=>getComputedStyle(e).animationDuration")=="2.7s"
             samples=live_motion.evaluate("""async()=>{const a=document.querySelector('.bs-ai-launcher-face'),b=document.querySelector('.bs-ai-guide-face'),out=[];for(let i=0;i<16;i++){out.push([a.getBoundingClientRect().top,b.getBoundingClientRect().top,a.parentElement.getBoundingClientRect().top,b.parentElement.getBoundingClientRect().top]);await new Promise(r=>setTimeout(r,180));}return out;}""")
             assert 5.2<=max(x[0] for x in samples)-min(x[0] for x in samples)<=6.5,samples
