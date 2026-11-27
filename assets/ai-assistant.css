@@ -411,8 +411,8 @@
     opacity:1;
     visibility:visible;
     transform:translateY(0);
-    pointer-events:auto;
-    transition:opacity .4s ease,transform .4s ease,visibility 0s;
+    pointer-events:none;
+    transition:opacity .3s ease,transform .3s ease,visibility 0s;
   }
   .bs-ai-root .bs-ai-guide-hint::after {
     content:"";
@@ -454,12 +454,11 @@
   .bs-ai-root .bs-ai-dock .bs-ai-launcher:focus-visible .bs-ai-launcher-face,
   .bs-ai-root .bs-ai-dock .bs-ai-launcher:active .bs-ai-launcher-face {animation:bs-reading-shared-float 2.7s ease-in-out infinite;transition:none;}
   /* Match the launcher interaction selector specificity so the animation shorthand cannot reset pause. */
-  .bs-ai-root .bs-ai-dock:hover :is(.bs-ai-launcher-face,.bs-ai-guide-face),
-  .bs-ai-root .bs-ai-dock:has(:focus-visible) :is(.bs-ai-launcher-face,.bs-ai-guide-face) {animation-play-state:paused!important;}
+  .bs-ai-root .bs-ai-dock.is-paused :is(.bs-ai-launcher-face,.bs-ai-guide-face) {animation-play-state:paused!important;}
   .bs-ai-root--open .bs-ai-dock :is(.bs-ai-launcher-face,.bs-ai-guide-face) {animation:none!important;transform:none!important;}
   @keyframes bs-reading-shared-float {0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
-  .bs-ai-root .bs-ai-guide-hint {bottom:calc(100% + 11px);transform:none;transition:opacity .6s ease,visibility 0s linear .6s;}
-  .bs-ai-root .bs-ai-guide-hint.is-visible {transform:none;transition:opacity .4s ease,visibility 0s;}
+  .bs-ai-root .bs-ai-guide-hint {bottom:calc(100% + 11px);transform:none;transition:opacity .4s ease,visibility 0s linear .4s;}
+  .bs-ai-root .bs-ai-guide-hint.is-visible {transform:none;transition:opacity .3s ease,visibility 0s;}
   .bs-ai-root .bs-ai-reset {flex-shrink:0;white-space:nowrap;border:1px solid #a9b7a3;border-radius:8px;background:#fdfbf6;color:#435247;font-size:11px;font-weight:650;min-height:36px;padding:6px 7px;}
   .bs-ai-root .bs-ai-header {gap:7px;padding:10px;}
   .bs-ai-root .bs-ai-header-icon {width:30px;height:30px;flex-basis:30px;font-size:18px;}
@@ -486,9 +485,13 @@
 @media screen {
   .bs-ai-root .bs-ai-dock .bs-ai-guide-hint {padding:0;border:0;background:transparent;box-shadow:none;overflow:visible;animation:none;}
   .bs-ai-root .bs-ai-dock .bs-ai-guide-hint::after {display:none;}
-  .bs-ai-root .bs-ai-guide-face {position:relative;display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border:1px solid #a7b6a2;border-radius:10px 10px 3px 10px;background:#fdfbf6;box-shadow:0 3px 8px #53645712;}
-  .bs-ai-root .bs-ai-guide-face::after {content:"";position:absolute;bottom:-5px;right:7px;width:8px;height:8px;background:#fdfbf6;border-right:1px solid #a7b6a2;border-bottom:1px solid #a7b6a2;transform:skewY(35deg);pointer-events:none;}
-  .bs-ai-root .bs-ai-guide-hint::before {content:"";position:absolute;inset:-6px 0 0;pointer-events:auto;}
+  .bs-ai-root .bs-ai-guide-face {position:relative;display:grid;grid-template-areas:"content";padding:10px 13px;font-size:12px;font-weight:650;line-height:1.5;border:1px solid #a7b6a2;border-radius:12px 12px 4px 12px;background:#fdfbf6;box-shadow:0 3px 8px #53645712;}
+  .bs-ai-root .bs-ai-guide-face::after {content:"";position:absolute;bottom:-5px;right:15px;width:8px;height:8px;background:#fdfbf6;border-right:1px solid #a7b6a2;border-bottom:1px solid #a7b6a2;transform:skewY(35deg);pointer-events:none;}
+  .bs-ai-root .bs-ai-guide-hint::before {display:none;}
+  .bs-ai-root .bs-ai-guide-hint {pointer-events:none!important;user-select:none;}
+  .bs-ai-root .bs-ai-guide-measure,.bs-ai-root .bs-ai-guide-typed {grid-area:content;text-align:left;white-space:nowrap;}
+  .bs-ai-root .bs-ai-guide-measure {visibility:hidden;}
+  .bs-ai-root .bs-ai-guide-typed {align-self:center;}
 }
 
 /* Both faces use the same native transform keyframes and document timeline. */
@@ -500,7 +503,7 @@
   .bs-ai-root .bs-ai-dock .bs-ai-launcher-face {height:56px;min-height:56px;max-height:56px;}
   .bs-ai-root .bs-ai-dock .bs-ai-launcher-copy {flex-shrink:0;}
   .bs-ai-root .bs-ai-dock .bs-ai-guide-hint,
-  .bs-ai-root .bs-ai-dock .bs-ai-guide-face {height:32px;min-height:32px;max-height:32px;}
+  .bs-ai-root .bs-ai-dock .bs-ai-guide-face {box-sizing:border-box;height:40px;min-height:40px;max-height:40px;}
   @media (max-width:480px) {
     .bs-ai-root .bs-ai-dock,
     .bs-ai-root .bs-ai-dock .bs-ai-launcher,
@@ -519,4 +522,17 @@
   .bs-ai-root .bs-ai-dock > .bs-ai-guide-hint {
     animation:none!important;transform:none!important;
   }
+}
+
+/* Desktop: one interpolated value drives both visible faces, not two clocks. */
+@property --bs-reading-desktop-y {syntax:"<length>";inherits:true;initial-value:0px;}
+@keyframes bs-reading-desktop-float {0%,100%{--bs-reading-desktop-y:0px;}50%{--bs-reading-desktop-y:-6px;}}
+@media screen and (min-width:769px) {
+  .bs-ai-root .bs-ai-dock {--bs-reading-desktop-y:0px;animation:bs-reading-desktop-float 2.7s ease-in-out infinite;}
+  .bs-ai-root .bs-ai-dock .bs-ai-launcher-face,
+  .bs-ai-root .bs-ai-dock .bs-ai-guide-face,
+  .bs-ai-root .bs-ai-dock .bs-ai-launcher:is(:hover,:focus-visible,:active) .bs-ai-launcher-face {animation:none!important;transform:translateY(var(--bs-reading-desktop-y));transition:none;}
+  .bs-ai-root .bs-ai-dock.is-paused {animation-play-state:paused;}
+  .bs-ai-root--open .bs-ai-dock {animation:none;--bs-reading-desktop-y:0px;}
+  @media(prefers-reduced-motion:reduce){.bs-ai-root .bs-ai-dock{animation:none!important;--bs-reading-desktop-y:0px;}}
 }

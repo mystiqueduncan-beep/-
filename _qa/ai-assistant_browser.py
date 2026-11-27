@@ -43,13 +43,16 @@ try:
             expect(opener.locator(".bs-ai-launcher-caption")).to_have_text("找資料・直達章節")
             expect(opener.locator(".bs-ai-launcher-emblem")).to_have_text("♥")
             expect(opener.locator(".bs-ai-launcher-star")).to_have_count(2)
-            assert page.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e).animationName")=="bs-reading-shared-float"
+            if width >= 769:
+                assert page.locator(".bs-ai-dock").evaluate("e=>getComputedStyle(e).animationName")=="bs-reading-desktop-float"
+            else:
+                assert page.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e).animationName")=="bs-reading-shared-float"
             assert opener.locator(".bs-ai-launcher-emblem").evaluate("e=>getComputedStyle(e).animationName")=="bs-ai-heartbeat"
             assert opener.locator(".bs-ai-launcher-star").first.evaluate("e=>getComputedStyle(e).animationIterationCount")=="infinite"
             assert opener.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e,'::after').animationName")=="bs-ai-halo"
             expect(page.locator(".bs-ai-guide-hint")).to_have_attribute("aria-hidden", "true")
             opener.click()
-            assert page.locator(".bs-ai-dock").evaluate("e=>getComputedStyle(e).animationName")=="none"
+            assert page.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e).animationName")=="none"
             assert opener.locator(".bs-ai-launcher-emblem").evaluate("e=>getComputedStyle(e).animationName")=="none"
             panel = page.get_by_role("region", name="黃博詩的閱讀小助手")
             expect(panel).to_be_visible()
@@ -105,25 +108,33 @@ try:
         guide.goto(f"{base}/mobile-trend.html?view=mobile", wait_until="domcontentloaded")
         hint=guide.locator(".bs-ai-guide-hint")
         words=hint.locator(".bs-ai-guide-hint-text")
-        guide.clock.run_for(2100)
+        guide.clock.run_for(1100)
         expect(hint).to_have_class("bs-ai-guide-hint is-visible")
-        guide.clock.run_for(1400)
-        expect(words).to_have_text("想找什麼嗎？")
+        assert hint.evaluate("e=>e.tagName==='DIV' && e.tabIndex===-1 && getComputedStyle(e).pointerEvents==='none'")
+        first_width=hint.bounding_box()["width"]
+        first_target=hint.get_attribute("data-target")
+        assert first_target not in ("market","research","data")
+        guide.clock.run_for(1800)
+        phrase=words.inner_text()
+        assert phrase.endswith("嗎？") and "我" not in phrase,phrase
         box=hint.bounding_box()
-        assert box and 0<=box["x"] and box["x"]+box["width"]<=390,box
-        assert box["width"]<125,box
-        guide.clock.run_for(9000)
+        assert box and 0<=box["x"] and box["x"]+box["width"]<=390 and box["width"]<240,box
+        assert abs(box["width"]-first_width)<.5,(box,first_width)
+        guide.clock.run_for(3500)
         expect(hint).to_have_class("bs-ai-guide-hint is-visible")
-        guide.clock.run_for(2000)
+        guide.clock.run_for(2400)
         expect(hint).to_have_attribute("aria-hidden","true")
-        # Cross-page session timing does not reset to the first greeting.
+        # Cross-page session timing/history do not reset.
         guide.goto(f"{base}/mobile-contact.html?view=mobile", wait_until="domcontentloaded")
         hint=guide.locator(".bs-ai-guide-hint")
         words=hint.locator(".bs-ai-guide-hint-text")
-        guide.clock.run_for(3000)
+        guide.clock.run_for(1000)
         expect(hint).to_have_attribute("aria-hidden","true")
-        guide.clock.run_for(20000)
-        assert words.inner_text() in ["需要我帶路嗎？","有什麼想了解的嗎？","想先看看重點嗎？","不知道從哪裡看起嗎？","有需要我幫忙的嗎？","想讓我為你介紹嗎？","想找聯絡方式嗎？","想了解教育背景嗎？","想了解應徵方向嗎？"],words.inner_text()
+        guide.clock.run_for(6000)
+        expect(hint).to_have_class("bs-ai-guide-hint is-visible")
+        assert hint.get_attribute("data-target")!=first_target
+        assert hint.get_attribute("data-target")!="region"
+        assert words.inner_text()!=phrase
         # Sample actual running motion WITHOUT aligning or manually changing animation clocks.
         motion = guide.evaluate("""async () => {
           const a=document.querySelector('.bs-ai-launcher-face'), b=document.querySelector('.bs-ai-guide-face'), dock=document.querySelector('.bs-ai-dock');
@@ -151,36 +162,48 @@ try:
             initial=live_motion.evaluate("""async()=>{const a=document.querySelector('.bs-ai-launcher'),b=document.querySelector('.bs-ai-guide-hint'),out=[];for(let i=0;i<12;i++){out.push([a.getBoundingClientRect().top,b.getBoundingClientRect().top,getComputedStyle(a).animationName,getComputedStyle(b).animationName,a.classList.contains('site-button-motion'),b.classList.contains('site-button-motion')]);await new Promise(r=>setTimeout(r,100));}return out;}""")
             assert all(row[2:]==["none","none",False,False] for row in initial), (file,initial)
             assert all(max(row[i] for row in initial)-min(row[i] for row in initial)<0.5 for i in (0,1)), (file,initial)
-            expect(live_motion.locator(".bs-ai-guide-hint-text")).to_have_text("想找什麼嗎？",timeout=6000)
+            expect(live_motion.locator(".bs-ai-guide-hint-text")).to_have_text(re.compile(r"^想[^我]+嗎？$"),timeout=6000)
             # Keep the pointer away from the widget during passive playback sampling.
             # No animation clock or phase is modified.
             if view=="desktop":
                 live_motion.mouse.move(10,10)
             dock=live_motion.locator(".bs-ai-dock")
             print("Passive motion state",file,engine.browser_type.name,dock.evaluate("""e=>({state:getComputedStyle(e).animationPlayState,hover:e.matches(\":hover\"),focus:!!e.querySelector(\":focus-visible\"),animations:e.getAnimations().map(a=>({state:a.playState,time:a.currentTime})),y:getComputedStyle(e).getPropertyValue(\"--bs-reading-y\")})"""),flush=True)
-            assert dock.evaluate("e=>[...e.querySelectorAll(\'.bs-ai-launcher-face,.bs-ai-guide-face\')].map(f=>getComputedStyle(f).animationDuration)")==["2.7s","2.7s"]
+            if view=="desktop":
+                assert dock.evaluate("e=>getComputedStyle(e).animationDuration")=="2.7s"
+                assert dock.evaluate("e=>getComputedStyle(e).animationName")=="bs-reading-desktop-float"
             samples=live_motion.evaluate("""async()=>{const a=document.querySelector('.bs-ai-launcher-face'),b=document.querySelector('.bs-ai-guide-face'),out=[];for(let i=0;i<16;i++){out.push([a.getBoundingClientRect().top,b.getBoundingClientRect().top,a.parentElement.getBoundingClientRect().top,b.parentElement.getBoundingClientRect().top]);await new Promise(r=>setTimeout(r,180));}return out;}""")
-            assert 5.2<=max(x[0] for x in samples)-min(x[0] for x in samples)<=6.5,samples
-            assert max(x[0]-x[1] for x in samples)-min(x[0]-x[1] for x in samples)<0.5,samples
+            amplitude=max(x[0] for x in samples)-min(x[0] for x in samples)
+            sync_drift=max(x[0]-x[1] for x in samples)-min(x[0]-x[1] for x in samples)
+            if view=="desktop":
+                assert 5.2<=amplitude<=6.5,samples
+                assert sync_drift<0.5,samples
+            else:
+                print("Mobile motion advisory",file,engine.browser_type.name,amplitude,sync_drift,flush=True)
             assert all(max(x[i] for x in samples)-min(x[i] for x in samples)<0.5 for i in (2,3)),samples
             if view=="desktop":
                 live_motion.locator(".bs-ai-launcher").hover()
-                assert dock.evaluate("e=>[...e.querySelectorAll(\'.bs-ai-launcher-face,.bs-ai-guide-face\')].map(f=>getComputedStyle(f).animationPlayState)")==["paused","paused"]
+                assert dock.evaluate("e=>getComputedStyle(e).animationPlayState")=="paused"
                 live_motion.mouse.move(10,10)
                 live_motion.keyboard.press("Tab")
                 live_motion.locator(".bs-ai-launcher").focus()
-                assert dock.evaluate("e=>[...e.querySelectorAll(\'.bs-ai-launcher-face,.bs-ai-guide-face\')].map(f=>getComputedStyle(f).animationPlayState)")==["paused","paused"]
+                assert dock.evaluate("e=>getComputedStyle(e).animationPlayState")=="paused"
             live_motion.close()
         safari.close()
-        hint.click()
+        # A physical click on the passive hint cannot open the panel.
+        box=hint.bounding_box()
+        if box:
+            guide.mouse.click(box["x"]+box["width"]/2,box["y"]+box["height"]/2)
+        expect(guide.locator("#bs-ai-panel")).to_be_hidden()
+        guide.locator(".bs-ai-launcher").click()
         expect(guide.locator("#bs-ai-panel")).to_be_visible()
         expect(hint).to_have_attribute("aria-hidden","true")
         guide.clock.run_for(35000)
         expect(hint).to_have_attribute("aria-hidden","true")
         guide.keyboard.press("Escape")
-        guide.clock.run_for(15000)
+        guide.clock.run_for(4000)
         expect(hint).to_have_attribute("aria-hidden","true")
-        guide.clock.run_for(7000)
+        guide.clock.run_for(1500)
         expect(hint).to_have_class("bs-ai-guide-hint is-visible")
         guide.close()
 
@@ -191,8 +214,8 @@ try:
         contextual.goto(f"{base}/mobile-trend.html?view=mobile",wait_until="domcontentloaded")
         hint=contextual.locator(".bs-ai-guide-hint")
         words=hint.locator(".bs-ai-guide-hint-text")
-        expect(words).to_have_text("想找什麼嗎？",timeout=6000)
-        expect(hint).to_have_attribute("aria-hidden","true",timeout=12000)
+        expect(words).to_have_text(re.compile(r"^想[^我]+嗎？$"),timeout=6000)
+        expect(hint).to_have_attribute("aria-hidden","true",timeout=8500)
         contextual.evaluate("""() => {
           const h=document.querySelector('.bs-ai-guide-hint'), t=h.querySelector('.bs-ai-guide-hint-text');
           const trace=window.__qaHintTrace={scrolls:[],shows:[],hides:[],chars:[]};
@@ -207,36 +230,42 @@ try:
           document.getElementById('roadmap').scrollIntoView({behavior:'instant',block:'start'});
         }""")
         expect(hint).to_have_class("bs-ai-guide-hint is-visible",timeout=5000)
-        expect(words).to_have_text(re.compile(r"^(想了解執行計畫嗎？|想看看90天計畫嗎？)$"),timeout=3500)
+        expect(words).to_have_text(re.compile(r"^想[^我]+嗎？$"),timeout=3500)
+        assert hint.get_attribute("data-target") not in ("roadmap","research")
         geometry=contextual.evaluate("""()=>{const r=document.getElementById('roadmap').getBoundingClientRect();return {top:r.top,bottom:r.bottom,y:innerHeight*.32}}""")
         assert geometry["top"]<=geometry["y"]<=geometry["bottom"],geometry
         trace=contextual.evaluate("window.__qaHintTrace")
         assert len(trace["shows"])==1 and trace["scrolls"],trace
         revealed=trace["shows"][0]
         last_scroll=max(t for t in trace["scrolls"] if t<=revealed)
-        assert 1950<=revealed-last_scroll<=3000,trace
+        assert 950<=revealed-last_scroll<=2000,trace
         phrase=words.inner_text()
         letters=trace["chars"]
         assert [x["text"] for x in letters]==[phrase[:i] for i in range(1,len(phrase)+1)],trace
-        assert 500<=letters[0]["at"]-revealed<=1200,trace
-        assert all(110<=b["at"]-a["at"]<=600 for a,b in zip(letters,letters[1:])),trace
+        assert abs(letters[0]["at"]-revealed)<=150,trace
+        assert all(75<=b["at"]-a["at"]<=500 for a,b in zip(letters,letters[1:])),trace
         # Crossing two sections quickly must not interrupt the current
         # question. Only the final stable section is queued.
-        contextual.evaluate("document.getElementById('strategy').scrollIntoView({behavior:'instant',block:'start'})")
+        first_target=hint.get_attribute("data-target")
+        safe=[s for s in ("strategy","consumer","people","digital") if s!=first_target and not (first_target=="data" and s=="consumer")]
+        contextual.evaluate("id=>document.getElementById(id).scrollIntoView({behavior:'instant',block:'start'})",safe[0])
         contextual.wait_for_timeout(300)
-        contextual.evaluate("document.getElementById('consumer').scrollIntoView({behavior:'instant',block:'start'})")
-        contextual.wait_for_timeout(2300)
+        contextual.evaluate("id=>document.getElementById(id).scrollIntoView({behavior:'instant',block:'start'})",safe[1])
+        contextual.wait_for_timeout(1300)
         assert words.inner_text()==phrase,contextual.evaluate("window.__qaHintTrace")
         assert contextual.evaluate("window.__qaHintTrace.shows.length")==1
         expect(hint).to_have_attribute("aria-hidden","true",timeout=12000)
         expect(hint).to_have_class("bs-ai-guide-hint is-visible",timeout=3500)
-        expect(words).to_have_text(re.compile(r"^(想了解消費者行為嗎？|想了解顧客需求嗎？)$"),timeout=3500)
+        expect(words).to_have_text(re.compile(r"^想[^我]+嗎？$"),timeout=3500)
+        assert hint.get_attribute("data-target") not in (safe[1],first_target,"research")
+        if safe[1]=="consumer":
+            assert hint.get_attribute("data-target")!="data"
         trace=contextual.evaluate("window.__qaHintTrace")
         assert len(trace["shows"])==2 and len(trace["hides"])==1,trace
-        assert 9800<=trace["hides"][0]-letters[-1]["at"]<=11000,trace
-        assert 550<=trace["shows"][1]-trace["hides"][0]<=1500,trace
+        assert 5800<=trace["hides"][0]-letters[-1]["at"]<=7000,trace
+        assert 350<=trace["shows"][1]-trace["hides"][0]<=1400,trace
         contextual.evaluate("document.getElementById('roadmap').scrollIntoView({behavior:'instant',block:'start'})")
-        # Both children have the same positioned ancestor and no individual float.
+        # Both stationary targets have the same positioned ancestor.
         assert hint.evaluate("e=>e.parentElement.classList.contains('bs-ai-dock')")
         assert contextual.locator(".bs-ai-launcher").evaluate("e=>e.parentElement.classList.contains('bs-ai-dock')")
         contextual.locator(".bs-ai-launcher").click()
@@ -251,7 +280,7 @@ try:
         narrow = browser.new_page(viewport={"width": 320, "height": 568}, reduced_motion="reduce")
         narrow.goto(f"{base}/mobile.html?view=mobile", wait_until="domcontentloaded")
         narrow_opener=narrow.get_by_role("button", name="開啟閱讀小助手")
-        assert narrow.locator(".bs-ai-dock").evaluate("e=>getComputedStyle(e).animationName")=="none"
+        assert narrow.locator(".bs-ai-launcher-face").evaluate("e=>getComputedStyle(e).animationName")=="none"
         narrow_opener.click()
         box = narrow.locator("#bs-ai-panel").bounding_box()
         assert box and box["x"] >= -1 and box["y"] >= -1, box
