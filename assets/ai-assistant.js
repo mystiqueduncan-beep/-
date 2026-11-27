@@ -259,10 +259,7 @@
       element("small", "bs-ai-launcher-caption", "找資料・直達章節"));
     face.append(emblem, label, starOne, starTwo);
     launcher.append(face);
-    const hint = element("button", "bs-ai-guide-hint");
-    hint.type = "button";
-    hint.tabIndex = -1;
-    hint.setAttribute("aria-label", "開啟閱讀小助手");
+    const hint = element("div", "bs-ai-guide-hint");
     hint.setAttribute("aria-hidden", "true");
     const hintText = element("span", "bs-ai-guide-hint-text");
     hintText.setAttribute("aria-hidden", "true");
@@ -270,10 +267,21 @@
     cursor.setAttribute("aria-hidden", "true");
     cursor.hidden = true;
     const hintFace = element("span", "bs-ai-guide-face");
-    hintFace.append(hintText, cursor);
+    const hintMeasure = element("span", "bs-ai-guide-measure");
+    hintMeasure.setAttribute("aria-hidden", "true");
+    const hintTyped = element("span", "bs-ai-guide-typed");
+    hintTyped.append(hintText, cursor);
+    hintFace.append(hintMeasure, hintTyped);
     hint.append(hintFace);
     const dock = element("div","bs-ai-dock");
     dock.append(launcher,hint);
+    // Pause only the actual launcher, never a passive bubble or touch hover.
+    let pointerPaused = false;
+    const syncPause = () => dock.classList.toggle("is-paused", pointerPaused || launcher.matches(":focus-visible"));
+    launcher.addEventListener("pointerenter", event => { if (event.pointerType==="mouse" && matchMedia("(hover: hover)").matches) { pointerPaused=true; syncPause(); } });
+    launcher.addEventListener("pointerleave", () => { pointerPaused=false; syncPause(); });
+    launcher.addEventListener("focus", syncPause);
+    launcher.addEventListener("blur", () => { pointerPaused=false; syncPause(); });
     root.append(panel, dock);
     document.body.append(root);
 
@@ -289,53 +297,50 @@
       return candidates.filter(s=>s.box.top<=y).sort((a,b)=>b.box.top-a.box.top)[0] || candidates[0] || {id:"overview",topic:menus[pageKind][0],phrase:"想先看看重點嗎？"};
     }
     let active = visibleSection(), pendingSection = false, sectionTimer = 0;
-    const sectionAlternatives = {
-      profile:["想先認識我嗎？","想了解應徵方向嗎？"],
-      motivation:["想了解應徵動機嗎？","想了解職涯方向嗎？"],
-      competencies:["想了解管理能力嗎？","想了解核心專長嗎？"],
-      cases:["想了解改善構想嗎？","想看看門市改善方法嗎？"],
-      career:["想了解工作經歷嗎？","想了解店長經驗嗎？"],
-      proposal:["想了解工作構想嗎？","想看看到任後的規劃嗎？"],
-      research:["想看看產業研究嗎？","想了解研究重點嗎？"],
-      market:["想了解市場趨勢嗎？","想了解商品結構嗎？"],
-      competition:["想了解品牌競爭嗎？","想看看品牌定位嗎？"],
-      consumer:["想了解消費者行為嗎？","想了解顧客需求嗎？"],
-      location:["想了解展店策略嗎？","想了解商圈評估嗎？"],
-      digital:["想了解數位轉型嗎？","想看看數位工具嗎？"],
-      people:["想了解人才管理嗎？","想了解新人帶訓嗎？"],
-      experience:["想了解跨店管理嗎？","想了解門市實務嗎？"],
-      strategy:["想了解改善方針嗎？","想看看六項改善構想嗎？"],
-      roadmap:["想了解執行計畫嗎？","想看看90天計畫嗎？"],
-      metrics:["想了解評估指標嗎？","想了解如何衡量成效嗎？"],
-      sources:["想查看研究來源嗎？","想了解研究依據嗎？"],
-      education:["想了解教育背景嗎？","想了解目前學歷嗎？"],
-      contact:["想找聯絡方式嗎？","想了解聯絡管道嗎？"],
-      resume:["想了解應徵方向嗎？","想了解職涯背景嗎？"]
-    };
     let afterClose = 0;
     function updateContext() {
       contextLabel.textContent = "正在閱讀："+(cards[active.topic]?.[1] || "作品集");
     }
 
-    // Contextual prompts: all approved copy, no tracking or question storage.
-    const common = ["想找什麼嗎？", "需要我帶路嗎？", "有什麼想了解的嗎？",
-      "想先看看重點嗎？", "不知道從哪裡看起嗎？",
-      "有需要我幫忙的嗎？", "想讓我為你介紹嗎？"];
-    const contextual = currentPage.includes("trend") || currentPage === "data-visualization.html"
-      ? ["想看看產業研究嗎？", "想了解管理能力嗎？"]
-      : currentPage.includes("contact")
-        ? ["想找聯絡方式嗎？", "想了解教育背景嗎？"]
-        : ["想了解工作經歷嗎？", "想了解管理能力嗎？", "想了解應徵動機嗎？"];
-    const key = "bs-ai-guide-timing-v1";
-    const timing = { first:2000, enter:400, char:140, hold:10000, fade:600, gap:20000, idle:2000 };
-    let state = { seen:false, nextAt:Date.now()+timing.first, last:"", used:[] };
+    // Passive, cross-section prompts. The panel remains the sole action entry.
+    const directions = [
+      ["introduction",["home:profile"],["想了解個人背景嗎？","想看看職涯方向嗎？"]],
+      ["motivation",["home:motivation"],["想了解應徵動機嗎？","想了解職涯規劃嗎？"]],
+      ["skills",["home:competencies"],["想了解管理能力嗎？","想看看核心專長嗎？"]],
+      ["cases",["home:cases"],["想了解改善構想嗎？","想看看門市改善方法嗎？"]],
+      ["experience",["home:career","trend:experience"],["想了解工作經歷嗎？","想看看門市實務嗎？"]],
+      ["proposal",["home:proposal"],["想了解工作構想嗎？","想看看到任後的規劃嗎？"]],
+      ["research",["home:research","trend:*"],["想看看產業研究嗎？","想了解研究重點嗎？"]],
+      ["market",["trend:market"],["想了解市場趨勢嗎？","想看看商品結構嗎？"]],
+      ["competition",["trend:competition"],["想了解品牌競爭嗎？","想看看品牌定位嗎？"]],
+      ["consumer",["trend:consumer"],["想了解消費者行為嗎？","想了解顧客需求嗎？"]],
+      ["location",["trend:location"],["想了解展店策略嗎？","想了解商圈評估嗎？"]],
+      ["digital",["trend:digital"],["想了解數位轉型嗎？","想看看數位工具嗎？"]],
+      ["people",["trend:people"],["想了解人才管理嗎？","想了解新人帶訓嗎？"]],
+      ["strategy",["trend:strategy"],["想了解改善方針嗎？","想看看六項改善構想嗎？"]],
+      ["roadmap",["trend:roadmap"],["想了解執行計畫嗎？","想看看90天計畫嗎？"]],
+      ["metrics",["trend:metrics"],["想了解評估指標嗎？","想了解如何衡量成效嗎？"]],
+      ["sources",["trend:sources"],["想查看研究來源嗎？","想了解研究依據嗎？"]],
+      ["education",["contact:education"],["想了解教育背景嗎？","想看看學習經歷嗎？"]],
+      ["region",["contact:profile","contact:resume"],["想了解應徵方向嗎？","想看看求職條件嗎？"]],
+      ["contact",["contact:contact"],["想了解聯絡方式嗎？","想看看聯絡管道嗎？"]],
+      ["data",["trend:market","trend:consumer","trend:metrics","data:*"],["想看看數據分析嗎？","想了解數據重點嗎？"]]
+    ];
+    function excluded(direction) {
+      const context = pageKind+":"+active.id;
+      return direction[1].includes(context) || direction[1].includes(pageKind+":*") ||
+        (currentPage==="data-visualization.html" && ["market","consumer","metrics","data","research"].includes(direction[0]));
+    }
+    const key = "bs-ai-guide-timing-v2";
+    const timing = { first:1000, enter:300, char:100, hold:6000, fade:400, gap:5000, idle:1000 };
+    let state = { seen:false, nextAt:Date.now()+timing.first, last:"", lastTarget:"", used:[], usedTargets:[] };
     try {
       const saved = JSON.parse(sessionStorage.getItem(key) || "null");
       if (saved && typeof saved.seen === "boolean" && Number.isFinite(saved.nextAt)
-        && typeof saved.last === "string" && Array.isArray(saved.used)) {
-        state = { seen:saved.seen, nextAt:saved.nextAt, last:saved.last, used:saved.used.slice(-12) };
+        && typeof saved.last === "string" && Array.isArray(saved.used) && Array.isArray(saved.usedTargets)) {
+        state = {...state,...saved,used:saved.used.slice(-42),usedTargets:saved.usedTargets.slice(-21)};
       }
-    } catch (_) { /* Storage can be denied; reminders still work within the page. */ }
+    } catch (_) {}
     const save = () => { try { sessionStorage.setItem(key, JSON.stringify(state)); } catch (_) {} };
     save();
     // Scheduling a future hint must never cancel the current typing/hold phase.
@@ -348,31 +353,17 @@
     function hideHint() {
       hintVisible = false;
       hint.classList.remove("is-visible");
-      hint.tabIndex = -1;
       hint.setAttribute("aria-hidden", "true");
       cursor.hidden = true;
     }
     function pickPhrase() {
-      if (!state.seen) return common[0];
-      const specificPool = [...new Set([active.phrase,...contextual])];
-      if (pendingSection) {
-        pendingSection=false;
-        const options=[...new Set([active.phrase,...(sectionAlternatives[active.id]||[])])].filter(s=>s!==state.last);
-        const pool=options.length?options:[active.phrase];
-        return pool[Math.floor(Math.random()*pool.length)];
-      }
-      const pool = common.concat(specificPool);
-      let available = pool.filter(s => s !== state.last && !state.used.includes(s));
-      if (!available.length) {
-        state.used = [];
-        available = pool.filter(s => s !== state.last);
-      }
-      const general = available.filter(s => common.includes(s));
-      const specific = available.filter(s => specificPool.includes(s));
-      const group = general.length && specific.length
-        ? (Math.random() < .65 ? general : specific)
-        : available;
-      return group[Math.floor(Math.random()*group.length)];
+      const eligible = directions.filter(d=>!excluded(d) && d[0]!==state.lastTarget);
+      let pool = eligible.filter(d=>!state.usedTargets.includes(d[0]));
+      if (!pool.length) { state.usedTargets=[]; pool=eligible; }
+      const direction=pool[Math.floor(Math.random()*pool.length)];
+      let options=direction[2].filter(q=>!state.used.includes(q));
+      if (!options.length) options=direction[2];
+      return {target:direction[0],phrase:options[Math.floor(Math.random()*options.length)]};
     }
     function scheduleHint() {
       if (hintVisible) return;
@@ -393,41 +384,40 @@
     function showHint() {
       if (hintVisible || !panel.hidden || document.hidden) return;
       clearScheduledHint();
-      const phrase = pickPhrase();
+      const {target,phrase} = pickPhrase();
       pendingSection = false;
       const letters = Array.from(phrase);
-      const duration = reduceMotion ? 0 : timing.enter+letters.length*timing.char;
+      const duration = reduceMotion ? 0 : Math.max(0,letters.length-1)*timing.char;
       state.seen = true;
       state.last = phrase;
-      state.used = state.used.concat(phrase).slice(-12);
+      state.lastTarget = target;
+      state.usedTargets = state.usedTargets.concat(target).slice(-21);
+      state.used = state.used.concat(phrase).slice(-42);
       state.nextAt = Date.now()+duration+timing.hold+(reduceMotion ? 0 : timing.fade)+timing.gap;
       save();
       hintVisible = true;
-      hintText.textContent = reduceMotion ? phrase : "";
+      hint.dataset.target = target;
+      hintMeasure.textContent = phrase+"│";
+      hintText.textContent = reduceMotion ? phrase : letters[0];
       cursor.hidden = reduceMotion;
       hint.classList.add("is-visible");
-      hint.tabIndex = 0;
       hint.removeAttribute("aria-hidden");
       const finish = () => {
         cursor.hidden = true;
         phaseTimer = window.setTimeout(endHint, timing.hold);
       };
-      let i = 0;
+      let i = 1;
       const type = () => {
         if (!hintVisible) return;
         hintText.textContent = letters.slice(0, ++i).join("");
         if (i < letters.length) phaseTimer = window.setTimeout(type, timing.char);
         else finish();
       };
-      if (reduceMotion) finish();
-      else phaseTimer = window.setTimeout(type, timing.enter+timing.char);
+      if (reduceMotion || letters.length===1) finish();
+      else phaseTimer = window.setTimeout(type, timing.char);
     }
     function endHint() {
-      // Do not remove a focused control underneath keyboard users.
-      if (document.activeElement === hint) {
-        phaseTimer = window.setTimeout(endHint, 1000);
-        return;
-      }
+      window.clearTimeout(phaseTimer); phaseTimer=0;
       hideHint();
       fadeUntil = Date.now()+(reduceMotion ? 0 : timing.fade);
       state.nextAt = fadeUntil+(pendingSection ? 0 : timing.gap);
@@ -449,6 +439,10 @@
       if (!panel.hidden) { if(menuMode && !busy) renderMenu(); return; }
       if (!state.seen || document.hidden) return;
       pendingSection = true;
+      if (hintVisible && directions.some(d=>d[0]===state.lastTarget && excluded(d))) {
+        endHint();
+        return;
+      }
       if (!hintVisible) {
         state.nextAt = Math.max(Date.now(), afterClose, fadeUntil);
         save();
@@ -628,7 +622,6 @@
     renderMenu();
 
     launcher.addEventListener("click", () => setOpen(panel.hidden));
-    hint.addEventListener("click", () => setOpen(true));
     close.addEventListener("click", () => setOpen(false));
     form.addEventListener("submit", event => {
       event.preventDefault();
@@ -638,11 +631,7 @@
     input.addEventListener("compositionend", () => { composing = false; });
     document.addEventListener("keydown", event => {
       if (event.key === "Escape" && !panel.hidden) setOpen(false);
-      else if (event.key === "Escape" && hintVisible) {
-        if (document.activeElement === hint) launcher.focus({ preventScroll:true });
-        restartHint();
-      }
-    });
+     });
   }
 
   if (document.readyState === "loading") {

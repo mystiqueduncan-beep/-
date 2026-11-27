@@ -389,6 +389,21 @@
       483,
       "assets/ai-assistant.js?v=20261125-reading-assistant",
       "assets/ai-assistant.js?v=20261125-shared-bubble"
+    ],
+    [
+      417,
+      "assets/ai-assistant.css?v=20261125-shared-bubble",
+      "assets/ai-assistant.css?v=20261126-isolated-motion"
+    ],
+    [
+      417,
+      "assets/ai-assistant.css?v=20261126-isolated-motion",
+      "assets/ai-assistant.css?v=20261127-passive-guidance"
+    ],
+    [
+      483,
+      "assets/ai-assistant.js?v=20261125-shared-bubble",
+      "assets/ai-assistant.js?v=20261127-passive-guidance"
     ]
   ],
   "mobile.html": [
@@ -796,6 +811,21 @@
       455,
       "assets/ai-assistant.js?v=20261125-reading-assistant",
       "assets/ai-assistant.js?v=20261125-shared-bubble"
+    ],
+    [
+      389,
+      "assets/ai-assistant.css?v=20261125-shared-bubble",
+      "assets/ai-assistant.css?v=20261126-isolated-motion"
+    ],
+    [
+      389,
+      "assets/ai-assistant.css?v=20261126-isolated-motion",
+      "assets/ai-assistant.css?v=20261127-passive-guidance"
+    ],
+    [
+      455,
+      "assets/ai-assistant.js?v=20261125-shared-bubble",
+      "assets/ai-assistant.js?v=20261127-passive-guidance"
     ]
   ],
   "contact.html": [
@@ -848,6 +878,21 @@
       483,
       "assets/ai-assistant.js?v=20261125-reading-assistant",
       "assets/ai-assistant.js?v=20261125-shared-bubble"
+    ],
+    [
+      417,
+      "assets/ai-assistant.css?v=20261125-shared-bubble",
+      "assets/ai-assistant.css?v=20261126-isolated-motion"
+    ],
+    [
+      417,
+      "assets/ai-assistant.css?v=20261126-isolated-motion",
+      "assets/ai-assistant.css?v=20261127-passive-guidance"
+    ],
+    [
+      483,
+      "assets/ai-assistant.js?v=20261125-shared-bubble",
+      "assets/ai-assistant.js?v=20261127-passive-guidance"
     ]
   ],
   "mobile-contact.html": [
@@ -920,6 +965,21 @@
       455,
       "assets/ai-assistant.js?v=20261125-reading-assistant",
       "assets/ai-assistant.js?v=20261125-shared-bubble"
+    ],
+    [
+      389,
+      "assets/ai-assistant.css?v=20261125-shared-bubble",
+      "assets/ai-assistant.css?v=20261126-isolated-motion"
+    ],
+    [
+      389,
+      "assets/ai-assistant.css?v=20261126-isolated-motion",
+      "assets/ai-assistant.css?v=20261127-passive-guidance"
+    ],
+    [
+      455,
+      "assets/ai-assistant.js?v=20261125-shared-bubble",
+      "assets/ai-assistant.js?v=20261127-passive-guidance"
     ]
   ],
   "trend.html": [
@@ -1222,6 +1282,21 @@
       935,
       "assets/ai-assistant.js?v=20261125-reading-assistant",
       "assets/ai-assistant.js?v=20261125-shared-bubble"
+    ],
+    [
+      869,
+      "assets/ai-assistant.css?v=20261125-shared-bubble",
+      "assets/ai-assistant.css?v=20261126-isolated-motion"
+    ],
+    [
+      869,
+      "assets/ai-assistant.css?v=20261126-isolated-motion",
+      "assets/ai-assistant.css?v=20261127-passive-guidance"
+    ],
+    [
+      935,
+      "assets/ai-assistant.js?v=20261125-shared-bubble",
+      "assets/ai-assistant.js?v=20261127-passive-guidance"
     ]
   ],
   "mobile-trend.html": [
@@ -1499,6 +1574,21 @@
       932,
       "assets/ai-assistant.js?v=20261125-reading-assistant",
       "assets/ai-assistant.js?v=20261125-shared-bubble"
+    ],
+    [
+      866,
+      "assets/ai-assistant.css?v=20261125-shared-bubble",
+      "assets/ai-assistant.css?v=20261126-isolated-motion"
+    ],
+    [
+      866,
+      "assets/ai-assistant.css?v=20261126-isolated-motion",
+      "assets/ai-assistant.css?v=20261127-passive-guidance"
+    ],
+    [
+      932,
+      "assets/ai-assistant.js?v=20261125-shared-bubble",
+      "assets/ai-assistant.js?v=20261127-passive-guidance"
     ]
   ],
   "resume.html": [
@@ -1788,6 +1878,21 @@
       142,
       "assets/ai-assistant.js?v=20261125-reading-assistant",
       "assets/ai-assistant.js?v=20261125-shared-bubble"
+    ],
+    [
+      76,
+      "assets/ai-assistant.css?v=20261125-shared-bubble",
+      "assets/ai-assistant.css?v=20261126-isolated-motion"
+    ],
+    [
+      76,
+      "assets/ai-assistant.css?v=20261126-isolated-motion",
+      "assets/ai-assistant.css?v=20261127-passive-guidance"
+    ],
+    [
+      142,
+      "assets/ai-assistant.js?v=20261125-shared-bubble",
+      "assets/ai-assistant.js?v=20261127-passive-guidance"
     ]
   ]
 }
