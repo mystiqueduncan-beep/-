@@ -523,3 +523,16 @@
     animation:none!important;transform:none!important;
   }
 }
+
+/* Desktop: one interpolated value drives both visible faces, not two clocks. */
+@property --bs-reading-desktop-y {syntax:"<length>";inherits:true;initial-value:0px;}
+@keyframes bs-reading-desktop-float {0%,100%{--bs-reading-desktop-y:0px;}50%{--bs-reading-desktop-y:-6px;}}
+@media screen and (min-width:769px) {
+  .bs-ai-root .bs-ai-dock {--bs-reading-desktop-y:0px;animation:bs-reading-desktop-float 2.7s ease-in-out infinite;}
+  .bs-ai-root .bs-ai-dock .bs-ai-launcher-face,
+  .bs-ai-root .bs-ai-dock .bs-ai-guide-face,
+  .bs-ai-root .bs-ai-dock .bs-ai-launcher:is(:hover,:focus-visible,:active) .bs-ai-launcher-face {animation:none!important;transform:translateY(var(--bs-reading-desktop-y));transition:none;}
+  .bs-ai-root .bs-ai-dock.is-paused {animation-play-state:paused;}
+  .bs-ai-root--open .bs-ai-dock {animation:none;--bs-reading-desktop-y:0px;}
+  @media(prefers-reduced-motion:reduce){.bs-ai-root .bs-ai-dock{animation:none!important;--bs-reading-desktop-y:0px;}}
+}

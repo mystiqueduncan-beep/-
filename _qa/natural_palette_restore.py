@@ -16,9 +16,13 @@ def restore_natural_html(name, html):
     # historical offsets, hashes, approved content and all subsequent checks.
     widget_pages = {"index.html", "mobile.html", "contact.html", "mobile-contact.html", "trend.html", "mobile-trend.html", "data-visualization.html"}
     if name in widget_pages:
-        current = 'href="assets/ai-assistant.css?v=20261126-isolated-motion"'
+        current = 'href="assets/ai-assistant.css?v=20261127-passive-guidance"'
         previous = 'href="assets/ai-assistant.css?v=20261125-shared-bubble"'
         assert html.count(current) == 1 and previous not in html, (name, "reading widget CSS release key")
+        html = html.replace(current, previous, 1)
+        current = 'src="assets/ai-assistant.js?v=20261127-passive-guidance"'
+        previous = 'src="assets/ai-assistant.js?v=20261125-shared-bubble"'
+        assert html.count(current) == 1 and previous not in html, (name, "reading widget JS release key")
         html = html.replace(current, previous, 1)
     if name in widget_pages - {"data-visualization.html"}:
         current = 'src="assets/page-transitions.js?v=20261126-isolated-motion"'
